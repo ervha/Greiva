@@ -102,3 +102,26 @@ The user selects option B: app-managed original recordings have a default retent
 - `AI_ACTION_SPEC.md` is revised to v0.8; requirements, UI guidance and README reflect the selected default. Expiry removes original audio, not created Pages, transcripts or registered Tasks/schedules.
 - Storage/sharing, retention start time, settings changes affecting existing recordings, cleanup while offline, backups and unfinished processing remain to be specified. External-provider retention is a separate contract.
 - This is documentation-only PATCH checkpoint v0.1.2. PoC, app code, manifests and existing execution artifacts are unchanged.
+
+## AI original recording storage decision: 2026-09-30
+
+The user selects option C: original recordings stay on the recording device by default; only recordings selected by the user are stored in the application's cloud.
+
+- The storage decision was prepared in draft v0.9 and is published with the grouped decisions in `AI_ACTION_SPEC.md` v0.10 at checkpoint v0.1.3. Page/transcript sync, optional cloud audio storage and authorized processing transmission to AI providers remain distinct.
+- App-managed copies follow the selected retention policy. Storage/provider choice, upload/cache/expiry synchronization, limits and early deletion or cloud-storage removal remain open.
+- This is documentation-only PATCH checkpoint v0.1.3; no audio is uploaded, and PoC, app code, manifests and existing execution artifacts are unchanged.
+
+## Grouped AI product decisions and public README: 2026-10-01
+
+The user answers 1A, 2C, 3A, 4B in one batch:
+
+- 1A: start the future AI offering with creation, registration and recording organization; existing-data editing/deletion and AI search follow later. Reads of current and related resources needed for creation remain available within the agreed context scope.
+- 2C: provide a common AI panel plus context-aware entry points in individual screens, using the same operation and confirmation rules.
+- 3A: support both in-app recording and importing existing audio files. Import an app-managed copy, preserve the original file and do not infer its recording date from its import date.
+- 4B: retain app-managed AI conversations for 30 days by default, with configurable retention and manual deletion. Conversation deletion does not remove created entities or automatically replay operations; execution identifiers and provider retention are separate contracts.
+
+`AI_ACTION_SPEC.md` v0.10 and requirements/design v0.5 record these decisions and future acceptance criteria. Provider, rollout date/platforms, detailed UI, formats/limits and retention storage/sync/expiry contracts remain open. AI is still unimplemented; these decisions do not expand PoC.
+
+The user requests that the root README address GitHub readers and omit development status. The previous development details move to `docs/plan/DEVELOPMENT_STATUS.md`, with adjusted relative links and explicit historical verification status. README introduces the project, its intended experience and document entry points without current progress or checkpoint numbers.
+
+The user also requests grouped questions first and batched specification updates afterward. AGENTS.md records that workflow. All changes above and the previously prepared storage decision share documentation-only PATCH checkpoint v0.1.3; app code, manifests and existing artifacts are unchanged.
