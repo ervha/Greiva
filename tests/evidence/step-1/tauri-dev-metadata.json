@@ -1,0 +1,22 @@
+{
+  "id": "STEP1-TAURI-DEV",
+  "command": [
+    "npm",
+    "run",
+    "tauri",
+    "-w",
+    "@greiva/client",
+    "--",
+    "dev",
+    "--no-watch",
+    "--",
+    "--locked"
+  ],
+  "finishedAt": "2026-09-30T08:11:21.976299+00:00",
+  "exitCode": 101,
+  "status": "Fail",
+  "actual": "Vite starts; CLI passes --locked to cargo run; glib-sys build fails before native UI starts",
+  "versionsAndEnvironment": "summary.json",
+  "log": "tauri-dev.log",
+  "operator": "Codex"
+}

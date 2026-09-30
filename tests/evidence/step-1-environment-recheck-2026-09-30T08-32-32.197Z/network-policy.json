@@ -1,0 +1,156 @@
+{
+  "version": 1,
+  "vpn_configured": false,
+  "http_proxy": "http://proxy:8080",
+  "http_network_policy": {
+    "type": "restricted",
+    "egress_rules": [
+      {
+        "host": "apt.buildkite.com"
+      },
+      {
+        "host": "archive.ubuntu.com"
+      },
+      {
+        "host": "bcr.bazel.build"
+      },
+      {
+        "host": "buf.build"
+      },
+      {
+        "host": "codeload.github.com"
+      },
+      {
+        "host": "cpan.metacpan.org"
+      },
+      {
+        "host": "crates.io"
+      },
+      {
+        "host": "deb.debian.org"
+      },
+      {
+        "host": "deb.nodesource.com"
+      },
+      {
+        "host": "developer.download.nvidia.com"
+      },
+      {
+        "host": "dl.google.com"
+      },
+      {
+        "host": "download-r2.pytorch.org"
+      },
+      {
+        "host": "download.pytorch.org"
+      },
+      {
+        "host": "downloads.gradle.org"
+      },
+      {
+        "host": "files.pythonhosted.org"
+      },
+      {
+        "host": "github-cloud.githubusercontent.com"
+      },
+      {
+        "host": "github-cloud.s3.amazonaws.com"
+      },
+      {
+        "host": "github.com"
+      },
+      {
+        "host": "index.crates.io"
+      },
+      {
+        "host": "mirror.bazel.build"
+      },
+      {
+        "host": "packages.microsoft.com"
+      },
+      {
+        "host": "pkgconfig.freedesktop.org"
+      },
+      {
+        "host": "plugins-artifacts.gradle.org"
+      },
+      {
+        "host": "plugins.gradle.org"
+      },
+      {
+        "host": "ports.ubuntu.com"
+      },
+      {
+        "host": "ppa.launchpadcontent.net"
+      },
+      {
+        "host": "proxy.golang.org"
+      },
+      {
+        "host": "pypi.org"
+      },
+      {
+        "host": "registry.npmjs.org"
+      },
+      {
+        "host": "registry.yarnpkg.com"
+      },
+      {
+        "host": "release-assets.githubusercontent.com"
+      },
+      {
+        "host": "repo.maven.apache.org"
+      },
+      {
+        "host": "repo1.maven.org"
+      },
+      {
+        "host": "security.debian.org"
+      },
+      {
+        "host": "security.ubuntu.com"
+      },
+      {
+        "host": "services.gradle.org"
+      },
+      {
+        "host": "static.crates.io"
+      },
+      {
+        "host": "static.rust-lang.org"
+      },
+      {
+        "host": "sum.golang.org"
+      },
+      {
+        "host": "www.buf.build"
+      },
+      {
+        "host": "www.crates.io"
+      },
+      {
+        "host": "www.github-cloud.githubusercontent.com"
+      },
+      {
+        "host": "www.github-cloud.s3.amazonaws.com"
+      },
+      {
+        "host": "www.github.com"
+      },
+      {
+        "host": "www.pkgconfig.freedesktop.org"
+      },
+      {
+        "host": "www.pypi.org"
+      },
+      {
+        "host": "www.release-assets.githubusercontent.com"
+      }
+    ]
+  },
+  "tcp_connect_proxy": "http://proxy:8088",
+  "tcp_network_access": {
+    "domains": [],
+    "ip_ranges": []
+  }
+}

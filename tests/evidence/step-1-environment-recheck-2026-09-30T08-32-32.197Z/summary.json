@@ -1,0 +1,162 @@
+{
+  "id": "STEP1-ENVIRONMENT-RECHECK",
+  "startedAt": "2026-09-30T08:32:32.197Z",
+  "operator": "Codex",
+  "gitCommit": null,
+  "sourceSha256": "10a3af0175dbced08b1c5288e6386a538b066db2318ef05c108f08553e6df301",
+  "sourceMatchesPreviousVerification": true,
+  "versions": {
+    "runtime": {
+      "node": "v24.19.0",
+      "npm": "npm@11.9.0",
+      "rust": "1.98.1",
+      "postgres": "18.4-bookworm"
+    },
+    "directDependencies": {
+      "greiva-poc": {
+        "typescript": "7.0.2",
+        "vitest": "5.0.2",
+        "@playwright/test": "1.63.0",
+        "tsx": "4.23.15",
+        "@types/node": "26.6.3",
+        "concurrently": "10.0.5"
+      },
+      "@greiva/api": {
+        "@nestjs/core": "12.1.1",
+        "@nestjs/common": "12.1.1",
+        "@nestjs/platform-fastify": "12.1.1",
+        "fastify": "5.12.5",
+        "reflect-metadata": "0.2.2",
+        "rxjs": "7.8.2",
+        "pg": "8.23.0",
+        "@greiva/protocol": "0.0.0",
+        "@greiva/shared": "0.0.0",
+        "@types/pg": "8.23.1"
+      },
+      "@greiva/client": {
+        "react": "19.3.0",
+        "react-dom": "19.3.0",
+        "@tauri-apps/api": "2.12.0",
+        "@tauri-apps/plugin-sql": "2.5.0",
+        "@tiptap/core": "3.31.3",
+        "@tiptap/react": "3.31.3",
+        "@tiptap/starter-kit": "3.31.3",
+        "@tiptap/pm": "3.31.3",
+        "yjs": "13.6.33",
+        "@hocuspocus/provider": "4.7.0",
+        "@greiva/shared": "0.0.0",
+        "@greiva/protocol": "0.0.0",
+        "@greiva/sync": "0.0.0",
+        "@types/react": "19.3.0",
+        "@types/react-dom": "19.3.0",
+        "@vitejs/plugin-react": "6.1.1",
+        "vite": "8.3.1",
+        "@tauri-apps/cli": "2.12.0"
+      },
+      "@greiva/collaboration": {
+        "@hocuspocus/server": "4.7.0",
+        "yjs": "13.6.33",
+        "@greiva/protocol": "0.0.0",
+        "@greiva/shared": "0.0.0"
+      },
+      "@greiva/protocol": {
+        "zod": "4.6.5",
+        "@greiva/shared": "0.0.0"
+      },
+      "@greiva/shared": {
+        "uuid": "14.0.2",
+        "zod": "4.6.5"
+      },
+      "@greiva/sync": {
+        "@greiva/protocol": "0.0.0",
+        "@greiva/shared": "0.0.0"
+      }
+    },
+    "rust": {
+      "tauri": "2.12.0",
+      "tauri-build": "2.7.0",
+      "tauri-plugin-sql": "2.5.0"
+    },
+    "hashes": {
+      "npmLock": "c4ac428086f283e8c30417cc87381a7d0fb73f795331b44a86fcea335036e85d",
+      "cargoLock": "ae13988c03a368a3d041606ed14b277aab17924bb060300428f1d2e037e80d34",
+      "spec": "1227c3562632c170967534fcb2aaa3557d69e033fafbd3e959a25a84c20663c0"
+    }
+  },
+  "results": [
+    {
+      "id": "NATIVE-PREREQUISITES",
+      "command": [
+        "pkg-config",
+        "--modversion",
+        "glib-2.0",
+        "gtk+-3.0",
+        "webkit2gtk-4.1"
+      ],
+      "startedAt": "2026-09-30T08:32:32.197989+00:00",
+      "finishedAt": "2026-09-30T08:32:32.202888+00:00",
+      "expected": "Native development libraries are installed",
+      "exitCode": 1,
+      "status": "Fail",
+      "log": "NATIVE-PREREQUISITES.log"
+    },
+    {
+      "id": "DOCKER-DAEMON",
+      "command": [
+        "env",
+        "-u",
+        "DOCKER_HOST",
+        "-u",
+        "DOCKER_CONTEXT",
+        "-u",
+        "DOCKER_TLS",
+        "-u",
+        "DOCKER_TLS_VERIFY",
+        "-u",
+        "DOCKER_CERT_PATH",
+        "docker",
+        "--host=unix:///var/run/docker.sock",
+        "info",
+        "--format",
+        "{{.ServerVersion}}"
+      ],
+      "startedAt": "2026-09-30T08:32:32.202923+00:00",
+      "finishedAt": "2026-09-30T08:32:32.281871+00:00",
+      "expected": "Local managed Docker daemon responds",
+      "exitCode": 0,
+      "status": "Pass",
+      "log": "DOCKER-DAEMON.log"
+    },
+    {
+      "id": "POSTGRES-START",
+      "command": [
+        "npm",
+        "run",
+        "db:up"
+      ],
+      "startedAt": "2026-09-30T08:32:32.282078+00:00",
+      "finishedAt": "2026-09-30T08:32:32.694838+00:00",
+      "expected": "PostgreSQL starts and becomes healthy",
+      "exitCode": 1,
+      "status": "Fail",
+      "log": "POSTGRES-START.log"
+    },
+    {
+      "id": "DESKTOP-CHECK",
+      "command": [
+        "cargo",
+        "check",
+        "--locked",
+        "--manifest-path",
+        "apps/client/src-tauri/Cargo.toml"
+      ],
+      "startedAt": "2026-09-30T08:32:32.694882+00:00",
+      "finishedAt": "2026-09-30T08:32:33.541055+00:00",
+      "expected": "Locked Tauri check completes",
+      "exitCode": 101,
+      "status": "Fail",
+      "log": "DESKTOP-CHECK.log"
+    }
+  ],
+  "scope": "Step 1 environment prerequisites only; previously passing tests not repeated; no Step 2 or Gate verdict."
+}

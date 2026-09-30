@@ -1,0 +1,93 @@
+
+> @greiva/client@0.0.0 tauri
+> tauri dev --no-watch -- --locked
+
+     Running BeforeDevCommand (`npm run dev`)
+
+> @greiva/client@0.0.0 dev
+> vite --host 127.0.0.1
+
+
+  VITE v8.3.1  ready in 269 ms
+
+  ➜  Local:   http://127.0.0.1:1420/
+     Running DevCommand (`cargo  run --locked --no-default-features --color always --`)
+[1m[92m   Compiling[0m serde v1.0.229
+[1m[92m   Compiling[0m equivalent v1.0.2
+[1m[96m    Building[0m [                          ] 15/480: serde, equivalent           [K[1m[92m   Compiling[0m hashbrown v0.17.1
+[1m[96m    Building[0m [                          ] 16/480: serde, hashbrown            [K[1m[92m   Compiling[0m libc v0.2.189
+[1m[96m    Building[0m [>                         ] 20/480: libc, hashbrown             [K[1m[92m   Compiling[0m indexmap v2.14.2
+[1m[96m    Building[0m [>                         ] 21/480: libc, indexmap              [K[1m[92m   Compiling[0m heck v0.5.0
+[1m[96m    Building[0m [>                         ] 22/480: libc, heck                  [K[1m[92m   Compiling[0m toml_datetime v0.6.3
+[1m[96m    Building[0m [>                         ] 23/480: libc, toml_datetime         [K[1m[92m   Compiling[0m serde_spanned v0.6.9
+[1m[96m    Building[0m [>                         ] 25/480: serde_spanned, toml_datetime[K[1m[92m   Compiling[0m toml_edit v0.20.2
+[1m[96m    Building[0m [>                         ] 26/480: toml_edit, toml_datetime    [K[1m[92m   Compiling[0m memchr v2.8.3
+[1m[96m    Building[0m [>                         ] 33/480: toml_edit, memchr           [K[1m[92m   Compiling[0m zerofrom v0.1.8
+[1m[96m    Building[0m [>                         ] 36/480: toml_edit, zerofrom         [K[1m[92m   Compiling[0m serde_core v1.0.229
+[1m[96m    Building[0m [=>                        ] 42/480: toml_edit, serde_core       [K[1m[92m   Compiling[0m toml v0.8.2
+[1m[96m    Building[0m [=>                        ] 43/480: toml, serde_core            [K[1m[92m   Compiling[0m cfg-if v1.0.5
+[1m[96m    Building[0m [=>                        ] 45/480: toml, cfg-if                [K[1m[92m   Compiling[0m litemap v0.8.3
+[1m[96m    Building[0m [=>                        ] 46/480: toml, litemap               [K[1m[92m   Compiling[0m system-deps v6.2.2
+[1m[96m    Building[0m [=>                        ] 47/480: toml, system-deps           [K[1m[92m   Compiling[0m writeable v0.6.4
+[1m[96m    Building[0m [=>                        ] 48/480: writeable, system-deps      [K[1m[92m   Compiling[0m utf8_iter v1.0.4
+[1m[96m    Building[0m [=>                        ] 50/480: utf8_iter, system-deps      [K[1m[92m   Compiling[0m itoa v1.0.18
+[1m[96m    Building[0m [=>                        ] 51/480: itoa, system-deps           [K[1m[92m   Compiling[0m futures-core v0.3.34
+[1m[96m    Building[0m [=>                        ] 54/480: futures-core, system-deps   [K[1m[92m   Compiling[0m pin-project-lite v0.2.17
+[1m[96m    Building[0m [==>                       ] 57/480: pin-project-lite, system-de…[K[1m[92m   Compiling[0m icu_normalizer_data v2.3.0
+[1m[96m    Building[0m [==>                       ] 59/480: icu_normalizer_data, system…[K[1m[92m   Compiling[0m icu_properties_data v2.3.0
+[1m[96m    Building[0m [==>                       ] 60/480: icu_properties_data, system…[K[1m[92m   Compiling[0m siphasher v1.0.4
+[1m[96m    Building[0m [==>                       ] 61/480: siphasher, system-deps      [K[1m[92m   Compiling[0m glib-sys v0.18.1
+[1m[96m    Building[0m [==>                       ] 62/480: siphasher, glib-sys(build.r…[K[1m[92m   Compiling[0m scopeguard v1.2.0
+[1m[96m    Building[0m [==>                       ] 65/480: siphasher, scopeguard       [1m[96m    Building[0m [==>                       ] 68/480: glib-sys(build), scopeguard [K[1m[33mwarning[0m: glib-sys@0.18.1: 
+[1m[91merror[0m: failed to run custom build command for `glib-sys v0.18.1`
+
+Caused by:
+  process didn't exit successfully: `/tmp/greiva-target/debug/build/glib-sys-4affa7a7f1586e47/build-script-build` (exit status: 1)
+  --- stdout
+  cargo:rerun-if-env-changed=GLIB_2.0_NO_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_x86_64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_x86_64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_PATH
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_x86_64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_LIBDIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_x86_64-unknown-linux-gnu
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR_x86_64_unknown_linux_gnu
+  cargo:rerun-if-env-changed=HOST_PKG_CONFIG_SYSROOT_DIR
+  cargo:rerun-if-env-changed=PKG_CONFIG_SYSROOT_DIR
+  cargo:warning=
+  pkg-config exited with status code 1
+  > PKG_CONFIG_ALLOW_SYSTEM_CFLAGS=1 pkg-config --libs --cflags glib-2.0 'glib-2.0 >= 2.70'
+
+  pkg-config output:
+    Package glib-2.0 was not found in the pkg-config search path.
+    Perhaps you should add the directory containing `glib-2.0.pc'
+    to the PKG_CONFIG_PATH environment variable
+    Package 'glib-2.0', required by 'virtual:world', not found
+    Package 'glib-2.0', required by 'virtual:world', not found
+
+  The system library `glib-2.0` required by crate `glib-sys` was not found.
+  The file `glib-2.0.pc` needs to be installed and the PKG_CONFIG_PATH environment variable must contain its parent directory.
+  The PKG_CONFIG_PATH environment variable is not set.
+
+  HINT: if you have installed the library, try setting PKG_CONFIG_PATH to the directory containing `glib-2.0.pc`.
+
+[1m[33mwarning[0m: build failed, waiting for other jobs to finish...
+[1m[96m    Building[0m [==>                       ] 69/480: scopeguard                  [Knpm error Lifecycle script `tauri` failed with error:
+npm error code 101
+npm error path /workspace/Greiva/apps/client
+npm error workspace @greiva/client@0.0.0
+npm error location /workspace/Greiva/apps/client
+npm error command failed
+npm error command sh -c tauri dev --no-watch -- --locked
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.1.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.1.0
+npm notice To update run: npm install -g npm@12.1.0
+npm notice

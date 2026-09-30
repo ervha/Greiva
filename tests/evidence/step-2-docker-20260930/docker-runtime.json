@@ -1,0 +1,28 @@
+{
+  "compose": "Docker Compose version v5.3.1",
+  "client": "Docker version 29.6.2, build dfc4efb",
+  "container": {
+    "user": "node",
+    "security": [
+      "no-new-privileges:true"
+    ],
+    "image": "sha256:c93753015ef00fd49de31a2d62038fd268b223c72ae83bdc4cf014f7c70035c6",
+    "nanoCPUs": 2000000000,
+    "id": "10e7293f04d61188f8466bf9ab0058a286baf8cfff1e66c701323247f78ab5ec",
+    "privileged": false,
+    "memoryBytes": 4294967296,
+    "mounts": {
+      "Type": "bind",
+      "Source": "C:\\Users\\danun\\Desktop\\Project\\Greiva\\tests\\evidence\\runs\\container",
+      "Destination": "/evidence",
+      "RW": true
+    }
+  },
+  "postgres": {
+    "image": "sha256:882236b897e39051d2368c5ccc6cda944904723506b2dfc97f2a8f5bc9afa382",
+    "ports": {},
+    "health": "healthy"
+  },
+  "server": "29.6.2",
+  "capturedAt": "2026-09-30T19:38:27.3399741+09:00"
+}

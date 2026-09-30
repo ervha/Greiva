@@ -1,0 +1,60 @@
+
+> greiva-poc@0.0.0 test
+> npm run build:packages && npm run build:servers && vitest run
+
+
+> greiva-poc@0.0.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync
+
+
+> @greiva/shared@0.0.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.0.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.0.0 build
+> tsc -p tsconfig.json
+
+
+> greiva-poc@0.0.0 build:servers
+> npm run build -w @greiva/api && npm run build -w @greiva/collaboration
+
+
+> @greiva/api@0.0.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/collaboration@0.0.0 build
+> tsc -p tsconfig.json
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/unit/block-move.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m tests/unit/protocol.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m tests/integration/sqlite.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 39[2mms[22m[39m
+ [2m[90m↓[39m[22m tests/integration/postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [32m✓[39m tests/integration/api.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 72[2mms[22m[39m
+[90mstdout[2m | tests/integration/collaboration.test.ts
+[22m[39m
+  Hocuspocus v4.7.0 running at:
+
+  > HTTP: http://127.0.0.1:38853
+  > WebSocket: ws://127.0.0.1:38853
+
+ [32m✓[39m tests/integration/collaboration.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 27[2mms[22m[39m
+ [32m✓[39m tests/unit/shared.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 5[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m6 passed[39m[22m[2m | [22m[33m1 skipped[39m[90m (7)[39m
+[2m      Tests [22m [1m[32m20 passed[39m[22m[2m | [22m[33m1 skipped[39m[90m (21)[39m
+[2m   Start at [22m 10:36:54
+[2m   Duration [22m 1.27s[2m (import 62%, tests 23%, transform 12%, worker 3%)[22m
+
+[2m    Isolate [22m [33m7 workers spawned[39m[2m · ~73ms startup each (spawn + environment, per file)[22m
+[2m            [22m [2mat least ~439ms faster with [22m[33misolate: false[39m[2m — reuses workers across files instead of one per file[22m
+
+JSON report written to /evidence/2026-09-30T10-36-48.603Z/vitest.json
+JUNIT report written to /evidence/2026-09-30T10-36-48.603Z/vitest.xml

@@ -1,0 +1,230 @@
+{
+  "id": "STEP1-2026-09-30T08-11-52.395Z",
+  "startedAt": "2026-09-30T08:11:52.396Z",
+  "operator": "Codex",
+  "gitCommit": null,
+  "gitStatus": "?? .env.example\n?? .gitignore\n?? .node-version\n?? .npmrc\n?? .nvmrc\n?? POC_SPEC.md\n?? README.md\n?? apps/\n?? docs/\n?? infrastructure/\n?? package-lock.json\n?? package.json\n?? packages/\n?? playwright.config.ts\n?? rust-toolchain.toml\n?? scripts/\n?? tests/\n?? tsconfig.base.json\n?? tsconfig.tests.json\n?? vitest.config.ts\n",
+  "environment": {
+    "os": "linux",
+    "release": "6.18.44",
+    "arch": "x64",
+    "cpu": "AMD EPYC 9V74 80-Core Processor",
+    "node": "v24.19.0",
+    "browserExecutable": "/usr/bin/chromium",
+    "browserVersion": "Chromium 151.0.7922.173 built on Debian GNU/Linux 13 (trixie)",
+    "build": "web production build + Node server builds; desktop check optional",
+    "network": "loopback for smoke tests; package/registry access uses the execution environment policy"
+  },
+  "versions": {
+    "runtime": {
+      "node": "v24.19.0",
+      "npm": "npm@11.9.0",
+      "rust": "1.98.1",
+      "postgres": "18.4-bookworm"
+    },
+    "directDependencies": {
+      "greiva-poc": {
+        "typescript": "7.0.2",
+        "vitest": "5.0.2",
+        "@playwright/test": "1.63.0",
+        "tsx": "4.23.15",
+        "@types/node": "26.6.3",
+        "concurrently": "10.0.5"
+      },
+      "@greiva/api": {
+        "@nestjs/core": "12.1.1",
+        "@nestjs/common": "12.1.1",
+        "@nestjs/platform-fastify": "12.1.1",
+        "fastify": "5.12.5",
+        "reflect-metadata": "0.2.2",
+        "rxjs": "7.8.2",
+        "pg": "8.23.0",
+        "@greiva/protocol": "0.0.0",
+        "@greiva/shared": "0.0.0",
+        "@types/pg": "8.23.1"
+      },
+      "@greiva/client": {
+        "react": "19.3.0",
+        "react-dom": "19.3.0",
+        "@tauri-apps/api": "2.12.0",
+        "@tauri-apps/plugin-sql": "2.5.0",
+        "@tiptap/core": "3.31.3",
+        "@tiptap/react": "3.31.3",
+        "@tiptap/starter-kit": "3.31.3",
+        "@tiptap/pm": "3.31.3",
+        "yjs": "13.6.33",
+        "@hocuspocus/provider": "4.7.0",
+        "@greiva/shared": "0.0.0",
+        "@greiva/protocol": "0.0.0",
+        "@greiva/sync": "0.0.0",
+        "@types/react": "19.3.0",
+        "@types/react-dom": "19.3.0",
+        "@vitejs/plugin-react": "6.1.1",
+        "vite": "8.3.1",
+        "@tauri-apps/cli": "2.12.0"
+      },
+      "@greiva/collaboration": {
+        "@hocuspocus/server": "4.7.0",
+        "yjs": "13.6.33",
+        "@greiva/protocol": "0.0.0",
+        "@greiva/shared": "0.0.0"
+      },
+      "@greiva/protocol": {
+        "zod": "4.6.5",
+        "@greiva/shared": "0.0.0"
+      },
+      "@greiva/shared": {
+        "uuid": "14.0.2",
+        "zod": "4.6.5"
+      },
+      "@greiva/sync": {
+        "@greiva/protocol": "0.0.0",
+        "@greiva/shared": "0.0.0"
+      }
+    },
+    "rust": {
+      "tauri": "2.12.0",
+      "tauri-build": "2.7.0",
+      "tauri-plugin-sql": "2.5.0"
+    },
+    "hashes": {
+      "npmLock": "c4ac428086f283e8c30417cc87381a7d0fb73f795331b44a86fcea335036e85d",
+      "cargoLock": "ae13988c03a368a3d041606ed14b277aab17924bb060300428f1d2e037e80d34",
+      "spec": "1227c3562632c170967534fcb2aaa3557d69e033fafbd3e959a25a84c20663c0"
+    }
+  },
+  "results": [
+    {
+      "id": "STEP1-BUILD",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "startedAt": "2026-09-30T08:11:52.470Z",
+      "finishedAt": "2026-09-30T08:11:55.841Z",
+      "exitCode": 0,
+      "signal": null,
+      "expected": "All packages and app production builds succeed",
+      "status": "Pass",
+      "log": "STEP1-BUILD.log"
+    },
+    {
+      "id": "STEP1-TYPES",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "startedAt": "2026-09-30T08:11:55.843Z",
+      "finishedAt": "2026-09-30T08:11:59.045Z",
+      "exitCode": 0,
+      "signal": null,
+      "expected": "Strict TypeScript checks succeed, including tests",
+      "status": "Pass",
+      "log": "STEP1-TYPES.log"
+    },
+    {
+      "id": "STEP1-UNIT-INTEGRATION",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "startedAt": "2026-09-30T08:11:59.045Z",
+      "finishedAt": "2026-09-30T08:12:03.311Z",
+      "exitCode": 0,
+      "signal": null,
+      "expected": "Model contracts, real API/collaboration boot and SQLite tests pass; PostgreSQL is separately gated",
+      "status": "Pass",
+      "log": "STEP1-UNIT-INTEGRATION.log"
+    },
+    {
+      "id": "STEP1-E2E",
+      "command": [
+        "npm",
+        "run",
+        "test:e2e"
+      ],
+      "startedAt": "2026-09-30T08:12:03.311Z",
+      "finishedAt": "2026-09-30T08:12:09.642Z",
+      "exitCode": 0,
+      "signal": null,
+      "expected": "Chromium renders the client and both service health endpoints return 200",
+      "status": "Pass",
+      "log": "STEP1-E2E.log"
+    },
+    {
+      "id": "STEP1-SQLITE-INIT",
+      "command": [
+        "npm",
+        "run",
+        "db:sqlite"
+      ],
+      "startedAt": "2026-09-30T08:12:09.642Z",
+      "finishedAt": "2026-09-30T08:12:09.875Z",
+      "exitCode": 0,
+      "signal": null,
+      "expected": "File database initializes with WAL and integrity_check=ok",
+      "status": "Pass",
+      "log": "STEP1-SQLITE-INIT.log"
+    },
+    {
+      "id": "STEP1-POSTGRES-CONFIG",
+      "command": [
+        "docker",
+        "compose",
+        "-f",
+        "infrastructure/postgres/compose.yaml",
+        "config",
+        "--quiet"
+      ],
+      "startedAt": "2026-09-30T08:12:09.875Z",
+      "finishedAt": "2026-09-30T08:12:09.946Z",
+      "exitCode": 0,
+      "signal": null,
+      "expected": "Compose configuration validates",
+      "status": "Pass",
+      "log": "STEP1-POSTGRES-CONFIG.log"
+    },
+    {
+      "id": "STEP1-POSTGRES-START",
+      "command": [
+        "npm",
+        "run",
+        "db:up"
+      ],
+      "startedAt": "2026-09-30T08:12:09.946Z",
+      "finishedAt": "2026-09-30T08:12:10.222Z",
+      "exitCode": 1,
+      "signal": null,
+      "expected": "PostgreSQL 18.4 starts and becomes healthy",
+      "status": "Fail",
+      "log": "STEP1-POSTGRES-START.log"
+    },
+    {
+      "id": "STEP1-POSTGRES",
+      "status": "Not run",
+      "reason": "Database startup failed"
+    },
+    {
+      "id": "STEP1-DESKTOP-CHECK",
+      "command": [
+        "cargo",
+        "check",
+        "--locked",
+        "--manifest-path",
+        "apps/client/src-tauri/Cargo.toml"
+      ],
+      "startedAt": "2026-09-30T08:12:10.222Z",
+      "finishedAt": "2026-09-30T08:12:10.858Z",
+      "exitCode": 101,
+      "signal": null,
+      "expected": "Tauri desktop crate typechecks against the locked graph",
+      "status": "Fail",
+      "log": "STEP1-DESKTOP-CHECK.log"
+    }
+  ],
+  "sourceSha256": "10a3af0175dbced08b1c5288e6386a538b066db2318ef05c108f08553e6df301",
+  "scope": "Section 18 Step 1 only. No IME, editing, sync, crash recovery or Gate verdict.",
+  "finishedAt": "2026-09-30T08:12:10.858Z"
+}

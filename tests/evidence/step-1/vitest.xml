@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="17" failures="0" errors="0" time="0.125250078">
+    <testsuite name="tests/integration/api.test.ts" timestamp="2026-09-30T08:12:03.281Z" hostname="3758fe771a3a" tests="1" failures="0" errors="0" skipped="0" time="0.076930595">
+        <testcase classname="tests/integration/api.test.ts" name="STEP1-API: boots NestJS with Fastify and serves health only" time="0.013346182">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/collaboration.test.ts" timestamp="2026-09-30T08:12:03.282Z" hostname="3758fe771a3a" tests="1" failures="0" errors="0" skipped="0" time="0.026421547">
+        <testcase classname="tests/integration/collaboration.test.ts" name="STEP1-COLLAB: boots Hocuspocus and responds to a real HTTP request" time="0.018254671">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/postgres.test.ts" timestamp="2026-09-30T08:12:03.283Z" hostname="3758fe771a3a" tests="1" failures="0" errors="0" skipped="1" time="0">
+        <testcase classname="tests/integration/postgres.test.ts" name="STEP1-POSTGRES: connects to the real development PostgreSQL" time="0">
+            <skipped/>
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/sqlite.test.ts" timestamp="2026-09-30T08:12:03.284Z" hostname="3758fe771a3a" tests="1" failures="0" errors="0" skipped="0" time="0.003398106">
+        <testcase classname="tests/integration/sqlite.test.ts" name="STEP1-SQLITE: initializes and reopens a local development database" time="0.002423749">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/unit/protocol.test.ts" timestamp="2026-09-30T08:12:03.284Z" hostname="3758fe771a3a" tests="12" failures="0" errors="0" skipped="0" time="0.012876444">
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; accepts the minimal Page, Task, Relation and operation fixtures" time="0.007281672">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; requires page:{pageId} document names and rejects body duplication" time="0.000584811">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; rejects invalid due date 2026-02-30" time="0.000271268">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; rejects invalid due date 2026-10-01T00:00:00Z" time="0.000124878">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; rejects invalid due date 2026-1-1" time="0.000153611">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; accepts leap day and null due, and preserves tombstones" time="0.000231919">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; rejects invalid server version -1" time="0.000191878">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; rejects invalid server version 1.5" time="0.000280071">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; rejects invalid server version 9007199254740992" time="0.000326321">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; requires UTC timestamps and v7 IDs" time="0.000257878">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; excludes Page and local status/timestamps from structured push" time="0.000967977">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; treats cursor as opaque and initializes the structured stream without a cursor" time="0.00075033">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/unit/shared.test.ts" timestamp="2026-09-30T08:12:03.286Z" hostname="3758fe771a3a" tests="1" failures="0" errors="0" skipped="0" time="0.005623386">
+        <testcase classname="tests/unit/shared.test.ts" name="STEP1-ID: creates unique, sortable UUID v7 IDs and UTC times" time="0.004501987">
+        </testcase>
+    </testsuite>
+</testsuites>

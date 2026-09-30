@@ -1,0 +1,41 @@
+{
+  "name": "greiva-poc",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "packageManager": "npm@11.9.0",
+  "engines": {
+    "node": "24.19.0",
+    "npm": "11.9.0"
+  },
+  "scripts": {
+    "build:packages": "npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync",
+    "build": "npm run build:packages && npm run build --workspace=@greiva/api && npm run build --workspace=@greiva/collaboration && npm run build --workspace=@greiva/client",
+    "typecheck": "npm run build:packages && npm run typecheck --workspaces --if-present && tsc -p tsconfig.tests.json",
+    "dev": "npm run build:packages && concurrently -k -n client,api,collaboration \"npm run dev -w @greiva/client\" \"npm run dev -w @greiva/api\" \"npm run dev -w @greiva/collaboration\"",
+    "dev:container": "npm run build:packages && concurrently -k -n client,api,collaboration \"npm run dev:container -w @greiva/client\" \"npm run dev -w @greiva/api\" \"npm run dev -w @greiva/collaboration\"",
+    "desktop": "npm run build:packages && npm run tauri --workspace=@greiva/client -- dev -- --locked",
+    "test": "npm run build:packages && npm run build:servers && vitest run",
+    "test:e2e": "npm run build:packages && npm run build:servers && playwright test",
+    "test:postgres": "node scripts/test-postgres.mjs",
+    "db:up": "docker compose -f infrastructure/postgres/compose.yaml up -d --wait",
+    "db:down": "docker compose -f infrastructure/postgres/compose.yaml down",
+    "db:sqlite": "node scripts/init-sqlite.mjs",
+    "versions": "node scripts/versions.mjs",
+    "evidence": "node scripts/evidence.mjs",
+    "evidence:container": "node scripts/evidence.mjs --container --desktop",
+    "build:servers": "npm run build -w @greiva/api && npm run build -w @greiva/collaboration"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2",
+    "vitest": "5.0.2",
+    "@playwright/test": "1.63.0",
+    "tsx": "4.23.15",
+    "@types/node": "26.6.3",
+    "concurrently": "10.0.5"
+  }
+}

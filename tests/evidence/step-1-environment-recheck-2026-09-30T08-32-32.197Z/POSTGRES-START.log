@@ -1,0 +1,12 @@
+
+> greiva-poc@0.0.0 db:up
+> docker compose -f infrastructure/postgres/compose.yaml up -d --wait
+
+ postgres Pulling 
+ postgres Error Get "https://registry-1.docker.io/v2/": Forbidden
+Error response from daemon: Get "https://registry-1.docker.io/v2/": Forbidden
+npm notice
+npm notice New major version of npm available! 11.9.0 -> 12.1.0
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.1.0
+npm notice To update run: npm install -g npm@12.1.0
+npm notice

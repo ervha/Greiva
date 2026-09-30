@@ -1,0 +1,257 @@
+# Greiva 統合要件・アーキテクチャ仕様 v0.1
+
+## 1. 文書の目的と位置付け
+
+この文書は、Greivaの本番アーキテクチャ、製品境界、データ責務、および非機能要件について、現時点で合意した内容を統合するものである。`POC_SPEC.md` は技術仮説を検証するための限定仕様であり、本書はPoC後の本実装に引き継ぐべき要件を定義する。
+
+未確定項目は実装者が独断で補完してはならない。「要決定」としてADRまたは個別仕様へ切り出す。
+
+## 2. 製品原則
+
+1. **Local-first**: ユーザーの確定した変更は、ネットワークがなくても端末に保存され、後から同期できる。
+2. **Correctness over realtime**: Realtimeは体験改善であり、正確性の基盤ではない。WebSocketが停止してもcursor同期で回復できる。
+3. **CRDTとStructured Syncの分離**: Page本文はCRDT、構造化データはoperation/cursor同期で扱う。両者の正本や競合規則を混同しない。
+4. **明示的な競合保持**: 異なるfieldの変更は自動mergeする。同じfieldの意味的競合は、黙って片方を消さず、ユーザーが解決できる形で残す。
+5. **Domain/UI/Infrastructureの分離**: UI、Domain、同期プロトコル、DB実装は相互に直接依存させない。
+6. **PoCの本番化を禁止**: PoCで得た結論・テスト・設計は利用するが、PoCの妥協やコードを無審査で本番へ持ち込まない。
+
+## 3. 対象プラットフォーム
+
+| Surface | 方針 | ローカルデータ |
+| --- | --- | --- |
+| Windows | Tauri 2 desktopを主要対象とする | SQLite |
+| Android | Tauri 2実アプリとして重点検証・提供対象とする | SQLite |
+| macOS / iOS | 対応可能な設計を維持し、機材・署名環境が整い次第検証する | SQLite |
+| Web | React Webアプリを提供する | SQLite WASM + OPFSを主、IndexedDBをfallback |
+
+Apple実機の可否により、Domain、Editor、CRDT、Sync Protocolの再設計が必要になる構造は採用しない。
+
+## 4. 採用アーキテクチャ
+
+### 4.1 技術スタック
+
+| Layer | 採用方針 |
+| --- | --- |
+| Language | TypeScript |
+| UI | React |
+| Native shell | Tauri 2 |
+| Editor | Tiptap / ProseMirror |
+| CRDT | Yjs |
+| Collaboration | Hocuspocus |
+| Native local DB | SQLite（Tauri SQL経由） |
+| Web local DB | SQLite WASM + OPFS（Web Worker内）、fallbackはIndexedDB |
+| Web CRDT persistence | y-indexeddb |
+| API | Node.js + NestJS、Fastify adapter |
+| DB access | Repository Interfaceの背後でDrizzle |
+| Server DB | PostgreSQL |
+| Auth | Supabase Auth |
+| Infrastructure | Supabaseを第一候補とし、PostgreSQL/Object Storageを利用 |
+| Structured sync | Greiva独自operation/cursor protocol |
+| Realtime | WebSocket notification。正確性はpull同期で保証 |
+| External sync | Provider Adapter |
+| Calendar | Google Calendar API |
+| Monorepo | pnpm workspace + Turborepo |
+| Web E2E | Playwright（Chromium / Firefox / WebKit） |
+
+### 4.2 リポジトリ構造（本番）
+
+```text
+greiva/
+├─ apps/
+│  ├─ web/
+│  ├─ desktop-mobile/
+│  ├─ api/
+│  ├─ worker/
+│  └─ collaboration/
+├─ packages/
+│  ├─ domain/
+│  ├─ application/
+│  ├─ protocol/
+│  ├─ sync/
+│  ├─ editor/
+│  ├─ crdt/
+│  ├─ database/
+│  ├─ commands/
+│  ├─ ui/
+│  └─ shared/
+├─ database/migrations/
+└─ docs/
+```
+
+依存方向は `UI -> application -> domain` とし、DB、HTTP、Supabase、Drizzle、Tauri、Yjs/Hocuspocus等はadapter層からのみ参照する。Domainは特定DBやUIフレームワークに依存しない。
+
+## 5. データの責務と正本
+
+| データ | クライアントの保持 | サーバー側の正本 | 同期方式 |
+| --- | --- | --- | --- |
+| Page本文 | Yjsローカル永続化 | Y.Doc binary snapshot/update | Yjs + Hocuspocus |
+| Pageの検索/表示用Projection | キャッシュ可 | Tiptap JSON / plain text projection | CRDTから再生成 |
+| Task / Relation等の構造化データ | SQLite replica + sync state | PostgreSQL entity + operation履歴 | operation push/pull + cursor |
+| User / session | 必要最小限の端末情報 | Supabase Auth | Auth SDK / API |
+| 添付ファイル | ローカルキャッシュ可 | Object Storage | upload/download adapter |
+
+### 5.1 CRDT永続化
+
+- Y.Doc binaryがPage本文の一次正本である。JSONへ変換したものを正本にして再構築しない。
+- サーバーは`crdt_documents`相当の保存領域に、`document_id`、`workspace_id`、`snapshot`、`schema_version`、`updated_at`を保持する。
+- Tiptap JSONおよびplain textは検索、preview、export、AI、indexer用のProjectionであり、破損時にはY.Docから再生成可能であること。
+- updateを無制限に積み上げず、閾値によりsnapshot化・compactionを行う。これはユーザー向けVersion Historyの削除を意味しない。
+
+### 5.2 Local structured store
+
+端末側SQLiteには、正規化したアプリデータに加え、少なくとも`sync_queue`、`sync_cursor`、`conflicts`、`local_settings`を持つ。サーバーのPostgreSQL schemaとの物理的一致は要求しない。ローカルDBはlocal-first replicaと同期状態を担う。
+
+### 5.3 IDと順序
+
+- クライアント生成IDはUUID v7または同等の一意IDとする。
+- 端末時計は操作の正規順序・競合解決の根拠に使わない。
+- サーバーが操作ID、entity version、cursorを採番する。
+
+## 6. ドメインの最小モデル
+
+PoC後の詳細スキーマは`DATA_MODEL.md`で定義する。ここでは境界を固定する。
+
+- **Workspace**: データ分離、メンバーシップ、権限の境界。
+- **Page**: メタデータとY.Docへの参照を持つ。本文ブロックを構造化DBへ二重保存しない。
+- **Task**: title、status、due等の構造化属性を持ち、version付きoperationで同期する。
+- **Relation**: Page/Task等のentity間のリンク。削除はtombstoneを用いる。
+- **Conflict**: 同一fieldの競合についてbase/local/remote/field/status/解決operationを保持する。
+- **Event / Operation**: 同期用の不変記録。クライアント再送に耐える冪等キーを持つ。
+
+汎用プロパティ、record、entityの最終抽象化レベルは要決定である。初期段階ではTaskとRelationを明示モデルとし、早期のEAV化は避ける。
+
+## 7. 同期要件
+
+### 7.1 Structured sync
+
+- クライアントの変更は、ローカルentity更新とoperation enqueueを単一トランザクションで確定する。
+- pushは`operationId`を冪等キーとし、ACK喪失後の同一operation再送で二重作成・二重更新を起こさない。
+- pullはcursor以降の操作を順序付きで取得し、ローカル適用成功後にのみcursorを進める。
+- 起動・再接続時は、ローカル復元、pull、pending push、再pullの順で収束させる。
+- WebSocket通知を受けられなくても、cursor pullで完全に復旧する。
+
+### 7.2 競合規則
+
+- 異なるfield: 自動mergeして双方の変更を保持する。
+- 同じfield: `base`、`local`、`remote`を含むConflictを作成する。受信順LWWで黙って一方を破棄しない。
+- Conflict解決: ユーザーが候補を選択するか、明示入力した値で新しいoperationを作る。
+- 削除対更新: 削除を優先し、更新側はtombstoneへ収束する。
+- Conflictと解決履歴は追跡可能に保持する。
+
+### 7.3 外部連携
+
+Google Calendar等の外部同期はProvider Adapterを経由する。Domainまたはsync coreが特定Provider APIへ直接依存してはならない。双方向同期規則、権限、rate limit、削除・競合の扱いは、個別の`INTEGRATION_SPEC.md`で確定する。
+
+## 8. 製品機能要件
+
+### 8.1 Page / Editor
+
+- ブロック型のPage編集、見出し、リスト、Todo、引用、コード、divider、toggleを提供する。
+- Slash Command、Mention、Drag & Drop、Undo/Redo、Markdown shortcutを提供する。
+- 日本語IMEで、入力、変換、確定、再変換、選択、削除、Undo/Redoを日常利用可能な品質で提供する。
+- 同時編集とoffline/reconnect後に、Yjs stateが収束する。
+
+### 8.2 Task / Relation
+
+- Taskの作成、変更、完了状態、期日を扱う。
+- PageとTaskを含むentity間Relationを扱う。
+- offlineで作成・変更・削除でき、再接続後に同期される。
+- 異fieldの更新は自動で保持し、同field競合は解決可能なConflictとして提示する。
+
+### 8.3 主画面・Inbox・Calendar・View
+
+Home、Inbox、Calendar UI、Board Viewは製品機能として候補に含むが、要求詳細、優先順位、初期リリース範囲は未確定である。PoCには含めない。本実装前に、それぞれの利用者、主要ジョブ、情報構造、操作、受入条件を個別仕様にする。
+
+### 8.4 認証・権限・共有
+
+- 認証はSupabase Authを採用候補とする。
+- Workspace、member、role、resource accessの境界を持つ。
+- 共有と完全な権限モデルはPoC対象外であり、初期リリース前に認可モデルとRow Level Security方針を確定する。
+
+### 8.5 検索・AI・通知・ファイル
+
+検索、AI、通知、file storage、automation、plugin、public APIはアーキテクチャ上の拡張境界のみを確保する。初期実装の必須機能とは見なさず、個別のプロダクト判断なしに追加しない。
+
+## 9. 非機能要件
+
+### 9.1 信頼性
+
+- ユーザーが確定した変更を、offline、端末再起動、app kill、通信遮断で黙って失わない。
+- APIまたはcollaboration serverの再起動後に自動回復し、重複適用・無限再送・cursor破損を起こさない。
+- 同期エラー、ローカル永続化エラー、復元失敗を「同期済み」と誤表示しない。
+
+### 9.2 性能と規模
+
+初期目標は日常利用可能性であり、本番SLOは別途確定する。以下は破綻検知の必須テスト規模とする。
+
+- Page: 100、1,000、10,000 block
+- Task: 100、1,000、10,000 record
+- pending operation: 100、1,000、10,000
+- Yjs concurrent edits: 高頻度更新、offline/reconnect、block移動、nested block、Undo/Redoを含む
+
+10,000 blockで全blockをDOMに置くことは要件ではない。性能問題が確認された場合、virtualization等は問題と証拠を踏まえて設計判断する。
+
+### 9.3 互換性
+
+- WindowsとAndroidをP0とし、日本語IME、ソフトウェアキーボード、text selection、copy/paste、scroll、background/resume、app kill、network switchingを実機で確認する。
+- WebはChromium、Firefox、WebKitをPlaywrightで継続検証する。
+- AndroidでWebViewベースの編集体験が日常利用に耐えない場合、FlutterまたはNative UIとの再比較を行う。場当たり的な回避で採用を継続しない。
+
+### 9.4 セキュリティと運用
+
+- 認証情報・refresh token・外部Provider tokenをログ、CRDT projection、同期operationに含めない。
+- workspace境界を越えた読み書きを防ぐ認可テストを作る。
+- DB migration、backup/restore、監査、監視、秘密情報管理、rate limitの本番要件は初期リリース前に確定する。
+
+## 10. テスト戦略
+
+```text
+Unit
+  -> Integration
+    -> Sync Simulation
+      -> E2E / Real Device
+```
+
+- **Unit**: Domain規則、operation生成、merge、Conflict生成・解決、idempotency判定。
+- **Integration**: Repository、Drizzle transaction、PostgreSQL、SQLite migration、Hocuspocus persistence。
+- **Sync Simulation**: offline、duplicate、retry、out-of-order、timeout、server/client restart、同field競合、異field merge。
+- **E2E / Real Device**: Editor、IME、app lifecycle、network switching、実端末での復旧。
+
+Network Chaosではlatency、disconnect、reconnect、timeout、duplicate request、out-of-order response、server restart、client restart、app terminationを注入する。Happy Pathのみで同期の正しさを判断しない。
+
+## 11. 段階的な成果物
+
+PoCがGate A/B/Cを通過した場合、次の順で本番設計へ進む。
+
+1. `ARCHITECTURE.md`: 境界、依存方向、deployment、責務。
+2. `TECH_STACK.md`: 採用バージョン、採用理由、代替案、更新方針。
+3. `DATA_MODEL.md`: workspace/Page/Task/Relation/Conflict/operationの論理・物理モデル。
+4. `SYNC_SPEC.md`: operation schema、cursor、retry、idempotency、conflict、tombstone、reconciliation。
+5. `CRDT_SPEC.md`: Y.Doc schema、binary persistence、projection、compaction、version history。
+6. `EDITOR_SPEC.md`: block schema、IME、mobile gesture、accessibility、extension方針。
+7. `AUTHZ_SPEC.md`: Supabase Auth、workspace role、resource authorization、RLS。
+8. `INTEGRATION_SPEC.md`: Google Calendar等Provider Adapterの契約。
+9. `IMPLEMENTATION_PLAN.md`: リリース単位、依存、移行、受入条件。
+
+## 12. 本書の決定事項と要決定事項
+
+### 決定済み
+
+- React / Tauri 2 / Tiptap / Yjs / Hocuspocus / SQLiteを中核候補とする。
+- structured dataとCRDT本文を分離する。
+- PostgreSQLはDrizzle Repository経由でアクセスする。
+- Web local storeはSQLite WASM + OPFSを主、IndexedDBをfallbackとする。
+- CRDT本文の正本はY.Doc binaryであり、JSON/textはProjectionである。
+- operation IDの冪等性、cursor pull、Conflict保持、offline crash recoveryを必須とする。
+- WindowsとAndroidを優先し、WebKitを早期検証する。
+
+### 要決定
+
+- 初期リリースに含めるHome、Inbox、Calendar、Boardの具体機能と優先順位。
+- Workspaceのrole定義、共有モデル、RLSポリシー。
+- 検索、AI、通知、添付、automationのリリース時期と詳細要件。
+- Version History、CRDT snapshot保持期間、compactionポリシー。
+- Object Storage、backup/restore、監視、運用SLO、コスト上限。
+- Flutter/Native UI再比較を行う具体的なAndroid Gate Bの閾値。
+
+実装者は要決定事項を仮定して恒久実装へ進めず、判断記録と選択肢を提示する。

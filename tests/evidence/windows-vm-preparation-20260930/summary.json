@@ -1,0 +1,22 @@
+{
+  "sourceShares": "none",
+  "vmUuid": "66327344-f2a9-4024-a681-f51809be1298",
+  "state": "poweroff; no guest OS installed",
+  "iso": {
+    "status": "Downloading; checksum not yet checked",
+    "bytesDownloaded": 1226719232,
+    "expectedBytes": 8434176000,
+    "publishedSha256": "8FB2CC19C8AEE87A688C1CB73E726816C01F0C6EE9A17BB2FB73E4533837E698",
+    "source": "https://www.microsoft.com/en-us/evalcenter/download-windows-11-enterprise"
+  },
+  "nativeTauri": "Not run in VM",
+  "capturedAt": "2026-09-30T19:46:32.4389635+09:00",
+  "ramMB": 4096,
+  "vmName": "Greiva-IME-Win11",
+  "dynamicDiskMB": 98304,
+  "network": "NAT; no port forwarding",
+  "microsoftIME": "Not run",
+  "cpus": 4,
+  "virtualbox": "7.2.20r175154",
+  "gateA": "Not judged"
+}

@@ -1,0 +1,97 @@
+<testsuites id="" name="" tests="23" failures="1" skipped="0" errors="0" time="29.061223000000002">
+<testsuite name="editor.spec.ts" timestamp="2026-09-30T10:29:49.578Z" hostname="chromium" tests="22" failures="1" skipped="0" time="24.199" errors="0">
+<testcase name="STEP2-BLOCK: slash inserts 本文, edit and delete" classname="editor.spec.ts" time="1.898">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 見出し1, edit and delete" classname="editor.spec.ts" time="0.745">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 見出し2, edit and delete" classname="editor.spec.ts" time="0.775">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 見出し3, edit and delete" classname="editor.spec.ts" time="0.863">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 箇条書き, edit and delete" classname="editor.spec.ts" time="0.824">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 番号付きリスト, edit and delete" classname="editor.spec.ts" time="0.789">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts Todo, edit and delete" classname="editor.spec.ts" time="0.809">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 引用, edit and delete" classname="editor.spec.ts" time="0.803">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts コード, edit and delete" classname="editor.spec.ts" time="0.831">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 区切り線, edit and delete" classname="editor.spec.ts" time="0.745">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts Toggle, edit and delete" classname="editor.spec.ts" time="0.769">
+</testcase>
+<testcase name="STEP2-TODO: checkbox and nested list survive undo/redo" classname="editor.spec.ts" time="1.008">
+</testcase>
+<testcase name="STEP2-TOGGLE: nested content folds without losing text and unwraps" classname="editor.spec.ts" time="1.143">
+</testcase>
+<testcase name="STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text" classname="editor.spec.ts" time="0.717">
+</testcase>
+<testcase name="STEP2-MARKDOWN: #  shortcut" classname="editor.spec.ts" time="0.765">
+</testcase>
+<testcase name="STEP2-MARKDOWN: ##  shortcut" classname="editor.spec.ts" time="0.877">
+</testcase>
+<testcase name="STEP2-MARKDOWN: ###  shortcut" classname="editor.spec.ts" time="0.859">
+</testcase>
+<testcase name="STEP2-MARKDOWN: -  shortcut" classname="editor.spec.ts" time="0.726">
+</testcase>
+<testcase name="STEP2-MARKDOWN: 1.  shortcut" classname="editor.spec.ts" time="0.727">
+</testcase>
+<testcase name="STEP2-MARKDOWN: []  shortcut" classname="editor.spec.ts" time="0.765">
+</testcase>
+<testcase name="STEP2-MOVE: drag changes order, undo restores it, keyboard moves the block" classname="editor.spec.ts" time="5.963">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-STEP2-MOVE-drag-cha-0402d-it-keyboard-moves-the-block-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/editor-STEP2-MOVE-drag-cha-0402d-it-keyboard-moves-the-block-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(received).toEqual(expected) // deep equality" type="expect.toEqual">
+<![CDATA[  [chromium] › editor.spec.ts:106:1 › STEP2-MOVE: drag changes order, undo restores it, keyboard moves the block 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 3
+    + Received  + 1
+
+      Array [
+    -   "first",
+    -   "second",
+    -   "third",
+    +   "",
+      ]
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      116 |   await expect.poll(texts).toEqual(['third', 'first', 'second']);
+      117 |   await page.getByRole('button', { name: '元に戻す', exact: true }).click();
+    > 118 |   await expect.poll(texts).toEqual(['first', 'second', 'third']);
+          |                            ^
+      119 |   await editor.locator(':scope > p').last().click();
+      120 |   await page.keyboard.press('ControlOrMeta+Shift+ArrowUp');
+      121 |   await expect.poll(texts).toEqual(['first', 'third', 'second']);
+        at /workspace/tests/e2e/editor.spec.ts:118:28
+
+    Error Context: ../../../evidence/2026-09-30T10-29-37.936Z/artifacts/editor-STEP2-MOVE-drag-cha-0402d-it-keyboard-moves-the-block-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-09-30T10-29-37.936Z/artifacts/editor-STEP2-MOVE-drag-cha-0402d-it-keyboard-moves-the-block-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-09-30T10-29-37.936Z/artifacts/editor-STEP2-MOVE-drag-cha-0402d-it-keyboard-moves-the-block-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="STEP2-COMPOSITION: slash menu does not consume composition Enter" classname="editor.spec.ts" time="0.798">
+</testcase>
+</testsuite>
+<testsuite name="foundation.spec.ts" timestamp="2026-09-30T10:29:49.578Z" hostname="chromium" tests="1" failures="0" skipped="0" time="1.677" errors="0">
+<testcase name="STEP1-E2E: React client starts alongside API and collaboration services" classname="foundation.spec.ts" time="1.677">
+</testcase>
+</testsuite>
+</testsuites>

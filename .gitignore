@@ -1,0 +1,10 @@
+node_modules/
+.tools/
+dist/
+*.tsbuildinfo
+.env
+.data/
+target/
+playwright-report/
+test-results/
+tests/evidence/runs/

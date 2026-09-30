@@ -1,0 +1,17 @@
+[
+  {
+    "status": 200,
+    "url": "http://127.0.0.1:1420",
+    "body": "Editor HTML served"
+  },
+  {
+    "status": 200,
+    "url": "http://127.0.0.1:3000/health",
+    "body": "{\"service\":\"api\",\"status\":\"ok\",\"implementationStep\":1}"
+  },
+  {
+    "status": 200,
+    "url": "http://127.0.0.1:1234/health",
+    "body": "{\"service\":\"collaboration\",\"status\":\"ok\",\"implementationStep\":1}"
+  }
+]

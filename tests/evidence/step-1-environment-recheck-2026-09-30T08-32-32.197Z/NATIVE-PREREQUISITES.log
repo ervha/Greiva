@@ -1,0 +1,6 @@
+Package glib-2.0 was not found in the pkg-config search path.
+Perhaps you should add the directory containing `glib-2.0.pc'
+to the PKG_CONFIG_PATH environment variable
+Package 'glib-2.0', required by 'virtual:world', not found
+Package 'gtk+-3.0', required by 'virtual:world', not found
+Package 'webkit2gtk-4.1', required by 'virtual:world', not found

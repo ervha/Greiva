@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="1" failures="0" errors="0" time="0.024713405">
+    <testsuite name="tests/integration/postgres.test.ts" timestamp="2026-09-30T10:37:22.012Z" hostname="10e7293f04d6" tests="1" failures="0" errors="0" skipped="0" time="0.024713405">
+        <testcase classname="tests/integration/postgres.test.ts" name="STEP1-POSTGRES: connects to the real development PostgreSQL" time="0.023790355">
+        </testcase>
+    </testsuite>
+</testsuites>

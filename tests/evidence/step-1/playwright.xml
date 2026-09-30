@@ -1,0 +1,6 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="4.421657">
+<testsuite name="foundation.spec.ts" timestamp="2026-09-30T08:12:07.853Z" hostname="chromium" tests="1" failures="0" skipped="0" time="0.782" errors="0">
+<testcase name="STEP1-E2E: React client starts alongside API and collaboration services" classname="foundation.spec.ts" time="0.782">
+</testcase>
+</testsuite>
+</testsuites>

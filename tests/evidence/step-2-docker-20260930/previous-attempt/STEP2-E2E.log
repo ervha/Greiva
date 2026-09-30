@@ -1,0 +1,101 @@
+
+> greiva-poc@0.0.0 test:e2e
+> npm run build:packages && npm run build:servers && playwright test
+
+
+> greiva-poc@0.0.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync
+
+
+> @greiva/shared@0.0.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.0.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.0.0 build
+> tsc -p tsconfig.json
+
+
+> greiva-poc@0.0.0 build:servers
+> npm run build -w @greiva/api && npm run build -w @greiva/collaboration
+
+
+> @greiva/api@0.0.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/collaboration@0.0.0 build
+> tsc -p tsconfig.json
+
+
+Running 23 tests using 2 workers
+
+  ✓   2 [chromium] › tests/e2e/foundation.spec.ts:2:1 › STEP1-E2E: React client starts alongside API and collaboration services (1.7s)
+  ✓   1 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 本文, edit and delete (1.9s)
+  ✓   3 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 見出し1, edit and delete (745ms)
+  ✓   4 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 見出し2, edit and delete (775ms)
+  ✓   5 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 見出し3, edit and delete (863ms)
+  ✓   6 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 箇条書き, edit and delete (824ms)
+  ✓   7 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 番号付きリスト, edit and delete (789ms)
+  ✓   8 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts Todo, edit and delete (809ms)
+  ✓   9 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 引用, edit and delete (803ms)
+  ✓  10 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts コード, edit and delete (831ms)
+  ✓  11 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 区切り線, edit and delete (745ms)
+  ✓  12 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts Toggle, edit and delete (769ms)
+  ✓  13 [chromium] › tests/e2e/editor.spec.ts:40:1 › STEP2-TODO: checkbox and nested list survive undo/redo (1.0s)
+  ✓  14 [chromium] › tests/e2e/editor.spec.ts:59:1 › STEP2-TOGGLE: nested content folds without losing text and unwraps (1.1s)
+  ✓  15 [chromium] › tests/e2e/editor.spec.ts:82:1 › STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text (717ms)
+  ✓  16 [chromium] › tests/e2e/editor.spec.ts:97:3 › STEP2-MARKDOWN: #  shortcut (765ms)
+  ✓  17 [chromium] › tests/e2e/editor.spec.ts:97:3 › STEP2-MARKDOWN: ##  shortcut (877ms)
+  ✓  18 [chromium] › tests/e2e/editor.spec.ts:97:3 › STEP2-MARKDOWN: ###  shortcut (859ms)
+  ✓  19 [chromium] › tests/e2e/editor.spec.ts:97:3 › STEP2-MARKDOWN: -  shortcut (726ms)
+  ✓  20 [chromium] › tests/e2e/editor.spec.ts:97:3 › STEP2-MARKDOWN: 1.  shortcut (727ms)
+  ✓  21 [chromium] › tests/e2e/editor.spec.ts:97:3 › STEP2-MARKDOWN: []  shortcut (765ms)
+  ✘  22 [chromium] › tests/e2e/editor.spec.ts:106:1 › STEP2-MOVE: drag changes order, undo restores it, keyboard moves the block (6.0s)
+  ✓  23 [chromium] › tests/e2e/editor.spec.ts:126:1 › STEP2-COMPOSITION: slash menu does not consume composition Enter (798ms)
+
+
+  1) [chromium] › tests/e2e/editor.spec.ts:106:1 › STEP2-MOVE: drag changes order, undo restores it, keyboard moves the block 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 3
+    + Received  + 1
+
+      Array [
+    -   "first",
+    -   "second",
+    -   "third",
+    +   "",
+      ]
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      116 |   await expect.poll(texts).toEqual(['third', 'first', 'second']);
+      117 |   await page.getByRole('button', { name: '元に戻す', exact: true }).click();
+    > 118 |   await expect.poll(texts).toEqual(['first', 'second', 'third']);
+          |                            ^
+      119 |   await editor.locator(':scope > p').last().click();
+      120 |   await page.keyboard.press('ControlOrMeta+Shift+ArrowUp');
+      121 |   await expect.poll(texts).toEqual(['first', 'third', 'second']);
+        at /workspace/tests/e2e/editor.spec.ts:118:28
+
+    Error Context: ../evidence/2026-09-30T10-29-37.936Z/artifacts/editor-STEP2-MOVE-drag-cha-0402d-it-keyboard-moves-the-block-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../evidence/2026-09-30T10-29-37.936Z/artifacts/editor-STEP2-MOVE-drag-cha-0402d-it-keyboard-moves-the-block-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../evidence/2026-09-30T10-29-37.936Z/artifacts/editor-STEP2-MOVE-drag-cha-0402d-it-keyboard-moves-the-block-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests/e2e/editor.spec.ts:106:1 › STEP2-MOVE: drag changes order, undo restores it, keyboard moves the block 
+  22 passed (29.1s)
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.

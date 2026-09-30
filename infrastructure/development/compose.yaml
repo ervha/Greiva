@@ -1,0 +1,64 @@
+name: greiva-isolated
+
+x-development: &development
+  image: greiva-poc-development:step-2
+  build:
+    context: ../..
+    dockerfile: infrastructure/development/Dockerfile
+  init: true
+  working_dir: /workspace
+  shm_size: 1gb
+  security_opt:
+    - no-new-privileges:true
+
+services:
+  dev:
+    <<: *development
+    command: ["npm", "run", "dev:container"]
+    environment:
+      API_HOST: 0.0.0.0
+      COLLABORATION_HOST: 0.0.0.0
+      DATABASE_URL: postgresql://greiva:greiva_dev_only@postgres:5432/greiva_poc
+    ports:
+      - "127.0.0.1:1420:1420"
+      - "127.0.0.1:3000:3000"
+      - "127.0.0.1:1234:1234"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  tests:
+    <<: *development
+    profiles: ["test"]
+    command: ["npm", "run", "evidence:container"]
+    mem_limit: 4g
+    cpus: 2
+    environment:
+      DATABASE_URL: postgresql://greiva:greiva_dev_only@postgres:5432/greiva_poc
+      GREIVA_EVIDENCE_ROOT: /evidence
+      CARGO_BUILD_JOBS: 2
+    # Only explicitly selected evidence leaves the container. No source/dependency mounts.
+    volumes:
+      - ../../tests/evidence/runs/container:/evidence
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  postgres:
+    image: postgres:18.4-bookworm
+    environment:
+      POSTGRES_DB: greiva_poc
+      POSTGRES_USER: greiva
+      POSTGRES_PASSWORD: greiva_dev_only
+      TZ: UTC
+    volumes:
+      - postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U greiva -d greiva_poc"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+    # Database is accessible only on the Compose network.
+
+volumes:
+  postgres-data:
