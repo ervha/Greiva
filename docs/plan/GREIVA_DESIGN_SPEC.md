@@ -1,10 +1,12 @@
-# Greiva UI・横断設計仕様 v0.1
+# Greiva UI・横断設計仕様 v0.2
 
 ## 1. 目的と適用範囲
 
 本書は、GreivaのUI/UX、画面構造、状態表示、モバイル操作、アクセシビリティ、セキュリティ、運用、リリースの横断設計を定義する。ドメイン・同期・CRDTの基盤要件は`GREIVA_REQUIREMENTS.md`、技術検証の範囲は`POC_SPEC.md`を正本とする。
 
 本書は本番設計のための方針であり、PoCに全項目を実装する指示ではない。PoCの対象は、Editor、local-first、sync、Android/IMEの技術的成立性に限定する。
+
+2026-09-30改訂: 汎用定期予定・時間割登録とCalendar表示を追加。時間割では曜日＋時限を基本にし、時刻の直接指定も可能とする。原則の繰り返しと休講・振替・補講に相当する例外を扱い、大学専用にしないことはユーザーと合意済み。具体的な画面・モデル・受入条件の設計案は`CALENDAR_TIMETABLE_SPEC.md`にまとめる。
 
 ## 2. UX原則
 
@@ -28,7 +30,7 @@ Workspace
 ├─ Tasks
 │  ├─ List
 │  └─ Task detail
-├─ Calendar             # Google Calendar連携を含む。初期範囲は要決定
+├─ Calendar             # 定期予定・時間割を表示。外部連携と提供時期は要決定
 ├─ Search
 ├─ Conflicts            # 同一field競合の解決キュー
 └─ Settings
@@ -38,7 +40,7 @@ Workspace
    └─ Appearance / Accessibility
 ```
 
-Home、Inbox、Calendar、Board Viewの具体的な初期提供範囲は未決定である。仕様がない段階では、空の画面や仮データを本番機能として実装しない。
+Calendar内に定期予定・時間割の登録、任意の期間/時間帯設定、各回の詳細への導線を設ける。時間割だけのために上位ナビゲーションを増やさない。Home、Inbox、Board Viewの具体的な初期提供範囲、Calendar/定期予定・時間割の提供時期は未決定である。仕様がない段階では、空の画面や仮データを本番機能として実装しない。
 
 ## 4. 基本レイアウト
 
@@ -148,6 +150,16 @@ Home、Inbox、Calendar、Board Viewの具体的な初期提供範囲は未決�
 - Relationはfrom/to entityを明示し、循環・自己参照の可否は`DATA_MODEL.md`で決定する。
 - Page内Mentionと構造化Relationは同一とは限らない。表示上のリンクと、同期対象のRelation entityを混同しない。
 - Relation削除はUI上で明示確認し、削除後に復元可能な導線を持つ。
+
+### 7.3 Calendar / 定期予定・時間割
+
+- Calendar内の週表示を主な時間割確認導線とし、曜日に対する時刻と、設定済みの「1限」「早番」等を併記できる。通常予定との位置関係は実時刻に基づく。
+- 登録では予定名、繰り返す曜日、時限/時間帯または開始・終了時刻を入力する。学期・授業固有の属性は必要時だけ提示し、汎用予定に入力を強制しない。
+- 通常の繰り返し設定と、一回だけの取消・振替・追加を識別する。表示名は大学用の「休講」「補講」と汎用の「取消」「追加開催」を同じ操作モデルへ対応させる。
+- 各回の変更と繰り返し全体の変更は、適用範囲と影響を確認して確定する。Drag & Dropも一回の変更として扱い、繰り返し全体を無断で書き換えない。
+- 休講/取消、振替/変更、補講/追加は文言またはbadgeで示す。予定の重複と同期Conflictを別の状態として表示する。
+- Desktopでは詳細パネル、Mobileでは日別agendaとbottom sheetを利用する設計案とする。日付・予定の選択と編集はkeyboard/タッチで到達可能にし、細いCalendar枠のDragだけに依存させない。
+- 詳細案・境界・受入条件は`CALENDAR_TIMETABLE_SPEC.md`を参照する。Page/Taskの期日モデルやPoCの同期DTOをこの設計追加だけで変更しない。
 
 ## 8. 同期・Conflict UI
 
@@ -273,7 +285,7 @@ Android、Windows desktop、macOS/iOS実機はCI対象またはrelease candidate
 1. `DATA_MODEL.md` と `SYNC_SPEC.md`（Conflict entityを含む）
 2. `EDITOR_SPEC.md`（block schema、IME、accessibility、mobile gesture）
 3. `AUTHZ_SPEC.md`（workspace/role/RLS/共有）
-4. `HOME_INBOX_CALENDAR_SPEC.md`（初期リリース範囲と受入条件）
+4. `CALENDAR_TIMETABLE_SPEC.md`（定期予定・時間割の追加要求と詳細案。提供時期は要決定）と`HOME_INBOX_CALENDAR_SPEC.md`（主画面全体の初期リリース範囲）
 5. `SEARCH_SPEC.md` と `INTEGRATION_SPEC.md`
 6. 運用SLO、backup、privacy、release checklist
 

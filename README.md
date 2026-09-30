@@ -4,6 +4,8 @@
 
 npm workspaces、共有型、React/Tauri 2、NestJS/Fastify・Hocuspocusのhealth endpointに、Tiptapの必須block、Todo、Toggle、Slash Command、固定候補Mention、ブロック移動、Undo/Redo、Markdown shortcutを追加しました。文書接続、永続化、同期、競合解決は後工程です。画面は保存・同期未実装を明示し、Gate A/B/Cは未判定です。
 
+製品設計には[Calendar・定期予定・時間割の追加設計](docs/plan/CALENDAR_TIMETABLE_SPEC.md)を記録しました。曜日＋時限/自由な時刻、週次の繰り返し、一回の取消・振替・追加を汎用モデルで扱う案です。Calendarは未実装で、PoCの対象と検証順序は変更していません。
+
 ## 通常の開発・試験はDocker内で実行
 
 ユーザー指定により、**Dockerで開発・自動テスト、Windows VMでTauri・Microsoft IMEを検証**します。Node/Rust等の開発ツールは隔離環境へ配置します。ユーザーが追加で許可したVirtualBoxのみホストへ導入しました。[隔離環境の詳細](docs/development/isolated-environment.md)。

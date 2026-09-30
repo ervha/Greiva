@@ -1,10 +1,12 @@
-# Greiva 統合要件・アーキテクチャ仕様 v0.1
+# Greiva 統合要件・アーキテクチャ仕様 v0.2
 
 ## 1. 文書の目的と位置付け
 
 この文書は、Greivaの本番アーキテクチャ、製品境界、データ責務、および非機能要件について、現時点で合意した内容を統合するものである。`POC_SPEC.md` は技術仮説を検証するための限定仕様であり、本書はPoC後の本実装に引き継ぐべき要件を定義する。
 
 未確定項目は実装者が独断で補完してはならない。「要決定」としてADRまたは個別仕様へ切り出す。
+
+2026-09-30改訂: ユーザーの追加要求により、時間割・汎用定期予定の登録とCalendar表示を製品要件へ追加した。時間割は曜日＋時限を基本とし、時刻の直接指定にも対応する。曜日ごとの繰り返し、休講・振替・補講に相当する取消・変更・追加を扱う。大学専用にはせず、学期と時限は任意の設定として扱う。詳細設計案は`CALENDAR_TIMETABLE_SPEC.md`を参照する。この改訂はPoCの実装範囲・順序・Gateを拡張しない。
 
 ## 2. 製品原則
 
@@ -49,7 +51,7 @@ Apple実機の可否により、Domain、Editor、CRDT、Sync Protocolの再設�
 | Structured sync | Greiva独自operation/cursor protocol |
 | Realtime | WebSocket notification。正確性はpull同期で保証 |
 | External sync | Provider Adapter |
-| Calendar | Google Calendar API |
+| Calendar | 内蔵Calendar・汎用定期予定/時間割モデル、外部連携はGoogle Calendar API / Provider Adapter |
 | Monorepo | pnpm workspace + Turborepo |
 | Web E2E | Playwright（Chromium / Firefox / WebKit） |
 
@@ -87,6 +89,7 @@ greiva/
 | Page本文 | Yjsローカル永続化 | Y.Doc binary snapshot/update | Yjs + Hocuspocus |
 | Pageの検索/表示用Projection | キャッシュ可 | Tiptap JSON / plain text projection | CRDTから再生成 |
 | Task / Relation等の構造化データ | SQLite replica + sync state | PostgreSQL entity + operation履歴 | operation push/pull + cursor |
+| 時間割・定期予定 / 時間帯設定 / 繰り返し / 取消・変更・追加 | SQLite replica + sync state | PostgreSQL entity + operation履歴 | structured sync。Calendarの各回表示は再生成可能なProjection |
 | User / session | 必要最小限の端末情報 | Supabase Auth | Auth SDK / API |
 | 添付ファイル | ローカルキャッシュ可 | Object Storage | upload/download adapter |
 
@@ -115,6 +118,7 @@ PoC後の詳細スキーマは`DATA_MODEL.md`で定義する。ここでは境�
 - **Page**: メタデータとY.Docへの参照を持つ。本文ブロックを構造化DBへ二重保存しない。
 - **Task**: title、status、due等の構造化属性を持ち、version付きoperationで同期する。
 - **Relation**: Page/Task等のentity間のリンク。削除はtombstoneを用いる。
+- **Schedule**: 定期予定・曜日ごとの繰り返し規則・一回単位の取消/変更・追加予定を扱う汎用の構造化モデル。時間割では学期と時限を設定できるが、大学固有の必須属性にはしない。論理境界の案は`CALENDAR_TIMETABLE_SPEC.md`、最終schemaは`DATA_MODEL.md`で定義する。開催時刻とTaskのdate-only dueを分離する。
 - **Conflict**: 同一fieldの競合についてbase/local/remote/field/status/解決operationを保持する。
 - **Event / Operation**: 同期用の不変記録。クライアント再送に耐える冪等キーを持つ。
 
@@ -160,7 +164,17 @@ Google Calendar等の外部同期はProvider Adapterを経由する。Domainま�
 
 ### 8.3 主画面・Inbox・Calendar・View
 
-Home、Inbox、Calendar UI、Board Viewは製品機能として候補に含むが、要求詳細、優先順位、初期リリース範囲は未確定である。PoCには含めない。本実装前に、それぞれの利用者、主要ジョブ、情報構造、操作、受入条件を個別仕様にする。
+Home、Inbox、Board Viewは製品機能として候補に含むが、要求詳細、優先順位、初期リリース範囲は未確定である。Calendarには時間割・汎用定期予定を登録・表示する製品要件を追加する。いずれもPoCには含めない。本実装前に、それぞれの利用者、主要ジョブ、情報構造、操作、受入条件を個別仕様にする。
+
+#### Calendar / 時間割・定期予定
+
+- Greiva内で時間割・定期予定を登録し、通常のCalendarビューに各回を表示できる。Google Calendar接続を利用条件にしない。
+- 時間割は曜日＋時限（1限・2限等）を基本の登録方法とし、利用者が時限の開始・終了時刻を設定できる。汎用予定は時刻の直接指定や「午前」「早番」等の時間帯プリセットでも登録できる。
+- 予定名、繰り返す曜日、適用期間を管理する。学期・終了日・時限は大学等の利用時に設定できるが、定期予定すべてに必須にはしない。
+- 原則の曜日ごとの繰り返しと、特定の回の取消（休講等）・日時変更（振替等）・追加（補講等）を分離する。例外を登録しても他の回を意図せず変更しない。
+- 通常予定と時間割・定期予定を識別でき、表示切替できる。予定の重複を隠さず、内容・日時・例外の種別を確認できる。
+- 登録・編集・閲覧は既存のlocal-first / structured sync方針に従う。繰り返し定義と例外・追加予定が正本であり、表示する各回を重複した独立予定として保存しない。
+- 詳細UI、時刻・例外・変更範囲のルール、受入条件は`CALENDAR_TIMETABLE_SPEC.md`で整理する。初期リリースの採用時期、外部カレンダー同期、インポート、通知、Page/Taskとの連携は要決定とする。
 
 ### 8.4 認証・権限・共有
 
@@ -223,6 +237,8 @@ Network Chaosではlatency、disconnect、reconnect、timeout、duplicate reques
 
 PoCがGate A/B/Cを通過した場合、次の順で本番設計へ進む。
 
+ユーザー指定による追加要求の整理・設計案の記録はPoC中でも行える。本番の詳細契約や採用判断はPoCの結果を踏まえて確定し、設計文書の追加だけを根拠にPoCの実装順序を変更しない。
+
 1. `ARCHITECTURE.md`: 境界、依存方向、deployment、責務。
 2. `TECH_STACK.md`: 採用バージョン、採用理由、代替案、更新方針。
 3. `DATA_MODEL.md`: workspace/Page/Task/Relation/Conflict/operationの論理・物理モデル。
@@ -231,7 +247,8 @@ PoCがGate A/B/Cを通過した場合、次の順で本番設計へ進む。
 6. `EDITOR_SPEC.md`: block schema、IME、mobile gesture、accessibility、extension方針。
 7. `AUTHZ_SPEC.md`: Supabase Auth、workspace role、resource authorization、RLS。
 8. `INTEGRATION_SPEC.md`: Google Calendar等Provider Adapterの契約。
-9. `IMPLEMENTATION_PLAN.md`: リリース単位、依存、移行、受入条件。
+9. `CALENDAR_TIMETABLE_SPEC.md`: 汎用定期予定・時間割登録、Calendar表示、期間・時刻・例外の規則、受入条件。
+10. `IMPLEMENTATION_PLAN.md`: リリース単位、依存、移行、受入条件。
 
 ## 12. 本書の決定事項と要決定事項
 
@@ -244,10 +261,11 @@ PoCがGate A/B/Cを通過した場合、次の順で本番設計へ進む。
 - CRDT本文の正本はY.Doc binaryであり、JSON/textはProjectionである。
 - operation IDの冪等性、cursor pull、Conflict保持、offline crash recoveryを必須とする。
 - WindowsとAndroidを優先し、WebKitを早期検証する。
+- 時間割・汎用定期予定をGreiva内で登録し、Calendarへ表示する。曜日ごとの繰り返しと取消・振替・追加を扱い、時間割は曜日＋時限を基本とし、時刻も直接指定できる。
 
 ### 要決定
 
-- 初期リリースに含めるHome、Inbox、Calendar、Boardの具体機能と優先順位。
+- 初期リリースに含めるHome、Inbox、Boardの具体機能と優先順位、Calendar・定期予定/時間割の提供時期と詳細設計案の採用範囲。
 - Workspaceのrole定義、共有モデル、RLSポリシー。
 - 検索、AI、通知、添付、automationのリリース時期と詳細要件。
 - Version History、CRDT snapshot保持期間、compactionポリシー。
