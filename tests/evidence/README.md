@@ -2,7 +2,13 @@
 
 現在の対象は`docs/plan/POC_SPEC.md` Section 18 Steps 1–2です。Dockerの全自動試験は成功。Windows VM内のnative UI/IME、Gate A/B/Cは未検証です。
 
-## 最新: Step 2 Docker検証（2026-09-30）
+## 最新: Editor UI/UX改善（2026-09-30）
+
+[最終run](editor-ux-20260930/SUMMARY.md)、[ソース・実行環境](editor-ux-20260930/summary.json)、[ソース照合・Docker条件](editor-ux-20260930/verification-context.json)、[画面](editor-ux-20260930/editor-ux.png)。build・strict型チェック、unit/integration 20件、Chromium E2E全30件、SQLite初期化、実PostgreSQL 1件がPass。入れ子トグルの競合修正は[10/10回の再現試験](editor-ux-20260930/toggle-repeat/playwright.json)でも成功した。
+
+[競合修正前の29/30件run](editor-ux-20260930/previous-race/SUMMARY.md)と[初回の型・試験エラー](editor-ux-20260930/previous-attempt/SUMMARY.md)はそのまま保持した。[UX改善](../../docs/decisions/editor-ux.md)、[修正記録](../../docs/failures/step-2-editor.md)。`.git`はimageへ含めないためcontainerのGit commitはnullであり、現在のcheckoutと照合したsource SHA-256を根拠にする。Rust未変更につき今回のCargo checkはNot run、以下の基盤runはPass。Windows VM/IMEとGate A/B/Cは未検証。
+
+## 基盤: Step 2 Docker検証（2026-09-30）
 
 [結果とログ](step-2-docker-20260930/SUMMARY.md)、[環境・固定版・仕様/lockfile/ソースhash](step-2-docker-20260930/summary.json)、[Docker実行条件](step-2-docker-20260930/docker-runtime.json)、[ホストのソースとのhash一致](step-2-docker-20260930/checkout-source-match.json)。ソース81ファイルのSHA-256は`32c7a1bb74c924f81a00bef90a64254b497ee44e2920611999f5a6878544b490`。Gitは未commit、containerはnodeユーザー、非privileged、no-new-privileges、証拠ディレクトリだけのbind mount。
 

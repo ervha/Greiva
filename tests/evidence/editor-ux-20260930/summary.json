@@ -1,0 +1,202 @@
+{
+  "id": "STEP2-2026-09-30T11-44-04.281Z",
+  "startedAt": "2026-09-30T11:44:04.329Z",
+  "operator": "Codex",
+  "gitCommit": null,
+  "gitStatus": null,
+  "gitAvailability": "unavailable in execution environment",
+  "environment": {
+    "os": "linux",
+    "release": "6.18.33.2-microsoft-standard-WSL2",
+    "arch": "x64",
+    "cpu": "12th Gen Intel(R) Core(TM) i7-12700H",
+    "node": "v24.19.0",
+    "execution": "Docker container; source copied into image; no Docker socket mount",
+    "browserExecutable": "/opt/playwright/chromium-1243/chrome-linux64/chrome",
+    "browserVersion": "Google Chrome for Testing 153.0.8010.12",
+    "build": "web production build + Node server builds; desktop check optional",
+    "network": "loopback for smoke tests; package/registry access uses the execution environment policy"
+  },
+  "versions": {
+    "runtime": {
+      "node": "v24.19.0",
+      "npm": "npm@11.9.0",
+      "rust": "1.98.1",
+      "postgres": "18.4-bookworm"
+    },
+    "directDependencies": {
+      "greiva-poc": {
+        "typescript": "7.0.2",
+        "vitest": "5.0.2",
+        "@playwright/test": "1.63.0",
+        "tsx": "4.23.15",
+        "@types/node": "26.6.3",
+        "concurrently": "10.0.5"
+      },
+      "@greiva/api": {
+        "@nestjs/core": "12.1.1",
+        "@nestjs/common": "12.1.1",
+        "@nestjs/platform-fastify": "12.1.1",
+        "fastify": "5.12.5",
+        "reflect-metadata": "0.2.2",
+        "rxjs": "7.8.2",
+        "pg": "8.23.0",
+        "@greiva/protocol": "0.0.0",
+        "@greiva/shared": "0.0.0",
+        "@types/pg": "8.23.1"
+      },
+      "@greiva/client": {
+        "@greiva/protocol": "0.0.0",
+        "@greiva/shared": "0.0.0",
+        "@greiva/sync": "0.0.0",
+        "@hocuspocus/provider": "4.7.0",
+        "@tauri-apps/api": "2.12.0",
+        "@tauri-apps/plugin-sql": "2.5.0",
+        "@tiptap/core": "3.31.3",
+        "@tiptap/extension-details": "3.31.3",
+        "@tiptap/extension-list": "3.31.3",
+        "@tiptap/extension-mention": "3.31.3",
+        "@tiptap/pm": "3.31.3",
+        "@tiptap/react": "3.31.3",
+        "@tiptap/starter-kit": "3.31.3",
+        "@tiptap/suggestion": "3.31.3",
+        "react": "19.3.0",
+        "react-dom": "19.3.0",
+        "yjs": "13.6.33",
+        "@tauri-apps/cli": "2.12.0",
+        "@types/react": "19.3.0",
+        "@types/react-dom": "19.3.0",
+        "@vitejs/plugin-react": "6.1.1",
+        "vite": "8.3.1"
+      },
+      "@greiva/collaboration": {
+        "@hocuspocus/server": "4.7.0",
+        "yjs": "13.6.33",
+        "@greiva/protocol": "0.0.0",
+        "@greiva/shared": "0.0.0"
+      },
+      "@greiva/protocol": {
+        "zod": "4.6.5",
+        "@greiva/shared": "0.0.0"
+      },
+      "@greiva/shared": {
+        "uuid": "14.0.2",
+        "zod": "4.6.5"
+      },
+      "@greiva/sync": {
+        "@greiva/protocol": "0.0.0",
+        "@greiva/shared": "0.0.0"
+      }
+    },
+    "rust": {
+      "tauri": "2.12.0",
+      "tauri-build": "2.7.0",
+      "tauri-plugin-sql": "2.5.0"
+    },
+    "hashes": {
+      "npmLock": "790423a2b3967af2ff95f1d73af26dcff965f702b1f4c65ec51e4b2ee8857e88",
+      "cargoLock": "ae13988c03a368a3d041606ed14b277aab17924bb060300428f1d2e037e80d34",
+      "spec": "1227c3562632c170967534fcb2aaa3557d69e033fafbd3e959a25a84c20663c0"
+    }
+  },
+  "results": [
+    {
+      "id": "STEP2-BUILD",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "startedAt": "2026-09-30T11:44:04.352Z",
+      "finishedAt": "2026-09-30T11:44:06.948Z",
+      "exitCode": 0,
+      "signal": null,
+      "expected": "All packages and app production builds succeed",
+      "status": "Pass",
+      "log": "STEP2-BUILD.log"
+    },
+    {
+      "id": "STEP2-TYPES",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "startedAt": "2026-09-30T11:44:06.948Z",
+      "finishedAt": "2026-09-30T11:44:09.283Z",
+      "exitCode": 0,
+      "signal": null,
+      "expected": "Strict TypeScript checks succeed, including tests",
+      "status": "Pass",
+      "log": "STEP2-TYPES.log"
+    },
+    {
+      "id": "STEP2-UNIT-INTEGRATION",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "startedAt": "2026-09-30T11:44:09.283Z",
+      "finishedAt": "2026-09-30T11:44:13.038Z",
+      "exitCode": 0,
+      "signal": null,
+      "expected": "Model contracts, block transactions, real API/collaboration boot and SQLite tests pass; PostgreSQL is separately gated",
+      "status": "Pass",
+      "log": "STEP2-UNIT-INTEGRATION.log"
+    },
+    {
+      "id": "STEP2-E2E",
+      "command": [
+        "npm",
+        "run",
+        "test:e2e"
+      ],
+      "startedAt": "2026-09-30T11:44:13.039Z",
+      "finishedAt": "2026-09-30T11:44:48.894Z",
+      "exitCode": 0,
+      "signal": null,
+      "expected": "Chromium verifies editor blocks, slash, Mention, Todo, Toggle, movement, undo/redo, Markdown and service health",
+      "status": "Pass",
+      "log": "STEP2-E2E.log"
+    },
+    {
+      "id": "STEP2-SQLITE-INIT",
+      "command": [
+        "npm",
+        "run",
+        "db:sqlite"
+      ],
+      "startedAt": "2026-09-30T11:44:48.894Z",
+      "finishedAt": "2026-09-30T11:44:49.028Z",
+      "exitCode": 0,
+      "signal": null,
+      "expected": "File database initializes with WAL and integrity_check=ok",
+      "status": "Pass",
+      "log": "STEP2-SQLITE-INIT.log"
+    },
+    {
+      "id": "STEP2-POSTGRES",
+      "command": [
+        "npm",
+        "run",
+        "test:postgres"
+      ],
+      "startedAt": "2026-09-30T11:44:49.028Z",
+      "finishedAt": "2026-09-30T11:44:49.806Z",
+      "exitCode": 0,
+      "signal": null,
+      "expected": "Live PostgreSQL 18.4 on the Compose network verifies database and server version",
+      "status": "Pass",
+      "log": "STEP2-POSTGRES.log"
+    },
+    {
+      "id": "STEP2-DESKTOP-CHECK",
+      "status": "Not run",
+      "reason": "Use --desktop with the native Tauri prerequisites"
+    }
+  ],
+  "sourceSha256": "e29134f2de2641d7b4b0bd9330c424e544545bf06ff5c4b8152f8f2258d06f8f",
+  "scope": "Section 18 Steps 1–2. Editor operations in Chromium; native compile optional. Microsoft IME, native UI, sync and crash recovery need separate evidence. No Gate verdict.",
+  "sourceDiscovery": "filesystem (image excludes .git)",
+  "finishedAt": "2026-09-30T11:44:49.806Z"
+}

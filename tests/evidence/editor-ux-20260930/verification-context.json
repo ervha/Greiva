@@ -1,0 +1,72 @@
+{
+  "capturedAt": "2026-09-30T11:49:59.7432588Z",
+  "baseCommit": "4481897b12ab8463954f0d05fb9e91806864931e",
+  "branch": "codex/poc-editor",
+  "sourceFileCount": 81,
+  "checkoutSourceSha256": "e29134f2de2641d7b4b0bd9330c424e544545bf06ff5c4b8152f8f2258d06f8f",
+  "testedSourceSha256": "e29134f2de2641d7b4b0bd9330c424e544545bf06ff5c4b8152f8f2258d06f8f",
+  "match": true,
+  "containers": [
+    {
+      "name": "/greiva-editor-ux-verified",
+      "image": "sha256:89b3f4a82356b47528f7c72d82112db7e55d6306f07eda4d2ea1c371a7020bc1",
+      "user": "node",
+      "exitCode": 0,
+      "privileged": false,
+      "securityOpt": [
+        "no-new-privileges:true"
+      ],
+      "memory": 4294967296,
+      "nanoCpus": 2000000000,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "C:\\Users\\danun\\Desktop\\Project\\Greiva\\tests\\evidence\\runs\\container",
+          "Destination": "/evidence",
+          "Mode": "rw",
+          "RW": true,
+          "Propagation": "rprivate"
+        }
+      ],
+      "command": [
+        "node",
+        "scripts/evidence.mjs",
+        "--container"
+      ]
+    },
+    {
+      "name": "/greiva-toggle-race-regression",
+      "image": "sha256:89b3f4a82356b47528f7c72d82112db7e55d6306f07eda4d2ea1c371a7020bc1",
+      "user": "node",
+      "exitCode": 0,
+      "privileged": false,
+      "securityOpt": [
+        "no-new-privileges:true"
+      ],
+      "memory": 4294967296,
+      "nanoCpus": 2000000000,
+      "mounts": [
+        {
+          "Type": "bind",
+          "Source": "C:\\Users\\danun\\Desktop\\Project\\Greiva\\tests\\evidence\\runs\\container",
+          "Destination": "/evidence",
+          "Mode": "rw",
+          "RW": true,
+          "Propagation": "rprivate"
+        }
+      ],
+      "command": [
+        "npm",
+        "run",
+        "test:e2e",
+        "--",
+        "--grep",
+        "folding is excluded",
+        "--repeat-each=10",
+        "--workers=2"
+      ]
+    }
+  ],
+  "nativeCheck": "Rust unchanged; Cargo check not rerun in this UX milestone. Earlier Step 2 baseline passed. Windows Tauri/IME not run.",
+  "browserCheck": "CUA verified rendered slash selection and toggle keyboard/pointer fold and text retention on the Docker preview. This is not native Microsoft IME evidence."
+}

@@ -1,0 +1,42 @@
+<testsuites id="" name="" tests="10" failures="0" skipped="0" errors="0" time="21.957069">
+<testsuite name="editor-ux.spec.ts" timestamp="2026-09-30T11:44:09.309Z" hostname="chromium" tests="1" failures="0" skipped="0" time="3.004" errors="0">
+<testcase name="STEP2-UX-TOGGLE: folding is excluded from content undo and nested shortcut uses nearest toggle" classname="editor-ux.spec.ts" time="3.004">
+</testcase>
+</testsuite>
+<testsuite name="editor-ux.spec.ts" timestamp="2026-09-30T11:44:09.309Z" hostname="chromium" tests="1" failures="0" skipped="0" time="3.073" errors="0">
+<testcase name="STEP2-UX-TOGGLE: folding is excluded from content undo and nested shortcut uses nearest toggle" classname="editor-ux.spec.ts" time="3.073">
+</testcase>
+</testsuite>
+<testsuite name="editor-ux.spec.ts" timestamp="2026-09-30T11:44:09.309Z" hostname="chromium" tests="1" failures="0" skipped="0" time="2.983" errors="0">
+<testcase name="STEP2-UX-TOGGLE: folding is excluded from content undo and nested shortcut uses nearest toggle" classname="editor-ux.spec.ts" time="2.983">
+</testcase>
+</testsuite>
+<testsuite name="editor-ux.spec.ts" timestamp="2026-09-30T11:44:09.309Z" hostname="chromium" tests="1" failures="0" skipped="0" time="2.869" errors="0">
+<testcase name="STEP2-UX-TOGGLE: folding is excluded from content undo and nested shortcut uses nearest toggle" classname="editor-ux.spec.ts" time="2.869">
+</testcase>
+</testsuite>
+<testsuite name="editor-ux.spec.ts" timestamp="2026-09-30T11:44:09.309Z" hostname="chromium" tests="1" failures="0" skipped="0" time="3.297" errors="0">
+<testcase name="STEP2-UX-TOGGLE: folding is excluded from content undo and nested shortcut uses nearest toggle" classname="editor-ux.spec.ts" time="3.297">
+</testcase>
+</testsuite>
+<testsuite name="editor-ux.spec.ts" timestamp="2026-09-30T11:44:09.309Z" hostname="chromium" tests="1" failures="0" skipped="0" time="3.182" errors="0">
+<testcase name="STEP2-UX-TOGGLE: folding is excluded from content undo and nested shortcut uses nearest toggle" classname="editor-ux.spec.ts" time="3.182">
+</testcase>
+</testsuite>
+<testsuite name="editor-ux.spec.ts" timestamp="2026-09-30T11:44:09.309Z" hostname="chromium" tests="1" failures="0" skipped="0" time="3.555" errors="0">
+<testcase name="STEP2-UX-TOGGLE: folding is excluded from content undo and nested shortcut uses nearest toggle" classname="editor-ux.spec.ts" time="3.555">
+</testcase>
+</testsuite>
+<testsuite name="editor-ux.spec.ts" timestamp="2026-09-30T11:44:09.309Z" hostname="chromium" tests="1" failures="0" skipped="0" time="3.26" errors="0">
+<testcase name="STEP2-UX-TOGGLE: folding is excluded from content undo and nested shortcut uses nearest toggle" classname="editor-ux.spec.ts" time="3.26">
+</testcase>
+</testsuite>
+<testsuite name="editor-ux.spec.ts" timestamp="2026-09-30T11:44:09.309Z" hostname="chromium" tests="1" failures="0" skipped="0" time="3.204" errors="0">
+<testcase name="STEP2-UX-TOGGLE: folding is excluded from content undo and nested shortcut uses nearest toggle" classname="editor-ux.spec.ts" time="3.204">
+</testcase>
+</testsuite>
+<testsuite name="editor-ux.spec.ts" timestamp="2026-09-30T11:44:09.309Z" hostname="chromium" tests="1" failures="0" skipped="0" time="3.081" errors="0">
+<testcase name="STEP2-UX-TOGGLE: folding is excluded from content undo and nested shortcut uses nearest toggle" classname="editor-ux.spec.ts" time="3.081">
+</testcase>
+</testsuite>
+</testsuites>

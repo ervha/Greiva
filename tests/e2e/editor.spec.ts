@@ -60,8 +60,8 @@ test('STEP2-TOGGLE: nested content folds without losing text and unwraps', async
   const editor = await body(page);
   await slash(page, 'Toggle');
   await page.keyboard.type('summary');
-  await page.getByRole('button', { name: 'Toggleを開く', exact: true }).click();
   const content = editor.locator('[data-type="detailsContent"]').first();
+  await expect(content).toBeVisible();
   await content.locator('p').click();
   await page.keyboard.type('nested text');
   await page.keyboard.press('Enter');

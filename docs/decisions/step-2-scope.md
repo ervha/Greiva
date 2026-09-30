@@ -22,6 +22,7 @@
 - 切替前のE2E: サーバー起動権限の問題を切り分けた後、4件成功したが、ViteがRust出力をwatchしてEBUSYで停止した。watch除外を修正し、全23件の再試験をDockerへ移した。
 - Docker: engine正常応答、image build成功。最終Editorのbuild、型チェック、unit/integration 20件、E2E全23件、SQLite初期化、実PostgreSQL接続、Linux locked Cargo checkが成功。[最終証拠](../../tests/evidence/step-2-docker-20260930/SUMMARY.md)。
 - Dockerで見つかったdrag開始抑止、composition Enter消費、移動Undoが直前入力まで戻す不具合を修正。移動を独立したhistory eventとして扱う回帰試験を追加した。
+- 追加UX改善: Slash候補のポインター/キーボード選択・検索・画面端表示、ToggleのEnter移動・開閉フォーカス・Undoを改善。全30件E2Eが成功し、入れ子トグルの初期表示競合を修正して10回の再現試験も成功した。[改善内容](editor-ux.md)、[最新証拠](../../tests/evidence/editor-ux-20260930/SUMMARY.md)。
 - Windows VM: ユーザーの追加許可によりVirtualBoxと空のVMを作成済み。OS ISO取得中。native UI・Microsoft IME、Gate A/B/Cは未検証。Step 4以降へ進む前にStep 3の初回IME証拠を作る。
 
 次: Windows VMへ検証済みISOからOSとguest用開発ツールを用意し、初回IME試験の結果を記録する。保存・同期機能へ進む条件は変更していない。

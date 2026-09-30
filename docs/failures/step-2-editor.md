@@ -23,3 +23,15 @@
 ## 試験コマンドの補足
 
 部分再試験でplaywrightを直接起動した際、compiled serverのbuildを抜かしたためAPIのdist/main.js不足で起動に失敗した。正しい部分再試験は`npm run test:e2e -- --grep STEP2-MOVE`。これは試験起動手順の誤りであり、Editor不具合の再発とは扱わない。
+
+## 開いたトグルの初期描画と即時開閉が競合する（修正済み）
+
+再現: 見出しと本文を書き、本文へ入れ子トグルを作成する。新しい見出しを入力してすぐCtrl+Enterで閉じる。期待は親が開いたままで子が閉じること。UXの再検証runで子の`is-open`が戻り、29/30件成功になった。[元のログ・trace](../../tests/evidence/editor-ux-20260930/previous-race/SUMMARY.md)。
+
+原因: 継承したDetails node viewはopen=trueの初期描画をsetTimeoutによるtoggleで遅らせる。その処理が最新のopen属性を確認しないまま実行され、直前に閉じた表示を開き直した。
+
+修正: 継承viewを初期状態closedとして構築し、子viewが組み上がった後のmicrotaskで現在のdocument属性に同期する。遅延toggleを生成せず、破棄済みviewの同期も停止する。Docのschema・open属性は変えていない。修正後の全30件が成功し、同じ入れ子・即時開閉・Undo試験を10回繰り返して10/10件成功した。
+
+影響: Step 2の折りたたみ表示とカーソル操作。Windows native/IMEへの影響は未検証で、GateをPassにはしない。次は同じ操作をVM内で確認する。
+
+UX初回runではstrict型エラーと、試験側でdrag handleを本文として数える・開閉により名前が変わるbuttonを固定名locatorで再検索する・候補に覆われたタイトルへclickする問題も発生した。[初回ログ](../../tests/evidence/editor-ux-20260930/previous-attempt/SUMMARY.md)を保持している。型と観測対象を修正し、UI試験の内容を弱めず再検証した。

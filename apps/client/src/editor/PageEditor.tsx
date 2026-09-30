@@ -43,7 +43,7 @@ export function PageEditor() {
       <button type="button" disabled={!state?.listItem} onClick={() => state?.listItem && editor.chain().focus().liftListItem(state.listItem).run()}>インデント解除</button>
       {state?.details && <button type="button" onClick={() => editor.chain().focus().unsetDetails().run()}>Toggleを解除</button>}
     </div>
-    <p className="editor-hint">行頭の / でブロック追加、@ でMention。Ctrl+Z / Ctrl+Shift+Zで元に戻す・やり直す。</p>
+    <p className="editor-hint">行頭の <kbd>/</kbd> でブロック追加、<kbd>@</kbd> でMention。トグルは <kbd>Enter</kbd> で本文へ、<kbd>Ctrl+Enter</kbd> で開閉。</p>
     <EditorContent editor={editor} />
   </section>;
 }

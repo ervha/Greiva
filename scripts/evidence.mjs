@@ -16,10 +16,13 @@ const container = process.argv.includes('--container');
 const browserExecutable = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE ?? chromium.executablePath();
 const browserVersionResult = spawnSync(browserExecutable, ['--version'], { encoding: 'utf8' });
 const environment = { ...process.env, GREIVA_EVIDENCE_DIR: directory };
+const gitCommitResult = spawnSync('git', ['rev-parse', '--verify', 'HEAD'], { encoding: 'utf8' });
+const gitStatusResult = spawnSync('git', ['status', '--short'], { encoding: 'utf8' });
 const report = {
   id: `${prefix}-${stamp}`, startedAt: new Date().toISOString(), operator: 'Codex',
-  gitCommit: spawnSync('git', ['rev-parse', '--verify', 'HEAD'], { encoding: 'utf8' }).stdout?.trim() || null,
-  gitStatus: spawnSync('git', ['status', '--short'], { encoding: 'utf8' }).stdout,
+  gitCommit: gitCommitResult.status === 0 ? gitCommitResult.stdout.trim() : null,
+  gitStatus: gitStatusResult.status === 0 ? gitStatusResult.stdout : null,
+  gitAvailability: gitStatusResult.status === 0 ? 'repository available' : 'unavailable in execution environment',
   environment: { os: platform(), release: release(), arch: arch(), cpu: cpus()[0]?.model, node: process.version,
     execution: container ? 'Docker container; source copied into image; no Docker socket mount' : 'local process',
     browserExecutable,
@@ -27,7 +30,7 @@ const report = {
     build: 'web production build + Node server builds; desktop check optional',
     network: 'loopback for smoke tests; package/registry access uses the execution environment policy' },
   versions: versions(), results: [],
-  // Unborn/uncommitted repositories remain explicitly identified; never invent a commit.
+  // Images exclude .git. Use the source fingerprint when Git metadata is unavailable.
   sourceSha256: '',
   scope: step === 1 ? 'Section 18 Step 1 foundation checks; current client may include the Step 2 editor. No Gate verdict.' :
     'Section 18 Steps 1–2. Editor operations in Chromium; native compile optional. Microsoft IME, native UI, sync and crash recovery need separate evidence. No Gate verdict.',
@@ -81,6 +84,7 @@ if (process.argv.includes('--desktop')) {
 report.finishedAt = new Date().toISOString();
 writeFileSync(`${directory}/summary.json`, JSON.stringify(report, null, 2));
 const rows = report.results.map(result => `| ${result.id} | ${result.status} | ${result.log ? `[log](${result.log})` : result.reason} |`).join('\n');
-writeFileSync(`${directory}/SUMMARY.md`, `# Step ${step} verification\n\n${report.startedAt} / ${report.environment.os} ${report.environment.arch} / Git: ${report.gitCommit ?? 'unborn repository'}\n\nSource SHA-256: ${report.sourceSha256}\n\n| Test | Result | Evidence |\n| --- | --- | --- |\n${rows}\n\nScope: ${report.scope}\n\nSee [summary.json](summary.json) for environment, commands, timestamps, versions and result details.\n`);
+const gitDescription = report.gitCommit ?? (gitStatusResult.status === 0 ? 'unborn repository' : 'unavailable in execution environment; source fingerprint recorded');
+writeFileSync(`${directory}/SUMMARY.md`, `# Step ${step} verification\n\n${report.startedAt} / ${report.environment.os} ${report.environment.arch} / Git: ${gitDescription}\n\nSource SHA-256: ${report.sourceSha256}\n\n| Test | Result | Evidence |\n| --- | --- | --- |\n${rows}\n\nScope: ${report.scope}\n\nSee [summary.json](summary.json) for environment, commands, timestamps, versions and result details.\n`);
 console.log(`Evidence: ${relative(process.cwd(), directory)}`);
 process.exitCode = report.results.some(result => result.status === 'Fail') ? 1 : 0;

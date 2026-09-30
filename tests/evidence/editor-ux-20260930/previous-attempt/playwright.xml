@@ -1,0 +1,267 @@
+<testsuites id="" name="" tests="30" failures="2" skipped="0" errors="1" time="56.38075">
+<testsuite name="editor-ux.spec.ts" timestamp="2026-09-30T11:30:51.071Z" hostname="chromium" tests="7" failures="2" skipped="0" time="50.572" errors="1">
+<testcase name="STEP2-UX-SLASH: pointer and keyboard share one selection and retain editor focus" classname="editor-ux.spec.ts" time="3.509">
+</testcase>
+<testcase name="STEP2-UX-SLASH: wrap, Home/End, Tab, search aliases and empty dismissal" classname="editor-ux.spec.ts" time="7.265">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-ux-STEP2-UX-SLASH-w-f7c18-aliases-and-empty-dismissal-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/editor-ux-STEP2-UX-SLASH-w-f7c18-aliases-and-empty-dismissal-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(locator).toHaveText(expected) failed" type="expect.toHaveText">
+<![CDATA[  [chromium] › editor-ux.spec.ts:35:1 › STEP2-UX-SLASH: wrap, Home/End, Tab, search aliases and empty dismissal 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator:  getByRole('textbox', { name: 'Page本文' })
+    Expected: "/unmatched"
+    Received: "⠿/unmatched"
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveText" getByRole('textbox', { name: 'Page本文' }) with timeout 5000ms
+      - waiting for getByRole('textbox', { name: 'Page本文' })
+        14 × locator resolved to <div tabindex="0" role="textbox" translate="no" spellcheck="false" aria-label="Page本文" aria-multiline="true" contenteditable="true" class="tiptap ProseMirror ProseMirror-focused">…</div>
+           - unexpected value "⠿/unmatched"
+
+
+      57 |   await page.keyboard.press('Escape');
+      58 |   await expect(menu).toHaveCount(0);
+    > 59 |   await expect(editor).toHaveText('/unmatched');
+         |                        ^
+      60 |   await expect(editor).not.toHaveAttribute('aria-activedescendant');
+      61 | });
+      62 |
+        at /workspace/tests/e2e/editor-ux.spec.ts:59:24
+
+    Error Context: ../../../evidence/2026-09-30T11-30-39.501Z/artifacts/editor-ux-STEP2-UX-SLASH-w-f7c18-aliases-and-empty-dismissal-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-09-30T11-30-39.501Z/artifacts/editor-ux-STEP2-UX-SLASH-w-f7c18-aliases-and-empty-dismissal-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-09-30T11-30-39.501Z/artifacts/editor-ux-STEP2-UX-SLASH-w-f7c18-aliases-and-empty-dismissal-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="STEP2-UX-SLASH: outside dismissal preserves query, narrow popup stays on screen" classname="editor-ux.spec.ts" time="30.488">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-ux-STEP2-UX-SLASH-o-ccfd2-arrow-popup-stays-on-screen-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/editor-ux-STEP2-UX-SLASH-o-ccfd2-arrow-popup-stays-on-screen-chromium/trace.zip]]
+]]>
+</system-out>
+<error message="Test timeout of 30000ms exceeded." type="Error">
+<![CDATA[  [chromium] › editor-ux.spec.ts:63:1 › STEP2-UX-SLASH: outside dismissal preserves query, narrow popup stays on screen 
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByRole('textbox', { name: 'Pageタイトル' })
+        - locator resolved to <input value="" class="page-title" aria-label="Pageタイトル" placeholder="無題のPage"/>
+      - attempting click action
+        - waiting for element to be visible, enabled and stable
+        - element is visible, enabled and stable
+        - scrolling into view if needed
+        - done scrolling
+        - <button type="button" role="option" tabindex="-1" aria-label="見出し2" aria-posinset="3" aria-setsize="11" aria-selected="false" id="slash-menu-option-2" aria-describedby="slash-menu-description-2">…</button> from <div class="suggestion-menu">…</div> subtree intercepts pointer events
+      - retrying click action
+        - waiting for element to be visible, enabled and stable
+        - element is visible, enabled and stable
+        - scrolling into view if needed
+        - done scrolling
+        - <button type="button" role="option" tabindex="-1" aria-label="箇条書き" aria-posinset="5" aria-setsize="11" aria-selected="false" id="slash-menu-option-4" aria-describedby="slash-menu-description-4">…</button> from <div class="suggestion-menu">…</div> subtree intercepts pointer events
+      - retrying click action
+        - waiting 20ms
+        - waiting for element to be visible, enabled and stable
+        - element is visible, enabled and stable
+        - scrolling into view if needed
+        - done scrolling
+        - <button type="button" role="option" tabindex="-1" aria-label="箇条書き" aria-posinset="5" aria-setsize="11" aria-selected="false" id="slash-menu-option-4" aria-describedby="slash-menu-description-4">…</button> from <div class="suggestion-menu">…</div> subtree intercepts pointer events
+      2 × retrying click action
+          - waiting 100ms
+          - waiting for element to be visible, enabled and stable
+          - element is visible, enabled and stable
+          - scrolling into view if needed
+          - done scrolling
+          - <div class="suggestion-header">…</div> from <div class="suggestion-menu">…</div> subtree intercepts pointer events
+      13 × retrying click action
+           - waiting 500ms
+           - waiting for element to be visible, enabled and stable
+           - element is visible, enabled and stable
+           - scrolling into view if needed
+           - done scrolling
+           - <button type="button" role="option" tabindex="-1" aria-label="箇条書き" aria-posinset="5" aria-setsize="11" aria-selected="false" id="slash-menu-option-4" aria-describedby="slash-menu-description-4">…</button> from <div class="suggestion-menu">…</div> subtree intercepts pointer events
+         - retrying click action
+           - waiting 500ms
+           - waiting for element to be visible, enabled and stable
+           - element is visible, enabled and stable
+           - scrolling into view if needed
+           - done scrolling
+           - <button type="button" role="option" tabindex="-1" aria-label="箇条書き" aria-posinset="5" aria-setsize="11" aria-selected="false" id="slash-menu-option-4" aria-describedby="slash-menu-description-4">…</button> from <div class="suggestion-menu">…</div> subtree intercepts pointer events
+         - retrying click action
+           - waiting 500ms
+           - waiting for element to be visible, enabled and stable
+           - element is visible, enabled and stable
+           - scrolling into view if needed
+           - done scrolling
+           - <div class="suggestion-header">…</div> from <div class="suggestion-menu">…</div> subtree intercepts pointer events
+         - retrying click action
+           - waiting 500ms
+           - waiting for element to be visible, enabled and stable
+           - element is visible, enabled and stable
+           - scrolling into view if needed
+           - done scrolling
+           - <div class="suggestion-header">…</div> from <div class="suggestion-menu">…</div> subtree intercepts pointer events
+      2 × retrying click action
+          - waiting 500ms
+          - waiting for element to be visible, enabled and stable
+          - element is visible, enabled and stable
+          - scrolling into view if needed
+          - done scrolling
+          - <button type="button" role="option" tabindex="-1" aria-label="箇条書き" aria-posinset="5" aria-setsize="11" aria-selected="false" id="slash-menu-option-4" aria-describedby="slash-menu-description-4">…</button> from <div class="suggestion-menu">…</div> subtree intercepts pointer events
+      - retrying click action
+        - waiting 500ms
+        - waiting for element to be visible, enabled and stable
+        - element is visible, enabled and stable
+        - scrolling into view if needed
+        - done scrolling
+        - <div class="suggestion-header">…</div> from <div class="suggestion-menu">…</div> subtree intercepts pointer events
+      - retrying click action
+        - waiting 500ms
+
+
+      73 |   expect(rect!.y).toBeGreaterThanOrEqual(8);
+      74 |   expect(rect!.y + rect!.height).toBeLessThanOrEqual(632);
+    > 75 |   await page.getByRole('textbox', { name: 'Pageタイトル' }).click();
+         |                                                         ^
+      76 |   await expect(page.getByRole('listbox')).toHaveCount(0);
+      77 |   await expect(editor).toHaveText('/');
+      78 | });
+        at /workspace/tests/e2e/editor-ux.spec.ts:75:57
+
+    Error Context: ../../../evidence/2026-09-30T11-30-39.501Z/artifacts/editor-ux-STEP2-UX-SLASH-o-ccfd2-arrow-popup-stays-on-screen-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-09-30T11-30-39.501Z/artifacts/editor-ux-STEP2-UX-SLASH-o-ccfd2-arrow-popup-stays-on-screen-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-09-30T11-30-39.501Z/artifacts/editor-ux-STEP2-UX-SLASH-o-ccfd2-arrow-popup-stays-on-screen-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
+</testcase>
+<testcase name="STEP2-UX-TOGGLE: Enter reuses existing body and collapse moves caret to visible heading" classname="editor-ux.spec.ts" time="1.026">
+</testcase>
+<testcase name="STEP2-UX-TOGGLE: pointer retains caret, keyboard button activation retains focus" classname="editor-ux.spec.ts" time="6.088">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-ux-STEP2-UX-TOGGLE--0590c-on-activation-retains-focus-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/editor-ux-STEP2-UX-TOGGLE--0590c-on-activation-retains-focus-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(locator).toBeFocused() failed" type="expect.toBeFocused">
+<![CDATA[  [chromium] › editor-ux.spec.ts:100:1 › STEP2-UX-TOGGLE: pointer retains caret, keyboard button activation retains focus 
+
+    Error: expect(locator).toBeFocused() failed
+
+    Locator: getByRole('textbox', { name: 'Page本文' }).getByRole('button', { name: 'Toggleを開く', exact: true })
+    Expected: focused
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeFocused" getByRole('textbox', { name: 'Page本文' }).getByRole('button', { name: 'Toggleを開く', exact: true }) with timeout 5000ms
+      - waiting for getByRole('textbox', { name: 'Page本文' }).getByRole('button', { name: 'Toggleを開く', exact: true })
+
+
+      111 |   await button.press('Enter');
+      112 |   await expect(content).toBeVisible();
+    > 113 |   await expect(button).toBeFocused();
+          |                        ^
+      114 |   await button.press('Space');
+      115 |   await expect(content).toBeHidden();
+      116 |   await expect(button).toBeFocused();
+        at /workspace/tests/e2e/editor-ux.spec.ts:113:24
+
+    Error Context: ../../../evidence/2026-09-30T11-30-39.501Z/artifacts/editor-ux-STEP2-UX-TOGGLE--0590c-on-activation-retains-focus-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-09-30T11-30-39.501Z/artifacts/editor-ux-STEP2-UX-TOGGLE--0590c-on-activation-retains-focus-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-09-30T11-30-39.501Z/artifacts/editor-ux-STEP2-UX-TOGGLE--0590c-on-activation-retains-focus-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="STEP2-UX-TOGGLE: folding is excluded from content undo and nested shortcut uses nearest toggle" classname="editor-ux.spec.ts" time="1.113">
+</testcase>
+<testcase name="STEP2-UX-VISUAL: capture polished slash menu and toggle at a desktop viewport" classname="editor-ux.spec.ts" time="1.083">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-ux-STEP2-UX-VISUAL--689e1-oggle-at-a-desktop-viewport-chromium/attachments/editor-ux-0afbfc3e043cef8fee16a8bfc89b8ba3b5e28d62.png]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="editor.spec.ts" timestamp="2026-09-30T11:30:51.071Z" hostname="chromium" tests="22" failures="0" skipped="0" time="23.566" errors="0">
+<testcase name="STEP2-BLOCK: slash inserts 本文, edit and delete" classname="editor.spec.ts" time="3.594">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 見出し1, edit and delete" classname="editor.spec.ts" time="1.962">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 見出し2, edit and delete" classname="editor.spec.ts" time="0.796">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 見出し3, edit and delete" classname="editor.spec.ts" time="0.859">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 箇条書き, edit and delete" classname="editor.spec.ts" time="0.842">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 番号付きリスト, edit and delete" classname="editor.spec.ts" time="0.859">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts Todo, edit and delete" classname="editor.spec.ts" time="0.837">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 引用, edit and delete" classname="editor.spec.ts" time="0.866">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts コード, edit and delete" classname="editor.spec.ts" time="1.096">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 区切り線, edit and delete" classname="editor.spec.ts" time="1.56">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts Toggle, edit and delete" classname="editor.spec.ts" time="0.863">
+</testcase>
+<testcase name="STEP2-TODO: checkbox and nested list survive undo/redo" classname="editor.spec.ts" time="1.135">
+</testcase>
+<testcase name="STEP2-TOGGLE: nested content folds without losing text and unwraps" classname="editor.spec.ts" time="1.212">
+</testcase>
+<testcase name="STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text" classname="editor.spec.ts" time="0.713">
+</testcase>
+<testcase name="STEP2-MARKDOWN: #  shortcut" classname="editor.spec.ts" time="0.779">
+</testcase>
+<testcase name="STEP2-MARKDOWN: ##  shortcut" classname="editor.spec.ts" time="0.806">
+</testcase>
+<testcase name="STEP2-MARKDOWN: ###  shortcut" classname="editor.spec.ts" time="0.763">
+</testcase>
+<testcase name="STEP2-MARKDOWN: -  shortcut" classname="editor.spec.ts" time="0.731">
+</testcase>
+<testcase name="STEP2-MARKDOWN: 1.  shortcut" classname="editor.spec.ts" time="0.779">
+</testcase>
+<testcase name="STEP2-MARKDOWN: []  shortcut" classname="editor.spec.ts" time="0.81">
+</testcase>
+<testcase name="STEP2-MOVE: drag changes order, undo restores it, keyboard moves the block" classname="editor.spec.ts" time="1.031">
+</testcase>
+<testcase name="STEP2-COMPOSITION: slash menu does not consume composition Enter" classname="editor.spec.ts" time="0.673">
+</testcase>
+</testsuite>
+<testsuite name="foundation.spec.ts" timestamp="2026-09-30T11:30:51.071Z" hostname="chromium" tests="1" failures="0" skipped="0" time="2.914" errors="0">
+<testcase name="STEP1-E2E: React client starts alongside API and collaboration services" classname="foundation.spec.ts" time="2.914">
+</testcase>
+</testsuite>
+</testsuites>

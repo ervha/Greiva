@@ -1,6 +1,6 @@
 # Greiva PoC — Step 2（検証中）
 
-[POC_SPEC.md](docs/plan/POC_SPEC.md) のSection 18に沿って進めています。Step 1の基盤とStep 2の最小Editorを実装し、Docker内の全23件のE2Eが成功しました。Windows VMでのnative起動・初回IME試験は未実施です。[版の記録](docs/decisions/specification-version.md)、[Step 2の範囲・検証状況](docs/decisions/step-2-scope.md)を参照してください。
+[POC_SPEC.md](docs/plan/POC_SPEC.md) のSection 18に沿って進めています。Step 1の基盤とStep 2の最小Editorを実装し、Slash・Toggleの操作改善を含むDocker内の全30件のE2Eが成功しました。Windows VMでのnative起動・初回IME試験は未実施です。[版の記録](docs/decisions/specification-version.md)、[Step 2の範囲・検証状況](docs/decisions/step-2-scope.md)、[Editor操作の改善](docs/decisions/editor-ux.md)を参照してください。
 
 npm workspaces、共有型、React/Tauri 2、NestJS/Fastify・Hocuspocusのhealth endpointに、Tiptapの必須block、Todo、Toggle、Slash Command、固定候補Mention、ブロック移動、Undo/Redo、Markdown shortcutを追加しました。文書接続、永続化、同期、競合解決は後工程です。画面は保存・同期未実装を明示し、Gate A/B/Cは未判定です。
 
@@ -15,7 +15,7 @@ docker compose -f infrastructure/development/compose.yaml --profile test run --b
 
 UIはhttp://127.0.0.1:1420。ソースはimageへコピーし、依存・ビルド出力・SQLite・ブラウザをcontainer内に置きます。DBは専用volumeに保存し、host portを公開しません。試験証拠だけが`tests/evidence/runs/container/`へ出力されます。ソース変更後は`up --build -d dev`で再反映します。
 
-Docker imageの構築とcontainer内のbuild/typecheck、unit/integration 20件、E2E全23件、SQLite初期化、実PostgreSQL接続が成功しました。[最新の証拠索引](tests/evidence/README.md)。VMは`Greiva-IME-Win11`として作成済みで、Windows ISOを取得しています。
+Docker imageの構築とcontainer内のbuild/typecheck、unit/integration 20件、E2E全30件、SQLite初期化、実PostgreSQL接続が成功しました。[最新の証拠索引](tests/evidence/README.md)。VMは`Greiva-IME-Win11`として作成済みで、Windows ISOを取得しています。
 
 ## Windows VM内の前提環境
 
@@ -84,7 +84,7 @@ npm run test:postgres
 
 `npm test` は共有モデル、UUID v7/UTC、block移動transaction、実際のNestJS/Fastify・Hocuspocusの起動、SQLiteの初期化・再オープンを検証します。PostgreSQL integrationは通常 **skip** し、起動済み実DBに対して`test:postgres`を明示実行します。Dockerの試験serviceはこの実DB試験も実行します。
 
-`test:e2e`は共有・serverをbuildし、クライアントとコンパイル済みAPI/collaborationを起動します。health試験1件とEditor操作22件をChromiumで検証します。1420/3000/1234が空いている必要があります。Microsoft IME/Tauri/同期の試験は含みません。compositionの合成イベント検査を実IMEの合格根拠にはしません。
+`test:e2e`は共有・serverをbuildし、クライアントとコンパイル済みAPI/collaborationを起動します。health試験1件とEditor操作29件をChromiumで検証します。1420/3000/1234が空いている必要があります。Microsoft IME/Tauri/同期の試験は含みません。compositionの合成イベント検査を実IMEの合格根拠にはしません。
 
 管理環境に既存の Chromium だけがある場合は、その利用を明示できます。
 
