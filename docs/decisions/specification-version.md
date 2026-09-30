@@ -94,3 +94,11 @@ The user selects option B: a note organized around key points plus a folded full
 - `AI_ACTION_SPEC.md` is revised to v0.7; requirements, UI guidance and README reflect the selected structure. Transcript labels, source navigation and correction behavior are proposed for implementation.
 - Recording retention/storage, transcript revisions and reference tracking, speaker/time labels, note templates and large-transcript rendering remain open. Candidate selection is unchanged; AI edits to an existing Page still require confirmation.
 - The repository checkpoint increments PATCH to v0.1.1 because this changes documentation only. PoC, app code, manifests and existing execution artifacts are unchanged.
+
+## AI original recording retention decision: 2026-09-30
+
+The user selects option B: app-managed original recordings have a default retention of 30 days, configurable by the user. The Page and full transcript remain after the original audio expires.
+
+- `AI_ACTION_SPEC.md` is revised to v0.8; requirements, UI guidance and README reflect the selected default. Expiry removes original audio, not created Pages, transcripts or registered Tasks/schedules.
+- Storage/sharing, retention start time, settings changes affecting existing recordings, cleanup while offline, backups and unfinished processing remain to be specified. External-provider retention is a separate contract.
+- This is documentation-only PATCH checkpoint v0.1.2. PoC, app code, manifests and existing execution artifacts are unchanged.

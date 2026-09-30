@@ -1,6 +1,6 @@
 # Greiva PoC — Step 2（検証中）
 
-開発チェックポイント **v0.1.1**。[変更履歴](CHANGELOG.md)・[コミット/バージョン運用](docs/development/versioning.md)。更新規模に応じたGitタグを付けてGitHubへ反映します。
+開発チェックポイント **v0.1.2**。[変更履歴](CHANGELOG.md)・[コミット/バージョン運用](docs/development/versioning.md)。更新規模に応じたGitタグを付けてGitHubへ反映します。
 
 [POC_SPEC.md](docs/plan/POC_SPEC.md) のSection 18に沿って進めています。Step 1の基盤とStep 2の最小Editorを実装し、Slash・Toggleの操作改善を含むDocker内の全30件のE2Eが成功しました。Windows VMでのnative起動・初回IME試験は未実施です。[版の記録](docs/decisions/specification-version.md)、[Step 2の範囲・検証状況](docs/decisions/step-2-scope.md)、[Editor操作の改善](docs/decisions/editor-ux.md)を参照してください。
 
@@ -12,7 +12,7 @@ npm workspaces、共有型、React/Tauri 2、NestJS/Fastify・Hocuspocusのhealt
 
 [将来のAI・文章/音声操作の設計](docs/plan/AI_ACTION_SPEC.md)では、Page作成・Task/予定登録と、通常UIと共通の操作経路へ段階的に接続する案を記録しています。新規作成は直接実行、既存変更・削除は確認後に実行する方針です。現在のPage・予定と関連するノート/Taskを参照し、外部送信は初回設定で許可した送信先・データ種別の範囲内で毎回の確認を省略できる設計です。Provider等は未決定で、AI・音声機能は未実装です。
 
-音声の将来設計には、短い操作指示と、長い会議・講義の録音からのPage作成・Task/予定候補の抽出を含めます。Pageは整理したノート＋折りたたんだ全文文字起こしとし、抽出候補は一覧から選んで一括登録します。候補/録音保持・処理上限は未決定です。
+音声の将来設計には、短い操作指示と、長い会議・講義の録音からのPage作成・Task/予定候補の抽出を含めます。Pageは整理したノート＋折りたたんだ全文文字起こしとし、抽出候補は一覧から選んで一括登録します。元録音は初期30日保存で期間を変更でき、期限後もPage・文字起こしを残す設計です。音声の保存先・削除処理、候補保持・処理上限は未決定です。
 
 ## 通常の開発・試験はDocker内で実行
 
