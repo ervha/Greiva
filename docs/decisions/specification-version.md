@@ -70,3 +70,11 @@ The user selects option B: authorize destinations and data types in initial sett
 - `AI_ACTION_SPEC.md` is revised to v0.4; requirements, UI guidance and README reflect the selected policy. Expanding destinations/types requires additional authorization; revocation blocks new sends and retries.
 - Providers, audio handling, retention, in-flight cancellation and settings storage/synchronization details remain open. Recording is a separate data type from input text/transcripts.
 - This records a future product policy, not permission to connect services or transmit current development/user data. PoC, app code and service connections are unchanged.
+
+## AI voice use scope decision: 2026-09-30
+
+The user selects option B: support short spoken commands and creating Pages plus extracting Task/schedule candidates from long meeting or lecture recordings.
+
+- `AI_ACTION_SPEC.md` is revised to v0.5; requirements, UI guidance and README record the future scope. Processing states, transcript correction, source references and retry behavior are proposed for later implementation.
+- Candidate-registration policy, Page structure, recording retention, limits, file import and platform/background behavior remain open. Speech within a recording is source content, not a direct stream of execution requests.
+- This remains product design only; PoC scope, app code and service connections are unchanged.

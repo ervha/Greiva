@@ -10,6 +10,8 @@ npm workspaces、共有型、React/Tauri 2、NestJS/Fastify・Hocuspocusのhealt
 
 [将来のAI・文章/音声操作の設計](docs/plan/AI_ACTION_SPEC.md)では、Page作成・Task/予定登録と、通常UIと共通の操作経路へ段階的に接続する案を記録しています。新規作成は直接実行、既存変更・削除は確認後に実行する方針です。現在のPage・予定と関連するノート/Taskを参照し、外部送信は初回設定で許可した送信先・データ種別の範囲内で毎回の確認を省略できる設計です。Provider等は未決定で、AI・音声機能は未実装です。
 
+音声の将来設計には、短い操作指示と、長い会議・講義の録音からのPage作成・Task/予定候補の抽出を含めます。候補の登録方式・Page構成・録音保持・処理上限は未決定です。
+
 ## 通常の開発・試験はDocker内で実行
 
 ユーザー指定により、**Dockerで開発・自動テスト、Windows VMでTauri・Microsoft IMEを検証**します。Node/Rust等の開発ツールは隔離環境へ配置します。ユーザーが追加で許可したVirtualBoxのみホストへ導入しました。[隔離環境の詳細](docs/development/isolated-environment.md)。
