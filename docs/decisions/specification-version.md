@@ -140,3 +140,11 @@ The user selects Docker plus the physical Windows host. This supersedes the earl
 After the user reports performing the requested action, the elevated VirtualBox uninstaller is confirmed terminal with return 0 at 08:03:23 JST. Its uninstall registry entry, VBoxManage executable and Greiva VM directory are absent. The prior failed attempt and prior cleanup state remain historical evidence; current documents record completed removal at PATCH checkpoint v0.1.5.
 
 The message does not specify per-scenario IME results, so Step 3 and Gate A remain unverified. No native test is marked Pass from the uninstall outcome, and no app code or runtime version changes.
+
+## Initial local IME result confirmation: 2026-10-01
+
+The user explicitly selects A, defined as all four requested IME test groups completing without issues. Record a user-operated manual Pass for Japanese conversion/commit/reconversion, selection/deletion/Undo/Redo during and after composition, Japanese input with Slash/Mention candidates, and editing after Todo/Toggle/block movement.
+
+The initial local Step 3 evidence is complete and indexed at PATCH checkpoint v0.1.6. `manual-results.json` preserves the exact option and its scope; `completion-audit.md` maps evidence to the initial PoC step. This is explicit user confirmation, not Codex GUI observation or an automated test. Exact keystrokes, before/after text, test timestamps and visual captures were not provided and are not invented. Other native block coverage is not inferred from the four-item answer.
+
+Gate A's final verdict is still pending: composition under remote Yjs updates follows Step 4 integration, with remaining native Editor/visual evidence to be strengthened. PoC order, app code and runtime binary versions are unchanged.

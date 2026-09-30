@@ -50,7 +50,7 @@ docker compose -f infrastructure/development/compose.yaml --profile test down
 - Docker engine: ユーザーの起動後、29.6.2の応答を確認。PostgreSQL 18.4はhealthy、host port公開なし。
 - image build、container内build/typecheck、unit/integration、全23件のE2E、SQLite初期化、実PostgreSQL接続、Linux locked Cargo check: **Pass**。[最終証拠](../../tests/evidence/step-2-docker-20260930/SUMMARY.md)。
 - 初回のDocker E2Eで見つかったnative drag無効化、composition Enter消費、移動Undoの履歴グループ化を修正した。
-- Windows実機のnativeプロセス・ウィンドウ起動とWebView2保存先: 確認。表示内容と実際のMicrosoft IME操作は利用者による確認待ち。[Step 3準備記録](../../tests/evidence/windows-host-ime-20261001/SUMMARY.md)。Gate Aは未判定。
+- Windows実機のnative起動とWebView2保存先: コマンドで確認。初回local Microsoft IMEの4群は利用者がすべて問題なしと明示回答し、Step 3の手動結果を記録した。[初回IME記録](../../tests/evidence/windows-host-ime-20261001/SUMMARY.md)。CodexのGUI独立観察ではなく、Gate Aの最終判定は未実施。
 - 以前の[VM準備記録](windows-vm.md)は履歴として保持する。ISOのhash検証後、Windows未インストールのまま実機方式へ切り替えた。GreivaのVM・ISO・準備ディレクトリとVirtualBox本体は削除済み。[アンインストール確認](../../tests/evidence/windows-host-ime-20261001/virtualbox-uninstall.json)にinstaller return 0、登録情報と実行ファイルの不存在を記録した。
 
 以前のDocker Desktop起動時には`dockerInference`ソケットのアクセスエラーが記録され、ソケット退避も失敗した。現在は正常起動を確認できた。古い[ログ](../../tests/evidence/isolation-20260930/docker-engine.log)は当時の失敗記録として保持する。factory resetやvolume削除は行っていない。

@@ -2,6 +2,13 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.1.6 — 2026-10-01
+
+- 検証記録更新（PATCH）: 利用者が初回のWindows実機IME試験4群すべて問題なしと明示回答。変換・確定・再変換、変換中/確定後の編集、Slash/Mention候補中の入力、Todo/Toggle/移動後編集を手動Passとして保存。
+- Step 3の初回local IME証拠を索引化し、操作者、元の質問・回答、実行環境、結果の限界、完了監査を記録。CodexのGUI独立観察や自動試験として数えない。入力ログ・画像は未提供。
+- 後続: Yjs接続中の別client update、追加native Editor操作、Gate A最終判定とGate B/Cは未完了。アプリ本体のコード・既存実行物の版は変更していない。
+- 検証: 文書リンク・JSON・バージョン一致・diff check、PoC仕様不変と検証対象のclient/shared・native実行物hashの一致。
+
 ## 0.1.5 — 2026-10-01
 
 - 検証記録更新（PATCH）: Windowsの管理者確認後、不要なVirtualBox本体のアンインストールがreturn 0で完了したことを確認。登録情報・VBoxManage・Greiva VMディレクトリの不存在を記録し、環境文書の現在状態を更新。

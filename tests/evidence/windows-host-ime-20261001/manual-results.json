@@ -1,0 +1,63 @@
+{
+  "reportedLocalDate": "2026-10-01",
+  "recordedAt": "2026-09-30T23:13:44.0945885Z",
+  "operator": "User; manually operated the Windows native Greiva window",
+  "evidenceType": "Explicit user confirmation in this conversation",
+  "question": "IME試験の結果はどれでしょうか？ A:前の4項目すべて問題なし / B:問題あり / C:UACの許可だけ行った",
+  "answer": "A",
+  "meaning": "All four requested native IME test groups completed with no reported issues",
+  "nativeRuntimeEvidence": "runtime.json",
+  "nativeExecutableVersion": "0.0.0",
+  "nativeExecutableSha256": "1F397C61588B42F26CAA05EF7F23BA4C435CDF140F35536D70F299C8138D410C",
+  "testedFrontendEvidence": "source-match.json",
+  "results": [
+    {
+      "id": "USER-IME-01",
+      "covers": [
+        "IME-01",
+        "IME-02"
+      ],
+      "operation": "日本語の変換・確定・再変換",
+      "status": "Pass",
+      "basis": "User explicitly confirms all four requested items had no issues"
+    },
+    {
+      "id": "USER-IME-02",
+      "covers": [
+        "IME-03"
+      ],
+      "operation": "変換中／確定後の選択・削除・Undo/Redo",
+      "status": "Pass",
+      "basis": "User explicitly confirms all four requested items had no issues"
+    },
+    {
+      "id": "USER-IME-03",
+      "covers": [
+        "IME-04"
+      ],
+      "operation": "Slash／Mention候補中の日本語入力",
+      "status": "Pass",
+      "basis": "User explicitly confirms all four requested items had no issues"
+    },
+    {
+      "id": "USER-IME-04",
+      "covers": [
+        "IME-05: Todo/Toggle/block move subset"
+      ],
+      "operation": "Todo・Toggle・ブロック移動後の編集",
+      "status": "Pass",
+      "basis": "User explicitly confirms all four requested items had no issues"
+    }
+  ],
+  "limitations": {
+    "independentCodexGuiObservation": false,
+    "exactKeystrokeLogAvailable": false,
+    "beforeAfterTextAvailable": false,
+    "actualTestTimestampAvailable": false,
+    "screenshotsAvailable": false,
+    "videoAvailable": false,
+    "additionalNativeBlockCoverage": "Not established by this four-item confirmation; retain as additional P0/Gate A verification"
+  },
+  "step3": "Initial local Microsoft IME evidence completed by user confirmation",
+  "finalGateA": "Not judged: remote Yjs updates during composition and remaining full native Editor evidence are later checks"
+}

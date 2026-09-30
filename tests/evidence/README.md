@@ -1,10 +1,12 @@
 # 試験証拠の索引
 
-現在は`docs/plan/POC_SPEC.md` Section 18 Step 3の準備中です。Steps 1–2のDocker自動試験は成功。ユーザー指定によりnative/IME対象をWindows実機へ切り替えました。Microsoft IME、Gate A/B/Cは未検証です。
+`docs/plan/POC_SPEC.md` Section 18 Step 3の初回local IME証拠まで記録しました。Steps 1–2のDocker自動試験は成功。Windows実機の初回操作は利用者確認でPass。Yjs接続中のIME、Gate A最終判定、Gate B/Cは後続工程です。
 
-## 最新: Windows実機の初回IME試験準備（2026-10-01）
+## 最新: Windows実機の初回IME試験（2026-10-01）
 
-[準備記録](windows-host-ime-20261001/SUMMARY.md)。既存のWindows debug native shellを起動し、window handle・応答、WebView2データのプロジェクト内保存先、Docker側client/shared 36ファイルのhash一致を確認しました。描画・実際のIME入力は利用者の結果確認待ちで、Step 3は未完了です。Greiva専用VM・ISOとVirtualBox本体は削除済み。[本体の削除確認](windows-host-ime-20261001/virtualbox-uninstall.json)。
+[結果](windows-host-ime-20261001/SUMMARY.md)・[利用者の明示回答](windows-host-ime-20261001/manual-results.json)・[完了監査](windows-host-ime-20261001/completion-audit.md)。変換・確定・再変換、変換中/確定後の選択・削除・Undo/Redo、Slash/Mention候補中の入力、Todo/Toggle/移動後編集の4群は、すべて問題なしと利用者が回答しました。Step 3の初回手動証拠として記録し、自動試験やCodexの独立観察とは区別します。具体的な入力ログ・画像は未提供で、追加のnativeブロック全件やYjs接続中IMEの成功は推定しません。
+
+既存Windows debug shellの起動、WebView2保存先、Docker/client/shared 36ファイルのhash一致も記録済み。Greiva専用VM・ISOとVirtualBox本体は削除済み。[本体の削除確認](windows-host-ime-20261001/virtualbox-uninstall.json)。
 
 ## 最新: Editor UI/UX改善（2026-09-30）
 

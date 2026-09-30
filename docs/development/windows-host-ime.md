@@ -29,11 +29,13 @@ WebView2のユーザーデータは子プロセスの`WEBVIEW2_USER_DATA_FOLDER`
 | IME-04 | Slash/Mention候補が表示された状態で日本語を入力・確定する | composition中のEnter・矢印を候補UIが誤消費せず、誤ったブロック挿入や二重確定がない |
 | IME-05 | 見出し・各リスト・Todo・Toggle・引用・Code・Divider・Mention、ブロック移動と入れ子Toggleを操作する | 編集を続けられ、構造・本文・Todo状態を失わない |
 
-各行にPass/Fail/Not run、操作した人、日時、入力前後の本文、実結果を記録する。IME候補・未確定文字を含む画面は操作の証拠として保存し、失敗時は再現手順も残す。Windows、Microsoft IME、WebView2、実行物hashとDockerソースの対応を記録する。
+各行にPass/Fail/Not run、操作した人、分かる範囲の日時、入力前後の本文、実結果を記録する。利用者の明示的な合否報告は初回の手動結果として保存し、Codexによる独立観察や自動試験とは区別する。本文・具体的時刻・画面が提供されていなければその不足を記録し、推測で補わない。IME候補・未確定文字の画面が得られた場合は証拠として保存し、失敗時は再現手順も残す。Windows、Microsoft IME、WebView2、実行物hashとDockerソースの対応を記録する。
+
+2026-10-01、利用者は変換・再変換、変換中/確定後の編集、Slash/Mention候補中の入力、Todo/Toggle/移動後編集の4項目すべて問題なしと回答した。[初回手動結果](../../tests/evidence/windows-host-ime-20261001/manual-results.json)。初回local IME証拠を記録済み。IME-05のその他ブロック全件や画面の独立観察まで確認済みとは扱わない。
 
 ## 次のステップとの境界
 
-これはlocal Editorの初回検証である。Section 5.3の別clientからcomposition中にYjs updateを受ける試験はStep 4の接続後に追加する。初回の全項目が通ってもGate A最終Passとは扱わない。Fail時は失敗記録を作ってStep 3で修正し、同期実装へ先行しない。
+これはlocal Editorの初回検証である。Section 5.3の別clientからcomposition中にYjs updateを受ける試験はStep 4の接続後に追加する。初回IMEを通過してもGate A最終Passとは扱わない。残るnative Editor操作と画面証拠は最終判定に向けて補強する。Fail時は失敗記録を作ってStep 3で修正し、同期実装へ先行しない。
 
 ## 不要になったVMの整理
 
