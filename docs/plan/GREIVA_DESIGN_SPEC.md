@@ -1,4 +1,4 @@
-# Greiva UI・横断設計仕様 v0.2
+# Greiva UI・横断設計仕様 v0.3
 
 ## 1. 目的と適用範囲
 
@@ -7,6 +7,8 @@
 本書は本番設計のための方針であり、PoCに全項目を実装する指示ではない。PoCの対象は、Editor、local-first、sync、Android/IMEの技術的成立性に限定する。
 
 2026-09-30改訂: 汎用定期予定・時間割登録とCalendar表示を追加。時間割では曜日＋時限を基本にし、時刻の直接指定も可能とする。原則の繰り返しと休講・振替・補講に相当する例外を扱い、大学専用にしないことはユーザーと合意済み。具体的な画面・モデル・受入条件の設計案は`CALENDAR_TIMETABLE_SPEC.md`にまとめる。
+
+同日v0.3改訂: ヘルプページと、機能・エラーに対応する利用案内を追加した。詳細案は`HELP_SUPPORT_SPEC.md`にまとめる。
 
 ## 2. UX原則
 
@@ -33,14 +35,17 @@ Workspace
 ├─ Calendar             # 定期予定・時間割を表示。外部連携と提供時期は要決定
 ├─ Search
 ├─ Conflicts            # 同一field競合の解決キュー
-└─ Settings
-   ├─ Account / Workspace
-   ├─ Sync & Storage
-   ├─ Integrations
-   └─ Appearance / Accessibility
+├─ Settings
+│  ├─ Account / Workspace
+│  ├─ Sync & Storage
+│  ├─ Integrations
+│  └─ Appearance / Accessibility
+└─ Help & About         # 補助導線。使い方・FAQ・問題解決・アプリ情報
 ```
 
 Calendar内に定期予定・時間割の登録、任意の期間/時間帯設定、各回の詳細への導線を設ける。時間割だけのために上位ナビゲーションを増やさない。Home、Inbox、Board Viewの具体的な初期提供範囲、Calendar/定期予定・時間割の提供時期は未決定である。仕様がない段階では、空の画面や仮データを本番機能として実装しない。
+
+Help & AboutはDesktopのサイドバー下部、MobileのMore等の補助導線へ置く。主要な編集・予定画面のナビゲーションと競合させず、関連する説明には各画面からも移れるようにする。
 
 ## 4. 基本レイアウト
 
@@ -104,6 +109,8 @@ Calendar内に定期予定・時間割の登録、任意の期間/時間帯設�
 - Page breadcrumb、Task status、Due date、Relation chip、SyncIndicator、ConflictBanner
 
 各コンポーネントはdefault、hover、focus-visible、active、disabled、loading、errorの状態を定義する。
+
+文脈ヘルプの説明ボタン、入力補助、エラー解決リンクは共通コンポーネントとして扱う。重要な説明をTooltipだけへ閉じ込めず、keyboard/タッチでも読める形で提供する。
 
 ## 6. Page Editor UI
 
@@ -201,6 +208,16 @@ Other device: Cancelled
 - アクセス権のないworkspace/resourceを検索結果へ含めない。
 - グローバルcommand paletteはdesktopの効率化として提供可能だが、モバイルや支援技術利用者の唯一の導線にしない。
 
+### 9.1 ヘルプ・利用案内
+
+- ヘルプには専用検索、目的別カテゴリ、FAQ、ショートカット一覧を設ける。検索対象はヘルプ記事であり、Page/Task本文を読み取る経路にしない。
+- 文脈ヘルプは、現在の画面・操作・エラーに対応した記事へ直接移る。Desktopでは並行して読めるパネル、Mobileでは戻り先を保持する記事画面/sheetを使う案とする。
+- ヘルプを開いて戻っても、未確定のフォーム、Editorの入力内容、選択・表示位置を失わない。自動案内はフォーカスを奪わず、IME composition中には開始しない。
+- 初回案内は短く、スキップ・再表示が可能にする。空状態は最初の操作と対応ガイドを提示する。模擬操作は利用者の実データと分ける。
+- アプリに同梱する説明はofflineでも使え、現在の版と提供中の機能に適合させる。未提供の機能へ操作を促す記事や、実体のない問い合わせボタンを表示しない。
+- 同期・保存・権限エラーには、安全に確認できる手順と実行可能な次の操作を示す。診断情報は既存のredaction・内容確認の方針に従う。
+- 情報構造・記事の管理・受入条件は`HELP_SUPPORT_SPEC.md`を参照する。
+
 ## 10. アクセシビリティと国際化
 
 - WCAG 2.2 AAを初期目標とする。実現不可能なEditor固有の制約は例外理由と代替操作を記録する。
@@ -286,7 +303,8 @@ Android、Windows desktop、macOS/iOS実機はCI対象またはrelease candidate
 2. `EDITOR_SPEC.md`（block schema、IME、accessibility、mobile gesture）
 3. `AUTHZ_SPEC.md`（workspace/role/RLS/共有）
 4. `CALENDAR_TIMETABLE_SPEC.md`（定期予定・時間割の追加要求と詳細案。提供時期は要決定）と`HOME_INBOX_CALENDAR_SPEC.md`（主画面全体の初期リリース範囲）
-5. `SEARCH_SPEC.md` と `INTEGRATION_SPEC.md`
-6. 運用SLO、backup、privacy、release checklist
+5. `HELP_SUPPORT_SPEC.md`（ヘルプ・文脈案内・記事管理と受入条件）
+6. `SEARCH_SPEC.md` と `INTEGRATION_SPEC.md`
+7. 運用SLO、backup、privacy、release checklist
 
 ここにない具体UI、色、ブランド、画面ごとの優先順位は要決定である。実装者はプレースホルダーを恒久仕様として扱わず、wireframe・利用者シナリオ・受入条件を提示して決定を得る。

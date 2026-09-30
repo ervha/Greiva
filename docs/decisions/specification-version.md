@@ -15,3 +15,11 @@ The user adds calendar display of timetables and general recurring schedules. Ti
 - `GREIVA_REQUIREMENTS.md` and `GREIVA_DESIGN_SPEC.md` are revised to v0.2.
 - `CALENDAR_TIMETABLE_SPEC.md` records the agreed feature requests and a proposed generic recurrence/exception model, UI, boundaries and future acceptance criteria. Detailed schema and initial release scope remain decisions for production implementation.
 - `POC_SPEC.md` is unchanged; its adopted SHA-256 above remains valid. Calendar design does not authorize new PoC entities, APIs, UI, or skipping the Windows IME gate.
+
+## Help design revision: 2026-09-30
+
+The user adds a help page and related guidance to the product design. `HELP_SUPPORT_SPEC.md` proposes in-app help search, categories, FAQ, shortcuts, contextual guidance, skippable first-use guidance, offline articles and troubleshooting/diagnostic flows.
+
+- `GREIVA_REQUIREMENTS.md` and `GREIVA_DESIGN_SPEC.md` are revised to v0.3. Help is product content, separate from user Pages and their search/CRDT storage.
+- The document records proposed behavior and acceptance criteria; actual help screens, articles, support destination and initial release details are not implemented or finalized here.
+- The adopted `POC_SPEC.md`, its hash, gate order, app code and schemas are unchanged.

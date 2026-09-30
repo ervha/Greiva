@@ -6,6 +6,8 @@ npm workspaces、共有型、React/Tauri 2、NestJS/Fastify・Hocuspocusのhealt
 
 製品設計には[Calendar・定期予定・時間割の追加設計](docs/plan/CALENDAR_TIMETABLE_SPEC.md)を記録しました。曜日＋時限/自由な時刻、週次の繰り返し、一回の取消・振替・追加を汎用モデルで扱う案です。Calendarは未実装で、PoCの対象と検証順序は変更していません。
 
+[ヘルプ・利用案内の追加設計](docs/plan/HELP_SUPPORT_SPEC.md)も記録しました。ヘルプ内検索、FAQ、操作の文脈案内、ショートカット、offlineで読める基本ガイド、問題解決と診断情報の確認を扱う案です。ヘルプ画面・記事は未実装です。
+
 ## 通常の開発・試験はDocker内で実行
 
 ユーザー指定により、**Dockerで開発・自動テスト、Windows VMでTauri・Microsoft IMEを検証**します。Node/Rust等の開発ツールは隔離環境へ配置します。ユーザーが追加で許可したVirtualBoxのみホストへ導入しました。[隔離環境の詳細](docs/development/isolated-environment.md)。
