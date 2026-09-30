@@ -54,3 +54,11 @@ The user selects option B: new creations execute directly; changes to or deletio
 - `AI_ACTION_SPEC.md` is revised to v0.2, with the selected policy, corresponding UI/requirements guidance and future acceptance criteria. README reflects the decision.
 - Creation commands with effects on existing data must classify those effects as confirmed changes. Mixed-request execution units, ordering and recovery remain open; per-operation confirmation-bypass settings were not selected.
 - PoC scope, adopted specification, app code and service connections are unchanged.
+
+## AI context scope decision: 2026-09-30
+
+The user selects option B: use the current Page or schedule and its related notes and Tasks, in addition to the submitted input. Automatic search across unrelated workspace data is not selected.
+
+- `AI_ACTION_SPEC.md` is revised to v0.3; requirements, UI guidance and README reflect the context boundary. Related resources remain subject to normal read authorization.
+- Context eligibility does not authorize external transmission. Provider/transmission policy, relationship traversal limits and context-list interactions remain to be specified.
+- This is a documentation change only; no data is read by an AI service or sent externally, and PoC scope and app code are unchanged.
