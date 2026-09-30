@@ -38,3 +38,11 @@ The user selects option A: prepare carry-forward suggestions automatically and l
 
 - Calendar v0.2, requirements, UI guidance and help article guidance record this behavior. The prior change-scope decision and this answer form one documentation checkpoint.
 - Matching algorithms, identity across recurrence segments, unresolved-case choices and concurrent-change revalidation remain open. No application behavior is implemented by this documentation change.
+
+## Future AI actions design revision: 2026-09-30
+
+The user plans native in-app AI support for creating Pages and registering Tasks and schedules from text or voice, with extensibility to the application's operations as features are added.
+
+- Requirements and UI guidance are revised to v0.4. `AI_ACTION_SPEC.md` records the requested direction, a proposed shared application-command boundary, speech-to-text correction, validation, actual execution results and future acceptance criteria.
+- Confirmation policy, data context and external transmission, AI/speech providers, on-device execution, cost, retention and initial release scope are not decided. In-app support does not imply on-device inference or general OS control.
+- This is design-only: PoC scope and gate order, app code, schemas and service connections are unchanged.

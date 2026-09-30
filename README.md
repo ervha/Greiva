@@ -8,6 +8,8 @@ npm workspaces、共有型、React/Tauri 2、NestJS/Fastify・Hocuspocusのhealt
 
 [ヘルプ・利用案内の追加設計](docs/plan/HELP_SUPPORT_SPEC.md)も記録しました。ヘルプ内検索、FAQ、操作の文脈案内、ショートカット、offlineで読める基本ガイド、問題解決と診断情報の確認を扱う案です。ヘルプ画面・記事は未実装です。
 
+[将来のAI・文章/音声操作の設計](docs/plan/AI_ACTION_SPEC.md)では、Page作成・Task/予定登録と、通常UIと共通の操作経路へ段階的に接続する案を記録しています。確認ポリシー・Provider等は未決定で、AI・音声機能は未実装です。
+
 ## 通常の開発・試験はDocker内で実行
 
 ユーザー指定により、**Dockerで開発・自動テスト、Windows VMでTauri・Microsoft IMEを検証**します。Node/Rust等の開発ツールは隔離環境へ配置します。ユーザーが追加で許可したVirtualBoxのみホストへ導入しました。[隔離環境の詳細](docs/development/isolated-environment.md)。
