@@ -2,6 +2,15 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.1.4 — 2026-10-01
+
+- 検証環境更新（PATCH）: ユーザー指定によりDocker開発・自動テストを維持し、native Tauri/Microsoft IME対象をWindows実機へ変更。VMの準備を中止。
+- 既存Windows実行物をDockerエディターへ接続する起動スクリプトを追加。WebView2データを子プロセスだけの環境変数でプロジェクト内へ指定し、起動時の実行物hash・版・Git状態を記録。
+- 確認: スクリプト構文、既存nativeプロセス・ウィンドウの起動、WebView2の実保存先、Docker/client/shared 36ファイルのhash一致、文書のリンク・整合性とPoC仕様不変。
+- 整理: ユーザー指示に基づき不要なGreiva VM・ISO・準備ディレクトリを削除（約8.4GB）。VirtualBox本体の削除はWindows Installerが管理者権限を要求して未完了。
+- 未完了: native描画とMicrosoft IMEの実入力は利用者による確認待ち。Step 3・Gate Aは完了扱いにしない。アプリ本体のコード・版は変更せず、既存debug shellは0.0.0を維持。
+- 詳細: [実機手順](docs/development/windows-host-ime.md)・[準備証拠](tests/evidence/windows-host-ime-20261001/SUMMARY.md)。
+
 ## 0.1.3 — 2026-10-01
 
 - 設計更新（PATCH）: 元録音は端末内を基本にし、選んだ録音だけアプリのクラウドへ保存する回答Cを反映。

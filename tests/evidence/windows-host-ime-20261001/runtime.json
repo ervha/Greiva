@@ -1,0 +1,23 @@
+{
+  "capturedAt": "2026-09-30T15:32:46.2408074Z",
+  "nativeProcessId": 19096,
+  "nativeWindowTitle": "Greiva PoC",
+  "nativeWindowHandle": 1839332,
+  "nativeResponding": true,
+  "windowsCaption": "Microsoft Windows 11 Home",
+  "windowsVersion": "10.0.26300",
+  "windowsBuild": "26300",
+  "webviewChildren": [
+    {
+      "name": "msedgewebview2.exe",
+      "processId": 31944,
+      "parentProcessId": 19096,
+      "executablePath": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\154.0.4258.37\\msedgewebview2.exe",
+      "userDataArgument": "--user-data-dir=\"<repo>\\.data\\host-ime\\webview2\\EBWebView\""
+    }
+  ],
+  "ime": "Not run",
+  "rendering": "Needs user observation",
+  "frontendFilesMatched": 36,
+  "dockerImage": "sha256:89b3f4a82356b47528f7c72d82112db7e55d6306f07eda4d2ea1c371a7020bc1"
+}

@@ -1,6 +1,10 @@
 # 試験証拠の索引
 
-現在の対象は`docs/plan/POC_SPEC.md` Section 18 Steps 1–2です。Dockerの全自動試験は成功。Windows VM内のnative UI/IME、Gate A/B/Cは未検証です。
+現在は`docs/plan/POC_SPEC.md` Section 18 Step 3の準備中です。Steps 1–2のDocker自動試験は成功。ユーザー指定によりnative/IME対象をWindows実機へ切り替えました。Microsoft IME、Gate A/B/Cは未検証です。
+
+## 最新: Windows実機の初回IME試験準備（2026-10-01）
+
+[準備記録](windows-host-ime-20261001/SUMMARY.md)。既存のWindows debug native shellを起動し、window handle・応答、WebView2データのプロジェクト内保存先、Docker側client/shared 36ファイルのhash一致を確認しました。描画・実際のIME入力は利用者の確認待ちで、Step 3は未完了です。Greiva専用VM・ISOは削除済み。VirtualBox本体の削除はWindows管理者権限が必要で未完了です。
 
 ## 最新: Editor UI/UX改善（2026-09-30）
 
@@ -23,11 +27,11 @@
 
 [Vitest JSON](step-2-docker-20260930/vitest.json)、[Playwright JSON](step-2-docker-20260930/playwright.json)、[PostgreSQL専用JSON](step-2-docker-20260930/postgres/vitest.json)。失敗した前回runも[そのまま保持](step-2-docker-20260930/previous-attempt/SUMMARY.md)し、[Editorの修正記録](../../docs/failures/step-2-editor.md)へ経緯を記録した。最終runの終了コードは0。
 
-Windows VMは作成済み、OS ISO取得中。[VM準備記録](windows-vm-preparation-20260930/summary.json)。Windows VM内Tauri・Microsoft IMEはNot run。Linux checkや合成compositionのPassをGate AのPassとしない。
+2026-09-30時点ではWindows VM作成済み・OS ISO取得中だった。[当時のVM準備記録](windows-vm-preparation-20260930/summary.json)。その後実機方式へ切り替え、VM・ISOは削除した。Windows VM内Tauri・Microsoft IMEは未実施のまま。Linux checkや合成compositionのPassをGate AのPassとしない。
 
 ## 過去: 隔離環境へ切替時
 
-ユーザー指定によりDockerで開発・自動試験、Windows VMでTauri/IMEを検証します。[環境確認](isolation-20260930/SUMMARY.md)、[実行手順](../../docs/development/isolated-environment.md)、[Step 2の実装・未検証範囲](../../docs/decisions/step-2-scope.md)。
+2026-09-30の指定ではDockerで開発・自動試験、Windows VMでTauri/IMEを検証する予定だった。[当時の環境確認](isolation-20260930/SUMMARY.md)、[現在の実行手順](../../docs/development/isolated-environment.md)、[Step 2の実装・未検証範囲](../../docs/decisions/step-2-scope.md)。
 
 切替時点ではCompose構文のみPassで、Docker engine到達不可のためimage buildとcontainer自動試験はNot runでした。旧ホスト実行のbuild/typecheck/19件のunit・integration、Windows native compile成功を、隔離環境やIMEの成功として扱いません。以下は過去のStep 1証拠です。
 

@@ -1,0 +1,18 @@
+{
+  "startedAt": "2026-09-30T15:31:25.8269612Z",
+  "execution": "Windows host; existing debug native shell; Docker frontend",
+  "executableSha256": "1F397C61588B42F26CAA05EF7F23BA4C435CDF140F35536D70F299C8138D410C",
+  "executableVersion": "0.0.0",
+  "executableLastWriteUtc": "2026-09-30T09:39:15.7152132Z",
+  "frontend": "http://127.0.0.1:1420/",
+  "requestedWebviewUserData": ".data/host-ime/webview2",
+  "checkpoint": "0.1.3",
+  "gitCommit": "f3d9bfe37b9335e25a593170ad0b620925c9f648",
+  "stdout": "stdout.log",
+  "stderr": "stderr.log",
+  "hostToolchainInstalled": false,
+  "nativeRendering": "Not verified",
+  "microsoftIme": "Not run; requires actual keyboard composition and observed results",
+  "processId": 19096,
+  "processState": "Running after initial startup check; rendering not verified"
+}

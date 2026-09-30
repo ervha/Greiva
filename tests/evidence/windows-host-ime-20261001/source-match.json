@@ -1,0 +1,226 @@
+{
+  "capturedAt": "2026-09-30T15:47:37.1331556Z",
+  "container": "greiva-isolated-dev-1",
+  "image": "sha256:89b3f4a82356b47528f7c72d82112db7e55d6306f07eda4d2ea1c371a7020bc1",
+  "scope": "apps/client and shared packages from the verified Step 2 source inventory",
+  "fileCount": 36,
+  "allMatch": true,
+  "files": [
+    {
+      "path": "apps/client/index.html",
+      "checkoutSha256": "618a245aa6ef4558138a4493788e3ca8026cddc154843b407347d5485486a5e4",
+      "containerSha256": "618a245aa6ef4558138a4493788e3ca8026cddc154843b407347d5485486a5e4",
+      "match": true
+    },
+    {
+      "path": "apps/client/package.json",
+      "checkoutSha256": "3e1e80f7d07a08ce1fe515e5c9c9cd1610bfeecdf2b9ba0bcbe3d06c96c05201",
+      "containerSha256": "3e1e80f7d07a08ce1fe515e5c9c9cd1610bfeecdf2b9ba0bcbe3d06c96c05201",
+      "match": true
+    },
+    {
+      "path": "apps/client/src-tauri/Cargo.lock",
+      "checkoutSha256": "ae13988c03a368a3d041606ed14b277aab17924bb060300428f1d2e037e80d34",
+      "containerSha256": "ae13988c03a368a3d041606ed14b277aab17924bb060300428f1d2e037e80d34",
+      "match": true
+    },
+    {
+      "path": "apps/client/src-tauri/Cargo.toml",
+      "checkoutSha256": "0a36285ccec86e9fc8696a226b9053a147efa442b1102208ae106d79cef375c2",
+      "containerSha256": "0a36285ccec86e9fc8696a226b9053a147efa442b1102208ae106d79cef375c2",
+      "match": true
+    },
+    {
+      "path": "apps/client/src-tauri/build.rs",
+      "checkoutSha256": "8af41c0062014fc594e4bb9899e60ee9930ab57d4cf0c73041ff557d6ec736e6",
+      "containerSha256": "8af41c0062014fc594e4bb9899e60ee9930ab57d4cf0c73041ff557d6ec736e6",
+      "match": true
+    },
+    {
+      "path": "apps/client/src-tauri/capabilities/default.json",
+      "checkoutSha256": "ae54dbec4f2609001e121d5fc3a2d3fdde68e7daff982cab6d60d0fd4e74f53f",
+      "containerSha256": "ae54dbec4f2609001e121d5fc3a2d3fdde68e7daff982cab6d60d0fd4e74f53f",
+      "match": true
+    },
+    {
+      "path": "apps/client/src-tauri/icons/128x128.png",
+      "checkoutSha256": "96e97665701008c6f8eb5f9358c9eadabdc6ec22cbda6fadb03419dc732ddbf8",
+      "containerSha256": "96e97665701008c6f8eb5f9358c9eadabdc6ec22cbda6fadb03419dc732ddbf8",
+      "match": true
+    },
+    {
+      "path": "apps/client/src-tauri/icons/128x128@2x.png",
+      "checkoutSha256": "d4ddbddd6f69adb4b25ecefa8b7f90b38508d996a26625f32ba908a91c5e91cd",
+      "containerSha256": "d4ddbddd6f69adb4b25ecefa8b7f90b38508d996a26625f32ba908a91c5e91cd",
+      "match": true
+    },
+    {
+      "path": "apps/client/src-tauri/icons/32x32.png",
+      "checkoutSha256": "8faafa635227e2205d440b1cd85d57cd5124f114c8661414df0d3bead6671c86",
+      "containerSha256": "8faafa635227e2205d440b1cd85d57cd5124f114c8661414df0d3bead6671c86",
+      "match": true
+    },
+    {
+      "path": "apps/client/src-tauri/icons/icon.ico",
+      "checkoutSha256": "282d6e8a8ef22ff7af88b7e8c0f6116020b980c8c1da3fb2e4fc1546e6cf5c17",
+      "containerSha256": "282d6e8a8ef22ff7af88b7e8c0f6116020b980c8c1da3fb2e4fc1546e6cf5c17",
+      "match": true
+    },
+    {
+      "path": "apps/client/src-tauri/icons/icon.png",
+      "checkoutSha256": "2e0efc4a2f8708189471ed9efc3345220297a3c204683fd28fae8bc4098a6db4",
+      "containerSha256": "2e0efc4a2f8708189471ed9efc3345220297a3c204683fd28fae8bc4098a6db4",
+      "match": true
+    },
+    {
+      "path": "apps/client/src-tauri/icons/source.svg",
+      "checkoutSha256": "e2574475aac87ac31a5c31b6667b4961de057a8f8b689fa8f8db329e360f64fc",
+      "containerSha256": "e2574475aac87ac31a5c31b6667b4961de057a8f8b689fa8f8db329e360f64fc",
+      "match": true
+    },
+    {
+      "path": "apps/client/src-tauri/src/lib.rs",
+      "checkoutSha256": "c5a680652aa638a6b4f977947cc191ad57bd3d0b3720b1afd704a9de40184fc5",
+      "containerSha256": "c5a680652aa638a6b4f977947cc191ad57bd3d0b3720b1afd704a9de40184fc5",
+      "match": true
+    },
+    {
+      "path": "apps/client/src-tauri/src/main.rs",
+      "checkoutSha256": "c43d26c2585bff63d5ff5ed9e010ef98fa7ee5a20d9da7e2d042178bc516bf00",
+      "containerSha256": "c43d26c2585bff63d5ff5ed9e010ef98fa7ee5a20d9da7e2d042178bc516bf00",
+      "match": true
+    },
+    {
+      "path": "apps/client/src-tauri/tauri.conf.json",
+      "checkoutSha256": "b76effdf222bded53292d7c0f1acb0d1e25b86aeb5f667416e16f2d642fbcea0",
+      "containerSha256": "b76effdf222bded53292d7c0f1acb0d1e25b86aeb5f667416e16f2d642fbcea0",
+      "match": true
+    },
+    {
+      "path": "apps/client/src/editor/PageEditor.tsx",
+      "checkoutSha256": "75b49d37e9e643212a51d54d4a901c3563780288d400c3794288e116f61891ce",
+      "containerSha256": "75b49d37e9e643212a51d54d4a901c3563780288d400c3794288e116f61891ce",
+      "match": true
+    },
+    {
+      "path": "apps/client/src/editor/block-drag.ts",
+      "checkoutSha256": "0956e45eea4ab9f5c30bcc6e0ec8ffd64502a80767f4748ff8bd633623838ca5",
+      "containerSha256": "0956e45eea4ab9f5c30bcc6e0ec8ffd64502a80767f4748ff8bd633623838ca5",
+      "match": true
+    },
+    {
+      "path": "apps/client/src/editor/blocks.ts",
+      "checkoutSha256": "279ed1626fa3e11c40d4479382b941b898f861f1a391d5dc4a81142aa2911db4",
+      "containerSha256": "279ed1626fa3e11c40d4479382b941b898f861f1a391d5dc4a81142aa2911db4",
+      "match": true
+    },
+    {
+      "path": "apps/client/src/editor/details-ux.ts",
+      "checkoutSha256": "f82bf10dad8790b03900d15ce1b92d730a3886514974ff04126cc267c071b719",
+      "containerSha256": "f82bf10dad8790b03900d15ce1b92d730a3886514974ff04126cc267c071b719",
+      "match": true
+    },
+    {
+      "path": "apps/client/src/editor/extensions.ts",
+      "checkoutSha256": "80a37b9d545f81ae2a2a1dead0a82558b7f47256b110c5cb69ae367f286f5f10",
+      "containerSha256": "80a37b9d545f81ae2a2a1dead0a82558b7f47256b110c5cb69ae367f286f5f10",
+      "match": true
+    },
+    {
+      "path": "apps/client/src/editor/placeholders.ts",
+      "checkoutSha256": "cb93d297d1aba933f1dc0b90872073158be7f20bd80553dda6f1b023b2a5494c",
+      "containerSha256": "cb93d297d1aba933f1dc0b90872073158be7f20bd80553dda6f1b023b2a5494c",
+      "match": true
+    },
+    {
+      "path": "apps/client/src/editor/suggestion-menu.ts",
+      "checkoutSha256": "2845228480f00b619637c15b55a010ed3aac5a3f598900eaa544e1d5ef36d208",
+      "containerSha256": "2845228480f00b619637c15b55a010ed3aac5a3f598900eaa544e1d5ef36d208",
+      "match": true
+    },
+    {
+      "path": "apps/client/src/main.tsx",
+      "checkoutSha256": "c83a262dff05ead988b033b19ff501c21d979f3faea865ffbc9539e99580ab0a",
+      "containerSha256": "c83a262dff05ead988b033b19ff501c21d979f3faea865ffbc9539e99580ab0a",
+      "match": true
+    },
+    {
+      "path": "apps/client/src/style.css",
+      "checkoutSha256": "707ea68db15019396364ea76deeb6d1a5130c77002896042fdda9797555dbff6",
+      "containerSha256": "707ea68db15019396364ea76deeb6d1a5130c77002896042fdda9797555dbff6",
+      "match": true
+    },
+    {
+      "path": "apps/client/src/vite-env.d.ts",
+      "checkoutSha256": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5",
+      "containerSha256": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5",
+      "match": true
+    },
+    {
+      "path": "apps/client/tsconfig.json",
+      "checkoutSha256": "467975b43b94297a318b76581d7dac1cb54c140ea335fd92b01011d3007d6178",
+      "containerSha256": "467975b43b94297a318b76581d7dac1cb54c140ea335fd92b01011d3007d6178",
+      "match": true
+    },
+    {
+      "path": "apps/client/vite.config.ts",
+      "checkoutSha256": "96544b016ebf61f2d3a4271ce8bda967be324f77c82af21fff09cd89c98dd173",
+      "containerSha256": "96544b016ebf61f2d3a4271ce8bda967be324f77c82af21fff09cd89c98dd173",
+      "match": true
+    },
+    {
+      "path": "packages/protocol/package.json",
+      "checkoutSha256": "5d3bdf08e894572d02c7f7df1ecb63abf2e56297e166be177eab159f45dc8738",
+      "containerSha256": "5d3bdf08e894572d02c7f7df1ecb63abf2e56297e166be177eab159f45dc8738",
+      "match": true
+    },
+    {
+      "path": "packages/protocol/src/index.ts",
+      "checkoutSha256": "ecb3627c34989d233cd63c54b39f3f9b3056d7f39a677e1e03365ff56c514176",
+      "containerSha256": "ecb3627c34989d233cd63c54b39f3f9b3056d7f39a677e1e03365ff56c514176",
+      "match": true
+    },
+    {
+      "path": "packages/protocol/tsconfig.json",
+      "checkoutSha256": "8362482b1b200dbceea41ab7d28cefcddae11f3e796d82ceb8f62a3f97a8b031",
+      "containerSha256": "8362482b1b200dbceea41ab7d28cefcddae11f3e796d82ceb8f62a3f97a8b031",
+      "match": true
+    },
+    {
+      "path": "packages/shared/package.json",
+      "checkoutSha256": "2ddeae07818d3e7de0ddf744acb8026ee78bc55c0b80d52df701884ee15da269",
+      "containerSha256": "2ddeae07818d3e7de0ddf744acb8026ee78bc55c0b80d52df701884ee15da269",
+      "match": true
+    },
+    {
+      "path": "packages/shared/src/index.ts",
+      "checkoutSha256": "8c9a5147b9f7923e6cda544304c87222f7d90a72b9b5c348c55655aeef101e39",
+      "containerSha256": "8c9a5147b9f7923e6cda544304c87222f7d90a72b9b5c348c55655aeef101e39",
+      "match": true
+    },
+    {
+      "path": "packages/shared/tsconfig.json",
+      "checkoutSha256": "8362482b1b200dbceea41ab7d28cefcddae11f3e796d82ceb8f62a3f97a8b031",
+      "containerSha256": "8362482b1b200dbceea41ab7d28cefcddae11f3e796d82ceb8f62a3f97a8b031",
+      "match": true
+    },
+    {
+      "path": "packages/sync/package.json",
+      "checkoutSha256": "2e9eb83180a8f4d4138ee3a6e3127af3658a4de88160f7221259742630b495df",
+      "containerSha256": "2e9eb83180a8f4d4138ee3a6e3127af3658a4de88160f7221259742630b495df",
+      "match": true
+    },
+    {
+      "path": "packages/sync/src/index.ts",
+      "checkoutSha256": "c498e925c4524609dbf5938b4a3bccfde1a0d4b4e1c60f16886b82fe3c2140b8",
+      "containerSha256": "c498e925c4524609dbf5938b4a3bccfde1a0d4b4e1c60f16886b82fe3c2140b8",
+      "match": true
+    },
+    {
+      "path": "packages/sync/tsconfig.json",
+      "checkoutSha256": "8362482b1b200dbceea41ab7d28cefcddae11f3e796d82ceb8f62a3f97a8b031",
+      "containerSha256": "8362482b1b200dbceea41ab7d28cefcddae11f3e796d82ceb8f62a3f97a8b031",
+      "match": true
+    }
+  ]
+}

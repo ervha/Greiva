@@ -125,3 +125,12 @@ The user answers 1A, 2C, 3A, 4B in one batch:
 The user requests that the root README address GitHub readers and omit development status. The previous development details move to `docs/plan/DEVELOPMENT_STATUS.md`, with adjusted relative links and explicit historical verification status. README introduces the project, its intended experience and document entry points without current progress or checkpoint numbers.
 
 The user also requests grouped questions first and batched specification updates afterward. AGENTS.md records that workflow. All changes above and the previously prepared storage decision share documentation-only PATCH checkpoint v0.1.3; app code, manifests and existing artifacts are unchanged.
+
+## Native test target and VM cleanup: 2026-10-01
+
+The user selects Docker plus the physical Windows host. This supersedes the earlier VM-only native-test constraint, while preserving Docker for development and automated tests. The user also authorizes later removal of unnecessary VM-related resources.
+
+- Reuse the existing 0.0.0 debug native shell against the verified Docker frontend. A launcher scopes WebView2 user data to a project directory using a child-only environment variable. No new host language or native-build toolchains are installed.
+- Native process/window creation, response and the actual WebView2 data directory are verified. Client/shared source files match the running Docker image. Rendering and actual Microsoft IME scenarios still need user observations; Step 3 and Gate A are not complete.
+- The powered-off Greiva VM is unregistered and deleted, and its project-local ISO/preparation directory is removed. The software uninstall stops with MSI error 1730/exit 1603 requiring Windows administrator elevation; VirtualBox itself remains installed.
+- Historical VM plans and old evidence remain available. The current execution method is documented in `windows-host-ime.md`; source versions and native binary versions are not conflated. This environment/evidence checkpoint is PATCH v0.1.4.

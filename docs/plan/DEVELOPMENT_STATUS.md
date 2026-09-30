@@ -2,9 +2,9 @@
 
 [プロジェクト紹介へ戻る](../../README.md)。以下のコマンドは、特記がなければリポジトリのルートで実行します。
 
-2026-10-01時点の開発計画と検証記録。開発チェックポイント **v0.1.3**。[変更履歴](../../CHANGELOG.md)・[コミット/バージョン運用](../development/versioning.md)。更新規模に応じたGitタグを付けてGitHubへ反映します。
+2026-10-01時点の開発計画と検証記録。開発チェックポイント **v0.1.4**。[変更履歴](../../CHANGELOG.md)・[コミット/バージョン運用](../development/versioning.md)。更新規模に応じたGitタグを付けてGitHubへ反映します。
 
-[POC_SPEC.md](POC_SPEC.md) のSection 18に沿って進めています。Step 1の基盤とStep 2の最小Editorを実装し、Slash・Toggleの操作改善を含むDocker内の全30件のE2Eが成功しました。Windows VMでのnative起動・初回IME試験は未実施です。[版の記録](../decisions/specification-version.md)、[Step 2の範囲・検証状況](../decisions/step-2-scope.md)、[Editor操作の改善](../decisions/editor-ux.md)を参照してください。
+[POC_SPEC.md](POC_SPEC.md) のSection 18に沿って進めています。Step 1の基盤とStep 2の最小Editorを実装し、Slash・Toggleの操作改善を含むDocker内の全30件のE2Eが成功しました。Step 3はWindows実機へ切り替え、既存native shellの起動とWebView2保存先を確認しました。画面表示とMicrosoft IME実操作は利用者の確認待ちです。[Step 3準備記録](../../tests/evidence/windows-host-ime-20261001/SUMMARY.md)。[版の記録](../decisions/specification-version.md)、[Step 2の範囲・検証状況](../decisions/step-2-scope.md)、[Editor操作の改善](../decisions/editor-ux.md)を参照してください。
 
 npm workspaces、共有型、React/Tauri 2、NestJS/Fastify・Hocuspocusのhealth endpointに、Tiptapの必須block、Todo、Toggle、Slash Command、固定候補Mention、ブロック移動、Undo/Redo、Markdown shortcutを追加しました。文書接続、永続化、同期、競合解決は後工程です。画面は保存・同期未実装を明示し、Gate A/B/Cは未判定です。
 
@@ -20,7 +20,7 @@ AI初期提供の方針は作成・登録・録音整理から開始し、既存
 
 ## 通常の開発・試験はDocker内で実行
 
-ユーザー指定により、**Dockerで開発・自動テスト、Windows VMでTauri・Microsoft IMEを検証**します。Node/Rust等の開発ツールは隔離環境へ配置します。ユーザーが追加で許可したVirtualBoxのみホストへ導入しました。[隔離環境の詳細](../development/isolated-environment.md)。
+現在のユーザー指定により、**Dockerで開発・自動テスト、Windows実機でTauri・Microsoft IMEを検証**します。[実機起動手順](../development/windows-host-ime.md)は既存実行物を使い、ホストへ開発ツールを追加しません。[隔離環境の詳細](../development/isolated-environment.md)。
 
 ```powershell
 docker compose -f infrastructure/development/compose.yaml up --build -d dev
@@ -29,7 +29,11 @@ docker compose -f infrastructure/development/compose.yaml --profile test run --b
 
 UIはhttp://127.0.0.1:1420。ソースはimageへコピーし、依存・ビルド出力・SQLite・ブラウザをcontainer内に置きます。DBは専用volumeに保存し、host portを公開しません。試験証拠だけが`tests/evidence/runs/container/`へ出力されます。ソース変更後は`up --build -d dev`で再反映します。
 
-Docker imageの構築とcontainer内のbuild/typecheck、unit/integration 20件、E2E全30件、SQLite初期化、実PostgreSQL接続が成功しました。[最新の証拠索引](../../tests/evidence/README.md)。VMは`Greiva-IME-Win11`として作成済みです。Windowsの準備とnative/IMEの実試験は、この検証記録では完了扱いにしていません。環境の稼働状態は実施時に再確認します。
+Docker imageの構築とcontainer内のbuild/typecheck、unit/integration 20件、E2E全30件、SQLite初期化、実PostgreSQL接続が成功しました。[最新の証拠索引](../../tests/evidence/README.md)。2026-10-01の実機準備ではDockerのclient/shared 36ファイルとcheckoutのhash一致を確認しました。実機の起動記録と実際のIME試験は別に扱います。不要なGreiva VM・ISO・準備ディレクトリは削除済み。VirtualBox本体の削除はWindows管理者権限が必要で未完了です。
+
+## 過去のVM内セットアップ計画
+
+以下のVM専用手順と依存一覧は、実機方式へ変更する前の記録です。現在の実機でこれらのセットアップコマンドを実行する指示ではありません。追加のnativeビルドが必要になった場合は、Docker内クロスビルド等の成立性を別途検証します。
 
 ## Windows VM内の前提環境
 
@@ -152,4 +156,4 @@ npm run evidence -- --postgres --desktop
 
 過去のStep 1ではLinuxで16件のunit/integrationとWeb E2E 1件が成功しました。今回の隔離切替前のWindows確認ではbuild、typecheck、unit/integration **19件**、locked Cargo check、debug native buildが成功しています。実PostgreSQL試験1件はskip、native UIとIMEは未実施です。
 
-Step 2の基準検証ではDocker内でbuild/typecheck、unit/integration **20件**、Editorを含むE2E **全23件**、SQLite初期化、実PostgreSQL試験、Linux locked Cargo checkが成功しました。[証拠](../../tests/evidence/step-2-docker-20260930/SUMMARY.md)。その後のEditor UX改善ではE2E全30件が成功しました。[最新のEditor証拠](../../tests/evidence/editor-ux-20260930/SUMMARY.md)。Windows VM P0、Microsoft IME、Gate A/B/Cは未検証です。Step 4のYjs接続以降には進んでいません。
+Step 2の基準検証ではDocker内でbuild/typecheck、unit/integration **20件**、Editorを含むE2E **全23件**、SQLite初期化、実PostgreSQL試験、Linux locked Cargo checkが成功しました。[証拠](../../tests/evidence/step-2-docker-20260930/SUMMARY.md)。その後のEditor UX改善ではE2E全30件が成功しました。[最新のEditor証拠](../../tests/evidence/editor-ux-20260930/SUMMARY.md)。現在のP0対象はWindows実機です。Microsoft IME、Gate A/B/Cは未検証です。Step 4のYjs接続以降には進んでいません。

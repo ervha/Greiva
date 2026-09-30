@@ -1,8 +1,8 @@
 # Greivaの隔離開発環境
 
-2026-09-30のユーザー指定: **Dockerで開発・自動テスト、Windows VMでTauri・Microsoft IMEを検証する**。
+現在のユーザー指定（2026-10-01）: **Dockerで開発・自動テスト、Windows実機でTauri・Microsoft IMEを検証する**。
 
-以後、ホストWindowsでアプリ、npm test、Tauri、IME試験を実行しない。ソース編集とDocker CLIの操作はホストで行い、実行は下記の環境へ分離する。
+ホストではソース編集、Docker CLI、nativeアプリと実際のIME試験を行う。npm testや言語ツールチェーンはDocker側を維持する。[Windows実機の起動・IME手順](windows-host-ime.md)を参照。以前のWindows VM指定は上書きされ、VMの準備は中止した。
 
 ## Docker: 開発・自動試験
 
@@ -40,17 +40,18 @@ docker compose -f infrastructure/development/compose.yaml --profile test down
 
 構成の参照: [Docker Compose services](https://docs.docker.com/reference/compose-file/services/)、[Playwright Docker](https://playwright.dev/docs/docker)。依存・browserはこのimageの固定版から取得する。
 
-## Windows VM: P0検証
+## Windows実機: P0検証
 
-[Windows VM手順](windows-vm.md)を参照。Windows VMはDockerのLinux containerとは別に用意する。VMのWindows、Microsoft IME、WebView2、C++ Build Tools/Windows SDKで実際にTauriを起動する。
+[実機検証手順](windows-host-ime.md)に従い、既存のWindows用native shellを起動してDockerのエディターへ接続する。追加のホスト用Node/Rust/C++インストールは行っていない。配布用ビルドの試験とは区別する。WebView2データをプロジェクト内へ指定し、実際の保存先も確認した。
 
 ## 現在の状態
 
-- Compose構文: Pass。[ログ](../../tests/evidence/isolation-20260930/compose-config.log)。
+- Compose構文: 以前の[環境確認](../../tests/evidence/isolation-20260930/environment.json)にexit code 0を記録。個別のcompose-config.logは保存されていないため、存在しないログへリンクしない。
 - Docker engine: ユーザーの起動後、29.6.2の応答を確認。PostgreSQL 18.4はhealthy、host port公開なし。
 - image build、container内build/typecheck、unit/integration、全23件のE2E、SQLite初期化、実PostgreSQL接続、Linux locked Cargo check: **Pass**。[最終証拠](../../tests/evidence/step-2-docker-20260930/SUMMARY.md)。
 - 初回のDocker E2Eで見つかったnative drag無効化、composition Enter消費、移動Undoの履歴グループ化を修正した。
-- VirtualBox 7.2.20導入と空のWindows VM作成: 完了。ユーザーがホストへの仮想化ソフト導入を許可した。[VM構成](windows-vm.md)。OS ISO取得中、VM内Tauri起動とMicrosoft IMEは**Not run**。
+- Windows実機のnativeプロセス・ウィンドウ起動とWebView2保存先: 確認。表示内容と実際のMicrosoft IME操作は利用者による確認待ち。[Step 3準備記録](../../tests/evidence/windows-host-ime-20261001/SUMMARY.md)。Gate Aは未判定。
+- 以前の[VM準備記録](windows-vm.md)は履歴として保持する。ISOのhash検証後、Windows未インストールのまま実機方式へ切り替えた。GreivaのVM・ISO・準備ディレクトリは削除済み。VirtualBox本体の削除はWindows管理者権限が必要で未完了。
 
 以前のDocker Desktop起動時には`dockerInference`ソケットのアクセスエラーが記録され、ソケット退避も失敗した。現在は正常起動を確認できた。古い[ログ](../../tests/evidence/isolation-20260930/docker-engine.log)は当時の失敗記録として保持する。factory resetやvolume削除は行っていない。
 

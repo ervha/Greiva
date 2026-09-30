@@ -1,0 +1,12 @@
+{
+  "capturedAt": "2026-09-30T15:41:02.4645908Z",
+  "vmName": "Greiva-IME-Win11",
+  "vmId": "66327344-f2a9-4024-a681-f51809be1298",
+  "vmUnregistered": true,
+  "deletedProjectDirectory": ".data/windows-vm",
+  "remainingFilesBytesRemoved": 8435394303.0,
+  "isoBytes": 8434176000,
+  "isoSha256": "8FB2CC19C8AEE87A688C1CB73E726816C01F0C6EE9A17BB2FB73E4533837E698",
+  "otherDefaultRegistry": "Not present",
+  "virtualboxSoftware": "Still installed: MSI error 1730 requires Windows administrator elevation; no restart performed"
+}

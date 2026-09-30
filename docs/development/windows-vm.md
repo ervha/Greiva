@@ -1,5 +1,7 @@
 # Windows VMでのTauri・Microsoft IME検証
 
+**履歴資料（2026-10-01に方針変更）**: ユーザーが「Docker＋実機」を選んだため、このVM方式の準備・実行は中止した。現在の手順は[Windows実機での検証](windows-host-ime.md)。以下は変更前の設定と計画であり、現在の稼働状態を表さない。ISOは取得後に公表SHA-256との一致を確認済み。不要なGreiva VM・ISO・準備ディレクトリはユーザー指示に基づき削除した。VirtualBox本体の削除はWindows管理者権限が必要で未完了。
+
 目的: ホストWindowsへ開発ツールを追加せず、POC_SPEC Section 12のWindows 11 P0試験をWindows VM内で行う。
 
 ## このPCに作成したVM
