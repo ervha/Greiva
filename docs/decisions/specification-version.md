@@ -86,3 +86,11 @@ The user selects option A: choose desired Tasks and schedules from the extracted
 - `AI_ACTION_SPEC.md` is revised to v0.6; requirements, UI guidance and README reflect selection-based registration. Selecting candidates and invoking registration is the creation request, without an additional confirmation for resolved new creations.
 - Candidate editing, per-item results and retry behavior are proposed. Initial selection, duplicate grouping, batch units with incomplete candidates and retention remain open. Changes to existing data still require confirmation.
 - This is a documentation checkpoint only; PoC scope, app code and service connections are unchanged.
+
+## AI recording Page structure decision: 2026-09-30
+
+The user selects option B: a note organized around key points plus a folded full transcript in the same Page.
+
+- `AI_ACTION_SPEC.md` is revised to v0.7; requirements, UI guidance and README reflect the selected structure. Transcript labels, source navigation and correction behavior are proposed for implementation.
+- Recording retention/storage, transcript revisions and reference tracking, speaker/time labels, note templates and large-transcript rendering remain open. Candidate selection is unchanged; AI edits to an existing Page still require confirmation.
+- The repository checkpoint increments PATCH to v0.1.1 because this changes documentation only. PoC, app code, manifests and existing execution artifacts are unchanged.
