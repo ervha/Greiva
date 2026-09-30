@@ -62,3 +62,11 @@ The user selects option B: use the current Page or schedule and its related note
 - `AI_ACTION_SPEC.md` is revised to v0.3; requirements, UI guidance and README reflect the context boundary. Related resources remain subject to normal read authorization.
 - Context eligibility does not authorize external transmission. Provider/transmission policy, relationship traversal limits and context-list interactions remain to be specified.
 - This is a documentation change only; no data is read by an AI service or sent externally, and PoC scope and app code are unchanged.
+
+## AI external transmission settings decision: 2026-09-30
+
+The user selects option B: authorize destinations and data types in initial settings, omit repeated transmission prompts within that scope, and allow later changes or revocation. This does not bypass the separate confirmation for changes to or deletion of existing data.
+
+- `AI_ACTION_SPEC.md` is revised to v0.4; requirements, UI guidance and README reflect the selected policy. Expanding destinations/types requires additional authorization; revocation blocks new sends and retries.
+- Providers, audio handling, retention, in-flight cancellation and settings storage/synchronization details remain open. Recording is a separate data type from input text/transcripts.
+- This records a future product policy, not permission to connect services or transmit current development/user data. PoC, app code and service connections are unchanged.
