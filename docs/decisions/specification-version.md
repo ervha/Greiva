@@ -78,3 +78,11 @@ The user selects option B: support short spoken commands and creating Pages plus
 - `AI_ACTION_SPEC.md` is revised to v0.5; requirements, UI guidance and README record the future scope. Processing states, transcript correction, source references and retry behavior are proposed for later implementation.
 - Candidate-registration policy, Page structure, recording retention, limits, file import and platform/background behavior remain open. Speech within a recording is source content, not a direct stream of execution requests.
 - This remains product design only; PoC scope, app code and service connections are unchanged.
+
+## AI extracted-candidate registration decision: 2026-09-30
+
+The user selects option A: choose desired Tasks and schedules from the extracted-candidate list and register them in a batch. Short direct creation requests keep the previously selected direct-execution policy.
+
+- `AI_ACTION_SPEC.md` is revised to v0.6; requirements, UI guidance and README reflect selection-based registration. Selecting candidates and invoking registration is the creation request, without an additional confirmation for resolved new creations.
+- Candidate editing, per-item results and retry behavior are proposed. Initial selection, duplicate grouping, batch units with incomplete candidates and retention remain open. Changes to existing data still require confirmation.
+- This is a documentation checkpoint only; PoC scope, app code and service connections are unchanged.
