@@ -1,1 +1,0 @@
-{"default":{"identifier":"default","description":"Step 1 desktop shell; SQLite write permissions will be scoped with persistence implementation.","local":true,"windows":["main"],"permissions":["core:default","sql:default"]}}

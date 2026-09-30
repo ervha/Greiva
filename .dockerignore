@@ -6,6 +6,7 @@
 **/node_modules
 **/dist
 **/target
+apps/client/src-tauri/gen
 .data
 .env
 .env.*

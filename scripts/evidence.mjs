@@ -38,7 +38,7 @@ function sourceFiles(directory = '.') {
     if (['.git', '.tools', '.data', 'node_modules', 'dist', 'target', 'playwright-report', 'test-results'].includes(entry.name) ||
         entry.name === '.env' || entry.name.endsWith('.tsbuildinfo')) return [];
     const file = `${directory}/${entry.name}`;
-    if (file === './tests/evidence' || file === './docs') return [];
+    if (file === './tests/evidence' || file === './docs' || file === './apps/client/src-tauri/gen') return [];
     return entry.isDirectory() ? sourceFiles(file) : entry.isFile() ? [file.slice(2)] : [];
   });
 }

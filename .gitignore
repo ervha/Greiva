@@ -5,6 +5,7 @@ dist/
 .env
 .data/
 target/
+apps/client/src-tauri/gen/
 playwright-report/
 test-results/
 tests/evidence/runs/
