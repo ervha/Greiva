@@ -46,3 +46,11 @@ The user plans native in-app AI support for creating Pages and registering Tasks
 - Requirements and UI guidance are revised to v0.4. `AI_ACTION_SPEC.md` records the requested direction, a proposed shared application-command boundary, speech-to-text correction, validation, actual execution results and future acceptance criteria.
 - Confirmation policy, data context and external transmission, AI/speech providers, on-device execution, cost, retention and initial release scope are not decided. In-app support does not imply on-device inference or general OS control.
 - This is design-only: PoC scope and gate order, app code, schemas and service connections are unchanged.
+
+## AI execution confirmation decision: 2026-09-30
+
+The user selects option B: new creations execute directly; changes to or deletion of existing data require confirmation. Ambiguity resolution and validation still apply, and partially recognized speech is not an execution request.
+
+- `AI_ACTION_SPEC.md` is revised to v0.2, with the selected policy, corresponding UI/requirements guidance and future acceptance criteria. README reflects the decision.
+- Creation commands with effects on existing data must classify those effects as confirmed changes. Mixed-request execution units, ordering and recovery remain open; per-operation confirmation-bypass settings were not selected.
+- PoC scope, adopted specification, app code and service connections are unchanged.
