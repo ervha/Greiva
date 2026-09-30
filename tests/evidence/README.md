@@ -4,7 +4,7 @@
 
 ## 最新: Windows実機の初回IME試験準備（2026-10-01）
 
-[準備記録](windows-host-ime-20261001/SUMMARY.md)。既存のWindows debug native shellを起動し、window handle・応答、WebView2データのプロジェクト内保存先、Docker側client/shared 36ファイルのhash一致を確認しました。描画・実際のIME入力は利用者の確認待ちで、Step 3は未完了です。Greiva専用VM・ISOは削除済み。VirtualBox本体の削除はWindows管理者権限が必要で未完了です。
+[準備記録](windows-host-ime-20261001/SUMMARY.md)。既存のWindows debug native shellを起動し、window handle・応答、WebView2データのプロジェクト内保存先、Docker側client/shared 36ファイルのhash一致を確認しました。描画・実際のIME入力は利用者の結果確認待ちで、Step 3は未完了です。Greiva専用VM・ISOとVirtualBox本体は削除済み。[本体の削除確認](windows-host-ime-20261001/virtualbox-uninstall.json)。
 
 ## 最新: Editor UI/UX改善（2026-09-30）
 

@@ -1,0 +1,13 @@
+{
+  "capturedAt": "2026-09-30T23:07:40.9041389Z",
+  "completedAtLocal": "2026-10-01 08:03:23 JST",
+  "productCode": "{BA553E42-4B98-43E8-BD2F-A0A19A58FF6F}",
+  "installerLogResult": "MainEngineThread is returning 0",
+  "uninstallRegistryEntryPresent": false,
+  "vboxManageExecutablePresent": false,
+  "greivaVmDirectoryPresent": false,
+  "virtualboxRemoved": true,
+  "userMessage": "行いました",
+  "imeResult": "Not specified by this message; awaiting per-scenario results",
+  "fullInstallerLog": "Ignored local .data/host-ime/virtualbox-uninstall-elevated.log; selected result only published"
+}

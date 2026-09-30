@@ -38,3 +38,5 @@ WebView2のユーザーデータは子プロセスの`WEBVIEW2_USER_DATA_FOLDER`
 ## 不要になったVMの整理
 
 ユーザーは実機検証へ切り替えた後の不要なVM関連物の削除も許可した。実機でnative起動できることを確認後、Greiva専用の停止中VM・ISO・準備ファイルを整理する。対象をプロジェクト配下の正規化された絶対パスで検証し、他のVMやデータを巻き込まない。VirtualBox本体は他のVMで利用されていないことを確認してから扱う。過去の設計・検証記録は履歴として保持する。
+
+2026-10-01、Greiva VM・ISO・準備ディレクトリに続き、VirtualBox本体のアンインストールも完了した。[確認記録](../../tests/evidence/windows-host-ime-20261001/virtualbox-uninstall.json)。Docker側の環境と実機IME試験の実行方法は変更していない。

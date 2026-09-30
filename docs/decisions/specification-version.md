@@ -134,3 +134,9 @@ The user selects Docker plus the physical Windows host. This supersedes the earl
 - Native process/window creation, response and the actual WebView2 data directory are verified. Client/shared source files match the running Docker image. Rendering and actual Microsoft IME scenarios still need user observations; Step 3 and Gate A are not complete.
 - The powered-off Greiva VM is unregistered and deleted, and its project-local ISO/preparation directory is removed. The software uninstall stops with MSI error 1730/exit 1603 requiring Windows administrator elevation; VirtualBox itself remains installed.
 - Historical VM plans and old evidence remain available. The current execution method is documented in `windows-host-ime.md`; source versions and native binary versions are not conflated. This environment/evidence checkpoint is PATCH v0.1.4.
+
+## VM software cleanup confirmation: 2026-10-01
+
+After the user reports performing the requested action, the elevated VirtualBox uninstaller is confirmed terminal with return 0 at 08:03:23 JST. Its uninstall registry entry, VBoxManage executable and Greiva VM directory are absent. The prior failed attempt and prior cleanup state remain historical evidence; current documents record completed removal at PATCH checkpoint v0.1.5.
+
+The message does not specify per-scenario IME results, so Step 3 and Gate A remain unverified. No native test is marked Pass from the uninstall outcome, and no app code or runtime version changes.

@@ -2,7 +2,7 @@
 
 [プロジェクト紹介へ戻る](../../README.md)。以下のコマンドは、特記がなければリポジトリのルートで実行します。
 
-2026-10-01時点の開発計画と検証記録。開発チェックポイント **v0.1.4**。[変更履歴](../../CHANGELOG.md)・[コミット/バージョン運用](../development/versioning.md)。更新規模に応じたGitタグを付けてGitHubへ反映します。
+2026-10-01時点の開発計画と検証記録。開発チェックポイント **v0.1.5**。[変更履歴](../../CHANGELOG.md)・[コミット/バージョン運用](../development/versioning.md)。更新規模に応じたGitタグを付けてGitHubへ反映します。
 
 [POC_SPEC.md](POC_SPEC.md) のSection 18に沿って進めています。Step 1の基盤とStep 2の最小Editorを実装し、Slash・Toggleの操作改善を含むDocker内の全30件のE2Eが成功しました。Step 3はWindows実機へ切り替え、既存native shellの起動とWebView2保存先を確認しました。画面表示とMicrosoft IME実操作は利用者の確認待ちです。[Step 3準備記録](../../tests/evidence/windows-host-ime-20261001/SUMMARY.md)。[版の記録](../decisions/specification-version.md)、[Step 2の範囲・検証状況](../decisions/step-2-scope.md)、[Editor操作の改善](../decisions/editor-ux.md)を参照してください。
 
@@ -29,7 +29,7 @@ docker compose -f infrastructure/development/compose.yaml --profile test run --b
 
 UIはhttp://127.0.0.1:1420。ソースはimageへコピーし、依存・ビルド出力・SQLite・ブラウザをcontainer内に置きます。DBは専用volumeに保存し、host portを公開しません。試験証拠だけが`tests/evidence/runs/container/`へ出力されます。ソース変更後は`up --build -d dev`で再反映します。
 
-Docker imageの構築とcontainer内のbuild/typecheck、unit/integration 20件、E2E全30件、SQLite初期化、実PostgreSQL接続が成功しました。[最新の証拠索引](../../tests/evidence/README.md)。2026-10-01の実機準備ではDockerのclient/shared 36ファイルとcheckoutのhash一致を確認しました。実機の起動記録と実際のIME試験は別に扱います。不要なGreiva VM・ISO・準備ディレクトリは削除済み。VirtualBox本体の削除はWindows管理者権限が必要で未完了です。
+Docker imageの構築とcontainer内のbuild/typecheck、unit/integration 20件、E2E全30件、SQLite初期化、実PostgreSQL接続が成功しました。[最新の証拠索引](../../tests/evidence/README.md)。2026-10-01の実機準備ではDockerのclient/shared 36ファイルとcheckoutのhash一致を確認しました。実機の起動記録と実際のIME試験は別に扱います。不要なGreiva VM・ISO・準備ディレクトリは削除済み。VirtualBox本体もWindowsの管理者確認後に削除完了を確認しました。
 
 ## 過去のVM内セットアップ計画
 

@@ -2,6 +2,13 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.1.5 — 2026-10-01
+
+- 検証記録更新（PATCH）: Windowsの管理者確認後、不要なVirtualBox本体のアンインストールがreturn 0で完了したことを確認。登録情報・VBoxManage・Greiva VMディレクトリの不存在を記録し、環境文書の現在状態を更新。
+- Docker開発・自動試験の構成、アプリ本体のコードと版は変更していない。
+- ユーザーの実施連絡を受けたが、各IME操作の実結果は未確認。Step 3・Gate AのPassとして記録しない。
+- 検証: 文書リンク・JSON・バージョン一致・diff checkと、採用したPoC仕様のSHA-256不変。
+
 ## 0.1.4 — 2026-10-01
 
 - 検証環境更新（PATCH）: ユーザー指定によりDocker開発・自動テストを維持し、native Tauri/Microsoft IME対象をWindows実機へ変更。VMの準備を中止。

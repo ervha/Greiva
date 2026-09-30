@@ -23,8 +23,10 @@ Windows 11 Home `10.0.26300`、WebView2 `154.0.4258.37`。日本語入力設定�
 
 [削除記録](vm-cleanup.json)。停止中のGreiva VMだけを対象に、設定・VDIがプロジェクト内に収まること、他のVMプロセスがないことを確認して登録解除・削除した。ISOを含む`.data/windows-vm/`も削除し、約8.4GBを解放した。デフォルトのVirtualBox registryは存在せず、プロジェクト用registryのVMはGreivaだけだった。
 
-VirtualBox本体は**未削除**。通常のsilent MSIアンインストールはerror 1730（管理者としての実行が必要）で終了コード1603となった。続いてWindowsの管理者確認（UAC）付きで起動し、記録時点では確認待ちである。自動承認レビューの拒否ではなく、Windows Installerからの要求である。Docker・起動中の実機Greivaと旧検証証拠は削除していない。
+VirtualBox本体も**削除完了**（2026-10-01 08:03:23 JST）。通常のsilent MSI実行ではerror 1730/exit 1603となったが、Windowsの管理者確認（UAC）後の実行はreturn 0で終了した。アンインストール登録情報とVBoxManage実行ファイルの不存在も確認した。[完了確認](virtualbox-uninstall.json)。元の[削除記録](vm-cleanup.json)の「本体未削除」は当初の時点の状態として保持する。Dockerと旧検証証拠は削除していない。
 
 ## 未完了の試験
 
 [実機試験手順](../../../docs/development/windows-host-ime.md)のNATIVE-01・IME-01～05は利用者の実操作待ち。現在の接続にはWindows GUI操作ツールがない。各項目の操作・日時・実結果、IME候補や未確定文字の画面を得てから判定する。貼付けや合成compositionで代替しない。全項目の成功が確認されるまでStep 4へ進まない。Yjs接続後のcomposition中の別client updateは後で追加検証する。
+
+ユーザーから「行いました」との連絡を受けた。UAC側の完了はinstaller結果で確認できたが、この文だけでは各IME操作の実結果は確定しない。IMEのPass/Failは未判定のまま、問題の有無と必要な操作結果を確認する。
