@@ -23,3 +23,18 @@ The user adds a help page and related guidance to the product design. `HELP_SUPP
 - `GREIVA_REQUIREMENTS.md` and `GREIVA_DESIGN_SPEC.md` are revised to v0.3. Help is product content, separate from user Pages and their search/CRDT storage.
 - The document records proposed behavior and acceptance criteria; actual help screens, articles, support destination and initial release details are not implemented or finalized here.
 - The adopted `POC_SPEC.md`, its hash, gate order, app code and schemas are unchanged.
+
+## Calendar change scope decision: 2026-09-30
+
+The user selects three scopes for recurring-schedule edits: this occurrence, this occurrence and following, or the whole series. Changes to following occurrences preserve prior occurrences; the impact on existing cancellations and reschedules is shown before confirmation.
+
+- `CALENDAR_TIMETABLE_SPEC.md` is revised to v0.2; requirements and UI guidance record the selected behavior and proposed acceptance criteria.
+- Scope across multiple patterns, the boundary of rescheduled occurrences and history handling for whole-series edits remain open. No schema or implementation is selected by this answer.
+- PoC scope, gate order and app code are unchanged.
+
+## Calendar exception carry-forward decision: 2026-09-30
+
+The user selects option A: prepare carry-forward suggestions automatically and let the user review or adjust them in a list before confirming. Cancellations carry to corresponding occurrences; individually rescheduled destination times are retained. Exceptions without a clear counterpart require individual review.
+
+- Calendar v0.2, requirements, UI guidance and help article guidance record this behavior. The prior change-scope decision and this answer form one documentation checkpoint.
+- Matching algorithms, identity across recurrence segments, unresolved-case choices and concurrent-change revalidation remain open. No application behavior is implemented by this documentation change.
