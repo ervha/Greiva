@@ -23,7 +23,9 @@ export const relationSchema = z.strictObject({
   toType: entityTypeSchema, toId: idSchema, version: versionSchema,
   ...timestamps, deletedAt: utcTimestampSchema.nullable(),
 });
-export const taskCreateSchema = taskSchema.pick({ title: true, status: true, due: true });
+export const taskCreateSchema = taskSchema.pick({ title: true, status: true, due: true }).extend({
+  due: dateOnlySchema.refine(value => !value.startsWith('0000-'), 'Calendar year must be at least 1').nullable(),
+});
 export const taskUpdateSchema = taskCreateSchema.partial().refine(value => Object.keys(value).length > 0, 'Empty update');
 export const relationCreateSchema = relationSchema.pick({ fromType: true, fromId: true, toType: true, toId: true });
 export const relationUpdateSchema = relationCreateSchema.partial().refine(value => Object.keys(value).length > 0, 'Empty update');
@@ -33,8 +35,11 @@ export const pushOperationSchema = z.strictObject({
   kind: z.enum(['create', 'update', 'delete']), baseVersion: versionSchema.nullable(),
   // Parse the envelope first so Step 7 can return permanent rejection for a bad payload.
   payload: z.unknown(), clientId: idSchema,
+  predecessorOperationId: idSchema.optional(),
+  resolution: z.strictObject({ conflictIds: z.array(idSchema).min(1).max(7).refine(ids => new Set(ids).size === ids.length,'Duplicate conflict ID'), choice: z.enum(['local', 'remote']) }).optional(),
 });
 export function parseOperationPayload(operation: PushOperation) {
+  if (operation.resolution && operation.kind !== 'update') throw new Error('Resolution requires update');
   if (operation.kind === 'create' && operation.baseVersion !== null) throw new Error('Create requires null baseVersion');
   if (operation.kind !== 'create' && operation.baseVersion === null) throw new Error('Mutation requires baseVersion');
   if (operation.kind === 'delete') return deletePayloadSchema.parse(operation.payload);
@@ -49,7 +54,36 @@ export const syncStateSchema = z.strictObject({
   stream: z.literal('structured'), cursor: cursorSchema.nullable(),
   lastSuccessfulSyncAt: utcTimestampSchema.nullable(),
 });
-export const pullRequestSchema = z.strictObject({ cursor: cursorSchema.nullable() });
+export const pullRequestSchema = z.strictObject({ cursor: cursorSchema.nullable(), limit: z.number().int().min(1).max(500).default(100) });
+export const structuredEntitySchema = z.union([taskSchema, relationSchema]);
+export const conflictFieldSchema = z.enum(['title', 'status', 'due', 'fromType', 'fromId', 'toType', 'toId']);
+export const conflictSchema = z.strictObject({
+  id: idSchema, operationId: idSchema, entityType: z.enum(['task','relation']), entityId: idSchema,
+  field: conflictFieldSchema, base: z.unknown(), local: z.unknown(), remote: z.unknown(),
+  createdAt: utcTimestampSchema, status: z.enum(['open','resolved']), resolvedBy: idSchema.nullable(),
+}).refine(record => (record.status==='open') === (record.resolvedBy===null),'Conflict resolution state mismatch');
+const resultFields = {
+  operationId: idSchema, clientId: idSchema, entityType: z.enum(['task','relation']), entityId: idSchema,
+  serverOrder: z.string().regex(/^[1-9][0-9]*$/), conflicts: z.array(conflictSchema),
+};
+export const pushResultSchema = z.discriminatedUnion('status', [
+  z.strictObject({ ...resultFields, status: z.literal('acknowledged'), entity: structuredEntitySchema }),
+  z.strictObject({ ...resultFields, status: z.literal('conflict'), entity: structuredEntitySchema }),
+  z.strictObject({ ...resultFields, status: z.literal('rejected'), entity: structuredEntitySchema.nullable(),
+    error: z.strictObject({ code: z.string().min(1), message: z.string().min(1), retryable: z.literal(false) }),
+  }),
+]).refine(result => !result.entity || (result.entity.id === result.entityId && ('title' in result.entity ? 'task' : 'relation') === result.entityType), 'Result entity identity mismatch')
+  .refine(result => result.conflicts.every(record => record.entityType===result.entityType && record.entityId===result.entityId), 'Conflict entity identity mismatch')
+  .refine(result => result.status==='conflict' ? result.conflicts.some(record=>record.status==='open') : result.conflicts.every(record=>record.status==='resolved'), 'Conflict result state mismatch');
+export const pushRequestSchema = z.strictObject({ operations: z.array(pushOperationSchema).min(1).max(100) });
+export const pushResponseSchema = z.strictObject({ results: z.array(pushResultSchema) });
+export const pullResponseSchema = z.strictObject({
+  operations: z.array(pushResultSchema), cursor: cursorSchema, headCursor: cursorSchema, hasMore: z.boolean(), serverTime: utcTimestampSchema,
+});
+export type Conflict = z.infer<typeof conflictSchema>;
+export type PushResult = z.infer<typeof pushResultSchema>;
+export type PushRequest = z.infer<typeof pushRequestSchema>;
+export type PullResponse = z.infer<typeof pullResponseSchema>;
 export const structuredSnapshotSchema = z.strictObject({
   tasks: z.array(taskSchema), relations: z.array(relationSchema), operations: z.array(syncOperationSchema),
   state: syncStateSchema, clientId: idSchema.nullable(),

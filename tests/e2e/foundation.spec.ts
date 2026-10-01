@@ -6,6 +6,6 @@ test('STEP1-E2E: React client starts alongside API and collaboration services', 
   for (const [port, service] of [[3000, 'api'], [1234, 'collaboration']] as const) {
     const response = await request.get(`http://127.0.0.1:${port}/health`);
     expect(response.ok()).toBe(true);
-    expect(await response.json()).toEqual({ service, status: 'ok', implementationStep: service === 'collaboration' ? 4 : 6 });
+    expect(await response.json()).toEqual({ service, status: 'ok', implementationStep: service === 'collaboration' ? 4 : 7 });
   }
 });

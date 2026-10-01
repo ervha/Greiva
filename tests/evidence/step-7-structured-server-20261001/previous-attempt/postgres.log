@@ -1,0 +1,57 @@
+
+> greiva-poc@0.5.0 test:postgres
+> node scripts/test-postgres.mjs
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+[90mstdout[2m | tests/integration/structured-sync-server.test.ts[2m > [22m[2mSTEP7-SERVER-IDEMPOTENCY: concurrent replays, ID collisions, malformed payloads and API recreation retain immutable results
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f5cd-c015-73ea-8f5d-476ef6e821a4","clientId":"01a0f5cd-c015-73ea-8f5d-3c9b6644e053","serverOrder":"1","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-server.test.ts[2m > [22m[2mSTEP7-SERVER-IDEMPOTENCY: concurrent replays, ID collisions, malformed payloads and API recreation retain immutable results
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f5cd-c050-732c-865d-ec3019e57ee3","clientId":"01a0f5cd-c015-73ea-8f5d-3c9b6644e053","serverOrder":"5","status":"rejected","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-server.test.ts[2m > [22m[2mSTEP7-SERVER-IDEMPOTENCY: concurrent replays, ID collisions, malformed payloads and API recreation retain immutable results
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f5cd-c015-73ea-8f5d-476ef6e821a4","clientId":"01a0f5cd-c015-73ea-8f5d-3c9b6644e053","serverOrder":"1","status":"acknowledged","conflicts":0}
+
+ [31m❯[39m tests/integration/structured-sync-server.test.ts [2m([22m[2m7 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 785[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP7-SERVER-IDEMPOTENCY: concurrent replays, ID collisions, malformed payloads and API recreation retain immutable results[33m 306[2mms[22m[39m
+   [32m✓[39m STEP7-SERVER-MERGE: field merge keeps peer edits and same-field conflicts retain base/local/remote through explicit resolution[32m 112[2mms[22m[39m
+   [32m✓[39m STEP7-SERVER-RELATION: disjoint endpoint edits merge and same endpoint conflicts resolve as a new operation[32m 64[2mms[22m[39m
+   [32m✓[39m STEP7-SERVER-DELETE: deletes dominate stale Task/Relation updates and close existing conflicts without resurrecting entities[32m 96[2mms[22m[39m
+   [32m✓[39m STEP7-SERVER-ORDER: concurrent writers cannot leave lower committed operations behind a pull cursor[32m 78[2mms[22m[39m
+[31m   [31m×[31m STEP7-SERVER-ATOMIC: ledger failure rolls back entity/history/counter and retry finalizes exactly once[39m[32m 64[2mms[22m[39m
+   [32m✓[39m STEP7-SERVER-MIGRATION: Step 6 rows and tombstones enter the new stream atomically without fabricating missing history[32m 63[2mms[22m[39m
+ [32m✓[39m tests/integration/structured-postgres.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 217[2mms[22m[39m
+ [32m✓[39m tests/integration/postgres.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 21[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/integration/structured-sync-server.test.ts[2m > [22mSTEP7-SERVER-ATOMIC: ledger failure rolls back entity/history/counter and retry finalizes exactly once
+[31m[1mAssertionError[22m: expected [Function] to throw error including 'injected ledger failure' but got 'Failed query: insert into "greiva_tes…'[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- injected ledger failure[39m
+[31m+ Failed query: insert into "greiva_test_01a0f5cdc263709d9d452dad2caab804"."server_operations" ("server_order", "operation_id", "request", "result") values ($1, $2, $3, $4)[39m
+[31m+ params: 1,01a0f5cd-c290-71d0-b963-4f9b046b4eb6,{"operationId":"01a0f5cd-c290-71d0-b963-4f9b046b4eb6","entityType":"task","entityId":"01a0f5cd-c27b-73ff-bf2d-f164c6f9c0a3","kind":"create","baseVersion":null,"payload":{"title":"recover","status":"todo","due":null},"clientId":"01a0f5cd-c27b-73ff-bf2d-ee6a64b6b374"},{"operationId":"01a0f5cd-c290-71d0-b963-4f9b046b4eb6","clientId":"01a0f5cd-c27b-73ff-bf2d-ee6a64b6b374","entityType":"task","entityId":"01a0f5cd-c27b-73ff-bf2d-f164c6f9c0a3","serverOrder":"1","conflicts":[],"status":"acknowledged","entity":{"id":"01a0f5cd-c27b-73ff-bf2d-f164c6f9c0a3","title":"recover","status":"todo","due":null,"version":1,"createdAt":"2026-10-01T04:51:37.747Z","updatedAt":"2026-10-01T04:51:37.747Z","deletedAt":null}}[39m
+
+[36m [2m❯[22m tests/integration/structured-sync-server.test.ts:[2m156:47[22m[39m
+    [90m154|[39m     await f.admin.query(`CREATE TRIGGER fail_ledger BEFORE INSERT ON "…
+    [90m155|[39m     const operation = f.op(id,'create',{title:'recover',status:'todo',…
+    [90m156|[39m     await expect(f.repository.push(operation)).rejects.toThrow('inject…
+    [90m   |[39m                                               [31m^[39m
+    [90m157|[39m     expect(await f.repository.tasks()).toEqual([]);
+    [90m158|[39m     expect((await f.repository.pull(null)).operations).toEqual([]);
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m2 passed[39m[22m[90m (3)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m8 passed[39m[22m[90m (9)[39m
+[2m   Start at [22m 04:51:35
+[2m   Duration [22m 2.82s[2m (import 54%, tests 40%, transform 6%)[22m
+
+JSON report written to /evidence/step7-server-focused/vitest.json
+JUNIT report written to /evidence/step7-server-focused/vitest.xml

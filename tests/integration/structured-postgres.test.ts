@@ -40,7 +40,7 @@ it.skipIf(process.env.GREIVA_TEST_POSTGRES !== '1')('STEP6-POSTGRES: real models
     expect(tasks.statusCode).toBe(200); expect(tasks.json()).toHaveLength(1);
     expect(taskSchema.parse(tasks.json()[0]).version).toBe(2);
     expect((await app.inject({method:'GET',url:'/relations'})).json()).toHaveLength(1);
-    expect((await app.inject({method:'POST',url:'/sync/push',payload:{}})).statusCode).toBe(404);
+    expect((await app.inject({method:'POST',url:'/sync/push',payload:{}})).statusCode).toBe(400);
     await app.close(); app = undefined;
     repository = await StructuredRepository.open(url,schema);
     expect((await repository.mutate(op(taskId,'task','delete',{},2))).version).toBe(3);
@@ -48,7 +48,7 @@ it.skipIf(process.env.GREIVA_TEST_POSTGRES !== '1')('STEP6-POSTGRES: real models
     expect(await repository.tasks()).toEqual([]); expect(await repository.relations()).toEqual([]);
     expect((await repository.tasks(true))[0]!.deletedAt).toMatch(/Z$/);
     expect((await repository.relations(true))[0]!.deletedAt).toMatch(/Z$/);
-    await expect(repository.mutate(op(taskId,'task','update',{title:'resurrect'},3))).rejects.toMatchObject({code:'deleted'});
+    expect(await repository.mutate(op(taskId,'task','update',{title:'resurrect'},3))).toMatchObject({version:3,deletedAt:expect.any(String)});
     await repository.close(); repository = undefined;
     await admin.query(`UPDATE "${schema}".schema_version SET version=99`);
     await expect(StructuredRepository.open(url,schema)).rejects.toThrow('Unsupported structured schema version');

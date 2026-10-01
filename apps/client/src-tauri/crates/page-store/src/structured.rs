@@ -52,7 +52,7 @@ fn date_only(value: &str) -> bool {
     let month = value[5..7].parse::<usize>().unwrap();
     let day = value[8..10].parse::<u32>().unwrap();
     let days = [31, if year%4 == 0 && (year%100 != 0 || year%400 == 0) {29} else {28},31,30,31,30,31,31,30,31,30,31];
-    (1..=12).contains(&month) && day > 0 && day <= days[month-1]
+    year > 0 && (1..=12).contains(&month) && day > 0 && day <= days[month-1]
 }
 fn validate(operation: &LocalOperation) -> StoreResult<&Map<String, Value>> {
     if !uuid_v7(&operation.operation_id) || !uuid_v7(&operation.entity_id) || !uuid_v7(&operation.client_id) { return Err("Structured IDs must be UUIDv7".into()); }

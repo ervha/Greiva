@@ -1,6 +1,10 @@
 # 試験証拠の索引
 
-`docs/plan/POC_SPEC.md` Section 18 Step 6のTask/Relation最小モデルまで記録しました。Windows実機の初回IMEと遠隔更新中に試した操作は利用者確認による結果を保持します。今回のCodex実キー入力はGoogle日本語入力で、Microsoft IMEの結果に流用しません。native全件の証拠とGate A/B/Cの最終判定は未完了です。
+`docs/plan/POC_SPEC.md` Section 18 Step 7のサーバー側同期まで記録しました。端末側の同期適用・競合UI・network chaosは未完了です。Windows実機の初回IMEと遠隔更新中に試した操作は利用者確認による結果を保持します。今回のCodex実キー入力はGoogle日本語入力で、Microsoft IMEの結果に流用しません。native全件の証拠とGate A/B/Cの最終判定は未完了です。
+
+## Step 7: structured syncサーバー（2026-10-01）
+
+[Docker検証](step-7-structured-server-20261001/SUMMARY.md)、[113ファイルのソース照合](step-7-structured-server-20261001/checkout-source-match.json)、[初回assertionの失敗](step-7-structured-server-20261001/previous-attempt/SUMMARY.md)。通常29件・実PostgreSQL別run12件・全43 E2E・build/型・保存層・locked Cargo checkがPass。push/pull、immutable確定結果、transactional順序、cursor、field merge・Conflict解決・tombstone・連続offline intentと移行をサーバー側で確認。端末ACK・pull/cursor適用と競合UI・transport chaos・統合crash recoveryは後続。Windows実行物は0.4.0のままで、Microsoft IMEと最終GateのPassを意味しない。
 
 ## Step 6: Task／Relation最小モデル（2026-10-01）
 

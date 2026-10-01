@@ -2,6 +2,14 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.5.0 — 2026-10-01
+
+- 実装更新（MINOR）: Step 7のサーバー側push/pullを追加。operation IDに対する確定結果をPostgreSQLへ耐久化し、同じリクエストの再送へ同じ結果を返す。恒久エラーも履歴へ保存する。
+- transaction内のサーバー順序と署名付きopaque cursorで、同時書き込み・ページ分割・API再起動後も操作を取りこぼさない。entity・履歴・Conflict・操作台帳・順序の変更は同時にcommitする。
+- Task/Relationの異field編集をmergeし、同field競合はbase/local/remoteを保存する。local/remoteの明示解決を新operationとして受け付ける。削除優先、同一内容のcreate衝突、連続offline編集の前操作に対する意図の保持、既存model/台帳の移行を実装。[実装判断](docs/decisions/step-7-structured-server.md)。
+- Docker検証と残る範囲は[証拠](tests/evidence/step-7-structured-server-20261001/SUMMARY.md)に記録。端末側のACK・pull適用/cursor更新、競合UI、network chaosと統合crash recoveryは未実装。Step 7全体・最終Gateの完了ではない。
+- アプリ管理下のpackage/Tauri/Cargoとlockfileを0.5.0へ整合。既存Windows実行物は実際の0.4.0のまま。Microsoft IMEと新規native操作は未検証で、ホストに開発toolchainを追加していない。
+
 ## 0.4.0 — 2026-10-01
 
 - 実装更新（MINOR）: Step 6のTask/Relation最小モデル、端末CRUD、tombstone、送信待ち操作、sync_stateを追加。entity変更とqueue追加を同じSQLite transactionで保存し、schema 2→3移行で既存Pageを保持する。

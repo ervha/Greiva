@@ -1,0 +1,43 @@
+{
+  "verifiedAt": "2026-10-01T05:21:57.0896603Z",
+  "container": "/greiva-isolated-dev-1",
+  "imageId": "sha256:65664f7f8ae40b2d8270a25a7b8590e289d603f37c86862687e0763259e24a16",
+  "imageTag": "greiva-poc-development:step-7-server",
+  "repoDigests": [
+    "greiva-poc-development@sha256:65664f7f8ae40b2d8270a25a7b8590e289d603f37c86862687e0763259e24a16"
+  ],
+  "user": "node",
+  "privileged": false,
+  "securityOptions": [
+    "no-new-privileges:true"
+  ],
+  "portBindings": {
+    "1234/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "1234"
+      }
+    ],
+    "1420/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "1420"
+      }
+    ],
+    "3000/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "3000"
+      }
+    ]
+  },
+  "mounts": [
+    {
+      "Type": "volume",
+      "Destination": "/workspace/.data/collaboration"
+    }
+  ],
+  "sourceFileCount": 113,
+  "sourceFilesMatch": true,
+  "sourceSha256": "ec2bd806e4a9ed7b6184da6ec17d9dc6f8ea313a040e033364e912ef8ab120b6"
+}

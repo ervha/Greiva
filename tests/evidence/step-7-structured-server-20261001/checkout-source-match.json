@@ -1,0 +1,12 @@
+{
+  "verifiedAt": "2026-10-01T05:19:25.7251513Z",
+  "parentCommit": "c1311211687585d72395fe279c43e097098d6ca8",
+  "branch": "codex/poc-editor",
+  "version": "0.5.0",
+  "sourceSha256": "ec2bd806e4a9ed7b6184da6ec17d9dc6f8ea313a040e033364e912ef8ab120b6",
+  "fileCount": 113,
+  "inventoryMatches": true,
+  "specSha256": "1227c3562632c170967534fcb2aaa3557d69e033fafbd3e959a25a84c20663c0",
+  "execution": "Docker only; Windows executable remains 0.4.0",
+  "scope": "Server checkpoint; client ACK/pull/cursor and conflict UI remain pending"
+}

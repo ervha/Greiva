@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="9" failures="1" errors="0" time="1.023105156">
+    <testsuite name="tests/integration/postgres.test.ts" timestamp="2026-10-01T04:51:38.773Z" hostname="ce1d21fc7a9e" tests="1" failures="0" errors="0" skipped="0" time="0.020993278">
+        <testcase classname="tests/integration/postgres.test.ts" name="STEP1-POSTGRES: connects to the real development PostgreSQL" time="0.020168988">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/structured-postgres.test.ts" timestamp="2026-10-01T04:51:38.776Z" hostname="ce1d21fc7a9e" tests="1" failures="0" errors="0" skipped="0" time="0.217361056">
+        <testcase classname="tests/integration/structured-postgres.test.ts" name="STEP6-POSTGRES: real models survive reopen; version guards serialize competing edits; Nest exposes durable reads" time="0.215659603">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/structured-sync-server.test.ts" timestamp="2026-10-01T04:51:38.778Z" hostname="ce1d21fc7a9e" tests="7" failures="1" errors="0" skipped="0" time="0.784750822">
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-IDEMPOTENCY: concurrent replays, ID collisions, malformed payloads and API recreation retain immutable results" time="0.306107363">
+            <system-out>
+{&quot;service&quot;:&quot;api&quot;,&quot;event&quot;:&quot;structured-push&quot;,&quot;operationId&quot;:&quot;01a0f5cd-c015-73ea-8f5d-476ef6e821a4&quot;,&quot;clientId&quot;:&quot;01a0f5cd-c015-73ea-8f5d-3c9b6644e053&quot;,&quot;serverOrder&quot;:&quot;1&quot;,&quot;status&quot;:&quot;acknowledged&quot;,&quot;conflicts&quot;:0}
+
+{&quot;service&quot;:&quot;api&quot;,&quot;event&quot;:&quot;structured-push&quot;,&quot;operationId&quot;:&quot;01a0f5cd-c050-732c-865d-ec3019e57ee3&quot;,&quot;clientId&quot;:&quot;01a0f5cd-c015-73ea-8f5d-3c9b6644e053&quot;,&quot;serverOrder&quot;:&quot;5&quot;,&quot;status&quot;:&quot;rejected&quot;,&quot;conflicts&quot;:0}
+
+{&quot;service&quot;:&quot;api&quot;,&quot;event&quot;:&quot;structured-push&quot;,&quot;operationId&quot;:&quot;01a0f5cd-c015-73ea-8f5d-476ef6e821a4&quot;,&quot;clientId&quot;:&quot;01a0f5cd-c015-73ea-8f5d-3c9b6644e053&quot;,&quot;serverOrder&quot;:&quot;1&quot;,&quot;status&quot;:&quot;acknowledged&quot;,&quot;conflicts&quot;:0}
+
+            </system-out>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-MERGE: field merge keeps peer edits and same-field conflicts retain base/local/remote through explicit resolution" time="0.112272566">
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-RELATION: disjoint endpoint edits merge and same endpoint conflicts resolve as a new operation" time="0.064351551">
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-DELETE: deletes dominate stale Task/Relation updates and close existing conflicts without resurrecting entities" time="0.09612588">
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-ORDER: concurrent writers cannot leave lower committed operations behind a pull cursor" time="0.077519347">
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-ATOMIC: ledger failure rolls back entity/history/counter and retry finalizes exactly once" time="0.064309531">
+            <failure message="expected [Function] to throw error including &apos;injected ledger failure&apos; but got &apos;Failed query: insert into &quot;greiva_tes…&apos;" type="AssertionError">
+AssertionError: expected [Function] to throw error including &apos;injected ledger failure&apos; but got &apos;Failed query: insert into &quot;greiva_tes…&apos;
+
+- Expected
++ Received
+
+- injected ledger failure
++ Failed query: insert into &quot;greiva_test_01a0f5cdc263709d9d452dad2caab804&quot;.&quot;server_operations&quot; (&quot;server_order&quot;, &quot;operation_id&quot;, &quot;request&quot;, &quot;result&quot;) values ($1, $2, $3, $4)
++ params: 1,01a0f5cd-c290-71d0-b963-4f9b046b4eb6,{&quot;operationId&quot;:&quot;01a0f5cd-c290-71d0-b963-4f9b046b4eb6&quot;,&quot;entityType&quot;:&quot;task&quot;,&quot;entityId&quot;:&quot;01a0f5cd-c27b-73ff-bf2d-f164c6f9c0a3&quot;,&quot;kind&quot;:&quot;create&quot;,&quot;baseVersion&quot;:null,&quot;payload&quot;:{&quot;title&quot;:&quot;recover&quot;,&quot;status&quot;:&quot;todo&quot;,&quot;due&quot;:null},&quot;clientId&quot;:&quot;01a0f5cd-c27b-73ff-bf2d-ee6a64b6b374&quot;},{&quot;operationId&quot;:&quot;01a0f5cd-c290-71d0-b963-4f9b046b4eb6&quot;,&quot;clientId&quot;:&quot;01a0f5cd-c27b-73ff-bf2d-ee6a64b6b374&quot;,&quot;entityType&quot;:&quot;task&quot;,&quot;entityId&quot;:&quot;01a0f5cd-c27b-73ff-bf2d-f164c6f9c0a3&quot;,&quot;serverOrder&quot;:&quot;1&quot;,&quot;conflicts&quot;:[],&quot;status&quot;:&quot;acknowledged&quot;,&quot;entity&quot;:{&quot;id&quot;:&quot;01a0f5cd-c27b-73ff-bf2d-f164c6f9c0a3&quot;,&quot;title&quot;:&quot;recover&quot;,&quot;status&quot;:&quot;todo&quot;,&quot;due&quot;:null,&quot;version&quot;:1,&quot;createdAt&quot;:&quot;2026-10-01T04:51:37.747Z&quot;,&quot;updatedAt&quot;:&quot;2026-10-01T04:51:37.747Z&quot;,&quot;deletedAt&quot;:null}}
+
+ ❯ tests/integration/structured-sync-server.test.ts:156:47
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-MIGRATION: Step 6 rows and tombstones enter the new stream atomically without fabricating missing history" time="0.062660011">
+        </testcase>
+    </testsuite>
+</testsuites>

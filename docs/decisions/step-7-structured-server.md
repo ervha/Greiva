@@ -1,0 +1,29 @@
+# Step 7: structured syncサーバーの区切り
+
+2026-10-01。`POC_SPEC.md` Section 18 Step 7のサーバー側を実装した。端末ACK・pull適用/cursor更新・Conflict UI・network chaos・統合crash recoveryは後続であり、Step 7全体やGate A/B/Cの完了ではない。[検証証拠](../../tests/evidence/step-7-structured-server-20261001/SUMMARY.md)。
+
+## 永続化と順序
+
+`POST /sync/push`は1〜100件の厳密なenvelopeを受け、作成順で処理する。不正payloadや不明なbase等は各操作の恒久的なrejected結果として返す。envelope自体が不正ならHTTP 400、DB未設定なら503。同一operation ID・同一requestは過去の確定結果を返し、IDを別requestに再利用した場合は元の結果を保持したまま拒否する。
+
+PostgreSQLのアプリ専用schemaにimmutable操作台帳、entity version履歴、Conflict、stream状態を置く。全書き込みは同じtransactional counterの行lockを取得し、entity・履歴・Conflict・台帳・順序を同時commitする。commit前にsequenceだけを採番すると、後からcommitした小さい番号を既に進んだcursorが取りこぼすため採用しない。PoCでは全stream書き込みを直列化し、履歴のGCや大規模運用の最適化は含めない。
+
+`POST /sync/pull`はcursor以降をサーバー順に最大500件返す。応答は対象末尾のcursor、取得時点のhead cursor、残り有無、UTC時刻を持つ。cursorはDBに保持したepochとsecretによるHMACを含むopaque値で、再起動を跨いでも有効。端末は解析・採番せず、適用とcursor保存を同じSQLite transactionにする実装を後続で追加する。
+
+## 競合と連続編集
+
+Taskのtitle/status/date-only due、Relationの参照fieldをbase versionの履歴と比較する。未変更fieldを含むフォームでも相手の変更を巻き戻さず、異field変更を双方保持する。同fieldで双方が変更し異なる値になった場合、base/local/remoteをConflictへ保存する。非競合fieldだけの部分反映も可能で、競合によりentity versionが進まない結果も返す。
+
+local/remoteの選択はConflict IDと選択を持つ新しいupdate operationとして扱う。指定Conflictとpayloadの整合性を検証し、解決操作のIDを履歴へ残す。解決後も元の操作結果は変更しない。サーバー最新版が変わっていた場合は新しい競合として扱い、無条件上書きしない。
+
+連続offline編集では、先の操作が競合した後に次のbase versionをサーバー結果へ付け替えるだけでは、元の意図を失って相手の値を上書きする。optionalな`predecessorOperationId`と台帳の`local_after`（その操作が表した書き込み可能field）で前のlocal値を保持する。依存先は同client・同entity・非rejectedで、結果versionがbase versionに一致する必要がある。次の操作はこのlocal frameと比較し、相手の値を保持しながら自分が既に反映したfieldを続けて編集できる。clientは送信前にwire requestを耐久化し、再送時に変更しない必要がある。端末側は未実装。
+
+削除はtombstoneを返し、stale updateをrejectせずentityを復活させない。既存のopen Conflictは削除操作で閉じる。無効になった更新にもlocal frameを保存し、後続queueもtombstoneへ収束できる。同一IDのcreateは初期内容が同じなら現在のentityをACKし、異なる内容なら恒久エラーにする。
+
+## 移行と検証範囲
+
+既存Step 6のPostgreSQL schema 1からはentity・tombstoneの内容/versionを保持し、baseline操作と存在するversionだけの履歴をtransaction内で作る。存在しない過去versionを捏造しない。schema 2の台帳から3へはlocal frameを復元し、過去ACK・cursor・secretを変更しない。未知schemaは自動消去しない。端末SQLiteは既存schema 3のままでserver schemaと別管理。
+
+実PostgreSQLでは再送・ID衝突・不正payload・Task/Relation field merge・選択解決・tombstone・連続offline編集・依存検証・schema移行・台帳書き込み失敗rollbackを検証する。外部transactionでcounter行をlockしたまま2 writerを待たせる試験で、commit前のpullとcommit後のページ分割に取りこぼしがないことを確認する。APIのclose/recreate後も再送結果とcursorが保持される。
+
+Dockerの既存Editor E2Eを回帰確認するが、端末structured syncやネットワーク中断の代替にはしない。Windows実行物は既存0.4.0のまま。Microsoft IME・native新機能全件・最終Gateは未検証。Calendar、Help、AI、updaterは将来設計のままで今回の実装に含まない。
