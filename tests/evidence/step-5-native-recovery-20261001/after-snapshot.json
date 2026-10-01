@@ -1,0 +1,30 @@
+{
+  "at": "2026-10-01T03:26:51.855Z",
+  "metadata": {
+    "createdAt": "2026-10-01T03:12:25.331Z",
+    "id": "01a0f572-ee7f-75d3-9cc9-bf8d4adf0498",
+    "title": "Native offline recovery 20261001",
+    "updatedAt": "2026-10-01T03:24:14.044Z",
+    "yDocId": "page:01a0f572-ee7f-75d3-9cc9-bf8d4adf0498"
+  },
+  "updates": 17,
+  "bodyXml": "<paragraph>native-second</paragraph><paragraph>native-first</paragraph><paragraph>日本語</paragraph><paragraph>native-peer-received</paragraph>",
+  "clocks": [
+    [
+      1,
+      1
+    ],
+    [
+      2112695675,
+      20
+    ],
+    [
+      2547125999,
+      39
+    ],
+    [
+      2897320005,
+      22
+    ]
+  ]
+}

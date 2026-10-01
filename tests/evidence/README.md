@@ -1,6 +1,10 @@
 # 試験証拠の索引
 
-`docs/plan/POC_SPEC.md` Section 18 Step 4の共同編集とA/B自動試験を記録しました。Windows実機のlocal IMEと遠隔更新中に試した操作は利用者確認でPass。native全件の証拠、端末SQLite保存・crash recovery、Gate A/B/Cの最終判定は未完了です。
+`docs/plan/POC_SPEC.md` Section 18 Step 5のPage SQLite保存・crash recoveryまで記録しました。Windows実機の初回IMEと遠隔更新中に試した操作は利用者確認による結果を保持します。今回のCodex実キー入力はGoogle日本語入力で、Microsoft IMEの結果に流用しません。native全件の証拠とGate A/B/Cの最終判定は未完了です。
+
+## Step 5: Page SQLite永続化（2026-10-01）
+
+[Docker検証](step-5-page-store-20261001/SUMMARY.md)、[Windows実機の自動操作・復元・peer一致](step-5-native-recovery-20261001/SUMMARY.md)、[初期の起動失敗](step-5-native-startup-20261001/SUMMARY.md)。Dockerの41 E2Eと実機のPage保存・強制終了・offline復元・再接続を区別する。Google日本語入力の実キー結果はMicrosoft IMEの結果に含めず、native全件とGate A/B/Cの最終判定は未完了。
 
 ## 最新: 遠隔更新中のWindows実機IME（2026-10-01）
 

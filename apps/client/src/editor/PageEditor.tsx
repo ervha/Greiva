@@ -1,20 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo } from 'react';
 import { EditorContent, useEditor, useEditorState } from '@tiptap/react';
 import { adjacentBlockMove } from './blocks';
 import { blockCommands, editorExtensions } from './extensions';
 import * as Y from 'yjs';
 import type { PageSession } from './page-session';
+import type { EditorProps } from '@tiptap/pm/view';
 
-export function PageEditor({ session }: { session: PageSession }) {
-  const [title, setTitle] = useState('');
+const pageEditorProps: EditorProps = {
+  attributes: { role: 'textbox', 'aria-label': 'Page本文', 'aria-multiline': 'true', spellcheck: 'false' },
+  handleDOMEvents: { keydown: (view, event) => event.isComposing || view.composing || event.keyCode === 229 },
+};
+
+export function PageEditor({ session, title, storageError }: { session: PageSession; title: string; storageError: string | null }) {
+  // Save/ACK indicators rerender the parent frequently. Stable extension and
+  // NodeView identities keep those status changes from disturbing DOM selection.
+  const extensions = useMemo(() => editorExtensions(session.document), [session.document]);
   const editor = useEditor({
-    extensions: editorExtensions(session.document),
-    editorProps: {
-      attributes: { role: 'textbox', 'aria-label': 'Page本文', 'aria-multiline': 'true', spellcheck: 'false' },
-      // Skip ProseMirror keymaps while leaving native IME handling uncancelled.
-      handleDOMEvents: { keydown: (view, event) => event.isComposing || view.composing || event.keyCode === 229 },
-    },
+    extensions, editorProps: pageEditorProps,
   }, [session.document]);
+  useEffect(() => { if (editor && editor.isEditable === Boolean(storageError)) editor.setEditable(!storageError, false); }, [editor, storageError]);
   useEffect(() => {
     // Read-only test diagnostics. Absent from normal dev and production builds.
     if (!editor || import.meta.env.VITE_GREIVA_TEST_HOOKS !== '1') return;
@@ -45,7 +49,7 @@ export function PageEditor({ session }: { session: PageSession }) {
     if (tr) { editor.view.dispatch(tr); editor.view.focus(); }
   };
   return <section className="editor-panel" aria-label="Page Editor">
-    <input className="page-title" aria-label="Pageタイトル" placeholder="無題のPage" value={title} onChange={e => setTitle(e.target.value)} />
+    <input className="page-title" aria-label="Pageタイトル" placeholder="無題のPage" value={title} disabled={Boolean(storageError)} onChange={e => session.setTitle(e.target.value)} />
     <div className="editor-toolbar" role="toolbar" aria-label="編集操作">
       <button type="button" disabled={!state?.undo} onClick={() => editor.chain().focus().undo().run()}>元に戻す</button>
       <button type="button" disabled={!state?.redo} onClick={() => editor.chain().focus().redo().run()}>やり直す</button>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="26" failures="0" errors="0" time="0.800567659">
+    <testsuite name="tests/integration/api.test.ts" timestamp="2026-10-01T03:33:18.050Z" hostname="ce1d21fc7a9e" tests="1" failures="0" errors="0" skipped="0" time="0.109325617">
+        <testcase classname="tests/integration/api.test.ts" name="STEP1-API: boots NestJS with Fastify and serves health only" time="0.016305888">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/collaboration-restart.test.ts" timestamp="2026-10-01T03:33:18.054Z" hostname="ce1d21fc7a9e" tests="2" failures="0" errors="0" skipped="0" time="0.456774045">
+        <testcase classname="tests/integration/collaboration-restart.test.ts" name="STEP4-RESTART: ACKed binary updates survive SIGKILL; disconnected edits converge after restart" time="0.441384957">
+        </testcase>
+        <testcase classname="tests/integration/collaboration-restart.test.ts" name="STEP4-JOURNAL: partial final append recovers; checksum corruption fails closed" time="0.01444255">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/collaboration.test.ts" timestamp="2026-10-01T03:33:18.059Z" hostname="ce1d21fc7a9e" tests="1" failures="0" errors="0" skipped="0" time="0.028276436">
+        <testcase classname="tests/integration/collaboration.test.ts" name="STEP1-COLLAB: boots Hocuspocus and responds to a real HTTP request" time="0.017409472">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/page-store.test.ts" timestamp="2026-10-01T03:33:18.062Z" hostname="ce1d21fc7a9e" tests="1" failures="0" errors="0" skipped="0" time="0.127700598">
+        <testcase classname="tests/integration/page-store.test.ts" name="STEP5-TRANSACTION: native repository rolls back the update with failed metadata and deduplicates replay" time="0.126275381">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/postgres.test.ts" timestamp="2026-10-01T03:33:18.065Z" hostname="ce1d21fc7a9e" tests="1" failures="0" errors="0" skipped="1" time="0">
+        <testcase classname="tests/integration/postgres.test.ts" name="STEP1-POSTGRES: connects to the real development PostgreSQL" time="0">
+            <skipped/>
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/sqlite.test.ts" timestamp="2026-10-01T03:33:18.067Z" hostname="ce1d21fc7a9e" tests="1" failures="0" errors="0" skipped="0" time="0.041755613">
+        <testcase classname="tests/integration/sqlite.test.ts" name="STEP1-SQLITE: initializes and reopens a local development database" time="0.040846023">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/unit/block-move.test.ts" timestamp="2026-10-01T03:33:18.070Z" hostname="ce1d21fc7a9e" tests="4" failures="0" errors="0" skipped="0" time="0.010980395">
+        <testcase classname="tests/unit/block-move.test.ts" name="STEP2-MOVE: structured block transactions &gt; undoes an immediate move separately from the preceding typing" time="0.006117865">
+        </testcase>
+        <testcase classname="tests/unit/block-move.test.ts" name="STEP2-MOVE: structured block transactions &gt; retains a nested subtree and supports history undo" time="0.003317197">
+        </testcase>
+        <testcase classname="tests/unit/block-move.test.ts" name="STEP2-MOVE: structured block transactions &gt; rejects offsets inside a block and self-drops without changing the document" time="0.000276661">
+        </testcase>
+        <testcase classname="tests/unit/block-move.test.ts" name="STEP2-MOVE: structured block transactions &gt; moves upwards and leaves the selection inside the moved block" time="0.000273442">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/unit/durability-boundary.test.ts" timestamp="2026-10-01T03:33:18.075Z" hostname="ce1d21fc7a9e" tests="2" failures="0" errors="0" skipped="0" time="0.008853855">
+        <testcase classname="tests/unit/durability-boundary.test.ts" name="STEP5-BARRIER: waits for each commit in order and stops after a write failure" time="0.00293861">
+        </testcase>
+        <testcase classname="tests/unit/durability-boundary.test.ts" name="STEP5-BOOTSTRAP: offline and server seeds merge as exactly one empty paragraph" time="0.004796056">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/unit/protocol.test.ts" timestamp="2026-10-01T03:33:18.080Z" hostname="ce1d21fc7a9e" tests="12" failures="0" errors="0" skipped="0" time="0.012046263">
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; accepts the minimal Page, Task, Relation and operation fixtures" time="0.006755381">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; requires page:{pageId} document names and rejects body duplication" time="0.000575024">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; rejects invalid due date 2026-02-30" time="0.00029342">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; rejects invalid due date 2026-10-01T00:00:00Z" time="0.000162987">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; rejects invalid due date 2026-1-1" time="0.00016488">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; accepts leap day and null due, and preserves tombstones" time="0.000176278">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; rejects invalid server version -1" time="0.000185295">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; rejects invalid server version 1.5" time="0.000244879">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; rejects invalid server version 9007199254740992" time="0.000197752">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; requires UTC timestamps and v7 IDs" time="0.000227919">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; excludes Page and local status/timestamps from structured push" time="0.000643654">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; treats cursor as opaque and initializes the structured stream without a cursor" time="0.000672777">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/unit/shared.test.ts" timestamp="2026-10-01T03:33:18.093Z" hostname="ce1d21fc7a9e" tests="1" failures="0" errors="0" skipped="0" time="0.004854837">
+        <testcase classname="tests/unit/shared.test.ts" name="STEP1-ID: creates unique, sortable UUID v7 IDs and UTC times" time="0.004006399">
+        </testcase>
+    </testsuite>
+</testsuites>

@@ -1,5 +1,6 @@
 import { Server } from '@hocuspocus/server';
 import * as Y from 'yjs';
+import { emptyPageUpdate } from '@greiva/sync';
 import { UpdateStore } from './update-store.js';
 export function createServer(port = 1234, address = '127.0.0.1', directory = process.env.COLLABORATION_DATA_DIR ?? '.data/collaboration') {
   const store = new UpdateStore(directory);
@@ -14,8 +15,8 @@ export function createServer(port = 1234, address = '127.0.0.1', directory = pro
     },
     async onLoadDocument({ documentName, document }) {
       if (!store.restore(documentName, document)) {
-        // Seed once on the server, before clients create an editor. This avoids duplicate empty paragraphs.
-        document.getXmlFragment('body').insert(0, [new Y.XmlElement('paragraph')]);
+        // Same seed as a Page first created fully offline.
+        Y.applyUpdate(document, emptyPageUpdate(), 'bootstrap');
         store.append(documentName, Y.encodeStateAsUpdate(document));
       }
     },

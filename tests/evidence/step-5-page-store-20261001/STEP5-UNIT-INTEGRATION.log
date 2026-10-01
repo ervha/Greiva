@@ -1,0 +1,64 @@
+
+> greiva-poc@0.3.0 test
+> npm run build:packages && npm run build:servers && vitest run
+
+
+> greiva-poc@0.3.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync
+
+
+> @greiva/shared@0.3.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.3.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.3.0 build
+> tsc -p tsconfig.json
+
+
+> greiva-poc@0.3.0 build:servers
+> npm run build -w @greiva/api && npm run build -w @greiva/collaboration
+
+
+> @greiva/api@0.3.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/collaboration@0.3.0 build
+> tsc -p tsconfig.json
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/collaboration-restart.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 457[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP4-RESTART: ACKed binary updates survive SIGKILL; disconnected edits converge after restart[33m 441[2mms[22m[39m
+ [32m✓[39m tests/integration/page-store.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 128[2mms[22m[39m
+ [32m✓[39m tests/integration/api.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 109[2mms[22m[39m
+ [2m[90m↓[39m[22m tests/integration/postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [32m✓[39m tests/integration/sqlite.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 42[2mms[22m[39m
+[90mstdout[2m | tests/integration/collaboration.test.ts
+[22m[39m
+  Hocuspocus v4.7.0 running at:
+
+  > HTTP: http://127.0.0.1:36103
+  > WebSocket: ws://127.0.0.1:36103
+
+ [32m✓[39m tests/integration/collaboration.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 28[2mms[22m[39m
+ [32m✓[39m tests/unit/protocol.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m tests/unit/durability-boundary.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m tests/unit/block-move.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m tests/unit/shared.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 5[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m9 passed[39m[22m[2m | [22m[33m1 skipped[39m[90m (10)[39m
+[2m      Tests [22m [1m[32m25 passed[39m[22m[2m | [22m[33m1 skipped[39m[90m (26)[39m
+[2m   Start at [22m 03:33:15
+[2m   Duration [22m 2.73s[2m (import 47%, tests 43%, transform 8%, worker 2%)[22m
+
+[2m    Isolate [22m [33m10 workers spawned[39m[2m · ~79ms startup each (spawn + environment, per file)[22m
+[2m            [22m [2mat least ~710ms faster with [22m[33misolate: false[39m[2m — reuses workers across files instead of one per file[22m
+
+JSON report written to /evidence/2026-10-01T03-33-06.272Z/vitest.json
+JUNIT report written to /evidence/2026-10-01T03-33-06.272Z/vitest.xml

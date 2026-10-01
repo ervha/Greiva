@@ -1,7 +1,7 @@
 name: greiva-isolated
 
 x-development: &development
-  image: greiva-poc-development:step-4
+  image: greiva-poc-development:step-5
   build:
     context: ../..
     dockerfile: infrastructure/development/Dockerfile

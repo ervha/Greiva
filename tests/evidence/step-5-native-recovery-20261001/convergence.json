@@ -1,0 +1,7 @@
+{
+  "stateVectorEqual": true,
+  "at": "2026-10-01T03:27:08.5490332Z",
+  "titlePreserved": true,
+  "bodyXmlEqual": true,
+  "source": "Stopped native DB/WAL copy through actual Rust repository versus independent Docker Hocuspocus peer"
+}

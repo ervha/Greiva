@@ -41,4 +41,6 @@ RUN mkdir -p /evidence /workspace/.data/collaboration \
     && chown -R node:node /workspace/.data \
     && chown -R node:node /opt/cargo
 USER node
+RUN cargo build --locked --manifest-path apps/client/src-tauri/crates/page-store/Cargo.toml \
+    --example store-driver --target-dir .data/native-target
 CMD ["npm", "run", "dev"]

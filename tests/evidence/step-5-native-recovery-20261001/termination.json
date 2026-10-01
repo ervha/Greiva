@@ -1,0 +1,8 @@
+{
+  "snapshot": "DB/WAL/SHM copied together after process termination",
+  "at": "2026-10-01T03:14:29.4351275Z",
+  "termination": "Stop-Process -Force; verified project executable path",
+  "backend": "Docker dev service stopped",
+  "processId": 5556,
+  "nativeInput": "Computer Use literal ASCII; not IME evidence"
+}

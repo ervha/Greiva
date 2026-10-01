@@ -1,0 +1,6 @@
+Greiva native startup: constructing application
+Greiva native startup: application built; entering event loop
+
+thread 'main' (33180) panicked at /opt/cargo/registry/src/index.crates.io-1949cf8c6b5b557f/tauri-2.12.0/src/app.rs:1444:11:
+Failed to setup app: runtime error: Could not find the webview runtime, make sure it is installed
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace

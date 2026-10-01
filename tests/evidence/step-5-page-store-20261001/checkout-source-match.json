@@ -1,0 +1,9 @@
+{
+  "checkedAt": "2026-10-01T03:36:47.7528739Z",
+  "gitCommitBeforeCheckpoint": "6a339e9eaf66650d54136be6ba86855474d8f811",
+  "note": "Exact byte match on complete source inventory; docs and selected evidence excluded by evidence runner. Native artifact predates documentation/manual-verification-only additions.",
+  "files": 103,
+  "nativeExecutableSha256": "40F39CEA71E5A3288A8FFE084CEA067B8090AB982BF9713AA8687882EA25BA3C",
+  "sourceSha256": "4e19ab72b56cf11f2d2cb861aba081791fbdc7d0091289a8e2035fcaddb961d4",
+  "matchesDocker": true
+}

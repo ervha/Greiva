@@ -1,7 +1,53 @@
+use greiva_page_store::{PageStore, StoredPage, PageMetadata};
+use std::path::PathBuf;
+use tauri::Manager;
+use tokio::sync::OnceCell;
+
+struct LocalStore { path: PathBuf, store: OnceCell<PageStore> }
+impl LocalStore {
+    async fn get(&self) -> Result<&PageStore, String> {
+        self.store.get_or_try_init(|| PageStore::open(&self.path)).await
+    }
+}
+#[tauri::command]
+async fn page_list(state: tauri::State<'_, LocalStore>) -> Result<Vec<PageMetadata>, String> {
+    state.get().await?.list().await
+}
+#[tauri::command]
+async fn page_load(page_id: String, state: tauri::State<'_, LocalStore>) -> Result<StoredPage, String> {
+    state.get().await?.load(&page_id).await
+}
+#[tauri::command]
+async fn page_append(page_id: String, update: Vec<u8>, state: tauri::State<'_, LocalStore>) -> Result<(), String> {
+    state.get().await?.append(&page_id, &update).await
+}
+#[tauri::command]
+async fn page_set_title(page_id: String, title: String, state: tauri::State<'_, LocalStore>) -> Result<(), String> {
+    state.get().await?.set_title(&page_id, &title).await
+}
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
-    tauri::Builder::default()
+    #[cfg(debug_assertions)]
+    eprintln!("Greiva native startup: constructing application");
+    let application = tauri::Builder::default()
         .plugin(tauri_plugin_sql::Builder::default().build())
-        .run(tauri::generate_context!())
+        .setup(|app| {
+            #[cfg(debug_assertions)]
+            eprintln!("Greiva native startup: setup entered");
+            let mut directory = app.path().app_config_dir()?;
+            // Test isolation only in debug shells; frontend cannot select an arbitrary path.
+            #[cfg(debug_assertions)]
+            if let Some(path) = std::env::var_os("GREIVA_TEST_DATA_DIR") { directory = PathBuf::from(path); }
+            std::fs::create_dir_all(&directory)?;
+            app.manage(LocalStore { path: directory.join("greiva.sqlite"), store: OnceCell::new() });
+            #[cfg(debug_assertions)]
+            eprintln!("Greiva native startup: local store configured");
+            Ok(())
+        })
+        .invoke_handler(tauri::generate_handler![page_list, page_load, page_append, page_set_title])
+        .build(tauri::generate_context!())
         .expect("Greiva PoC failed to start");
+    #[cfg(debug_assertions)]
+    eprintln!("Greiva native startup: application built; entering event loop");
+    application.run(|_, _| {});
 }

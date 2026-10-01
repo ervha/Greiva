@@ -2,6 +2,15 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.3.0 — 2026-10-01
+
+- 実装更新（MINOR）: native SQLiteへPage metadataとYjs binary updateを保存。保存commitの完了前には更新・同期応答を送信せず、保存/復元/非互換schemaの失敗時は編集・接続を停止してエラーを表示する。
+- offline Page作成、端末内タイトル、保存したPageへの復帰を追加。共通の初期CRDT seedで重複paragraphを防ぎ、Page IDをsessionごとに保持。復元したPageの別画面へのリンクも修正。
+- Docker内の実際のRust repositoryでtransaction rollback・dedup・整合性を検証。Chromiumで強制終了→offline復元→peer収束、保存/破損/schemaエラーを含む41 E2E、unit/integration、build・型・PostgreSQL・locked Cargo checkが成功。[Docker証拠](tests/evidence/step-5-page-store-20261001/SUMMARY.md)。
+- DockerでWindows実行物をcross buildし、Windows実機をComputer Useで操作。利用者の入力なしで新規offline Page・title・本文・block移動、強制終了後のoffline復元、再接続後のnative/peer state vectorと本文の一致を確認。[実機証拠](tests/evidence/step-5-native-recovery-20261001/SUMMARY.md)。Google日本語入力の実キー変換・候補選択も記録したが、Microsoft IMEの結果には含めない。残るnative全件と最終Gateは未完了。
+- 製品設計: アプリ内更新の起動時/定期検知、利用者によるダウンロード、「今すぐ更新／後で」、再起動前の保存確認・署名・配布・復旧を追加。[更新設計](docs/plan/APP_UPDATE_SPEC.md)。updaterは未実装、PoC範囲は変更なし。
+- package/Tauri/Cargoとlockfileを0.3.0へ整合。新しいWindows debug候補は実際の0.3.0で、公開installerではない。ホストにtoolchainを追加していない。
+
 ## 0.2.1 — 2026-10-01
 
 - 検証記録更新（PATCH）: Windows実機のMicrosoft IME操作中にDocker peerから12回更新し、全受領を確認。利用者が試した変換・再変換・選択・Undo/Redoはすべて正常、双方の文字保持と回答。

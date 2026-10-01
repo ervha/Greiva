@@ -1,12 +1,11 @@
 {
   "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
-  "description": "Step 1 desktop shell; SQLite write permissions will be scoped with persistence implementation.",
+  "description": "Page storage uses fixed application commands; frontend raw SQL commands are not permitted.",
   "windows": [
     "main"
   ],
   "permissions": [
-    "core:default",
-    "sql:default"
+    "core:default"
   ]
 }

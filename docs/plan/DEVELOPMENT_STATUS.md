@@ -2,7 +2,7 @@
 
 [プロジェクト紹介へ戻る](../../README.md)。以下のコマンドは、特記がなければリポジトリのルートで実行します。
 
-2026-10-01時点の開発計画と検証記録。開発チェックポイント **v0.2.1**。[変更履歴](../../CHANGELOG.md)・[コミット/バージョン運用](../development/versioning.md)。更新規模に応じたGitタグを付けてGitHubへ反映します。
+2026-10-01時点の開発計画と検証記録。開発チェックポイント **v0.3.0**。[変更履歴](../../CHANGELOG.md)・[コミット/バージョン運用](../development/versioning.md)。更新規模に応じたGitタグを付けてGitHubへ反映します。
 
 [POC_SPEC.md](POC_SPEC.md) のSection 18に沿って進めています。Step 1の基盤とStep 2の最小Editorを実装し、Slash・Toggleの操作改善を含むDocker内の全30件のE2Eが成功しました。Step 3はWindows実機へ切り替え、既存native shellの起動とWebView2保存先を確認しました。初回local IMEの4群は利用者がすべて問題なしと明示回答し、手動結果と初回証拠を記録しました。[Step 3初回IME記録](../../tests/evidence/windows-host-ime-20261001/SUMMARY.md)。[版の記録](../decisions/specification-version.md)、[Step 2の範囲・検証状況](../decisions/step-2-scope.md)、[Editor操作の改善](../decisions/editor-ux.md)を参照してください。
 
@@ -17,6 +17,10 @@ Step 4ではPage本文のYjs/Hocuspocus接続とサーバーbinary journalを追
 音声の将来設計には、短い操作指示と、長い会議・講義の録音からのPage作成・Task/予定候補の抽出を含めます。Pageは整理したノート＋折りたたんだ全文文字起こしとし、抽出候補は一覧から選んで一括登録します。元録音は初期30日保存で期間を変更でき、基本は端末内、選んだ録音だけアプリのクラウドへ保存する設計です。期限後もPage・文字起こしを残します。保存・削除契約、候補保持・処理上限は未決定です。
 
 AI初期提供の方針は作成・登録・録音整理から開始し、既存編集・削除・検索は後続追加とします。入口は共通パネルと各画面を併用し、音声はアプリ内録音と既存ファイル取込みに対応します。AI会話履歴は初期30日保存、期間変更・手動削除が可能です。履歴やアプリ管理下の録音が期限切れでも、作成したPage・文字起こし・登録済みTask/予定や取込み元のファイルは消しません。これらは将来設計であり、今回のPoCでは実装していません。
+
+追加の製品設計として[アプリ内更新](APP_UPDATE_SPEC.md)を記録しました。起動時・定期確認、利用者が開始するダウンロード、「今すぐ更新／後で」と再起動前の確認、未送信データの保全を合意済みです。未実装で、提供時期は未決定です。
+
+Step 5ではnative Page metadataとYjs binary updateをSQLiteへ保存し、commit後に同期送信する境界を実装しました。[実装判断](../decisions/step-5-page-store.md)。[Dockerの8項目・Chromium全41 E2E](../../tests/evidence/step-5-page-store-20261001/SUMMARY.md)が成功し、強制終了・復元の選択状態を確認する試験も追加で3回成功しました。DockerでWindows 0.3.0候補をcross buildし、利用者の入力なしでnativeの新規offline Page・title・本文・block移動、強制終了後のoffline復元、再接続後のnative/peer state vectorと本文一致を確認しました。[実機証拠](../../tests/evidence/step-5-native-recovery-20261001/SUMMARY.md)。初期の制限付き起動によるWebView生成失敗は通常権限での起動で解消しました。Google日本語入力の実キー変換・候補選択は記録済みですが、Microsoft IME・native全項目・最終Gateは未検証で、結果を流用しません。次はStep 6のTask/Relation API・structured syncです。
 
 ## 通常の開発・試験はDocker内で実行
 

@@ -1,0 +1,27 @@
+{
+  "at": "2026-10-01T03:26:12.3848034Z",
+  "executableSha256": "40F39CEA71E5A3288A8FFE084CEA067B8090AB982BF9713AA8687882EA25BA3C",
+  "executableVersion": "0.3.0",
+  "sourceCheckpoint": "0.3.0 candidate",
+  "pageId": "01a0f572-ee7f-75d3-9cc9-bf8d4adf0498",
+  "operator": "Codex Computer Use; no user input",
+  "imeProvider": "Google Japanese Input; identified by Google candidate footer",
+  "microsoftIme": "Not run; not substituted by Google IME",
+  "keySequence": [
+    "Alt_L+grave",
+    "n",
+    "i",
+    "h",
+    "o",
+    "n",
+    "g",
+    "o",
+    "space",
+    "space",
+    "Up",
+    "Return"
+  ],
+  "nativeCrashRecovery": "Pass for new Page, title, two paragraphs and keyboard block movement",
+  "reconnected": "Native received peer marker and reported locally saved/server synced",
+  "remaining": "Native deletion, all blocks, Microsoft IME, composition-overlapping remote changes, final Gates"
+}

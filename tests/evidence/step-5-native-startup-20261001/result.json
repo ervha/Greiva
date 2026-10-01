@@ -1,0 +1,13 @@
+{
+  "observedAt": "2026-10-01T03:09:12.9772004Z",
+  "status": "Fail to expose targetable native window",
+  "checkpoint": "0.3.0 candidate; not committed",
+  "executableSha256": "6B84C9B71647C15E81DB4C1D1655C26EE8BE483FF45DCF4C6B9B1F20D15D1C41",
+  "nativeLibSourceSha256": "44B39096126F8606129085934F45C740B7EDA37327AB3D0282DBD3D1410B0752",
+  "build": "Docker cargo-xwin 0.23.1; x86_64-pc-windows-msvc; debug; custom-protocol",
+  "windowCandidates": [],
+  "sqliteNativeTest": "Not run",
+  "microsoftIme": "Not run",
+  "hostToolchainInstalled": false,
+  "interpretation": "Application built and event loop entered; user setup did not run. Tauri creates configured WebView windows before user setup. Exact cause not established. Changing cache, launch visibility and plugin registration did not expose a targetable window."
+}

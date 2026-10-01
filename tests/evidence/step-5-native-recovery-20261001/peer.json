@@ -1,0 +1,27 @@
+{
+  "at": "2026-10-01T03:24:16.083Z",
+  "pageId": "01a0f572-ee7f-75d3-9cc9-bf8d4adf0498",
+  "clientId": "dbdf97cd-699c-42c3-85d8-062a0a7d8618",
+  "before": "<paragraph>native-second</paragraph><paragraph>native-first</paragraph><paragraph>日本語</paragraph>",
+  "bodyXml": "<paragraph>native-second</paragraph><paragraph>native-first</paragraph><paragraph>日本語</paragraph><paragraph>native-peer-received</paragraph>",
+  "clocks": [
+    [
+      1,
+      1
+    ],
+    [
+      2112695675,
+      20
+    ],
+    [
+      2547125999,
+      39
+    ],
+    [
+      2897320005,
+      22
+    ]
+  ],
+  "acknowledged": true,
+  "nativeResult": "Observe native window and compare its persisted Y.Doc independently"
+}

@@ -1,4 +1,4 @@
-# Greiva UI・横断設計仕様 v0.5
+# Greiva UI・横断設計仕様 v0.6
 
 ## 1. 目的と適用範囲
 
@@ -13,6 +13,8 @@
 同日v0.4改訂: 将来の文章・音声によるAI操作を追加した。アプリ内の操作につながる入力・確認・結果の案は`AI_ACTION_SPEC.md`にまとめる。
 
 2026-10-01 v0.5改訂: AI初期提供範囲、共通パネルと各画面の入口、既存音声ファイル取込み、会話履歴の初期30日保存・期間変更・手動削除を一括回答に基づき追加した。元録音の端末内/選択クラウド保存も反映。AI実装やPoC拡張を意味しない。
+
+2026-10-01 v0.6改訂: アプリ内更新の非遮断の検知案内、利用者によるダウンロード、延期と再起動前の確認を追加。保存・署名・復旧の詳細案は`APP_UPDATE_SPEC.md`。未実装でありPoCの範囲を変更しない。
 
 ## 2. UX原則
 
@@ -319,6 +321,12 @@ Android、Windows desktop、macOS/iOS実機はCI対象またはrelease candidate
 - flagは認可の代替に使わない。
 - rollbackはDB/CRDTの互換性を壊さないこと。不可逆migrationを伴う場合は別途roll-forward手順を用意する。
 
+### 13.4 アプリ内更新
+
+起動時・定期的に更新を確認し、作業を遮らない案内と設定の「アプリについて／更新」へつなぐ。ダウンロードは利用者が開始し、取得後は「今すぐ更新／後で」を選ぶ。終了・再起動の確認と端末保存完了をinstaller呼び出し前に済ませ、未送信の変更を保持する。
+
+確認中・更新なし・更新あり・取得中・検証済み・保存待ち・導入中・失敗を区別する。offlineや確認失敗を「最新」と扱わず、IME composition中のfocusを奪わない。署名、配布物の公開、schema/protocol互換性、復旧、受入条件は`APP_UPDATE_SPEC.md`で整理する。製品設計の追加であり、現在のPoCの検証順序は変更しない。
+
 ## 14. 未決定事項と次の仕様化順序
 
 次の順で詳細仕様を作成する。
@@ -330,6 +338,7 @@ Android、Windows desktop、macOS/iOS実機はCI対象またはrelease candidate
 5. `HELP_SUPPORT_SPEC.md`（ヘルプ・文脈案内・記事管理と受入条件）
 6. `SEARCH_SPEC.md` と `INTEGRATION_SPEC.md`
 7. `AI_ACTION_SPEC.md`（将来の文章/音声操作、共通command、確認・参照範囲と受入条件）
-8. 運用SLO、backup、privacy、release checklist
+8. `APP_UPDATE_SPEC.md`（利用者が開始する取得・導入、保存/再起動、署名・配布・復旧）
+9. 運用SLO、backup、privacy、release checklist
 
 ここにない具体UI、色、ブランド、画面ごとの優先順位は要決定である。実装者はプレースホルダーを恒久仕様として扱わず、wireframe・利用者シナリオ・受入条件を提示して決定を得る。

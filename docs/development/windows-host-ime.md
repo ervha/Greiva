@@ -14,7 +14,7 @@
 
 WebView2のユーザーデータは子プロセスの`WEBVIEW2_USER_DATA_FOLDER`で`.data/host-ime/webview2/`へ指定する。[Microsoftの環境変数の仕様](https://learn.microsoft.com/en-us/microsoft-edge/webview2/reference/win32/webview2-idl)に従い、実際のブラウザプロセスの保存先も確認する。グローバル環境変数は変更しない。Tauri自体は`%LOCALAPPDATA%/dev.greiva.poc/`にディレクトリを作成することがあり、OS・WebView2のログ等も含めホストへの書込みが完全にゼロとは主張しない。
 
-起動ログは`.data/host-ime/runs/`へ置く。実行物、ユーザーデータ、未選別のログはGit対象外。試験中のノートはこのPoCでは永続保存されないため、画面を再起動・再読込みする前に必要な証拠を採取する。
+起動ログは`.data/host-ime/runs/`へ置く。実行物、ユーザーデータ、未選別のログはGit対象外。初期のshell/frontendでは永続保存がなかった。Step 5の新しいembedded 0.3.0候補はnative SQLiteへPage本文・titleを保存する。[実機の復元・再接続証拠](../../tests/evidence/step-5-native-recovery-20261001/SUMMARY.md)。browser補助プレビューは引き続き永続保存を提供しない。
 
 ## 実際のIME操作
 
@@ -37,7 +37,9 @@ WebView2のユーザーデータは子プロセスの`WEBVIEW2_USER_DATA_FOLDER`
 
 Step 4のDocker frontend 0.2.0は既存debug shell 0.0.0へ接続できる。元のshellを新規0.2.0実行物として扱わない。[自動試験とソース対応](../../tests/evidence/step-4-collaboration-20261001/SUMMARY.md)。[接続中の追加試験](../../tests/evidence/windows-remote-ime-20261001/SUMMARY.md)では12回の遠隔更新を送信し、利用者が試した操作すべて正常・双方の文字保持と回答した。Codexは実機IME候補と遠隔文字の同時表示を独立観察した。同一段落内のcomposition重複は観察証拠からは確立していない。
 
-同一Pageの別clientから、Microsoft IMEの未確定・候補選択中に更新を送る。1人で行う場合は、別画面へ切り替えてから編集するとcomposition終了を誘発するため、遅延した別clientの更新を使い、native側にfocusを残す。CodexがDocker内の独立providerから検証用段落を追加・更新し、利用者はnativeで変換・確定・再変換・Undo/Redoを行う。受信をcomposition中に停止しない。両方の本文保持、二重確定・欠落・カーソル逸脱・クラッシュの有無を記録する。準備・更新送信だけではPassにせず、利用者の明示的な結果を要する。
+同一Pageの別clientから、Microsoft IMEの未確定・候補選択中に更新を送る。1人で行う場合は、別画面へ切り替えてから編集するとcomposition終了を誘発するため、遅延した別clientの更新を使い、native側にfocusを残す。CodexがDocker内の独立providerから検証用段落を追加・更新し、利用者またはComputer Useによる実際のキー入力で変換・確定・再変換・Undo/Redoを行う。受信をcomposition中に停止しない。両方の本文保持、二重確定・欠落・カーソル逸脱・クラッシュの有無を記録する。準備・更新送信・literal Unicodeの直接入力だけではIMEのPassにしない。操作者と実際のcomposition・候補・確定結果を記録し、観察できない項目は未検証とする。過去の利用者回答による手動証拠は自動試験へ読み替えない。
+
+2026-10-01、利用者は実機検証も補助なしでの実施を希望した。通常のnative操作はComputer Useで実行し、保存・強制終了・復元を独立に記録する。管理者確認・認証・OS許可等の代理操作できない画面が必要になった場合だけ引き継ぐ。Dockerでcross buildしたembedded候補は`start-windows-ime.ps1 -ExecutablePath <project内の候補exe> -Embedded`でdev frontend無しに起動でき、`-FreshWebview`でcacheだけを新規にできる。SQLiteのtest pathは共通であり、cacheの再作成をデータ復元の代わりにしない。制限付き起動ではWebView windowが得られなかったが、通常権限での起動で解消した。[初期診断](../../tests/evidence/step-5-native-startup-20261001/SUMMARY.md)、[実機の復元・再接続・Google IME実キー結果](../../tests/evidence/step-5-native-recovery-20261001/SUMMARY.md)。Googleの結果をMicrosoft IMEへ転用しない。
 
 これはlocal Editorの初回検証である。Section 5.3の別clientからcomposition中にYjs updateを受ける試験はStep 4の接続後に追加する。初回IMEを通過してもGate A最終Passとは扱わない。残るnative Editor操作と画面証拠は最終判定に向けて補強する。Fail時は失敗記録を作ってStep 3で修正し、同期実装へ先行しない。
 
