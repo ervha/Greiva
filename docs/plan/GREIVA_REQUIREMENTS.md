@@ -1,4 +1,4 @@
-# Greiva 統合要件・アーキテクチャ仕様 v0.6
+# Greiva 統合要件・アーキテクチャ仕様 v0.7
 
 ## 1. 文書の目的と位置付け
 
@@ -15,6 +15,8 @@
 2026-10-01 v0.5改訂: AI初期提供は作成・登録・録音整理、入口は共通パネル＋各画面、音声はアプリ内録音＋既存ファイル取込み、会話履歴は初期30日・期間変更・手動削除とする一括回答を反映。元録音は端末内を基本にし、選んだものだけクラウド保存する。提供時期は未決定で、PoCの範囲を変更しない。
 
 2026-10-01 v0.6改訂: アプリ内更新を製品要件へ追加。起動時・定期検知、利用者が開始するダウンロード、「今すぐ更新／後で」と再起動前の確認を合意済み。保存済みの未送信データを保持する詳細案は`APP_UPDATE_SPEC.md`。未実装でありPoCの範囲を変更しない。
+
+2026-10-01 v0.7改訂: Notionのデータベースビュー・プロパティを基本すべて対象とする製品要求を追加。提示された時間割は利用例とし、任意の分類軸・カード表示・関連データ作成・ボタン/オートメーションを汎用機能として設計する。公式Helpを確認した対応目標は[DATABASE_SPEC.md](DATABASE_SPEC.md)、ボタン押下と変更/定期triggerの詳細案は[BUTTON_AUTOMATION_SPEC.md](BUTTON_AUTOMATION_SPEC.md)。未実装で、PoCの範囲・順序・Gateを変更しない。
 
 ## 2. 製品原則
 
@@ -97,6 +99,7 @@ greiva/
 | Page本文 | Yjsローカル永続化 | Y.Doc binary snapshot/update | Yjs + Hocuspocus |
 | Pageの検索/表示用Projection | キャッシュ可 | Tiptap JSON / plain text projection | CRDTから再生成 |
 | Task / Relation等の構造化データ | SQLite replica + sync state | PostgreSQL entity + operation履歴 | operation push/pull + cursor |
+| DBの定義 / Record / 型付きProperty / View / Button・automation定義と実行記録 | SQLite replica + sync state。派生値は再生成可能 | PostgreSQL structured data + operation / execution履歴 | structured sync。外部配信と派生計算を独立管理 |
 | 時間割・定期予定 / 時間帯設定 / 繰り返し / 取消・変更・追加 | SQLite replica + sync state | PostgreSQL entity + operation履歴 | structured sync。Calendarの各回表示は再生成可能なProjection |
 | User / session | 必要最小限の端末情報 | Supabase Auth | Auth SDK / API |
 | 添付ファイル | ローカルキャッシュ可 | Object Storage | upload/download adapter |
@@ -127,10 +130,12 @@ PoC後の詳細スキーマは`DATA_MODEL.md`で定義する。ここでは境�
 - **Task**: title、status、due等の構造化属性を持ち、version付きoperationで同期する。
 - **Relation**: Page/Task等のentity間のリンク。削除はtombstoneを用いる。
 - **Schedule**: 定期予定・曜日ごとの繰り返し規則・一回単位の取消/変更・追加予定を扱う汎用の構造化モデル。時間割では学期と時限を設定できるが、大学固有の必須属性にはしない。論理境界の案は`CALENDAR_TIMETABLE_SPEC.md`、最終schemaは`DATA_MODEL.md`で定義する。開催時刻とTaskのdate-only dueを分離する。
+- **Database / DataSource / Record / Property / View**: 汎用データ集合、型付き属性、同じ正本を参照する表示・編集設定。Record本文はPageのY.Docを参照する。論理境界と対応目標は`DATABASE_SPEC.md`。
+- **Action / Button / Automation / Execution**: 任意の文脈で共通commandを実行する定義・入口・trigger・耐久化した実行記録。用途固有の作成ボタンを固定実装せず、`BUTTON_AUTOMATION_SPEC.md`に従う。
 - **Conflict**: 同一fieldの競合についてbase/local/remote/field/status/解決operationを保持する。
 - **Event / Operation**: 同期用の不変記録。クライアント再送に耐える冪等キーを持つ。
 
-汎用プロパティ、record、entityの最終抽象化レベルは要決定である。初期段階ではTaskとRelationを明示モデルとし、早期のEAV化は避ける。
+汎用DB・プロパティは製品の提供対象とする。物理schema、既存Task/Scheduleとのbinding、同期と型変更の最終契約は要決定である。PoCではTaskとRelationを明示モデルとし、製品設計の追加だけで早期のEAV化や全面置換を行わない。
 
 ## 7. 同期要件
 
@@ -172,7 +177,17 @@ Google Calendar等の外部同期はProvider Adapterを経由する。Domainま�
 
 ### 8.3 主画面・Inbox・Calendar・View
 
-Home、Inbox、Board Viewは製品機能として候補に含むが、要求詳細、優先順位、初期リリース範囲は未確定である。Calendarには時間割・汎用定期予定を登録・表示する製品要件を追加する。いずれもPoCには含めない。本実装前に、それぞれの利用者、主要ジョブ、情報構造、操作、受入条件を個別仕様にする。
+Home、Inboxの要求詳細、優先順位、初期リリース範囲は未確定である。Calendar・汎用DBビューは以下の製品要件として扱い、提供時期・リリース単位を別途決める。いずれもPoCには含めない。
+
+#### 汎用データベース・ビュー・プロパティ・ボタン
+
+- Notionのレイアウトビューとプロパティを基本すべて対象とし、元の意味・機能・操作をできる限り維持してGreivaへ適合する。Table、Board、Timeline、Calendar、List、Gallery、Chart、Form、Feed、Map、Dashboardとレコード詳細のLayoutsを対象にする。
+- 同じDataSourceへ複数ビューを作り、独立したfilter/sort/group/subgroup・表示プロパティ・カード・開き方を保存する。ビュー切替・埋込み・参照でRecordを複製しない。
+- Name/Titleと基本の入力型に加え、Relation、Rollup、Formula、Button、ID、Place、作成/最終編集記録を含む。型・式・値・参照の契約と対応差異を記録し、一部実装を全対応と表示しない。
+- Boardの縦横の分類軸、カードの表示項目、ボタン名・作成先・処理を設定できる。時間割は用途の一つで、曜日・時限・科目・課題/講義ノートを固定schemaや固定actionにしない。
+- ボタンから複数action、値/式/変数、現在Recordと作成結果の参照を使える設計とする。データ追加・Property変更・定期triggerのautomationを共通action基盤へ接続する。元仕様の連鎖制限を維持し、同期の再送で二重実行しない。
+- Record本文のCRDT、型付き値のstructured sync、認可、Task/予定のdomain commandを迂回しない。Map/公開Form/外部送信等の通信依存と未取得の範囲は明示する。
+- 全機能の詳細案と受入条件は`DATABASE_SPEC.md`・`BUTTON_AUTOMATION_SPEC.md`。具体的な提供順、関数別互換、型変更/同期、公開・外部Providerは実装前に確定する。
 
 #### Calendar / 時間割・定期予定
 
@@ -194,7 +209,7 @@ Home、Inbox、Board Viewは製品機能として候補に含むが、要求詳�
 
 ### 8.5 検索・AI・通知・ファイル
 
-検索、通知、file storage、automation、plugin、public APIはアーキテクチャ上の拡張境界のみを確保する。初期実装の必須機能とは見なさず、個別のプロダクト判断なしに追加しない。AIは下記の将来機能の方向を追加し、具体的な提供時期・範囲は別途決める。
+検索、通知、file storage、plugin、public APIの初期リリース範囲は個別に決める。DBのFiles型・reminder設定・ボタン/automationの通知や外部actionは8.3の提供対象とし、配信・保持・接続等の詳細を各仕様で確定する。汎用automationを理由に未決定の他機能を無条件に追加しない。AIは下記の将来機能の方向を追加し、具体的な提供時期・範囲は別途決める。
 
 #### 将来のAI・文章/音声操作
 
@@ -218,6 +233,7 @@ Home、Inbox、Board Viewは製品機能として候補に含むが、要求詳�
 
 - アプリ内から利用方法と問題解決の手順を探せるヘルプページを提供する。ヘルプ専用の検索、カテゴリ、FAQ、ショートカット一覧を備える設計とする。ユーザーデータの全文検索とは別の機能境界とする。
 - Page/Editor、Task/Relation、Calendar/定期予定・時間割、保存・同期・offline等について、提供中の機能に対応した案内を用意する。
+- DBビュー・プロパティ・Formula/Relation・ボタン/automationは、提供中の対応範囲、設定方法、差異、実行待ち/部分完了/失敗の説明をヘルプへ追加する。
 - 画面やエラーから関連する説明へ直接移れる文脈ヘルプを提供し、編集内容と元の操作位置を保ったまま戻れるようにする。
 - 最初の使い方や新機能の案内は、閉じる・後で読む・再表示ができる。長い必須ツアーや利用者の実データを勝手に書き換える練習は設けない。
 - 基本ガイド・FAQ・重要な問題解決手順はアプリに同梱し、取得済みのアプリではofflineや未ログインでも参照できる。Webの初回offline起動の対応範囲は配信方針と合わせて確定する。説明はアプリ版、platform、機能の提供状態と対応させる。
@@ -295,7 +311,9 @@ PoCがGate A/B/Cを通過した場合、次の順で本番設計へ進む。
 10. `HELP_SUPPORT_SPEC.md`: ヘルプ、文脈案内、学習導線、問題解決、記事更新と受入条件。
 11. `AI_ACTION_SPEC.md`: 文章/音声入力、共通操作基盤、確認・実行、参照範囲、受入条件。
 12. `APP_UPDATE_SPEC.md`: 更新検知、利用者によるダウンロード・導入、保存/再起動、署名・配布・互換性と受入条件。
-13. `IMPLEMENTATION_PLAN.md`: リリース単位、依存、移行、受入条件。
+13. `DATABASE_SPEC.md`: 汎用Record・ビュー・型付きプロパティ、Notion対応目標、bindingと受入条件。
+14. `BUTTON_AUTOMATION_SPEC.md`: 汎用action、Button・trigger、実行履歴、offline/再送/外部送信と受入条件。
+15. `IMPLEMENTATION_PLAN.md`: リリース単位、依存、移行、受入条件。
 
 ## 12. 本書の決定事項と要決定事項
 
@@ -312,10 +330,12 @@ PoCがGate A/B/Cを通過した場合、次の順で本番設計へ進む。
 - ヘルプページと関連する利用案内を用意し、公開する機能の使い方・問題解決手順へアプリ内から到達できるようにする。
 - 将来のAI機能として文章・音声からPage作成、Task・予定登録を行い、アプリの操作へ段階的に対応できる設計とする。
 - アプリ内更新を起動時・定期的に検知し、ダウンロードは利用者が開始する。導入は「今すぐ更新／後で」と再起動前の確認を設け、端末保存済みの未送信データを保持する。
+- NotionのDBビュー・プロパティを基本すべて提供対象とし、元仕様をできる限り維持する。時間割を一利用例とする汎用の分類・表示・ボタン/automationとして実装する。
 
 ### 要決定
 
-- 初期リリースに含めるHome、Inbox、Boardの具体機能と優先順位、Calendar・定期予定/時間割の提供時期と詳細設計案の採用範囲。
+- 初期リリースに含めるHome/Inboxの具体機能、DB全対象の段階提供順・時期、Calendar・定期予定/時間割の提供時期と詳細設計案の採用範囲。
+- DBの型付き物理schema/索引、既存Task/Scheduleとのbinding、型変更と同期、関数別の互換性・制限、複数source、公開Form・地図・共有集計、Button実行/trigger集約・外部配信の詳細契約。
 - Workspaceのrole定義、共有モデル、RLSポリシー。
 - 検索、AI、通知、添付、automationのリリース時期と詳細要件。
 - AI操作の関連参照の判定・深さ・上限、外部送信設定の保存・同期・版管理、音声/AI Providerと端末内対応、費用、履歴・録音の保存方式/期限適用・削除契約、対応音声形式・処理上限、提供時期・platformと後続操作の公開順序、複合依頼の確認・実行単位。

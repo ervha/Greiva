@@ -1,4 +1,4 @@
-# Greiva UI・横断設計仕様 v0.6
+# Greiva UI・横断設計仕様 v0.7
 
 ## 1. 目的と適用範囲
 
@@ -15,6 +15,8 @@
 2026-10-01 v0.5改訂: AI初期提供範囲、共通パネルと各画面の入口、既存音声ファイル取込み、会話履歴の初期30日保存・期間変更・手動削除を一括回答に基づき追加した。元録音の端末内/選択クラウド保存も反映。AI実装やPoC拡張を意味しない。
 
 2026-10-01 v0.6改訂: アプリ内更新の非遮断の検知案内、利用者によるダウンロード、延期と再起動前の確認を追加。保存・署名・復旧の詳細案は`APP_UPDATE_SPEC.md`。未実装でありPoCの範囲を変更しない。
+
+2026-10-01 v0.7改訂: 汎用DBビュー・プロパティ・レコード詳細レイアウトと、Button/automationの製品設計を追加。時間割画像は任意PropertyのGroup/Subgroup・カード表示・共通actionの利用例として扱う。対応目標と受入条件は[DATABASE_SPEC.md](DATABASE_SPEC.md)・[BUTTON_AUTOMATION_SPEC.md](BUTTON_AUTOMATION_SPEC.md)。未実装でありPoCの範囲を拡張しない。
 
 ## 2. UX原則
 
@@ -35,6 +37,7 @@ Workspace
 ├─ Inbox                # 未処理項目。詳細は要決定
 ├─ Pages
 │  └─ Page Editor
+│     └─ DB埋込み / 全画面DB / Record詳細（同じDataSourceを参照）
 ├─ Tasks
 │  ├─ List
 │  └─ Task detail
@@ -49,7 +52,7 @@ Workspace
 └─ Help & About         # 補助導線。使い方・FAQ・問題解決・アプリ情報
 ```
 
-Calendar内に定期予定・時間割の登録、任意の期間/時間帯設定、各回の詳細への導線を設ける。時間割だけのために上位ナビゲーションを増やさない。Home、Inbox、Board Viewの具体的な初期提供範囲、Calendar/定期予定・時間割の提供時期は未決定である。仕様がない段階では、空の画面や仮データを本番機能として実装しない。
+Calendar内に定期予定・時間割の登録、任意の期間/時間帯設定、各回の詳細への導線を設ける。時間割だけのために上位ナビゲーションを増やさない。汎用DBはPage内の埋込みと全画面から同じDataSourceへ到達し、各ビューをtab/一覧で切り替える。Home/Inboxの初期範囲、DB各機能とCalendarの提供時期は未決定であり、仮データや未提供の空画面を本番機能として見せない。
 
 Help & AboutはDesktopのサイドバー下部、MobileのMore等の補助導線へ置く。主要な編集・予定画面のナビゲーションと競合させず、関連する説明には各画面からも移れるようにする。
 
@@ -174,6 +177,24 @@ Help & AboutはDesktopのサイドバー下部、MobileのMore等の補助導線
 - 休講/取消、振替/変更、補講/追加は文言またはbadgeで示す。予定の重複と同期Conflictを別の状態として表示する。
 - Desktopでは詳細パネル、Mobileでは日別agendaとbottom sheetを利用する設計案とする。日付・予定の選択と編集はkeyboard/タッチで到達可能にし、細いCalendar枠のDragだけに依存させない。
 - 詳細案・境界・受入条件は`CALENDAR_TIMETABLE_SPEC.md`を参照する。Page/Taskの期日モデルやPoCの同期DTOをこの設計追加だけで変更しない。
+
+### 7.4 汎用データベース・ビュー・プロパティ
+
+- NotionのTable/Board/Timeline/Calendar/List/Gallery/Chart/Form/Feed/Map/DashboardとRecord詳細のLayoutsを対応目標とし、共通データ・独立したビュー設定・型付きPropertyを使う。詳細は`DATABASE_SPEC.md`。
+- ビューtab、filter/sort/group/subgroup、表示Property、カード密度/preview、右パネル/中央preview/全画面を設定できる。詳細から戻る際は元のscroll・選択・focusを復元する。
+- Boardの横Groupと縦Subgroupは任意の対応Propertyから選び、空/未設定・複数カード・複数値を扱う。Drag以外の分類変更を提供し、両軸変更は一つの操作で検証する。
+- Propertyの型別入力、選択肢/色/順序、Relationの候補、Formulaの補完/型エラー、Rollupの集計を共通editorで扱う。名前変更と型変換を区別し、依存設定や変換不能値を保全する。
+- レコード詳細は固定表示Property・セクション・本文・詳細パネル・現在Recordに絞った関連ビューtabを設定できる。カードの表示設定と独立させ、配置のリセットでデータを消さない。
+- 時間割は「曜日×時限」「区分/場所/期間表示」の設定例とする。同じ機能で「担当者×優先度」「状態×部署」等を作れる。予定の原則とCalendar上の実際の回は識別し、例外・変更範囲を迂回しない。
+
+### 7.5 ボタン・データベースオートメーション
+
+- Buttonはlabel/icon、action列、参照/式/変数、確認を利用者が設定し、カード/表/詳細から実行する。用途固有の作成ボタンを中核へ固定しない。
+- 共通action editorでcreate、Property編集、複数対象編集、Relation、変数、確認/開く、通知/外部action等の対応範囲を設定する。Page buttonの本文挿入はYjs commandへ接続する。
+- automationは対象source/保存ビュー、追加/Property変更/定期trigger、any/all、有効/停止、action、実行履歴を扱う。Buttonと自動triggerは同じ処理定義・検証を使う。
+- previewは対象と変更内容を表示し、実行しない。現在Record・静的参照・作成結果・実行者・日時を入力候補で見分けられるようにする。
+- 実行中、端末保存済み、実行待ち、完了、部分完了、失敗、結果不明を区別し、既成功のstepと次の対処を示す。再試行で新しい作成や送信を無条件に繰り返さない。
+- Buttonを押す/設定する権限、データ編集、外部接続を分ける。key/タッチから操作でき、同期応答でfocusや日本語IMEを奪わない。詳細案と受入条件は`BUTTON_AUTOMATION_SPEC.md`。
 
 ## 8. 同期・Conflict UI
 
@@ -339,6 +360,7 @@ Android、Windows desktop、macOS/iOS実機はCI対象またはrelease candidate
 6. `SEARCH_SPEC.md` と `INTEGRATION_SPEC.md`
 7. `AI_ACTION_SPEC.md`（将来の文章/音声操作、共通command、確認・参照範囲と受入条件）
 8. `APP_UPDATE_SPEC.md`（利用者が開始する取得・導入、保存/再起動、署名・配布・復旧）
-9. 運用SLO、backup、privacy、release checklist
+9. `DATABASE_SPEC.md`・`BUTTON_AUTOMATION_SPEC.md`（Notion対応目標、汎用View/Property、共通actionと実行/triggerの詳細契約）
+10. 運用SLO、backup、privacy、release checklist
 
 ここにない具体UI、色、ブランド、画面ごとの優先順位は要決定である。実装者はプレースホルダーを恒久仕様として扱わず、wireframe・利用者シナリオ・受入条件を提示して決定を得る。

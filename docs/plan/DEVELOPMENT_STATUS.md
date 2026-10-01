@@ -2,7 +2,7 @@
 
 [プロジェクト紹介へ戻る](../../README.md)。以下のコマンドは、特記がなければリポジトリのルートで実行します。
 
-2026-10-01時点の開発計画と検証記録。開発チェックポイント **v0.5.0**。[変更履歴](../../CHANGELOG.md)・[コミット/バージョン運用](../development/versioning.md)。更新規模に応じたGitタグを付けてGitHubへ反映します。
+2026-10-01時点の開発計画と検証記録。開発チェックポイント **v0.5.1**。[変更履歴](../../CHANGELOG.md)・[コミット/バージョン運用](../development/versioning.md)。更新規模に応じたGitタグを付けてGitHubへ反映します。
 
 [POC_SPEC.md](POC_SPEC.md) のSection 18に沿って進めています。Step 1の基盤とStep 2の最小Editorを実装し、Slash・Toggleの操作改善を含むDocker内の全30件のE2Eが成功しました。Step 3はWindows実機へ切り替え、既存native shellの起動とWebView2保存先を確認しました。初回local IMEの4群は利用者がすべて問題なしと明示回答し、手動結果と初回証拠を記録しました。[Step 3初回IME記録](../../tests/evidence/windows-host-ime-20261001/SUMMARY.md)。[版の記録](../decisions/specification-version.md)、[Step 2の範囲・検証状況](../decisions/step-2-scope.md)、[Editor操作の改善](../decisions/editor-ux.md)を参照してください。
 
@@ -21,6 +21,8 @@ AI初期提供の方針は作成・登録・録音整理から開始し、既存
 追加の製品設計として[アプリ内更新](APP_UPDATE_SPEC.md)を記録しました。起動時・定期確認、利用者が開始するダウンロード、「今すぐ更新／後で」と再起動前の確認、未送信データの保全を合意済みです。未実装で、提供時期は未決定です。
 
 Step 5ではnative Page metadataとYjs binary updateをSQLiteへ保存し、commit後に同期送信する境界を実装しました。[実装判断](../decisions/step-5-page-store.md)。[Dockerの8項目・Chromium全41 E2E](../../tests/evidence/step-5-page-store-20261001/SUMMARY.md)が成功し、強制終了・復元の選択状態を確認する試験も追加で3回成功しました。DockerでWindows 0.3.0候補をcross buildし、利用者の入力なしでnativeの新規offline Page・title・本文・block移動、強制終了後のoffline復元、再接続後のnative/peer state vectorと本文一致を確認しました。[実機証拠](../../tests/evidence/step-5-native-recovery-20261001/SUMMARY.md)。初期の制限付き起動によるWebView生成失敗は通常権限での起動で解消しました。Google日本語入力の実キー変換・候補選択は記録済みですが、Microsoft IME・native全項目・最終Gateは未検証で、結果を流用しません。Step 6の進捗は次の段落に記録しています。
+
+製品設計に[汎用DBビュー・プロパティ](DATABASE_SPEC.md)と[ボタン・DBオートメーション](BUTTON_AUTOMATION_SPEC.md)を追加しました。Notion公式Helpのビュー/型/ボタン/action/triggerを比較対象とし、時間割は任意の分類軸・カード表示・関連データ作成を設定する一利用例として扱います。将来の受入条件、offline/再送/部分完了、元仕様との差異を記録しています。未実装で、PoCの対象・順序・Gateは変更していません。この文書更新で既存の実行物の版は変わりません。
 
 ## 通常の開発・試験はDocker内で実行
 

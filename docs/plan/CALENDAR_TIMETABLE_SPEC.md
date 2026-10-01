@@ -1,6 +1,6 @@
-# Calendar・定期予定・時間割 設計案 v0.2
+# Calendar・定期予定・時間割 設計案 v0.3
 
-更新: 2026-09-30。製品要件の追加と、実装前に検討する詳細設計をまとめる。機能要求と登録方法はユーザー指定に基づく。以下の具体的なモデル・画面・受入条件は設計案であり、実装済みや初期リリース確定を意味しない。
+更新: 2026-10-01。製品要件の追加と、実装前に検討する詳細設計をまとめる。v0.3では汎用DB・Board・Buttonとの接続を追加した。機能要求と登録方法はユーザー指定に基づく。以下の具体的なモデル・画面・受入条件は設計案であり、実装済みや初期リリース確定を意味しない。
 
 ## 1. 合意した要求と位置付け
 
@@ -127,6 +127,14 @@ Dragによる移動は一回の日時変更として扱う。全体の曜日や�
 
 Desktopの詳細パネルとMobileのbottom sheetは同じ変更範囲・検証を使う。閉じた後は選択した予定へフォーカスを戻す。読み上げ名は予定名・日付・時刻・取消等の状態を含める。
 
+### 5.3 汎用DBビュー・カード・ボタンとの接続
+
+時間割は[DATABASE_SPEC.md](DATABASE_SPEC.md)の汎用Boardを、Group=曜日・Subgroup=時限・Filter=期間等で設定する利用例とする。列/行、カードの区分・場所・期間表示、関連Task/Pageを作るButtonは任意のPropertyとactionで設定でき、科目専用schemaや固定の「課題追加」「講義ノート追加」を中核へ実装しない。同じ仕組みを担当者×勤務帯、状態×優先度等に使える。
+
+RecordとSchedule bindingを通して同じ正本を参照し、原則を示すBoardと各回の実日時を示すCalendarを区別する。複数曜日と複数時限の直積から開催規則を推測せず、RecurrencePatternへ明示的に対応付ける。Boardの原則カードを変更する場合もSchedule commandと変更範囲・例外への影響確認を通す。特定の回を選んでいない原則カードから「この回だけ」の日時を勝手に決めない。
+
+関連Task/ノートの作成は[BUTTON_AUTOMATION_SPEC.md](BUTTON_AUTOMATION_SPEC.md)の共通actionで扱う。現在Recordや特定の回へのRelation、初期値・template・作成結果を開く処理を設定できる。本文のCRDT、Task due、定期予定の正本を二重化しない。
+
 ## 6. 論理モデルと責務の設計案
 
 最終的なTypeScript/DB/operation schemaは後続の`DATA_MODEL.md`・`SYNC_SPEC.md`で定義する。次の名前は論理境界であり、PoCへの新規entity追加指示ではない。
@@ -192,6 +200,6 @@ Desktopの詳細パネルとMobileのbottom sheetは同じ変更範囲・検証�
 - 月次・年次・ローテーション、複雑な休日/組織暦、終日・複数日予定の初期提供範囲。
 - 夏時間の曖昧/存在しない時刻の解決方針、日時計算ライブラリ、表現・検索の契約。
 - CSV/カレンダーファイル/大学システムからの取込み、外部同期、通知、出欠や成績管理。
-- Pageノート・TaskとのRelation連携。既存Page本文やTask期日の正本を変えない。
+- Pageノート・TaskとのRelation連携は汎用DB/共通Buttonの提供対象とする。Record/Pattern/Occurrenceへのbindingと提供時期は実装前に確定し、既存Page本文やTask期日の正本を変えない。
 
-次工程は、要求と詳細案をリリース判断へ取り込み、`DATA_MODEL.md`・`SYNC_SPEC.md`・`INTEGRATION_SPEC.md`へ契約を落とすこと。VM準備中に本番設計を整理することと、PoCの検証順序を飛ばしてCalendarを実装することは区別する。
+次工程は、要求と詳細案をリリース判断へ取り込み、`DATA_MODEL.md`・`SYNC_SPEC.md`・`INTEGRATION_SPEC.md`へ契約を落とすこと。PoC中の製品設計の整理と、PoCの検証順序を飛ばしてCalendarを実装することは区別する。

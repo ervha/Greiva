@@ -2,6 +2,13 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.5.1 — 2026-10-01
+
+- 製品設計更新（PATCH）: NotionのDBビュー・プロパティを基本すべて提供対象とし、型付きRecord・独立したビュー設定・レコード詳細配置を[汎用DB仕様](docs/plan/DATABASE_SPEC.md)へ整理。時間割は利用例とし、任意のGroup/Subgroup・カード表示・関連データ作成を設定する構造にした。
+- [ボタン・DBオートメーション仕様](docs/plan/BUTTON_AUTOMATION_SPEC.md): Notion公式Helpを確認し、Button/action/変数/参照と追加・Property変更・定期triggerの対応目標を記録。Greivaの端末保存、実行ID、途中完了、再送、外部送信の結果不明、認可の詳細案・未決定事項・将来の受入条件を追加。
+- 要件・UI・Calendar設計を更新。全機能は未実装で、PoCの範囲・Section 18・Gateは変更なし。アプリソースや既存実行物を新しい版として扱わない。
+- 利用者の添付画像をGit/Dockerの入力から除外。検証は公式情報・文書の参照/整合性・差分・除外設定の確認。アプリ試験の新しい成功を主張しない。
+
 ## 0.5.0 — 2026-10-01
 
 - 実装更新（MINOR）: Step 7のサーバー側push/pullを追加。operation IDに対する確定結果をPostgreSQLへ耐久化し、同じリクエストの再送へ同じ結果を返す。恒久エラーも履歴へ保存する。

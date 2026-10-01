@@ -4,6 +4,7 @@ dist/
 *.tsbuildinfo
 .env
 .data/
+.codex-remote-attachments/
 target/
 apps/client/src-tauri/gen/
 playwright-report/
