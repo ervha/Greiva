@@ -2,7 +2,7 @@
 
 [プロジェクト紹介へ戻る](../../README.md)。以下のコマンドは、特記がなければリポジトリのルートで実行します。
 
-2026-10-02時点の開発計画と検証記録。開発チェックポイント **v0.6.7**（Step 8再変換の再確認・解析を記録する文書更新。実行物・プレビューは0.6.5）。**遠隔6更新後の別fixtureでも、再変換の系列で直前の `al ` の欠落をSQLiteとfresh peerに確認した。未修正・原因層未特定。** 遠隔なしの一回は本文保持。順序再生で削除更新を特定したが、二回目のnative候補操作の完走とアプリ終了理由は未観測。[今回の結果と限界](../../tests/evidence/step-8-ime-recheck-20261002/SUMMARY.md)・[失敗記録](../failures/step-8-ms-ime-reconversion.md)・[前回の実機結果](../../tests/evidence/step-8-platform-validation-20261001/SUMMARY.md)。利用者指定の検証記録の区切りで停止し、Step 9へ進まない。Step 8全受入条件の完了や最終Gate合格は宣言していない。[変更履歴](../../CHANGELOG.md)・[コミット/バージョン運用](../development/versioning.md)。
+2026-10-02時点の開発計画と検証記録。開発チェックポイント **v0.6.8**（Step 8再変換の診断比較・保存監査を記録する文書更新。通常製品・プレビューは0.6.5）。**選択後のウィンドウ移動を挟むと再変換対象が3文字から6文字へ広がるnative記録を取得し、素の入力欄でも直前の `al ` の欠落を観測した。** 移動なしの手動比較は本文保持。二つの診断対策候補では防止策が成立せず、製品未修正・OS／IME／WebView2内の根本原因は未確定。[最新の結果と限界](../../tests/evidence/step-8-ime-focus-20261002/SUMMARY.md)・[失敗記録](../failures/step-8-ms-ime-reconversion.md)・[通常製品での再確認](../../tests/evidence/step-8-ime-recheck-20261002/SUMMARY.md)。診断source overrideのbuild成功とnative結果を分け、検証記録の区切りまでとする。Step 9へ進まず、Step 8全受入条件の完了や最終Gate合格は宣言していない。[変更履歴](../../CHANGELOG.md)・[コミット/バージョン運用](../development/versioning.md)。
 
 今回の0.6.5 nativeではGoogle日本語入力中の同一段落遠隔3更新・変換・local Undo/Redoと最終本文一致、Microsoft通常変換中の同一段落遠隔6更新保持を確認した。Microsoftの候補一覧は更新後に一度隠れ、Upで再表示した。Windows releaseの隔離設定候補は新規DB／WebView保存先の一回で主要UI確認まで上限1,962msを観測。native大量データ性能・全操作組合せ・最新統合crash・P1/P2実OSは未完了。[停止境界と残課題](../decisions/step-8-validation-boundary.md)。以下は各版の実施履歴であり、当時の未検証事項は今回の結果へ読み替えず保持する。
 

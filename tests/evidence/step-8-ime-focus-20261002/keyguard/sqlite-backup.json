@@ -1,0 +1,27 @@
+{
+  "verifiedAt": "2026-10-01T16:59:12.9099876Z",
+  "source": ".data\\host-ime\\trace-2026-10-01T16-39-55-699Z\\sqlite",
+  "backup": ".data\\host-ime\\trace-2026-10-01T16-39-55-699Z\\sqlite-backup",
+  "nativeProcessAbsent": true,
+  "scope": "Diagnostic app intentionally closed before copying; original DB not reopened. Separate fresh run for each probe.",
+  "files": [
+    {
+      "file": "greiva.sqlite",
+      "bytes": 4096,
+      "sha256": "1fe8f6113488865c546d2faa55b21482662ce4be19d4f505eeefa09bc3131489",
+      "sourceMatches": true
+    },
+    {
+      "file": "greiva.sqlite-shm",
+      "bytes": 32768,
+      "sha256": "f657743885449d59e880c24a7a301d8d7c618a77a48f7bd7dc98a3edaee7c552",
+      "sourceMatches": true
+    },
+    {
+      "file": "greiva.sqlite-wal",
+      "bytes": 2504992,
+      "sha256": "8d1b84cebc371434de663bb673aaa29bd73de5ce7a01987ab3cfffa7e93b58b4",
+      "sourceMatches": true
+    }
+  ]
+}

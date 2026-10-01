@@ -1,0 +1,394 @@
+[
+  {
+    "file": "passive/build/build.json",
+    "source": ".data\\ime-trace-passive-build\\build.json",
+    "bytes": 1319,
+    "sha256": "32eaef1a5b344935ae7854b7c69bbc4a3271a29b7d3399444550847f276d7335",
+    "sourceMatches": true
+  },
+  {
+    "file": "passive/build/overrides.json",
+    "source": ".data\\ime-trace-passive-build\\overrides.json",
+    "bytes": 574,
+    "sha256": "1cbc6e121e645de73818774496087aba25b806e6fbe37f9036fd9797895fe928",
+    "sourceMatches": true
+  },
+  {
+    "file": "passive/build/PageEditor.tsx",
+    "source": ".data\\ime-trace-passive-build\\PageEditor.tsx",
+    "bytes": 5143,
+    "sha256": "bfb6920d99735dbe8e45e09f82ca2d84b10c0afcd30082141c9e949f7a2f2a9b",
+    "sourceMatches": true
+  },
+  {
+    "file": "passive/build/lib.rs",
+    "source": ".data\\ime-trace-passive-build\\lib.rs",
+    "bytes": 3817,
+    "sha256": "c0262f495de41c1e4a6ff39433c1a43c02159e54c117d7621e35b9eb164f250d",
+    "sourceMatches": true
+  },
+  {
+    "file": "passive/build/tauri.conf.json",
+    "source": ".data\\ime-trace-passive-build\\tauri.conf.json",
+    "bytes": 694,
+    "sha256": "6f73457cb186ff420308e277d714b85c373d345c365b58f0bf3ce08788932a55",
+    "sourceMatches": true
+  },
+  {
+    "file": "passive/build/native-ime-trace.ts",
+    "source": ".data\\ime-trace-passive-build\\native-ime-trace.ts",
+    "bytes": 6869,
+    "sha256": "9bb72b742051b2353b804a6c6b7f7e9c20aa858dd5f88171b8bdcd1415addf0a",
+    "sourceMatches": true
+  },
+  {
+    "file": "passive/build/PROBE-FRONTEND.log",
+    "source": ".data\\ime-trace-passive-build\\PROBE-FRONTEND.log",
+    "bytes": 772,
+    "sha256": "a38480029a7697333f68a8a80169fba26ff45d39d6fd7ee91031ff0cb2e1e35b",
+    "sourceMatches": true
+  },
+  {
+    "file": "passive/build/PROBE-CROSS-BUILD.log",
+    "source": ".data\\ime-trace-passive-build\\PROBE-CROSS-BUILD.log",
+    "bytes": 27110,
+    "sha256": "e48c5a383c8d321c9935512fe53166235b9cadf2e83a94219947531a0cd95c8d",
+    "sourceMatches": true
+  },
+  {
+    "file": "keyguard/build/build.json",
+    "source": ".data\\ime-trace-keyguard-build\\step8-ime-trace-build\\build.json",
+    "bytes": 1319,
+    "sha256": "3bcec2a495010a41066393447188066000ec8c29dc61b8b03208cbb71175f020",
+    "sourceMatches": true
+  },
+  {
+    "file": "keyguard/build/overrides.json",
+    "source": ".data\\ime-trace-keyguard-build\\step8-ime-trace-build\\overrides.json",
+    "bytes": 574,
+    "sha256": "a2f1988d36b7cff622845e434af8f6bcda9af7df87851576e509e6f9ebbdef53",
+    "sourceMatches": true
+  },
+  {
+    "file": "keyguard/build/PageEditor.tsx",
+    "source": ".data\\ime-trace-keyguard-build\\step8-ime-trace-build\\PageEditor.tsx",
+    "bytes": 5143,
+    "sha256": "bfb6920d99735dbe8e45e09f82ca2d84b10c0afcd30082141c9e949f7a2f2a9b",
+    "sourceMatches": true
+  },
+  {
+    "file": "keyguard/build/lib.rs",
+    "source": ".data\\ime-trace-keyguard-build\\step8-ime-trace-build\\lib.rs",
+    "bytes": 3817,
+    "sha256": "c0262f495de41c1e4a6ff39433c1a43c02159e54c117d7621e35b9eb164f250d",
+    "sourceMatches": true
+  },
+  {
+    "file": "keyguard/build/tauri.conf.json",
+    "source": ".data\\ime-trace-keyguard-build\\step8-ime-trace-build\\tauri.conf.json",
+    "bytes": 694,
+    "sha256": "6f73457cb186ff420308e277d714b85c373d345c365b58f0bf3ce08788932a55",
+    "sourceMatches": true
+  },
+  {
+    "file": "keyguard/build/native-ime-trace.ts",
+    "source": ".data\\ime-trace-keyguard-build\\step8-ime-trace-build\\native-ime-trace.ts",
+    "bytes": 8455,
+    "sha256": "997708c921a8c56968a544f5f9b3b91172acf9c071e56e9962c4bfbec792cdd1",
+    "sourceMatches": true
+  },
+  {
+    "file": "keyguard/build/PROBE-FRONTEND.log",
+    "source": ".data\\ime-trace-keyguard-build\\step8-ime-trace-build\\PROBE-FRONTEND.log",
+    "bytes": 772,
+    "sha256": "4f2cd8a266e0d9b5325e8001df57e1ae3a19c9c41ff8c41dbbbcf10709fb2dbb",
+    "sourceMatches": true
+  },
+  {
+    "file": "keyguard/build/PROBE-CROSS-BUILD.log",
+    "source": ".data\\ime-trace-keyguard-build\\step8-ime-trace-build\\PROBE-CROSS-BUILD.log",
+    "bytes": 27111,
+    "sha256": "72c5a55a72b23f9cc52305a973c93eb74b5a4368ca14f5c20d4bd5fc1862c687",
+    "sourceMatches": true
+  },
+  {
+    "file": "focusguard/build/build.json",
+    "source": "tests\\evidence\\runs\\container\\step8-ime-trace-build\\build.json",
+    "bytes": 1319,
+    "sha256": "08a4a173399777ca94b828c86948ebeb181a1be8d54ef22d8a0691a1871b4a50",
+    "sourceMatches": true
+  },
+  {
+    "file": "focusguard/build/overrides.json",
+    "source": "tests\\evidence\\runs\\container\\step8-ime-trace-build\\overrides.json",
+    "bytes": 574,
+    "sha256": "53df51505e1fd4d7ecb6d3ec74821f3b523025ad2bbe7670b2c8f593bcc2f611",
+    "sourceMatches": true
+  },
+  {
+    "file": "focusguard/build/PageEditor.tsx",
+    "source": "tests\\evidence\\runs\\container\\step8-ime-trace-build\\PageEditor.tsx",
+    "bytes": 5143,
+    "sha256": "bfb6920d99735dbe8e45e09f82ca2d84b10c0afcd30082141c9e949f7a2f2a9b",
+    "sourceMatches": true
+  },
+  {
+    "file": "focusguard/build/lib.rs",
+    "source": "tests\\evidence\\runs\\container\\step8-ime-trace-build\\lib.rs",
+    "bytes": 3817,
+    "sha256": "c0262f495de41c1e4a6ff39433c1a43c02159e54c117d7621e35b9eb164f250d",
+    "sourceMatches": true
+  },
+  {
+    "file": "focusguard/build/tauri.conf.json",
+    "source": "tests\\evidence\\runs\\container\\step8-ime-trace-build\\tauri.conf.json",
+    "bytes": 694,
+    "sha256": "6f73457cb186ff420308e277d714b85c373d345c365b58f0bf3ce08788932a55",
+    "sourceMatches": true
+  },
+  {
+    "file": "focusguard/build/native-ime-trace.ts",
+    "source": "tests\\evidence\\runs\\container\\step8-ime-trace-build\\native-ime-trace.ts",
+    "bytes": 8490,
+    "sha256": "95fe480263be74f4ff55c2e71c9b8ceb29f3e5882ec3a3263478be4de2d99f1c",
+    "sourceMatches": true
+  },
+  {
+    "file": "focusguard/build/PROBE-FRONTEND.log",
+    "source": "tests\\evidence\\runs\\container\\step8-ime-trace-build\\PROBE-FRONTEND.log",
+    "bytes": 772,
+    "sha256": "0d017af027510ba56ae2053b7dab25db0b59ad464a6fb07295399431d95219a2",
+    "sourceMatches": true
+  },
+  {
+    "file": "focusguard/build/PROBE-CROSS-BUILD.log",
+    "source": "tests\\evidence\\runs\\container\\step8-ime-trace-build\\PROBE-CROSS-BUILD.log",
+    "bytes": 27111,
+    "sha256": "320d6732542e583c89d034b8ad0186c75c18a619934bf0724460a91cae5dbda0",
+    "sourceMatches": true
+  },
+  {
+    "file": "passive/launch.json",
+    "source": ".data\\host-ime\\trace-2026-10-01T16-14-35-599Z\\launch.json",
+    "bytes": 613,
+    "sha256": "6d9417d576ca9dcc30217ec4ffa803d62d988c7b740ff9ab7b61a38839aee338",
+    "sourceMatches": true
+  },
+  {
+    "file": "passive/operations.json",
+    "source": ".data\\host-ime\\trace-2026-10-01T16-14-35-599Z\\operations.json",
+    "bytes": 395295,
+    "sha256": "3b07971c8139a121bc8094ab7e88a2d5dfcec9cf3f40835b0e95bc590235e867",
+    "sourceMatches": true
+  },
+  {
+    "file": "passive/stderr.log",
+    "source": ".data\\host-ime\\trace-2026-10-01T16-14-35-599Z\\stderr.log",
+    "bytes": 437468,
+    "sha256": "15f0a6f787c782f39ca46a30829aef3738b3a0d5cb727a972a3624be8f16a770",
+    "sourceMatches": true
+  },
+  {
+    "file": "passive/sqlite-backup.json",
+    "source": ".data\\host-ime\\trace-2026-10-01T16-14-35-599Z\\sqlite-backup.json",
+    "bytes": 566,
+    "sha256": "a9c76f2dba8d64a7f205e6761e6d0c77627d3366e3fb2cb2152a5a09953278cc",
+    "sourceMatches": true
+  },
+  {
+    "file": "keyguard/launch.json",
+    "source": ".data\\host-ime\\trace-2026-10-01T16-39-55-699Z\\launch.json",
+    "bytes": 613,
+    "sha256": "badac51fc1aa0074a54d9dab7818a40ebda2da9a91cebdcff1cf6ec8b87a169b",
+    "sourceMatches": true
+  },
+  {
+    "file": "keyguard/operations.json",
+    "source": ".data\\host-ime\\trace-2026-10-01T16-39-55-699Z\\operations.json",
+    "bytes": 114792,
+    "sha256": "1750ffd73264bd8d50598310c0464f6bd1173fca360e26d7211220dd4c0cdf10",
+    "sourceMatches": true
+  },
+  {
+    "file": "keyguard/stderr.log",
+    "source": ".data\\host-ime\\trace-2026-10-01T16-39-55-699Z\\stderr.log",
+    "bytes": 262345,
+    "sha256": "c2caa76efb15eea8bdcb976f488d3d8807aa7fc328855b53746b333fbb74d35f",
+    "sourceMatches": true
+  },
+  {
+    "file": "keyguard/sqlite-backup.json",
+    "source": ".data\\host-ime\\trace-2026-10-01T16-39-55-699Z\\sqlite-backup.json",
+    "bytes": 945,
+    "sha256": "e7d90d0f6b2415494143df26087dce93bcb06342a3eb75b5e9e547c82e99e39d",
+    "sourceMatches": true
+  },
+  {
+    "file": "focusguard/launch.json",
+    "source": ".data\\host-ime\\trace-2026-10-01T16-54-27-869Z\\launch.json",
+    "bytes": 614,
+    "sha256": "7a3b5e34873113f4d992fd1852332ea1d2971cc5a14a929d269845e70c31e745",
+    "sourceMatches": true
+  },
+  {
+    "file": "focusguard/operations.json",
+    "source": ".data\\host-ime\\trace-2026-10-01T16-54-27-869Z\\operations.json",
+    "bytes": 142746,
+    "sha256": "c9d7a24afac69f626e6d2c6aec3e6565ba2bc7ac4fe981f2ca587c79b626c0b6",
+    "sourceMatches": true
+  },
+  {
+    "file": "focusguard/stderr.log",
+    "source": ".data\\host-ime\\trace-2026-10-01T16-54-27-869Z\\stderr.log",
+    "bytes": 229377,
+    "sha256": "d4c3e7331af445c7de07d546a1c6af1060b05240d3de346efab083751519bde6",
+    "sourceMatches": true
+  },
+  {
+    "file": "focusguard/sqlite-backup.json",
+    "source": ".data\\host-ime\\trace-2026-10-01T16-54-27-869Z\\sqlite-backup.json",
+    "bytes": 944,
+    "sha256": "34fde280e5c1f3e76430cb1a457d08ca89d52680d680de34eee153f15cc73d83",
+    "sourceMatches": true
+  },
+  {
+    "file": "passive/ms-reconvert-selected-0.png",
+    "source": ".data\\host-ime\\trace-2026-10-01T16-14-35-599Z\\ms-reconvert-selected-0.png",
+    "bytes": 72531,
+    "sha256": "106173952fbbff098f9a121e225c685b09cc75c2aa329214eb4727d5965a103e",
+    "sourceMatches": true
+  },
+  {
+    "file": "passive/ms-reconvert-start-user-0.png",
+    "source": ".data\\host-ime\\trace-2026-10-01T16-14-35-599Z\\ms-reconvert-start-user-0.png",
+    "bytes": 79683,
+    "sha256": "086b90f21855687a9c9c7b9485b0425eea695d9d41dd140644c861a61bf28b05",
+    "sourceMatches": true
+  },
+  {
+    "file": "passive/ms-reconvert-commit-0.png",
+    "source": ".data\\host-ime\\trace-2026-10-01T16-14-35-599Z\\ms-reconvert-commit-0.png",
+    "bytes": 71487,
+    "sha256": "00e25aafc4165b0cb6a077cf16b731e35232753e5b96d9830551ab33258a7d8f",
+    "sourceMatches": true
+  },
+  {
+    "file": "passive/before-guard-probe-rebuild-0.png",
+    "source": ".data\\host-ime\\trace-2026-10-01T16-14-35-599Z\\before-guard-probe-rebuild-0.png",
+    "bytes": 63313,
+    "sha256": "2caa03a681a07498adb827f6a11115dbc285b0d9118211daa318b78e1a605c7b",
+    "sourceMatches": true
+  },
+  {
+    "file": "keyguard/completed.png",
+    "source": ".data\\host-ime\\trace-2026-10-01T16-39-55-699Z\\guard-user-completed-0.png",
+    "bytes": 89968,
+    "sha256": "63f1714c0f191e6df780e74bf699938533795be14b258025d0e0c57ddc14ece8",
+    "sourceMatches": true
+  },
+  {
+    "file": "focusguard/completed.png",
+    "source": ".data\\host-ime\\trace-2026-10-01T16-54-27-869Z\\focus-probe-user-completed-1.png",
+    "bytes": 90517,
+    "sha256": "cc0890f76c4a88c977f01458f6fc81fb0093cb513c122f322345bf9f47594399",
+    "sourceMatches": true
+  },
+  {
+    "file": "ime-focus-report.json",
+    "source": ".data/ime-focus-report.json",
+    "bytes": 267511,
+    "sha256": "64b8a5af640b39b3beda4145f94ccbda41168081c15dde3b70074a09942f34be",
+    "sourceMatches": true
+  },
+  {
+    "file": "ime-passive-analysis.json",
+    "source": ".data/ime-passive-analysis.json",
+    "bytes": 513073,
+    "sha256": "2f828173fc598ed4a6508918096e93f1e7fe81f530759fdd4820a4e2540e9444",
+    "sourceMatches": true
+  },
+  {
+    "file": "ime-keyguard-analysis.json",
+    "source": ".data/ime-keyguard-analysis.json",
+    "bytes": 280884,
+    "sha256": "3cfa2fbba475c4ec293e2c2e44bd947fb0d6d6ae13083ba645049b2d461507e7",
+    "sourceMatches": true
+  },
+  {
+    "file": "ime-focusguard-analysis.json",
+    "source": ".data/ime-focusguard-analysis.json",
+    "bytes": 251034,
+    "sha256": "3d3ff30b83435e347bdd32dfa437098fabbaf88d95bf42f5dde625c2d94edb35",
+    "sourceMatches": true
+  },
+  {
+    "file": "reproduce/build-native-ime-trace.mjs",
+    "source": ".data/build-native-ime-trace.mjs",
+    "bytes": 4068,
+    "sha256": "c3c940b9f32118fab1da72db690067901e9e7063df91df7a6864001f6ae1d9f4",
+    "sourceMatches": true
+  },
+  {
+    "file": "reproduce/analyze-ime-trace.mjs",
+    "source": ".data/analyze-ime-trace.mjs",
+    "bytes": 1961,
+    "sha256": "5a240b918bc77271fb2028c24459267cb9efba5eff6c87a03fadbb9b030e766e",
+    "sourceMatches": true
+  },
+  {
+    "file": "reproduce/report-ime-focus.mjs",
+    "source": ".data/report-ime-focus.mjs",
+    "bytes": 7619,
+    "sha256": "1294803e5530cd548bdeac58197581b680573618969286a13f1949163c8ab337",
+    "sourceMatches": true
+  },
+  {
+    "file": "reproduce/start-ime-trace.ps1",
+    "source": ".data/start-ime-trace.ps1",
+    "bytes": 1973,
+    "sha256": "0c3c0d79aeb760c2829a9fe383a9856b7f0adb9307a88440fd465db299216c0a",
+    "sourceMatches": true
+  },
+  {
+    "file": "reproduce/verify-ime-source.mjs",
+    "source": ".data/verify-ime-source.mjs",
+    "bytes": 915,
+    "sha256": "56228e6a5aa56cc39de42bf1b75b0c0a80401de49231f7178f4cd2517f66f852",
+    "sourceMatches": true
+  },
+  {
+    "file": "ime-source-restored-helper.json",
+    "source": ".data/ime-source-restored-helper.json",
+    "bytes": 438,
+    "sha256": "13b2e1651e50e6d75bf68bafdc9fbf0ae3114233fefd553645b19287d776ca1d",
+    "sourceMatches": true
+  },
+  {
+    "file": "ime-source-restored-dev.json",
+    "source": ".data/ime-source-restored-dev.json",
+    "bytes": 448,
+    "sha256": "1098785c97dc760a743c5833ce3bfe5a52f3afe7d0b5db61b581302e4433efeb",
+    "sourceMatches": true
+  },
+  {
+    "file": "attempts/first-frontend-build.json",
+    "source": ".data/ime-trace-first-build/build.json",
+    "bytes": 705,
+    "sha256": "a7d5b0e9ef7d28abe2023552703428f6c2b27c43210d9b6db40fcd4da22dabc4",
+    "sourceMatches": true
+  },
+  {
+    "file": "attempts/first-frontend-build.log",
+    "source": ".data/ime-trace-first-build/PROBE-FRONTEND.log",
+    "bytes": 583,
+    "sha256": "58262124315e61e8d808129af26afa65b64eebc6b2fbdd6c8761beb3affb2cf6",
+    "sourceMatches": true
+  },
+  {
+    "file": "attempts/sandbox-startup-failed.log",
+    "source": ".data/host-ime/trace-2026-10-01T16-13-59-385Z/stderr.log",
+    "bytes": 387,
+    "sha256": "d1ee925c23c46712bd032ec4245e243fd022cfd59db55cfe8f7b4a01fec25c84",
+    "sourceMatches": true
+  }
+]

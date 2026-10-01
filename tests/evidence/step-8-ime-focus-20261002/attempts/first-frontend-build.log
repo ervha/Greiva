@@ -1,0 +1,14 @@
+
+> @greiva/client@0.6.5 build
+> tsc --noEmit && vite build
+
+src/editor/native-ime-trace.ts(77,39): error TS2532: Object is possibly 'undefined'.
+src/editor/native-ime-trace.ts(78,52): error TS2532: Object is possibly 'undefined'.
+src/editor/native-ime-trace.ts(78,96): error TS2532: Object is possibly 'undefined'.
+npm error Lifecycle script `build` failed with error:
+npm error code 1
+npm error path /workspace/apps/client
+npm error workspace @greiva/client@0.6.5
+npm error location /workspace/apps/client
+npm error command failed
+npm error command sh -c tsc --noEmit && vite build

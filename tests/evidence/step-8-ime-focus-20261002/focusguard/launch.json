@@ -1,0 +1,11 @@
+{
+  "startedAt": "2026-10-01T16:54:28.6319220Z",
+  "processId": 12516,
+  "baselineVersion": "0.6.5",
+  "checkpoint": "0.6.7",
+  "sourceCommit": "8a0a5abc3ece73624b42278b4d444b102cfa07f7",
+  "sha256": "b9143ddfb6da3c3c997a53606ae9df95cd226061acb5f5a55a71ccd13278247b",
+  "bytes": 18561536,
+  "testDirectory": "C:\\Users\\danun\\Desktop\\Project\\Greiva\\.data\\host-ime\\trace-2026-10-01T16-54-27-869Z",
+  "scope": "Diagnostic-only modified 0.6.5 candidate. Native operation and IME outcome are separate from launch/build. Fresh isolated SQLite and WebView cache; original failure fixtures untouched."
+}

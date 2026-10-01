@@ -1,0 +1,46 @@
+{
+  "at": "2026-10-01T16:12:12.422Z",
+  "baselineVersion": "0.6.5",
+  "baselineCommit": "c6b1c8bde39996cd7b5bcbca5f737b6106789680",
+  "baselineSha256": "c0f39a8a19274ef4150c4c770189fce4b927e21befb9c542bb24402975846205",
+  "artifact": {
+    "sha256": "c13d60548cdf4b2e473b717279f6aea136dccf0eeedde07d09320447baac91f7",
+    "bytes": 18561024
+  },
+  "results": [
+    {
+      "id": "PROBE-FRONTEND",
+      "command": [
+        "npm",
+        "run",
+        "build",
+        "--workspace=@greiva/client"
+      ],
+      "startedAt": "2026-10-01T16:11:51.432Z",
+      "finishedAt": "2026-10-01T16:11:52.937Z",
+      "exitCode": 0
+    },
+    {
+      "id": "PROBE-CROSS-BUILD",
+      "command": [
+        "cargo",
+        "xwin",
+        "build",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "apps/client/src-tauri/Cargo.toml",
+        "--target",
+        "x86_64-pc-windows-msvc",
+        "--features",
+        "custom-protocol",
+        "--target-dir",
+        ".data/windows-target"
+      ],
+      "startedAt": "2026-10-01T16:11:52.939Z",
+      "finishedAt": "2026-10-01T16:12:12.202Z",
+      "exitCode": 0
+    }
+  ],
+  "scope": "Diagnostic-only modified 0.6.5 baseline, local stderr event/selection trace and plain-input comparisons. Not a normal product artifact or production native Pass."
+}

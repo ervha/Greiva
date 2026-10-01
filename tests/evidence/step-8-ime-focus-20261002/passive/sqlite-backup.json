@@ -1,0 +1,14 @@
+{
+  "verifiedAt": "2026-10-01T16:49:58.0151846Z",
+  "source": ".data/host-ime/trace-2026-10-01T16-14-35-599Z/sqlite",
+  "backup": ".data/host-ime/trace-2026-10-01T16-14-35-599Z/sqlite-backup",
+  "scope": "Passive probe intentionally closed by Alt+F4 before copying. Original DB unchanged and not reopened; guard probe uses a different SQLite directory.",
+  "files": [
+    {
+      "file": "greiva.sqlite",
+      "bytes": 114688,
+      "sha256": "dd41b3e6bb5867bd776b9f376a82fff99e9e1698ffcd601df2969dd3018c2e64",
+      "sourceMatches": true
+    }
+  ]
+}

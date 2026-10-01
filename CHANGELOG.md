@@ -2,6 +2,12 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.8 — 2026-10-02
+
+- Step 8の再変換診断・比較証拠を追加（PATCH）。製品コード・app manifest／lockfileは0.6.5を維持。Dockerで診断専用の3候補をbuildし、Windows native結果と分けて記録する。
+- 選択後のウィンドウ移動で日本語3文字の再変換対象が直前の `al ` を含む6文字へ広がるtrusted input記録を取得。素のtextarea／contenteditableでも同じ欠落を観測し、移動なしの手動比較では本文を保持した。遠隔更新なしでも発生し、OS／IME／WebView2内の根本原因は未確定。
+- keydown実験はキー未受領で処理に到達せず、focus復帰時の選択方向更新は実行されたが防止できなかった。製品へ採用せず、実PageStore／Yjs順序再生で保存された欠落と後の手動修復を区別した。[結果・限界・証拠](tests/evidence/step-8-ime-focus-20261002/SUMMARY.md)。検証記録の区切りまでとし、Step 9へ進まない。
+
 ## 0.6.7 — 2026-10-02
 
 - Step 8再変換の切り分け・証拠の文書更新（PATCH）。アプリ／manifest／lockfile・実行物は0.6.5を維持し、製品修正や依存変更は含めない。

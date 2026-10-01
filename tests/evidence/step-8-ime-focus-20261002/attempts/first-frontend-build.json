@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-01T16:10:58.311Z",
+  "baselineVersion": "0.6.5",
+  "baselineCommit": "c6b1c8bde39996cd7b5bcbca5f737b6106789680",
+  "baselineSha256": "c0f39a8a19274ef4150c4c770189fce4b927e21befb9c542bb24402975846205",
+  "artifact": null,
+  "results": [
+    {
+      "id": "PROBE-FRONTEND",
+      "command": [
+        "npm",
+        "run",
+        "build",
+        "--workspace=@greiva/client"
+      ],
+      "startedAt": "2026-10-01T16:10:56.858Z",
+      "finishedAt": "2026-10-01T16:10:58.307Z",
+      "exitCode": 1
+    }
+  ],
+  "scope": "Diagnostic-only modified 0.6.5 baseline, local stderr event/selection trace and plain-input comparisons. Not a normal product artifact or production native Pass."
+}

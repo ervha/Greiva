@@ -1,0 +1,36 @@
+{
+  "at": "2026-10-01T17:10:02.7093444Z",
+  "checkpointVersion": "0.6.8",
+  "productVersion": "0.6.5",
+  "rawFilesChecked": 56,
+  "jsonFilesChecked": 27,
+  "localLinksChecked": 137,
+  "diagnosticBuildAndLaunchHashesChecked": 3,
+  "originalProductArtifactUnchanged": true,
+  "canonicalDockerSourceFiles": 130,
+  "canonicalDockerSourceSha256": "c0f39a8a19274ef4150c4c770189fce4b927e21befb9c542bb24402975846205",
+  "productTrackedFilesUnchangedExceptCheckpointVersion": true,
+  "diagnosticComparisonsChecked": 9,
+  "traces": [
+    {
+      "file": "ime-passive-analysis.json",
+      "pageSequenceGaps": 0,
+      "parseErrors": 0,
+      "records": 562
+    },
+    {
+      "file": "ime-keyguard-analysis.json",
+      "pageSequenceGaps": 0,
+      "parseErrors": 0,
+      "records": 232
+    },
+    {
+      "file": "ime-focusguard-analysis.json",
+      "pageSequenceGaps": 0,
+      "parseErrors": 0,
+      "records": 202
+    }
+  ],
+  "nativeProcessAbsent": true,
+  "scope": "Evidence and documentation checkpoint. Diagnostic builds and source overrides are separate from normal product artifacts. Prefix preservation failures remain; no production fix, new full E2E, peer convergence, crash Pass or final Gate claim."
+}

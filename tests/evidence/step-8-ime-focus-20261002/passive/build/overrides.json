@@ -1,0 +1,18 @@
+[
+  {
+    "path": "apps/client/src/editor/PageEditor.tsx",
+    "sha256": "bfb6920d99735dbe8e45e09f82ca2d84b10c0afcd30082141c9e949f7a2f2a9b"
+  },
+  {
+    "path": "apps/client/src-tauri/src/lib.rs",
+    "sha256": "c0262f495de41c1e4a6ff39433c1a43c02159e54c117d7621e35b9eb164f250d"
+  },
+  {
+    "path": "apps/client/src-tauri/tauri.conf.json",
+    "sha256": "6f73457cb186ff420308e277d714b85c373d345c365b58f0bf3ce08788932a55"
+  },
+  {
+    "path": "apps/client/src/editor/native-ime-trace.ts",
+    "sha256": "9bb72b742051b2353b804a6c6b7f7e9c20aa858dd5f88171b8bdcd1415addf0a"
+  }
+]
