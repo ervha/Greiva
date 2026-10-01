@@ -2,6 +2,14 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.4.0 — 2026-10-01
+
+- 実装更新（MINOR）: Step 6のTask/Relation最小モデル、端末CRUD、tombstone、送信待ち操作、sync_stateを追加。entity変更とqueue追加を同じSQLite transactionで保存し、schema 2→3移行で既存Pageを保持する。
+- client IDを端末SQLiteへ保存。pending操作の元のbaseと前の操作を保持し、再起動でqueueを失わない。保存失敗時は入力を残して再試行でき、成功後は入力focusを戻す。
+- PostgreSQLにapplication専用モデルを追加し、version確認とtransactionで同時変更を保護。NestJSからTask/Relationを読み取るAPIを追加。push/pull・ACK・cursor前進・競合解決はStep 7であり未実装。[実装判断](docs/decisions/step-6-structured-models.md)。
+- Docker検証: build・strict型・unit/integration 29件、全43 E2E、実PostgreSQL別run 2件、SQLite初期化、Linux locked Cargo checkが成功。[証拠](tests/evidence/step-6-structured-models-20261001/SUMMARY.md)。
+- package/Tauri/Cargoとlockを0.4.0へ整合し、Windows候補をDockerでcross build。実機の起動とread-only観察は記録したが、操作APIのアクセス拒否により新規Task操作は未検証。[実機の限界](tests/evidence/step-6-native-local-20261001/SUMMARY.md)。Microsoft IME・最終Gateは未検証。updater・Calendar等は将来設計のまま。
+
 ## 0.3.0 — 2026-10-01
 
 - 実装更新（MINOR）: native SQLiteへPage metadataとYjs binary updateを保存。保存commitの完了前には更新・同期応答を送信せず、保存/復元/非互換schemaの失敗時は編集・接続を停止してエラーを表示する。

@@ -1,0 +1,9 @@
+{
+  "checkedAt": "2026-10-01T04:23:33.1965951Z",
+  "sourceSha256": "dc1f5a882ccddc1269b2f5b1e3c02c13cb8ec0c0f3536aa7b65215cb77091847",
+  "sourceFiles": 111,
+  "matchesDockerRun": true,
+  "checkoutBeforeCheckpoint": "6944634cb2bc6715c201dbfd474b805b1740ed6b",
+  "implementationVersion": "0.4.0",
+  "gates": "Not evaluated"
+}

@@ -23,12 +23,25 @@ export const relationSchema = z.strictObject({
   toType: entityTypeSchema, toId: idSchema, version: versionSchema,
   ...timestamps, deletedAt: utcTimestampSchema.nullable(),
 });
+export const taskCreateSchema = taskSchema.pick({ title: true, status: true, due: true });
+export const taskUpdateSchema = taskCreateSchema.partial().refine(value => Object.keys(value).length > 0, 'Empty update');
+export const relationCreateSchema = relationSchema.pick({ fromType: true, fromId: true, toType: true, toId: true });
+export const relationUpdateSchema = relationCreateSchema.partial().refine(value => Object.keys(value).length > 0, 'Empty update');
+export const deletePayloadSchema = z.strictObject({});
 export const pushOperationSchema = z.strictObject({
   operationId: idSchema, entityType: z.enum(['task', 'relation']), entityId: idSchema,
   kind: z.enum(['create', 'update', 'delete']), baseVersion: versionSchema.nullable(),
-  // Entity-specific payload validation is implemented with structured sync in Step 6/7.
+  // Parse the envelope first so Step 7 can return permanent rejection for a bad payload.
   payload: z.unknown(), clientId: idSchema,
 });
+export function parseOperationPayload(operation: PushOperation) {
+  if (operation.kind === 'create' && operation.baseVersion !== null) throw new Error('Create requires null baseVersion');
+  if (operation.kind !== 'create' && operation.baseVersion === null) throw new Error('Mutation requires baseVersion');
+  if (operation.kind === 'delete') return deletePayloadSchema.parse(operation.payload);
+  return (operation.entityType === 'task'
+    ? operation.kind === 'create' ? taskCreateSchema : taskUpdateSchema
+    : operation.kind === 'create' ? relationCreateSchema : relationUpdateSchema).parse(operation.payload);
+}
 export const syncOperationSchema = pushOperationSchema.extend({
   createdAt: utcTimestampSchema, status: z.enum(['pending', 'acknowledged', 'rejected']),
 });
@@ -37,6 +50,11 @@ export const syncStateSchema = z.strictObject({
   lastSuccessfulSyncAt: utcTimestampSchema.nullable(),
 });
 export const pullRequestSchema = z.strictObject({ cursor: cursorSchema.nullable() });
+export const structuredSnapshotSchema = z.strictObject({
+  tasks: z.array(taskSchema), relations: z.array(relationSchema), operations: z.array(syncOperationSchema),
+  state: syncStateSchema, clientId: idSchema.nullable(),
+});
+export type StructuredSnapshot = z.infer<typeof structuredSnapshotSchema>;
 export type Page = z.infer<typeof pageSchema>;
 export type Task = z.infer<typeof taskSchema>;
 export type Relation = z.infer<typeof relationSchema>;

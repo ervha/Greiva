@@ -1,4 +1,4 @@
-use greiva_page_store::{PageStore, StoredPage, PageMetadata};
+use greiva_page_store::{PageStore, StoredPage, PageMetadata, LocalOperation, StructuredSnapshot};
 use std::path::PathBuf;
 use tauri::Manager;
 use tokio::sync::OnceCell;
@@ -25,6 +25,18 @@ async fn page_append(page_id: String, update: Vec<u8>, state: tauri::State<'_, L
 async fn page_set_title(page_id: String, title: String, state: tauri::State<'_, LocalStore>) -> Result<(), String> {
     state.get().await?.set_title(&page_id, &title).await
 }
+#[tauri::command]
+async fn structured_snapshot(state: tauri::State<'_, LocalStore>) -> Result<StructuredSnapshot, String> {
+    state.get().await?.structured_snapshot().await
+}
+#[tauri::command]
+async fn structured_client_id(candidate: String, state: tauri::State<'_, LocalStore>) -> Result<String, String> {
+    state.get().await?.structured_client_id(&candidate).await
+}
+#[tauri::command]
+async fn structured_mutate(operation: LocalOperation, state: tauri::State<'_, LocalStore>) -> Result<serde_json::Value, String> {
+    state.get().await?.structured_mutate(operation).await
+}
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     #[cfg(debug_assertions)]
@@ -44,7 +56,7 @@ pub fn run() {
             eprintln!("Greiva native startup: local store configured");
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![page_list, page_load, page_append, page_set_title])
+        .invoke_handler(tauri::generate_handler![page_list, page_load, page_append, page_set_title, structured_snapshot, structured_mutate, structured_client_id])
         .build(tauri::generate_context!())
         .expect("Greiva PoC failed to start");
     #[cfg(debug_assertions)]

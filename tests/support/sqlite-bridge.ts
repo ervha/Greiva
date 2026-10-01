@@ -51,6 +51,8 @@ export function sqliteBridge(): Plugin {
               const db = new DatabaseSync(file(input.device));
               try {
                 if (input.command === 'write-failure') db.exec("CREATE TRIGGER fail_append BEFORE INSERT ON page_updates BEGIN SELECT RAISE(ABORT,'Injected SQLite write failure'); END");
+                else if (input.command === 'structured-write-failure') db.exec("CREATE TRIGGER fail_structured_queue BEFORE INSERT ON sync_operations BEGIN SELECT RAISE(ABORT,'Injected structured queue failure'); END");
+                else if (input.command === 'clear-structured-write-failure') db.exec('DROP TRIGGER fail_structured_queue');
                 else if (input.command === 'corrupt') db.exec("UPDATE page_updates SET update_bytes=X'FFFF' WHERE seq=(SELECT max(seq) FROM page_updates)");
                 else if (input.command === 'schema') db.exec('PRAGMA user_version=99');
                 else throw new Error('Unknown test control');

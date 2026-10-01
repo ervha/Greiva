@@ -2,6 +2,8 @@ use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use sqlx::{sqlite::{SqliteConnectOptions, SqliteJournalMode, SqlitePoolOptions, SqliteSynchronous}, Row, SqlitePool};
 use std::{path::Path, time::Duration};
+mod structured;
+pub use structured::{LocalOperation, StructuredSnapshot};
 
 pub struct PageStore { pool: SqlitePool }
 #[derive(Serialize, Deserialize, Debug, Clone)]
@@ -23,7 +25,7 @@ impl PageStore {
             .foreign_keys(true).busy_timeout(Duration::from_secs(5));
         let pool = SqlitePoolOptions::new().max_connections(1).connect_with(options).await.map_err(|e| e.to_string())?;
         let version: i64 = sqlx::query_scalar("PRAGMA user_version").fetch_one(&pool).await.map_err(|e| e.to_string())?;
-        if ![0, 1, 2].contains(&version) { return Err(format!("Unsupported local schema version: {version}")); }
+        if ![0, 1, 2, 3].contains(&version) { return Err(format!("Unsupported local schema version: {version}")); }
         let integrity: String = sqlx::query_scalar("PRAGMA quick_check").fetch_one(&pool).await.map_err(|e| e.to_string())?;
         if integrity != "ok" { return Err(format!("SQLite integrity check failed: {integrity}")); }
         let mut tx = pool.begin().await.map_err(|e| e.to_string())?;
@@ -36,10 +38,16 @@ impl PageStore {
             sqlx::query("CREATE TABLE client_page_state (singleton INTEGER PRIMARY KEY CHECK(singleton=1), page_id TEXT NOT NULL REFERENCES pages(id)) STRICT").execute(&mut *tx).await.map_err(|e| e.to_string())?;
             sqlx::query("PRAGMA user_version=2").execute(&mut *tx).await.map_err(|e| e.to_string())?;
         }
+        if version < 3 {
+            for statement in include_str!("../structured.sql").split(';').filter(|statement| !statement.trim().is_empty()) {
+                sqlx::query(statement).execute(&mut *tx).await.map_err(|e| e.to_string())?;
+            }
+        }
         // An incompatible existing schema must fail before the editor can claim readiness.
         sqlx::query("SELECT id, title, y_doc_id, created_at, updated_at FROM pages LIMIT 0").execute(&mut *tx).await.map_err(|e| e.to_string())?;
         sqlx::query("SELECT seq, page_id, update_bytes, digest FROM page_updates LIMIT 0").execute(&mut *tx).await.map_err(|e| e.to_string())?;
         sqlx::query("SELECT singleton,page_id FROM client_page_state LIMIT 0").execute(&mut *tx).await.map_err(|e| e.to_string())?;
+        structured::validate_schema(&mut tx).await?;
         tx.commit().await.map_err(|e| e.to_string())?;
         Ok(Self { pool })
     }

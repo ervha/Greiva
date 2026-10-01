@@ -1,0 +1,45 @@
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.
+
+Running 1 test using 1 worker
+
+  ✘  1 [chromium] › tests/e2e/structured-local.spec.ts:3:1 › STEP6-E2E: Task and Relation pointer/keyboard CRUD persist with pending operations after renderer/store restart (6.9s)
+
+
+  1) [chromium] › tests/e2e/structured-local.spec.ts:3:1 › STEP6-E2E: Task and Relation pointer/keyboard CRUD persist with pending operations after renderer/store restart 
+
+    Error: expect(locator).toBeFocused() failed
+
+    Locator:  getByRole('region', { name: 'TaskとRelation' }).getByLabel('Taskの名前')
+    Expected: focused
+    Received: inactive
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeFocused" getByRole('region', { name: 'TaskとRelation' }).getByLabel('Taskの名前') with timeout 5000ms
+      - waiting for getByRole('region', { name: 'TaskとRelation' }).getByLabel('Taskの名前')
+        14 × locator resolved to <input value="" required=""/>
+           - unexpected value "inactive"
+
+
+      12 |   await panel.getByLabel('Taskの名前').press('Enter');
+      13 |   await expect(panel.getByLabel('Taskの保存状態')).toContainText('送信待ち 1件');
+    > 14 |   await expect(panel.getByLabel('Taskの名前')).toBeFocused();
+         |                                             ^
+      15 |   await panel.getByRole('button',{name:'offline taskを編集'}).click();
+      16 |   await panel.getByLabel('Taskの名前').fill('edited offline task');
+      17 |   await panel.getByLabel('期限').fill('');
+        at /workspace/tests/e2e/structured-local.spec.ts:14:45
+
+    Error Context: ../evidence/step6-focused/artifacts/structured-local-STEP6-E2E-3c737-fter-renderer-store-restart-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../evidence/step6-focused/artifacts/structured-local-STEP6-E2E-3c737-fter-renderer-store-restart-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../evidence/step6-focused/artifacts/structured-local-STEP6-E2E-3c737-fter-renderer-store-restart-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests/e2e/structured-local.spec.ts:3:1 › STEP6-E2E: Task and Relation pointer/keyboard CRUD persist with pending operations after renderer/store restart 

@@ -1,0 +1,18 @@
+{
+  "/": {
+    "response": "HTML loaded",
+    "status": 200
+  },
+  "/health": {
+    "response": "{\"service\":\"api\",\"status\":\"ok\",\"implementationStep\":6}",
+    "status": 200
+  },
+  "/tasks": {
+    "response": "[]",
+    "status": 200
+  },
+  "/relations": {
+    "response": "[]",
+    "status": 200
+  }
+}

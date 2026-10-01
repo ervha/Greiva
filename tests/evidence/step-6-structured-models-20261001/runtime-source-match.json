@@ -1,0 +1,20 @@
+{
+  "checkedAt": "2026-10-01T04:29:52.5760358Z",
+  "image": "greiva-poc-development:step-6",
+  "imageConfig": "sha256:66f7ef949cffda1351ef0e0e589360f8ae8a57ba051fd24f7f3f4301bbfb87b6",
+  "inspectedFiles": 111,
+  "mismatchPaths": [
+    "CHANGELOG.md"
+  ],
+  "reason": "Changelog updated after the tests and image build; all other tested source files match the current checkpoint byte-for-byte",
+  "devUser": "node",
+  "privileged": false,
+  "securityOpt": [
+    "no-new-privileges:true"
+  ],
+  "pocSpecSha256": "1227C3562632C170967534FCB2AAA3557D69E033FAFBD3E959A25A84C20663C0",
+  "windowsExeVersion": "0.4.0",
+  "windowsExeSha256": "3B47854AD43EF4FFBCAC1A05126FB7EACB94AD8165A287168D0B4B26594AF57B",
+  "nativeInteractions": "Not run: Computer Use access denied",
+  "gates": "Not evaluated"
+}

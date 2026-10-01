@@ -1,0 +1,161 @@
+{
+  "config": {
+    "argv": [
+      "/usr/local/bin/node",
+      "/workspace/node_modules/.bin/playwright",
+      "test",
+      "tests/e2e/structured-local.spec.ts"
+    ],
+    "configFile": "/workspace/playwright.config.ts",
+    "rootDir": "/workspace/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/evidence/step6-focused/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/workspace/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/evidence/step6-focused/playwright.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "/evidence/step6-focused/playwright.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 2,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "structured-local.spec.ts",
+      "file": "structured-local.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "STEP6-E2E: Task and Relation pointer/keyboard CRUD persist with pending operations after renderer/store restart",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 6857,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeFocused\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('region', { name: 'TaskとRelation' }).getByLabel('Taskの名前')\nExpected: focused\nReceived: inactive\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeFocused\" getByRole('region', { name: 'TaskとRelation' }).getByLabel('Taskの名前') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('region', { name: 'TaskとRelation' }).getByLabel('Taskの名前')\u001b[22m\n\u001b[2m    14 × locator resolved to <input value=\"\" required=\"\"/>\u001b[22m\n\u001b[2m       - unexpected value \"inactive\"\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeFocused\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('region', { name: 'TaskとRelation' }).getByLabel('Taskの名前')\nExpected: focused\nReceived: inactive\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeFocused\" getByRole('region', { name: 'TaskとRelation' }).getByLabel('Taskの名前') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('region', { name: 'TaskとRelation' }).getByLabel('Taskの名前')\u001b[22m\n\u001b[2m    14 × locator resolved to <input value=\"\" required=\"\"/>\u001b[22m\n\u001b[2m       - unexpected value \"inactive\"\u001b[22m\n\n    at /workspace/tests/e2e/structured-local.spec.ts:14:45",
+                    "location": {
+                      "file": "/workspace/tests/e2e/structured-local.spec.ts",
+                      "column": 45,
+                      "line": 14
+                    },
+                    "snippet": "  12 |   await panel.getByLabel('Taskの名前').press('Enter');\n  13 |   await expect(panel.getByLabel('Taskの保存状態')).toContainText('送信待ち 1件');\n> 14 |   await expect(panel.getByLabel('Taskの名前')).toBeFocused();\n     |                                             ^\n  15 |   await panel.getByRole('button',{name:'offline taskを編集'}).click();\n  16 |   await panel.getByLabel('Taskの名前').fill('edited offline task');\n  17 |   await panel.getByLabel('期限').fill('');"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/tests/e2e/structured-local.spec.ts",
+                        "column": 45,
+                        "line": 14
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoBeFocused\u001b[2m(\u001b[22m\u001b[2m)\u001b[22m failed\n\nLocator:  getByRole('region', { name: 'TaskとRelation' }).getByLabel('Taskの名前')\nExpected: focused\nReceived: inactive\nTimeout:  5000ms\n\nCall log:\n\u001b[2m  - Expect \"toBeFocused\" getByRole('region', { name: 'TaskとRelation' }).getByLabel('Taskの名前') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('region', { name: 'TaskとRelation' }).getByLabel('Taskの名前')\u001b[22m\n\u001b[2m    14 × locator resolved to <input value=\"\" required=\"\"/>\u001b[22m\n\u001b[2m       - unexpected value \"inactive\"\u001b[22m\n\n\n  12 |   await panel.getByLabel('Taskの名前').press('Enter');\n  13 |   await expect(panel.getByLabel('Taskの保存状態')).toContainText('送信待ち 1件');\n> 14 |   await expect(panel.getByLabel('Taskの名前')).toBeFocused();\n     |                                             ^\n  15 |   await panel.getByRole('button',{name:'offline taskを編集'}).click();\n  16 |   await panel.getByLabel('Taskの名前').fill('edited offline task');\n  17 |   await panel.getByLabel('期限').fill('');\n    at /workspace/tests/e2e/structured-local.spec.ts:14:45"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-01T04:14:09.468Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/evidence/step6-focused/artifacts/structured-local-STEP6-E2E-3c737-fter-renderer-store-restart-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/evidence/step6-focused/artifacts/structured-local-STEP6-E2E-3c737-fter-renderer-store-restart-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/tests/e2e/structured-local.spec.ts",
+                    "column": 45,
+                    "line": 14
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1cad1ecfd0a130a5241d-a0ca25e050eb8d17d5b0",
+          "file": "structured-local.spec.ts",
+          "line": 3,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-01T04:14:06.265Z",
+    "duration": 10539.423,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

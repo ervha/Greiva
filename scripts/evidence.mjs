@@ -10,7 +10,7 @@ const stamp = new Date().toISOString().replaceAll(':', '-');
 const directory = resolve(process.env.GREIVA_EVIDENCE_ROOT ?? 'tests/evidence/runs', stamp);
 mkdirSync(directory, { recursive: true });
 const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
-const step = process.argv.includes('--step=5') ? 5 : process.argv.includes('--step=4') ? 4 : process.argv.includes('--step=1') ? 1 : 2;
+const step = process.argv.includes('--step=6') ? 6 : process.argv.includes('--step=5') ? 5 : process.argv.includes('--step=4') ? 4 : process.argv.includes('--step=1') ? 1 : 2;
 const prefix = `STEP${step}`;
 const container = process.argv.includes('--container');
 const browserExecutable = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE ?? chromium.executablePath();
@@ -32,7 +32,7 @@ const report = {
   versions: versions(), results: [],
   // Images exclude .git. Use the source fingerprint when Git metadata is unavailable.
   sourceSha256: '',
-  scope: step === 5 ? 'Section 18 Step 5: actual Rust SQLite repository used by Tauri; Page metadata and Yjs durability, offline creation, renderer/store SIGKILL and offline restoration, reconnect convergence and fail-closed errors. Browser uses a test-only transport to Rust; Windows native IPC and actual IME require separate evidence. No Gate verdict.' : step === 4 ? 'Section 18 Step 4: Page Yjs/Hocuspocus collaboration, binary journal restart, A/B vectors and full JSON convergence. Client SQLite and actual Microsoft IME require separate evidence. No Gate verdict.' : step === 1 ? 'Section 18 Step 1 foundation checks; current client may include the Step 2 editor. No Gate verdict.' :
+  scope: step === 6 ? 'Section 18 Step 6: native Task/Relation SQLite CRUD with atomic durable queues, safe schema migration, stable client identity, real PostgreSQL models and Nest read API. Push/pull, ACKs, cursor advancement and conflict resolution are Step 7; Windows native/IME evidence stays separate. No Gate verdict.' : step === 5 ? 'Section 18 Step 5: actual Rust SQLite repository used by Tauri; Page metadata and Yjs durability, offline creation, renderer/store SIGKILL and offline restoration, reconnect convergence and fail-closed errors. Browser uses a test-only transport to Rust; Windows native IPC and actual IME require separate evidence. No Gate verdict.' : step === 4 ? 'Section 18 Step 4: Page Yjs/Hocuspocus collaboration, binary journal restart, A/B vectors and full JSON convergence. Client SQLite and actual Microsoft IME require separate evidence. No Gate verdict.' : step === 1 ? 'Section 18 Step 1 foundation checks; current client may include the Step 2 editor. No Gate verdict.' :
     'Section 18 Steps 1–2. Editor operations in Chromium; native compile optional. Microsoft IME, native UI, sync and crash recovery need separate evidence. No Gate verdict.',
 };
 const gitFiles = spawnSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z'], { encoding: 'utf8' });

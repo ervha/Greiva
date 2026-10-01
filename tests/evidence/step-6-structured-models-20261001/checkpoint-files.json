@@ -1,0 +1,446 @@
+[
+  {
+    "path": ".dockerignore",
+    "sha256": "098486106570528f79a652ef3f1808f33071d0e5d7453e352989dcaa17150f9a"
+  },
+  {
+    "path": ".env.example",
+    "sha256": "bf65198a5ec45b3aa4cb63feb17bc95eed4acf5960b93ea32deb8c98e31af705"
+  },
+  {
+    "path": ".gitignore",
+    "sha256": "2428944325167fd9e7582416a09deef21bd9878200db90571a14198463add87c"
+  },
+  {
+    "path": ".node-version",
+    "sha256": "7e8a2fa94951112b894a3dbe3d05efef5e9263741fa49125f0a70f40fedab4cc"
+  },
+  {
+    "path": ".npmrc",
+    "sha256": "cde76ca04e048c3eba070a2c0dfcf5b723cf6014eab177157096b924f24ec4ca"
+  },
+  {
+    "path": ".nvmrc",
+    "sha256": "7e8a2fa94951112b894a3dbe3d05efef5e9263741fa49125f0a70f40fedab4cc"
+  },
+  {
+    "path": "AGENTS.md",
+    "sha256": "9f5e8e0bf79900fb4128c35aa9b667364ebdc06e73d95b36131b1967b7c74e60"
+  },
+  {
+    "path": "CHANGELOG.md",
+    "sha256": "04438c10c5584e5bb64062d8e5fa717d468abb7f0be041a7552a973aebbcae23"
+  },
+  {
+    "path": "VERSION",
+    "sha256": "40b8eb4000a913a7791090535f291d3d369874162a89ef3c9e3d4e887a1b9e79"
+  },
+  {
+    "path": "apps/api/package.json",
+    "sha256": "21a2d87d55bc832c04ce9ad38f55343055bcd72ce43e8c29f8dafa1f5bee2e40"
+  },
+  {
+    "path": "apps/api/src/app.ts",
+    "sha256": "e5d17bdff02a99b25d7ffd11e5a0cb93e52a7e063bf6a4eb889073656cab7ad6"
+  },
+  {
+    "path": "apps/api/src/main.ts",
+    "sha256": "866aa627ab2d39d85408beacd7864fa77870acd4f7755473d3ba554593a3e9c1"
+  },
+  {
+    "path": "apps/api/src/structured-repository.ts",
+    "sha256": "94fbdbf82cb0ca3077bb903cbc92e3eff5d5d69d43863cdf16348d00d8afcdab"
+  },
+  {
+    "path": "apps/api/tsconfig.json",
+    "sha256": "84d7be17bbae2cd4731c38e75970f3b1e7915e6d09c096770a1e7ecc9e5247ae"
+  },
+  {
+    "path": "apps/client/index.html",
+    "sha256": "618a245aa6ef4558138a4493788e3ca8026cddc154843b407347d5485486a5e4"
+  },
+  {
+    "path": "apps/client/package.json",
+    "sha256": "388ffc5c4fb7cde21f91055fe4d15b6b2b66b32babe0ca3f64729cb195f222f6"
+  },
+  {
+    "path": "apps/client/src-tauri/Cargo.lock",
+    "sha256": "bb8171eb876895ea3cd90161889789c8aaa29df2776c9133cdb8284fbff7d72b"
+  },
+  {
+    "path": "apps/client/src-tauri/Cargo.toml",
+    "sha256": "095c73a4ba7b2a62bad08a5d2f19034b4593c8e71d3c60141a30fe45b6060225"
+  },
+  {
+    "path": "apps/client/src-tauri/build.rs",
+    "sha256": "8af41c0062014fc594e4bb9899e60ee9930ab57d4cf0c73041ff557d6ec736e6"
+  },
+  {
+    "path": "apps/client/src-tauri/capabilities/default.json",
+    "sha256": "bb252ceb2fd9b50a8932931110fbac586b9160494168d887b6f57475353d5668"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/Cargo.lock",
+    "sha256": "d381462680c86b4eae4f44e83bc2f5e8e06c761cfecf34429e1c1f55f1946c9f"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/Cargo.toml",
+    "sha256": "09cbf9ba07b6393c10f5796533c21b8ed47c5eb09657140313d7b79d6a25d44e"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/examples/store-driver.rs",
+    "sha256": "2cdd001cf89aa6490de715fc26fbe709e04a3cee0c1bc9fa716c0933585353c0"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/schema.sql",
+    "sha256": "1c3b2fec7937641b257580e75ae71c23ee23d636928820070f3d4ed4c7194ad3"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/src/lib.rs",
+    "sha256": "37ced31bedbd795ba9c569693b03d1761f686f830916c4def0d31861f4eb5267"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/src/structured.rs",
+    "sha256": "d5876945207a82b720d88d9d7b53d4a3879174baa5ec8c561bc035d45ae465b5"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/structured.sql",
+    "sha256": "2fe370c8f84695ec9bbf11cccc0afb276ecb1aa143ee1d7ebf69721bd8f7af3c"
+  },
+  {
+    "path": "apps/client/src-tauri/icons/128x128.png",
+    "sha256": "96e97665701008c6f8eb5f9358c9eadabdc6ec22cbda6fadb03419dc732ddbf8"
+  },
+  {
+    "path": "apps/client/src-tauri/icons/128x128@2x.png",
+    "sha256": "d4ddbddd6f69adb4b25ecefa8b7f90b38508d996a26625f32ba908a91c5e91cd"
+  },
+  {
+    "path": "apps/client/src-tauri/icons/32x32.png",
+    "sha256": "8faafa635227e2205d440b1cd85d57cd5124f114c8661414df0d3bead6671c86"
+  },
+  {
+    "path": "apps/client/src-tauri/icons/icon.ico",
+    "sha256": "282d6e8a8ef22ff7af88b7e8c0f6116020b980c8c1da3fb2e4fc1546e6cf5c17"
+  },
+  {
+    "path": "apps/client/src-tauri/icons/icon.png",
+    "sha256": "2e0efc4a2f8708189471ed9efc3345220297a3c204683fd28fae8bc4098a6db4"
+  },
+  {
+    "path": "apps/client/src-tauri/icons/source.svg",
+    "sha256": "e2574475aac87ac31a5c31b6667b4961de057a8f8b689fa8f8db329e360f64fc"
+  },
+  {
+    "path": "apps/client/src-tauri/src/lib.rs",
+    "sha256": "98cb1212bff5627ec443551728114137c65ec77805e65d17b1ec23058d5d4bf8"
+  },
+  {
+    "path": "apps/client/src-tauri/src/main.rs",
+    "sha256": "c43d26c2585bff63d5ff5ed9e010ef98fa7ee5a20d9da7e2d042178bc516bf00"
+  },
+  {
+    "path": "apps/client/src-tauri/tauri.conf.json",
+    "sha256": "73d2235f9e05f6b8bbf568171752ff7b6bb70f087d923703932093d4d31b6bf0"
+  },
+  {
+    "path": "apps/client/src/editor/PageEditor.tsx",
+    "sha256": "6dd3d9fd613cce5135724000df2b093c2d86ed1093dd469dc0eaa5cd178591d5"
+  },
+  {
+    "path": "apps/client/src/editor/block-drag.ts",
+    "sha256": "0956e45eea4ab9f5c30bcc6e0ec8ffd64502a80767f4748ff8bd633623838ca5"
+  },
+  {
+    "path": "apps/client/src/editor/blocks.ts",
+    "sha256": "6e55c139cdf0049f177bf0db433d65e9a233e822f35c7423d599316fb044e36c"
+  },
+  {
+    "path": "apps/client/src/editor/collaboration-history.ts",
+    "sha256": "3723b280da25ee804efa2f410e734b47df93389566a00db9f6be153caf150717"
+  },
+  {
+    "path": "apps/client/src/editor/details-ux.ts",
+    "sha256": "f82bf10dad8790b03900d15ce1b92d730a3886514974ff04126cc267c071b719"
+  },
+  {
+    "path": "apps/client/src/editor/extensions.ts",
+    "sha256": "0e7fbcc57760347c9cbc859641094081d82b3a00c431d594eda88969f51700ff"
+  },
+  {
+    "path": "apps/client/src/editor/local-page-store.ts",
+    "sha256": "5c268ebbb217f03604da72fe1c65bed5a3373fc5c22cbb02437da8f13f206cc5"
+  },
+  {
+    "path": "apps/client/src/editor/page-session.ts",
+    "sha256": "dab72b2f31fe2f6d98f670d3d18c7d51fea8cbd00935126d38e8868ec94df836"
+  },
+  {
+    "path": "apps/client/src/editor/placeholders.ts",
+    "sha256": "cb93d297d1aba933f1dc0b90872073158be7f20bd80553dda6f1b023b2a5494c"
+  },
+  {
+    "path": "apps/client/src/editor/suggestion-menu.ts",
+    "sha256": "2845228480f00b619637c15b55a010ed3aac5a3f598900eaa544e1d5ef36d208"
+  },
+  {
+    "path": "apps/client/src/main.tsx",
+    "sha256": "34218189542e2b02b9cfd9f7fc98921134dda555ae6d9cffa8542870ca333d5e"
+  },
+  {
+    "path": "apps/client/src/structured/TaskPanel.tsx",
+    "sha256": "c0cd3f2c509b0d50d81d8d17df48fb1ccb1a3f4e3d96eefea8e9a7ef06001a95"
+  },
+  {
+    "path": "apps/client/src/structured/local-store.ts",
+    "sha256": "cff62de69cc1816b7e50760944b8236bae9b8fcda6e6604617c68a2e28bf3f79"
+  },
+  {
+    "path": "apps/client/src/style.css",
+    "sha256": "2f93b8e6e593ec3fa9c1d53cbca5fbe701faf5a92c164f3deb88ac327dfcaf34"
+  },
+  {
+    "path": "apps/client/src/vite-env.d.ts",
+    "sha256": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5"
+  },
+  {
+    "path": "apps/client/tsconfig.json",
+    "sha256": "310082212e18182391efa9bc33732b4c49f713a537ac248749c2292e2939b5b8"
+  },
+  {
+    "path": "apps/client/vite.config.ts",
+    "sha256": "5eecf41deffe89f5b5ff5f7b7151e6d5027eab53df04d183722eb4c9f0c92f5a"
+  },
+  {
+    "path": "apps/collaboration/package.json",
+    "sha256": "0e6d70ead138df240b3fe05387e696c7273256846f0c69f0e401419a50ff36a3"
+  },
+  {
+    "path": "apps/collaboration/src/main.ts",
+    "sha256": "657343c599d6bfed865b31dd7543e34037ecabcb5480178c62c34687bb9af750"
+  },
+  {
+    "path": "apps/collaboration/src/server.ts",
+    "sha256": "57582ac2018d697ca8c315aa367e6ddc66f3f129b6eca80e2d822fb0e010467e"
+  },
+  {
+    "path": "apps/collaboration/src/update-store.ts",
+    "sha256": "f686f9800cbb4bfdb54f251f1f0a81145635fe674262d3fc49ebd84d9f51ff7c"
+  },
+  {
+    "path": "apps/collaboration/tsconfig.json",
+    "sha256": "84d7be17bbae2cd4731c38e75970f3b1e7915e6d09c096770a1e7ecc9e5247ae"
+  },
+  {
+    "path": "infrastructure/development/Dockerfile",
+    "sha256": "ea59408f1762874bfc90f4d2a50a9e1ff567ca012ec3155c2a6f53e089fee5b2"
+  },
+  {
+    "path": "infrastructure/development/compose.yaml",
+    "sha256": "209b09565afb26f70fa26c1b4749f74d157d3c867be38cb4126b61fb0b275eba"
+  },
+  {
+    "path": "infrastructure/postgres/compose.yaml",
+    "sha256": "e175487b480da2c3d54aff18aab1a90e9a1d2f99e3035c8019c782e84a961fc0"
+  },
+  {
+    "path": "infrastructure/sqlite/schema.sql",
+    "sha256": "2f0d1b012ff92a72a211e9cf0c15562af31e20070ea0e7f6c05e0c3dec5acb88"
+  },
+  {
+    "path": "package-lock.json",
+    "sha256": "a272c3c2648e150d927fc94f415bfe09d5a528307c03119251a5f8cde6b6e429"
+  },
+  {
+    "path": "package.json",
+    "sha256": "ad3ec4ba11da026ff3d647122903f56b7d8639c02c33ab512e6e8e283268dcab"
+  },
+  {
+    "path": "packages/protocol/package.json",
+    "sha256": "4085d2e09d0f9b915b40574cb94014fc34940f96634ac80c62e9f452e1ad4abe"
+  },
+  {
+    "path": "packages/protocol/src/index.ts",
+    "sha256": "4501e823bd6ff08435fecb9d2ecbdbd0401e482be2e69b5c19ffb8f14741ce42"
+  },
+  {
+    "path": "packages/protocol/tsconfig.json",
+    "sha256": "8362482b1b200dbceea41ab7d28cefcddae11f3e796d82ceb8f62a3f97a8b031"
+  },
+  {
+    "path": "packages/shared/package.json",
+    "sha256": "38446770503b7eb9464284cf2be0d172806d71f24ba379b552c327e0a2aa4e7d"
+  },
+  {
+    "path": "packages/shared/src/index.ts",
+    "sha256": "8c9a5147b9f7923e6cda544304c87222f7d90a72b9b5c348c55655aeef101e39"
+  },
+  {
+    "path": "packages/shared/tsconfig.json",
+    "sha256": "8362482b1b200dbceea41ab7d28cefcddae11f3e796d82ceb8f62a3f97a8b031"
+  },
+  {
+    "path": "packages/sync/package.json",
+    "sha256": "d6e879b66001f632a48dcbd6baea2c849ec11d46f09fad55c6099d7b05380dea"
+  },
+  {
+    "path": "packages/sync/src/index.ts",
+    "sha256": "be7292c156697a2d9668a6b6c6dea7b6a27fdd210b5aab30286e340f8f30cf6f"
+  },
+  {
+    "path": "packages/sync/src/page-bootstrap.ts",
+    "sha256": "a54b8d075dcc956b0841951988d63c84391f7dfb33e12264a9887050ae3cc052"
+  },
+  {
+    "path": "packages/sync/tsconfig.json",
+    "sha256": "8362482b1b200dbceea41ab7d28cefcddae11f3e796d82ceb8f62a3f97a8b031"
+  },
+  {
+    "path": "playwright.config.ts",
+    "sha256": "dea36395b44f5014422f612a54907732458733dee212cce2a20d339ece95b556"
+  },
+  {
+    "path": "rust-toolchain.toml",
+    "sha256": "72da9f9e503464ba7393560f6f51a69fb06be72633d52ae7725fa0ba59dfda22"
+  },
+  {
+    "path": "scripts/create-windows-vm.ps1",
+    "sha256": "7174f27da3da33c53a7a4daf3ec1b54173efb9221cbd1312bd743ccd673e8dea"
+  },
+  {
+    "path": "scripts/evidence.mjs",
+    "sha256": "92d4548d01bb3ebe63c8013c3381fe63e7941756be7093e930d8e63e07785656"
+  },
+  {
+    "path": "scripts/init-sqlite.mjs",
+    "sha256": "b59a65acff5450782501d1bd65fe9ff93828f5e294bcb5ba2b6dde7ca7f01571"
+  },
+  {
+    "path": "scripts/setup-windows-vm.ps1",
+    "sha256": "3f5df90aaf3ccd06b7d964ff7a6d85e0f215444a3c48230d957c1c372513e1c3"
+  },
+  {
+    "path": "scripts/start-windows-ime.ps1",
+    "sha256": "c5bbd7b1a4423449130b80d90fa5bcacaac391e88591e9bec8ca365f98d11efe"
+  },
+  {
+    "path": "scripts/test-postgres.mjs",
+    "sha256": "5784aa7b69b3a833b30e007499bdba7f680327132aa650084d8ec46d924e67e2"
+  },
+  {
+    "path": "scripts/use-tools.ps1",
+    "sha256": "92a3cd10e4ec5ddd468eb3c6e85e3723103ef73fae09f67cfa755282985151fc"
+  },
+  {
+    "path": "scripts/versions.mjs",
+    "sha256": "64560f9bf5cb8ea816592fbe021404289fac420dca4c036b3e5fb318520bd74f"
+  },
+  {
+    "path": "tests/e2e/collaboration.spec.ts",
+    "sha256": "36e27a7512f12ef242e894530992a5a9b8cf6b4b55b8fd3a4573052e7ffbde38"
+  },
+  {
+    "path": "tests/e2e/editor-ux.spec.ts",
+    "sha256": "f49f3ea006b01a08a61bb90ee029298d9519a9e85a3a3eaa124485a240ce8984"
+  },
+  {
+    "path": "tests/e2e/editor.spec.ts",
+    "sha256": "ea852b7ce44575a10b385efa6725a6c0a5920681a52a03702567d5767617e89c"
+  },
+  {
+    "path": "tests/e2e/foundation.spec.ts",
+    "sha256": "30934b5d2f49435c6fb20dde6216d8cf7d4753509031cfd5a1d7ea516c1bd9c3"
+  },
+  {
+    "path": "tests/e2e/persistence.spec.ts",
+    "sha256": "18c7e83d4318a5f153468e54e30eb4e1a5449fe20ed7b0c730432dd128a8dcd4"
+  },
+  {
+    "path": "tests/e2e/structured-local.spec.ts",
+    "sha256": "246d78f89bf93d3b2907e66cfc02e6b3fb416fae956cc9252cc94e31283b3efe"
+  },
+  {
+    "path": "tests/fixtures/.gitkeep",
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  },
+  {
+    "path": "tests/fixtures/entities.ts",
+    "sha256": "a90416f7ba85e7d4f633e2ffb1749805a4f4238a106eecc610fe3283c4237e12"
+  },
+  {
+    "path": "tests/integration/api.test.ts",
+    "sha256": "69104429d23b4d1329c280ef9b122b46ed376ffcd56ddf013df2a4ebf9cbecb5"
+  },
+  {
+    "path": "tests/integration/collaboration-restart.test.ts",
+    "sha256": "db8021df599d211f9aea10ab87356912cabf09d18d7c00e4550ff0f379f65186"
+  },
+  {
+    "path": "tests/integration/collaboration.test.ts",
+    "sha256": "07a229fcbb9fa2ac3dd99ca12411caa03fce82fd3c05a02cdab293eeb236c1f4"
+  },
+  {
+    "path": "tests/integration/page-store.test.ts",
+    "sha256": "5dd8f6148f75b5e0400a0cae4356c03c1a0b0ad127b25359ccb6da2befce8db2"
+  },
+  {
+    "path": "tests/integration/postgres.test.ts",
+    "sha256": "8f2eb3cb26a514789501b97de5d4d6715f6edc1f5ec1aa32e48cb577fe6ba33d"
+  },
+  {
+    "path": "tests/integration/sqlite.test.ts",
+    "sha256": "0650f09acce63096ded935a5629b22aa1cd4c2fbd156ed3dac8ce386bc1b0234"
+  },
+  {
+    "path": "tests/integration/structured-postgres.test.ts",
+    "sha256": "1137dcb8c3840353cc4b68f9663f9286538d6c63f79c7db277e5dcf72b4ee5ab"
+  },
+  {
+    "path": "tests/integration/structured-store.test.ts",
+    "sha256": "b9021d551f284307acf6ecead20ae156a5fd220a828fe47cbacd336898b3ea69"
+  },
+  {
+    "path": "tests/manual/inspect-native-page.mjs",
+    "sha256": "62f0608388d511ddedf668b2802b1bd52813b9b580cec5c4d61739db33d003bc"
+  },
+  {
+    "path": "tests/manual/native-page-peer.mjs",
+    "sha256": "1c5fe8c9dcde32f01854aaace0da785f15e006569e6b673bb986cc12548241c2"
+  },
+  {
+    "path": "tests/manual/remote-ime-peer.mjs",
+    "sha256": "99d77648a0db91e83827c97f7125422de5c1580b7c79ba0fa06987316cd928b0"
+  },
+  {
+    "path": "tests/support/sqlite-bridge.ts",
+    "sha256": "4b2afceebba08fbc84aa704336878b00d816480ca5a69215fc377be32fd82042"
+  },
+  {
+    "path": "tests/unit/block-move.test.ts",
+    "sha256": "f675b7d7f874ad7865e24769710eac987dad3a23c7d0c34ead34a5b97f45a31d"
+  },
+  {
+    "path": "tests/unit/durability-boundary.test.ts",
+    "sha256": "a6b53f3f587e9130b99fa257560ee7b6ac79f483a5dda6d17c11d3fbe2656f47"
+  },
+  {
+    "path": "tests/unit/protocol.test.ts",
+    "sha256": "8e1c07487e9e265856c3911b87791a366b82925b3701cf8c26ddb89bad267e8f"
+  },
+  {
+    "path": "tests/unit/shared.test.ts",
+    "sha256": "4f6bb22d9f25ff40dec4b9e630b916cd6b7a079c57209198163a2b233b34c7d7"
+  },
+  {
+    "path": "tsconfig.base.json",
+    "sha256": "5e86cf5d62e5a9f66589e39b7cfc11af75602d8a7eb462d04c7798c6ea09408e"
+  },
+  {
+    "path": "tsconfig.tests.json",
+    "sha256": "3f65a4c964eb6cf85dfb15d24e7ff240beef7f6a29dd927c1f89ced07dc40bf8"
+  },
+  {
+    "path": "vitest.config.ts",
+    "sha256": "a61a2b12d9df2b4dfe75f27a6b3708bd4cdb00defb8742e040144e1a94cc7399"
+  }
+]

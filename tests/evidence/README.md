@@ -1,6 +1,10 @@
 # 試験証拠の索引
 
-`docs/plan/POC_SPEC.md` Section 18 Step 5のPage SQLite保存・crash recoveryまで記録しました。Windows実機の初回IMEと遠隔更新中に試した操作は利用者確認による結果を保持します。今回のCodex実キー入力はGoogle日本語入力で、Microsoft IMEの結果に流用しません。native全件の証拠とGate A/B/Cの最終判定は未完了です。
+`docs/plan/POC_SPEC.md` Section 18 Step 6のTask/Relation最小モデルまで記録しました。Windows実機の初回IMEと遠隔更新中に試した操作は利用者確認による結果を保持します。今回のCodex実キー入力はGoogle日本語入力で、Microsoft IMEの結果に流用しません。native全件の証拠とGate A/B/Cの最終判定は未完了です。
+
+## Step 6: Task／Relation最小モデル（2026-10-01）
+
+[Docker検証](step-6-structured-models-20261001/SUMMARY.md)、[ソース照合](step-6-structured-models-20261001/checkout-source-match.json)、[Windows候補の起動と操作未検証](step-6-native-local-20261001/SUMMARY.md)。Task/Relationと操作queueの同一transaction、schema移行、pending復元、tombstone、実PostgreSQLモデル・version保護・Nest読み取りを確認。全43 E2E、unit/integration 29件、別runの実PostgreSQL 2件、build/型・SQLite初期化・Linux locked Cargo checkがPass。push/pull・cursor前進・競合解決は次のStep 7。実機入力はアクセス拒否で新規操作未検証、Microsoft IMEと最終GateのPassを意味しない。
 
 ## Step 5: Page SQLite永続化（2026-10-01）
 
