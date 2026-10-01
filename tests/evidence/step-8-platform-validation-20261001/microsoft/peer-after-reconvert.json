@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-01T14:14:16.180Z",
+  "pageId": "01a0f723-8015-71d9-9445-0579cfef41a3",
+  "readOnlyObserver": true,
+  "expectedFullXml": "<heading level=\"1\">Native heading one</heading><paragraph>Native paragraph selection verified</paragraph><details open=\"true\"><detailssummary>Native toggle summary</detailssummary><detailscontent><paragraph>Native nested content preserved</paragraph></detailscontent></details><tasklist><taskitem checked=\"true\"><paragraph>Native checked Todo fixed65</paragraph></taskitem></tasklist><paragraph>Native Todo item</paragraph><paragraph>日本語</paragraph><paragraph>[remote65-3][remote65-2][remote65-1]IME65 local 日本語</paragraph><paragraph>[ms65-6][ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 local 日本語</paragraph>",
+  "bodyXml": "<heading level=\"1\">Native heading one</heading><paragraph>Native paragraph selection verified</paragraph><details open=\"true\"><detailssummary>Native toggle summary</detailssummary><detailscontent><paragraph>Native nested content preserved</paragraph></detailscontent></details><tasklist><taskitem checked=\"true\"><paragraph>Native checked Todo fixed65</paragraph></taskitem></tasklist><paragraph>Native Todo item</paragraph><paragraph>日本語</paragraph><paragraph>[remote65-3][remote65-2][remote65-1]IME65 local 日本語</paragraph><paragraph>[ms65-6][ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 loc日本語</paragraph>",
+  "fullXmlMatches": false,
+  "stateVector": "BZywwIMNzwHv+7qKBmjK3JyMBSTav4zbATABAQ==",
+  "nativeImeResult": "Only native observations establish composition result"
+}

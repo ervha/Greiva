@@ -1,0 +1,7 @@
+{
+  "at": "2026-10-01T13:58:37.7883355Z",
+  "identifier": "dev.greiva.poc.bench20261001",
+  "appConfigDirectoryExists": false,
+  "existingProductionDirectoryExists": true,
+  "scope": "Presence checks only; no existing database modifications"
+}

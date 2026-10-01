@@ -1,0 +1,14 @@
+{
+  "rawFilesChecked": 68,
+  "localLinksChecked": 214,
+  "testedSourceFiles": 130,
+  "implementationUnchangedExceptCheckpointVersion": true,
+  "googleExpectedBodyMatches": true,
+  "microsoftReconversionFails": true,
+  "persistedFailureAndClocksMatch": true,
+  "releaseBuildsAndArtifactsMatch": true,
+  "startupUpperBoundMs": 1962,
+  "benchmarkCleanupVerified": true,
+  "checkpointVersion": "0.6.6",
+  "artifactVersion": "0.6.5"
+}

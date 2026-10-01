@@ -1,0 +1,18 @@
+import {spawnSync} from 'node:child_process';
+import {readFileSync,writeFileSync} from 'node:fs';
+import * as Y from 'yjs';
+const peer=JSON.parse(readFileSync('/workspace/.data/host-ime/ms65-2026-10-01T14-01-52-599Z/peer-after-reconvert.json','utf8'));
+const path='/workspace/.data/host-ime/ms65-audit/greiva.sqlite';
+const run=spawnSync('.data/native-target/debug/examples/store-driver',[path],{input:JSON.stringify({id:'audit',command:'load',pageId:peer.pageId})+'\n',encoding:'utf8',maxBuffer:64*1024*1024});
+if(run.status!==0)throw new Error(run.stderr||'Store driver failed');
+const reply=JSON.parse(run.stdout.trim());if(reply.error)throw new Error(reply.error);
+const value=reply.value;if(value.metadata.id!==peer.pageId||value.metadata.yDocId!==`page:${peer.pageId}`)throw new Error('Page identity mismatch');
+const doc=new Y.Doc();for(const update of value.updates)Y.applyUpdate(doc,Uint8Array.from(update),'restore');
+const bodyXml=doc.getXmlFragment('body').toString();
+const clocks=d=>Array.from(d.entries()).sort((a,b)=>a[0]-b[0]);
+const nativeClocks=clocks(Y.decodeStateVector(Y.encodeStateVector(doc)));
+const peerClocks=clocks(Y.decodeStateVector(Buffer.from(peer.stateVector,'base64')));
+const report={at:new Date().toISOString(),pageId:peer.pageId,execution:'Docker read of copied, normally-closed Windows SQLite using real Rust PageStore digest/identity validation',journalUpdates:value.updates.length,journalBytes:value.updates.reduce((n,u)=>n+u.length,0),bodyXml,nativeClocks,peerClocks,fullXmlMatchesObservedPeer:bodyXml===peer.bodyXml,allClocksMatchObservedPeer:JSON.stringify(nativeClocks)===JSON.stringify(peerClocks),expectedReconversionXml:peer.expectedFullXml,reconversionPreservedExpectedText:bodyXml===peer.expectedFullXml,scope:'Persisted failure and actual observed convergence. No crash/repair/overall Gate pass inferred.'};
+writeFileSync('/workspace/.data/host-ime/ms65-audit/report.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
+if(!report.fullXmlMatchesObservedPeer||!report.allClocksMatchObservedPeer)throw new Error('SQLite/peer actual state mismatch');
+doc.destroy();

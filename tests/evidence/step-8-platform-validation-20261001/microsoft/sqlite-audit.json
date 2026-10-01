@@ -1,0 +1,57 @@
+{
+  "at": "2026-10-01T14:30:44.018Z",
+  "pageId": "01a0f723-8015-71d9-9445-0579cfef41a3",
+  "execution": "Docker read of copied, normally-closed Windows SQLite using real Rust PageStore digest/identity validation",
+  "journalUpdates": 98,
+  "journalBytes": 2821,
+  "bodyXml": "<heading level=\"1\">Native heading one</heading><paragraph>Native paragraph selection verified</paragraph><details open=\"true\"><detailssummary>Native toggle summary</detailssummary><detailscontent><paragraph>Native nested content preserved</paragraph></detailscontent></details><tasklist><taskitem checked=\"true\"><paragraph>Native checked Todo fixed65</paragraph></taskitem></tasklist><paragraph>Native Todo item</paragraph><paragraph>日本語</paragraph><paragraph>[remote65-3][remote65-2][remote65-1]IME65 local 日本語</paragraph><paragraph>[ms65-6][ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 loc日本語</paragraph>",
+  "nativeClocks": [
+    [
+      1,
+      1
+    ],
+    [
+      459481050,
+      48
+    ],
+    [
+      1367813706,
+      36
+    ],
+    [
+      1632550383,
+      104
+    ],
+    [
+      3497007132,
+      207
+    ]
+  ],
+  "peerClocks": [
+    [
+      1,
+      1
+    ],
+    [
+      459481050,
+      48
+    ],
+    [
+      1367813706,
+      36
+    ],
+    [
+      1632550383,
+      104
+    ],
+    [
+      3497007132,
+      207
+    ]
+  ],
+  "fullXmlMatchesObservedPeer": true,
+  "allClocksMatchObservedPeer": true,
+  "expectedReconversionXml": "<heading level=\"1\">Native heading one</heading><paragraph>Native paragraph selection verified</paragraph><details open=\"true\"><detailssummary>Native toggle summary</detailssummary><detailscontent><paragraph>Native nested content preserved</paragraph></detailscontent></details><tasklist><taskitem checked=\"true\"><paragraph>Native checked Todo fixed65</paragraph></taskitem></tasklist><paragraph>Native Todo item</paragraph><paragraph>日本語</paragraph><paragraph>[remote65-3][remote65-2][remote65-1]IME65 local 日本語</paragraph><paragraph>[ms65-6][ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 local 日本語</paragraph>",
+  "reconversionPreservedExpectedText": false,
+  "scope": "Persisted failure and actual observed convergence. No crash/repair/overall Gate pass inferred."
+}

@@ -1,0 +1,6 @@
+{
+  "at": "2026-10-01T14:06:14.557Z",
+  "bodyXml": "<heading level=\"1\">Native heading one</heading><paragraph>Native paragraph selection verified</paragraph><details open=\"true\"><detailssummary>Native toggle summary</detailssummary><detailscontent><paragraph>Native nested content preserved</paragraph></detailscontent></details><tasklist><taskitem checked=\"true\"><paragraph>Native checked Todo fixed65</paragraph></taskitem></tasklist><paragraph>Native Todo item</paragraph><paragraph>日本語</paragraph><paragraph>[remote65-3][remote65-2][remote65-1]IME65 local 日本語</paragraph><paragraph>[ms65-6][ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 local にほんご</paragraph>",
+  "stateVector": "BZywwIMNzwHv+7qKBk/K3JyMBSTav4zbATABAQ==",
+  "nativeResult": "Not inferred"
+}

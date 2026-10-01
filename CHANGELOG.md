@@ -2,6 +2,13 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.6 — 2026-10-01
+
+- Step 8の実機結果・失敗記録を整理する文書更新（PATCH）。実際に検証したアプリ・manifest／lockfile・プレビューは0.6.5のまま。製品コードや依存は変更しない。
+- Google日本語入力で同一段落への遠隔3更新、変換・候補選択・確定・local Undo/Redoと最終peer本文一致を確認。Microsoft IMEでは同一段落への遠隔6更新と通常変換の本文保持を確認したが、候補一覧が一度隠れ、再変換の確定後に直前の `al ` が欠落した。peerと保存済みSQLiteにも欠落を確認し、未修正・原因未確定として残す。
+- Windows releaseの設定だけを変えた隔離用0.6.5候補をDockerでbuild。新規DB／WebView保存先の一回で起動から主要UIの画像確認まで1,962msを観測。正確なfirst paintや大量データ性能の保証ではない。観測間隔が空いた初回試行も保持する。
+- [結果と証拠](tests/evidence/step-8-platform-validation-20261001/SUMMARY.md)、[再変換の失敗](docs/failures/step-8-ms-ime-reconversion.md)、[停止境界と残課題](docs/decisions/step-8-validation-boundary.md)。native全項目・P1/P2実OSは未完了。利用者の指定に従いStep 8の記録チェックポイントで停止し、Step 9の最終Gate判定・技術選定には進まない。
+
 ## 0.6.5 — 2026-10-01
 
 - Todo配置の修正（PATCH）: 固定版Tiptapの実DOMに一致するCSSへ変更し、チェック欄と本文を同じ行に配置する。完了状態の取り消し線、保存・同期・IME処理は維持。

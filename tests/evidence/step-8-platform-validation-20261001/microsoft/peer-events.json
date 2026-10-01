@@ -1,0 +1,121 @@
+{
+  "runId": "2026-10-01T14-01-52-599Z",
+  "pageId": "01a0f723-8015-71d9-9445-0579cfef41a3",
+  "clientId": "435b7b3b-8bcd-408b-aed8-7af8376c75de",
+  "outcome": "Six same-paragraph updates acknowledged; native result requires observations",
+  "records": [
+    {
+      "at": "2026-10-01T14:01:52.630Z",
+      "type": "status",
+      "status": "connecting"
+    },
+    {
+      "at": "2026-10-01T14:01:52.641Z",
+      "type": "status",
+      "status": "connected"
+    },
+    {
+      "at": "2026-10-01T14:01:52.641Z",
+      "type": "status",
+      "status": "connected"
+    },
+    {
+      "at": "2026-10-01T14:01:52.646Z",
+      "type": "status",
+      "status": "connected"
+    },
+    {
+      "at": "2026-10-01T14:01:52.646Z",
+      "type": "status",
+      "status": "connected"
+    },
+    {
+      "at": "2026-10-01T14:01:52.653Z",
+      "type": "synced",
+      "state": true
+    },
+    {
+      "at": "2026-10-01T14:01:52.732Z",
+      "type": "ready",
+      "pageId": "01a0f723-8015-71d9-9445-0579cfef41a3",
+      "clientId": "435b7b3b-8bcd-408b-aed8-7af8376c75de",
+      "directory": "/workspace/.data/host-ime/ms65-2026-10-01T14-01-52-599Z",
+      "signal": "/tmp/greiva-ms65-c6b1c8b-send",
+      "beforeXml": "<heading level=\"1\">Native heading one</heading><paragraph>Native paragraph selection verified</paragraph><details open=\"true\"><detailssummary>Native toggle summary</detailssummary><detailscontent><paragraph>Native nested content preserved</paragraph></detailscontent></details><tasklist><taskitem checked=\"true\"><paragraph>Native checked Todo fixed65</paragraph></taskitem></tasklist><paragraph>Native Todo item</paragraph><paragraph>日本語</paragraph><paragraph>[remote65-3][remote65-2][remote65-1]IME65 local 日本語</paragraph><paragraph>MS65 local </paragraph>",
+      "targetText": "MS65 local ",
+      "nativeResult": "Not inferred"
+    },
+    {
+      "at": "2026-10-01T14:04:44.547Z",
+      "type": "sent",
+      "sequence": 1,
+      "target": "same dedicated paragraph",
+      "text": "[ms65-1]MS65 local にほんご"
+    },
+    {
+      "at": "2026-10-01T14:04:44.648Z",
+      "type": "acknowledged",
+      "sequence": 1
+    },
+    {
+      "at": "2026-10-01T14:04:46.649Z",
+      "type": "sent",
+      "sequence": 2,
+      "target": "same dedicated paragraph",
+      "text": "[ms65-2][ms65-1]MS65 local にほんご"
+    },
+    {
+      "at": "2026-10-01T14:04:46.750Z",
+      "type": "acknowledged",
+      "sequence": 2
+    },
+    {
+      "at": "2026-10-01T14:04:48.753Z",
+      "type": "sent",
+      "sequence": 3,
+      "target": "same dedicated paragraph",
+      "text": "[ms65-3][ms65-2][ms65-1]MS65 local にほんご"
+    },
+    {
+      "at": "2026-10-01T14:04:48.853Z",
+      "type": "acknowledged",
+      "sequence": 3
+    },
+    {
+      "at": "2026-10-01T14:05:50.248Z",
+      "type": "sent",
+      "sequence": 4,
+      "target": "same dedicated paragraph",
+      "text": "[ms65-4][ms65-3][ms65-2][ms65-1]MS65 local にほんご"
+    },
+    {
+      "at": "2026-10-01T14:05:50.348Z",
+      "type": "acknowledged",
+      "sequence": 4
+    },
+    {
+      "at": "2026-10-01T14:05:52.352Z",
+      "type": "sent",
+      "sequence": 5,
+      "target": "same dedicated paragraph",
+      "text": "[ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 local にほんご"
+    },
+    {
+      "at": "2026-10-01T14:05:52.452Z",
+      "type": "acknowledged",
+      "sequence": 5
+    },
+    {
+      "at": "2026-10-01T14:05:54.455Z",
+      "type": "sent",
+      "sequence": 6,
+      "target": "same dedicated paragraph",
+      "text": "[ms65-6][ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 local にほんご"
+    },
+    {
+      "at": "2026-10-01T14:05:54.555Z",
+      "type": "acknowledged",
+      "sequence": 6
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "runId": "2026-10-01T13-46-06-804Z",
+  "pageId": "01a0f723-8015-71d9-9445-0579cfef41a3",
+  "clientId": "f2d49070-2a32-4249-9fdd-948cdb3b1da4",
+  "outcome": "Three same-paragraph updates acknowledged; native result requires observations",
+  "records": [
+    {
+      "at": "2026-10-01T13:46:06.844Z",
+      "type": "status",
+      "status": "connecting"
+    },
+    {
+      "at": "2026-10-01T13:46:06.876Z",
+      "type": "status",
+      "status": "connected"
+    },
+    {
+      "at": "2026-10-01T13:46:06.876Z",
+      "type": "status",
+      "status": "connected"
+    },
+    {
+      "at": "2026-10-01T13:46:06.880Z",
+      "type": "status",
+      "status": "connected"
+    },
+    {
+      "at": "2026-10-01T13:46:06.880Z",
+      "type": "status",
+      "status": "connected"
+    },
+    {
+      "at": "2026-10-01T13:46:06.887Z",
+      "type": "synced",
+      "state": true
+    },
+    {
+      "at": "2026-10-01T13:46:06.947Z",
+      "type": "ready",
+      "pageId": "01a0f723-8015-71d9-9445-0579cfef41a3",
+      "clientId": "f2d49070-2a32-4249-9fdd-948cdb3b1da4",
+      "directory": "/workspace/.data/host-ime/remote65-2026-10-01T13-46-06-804Z",
+      "signal": "/tmp/greiva-ime65-c6b1c8b-send",
+      "beforeXml": "<heading level=\"1\">Native heading one</heading><paragraph>Native paragraph selection verified</paragraph><details open=\"true\"><detailssummary>Native toggle summary</detailssummary><detailscontent><paragraph>Native nested content preserved</paragraph></detailscontent></details><tasklist><taskitem checked=\"true\"><paragraph>Native checked Todo fixed65</paragraph></taskitem></tasklist><paragraph>Native Todo item</paragraph><paragraph>日本語</paragraph><paragraph>IME65 local </paragraph>",
+      "targetText": "IME65 local ",
+      "nativeResult": "Not inferred"
+    },
+    {
+      "at": "2026-10-01T13:48:02.506Z",
+      "type": "sent",
+      "sequence": 1,
+      "target": "same dedicated paragraph",
+      "text": "[remote65-1]IME65 local にほんご"
+    },
+    {
+      "at": "2026-10-01T13:48:02.607Z",
+      "type": "acknowledged",
+      "sequence": 1
+    },
+    {
+      "at": "2026-10-01T13:48:04.608Z",
+      "type": "sent",
+      "sequence": 2,
+      "target": "same dedicated paragraph",
+      "text": "[remote65-2][remote65-1]IME65 local にほんご"
+    },
+    {
+      "at": "2026-10-01T13:48:04.708Z",
+      "type": "acknowledged",
+      "sequence": 2
+    },
+    {
+      "at": "2026-10-01T13:48:06.712Z",
+      "type": "sent",
+      "sequence": 3,
+      "target": "same dedicated paragraph",
+      "text": "[remote65-3][remote65-2][remote65-1]IME65 local にほんご"
+    },
+    {
+      "at": "2026-10-01T13:48:06.812Z",
+      "type": "acknowledged",
+      "sequence": 3
+    }
+  ]
+}

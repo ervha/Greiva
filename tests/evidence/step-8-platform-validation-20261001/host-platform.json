@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-01T14:10:31.8539569Z",
+  "os": {
+    "caption": "Microsoft Windows 11 Home",
+    "version": "10.0.26300",
+    "build": "26300"
+  },
+  "machine": {
+    "manufacturer": "Thirdwave Corporation",
+    "model": "UL7C-AA2",
+    "memoryBytes": 16731652096,
+    "cpu": [
+      {
+        "Name": "12th Gen Intel(R) Core(TM) i7-12700H",
+        "NumberOfCores": 14,
+        "NumberOfLogicalProcessors": 20
+      }
+    ]
+  },
+  "deviceNameMatches": [],
+  "scope": "Read-only host metadata and device-name availability signal; not a usable-device claim. Initial sandbox CIM access was denied; retried with permission."
+}

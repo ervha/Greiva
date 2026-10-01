@@ -1,0 +1,14 @@
+{
+  "startedAt": "2026-10-01T14:19:52.5368252Z",
+  "processId": 13636,
+  "startProcessCallMs": 360.1599,
+  "version": "0.6.5",
+  "build": "release",
+  "identifier": "dev.greiva.poc.bench20261001",
+  "initialPageId": "01a0f900-0000-7000-8000-000000000001",
+  "appConfigExistedBefore": false,
+  "freshWebViewCache": true,
+  "executableSha256": "70e7f7298bda60abce5a5844a60f92fcac07361e1b37dbf92cc304f5fc53ea92",
+  "sourceSha256": "c0f39a8a19274ef4150c4c770189fce4b927e21befb9c542bb24402975846205",
+  "scope": "Launch-call timing only. Main UI observation timestamp is separately recorded; includes cross-tool observation overhead."
+}

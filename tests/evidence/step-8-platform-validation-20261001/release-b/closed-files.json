@@ -1,0 +1,22 @@
+{
+  "identifier": "dev.greiva.poc.bench20261001b",
+  "sourceDirectory": "C:\\Users\\danun\\AppData\\Roaming\\dev.greiva.poc.bench20261001b",
+  "fileCount": 3,
+  "files": [
+    {
+      "name": "greiva.sqlite",
+      "bytes": 4096,
+      "sha256": "1fe8f6113488865c546d2faa55b21482662ce4be19d4f505eeefa09bc3131489"
+    },
+    {
+      "name": "greiva.sqlite-shm",
+      "bytes": 32768,
+      "sha256": "2213ac22f85d79b14a04bbab4d775ae19c427a669adce95e43ab1df97edc528e"
+    },
+    {
+      "name": "greiva.sqlite-wal",
+      "bytes": 519152,
+      "sha256": "1127f38051e2d45d26e58b77fa692f385d0b3ab90e7f641e91efdad193d1c906"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+{
+  "at": "2026-10-01T14:21:16.555Z",
+  "fromLaunchUpperBoundMs": 84019,
+  "mainUiVisuallyConfirmed": true,
+  "savedIndicatorObserved": true,
+  "emptyPageObserved": true,
+  "scope": "84-second observation bound contains a gap between tool calls. Not an app startup duration or proof of the 3-second target."
+}

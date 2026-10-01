@@ -1,0 +1,26 @@
+[
+  {
+    "index": 0,
+    "at": "2026-10-01T14:28:01.252Z",
+    "fromLaunchUpperBoundMs": 1962,
+    "screenshotCount": 1
+  },
+  {
+    "index": 1,
+    "at": "2026-10-01T14:28:01.617Z",
+    "fromLaunchUpperBoundMs": 2327,
+    "screenshotCount": 1
+  },
+  {
+    "index": 2,
+    "at": "2026-10-01T14:28:01.954Z",
+    "fromLaunchUpperBoundMs": 2664,
+    "screenshotCount": 1
+  },
+  {
+    "index": 3,
+    "at": "2026-10-01T14:28:02.272Z",
+    "fromLaunchUpperBoundMs": 2982,
+    "screenshotCount": 1
+  }
+]

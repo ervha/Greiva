@@ -1,6 +1,12 @@
 # 試験証拠の索引
 
-`docs/plan/POC_SPEC.md` Section 18 Step 8の性能観測まで記録しました。性能改善・native全件とGate A/B/Cの最終判定は未完了です。Windows実機の初回IMEと遠隔更新中に試した操作は利用者確認による結果を保持し、Google日本語入力の実キー結果はMicrosoft IMEへ流用しません。
+`docs/plan/POC_SPEC.md` Section 18 Step 8の性能・実機観測を記録しました。Microsoft IME再変換に未修正の本文欠落があり、native全件・P1/P2実OSとGate A/B/Cの最終判定は未完了です。利用者の指定に従いStep 8の記録チェックポイントで停止し、Step 9へ進みません。以下は各版・時点の証拠です。
+
+## Step 8: Windows IME・release起動、再変換Fail（2026-10-01、文書v0.6.6／実行物0.6.5）
+
+[実機結果と選択証拠](step-8-platform-validation-20261001/SUMMARY.md)、[再変換の失敗](../../docs/failures/step-8-ms-ime-reconversion.md)、[停止境界](../../docs/decisions/step-8-validation-boundary.md)。Googleで同一段落遠隔3更新と変換・local Undo/Redo、Microsoftで通常変換中の6更新保持を確認。ただしMicrosoft再変換後に直前の `al ` が欠落し、fresh peer／SQLite監査でも確認した。同期・保存されたことを本文保持成功へ拡張しない。
+
+Windows releaseはidentifier／初期Page URLだけを変更した隔離候補で一回の主要UI確認まで上限1,962ms。正確なfirst paint・cold起動・大量データ性能は未測定。原ログ／画像をhash照合して保持し、アプリコードと実行物の版は変更しない。全受入条件の完了や最終Gate合格ではない。
 
 ## Step 8: Todoの配置・限定的な実機操作（2026-10-01、v0.6.5）
 

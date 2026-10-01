@@ -2,7 +2,9 @@
 
 [プロジェクト紹介へ戻る](../../README.md)。以下のコマンドは、特記がなければリポジトリのルートで実行します。
 
-2026-10-01時点の開発計画と検証記録。開発チェックポイント **v0.6.5**（Todo配置を実DOMに合わせて修正。関連5項目・全E2E45件Pass。修正前の実機操作は0.6.4、0.6.5でTodo配置・pointer編集・チェックを実機確認。最新native全操作／Microsoft IMEは後続。プレビューも0.6.5へ反映・source一致を確認済み）。[変更履歴](../../CHANGELOG.md)・[コミット/バージョン運用](../development/versioning.md)。更新規模に応じたGitタグを付けてGitHubへ反映します。
+2026-10-01時点の開発計画と検証記録。開発チェックポイント **v0.6.6**（Step 8の実機結果と失敗を記録する文書更新。実行物・プレビューは0.6.5）。**Microsoft IMEの再変換で直前の `al ` が欠落し、peerと保存データにも伝播した。未修正・原因未確定。** [実機結果](../../tests/evidence/step-8-platform-validation-20261001/SUMMARY.md)・[失敗記録](../failures/step-8-ms-ime-reconversion.md)。利用者の指定に従いこの記録チェックポイントで停止し、Step 9へ進まない。Step 8全受入条件の完了や最終Gate合格は宣言していない。[変更履歴](../../CHANGELOG.md)・[コミット/バージョン運用](../development/versioning.md)。
+
+今回の0.6.5 nativeではGoogle日本語入力中の同一段落遠隔3更新・変換・local Undo/Redoと最終本文一致、Microsoft通常変換中の同一段落遠隔6更新保持を確認した。Microsoftの候補一覧は更新後に一度隠れ、Upで再表示した。Windows releaseの隔離設定候補は新規DB／WebView保存先の一回で主要UI確認まで上限1,962msを観測。native大量データ性能・全操作組合せ・最新統合crash・P1/P2実OSは未完了。[停止境界と残課題](../decisions/step-8-validation-boundary.md)。以下は各版の実施履歴であり、当時の未検証事項は今回の結果へ読み替えず保持する。
 
 [POC_SPEC.md](POC_SPEC.md) のSection 18に沿って進めています。Step 1の基盤とStep 2の最小Editorを実装し、Slash・Toggleの操作改善を含むDocker内の全30件のE2Eが成功しました。Step 3はWindows実機へ切り替え、既存native shellの起動とWebView2保存先を確認しました。初回local IMEの4群は利用者がすべて問題なしと明示回答し、手動結果と初回証拠を記録しました。[Step 3初回IME記録](../../tests/evidence/windows-host-ime-20261001/SUMMARY.md)。[版の記録](../decisions/specification-version.md)、[Step 2の範囲・検証状況](../decisions/step-2-scope.md)、[Editor操作の改善](../decisions/editor-ux.md)を参照してください。
 

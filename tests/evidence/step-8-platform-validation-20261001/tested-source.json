@@ -1,0 +1,8 @@
+{
+  "at": "2026-10-01T14:34:57.2822797Z",
+  "testedVersion": "0.6.5",
+  "testedCommit": "c6b1c8bde39996cd7b5bcbca5f737b6106789680",
+  "sourceSha256": "c0f39a8a19274ef4150c4c770189fce4b927e21befb9c542bb24402975846205",
+  "sourceFiles": 130,
+  "scope": "Documentation/evidence checkpoint only; artifacts retain actual 0.6.5. Reconversion failure recorded; no overall Gate pass."
+}

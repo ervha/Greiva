@@ -1,0 +1,9 @@
+{
+  "at": "2026-10-01T14:19:53.945Z",
+  "fromLaunchUpperBoundMs": 1409,
+  "mainUiConfirmed": false,
+  "accessibility": {
+    "tree": "Window: \"Greiva PoC\", App: greiva-poc.exe.\n\t0 ウィンドウ Greiva PoC Secondary Actions: Raise\n\t\t1 ウィンドウ\n\t\t2 タイトル バー (settable, string) Value: Greiva PoC\n\t\t\t3 メニュー バー システム ID: MenuBar\n\t\t\t\t4 メニュー項目 システム\n\t\t\t5 ボタン 最小化\n\t\t\t6 ボタン 最大化\n\t\t\t7 ボタン 閉じる"
+  },
+  "scope": "Only bare native window; screenshot was covered by Codex. This is not main-UI startup time."
+}

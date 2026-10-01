@@ -1,0 +1,6 @@
+{
+  "at": "2026-10-01T14:23:19.0612937Z",
+  "identifier": "dev.greiva.poc.bench20261001b",
+  "appConfigDirectoryExists": false,
+  "reason": "First launch capture was occluded and had an observation gap; repeat with foreground observation and a fresh identifier"
+}

@@ -1,0 +1,13 @@
+{
+  "reviewedAt": "2026-10-01T14:29:23.870Z",
+  "firstConfirmedObservationIndex": 0,
+  "mainUiVisibleAt": "2026-10-01T14:28:01.252Z",
+  "launchToConfirmedMainUiUpperBoundMs": 1962,
+  "within3SecondGuide": true,
+  "allFourScreenshotsShowMainUi": true,
+  "emptyPageObserved": true,
+  "savedAndSyncedIndicatorsObserved": true,
+  "method": "UTC launch timestamp through first screenshot completion, including cross-tool and explicit window-activation overhead. One fresh-DB/fresh-WebView sample; warmed OS/build caches and host load not fixed. Not an exact first-paint timestamp.",
+  "artifactVersion": "0.6.5",
+  "identifier": "dev.greiva.poc.bench20261001b"
+}

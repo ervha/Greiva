@@ -1,0 +1,20 @@
+{
+  "at": "2026-10-01T14:32:19.3270718Z",
+  "records": [
+    {
+      "identifier": "dev.greiva.poc.bench20261001",
+      "backedUpAndByteChecked": true,
+      "removedOwnGeneratedFiles": 3,
+      "directoryRemoved": true,
+      "recursiveDeleteUsed": false
+    },
+    {
+      "identifier": "dev.greiva.poc.bench20261001b",
+      "backedUpAndByteChecked": true,
+      "removedOwnGeneratedFiles": 3,
+      "directoryRemoved": true,
+      "recursiveDeleteUsed": false
+    }
+  ],
+  "scope": "Only the two initially absent benchmark directories created in this run; production dev.greiva.poc and project debug SQLite untouched. Local backups retained."
+}
