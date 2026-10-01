@@ -9,6 +9,9 @@ import { BlockDrag } from './block-drag';
 import { suggestionMenu, type MenuItem } from './suggestion-menu';
 import { RefinedDetails } from './details-ux';
 import { EditorPlaceholders } from './placeholders';
+import Collaboration from '@tiptap/extension-collaboration';
+import type { Doc } from 'yjs';
+import { CollaborationHistory } from './collaboration-history';
 
 type BlockCommand = MenuItem & { run: (chain: ChainedCommands) => ChainedCommands };
 export const blockCommands: BlockCommand[] = [
@@ -42,11 +45,12 @@ export const dummyEntities: MenuItem[] = [
   { id: 'demo-task', label: 'サンプルTask', description: '検証用の固定候補', icon: '✓' },
 ];
 
-export function editorExtensions() {
+export function editorExtensions(yDocument?: Doc) {
   return [
-    StarterKit.configure({ heading: { levels: [1, 2, 3] } }),
+    StarterKit.configure({ heading: { levels: [1, 2, 3] }, ...(yDocument ? { undoRedo: false } : {}) }),
+    ...(yDocument ? [Collaboration.configure({ document: yDocument, field: 'body' }), CollaborationHistory] : []),
     TaskList,
-    TaskItem.configure({ nested: true, a11y: { checkboxLabel: node => `Todo: ${node.textContent || '未入力'}` } }),
+    TaskItem.configure({ nested: true, a11y: { checkboxLabel: node => `Todo: ${node.textBetween(0, node.content.size, ' ') || '未入力'}` } }),
     RefinedDetails.configure({
       persist: true,
       renderToggleButton: ({ element, isOpen }) => {

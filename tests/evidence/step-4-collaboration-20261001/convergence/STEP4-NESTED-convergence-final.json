@@ -1,0 +1,241 @@
+{
+  "capturedAt": "2026-09-30T23:51:09.318Z",
+  "clients": [
+    {
+      "pageId": "4e2a0aaa-e3cb-44ad-be90-778b96f25005",
+      "clientId": "95ab37ae-a17c-48f8-9564-85ba389b9dcc",
+      "stateVector": [
+        3,
+        188,
+        165,
+        231,
+        183,
+        9,
+        77,
+        244,
+        236,
+        185,
+        182,
+        8,
+        2,
+        245,
+        175,
+        165,
+        178,
+        8,
+        1
+      ],
+      "clocks": [
+        [
+          2252953589,
+          1
+        ],
+        [
+          2261677684,
+          2
+        ],
+        [
+          2532954812,
+          77
+        ]
+      ],
+      "json": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "details",
+            "attrs": {
+              "open": true
+            },
+            "content": [
+              {
+                "type": "detailsSummary",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Outer"
+                  }
+                ]
+              },
+              {
+                "type": "detailsContent",
+                "content": [
+                  {
+                    "type": "details",
+                    "attrs": {
+                      "open": true
+                    },
+                    "content": [
+                      {
+                        "type": "detailsSummary",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "Inner B"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "detailsContent",
+                        "content": [
+                          {
+                            "type": "paragraph",
+                            "content": [
+                              {
+                                "type": "text",
+                                "text": "nested second"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "paragraph",
+                            "content": [
+                              {
+                                "type": "text",
+                                "text": "nested first"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          }
+        ]
+      },
+      "fragment": "<details open=\"true\"><detailssummary>Outer</detailssummary><detailscontent><details open=\"true\"><detailssummary>Inner B</detailssummary><detailscontent><paragraph>nested second</paragraph><paragraph>nested first</paragraph></detailscontent></details></detailscontent></details><paragraph></paragraph>",
+      "selection": {
+        "from": 21,
+        "to": 21,
+        "parent": "nested second",
+        "offset": 0,
+        "size": 13
+      },
+      "pending": 0
+    },
+    {
+      "pageId": "4e2a0aaa-e3cb-44ad-be90-778b96f25005",
+      "clientId": "709a1cce-7d64-45da-a7b9-18bbf9a2a5f5",
+      "stateVector": [
+        3,
+        188,
+        165,
+        231,
+        183,
+        9,
+        77,
+        244,
+        236,
+        185,
+        182,
+        8,
+        2,
+        245,
+        175,
+        165,
+        178,
+        8,
+        1
+      ],
+      "clocks": [
+        [
+          2252953589,
+          1
+        ],
+        [
+          2261677684,
+          2
+        ],
+        [
+          2532954812,
+          77
+        ]
+      ],
+      "json": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "details",
+            "attrs": {
+              "open": true
+            },
+            "content": [
+              {
+                "type": "detailsSummary",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Outer"
+                  }
+                ]
+              },
+              {
+                "type": "detailsContent",
+                "content": [
+                  {
+                    "type": "details",
+                    "attrs": {
+                      "open": true
+                    },
+                    "content": [
+                      {
+                        "type": "detailsSummary",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "Inner B"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "detailsContent",
+                        "content": [
+                          {
+                            "type": "paragraph",
+                            "content": [
+                              {
+                                "type": "text",
+                                "text": "nested second"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "paragraph",
+                            "content": [
+                              {
+                                "type": "text",
+                                "text": "nested first"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          }
+        ]
+      },
+      "fragment": "<details open=\"true\"><detailssummary>Outer</detailssummary><detailscontent><details open=\"true\"><detailssummary>Inner B</detailssummary><detailscontent><paragraph>nested second</paragraph><paragraph>nested first</paragraph></detailscontent></details></detailscontent></details><paragraph></paragraph>",
+      "selection": {
+        "from": 18,
+        "to": 18,
+        "parent": "Inner B",
+        "offset": 7,
+        "size": 7
+      },
+      "pending": 0
+    }
+  ]
+}

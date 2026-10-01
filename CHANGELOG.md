@@ -2,6 +2,14 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.2.0 — 2026-10-01
+
+- 実装更新（MINOR）: Page本文をYjs/Hocuspocusへ接続。Page分離、ランダムclientIdのログ、初回同期、一時切断・再接続、未確認更新の表示を追加。
+- サーバー側に受信binary updateのappend/fsync journalと再起動復元を実装。端末SQLite保存はStep 5であり、今回の「サーバーと同期済み」と区別して画面に制限を明記。
+- 共同編集のUndoをローカル操作へ限定し、構造変更・移動・選択変更を履歴境界にする。Toggle内の兄弟移動、入れ子Todoの読み上げ名も改善。
+- 検証: Docker内のbuild・strict型・unit/integration・A/B収束E2E、サーバーSIGKILL復元、journal破損検出。state vectorと全文JSONを保存。[証拠](tests/evidence/step-4-collaboration-20261001/SUMMARY.md)。実機IME接続中の再試験・Gate最終判定は未完了。
+- package/Tauri/Cargoとlockfileの版を0.2.0へ整合。既存Windows shell実行物は実際の0.0.0を維持し、0.2.0の新規配布物として扱わない。
+
 ## 0.1.6 — 2026-10-01
 
 - 検証記録更新（PATCH）: 利用者が初回のWindows実機IME試験4群すべて問題なしと明示回答。変換・確定・再変換、変換中/確定後の編集、Slash/Mention候補中の入力、Todo/Toggle/移動後編集を手動Passとして保存。

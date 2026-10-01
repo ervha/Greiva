@@ -1,0 +1,221 @@
+{
+  "capturedAt": "2026-09-30T23:51:07.812Z",
+  "clients": [
+    {
+      "pageId": "4e2a0aaa-e3cb-44ad-be90-778b96f25005",
+      "clientId": "95ab37ae-a17c-48f8-9564-85ba389b9dcc",
+      "stateVector": [
+        2,
+        188,
+        165,
+        231,
+        183,
+        9,
+        66,
+        245,
+        175,
+        165,
+        178,
+        8,
+        1
+      ],
+      "clocks": [
+        [
+          2252953589,
+          1
+        ],
+        [
+          2532954812,
+          66
+        ]
+      ],
+      "json": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "details",
+            "attrs": {
+              "open": true
+            },
+            "content": [
+              {
+                "type": "detailsSummary",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Outer"
+                  }
+                ]
+              },
+              {
+                "type": "detailsContent",
+                "content": [
+                  {
+                    "type": "details",
+                    "attrs": {
+                      "open": true
+                    },
+                    "content": [
+                      {
+                        "type": "detailsSummary",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "Inner"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "detailsContent",
+                        "content": [
+                          {
+                            "type": "paragraph",
+                            "content": [
+                              {
+                                "type": "text",
+                                "text": "nested first"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "paragraph",
+                            "content": [
+                              {
+                                "type": "text",
+                                "text": "nested second"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          }
+        ]
+      },
+      "fragment": "<details open=\"true\"><detailssummary>Outer</detailssummary><detailscontent><details open=\"true\"><detailssummary>Inner</detailssummary><detailscontent><paragraph>nested first</paragraph><paragraph>nested second</paragraph></detailscontent></details></detailscontent></details><paragraph></paragraph>",
+      "selection": {
+        "from": 46,
+        "to": 46,
+        "parent": "nested second",
+        "offset": 13,
+        "size": 13
+      },
+      "pending": 0
+    },
+    {
+      "pageId": "4e2a0aaa-e3cb-44ad-be90-778b96f25005",
+      "clientId": "709a1cce-7d64-45da-a7b9-18bbf9a2a5f5",
+      "stateVector": [
+        2,
+        188,
+        165,
+        231,
+        183,
+        9,
+        66,
+        245,
+        175,
+        165,
+        178,
+        8,
+        1
+      ],
+      "clocks": [
+        [
+          2252953589,
+          1
+        ],
+        [
+          2532954812,
+          66
+        ]
+      ],
+      "json": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "details",
+            "attrs": {
+              "open": true
+            },
+            "content": [
+              {
+                "type": "detailsSummary",
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "Outer"
+                  }
+                ]
+              },
+              {
+                "type": "detailsContent",
+                "content": [
+                  {
+                    "type": "details",
+                    "attrs": {
+                      "open": true
+                    },
+                    "content": [
+                      {
+                        "type": "detailsSummary",
+                        "content": [
+                          {
+                            "type": "text",
+                            "text": "Inner"
+                          }
+                        ]
+                      },
+                      {
+                        "type": "detailsContent",
+                        "content": [
+                          {
+                            "type": "paragraph",
+                            "content": [
+                              {
+                                "type": "text",
+                                "text": "nested first"
+                              }
+                            ]
+                          },
+                          {
+                            "type": "paragraph",
+                            "content": [
+                              {
+                                "type": "text",
+                                "text": "nested second"
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          }
+        ]
+      },
+      "fragment": "<details open=\"true\"><detailssummary>Outer</detailssummary><detailscontent><details open=\"true\"><detailssummary>Inner</detailssummary><detailscontent><paragraph>nested first</paragraph><paragraph>nested second</paragraph></detailscontent></details></detailscontent></details><paragraph></paragraph>",
+      "selection": {
+        "from": 52,
+        "to": 52,
+        "parent": "",
+        "offset": 0,
+        "size": 0
+      },
+      "pending": 0
+    }
+  ]
+}

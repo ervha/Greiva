@@ -1,0 +1,165 @@
+{
+  "capturedAt": "2026-09-30T23:50:56.415Z",
+  "clients": [
+    {
+      "pageId": "dffe102b-4aa6-4a52-a287-501a37384748",
+      "clientId": "8dcb253a-39fd-4b6d-a1c1-081a96f95b84",
+      "stateVector": [
+        3,
+        129,
+        129,
+        187,
+        182,
+        15,
+        7,
+        192,
+        222,
+        134,
+        219,
+        13,
+        1,
+        162,
+        236,
+        225,
+        231,
+        4,
+        29
+      ],
+      "clocks": [
+        [
+          1291351586,
+          29
+        ],
+        [
+          3680612160,
+          1
+        ],
+        [
+          4140744833,
+          7
+        ]
+      ],
+      "json": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "first"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "third"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "second"
+              }
+            ]
+          }
+        ]
+      },
+      "fragment": "<paragraph>first</paragraph><paragraph>third</paragraph><paragraph>second</paragraph>",
+      "selection": {
+        "from": 8,
+        "to": 8,
+        "parent": "third",
+        "offset": 0,
+        "size": 5
+      },
+      "pending": 0
+    },
+    {
+      "pageId": "dffe102b-4aa6-4a52-a287-501a37384748",
+      "clientId": "97d05f0f-24af-4deb-a97e-adc1685fd17a",
+      "stateVector": [
+        3,
+        129,
+        129,
+        187,
+        182,
+        15,
+        7,
+        192,
+        222,
+        134,
+        219,
+        13,
+        1,
+        162,
+        236,
+        225,
+        231,
+        4,
+        29
+      ],
+      "clocks": [
+        [
+          1291351586,
+          29
+        ],
+        [
+          3680612160,
+          1
+        ],
+        [
+          4140744833,
+          7
+        ]
+      ],
+      "json": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "first"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "third"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "second"
+              }
+            ]
+          }
+        ]
+      },
+      "fragment": "<paragraph>first</paragraph><paragraph>third</paragraph><paragraph>second</paragraph>",
+      "selection": {
+        "from": 1,
+        "to": 1,
+        "parent": "first",
+        "offset": 0,
+        "size": 5
+      },
+      "pending": 0
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "verifiedAt": "2026-09-30T23:55:37.3491575Z",
+  "checkout": "C:\\Users\\danun\\Desktop\\Project\\Greiva",
+  "sourceSha256": "7bf32113844ef0f6294b82492d568bbc5a37606cc19be97db43306537fad56e4",
+  "sourceMatch": true,
+  "gitParent": "28ddf56c6d806e0e2dbcef3e21f079be25c5a043",
+  "checkpoint": "0.2.0",
+  "imageId": "sha256:1b18f67bc1e89fa7134fc40cc48b780ff7b1ccbfd24389425ca2ba5b4d829cf7",
+  "user": "node",
+  "privileged": false,
+  "securityOptions": [
+    "no-new-privileges:true"
+  ],
+  "mounts": {
+    "Type": "volume",
+    "Name": "greiva-isolated_collaboration-data",
+    "Destination": "/workspace/.data/collaboration"
+  },
+  "ports": {
+    "1234/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "1234"
+      }
+    ],
+    "1420/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "1420"
+      }
+    ],
+    "3000/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "3000"
+      }
+    ]
+  },
+  "testMemory": 4294967296,
+  "testNanoCpus": 2000000000,
+  "testExitCode": 0,
+  "nativeShellVersion": "0.0.0",
+  "nativeExeSha256": "1F397C61588B42F26CAA05EF7F23BA4C435CDF140F35536D70F299C8138D410C",
+  "nativeRemoteIme": "Not run: user keyboard operation required",
+  "specSha256": "1227C3562632C170967534FCB2AAA3557D69E033FAFBD3E959A25A84C20663C0"
+}

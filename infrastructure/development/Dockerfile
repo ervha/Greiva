@@ -36,8 +36,9 @@ COPY packages/sync/package.json ./packages/sync/package.json
 RUN npm ci --no-audit --no-fund \
     && npm exec -- playwright install --with-deps chromium
 COPY --chown=node:node . .
-RUN mkdir -p /evidence \
+RUN mkdir -p /evidence /workspace/.data/collaboration \
     && chown node:node /workspace /workspace/node_modules /evidence \
+    && chown -R node:node /workspace/.data \
     && chown -R node:node /opt/cargo
 USER node
 CMD ["npm", "run", "dev"]

@@ -1,18 +1,36 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { EditorContent, useEditor, useEditorState } from '@tiptap/react';
 import { adjacentBlockMove } from './blocks';
 import { blockCommands, editorExtensions } from './extensions';
+import * as Y from 'yjs';
+import type { PageSession } from './page-session';
 
-export function PageEditor() {
+export function PageEditor({ session }: { session: PageSession }) {
   const [title, setTitle] = useState('');
   const editor = useEditor({
-    extensions: editorExtensions(), content: '<p></p>',
+    extensions: editorExtensions(session.document),
     editorProps: {
       attributes: { role: 'textbox', 'aria-label': 'Page本文', 'aria-multiline': 'true', spellcheck: 'false' },
       // Skip ProseMirror keymaps while leaving native IME handling uncancelled.
       handleDOMEvents: { keydown: (view, event) => event.isComposing || view.composing || event.keyCode === 229 },
     },
-  });
+  }, [session.document]);
+  useEffect(() => {
+    // Read-only test diagnostics. Absent from normal dev and production builds.
+    if (!editor || import.meta.env.VITE_GREIVA_TEST_HOOKS !== '1') return;
+    const target = window as unknown as { greivaTest?: { snapshot: () => unknown } };
+    target.greivaTest = { snapshot: () => ({
+      pageId: session.pageId, clientId: session.clientId,
+      stateVector: Array.from(Y.encodeStateVector(session.document)),
+      clocks: Array.from(Y.decodeStateVector(Y.encodeStateVector(session.document))).sort(([a], [b]) => a - b),
+      json: editor.getJSON(), fragment: session.document.getXmlFragment('body').toJSON(),
+      selection: { from: editor.state.selection.from, to: editor.state.selection.to,
+        parent: editor.state.selection.$from.parent.textContent,
+        offset: editor.state.selection.$from.parentOffset, size: editor.state.selection.$from.parent.content.size },
+      pending: session.provider.unsyncedChanges,
+    }) };
+    return () => { delete target.greivaTest; };
+  }, [editor, session]);
   const state = useEditorState({ editor, selector: ({ editor: e }) => ({
     undo: e?.can().undo() ?? false, redo: e?.can().redo() ?? false,
     details: e?.isActive('details') ?? false,

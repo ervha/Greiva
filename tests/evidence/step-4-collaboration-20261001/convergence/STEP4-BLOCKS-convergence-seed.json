@@ -1,0 +1,127 @@
+{
+  "capturedAt": "2026-09-30T23:50:34.915Z",
+  "clients": [
+    {
+      "pageId": "ae6d72e7-a17a-42b0-8fd4-d653f6ed8029",
+      "clientId": "b35b9855-b6e5-4155-96e7-5ff536561a05",
+      "stateVector": [
+        2,
+        179,
+        171,
+        226,
+        227,
+        9,
+        1,
+        215,
+        243,
+        140,
+        232,
+        2,
+        9
+      ],
+      "clocks": [
+        [
+          755186135,
+          9
+        ],
+        [
+          2625148339,
+          1
+        ]
+      ],
+      "json": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "one"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "two"
+              }
+            ]
+          }
+        ]
+      },
+      "fragment": "<paragraph>one</paragraph><paragraph>two</paragraph>",
+      "selection": {
+        "from": 9,
+        "to": 9,
+        "parent": "two",
+        "offset": 3,
+        "size": 3
+      },
+      "pending": 0
+    },
+    {
+      "pageId": "ae6d72e7-a17a-42b0-8fd4-d653f6ed8029",
+      "clientId": "7e4f2eec-20ca-4b6f-ba21-57cd43812009",
+      "stateVector": [
+        2,
+        179,
+        171,
+        226,
+        227,
+        9,
+        1,
+        215,
+        243,
+        140,
+        232,
+        2,
+        9
+      ],
+      "clocks": [
+        [
+          755186135,
+          9
+        ],
+        [
+          2625148339,
+          1
+        ]
+      ],
+      "json": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "one"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "two"
+              }
+            ]
+          }
+        ]
+      },
+      "fragment": "<paragraph>one</paragraph><paragraph>two</paragraph>",
+      "selection": {
+        "from": 4,
+        "to": 4,
+        "parent": "one",
+        "offset": 3,
+        "size": 3
+      },
+      "pending": 0
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 
 async function editorAt(page: Page) {
-  await page.goto('/');
+  await page.goto(`/?page=${crypto.randomUUID()}`);
   const editor = page.getByRole('textbox', { name: 'Page本文' });
   await editor.click();
   return editor;

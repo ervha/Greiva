@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+process.env.VITE_GREIVA_TEST_HOOKS = '1';
 const evidence = process.env.GREIVA_EVIDENCE_DIR ?? 'tests/evidence/runs/latest';
 export default defineConfig({
   testDir: './tests/e2e', fullyParallel: false, retries: 0,

@@ -65,3 +65,7 @@ kbd { font: inherit; font-size: 11px; padding: 1px 4px; background: #f4f6f4; bor
 .suggestion-footer { display: flex; flex-wrap: wrap; gap: 12px; padding: 8px 12px; border-top: 1px solid #e9edea; color: var(--muted); font-size: 10px; flex-shrink: 0; }
 @media (prefers-reduced-motion: reduce) { .tiptap [data-type="details"] > button svg { transition: none; } }
 @media (max-width: 600px) { main { padding: 14px; } .editor-panel { padding: 16px 32px; } .page-title { font-size: 23px; } header { align-items: flex-start; } }
+
+.connection-tools { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 16px 0; font-size: 13px; }
+.connection-tools a { color: var(--accent, #6169dc); text-underline-offset: 3px; }
+.connection-tools button { padding: 6px 10px; border: 1px solid #ddd; border-radius: 7px; background: transparent; cursor: pointer; }

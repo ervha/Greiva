@@ -2,11 +2,11 @@
 
 [プロジェクト紹介へ戻る](../../README.md)。以下のコマンドは、特記がなければリポジトリのルートで実行します。
 
-2026-10-01時点の開発計画と検証記録。開発チェックポイント **v0.1.6**。[変更履歴](../../CHANGELOG.md)・[コミット/バージョン運用](../development/versioning.md)。更新規模に応じたGitタグを付けてGitHubへ反映します。
+2026-10-01時点の開発計画と検証記録。開発チェックポイント **v0.2.0**。[変更履歴](../../CHANGELOG.md)・[コミット/バージョン運用](../development/versioning.md)。更新規模に応じたGitタグを付けてGitHubへ反映します。
 
 [POC_SPEC.md](POC_SPEC.md) のSection 18に沿って進めています。Step 1の基盤とStep 2の最小Editorを実装し、Slash・Toggleの操作改善を含むDocker内の全30件のE2Eが成功しました。Step 3はWindows実機へ切り替え、既存native shellの起動とWebView2保存先を確認しました。初回local IMEの4群は利用者がすべて問題なしと明示回答し、手動結果と初回証拠を記録しました。[Step 3初回IME記録](../../tests/evidence/windows-host-ime-20261001/SUMMARY.md)。[版の記録](../decisions/specification-version.md)、[Step 2の範囲・検証状況](../decisions/step-2-scope.md)、[Editor操作の改善](../decisions/editor-ux.md)を参照してください。
 
-npm workspaces、共有型、React/Tauri 2、NestJS/Fastify・Hocuspocusのhealth endpointに、Tiptapの必須block、Todo、Toggle、Slash Command、固定候補Mention、ブロック移動、Undo/Redo、Markdown shortcutを追加しました。文書接続、永続化、同期、競合解決は後工程です。画面は保存・同期未実装を明示し、Gate A/B/Cは未判定です。
+Step 4ではPage本文のYjs/Hocuspocus接続とサーバーbinary journalを追加しました。6つのA/B収束ケース、local Undo分離、新規client復元、別Page分離とサーバーSIGKILL復元を検証し、Dockerの全37 E2E、unit/integration 22件、build・型・Linux locked Cargo checkと専用PostgreSQL試験が成功しました。[Step 4の実装判断](../decisions/step-4-collaboration.md)・[証拠](../../tests/evidence/step-4-collaboration-20261001/SUMMARY.md)。接続中の実機IMEは追加確認待ちです。端末SQLiteのPage/update保存とoffline強制終了復旧はStep 5、Task/Relation同期はStep 6以降。Gate A/B/Cは未判定です。
 
 製品設計には[Calendar・定期予定・時間割の追加設計](CALENDAR_TIMETABLE_SPEC.md)を記録しました。曜日＋時限/自由な時刻、週次の繰り返し、一回の取消・振替・追加を汎用モデルで扱う案です。Calendarは未実装で、PoCの対象と検証順序は変更していません。
 
@@ -72,7 +72,7 @@ npm run dev
 - API: http://127.0.0.1:3000/health
 - Collaboration: http://127.0.0.1:1234/health
 
-各 workspace は `npm run dev -w @greiva/client` / `@greiva/api` / `@greiva/collaboration` でも起動できます。API と collaboration の host/port は `.env` を読みます。クライアントの開発ポートは Tauri と E2E の構成に合わせて 1420 に固定しています。Hocuspocus の文書接続は Step 4 まで拒否します。
+各 workspace は `npm run dev -w @greiva/client` / `@greiva/api` / `@greiva/collaboration` でも起動できます。これらのnpmコマンドはDocker内で実行します。APIとcollaborationのhost/portは`.env`を読みます。Clientは1420に固定。Step 4から`page:{pageId}`へ接続し、サーバーupdate journalをdev専用volumeへ保存します。
 
 Tauri desktop の最小 shell は、OS の開発要件を満たした端末で次を実行します。
 

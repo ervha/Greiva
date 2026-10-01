@@ -35,6 +35,10 @@ WebView2のユーザーデータは子プロセスの`WEBVIEW2_USER_DATA_FOLDER`
 
 ## 次のステップとの境界
 
+Step 4のDocker frontend 0.2.0は既存debug shell 0.0.0へ接続できる。元のshellを新規0.2.0実行物として扱わない。[自動試験とソース対応](../../tests/evidence/step-4-collaboration-20261001/SUMMARY.md)。接続中のIMEは追加試験が必要。
+
+同一Pageの別clientから、Microsoft IMEの未確定・候補選択中に更新を送る。1人で行う場合は、別画面へ切り替えてから編集するとcomposition終了を誘発するため、遅延した別clientの更新を使い、native側にfocusを残す。CodexがDocker内の独立providerから検証用段落を追加・更新し、利用者はnativeで変換・確定・再変換・Undo/Redoを行う。受信をcomposition中に停止しない。両方の本文保持、二重確定・欠落・カーソル逸脱・クラッシュの有無を記録する。準備・更新送信だけではPassにせず、利用者の明示的な結果を要する。
+
 これはlocal Editorの初回検証である。Section 5.3の別clientからcomposition中にYjs updateを受ける試験はStep 4の接続後に追加する。初回IMEを通過してもGate A最終Passとは扱わない。残るnative Editor操作と画面証拠は最終判定に向けて補強する。Fail時は失敗記録を作ってStep 3で修正し、同期実装へ先行しない。
 
 ## 不要になったVMの整理

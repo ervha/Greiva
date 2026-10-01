@@ -1,0 +1,175 @@
+{
+  "capturedAt": "2026-09-30T23:51:13.521Z",
+  "clients": [
+    {
+      "pageId": "d10a1bb3-5b10-4f8c-864d-d6fc8f9d2f9d",
+      "clientId": "b0b5c946-cbe7-4754-8f40-a98fdce0f1d6",
+      "stateVector": [
+        2,
+        157,
+        130,
+        149,
+        240,
+        15,
+        1,
+        189,
+        181,
+        159,
+        218,
+        4,
+        24
+      ],
+      "clocks": [
+        [
+          1263000253,
+          24
+        ],
+        [
+          4261757213,
+          1
+        ]
+      ],
+      "json": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "taskList",
+            "content": [
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": false
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "task"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": false
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "child"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          }
+        ]
+      },
+      "fragment": "<tasklist><taskitem checked=\"false\"><paragraph>task</paragraph></taskitem><taskitem checked=\"false\"><paragraph>child</paragraph></taskitem></tasklist><paragraph></paragraph>",
+      "selection": {
+        "from": 16,
+        "to": 16,
+        "parent": "child",
+        "offset": 5,
+        "size": 5
+      },
+      "pending": 0
+    },
+    {
+      "pageId": "d10a1bb3-5b10-4f8c-864d-d6fc8f9d2f9d",
+      "clientId": "ea3b4292-c3c8-481c-a581-aad65dfac4c2",
+      "stateVector": [
+        2,
+        157,
+        130,
+        149,
+        240,
+        15,
+        1,
+        189,
+        181,
+        159,
+        218,
+        4,
+        24
+      ],
+      "clocks": [
+        [
+          1263000253,
+          24
+        ],
+        [
+          4261757213,
+          1
+        ]
+      ],
+      "json": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "taskList",
+            "content": [
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": false
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "task"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "taskItem",
+                "attrs": {
+                  "checked": false
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "child"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          }
+        ]
+      },
+      "fragment": "<tasklist><taskitem checked=\"false\"><paragraph>task</paragraph></taskitem><taskitem checked=\"false\"><paragraph>child</paragraph></taskitem></tasklist><paragraph></paragraph>",
+      "selection": {
+        "from": 20,
+        "to": 20,
+        "parent": "",
+        "offset": 0,
+        "size": 0
+      },
+      "pending": 0
+    }
+  ]
+}

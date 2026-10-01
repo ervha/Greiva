@@ -1,7 +1,7 @@
 {
   "name": "greiva-poc",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.2.0",
   "type": "module",
   "workspaces": [
     "packages/*",
@@ -27,7 +27,7 @@
     "db:sqlite": "node scripts/init-sqlite.mjs",
     "versions": "node scripts/versions.mjs",
     "evidence": "node scripts/evidence.mjs",
-    "evidence:container": "node scripts/evidence.mjs --container --desktop",
+    "evidence:container": "node scripts/evidence.mjs --container --desktop --step=4",
     "build:servers": "npm run build -w @greiva/api && npm run build -w @greiva/collaboration"
   },
   "devDependencies": {

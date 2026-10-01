@@ -18,6 +18,7 @@ docker compose -f infrastructure/development/compose.yaml up --build -d dev
 - ソースは`.dockerignore`を適用したbuild時のコピー。ホストの`.tools/`、`node_modules/`、`.git/`、`.env`、DB、過去の証拠はimageへ送らない。
 - 依存、ビルド出力、SQLite、キャッシュはcontainer filesystemに置く。ソースのbind mount、Docker socketのmount、privileged実行は使わない。
 - PostgreSQL 18.4のデータはCompose専用volumeに保持する。DBのhost portは公開しない。
+- Step 4のHocuspocus binary update journalは別の`collaboration-data` volumeに保持する。devの再作成後もサーバー文書を復元する。端末のSQLite保存とは別の境界。
 - UI/API/collaborationのみ127.0.0.1に公開する。コンテナ側の0.0.0.0待受はポート転送に必要な設定。
 - testsはRAM上限4GB・2CPU、Cargo同時ビルド2jobで実行する。
 - ホストのソース変更は、同じ`up --build -d dev`を再実行して反映する。
@@ -45,6 +46,8 @@ docker compose -f infrastructure/development/compose.yaml --profile test down
 [実機検証手順](windows-host-ime.md)に従い、既存のWindows用native shellを起動してDockerのエディターへ接続する。追加のホスト用Node/Rust/C++インストールは行っていない。配布用ビルドの試験とは区別する。WebView2データをプロジェクト内へ指定し、実際の保存先も確認した。
 
 ## 現在の状態
+
+- 2026-10-01 Step 4: Yjs/Hocuspocus接続、サーバー耐久化、A/B収束を実装。Docker全37 E2E、22 unit/integration、専用PostgreSQL、build/型、Linux locked Cargo checkがPass。[共同編集証拠](../../tests/evidence/step-4-collaboration-20261001/SUMMARY.md)。接続中の実機IMEは未実施、端末SQLite/crash recoveryはStep 5。
 
 - Compose構文: 以前の[環境確認](../../tests/evidence/isolation-20260930/environment.json)にexit code 0を記録。個別のcompose-config.logは保存されていないため、存在しないログへリンクしない。
 - Docker engine: ユーザーの起動後、29.6.2の応答を確認。PostgreSQL 18.4はhealthy、host port公開なし。

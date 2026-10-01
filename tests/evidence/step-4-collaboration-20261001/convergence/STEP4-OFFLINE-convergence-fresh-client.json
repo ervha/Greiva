@@ -1,0 +1,165 @@
+{
+  "capturedAt": "2026-09-30T23:50:49.316Z",
+  "clients": [
+    {
+      "pageId": "6e952047-90f2-49e0-9197-edff5eb7b275",
+      "clientId": "332ac678-4105-4315-ac38-e48cfe1398db",
+      "stateVector": [
+        3,
+        203,
+        152,
+        223,
+        243,
+        13,
+        33,
+        130,
+        128,
+        238,
+        248,
+        12,
+        1,
+        164,
+        249,
+        207,
+        235,
+        8,
+        10
+      ],
+      "clocks": [
+        [
+          2373188772,
+          10
+        ],
+        [
+          3474685954,
+          1
+        ],
+        [
+          3732393035,
+          33
+        ]
+      ],
+      "json": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "keep"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "offlineB"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "offlineA"
+              }
+            ]
+          }
+        ]
+      },
+      "fragment": "<paragraph>keep</paragraph><paragraph>offlineB</paragraph><paragraph>offlineA</paragraph>",
+      "selection": {
+        "from": 25,
+        "to": 25,
+        "parent": "offlineA",
+        "offset": 8,
+        "size": 8
+      },
+      "pending": 0
+    },
+    {
+      "pageId": "6e952047-90f2-49e0-9197-edff5eb7b275",
+      "clientId": "85a46456-8c25-4b19-92cd-db22addb668c",
+      "stateVector": [
+        3,
+        203,
+        152,
+        223,
+        243,
+        13,
+        33,
+        130,
+        128,
+        238,
+        248,
+        12,
+        1,
+        164,
+        249,
+        207,
+        235,
+        8,
+        10
+      ],
+      "clocks": [
+        [
+          2373188772,
+          10
+        ],
+        [
+          3474685954,
+          1
+        ],
+        [
+          3732393035,
+          33
+        ]
+      ],
+      "json": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "keep"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "offlineB"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "offlineA"
+              }
+            ]
+          }
+        ]
+      },
+      "fragment": "<paragraph>keep</paragraph><paragraph>offlineB</paragraph><paragraph>offlineA</paragraph>",
+      "selection": {
+        "from": 1,
+        "to": 1,
+        "parent": "keep",
+        "offset": 0,
+        "size": 4
+      },
+      "pending": 0
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+  "capturedAt": "2026-09-30T23:50:36.816Z",
+  "clients": [
+    {
+      "pageId": "ae6d72e7-a17a-42b0-8fd4-d653f6ed8029",
+      "clientId": "b35b9855-b6e5-4155-96e7-5ff536561a05",
+      "stateVector": [
+        3,
+        179,
+        171,
+        226,
+        227,
+        9,
+        1,
+        236,
+        154,
+        134,
+        237,
+        2,
+        2,
+        215,
+        243,
+        140,
+        232,
+        2,
+        13
+      ],
+      "clocks": [
+        [
+          755186135,
+          13
+        ],
+        [
+          765562220,
+          2
+        ],
+        [
+          2625148339,
+          1
+        ]
+      ],
+      "json": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "one A"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "two B"
+              }
+            ]
+          }
+        ]
+      },
+      "fragment": "<paragraph>one A</paragraph><paragraph>two B</paragraph>",
+      "selection": {
+        "from": 4,
+        "to": 4,
+        "parent": "one A",
+        "offset": 3,
+        "size": 5
+      },
+      "pending": 0
+    },
+    {
+      "pageId": "ae6d72e7-a17a-42b0-8fd4-d653f6ed8029",
+      "clientId": "7e4f2eec-20ca-4b6f-ba21-57cd43812009",
+      "stateVector": [
+        3,
+        179,
+        171,
+        226,
+        227,
+        9,
+        1,
+        236,
+        154,
+        134,
+        237,
+        2,
+        2,
+        215,
+        243,
+        140,
+        232,
+        2,
+        13
+      ],
+      "clocks": [
+        [
+          755186135,
+          13
+        ],
+        [
+          765562220,
+          2
+        ],
+        [
+          2625148339,
+          1
+        ]
+      ],
+      "json": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "one A"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "two B"
+              }
+            ]
+          }
+        ]
+      },
+      "fragment": "<paragraph>one A</paragraph><paragraph>two B</paragraph>",
+      "selection": {
+        "from": 13,
+        "to": 13,
+        "parent": "two B",
+        "offset": 5,
+        "size": 5
+      },
+      "pending": 0
+    }
+  ]
+}

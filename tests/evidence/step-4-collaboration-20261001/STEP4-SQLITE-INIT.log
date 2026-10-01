@@ -1,0 +1,5 @@
+
+> greiva-poc@0.2.0 db:sqlite
+> node scripts/init-sqlite.mjs
+
+{"path":"/workspace/.data/greiva-dev.sqlite","sqlite":{"version":"3.53.3"},"integrity":{"integrity_check":"ok"},"journal":{"journal_mode":"wal"}}

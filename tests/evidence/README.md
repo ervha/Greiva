@@ -1,6 +1,10 @@
 # 試験証拠の索引
 
-`docs/plan/POC_SPEC.md` Section 18 Step 3の初回local IME証拠まで記録しました。Steps 1–2のDocker自動試験は成功。Windows実機の初回操作は利用者確認でPass。Yjs接続中のIME、Gate A最終判定、Gate B/Cは後続工程です。
+`docs/plan/POC_SPEC.md` Section 18 Step 4の共同編集とA/B自動試験まで記録しました。Windows実機の初回local IMEは利用者確認でPass。接続中の実IME、端末SQLite保存・crash recovery、Gate A/B/Cの最終判定は未完了です。
+
+## 最新: Step 4共同編集（2026-10-01）
+
+[結果・収束スナップショット](step-4-collaboration-20261001/SUMMARY.md)、[metadata](step-4-collaboration-20261001/summary.json)、[ソース照合・Docker条件](step-4-collaboration-20261001/verification-context.json)。build/型、unit/integration 22件、Chromium全37件、SQLite基盤、実PostgreSQL 1件、Linux locked Cargo checkがPass。6つのA/Bケースをraw state vector・clock map・本文JSONで比較し、サーバーSIGKILL後のbinary復元も検証した。今回のfrontend/app sourceは0.2.0、既存Windows shellは0.0.0。実機IME接続中の成功や端末耐久化、Gate最終Passは主張しない。
 
 ## 最新: Windows実機の初回IME試験（2026-10-01）
 
