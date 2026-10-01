@@ -1,7 +1,12 @@
 [package]
 name = "greiva-page-store"
-version = "0.6.0"
+version = "0.6.2"
 edition = "2021"
+
+[features]
+default = []
+# Only the Docker crash-test driver enables this; Tauri builds do not.
+crash-test-hooks = []
 
 [dependencies]
 serde = { version = "=1.0.229", features = ["derive"] }

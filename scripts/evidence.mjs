@@ -11,9 +11,10 @@ const directory = resolve(process.env.GREIVA_EVIDENCE_ROOT ?? 'tests/evidence/ru
 mkdirSync(directory, { recursive: true });
 const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
 const serverSync = process.argv.includes('--step=7-server');
-const clientSync = process.argv.includes('--step=7-client');
+const crashRecovery = process.argv.includes('--step=7-recovery');
+const clientSync = crashRecovery || process.argv.includes('--step=7-client');
 const step = clientSync || serverSync ? 7 : process.argv.includes('--step=6') ? 6 : process.argv.includes('--step=5') ? 5 : process.argv.includes('--step=4') ? 4 : process.argv.includes('--step=1') ? 1 : 2;
-const prefix = clientSync ? 'STEP7-CLIENT' : serverSync ? 'STEP7-SERVER' : `STEP${step}`;
+const prefix = crashRecovery ? 'STEP7-RECOVERY' : clientSync ? 'STEP7-CLIENT' : serverSync ? 'STEP7-SERVER' : `STEP${step}`;
 const container = process.argv.includes('--container');
 const browserExecutable = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE ?? chromium.executablePath();
 const browserVersionResult = spawnSync(browserExecutable, ['--version'], { encoding: 'utf8' });
@@ -37,6 +38,7 @@ const report = {
   scope: clientSync ? 'Section 18 Step 7 client checkpoint: actual Rust SQLite prepared requests, ACK/receipt persistence, transactional pull/cursor, pending-intent projection, migrations, conflict UI and restore/pull/push/pull engine. Real PostgreSQL/HTTP tests cover ACK loss, API recreation, store SIGKILL, cursor write failure, 500ms/2s/5s latency and repeated pause/resume. Separate Chromium structured E2E uses a fresh PostgreSQL namespace. Windows native IPC/IME, remaining integrated four-boundary crash scenarios, performance and final Gates require separate evidence. No Gate verdict.' : serverSync ? 'Section 18 Step 7 server checkpoint only: durable immutable operation ledger, transactional server ordering, cursor pagination, Task/Relation field merge, preserved conflicts and explicit resolution, tombstone priority, migration and database rollback. Local ACK/pull/cursor integration, conflict UI, transport interruption and native checks remain pending. No Gate verdict.' : step === 6 ? 'Section 18 Step 6: native Task/Relation SQLite CRUD with atomic durable queues, safe schema migration, stable client identity, real PostgreSQL models and Nest read API. Push/pull, ACKs, cursor advancement and conflict resolution are Step 7; Windows native/IME evidence stays separate. No Gate verdict.' : step === 5 ? 'Section 18 Step 5: actual Rust SQLite repository used by Tauri; Page metadata and Yjs durability, offline creation, renderer/store SIGKILL and offline restoration, reconnect convergence and fail-closed errors. Browser uses a test-only transport to Rust; Windows native IPC and actual IME require separate evidence. No Gate verdict.' : step === 4 ? 'Section 18 Step 4: Page Yjs/Hocuspocus collaboration, binary journal restart, A/B vectors and full JSON convergence. Client SQLite and actual Microsoft IME require separate evidence. No Gate verdict.' : step === 1 ? 'Section 18 Step 1 foundation checks; current client may include the Step 2 editor. No Gate verdict.' :
     'Section 18 Steps 1–2. Editor operations in Chromium; native compile optional. Microsoft IME, native UI, sync and crash recovery need separate evidence. No Gate verdict.',
 };
+if (crashRecovery) report.scope = 'Section 18 Step 7 recovery checkpoint: actual standalone API process SIGKILL before/after commit, plus combined Chromium and Rust SQLite Page/block/Task/Relation SIGKILL at immediate edit, local commit, committed push without ACK and staged pull before cursor. Approved 2026-10-01 A contract: all committed/saved input survives; optimistic input still saving may be absent. Tests compare every committed SQLite update, full Yjs state and saved structure/intent, and require complete pre-kill equality if saved was displayed. Page pending updates coalesce without debounce or metadata reordering. Fresh PostgreSQL schemas isolate each run. Windows native IPC/IME, performance and final Gates require separate evidence. No Gate verdict.';
 const gitFiles = spawnSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z'], { encoding: 'utf8' });
 function sourceFiles(directory = '.') {
   return readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
@@ -48,7 +50,7 @@ function sourceFiles(directory = '.') {
   });
 }
 const files = (gitFiles.status === 0 ? (gitFiles.stdout ?? '').split('\0') : sourceFiles())
-  .filter(file => file && !file.startsWith('tests/evidence/') && !file.startsWith('docs/') && file !== 'README.md').sort();
+  .filter(file => file && !file.startsWith('tests/evidence/') && !file.startsWith('docs/') && file !== 'README.md' && file !== 'CHANGELOG.md').sort();
 report.sourceDiscovery = gitFiles.status === 0 ? 'git ls-files' : 'filesystem (image excludes .git)';
 if (!files.length) throw new Error('Cannot fingerprint an empty source inventory');
 const sourceHash = createHash('sha256');
@@ -76,6 +78,7 @@ run(`${prefix}-SQLITE-INIT`, npm, ['run', 'db:sqlite'], 'File database initializ
 if (container) {
   run(`${prefix}-POSTGRES`, npm, ['run', 'test:postgres'], 'Live PostgreSQL 18.4 on the Compose network verifies database and server version', `${directory}/postgres`);
   if (clientSync) run(`${prefix}-STRUCTURED-E2E`,npm,['run','test:structured-e2e'],'Real HTTP, PostgreSQL and Rust SQLite verify conflict resolution, offline restart, remote updates, draft and focus preservation',`${directory}/structured-e2e`);
+  if (crashRecovery) run(`${prefix}-COMBINED-CRASH`,npm,['run','test:crash'],'Four actual browser/store SIGKILL boundaries preserve all committed Page/block changes and structured intent, restore offline and converge with peers under the approved A contract',`${directory}/combined-crash`);
 } else run(`${prefix}-POSTGRES-CONFIG`, 'docker', ['compose', '-f', 'infrastructure/postgres/compose.yaml', 'config', '--quiet'], 'Compose configuration validates');
 if (!container && process.argv.includes('--postgres')) {
   if (run(`${prefix}-POSTGRES-START`, npm, ['run', 'db:up'], 'PostgreSQL 18.4 starts and becomes healthy')) {
@@ -84,6 +87,7 @@ if (!container && process.argv.includes('--postgres')) {
 } else if (!container) report.results.push({ id: `${prefix}-POSTGRES`, status: 'Not run', reason: 'Use --postgres with a Docker-enabled environment' });
 if (process.argv.includes('--desktop')) {
   run(`${prefix}-DESKTOP-CHECK`, 'cargo', ['check', '--locked', '--manifest-path', 'apps/client/src-tauri/Cargo.toml'], 'Tauri desktop crate typechecks against the locked graph');
+  if (crashRecovery) run(`${prefix}-DEFAULT-FEATURES`,'node',['scripts/verify-native-features.mjs'],'Normal Tauri dependency graph does not enable the crash-test-hooks feature');
 } else report.results.push({ id: `${prefix}-DESKTOP-CHECK`, status: 'Not run', reason: 'Use --desktop with the native Tauri prerequisites' });
 report.finishedAt = new Date().toISOString();
 writeFileSync(`${directory}/summary.json`, JSON.stringify(report, null, 2));

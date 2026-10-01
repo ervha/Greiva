@@ -1,0 +1,6 @@
+
+> greiva-poc@0.6.2 test:crash
+> cargo build --locked --manifest-path apps/client/src-tauri/crates/page-store/Cargo.toml --example store-driver --features crash-test-hooks --target-dir .data/crash-target && node scripts/test-structured-e2e.mjs --crash
+
+error: cannot update the lock file /workspace/apps/client/src-tauri/crates/page-store/Cargo.lock because --locked was passed to prevent this
+help: to generate the lock file without accessing the network, remove the --locked flag and use --offline instead.

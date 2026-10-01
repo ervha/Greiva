@@ -1,7 +1,7 @@
 import { HocuspocusProvider, HocuspocusProviderWebsocket } from '@hocuspocus/provider';
 import { emptyPageUpdate } from '@greiva/sync';
 import * as Y from 'yjs';
-import { DurabilityBoundary, localPageStore, type LocalPageStore, type PageMetadata } from './local-page-store';
+import { DurabilityBoundary, PageWrites, localPageStore, type LocalPageStore, type PageMetadata } from './local-page-store';
 import { connectionPaused } from '../connection-preference';
 
 export const defaultPageId = '019a0070-0000-7000-8000-000000000001';
@@ -41,7 +41,8 @@ export async function createPageSession(report: (state: ConnectionState) => void
     update({ saving, ...(storageError ? { storageError } : {}) });
     if (storageError) { console.error('Page persistence failed', storageError); socket?.disconnect(); }
   });
-  const persist = (bytes: Uint8Array) => { if (store) { const copy = bytes.slice(); boundary.enqueue(() => store.append(selectedPageId, copy)); } };
+  const writes = store ? new PageWrites(boundary, store, selectedPageId) : null;
+  const persist = (bytes: Uint8Array) => writes?.append(bytes);
   // Persist listener precedes provider's listener and its encoded outgoing frame.
   document.on('update', persist);
   socket = new HocuspocusProviderWebsocket({ url: `ws://127.0.0.1:1234?clientId=${clientId}`, autoConnect: false });
@@ -71,7 +72,7 @@ export async function createPageSession(report: (state: ConnectionState) => void
   if (!state.paused) void socket.connect().catch(error => console.error('Page connection failed', error));
   return { document, provider, clientId, pageId: selectedPageId, local: Boolean(store), durable: () => boundary.tail,
     connect: () => socket.connect(), disconnect: () => socket.disconnect(),
-    setTitle: title => { update({ title, pages: state.pages.map(page => page.id === selectedPageId ? { ...page, title } : page) }); if (store) boundary.enqueue(() => store.setTitle(selectedPageId, title)); },
+    setTitle: title => { update({ title, pages: state.pages.map(page => page.id === selectedPageId ? { ...page, title } : page) }); writes?.setTitle(title); },
     destroy: () => { active = false; clearTimeout(timer); document.off('update', persist); provider.destroy(); socket.destroy(); document.destroy(); },
   };
 }

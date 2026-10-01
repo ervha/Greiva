@@ -8,7 +8,8 @@ const admin = new pg.Client({connectionString:process.env.DATABASE_URL}); await 
 try {
   console.log(JSON.stringify({event:'structured-e2e-isolation',schema}));
   const result = spawnSync(process.platform==='win32' ? 'npm.cmd' : 'npm',['run','test:e2e'],{stdio:'inherit',
-    env:{...process.env,GREIVA_TEST_STRUCTURED_SYNC:'1',GREIVA_DB_SCHEMA:schema,GREIVA_TEST_STORE_DIR:`../../.data/${schema}-stores`},shell:process.platform==='win32'});
+    env:{...process.env,GREIVA_TEST_STRUCTURED_SYNC:process.argv.includes('--crash') ? 'crash':'1',GREIVA_DB_SCHEMA:schema,GREIVA_TEST_STORE_DIR:`../../.data/${schema}-stores`,
+      ...(process.argv.includes('--crash') ? {GREIVA_STORE_DRIVER:'../../.data/crash-target/debug/examples/store-driver'} : {})},shell:process.platform==='win32'});
   process.exitCode = result.status ?? 1;
 } finally {
   await admin.query(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);

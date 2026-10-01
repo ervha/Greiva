@@ -1,6 +1,12 @@
 # 試験証拠の索引
 
-`docs/plan/POC_SPEC.md` Section 18 Step 7の端末同期・競合UIと一部のnetwork chaosまで記録しました。残る統合crash境界・性能・native全件とGate A/B/Cの最終判定は未完了です。Windows実機の初回IMEと遠隔更新中に試した操作は利用者確認による結果を保持し、Google日本語入力の実キー結果はMicrosoft IMEへ流用しません。
+`docs/plan/POC_SPEC.md` Section 18 Step 7の端末同期・競合UI、network chaosと統合crash境界まで記録しました。性能・native全件とGate A/B/Cの最終判定は未完了です。Windows実機の初回IMEと遠隔更新中に試した操作は利用者確認による結果を保持し、Google日本語入力の実キー結果はMicrosoft IMEへ流用しません。
+
+## Step 7: 保存待ち改善・統合crash recovery（2026-10-01、v0.6.2）
+
+[最終Docker検証](step-7-crash-recovery-20261001/SUMMARY.md)、[126ファイルのソース照合](step-7-crash-recovery-20261001/checkout-source-match.json)、[4境界の復元監査](step-7-crash-recovery-20261001/restoration-audit.json)、[プレビュー反映](step-7-crash-recovery-20261001/deployment.json)。11項目Pass、通常44件（PostgreSQL専用20件skip）、実PostgreSQL別run20件、Editor43・structured UI2・統合crash4 E2Eにskip/flakyなし。実APIの確定前／確定後SIGKILL、実Chromium／Rust storeの編集直後・保存完了後・push確定ACK喪失・pull cursor確定前を確認した。ユーザー承認Aにより保存済み全変更を保証し、保存中の未commit入力を区別する。最終runではPage確定直前の試験専用停止により保存中の境界を確実に通し、全commit済みupdate・最後の保存済み本文／構造・Task／Relation／queue保持とpeer収束を検証した。
+
+[初回の無条件復元Fail](step-7-crash-boundary-20261001/SUMMARY.md)と[判断・修正記録](../../docs/failures/step-7-integrated-crash.md)を保持。保存待ち改善後の[初回full run](step-7-crash-recovery-20261001/previous-attempt/first-full-run/SUMMARY.md)も保存し、最新runと区別する。通常Tauriでは停止featureが無効。Windows候補は既存0.6.0のままで実機操作は未検証、性能・最終Gateも未判定。
 
 ## Step 7: structured sync端末・競合UI（2026-10-01）
 

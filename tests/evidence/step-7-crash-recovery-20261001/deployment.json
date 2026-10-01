@@ -1,0 +1,65 @@
+{
+  "verifiedAt": "2026-10-01T08:29:17.555Z",
+  "version": "0.6.2",
+  "sourceSha256": "7fce6015a4352284e8bf37c5e85898bc01f80f8de7109dec579273e7ab112930",
+  "fileCount": 126,
+  "sourceBytesMatch": true,
+  "health": [
+    {
+      "name": "client",
+      "url": "http://127.0.0.1:1420/",
+      "status": 200
+    },
+    {
+      "name": "api",
+      "url": "http://127.0.0.1:3000/health",
+      "status": 200
+    },
+    {
+      "name": "collaboration",
+      "url": "http://127.0.0.1:1234/health",
+      "status": 200
+    }
+  ],
+  "runtime": {
+    "image": "sha256:ea31de938cb6adddf75b730bbb180a4bbef9bb53f669e4fb2d93903229fd21c6",
+    "user": "node",
+    "init": true,
+    "privileged": false,
+    "securityOptions": [
+      "no-new-privileges:true"
+    ],
+    "mounts": [
+      {
+        "Type": "volume",
+        "Name": "greiva-isolated_collaboration-data",
+        "Source": "/var/lib/docker/volumes/greiva-isolated_collaboration-data/_data",
+        "Destination": "/workspace/.data/collaboration",
+        "Driver": "local",
+        "Mode": "rw",
+        "RW": true,
+        "Propagation": ""
+      }
+    ],
+    "ports": {
+      "1234/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "1234"
+        }
+      ],
+      "1420/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "1420"
+        }
+      ],
+      "3000/tcp": [
+        {
+          "HostIp": "127.0.0.1",
+          "HostPort": "3000"
+        }
+      ]
+    }
+  }
+}

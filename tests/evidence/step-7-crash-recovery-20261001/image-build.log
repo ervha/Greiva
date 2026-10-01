@@ -1,0 +1,311 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 2.31kB 0.0s done
+#1 DONE 0.1s
+
+#2 [internal] load metadata for docker.io/library/node:24.19.0-bookworm-slim
+#2 ...
+
+#3 [auth] library/node:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:24.19.0-bookworm-slim
+#2 DONE 1.6s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 301B done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 DONE 0.0s
+
+#6 [ 1/16] FROM docker.io/library/node:24.19.0-bookworm-slim@sha256:a9f5f7c91a432850b2a8a7797adf5eadb6c733ceed61167806cee7ea7fbc29df
+#6 resolve docker.io/library/node:24.19.0-bookworm-slim@sha256:a9f5f7c91a432850b2a8a7797adf5eadb6c733ceed61167806cee7ea7fbc29df 0.1s done
+#6 DONE 0.1s
+
+#5 [internal] load build context
+#5 transferring context: 102.37kB 0.0s done
+#5 DONE 0.0s
+
+#7 [ 9/16] COPY apps/collaboration/package.json ./apps/collaboration/package.json
+#7 CACHED
+
+#8 [11/16] COPY packages/protocol/package.json ./packages/protocol/package.json
+#8 CACHED
+
+#9 [ 4/16] RUN curl --fail --show-error --location --retry 3       https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init       --output /tmp/rustup-init     && curl --fail --show-error --location --retry 3       https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init.sha256       --output /tmp/rustup-init.sha256     && cd /tmp && sha256sum --check rustup-init.sha256     && chmod +x rustup-init     && ./rustup-init -y --no-modify-path --profile minimal --default-toolchain "1.98.1"     && rm rustup-init rustup-init.sha256
+#9 CACHED
+
+#10 [12/16] COPY packages/sync/package.json ./packages/sync/package.json
+#10 CACHED
+
+#11 [ 6/16] COPY package.json package-lock.json .npmrc ./
+#11 CACHED
+
+#12 [ 8/16] COPY apps/api/package.json ./apps/api/package.json
+#12 CACHED
+
+#13 [10/16] COPY packages/shared/package.json ./packages/shared/package.json
+#13 CACHED
+
+#14 [ 7/16] COPY apps/client/package.json ./apps/client/package.json
+#14 CACHED
+
+#15 [ 5/16] WORKDIR /workspace
+#15 CACHED
+
+#16 [ 3/16] RUN npm install --global npm@11.9.0 --ignore-scripts --no-audit --no-fund     && test "$(node --version)" = "v24.19.0"     && test "$(npm --version)" = "11.9.0"
+#16 CACHED
+
+#17 [ 2/16] RUN apt-get update && apt-get install -y --no-install-recommends       ca-certificates curl git build-essential pkg-config       libglib2.0-dev libgtk-3-dev libwebkit2gtk-4.1-dev       libssl-dev librsvg2-dev libayatana-appindicator3-dev     && rm -rf /var/lib/apt/lists/*
+#17 CACHED
+
+#18 [13/16] RUN npm ci --no-audit --no-fund     && npm exec -- playwright install --with-deps chromium
+#18 CACHED
+
+#19 [14/16] COPY --chown=node:node . .
+#19 DONE 0.2s
+
+#20 [15/16] RUN mkdir -p /evidence /workspace/.data/collaboration     && chown node:node /workspace /workspace/node_modules /evidence     && chown -R node:node /workspace/.data     && chown -R node:node /opt/cargo
+#20 DONE 1.0s
+
+#21 [16/16] RUN cargo build --locked --manifest-path apps/client/src-tauri/crates/page-store/Cargo.toml     --example store-driver --target-dir .data/native-target
+#21 1.565     Updating crates.io index
+#21 5.046  Downloading crates ...
+#21 5.292   Downloaded atoi v2.0.0
+#21 5.316   Downloaded futures-sink v0.3.34
+#21 5.321   Downloaded cfg-if v1.0.5
+#21 5.333   Downloaded futures-io v0.3.34
+#21 5.344   Downloaded block-buffer v0.10.4
+#21 5.350   Downloaded futures-core v0.3.34
+#21 5.353   Downloaded equivalent v1.0.2
+#21 5.358   Downloaded crc v3.4.0
+#21 5.369   Downloaded form_urlencoded v1.2.2
+#21 5.372   Downloaded crypto-common v0.1.7
+#21 5.381   Downloaded cpufeatures v0.2.17
+#21 5.385   Downloaded yoke v0.8.3
+#21 5.393   Downloaded zerofrom v0.1.8
+#21 5.397   Downloaded generic-array v0.14.7
+#21 5.402   Downloaded futures-task v0.3.34
+#21 5.414   Downloaded hex v0.4.3
+#21 5.428   Downloaded zmij v1.0.23
+#21 5.441   Downloaded heck v0.5.0
+#21 5.459   Downloaded idna_adapter v1.2.2
+#21 5.461   Downloaded yoke-derive v0.8.4
+#21 5.478   Downloaded scopeguard v1.2.0
+#21 5.483   Downloaded itoa v1.0.18
+#21 5.490   Downloaded parking v2.2.1
+#21 5.625   Downloaded percent-encoding v2.3.2
+#21 5.630   Downloaded stable_deref_trait v1.2.1
+#21 5.650   Downloaded version_check v0.9.5
+#21 5.652   Downloaded potential_utf v0.1.6
+#21 5.654   Downloaded zerofrom-derive v0.1.8
+#21 5.658   Downloaded autocfg v1.5.1
+#21 5.660   Downloaded futures-executor v0.3.34
+#21 5.680   Downloaded tokio-macros v2.7.2
+#21 5.720   Downloaded crc-catalog v2.5.0
+#21 5.732   Downloaded dotenvy v0.15.7
+#21 5.740   Downloaded either v1.18.0
+#21 5.757   Downloaded digest v0.10.7
+#21 5.762   Downloaded crossbeam-queue v0.3.14
+#21 5.765   Downloaded displaydoc v0.2.7
+#21 5.770   Downloaded find-msvc-tools v0.1.14
+#21 5.777   Downloaded foldhash v0.1.5
+#21 5.813   Downloaded hashlink v0.10.0
+#21 6.035   Downloaded serde_urlencoded v0.7.1
+#21 6.052   Downloaded sqlx-macros v0.8.6
+#21 6.054   Downloaded sqlx-macros-core v0.8.6
+#21 6.058   Downloaded slab v0.4.12
+#21 6.073   Downloaded zerovec-derive v0.11.6
+#21 6.089   Downloaded tinystr v0.8.4
+#21 6.091   Downloaded sha2 v0.10.9
+#21 6.094   Downloaded thiserror-impl v2.0.21
+#21 6.095   Downloaded pkg-config v0.3.34
+#21 6.098   Downloaded quote v1.0.47
+#21 6.101   Downloaded shlex v2.0.1
+#21 6.102   Downloaded pin-project-lite v0.2.17
+#21 6.123   Downloaded synstructure v0.14.0
+#21 6.133   Downloaded utf8_iter v1.0.4
+#21 6.208   Downloaded event-listener v5.4.2
+#21 6.211   Downloaded writeable v0.6.4
+#21 6.263   Downloaded once_cell v1.21.4
+#21 6.300   Downloaded litemap v0.8.3
+#21 6.308   Downloaded smallvec v1.16.2
+#21 6.333   Downloaded thiserror v2.0.21
+#21 6.342   Downloaded spin v0.9.9
+#21 6.364   Downloaded parking_lot_core v0.9.12
+#21 6.399   Downloaded tracing-attributes v0.1.31
+#21 6.411   Downloaded allocator-api2 v0.2.21
+#21 6.491   Downloaded lock_api v0.4.14
+#21 6.513   Downloaded unicode-ident v1.0.26
+#21 6.532   Downloaded tokio-stream v0.1.19
+#21 6.601   Downloaded crossbeam-utils v0.8.23
+#21 6.619   Downloaded futures-channel v0.3.34
+#21 6.695   Downloaded num-traits v0.2.19
+#21 6.719   Downloaded serde_core v1.0.229
+#21 6.756   Downloaded serde_derive v1.0.229
+#21 6.796   Downloaded parking_lot v0.12.5
+#21 6.808   Downloaded proc-macro2 v1.0.107
+#21 6.820   Downloaded zerovec v0.11.8
+#21 6.872   Downloaded base64 v0.22.1
+#21 6.926   Downloaded flume v0.11.1
+#21 6.978   Downloaded url v2.5.8
+#21 6.989   Downloaded icu_locale_core v2.3.0
+#21 7.037   Downloaded icu_normalizer_data v2.3.0
+#21 7.042   Downloaded log v0.4.34
+#21 7.047   Downloaded zerotrie v0.2.5
+#21 7.059   Downloaded ryu v1.0.23
+#21 7.111   Downloaded socket2 v0.6.5
+#21 7.172   Downloaded bytes v1.12.1
+#21 7.177   Downloaded futures-intrusive v0.5.0
+#21 7.192   Downloaded icu_provider v2.3.1
+#21 7.229   Downloaded icu_collections v2.3.0
+#21 7.252   Downloaded serde v1.0.229
+#21 7.266   Downloaded sqlx-sqlite v0.8.6
+#21 7.282   Downloaded tracing-core v0.1.36
+#21 7.329   Downloaded cc v1.5.1
+#21 7.426   Downloaded vcpkg v0.2.15
+#21 7.490   Downloaded indexmap v2.14.2
+#21 7.496   Downloaded icu_properties v2.3.0
+#21 7.502   Downloaded memchr v2.8.3
+#21 7.572   Downloaded mio v1.2.3
+#21 7.586   Downloaded sqlx-core v0.8.6
+#21 7.661   Downloaded typenum v1.20.1
+#21 7.903   Downloaded hashbrown v0.15.5
+#21 7.914   Downloaded hashbrown v0.17.1
+#21 7.921   Downloaded idna v1.1.0
+#21 7.924   Downloaded serde_json v1.0.151
+#21 7.949   Downloaded futures-util v0.3.34
+#21 7.973   Downloaded icu_properties_data v2.3.0
+#21 8.029   Downloaded sqlx v0.8.6
+#21 8.703   Downloaded syn v2.0.119
+#21 8.720   Downloaded syn v3.0.6
+#21 9.126   Downloaded tracing v0.1.44
+#21 9.204   Downloaded icu_normalizer v2.3.0
+#21 9.909   Downloaded libc v0.2.189
+#21 9.991   Downloaded tokio v1.53.1
+#21 12.19   Downloaded libsqlite3-sys v0.30.1
+#21 12.52    Compiling proc-macro2 v1.0.107
+#21 12.52    Compiling unicode-ident v1.0.26
+#21 12.52    Compiling quote v1.0.47
+#21 12.52    Compiling stable_deref_trait v1.2.1
+#21 12.53    Compiling libc v0.2.189
+#21 12.53    Compiling smallvec v1.16.2
+#21 12.53    Compiling version_check v0.9.5
+#21 12.53    Compiling writeable v0.6.4
+#21 12.54    Compiling litemap v0.8.3
+#21 12.54    Compiling pin-project-lite v0.2.17
+#21 12.54    Compiling icu_properties_data v2.3.0
+#21 12.54    Compiling futures-core v0.3.34
+#21 12.54    Compiling icu_normalizer_data v2.3.0
+#21 12.54    Compiling serde_core v1.0.229
+#21 12.54    Compiling utf8_iter v1.0.4
+#21 12.55    Compiling scopeguard v1.2.0
+#21 12.57    Compiling typenum v1.20.1
+#21 12.58    Compiling serde v1.0.229
+#21 12.59    Compiling parking_lot_core v0.9.12
+#21 12.59    Compiling cfg-if v1.0.5
+#21 13.21    Compiling lock_api v0.4.14
+#21 13.22    Compiling futures-sink v0.3.34
+#21 13.23    Compiling percent-encoding v2.3.2
+#21 13.25    Compiling equivalent v1.0.2
+#21 13.39    Compiling find-msvc-tools v0.1.14
+#21 13.42    Compiling memchr v2.8.3
+#21 13.49    Compiling shlex v2.0.1
+#21 13.57    Compiling autocfg v1.5.1
+#21 13.59    Compiling crossbeam-utils v0.8.23
+#21 13.69    Compiling allocator-api2 v0.2.21
+#21 13.74    Compiling once_cell v1.21.4
+#21 13.91    Compiling form_urlencoded v1.2.2
+#21 13.99    Compiling futures-io v0.3.34
+#21 14.00    Compiling slab v0.4.12
+#21 14.05    Compiling cc v1.5.1
+#21 14.06    Compiling futures-task v0.3.34
+#21 14.08    Compiling foldhash v0.1.5
+#21 14.09    Compiling thiserror v2.0.21
+#21 14.11    Compiling pkg-config v0.3.34
+#21 14.13    Compiling generic-array v0.14.7
+#21 14.15    Compiling bytes v1.12.1
+#21 14.20    Compiling vcpkg v0.2.15
+#21 14.29    Compiling tracing-core v0.1.36
+#21 14.30    Compiling crc-catalog v2.5.0
+#21 14.37    Compiling itoa v1.0.18
+#21 14.40    Compiling hashbrown v0.17.1
+#21 14.42    Compiling cpufeatures v0.2.17
+#21 14.47    Compiling log v0.4.34
+#21 14.50    Compiling parking v2.2.1
+#21 14.51    Compiling crc v3.4.0
+#21 14.56    Compiling spin v0.9.9
+#21 14.84    Compiling hashbrown v0.15.5
+#21 14.90    Compiling num-traits v0.2.19
+#21 15.01    Compiling event-listener v5.4.2
+#21 15.11    Compiling ryu v1.0.23
+#21 15.11    Compiling base64 v0.22.1
+#21 15.15    Compiling zmij v1.0.23
+#21 15.21    Compiling futures-util v0.3.34
+#21 15.25    Compiling flume v0.11.1
+#21 15.64    Compiling futures-channel v0.3.34
+#21 15.92    Compiling serde_json v1.0.151
+#21 16.02    Compiling crossbeam-queue v0.3.14
+#21 16.63    Compiling indexmap v2.14.2
+#21 16.71    Compiling syn v3.0.6
+#21 16.71    Compiling syn v2.0.119
+#21 16.73    Compiling crypto-common v0.1.7
+#21 16.73    Compiling block-buffer v0.10.4
+#21 16.82    Compiling digest v0.10.7
+#21 16.84    Compiling hashlink v0.10.0
+#21 16.93    Compiling mio v1.2.3
+#21 16.93    Compiling socket2 v0.6.5
+#21 17.12    Compiling sha2 v0.10.9
+#21 17.33    Compiling parking_lot v0.12.5
+#21 17.48    Compiling libsqlite3-sys v0.30.1
+#21 17.65    Compiling atoi v2.0.0
+#21 17.70    Compiling futures-intrusive v0.5.0
+#21 19.75    Compiling futures-executor v0.3.34
+#21 20.80    Compiling synstructure v0.14.0
+#21 20.96    Compiling tracing-attributes v0.1.31
+#21 21.27    Compiling zerofrom-derive v0.1.8
+#21 21.27    Compiling yoke-derive v0.8.4
+#21 21.27    Compiling zerovec-derive v0.11.6
+#21 21.27    Compiling displaydoc v0.2.7
+#21 21.27    Compiling serde_derive v1.0.229
+#21 21.27    Compiling tokio-macros v2.7.2
+#21 21.27    Compiling thiserror-impl v2.0.21
+#21 21.80    Compiling tokio v1.53.1
+#21 21.84    Compiling tracing v0.1.44
+#21 22.03    Compiling zerofrom v0.1.8
+#21 22.10    Compiling yoke v0.8.3
+#21 22.21    Compiling zerovec v0.11.8
+#21 22.21    Compiling zerotrie v0.2.5
+#21 22.70    Compiling tinystr v0.8.4
+#21 22.70    Compiling potential_utf v0.1.6
+#21 22.78    Compiling icu_collections v2.3.0
+#21 22.82    Compiling icu_locale_core v2.3.0
+#21 23.85    Compiling icu_provider v2.3.1
+#21 23.96    Compiling either v1.18.0
+#21 23.96    Compiling serde_urlencoded v0.7.1
+#21 24.09    Compiling icu_properties v2.3.0
+#21 24.09    Compiling icu_normalizer v2.3.0
+#21 25.07    Compiling idna_adapter v1.2.2
+#21 25.18    Compiling idna v1.1.0
+#21 25.45    Compiling url v2.5.8
+#21 26.22    Compiling tokio-stream v0.1.19
+#21 26.60    Compiling sqlx-core v0.8.6
+#21 28.56    Compiling sqlx-sqlite v0.8.6
+#21 29.72    Compiling sqlx v0.8.6
+#21 29.75    Compiling greiva-page-store v0.6.2 (/workspace/apps/client/src-tauri/crates/page-store)
+#21 32.61     Finished `dev` profile [unoptimized + debuginfo] target(s) in 31.99s
+#21 DONE 33.1s
+
+#22 exporting to image
+#22 exporting layers
+#22 exporting layers 20.6s done
+#22 exporting manifest sha256:8dd74611ee6092c5ea9408521605bf272e4823b6ff010453ba1a2226d61785bb 0.1s done
+#22 exporting config sha256:aa46f4214adb7ae85e472ede1837cadfd099d50e3a3e227b34a20d9ce20ded64 0.1s done
+#22 exporting attestation manifest sha256:311f466387c4c3bce4a4069626530724196d7c5f1cd471db06cad92ab72f0535 0.1s done
+#22 exporting manifest list sha256:ea31de938cb6adddf75b730bbb180a4bbef9bb53f669e4fb2d93903229fd21c6 0.1s done
+#22 naming to docker.io/library/greiva-poc-development:step-7-client done
+#22 unpacking to docker.io/library/greiva-poc-development:step-7-client
+#22 unpacking to docker.io/library/greiva-poc-development:step-7-client 5.7s done
+#22 DONE 26.7s

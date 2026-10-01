@@ -1,0 +1,50 @@
+
+> greiva-poc@0.6.2 test:crash
+> cargo build --locked --manifest-path apps/client/src-tauri/crates/page-store/Cargo.toml --example store-driver --features crash-test-hooks --target-dir .data/crash-target && node scripts/test-structured-e2e.mjs --crash
+
+{"event":"structured-e2e-isolation","schema":"greiva_test_01a0f681964f7508ba0ae9c063407d90"}
+
+> greiva-poc@0.6.2 test:e2e
+> npm run build:packages && npm run build:servers && playwright test
+
+
+> greiva-poc@0.6.2 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync
+
+
+> @greiva/shared@0.6.2 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.6.2 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.6.2 build
+> tsc -p tsconfig.json
+
+
+> greiva-poc@0.6.2 build:servers
+> npm run build -w @greiva/api && npm run build -w @greiva/collaboration
+
+
+> @greiva/api@0.6.2 build
+> tsc -p tsconfig.json
+
+
+> @greiva/collaboration@0.6.2 build
+> tsc -p tsconfig.json
+
+
+Running 4 tests using 1 worker
+
+  ✓  1 [chromium] › tests/e2e/structured-crash.spec.ts:52:3 › STEP7-COMBINED-CRASH-edit-immediate: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart (10.5s)
+  ✓  2 [chromium] › tests/e2e/structured-crash.spec.ts:52:3 › STEP7-COMBINED-CRASH-local-committed: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart (10.3s)
+  ✓  3 [chromium] › tests/e2e/structured-crash.spec.ts:52:3 › STEP7-COMBINED-CRASH-push-after-server-commit: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart (10.0s)
+  ✓  4 [chromium] › tests/e2e/structured-crash.spec.ts:52:3 › STEP7-COMBINED-CRASH-pull-before-cursor: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart (10.3s)
+
+  4 passed (46.1s)
+{"event":"structured-e2e-cleanup","schema":"greiva_test_01a0f681964f7508ba0ae9c063407d90","remaining":0}
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.09s
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.

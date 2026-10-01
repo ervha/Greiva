@@ -1,4 +1,5 @@
 import { invoke, isTauri } from '@tauri-apps/api/core';
+import { mergeUpdates } from 'yjs';
 export type PageMetadata = { id: string; title: string; yDocId: string; createdAt: string; updatedAt: string };
 export type StoredPage = { metadata: PageMetadata; updates: number[][] };
 export interface LocalPageStore {
@@ -40,5 +41,28 @@ export class DurabilityBoundary {
     this.report(this.pending);
     this.tail = this.tail.then(work).then(() => { this.pending--; this.report(this.pending); });
     void this.tail.catch(error => this.report(this.pending, String(error)));
+  }
+}
+
+// Coalesce only updates that are waiting for their turn; never delay the first
+// write or merge across a metadata command. Every outgoing frame still waits
+// for the boundary promise covering its updates.
+export class PageWrites {
+  private queued: { updates: Uint8Array[]; bytes: number } | null = null;
+  constructor(private boundary: DurabilityBoundary, private store: LocalPageStore, private pageId: string) {}
+  append(bytes: Uint8Array) {
+    const copy = bytes.slice();
+    if (this.queued && this.queued.bytes + copy.length <= 4 * 1024 * 1024) {
+      this.queued.updates.push(copy); this.queued.bytes += copy.length; return;
+    }
+    const batch = { updates: [copy], bytes: copy.length }; this.queued = batch;
+    this.boundary.enqueue(async () => {
+      if (this.queued === batch) this.queued = null;
+      await this.store.append(this.pageId, batch.updates.length === 1 ? batch.updates[0]! : mergeUpdates(batch.updates));
+    });
+  }
+  setTitle(title: string) {
+    this.queued = null;
+    this.boundary.enqueue(() => this.store.setTitle(this.pageId, title));
   }
 }

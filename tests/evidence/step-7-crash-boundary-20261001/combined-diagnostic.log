@@ -1,0 +1,85 @@
+{"event":"structured-e2e-isolation","schema":"greiva_test_01a0f66e05e677069c11a7cb28eeca35"}
+
+> greiva-poc@0.6.0 test:e2e
+> npm run build:packages && npm run build:servers && playwright test
+
+
+> greiva-poc@0.6.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync
+
+
+> @greiva/shared@0.6.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.6.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.6.0 build
+> tsc -p tsconfig.json
+
+
+> greiva-poc@0.6.0 build:servers
+> npm run build -w @greiva/api && npm run build -w @greiva/collaboration
+
+
+> @greiva/api@0.6.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/collaboration@0.6.0 build
+> tsc -p tsconfig.json
+
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.
+
+Running 4 tests using 1 worker
+
+  ✘  1 [chromium] › tests/e2e/structured-crash.spec.ts:50:3 › STEP7-COMBINED-CRASH-edit-immediate: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart (6.3s)
+  ✓  2 [chromium] › tests/e2e/structured-crash.spec.ts:50:3 › STEP7-COMBINED-CRASH-local-committed: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart (10.5s)
+  ✓  3 [chromium] › tests/e2e/structured-crash.spec.ts:50:3 › STEP7-COMBINED-CRASH-push-after-server-commit: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart (10.9s)
+  ✓  4 [chromium] › tests/e2e/structured-crash.spec.ts:50:3 › STEP7-COMBINED-CRASH-pull-before-cursor: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart (10.5s)
+
+
+  1) [chromium] › tests/e2e/structured-crash.spec.ts:50:3 › STEP7-COMBINED-CRASH-edit-immediate: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+    @@ -3,8 +3,8 @@
+          1,
+          1,
+        ],
+        Array [
+          2827539203,
+    -     37,
+    +     34,
+        ],
+      ]
+
+      145 |       const restoredPage=await pageState(page); const restoredQueue=await structured(request,device);
+      146 |       await info.attach(`offline-restoration-${boundary}`,{body:JSON.stringify({boundary,device,pageId,immediateEditedAt,killed,saveIndicator,pageBefore,restoredPage,offlineQueue,queueBefore,restoredQueue,beforePull,stagedPull},null,2),contentType:'application/json'});
+    > 147 |       expect(restoredPage.clocks).toEqual(pageBefore.clocks); expect(restoredPage.json).toEqual(pageBefore.json); expect(restoredPage.fragment).toEqual(pageBefore.fragment);
+          |                                   ^
+      148 |       expect(restoredQueue).toEqual(queueBefore);expect(restoredQueue.clientId).toBe(offlineQueue.clientId);
+      149 |       const afterRecovery=await control(request,device,'inspect') as Inspection;
+      150 |       if(beforePull) for(const key of ['state','receipts','entities','conflicts'] as const) expect(afterRecovery[key]).toEqual(beforePull[key]);
+        at /workspace/tests/e2e/structured-crash.spec.ts:147:35
+
+    Error Context: ../evidence/step7-crash-diagnostic/artifacts/structured-crash-STEP7-COM-a93f7-SIGKILL-and-offline-restart-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../evidence/step7-crash-diagnostic/artifacts/structured-crash-STEP7-COM-a93f7-SIGKILL-and-offline-restart-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../evidence/step7-crash-diagnostic/artifacts/structured-crash-STEP7-COM-a93f7-SIGKILL-and-offline-restart-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests/e2e/structured-crash.spec.ts:50:3 › STEP7-COMBINED-CRASH-edit-immediate: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart 
+  3 passed (43.8s)
+{"event":"structured-e2e-cleanup","schema":"greiva_test_01a0f66e05e677069c11a7cb28eeca35","remaining":0}

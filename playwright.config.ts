@@ -4,7 +4,7 @@ process.env.VITE_GREIVA_TEST_SQLITE = '1';
 const evidence = process.env.GREIVA_EVIDENCE_DIR ?? 'tests/evidence/runs/latest';
 export default defineConfig({
   testDir: './tests/e2e', fullyParallel: false, retries: 0,
-  ...(process.env.GREIVA_TEST_STRUCTURED_SYNC==='1' ? {testMatch:'structured-sync.spec.ts'} : {testIgnore:'structured-sync.spec.ts'}),
+  ...(process.env.GREIVA_TEST_STRUCTURED_SYNC ? {testMatch:process.env.GREIVA_TEST_STRUCTURED_SYNC==='crash' ? 'structured-crash.spec.ts':'structured-sync.spec.ts'} : {testIgnore:['structured-sync.spec.ts','structured-crash.spec.ts']}),
   workers: 2,
   reporter: [['list'], ['json', { outputFile: `${evidence}/playwright.json` }], ['junit', { outputFile: `${evidence}/playwright.xml` }]],
   outputDir: `${evidence}/artifacts`,
@@ -16,7 +16,7 @@ export default defineConfig({
   webServer: [
     { command: 'npm run dev -w @greiva/client', url: 'http://127.0.0.1:1420', reuseExistingServer: false },
     { command: 'npm run start -w @greiva/api', url: 'http://127.0.0.1:3000/health', reuseExistingServer: false,
-      env:{...process.env,DATABASE_URL:process.env.GREIVA_TEST_STRUCTURED_SYNC==='1' ? process.env.DATABASE_URL ?? '' : ''} },
+      env:{...process.env,DATABASE_URL:process.env.GREIVA_TEST_STRUCTURED_SYNC ? process.env.DATABASE_URL ?? '' : ''} },
     { command: 'npm run start -w @greiva/collaboration', url: 'http://127.0.0.1:1234/health', reuseExistingServer: false },
   ],
 });

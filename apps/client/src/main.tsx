@@ -26,7 +26,8 @@ function App() {
   return <main><header><h1>Greiva PoC</h1>
     <div className="page-sync-status"><span>本文 </span><output aria-label="同期状態" aria-live="polite" data-status={state.paused ? 'disconnected' : state.status}>{connectionLabel(state)}</output></div></header>
     <p className="scope-note">{state.local ? '本文とタイトルを端末のSQLiteへ保存します。タイトルは端末内のみで、他の端末とは同期しません。' : 'ブラウザの補助プレビューです。端末への保存はありません。オフラインの変更は、この画面を閉じると失われます。タイトルはこの画面のみの仮入力です。'}</p>
-    {state.local && <output aria-label="端末の保存状態" aria-live="polite">{state.storageError ? '保存できません。未保存の本文をコピーして保管してください。' : state.saving > 0 ? '端末へ保存中…' : state.ready ? '端末に保存済み' : '端末のPageを読み込み中…'}</output>}
+    {state.local && <><output aria-label="端末の保存状態" aria-describedby="local-save-help" aria-live="polite">{state.storageError ? '保存できません。未保存の本文をコピーして保管してください。' : state.saving > 0 ? '端末へ保存中…' : state.ready ? '端末に保存済み' : '端末のPageを読み込み中…'}</output>
+      <p id="local-save-help" className="editor-hint">保存中の入力は、強制終了すると失われることがあります。端末に保存済みの変更は、同期前でも保持されます。</p></>}
     {state.storageError && <p role="alert">{state.storageError}</p>}
     <div className="connection-tools">
       {state.local && state.pages.length > 0 && <label>保存したPage <select aria-label="保存したPage" value={session?.pageId ?? pageId} onChange={event => location.assign(`/?page=${encodeURIComponent(event.target.value)}`)}>

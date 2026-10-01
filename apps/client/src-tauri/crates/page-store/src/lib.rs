@@ -91,6 +91,8 @@ impl PageStore {
         sqlx::query("INSERT OR IGNORE INTO page_updates(page_id,update_bytes,digest) VALUES (?,?,?)")
             .bind(id).bind(update).bind(Sha256::digest(update).to_vec()).execute(&mut *tx).await.map_err(|e| e.to_string())?;
         sqlx::query("UPDATE pages SET updated_at=strftime('%Y-%m-%dT%H:%M:%fZ','now') WHERE id=?").bind(id).execute(&mut *tx).await.map_err(|e| e.to_string())?;
+        #[cfg(feature="crash-test-hooks")]
+        structured_sync::crash_barrier("page-append-before-commit")?;
         tx.commit().await.map_err(|e| e.to_string())?;
         Ok(())
     }

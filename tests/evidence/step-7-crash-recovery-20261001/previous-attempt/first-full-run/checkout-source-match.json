@@ -1,0 +1,19 @@
+{
+  "verifiedAt": "2026-10-01T08:14:13.2732554Z",
+  "parentCommit": "cf715d1281113ae9eee098bc578bd9d1ea9f97fe",
+  "branch": "codex/poc-editor",
+  "version": "0.6.2",
+  "sourceSha256": "eae2bb85b07056298714b3bf2192c66b379ed980f56c3d68353dd3d7e79b176b",
+  "fileCount": 126,
+  "inventoryMatches": true,
+  "sourceBytesMatch": true,
+  "specSha256": "0d9cf458a8d7a48ba6376688bd56eb0fcc6aa2c8c3e1904bdb976c256a90e36d",
+  "checks": 11,
+  "normalPass": 44,
+  "normalSkipped": 20,
+  "postgresPass": 20,
+  "editorE2EPass": 43,
+  "structuredE2EPass": 2,
+  "combinedCrashPass": 4,
+  "execution": "Docker only; normal Tauri feature exclusion checked. Windows native/IME and performance/Gates remain pending."
+}

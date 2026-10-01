@@ -1,0 +1,38 @@
+[
+  {
+    "boundary": "edit-immediate",
+    "saveIndicator": "端末へ保存中…",
+    "browserPid": 27438,
+    "storePid": 27525,
+    "savedFragment": "<paragraph>move</paragraph><paragraph>keep</paragraph>",
+    "beforeFragment": "<paragraph>move</paragraph><paragraph>keep immediate</paragraph>",
+    "restoredFragment": "<paragraph>move</paragraph><paragraph>keep</paragraph>"
+  },
+  {
+    "boundary": "local-committed",
+    "saveIndicator": "端末に保存済み",
+    "browserPid": 27650,
+    "storePid": 27732,
+    "savedFragment": "<paragraph>move</paragraph><paragraph>keep</paragraph>",
+    "beforeFragment": "<paragraph>move</paragraph><paragraph>keep</paragraph>",
+    "restoredFragment": "<paragraph>move</paragraph><paragraph>keep</paragraph>"
+  },
+  {
+    "boundary": "push-after-server-commit",
+    "saveIndicator": "端末に保存済み",
+    "browserPid": 27860,
+    "storePid": 27942,
+    "savedFragment": "<paragraph>move</paragraph><paragraph>keep</paragraph>",
+    "beforeFragment": "<paragraph>move</paragraph><paragraph>keep</paragraph>",
+    "restoredFragment": "<paragraph>move</paragraph><paragraph>keep</paragraph>"
+  },
+  {
+    "boundary": "pull-before-cursor",
+    "saveIndicator": "端末に保存済み",
+    "browserPid": 28067,
+    "storePid": 28154,
+    "savedFragment": "<paragraph>move</paragraph><paragraph>keep</paragraph>",
+    "beforeFragment": "<paragraph>move</paragraph><paragraph>keep</paragraph>",
+    "restoredFragment": "<paragraph>move</paragraph><paragraph>keep</paragraph>"
+  }
+]

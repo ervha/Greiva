@@ -1,0 +1,46 @@
+
+> greiva-poc@0.6.2 typecheck
+> npm run build:packages && npm run typecheck --workspaces --if-present && tsc -p tsconfig.tests.json
+
+
+> greiva-poc@0.6.2 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync
+
+
+> @greiva/shared@0.6.2 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.6.2 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.6.2 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.6.2 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/shared@0.6.2 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/sync@0.6.2 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/api@0.6.2 typecheck
+> tsc --noEmit
+
+
+> @greiva/client@0.6.2 typecheck
+> tsc --noEmit
+
+
+> @greiva/collaboration@0.6.2 typecheck
+> tsc --noEmit
+
+tests/e2e/structured-crash.spec.ts(172,137): error TS2345: Argument of type 'number | undefined' is not assignable to parameter of type 'number | bigint'.
+  Type 'undefined' is not assignable to type 'number | bigint'.

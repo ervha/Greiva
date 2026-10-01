@@ -203,10 +203,31 @@ impl PageStore {
             if next!=order.checked_add(1).ok_or("Server order exhausted")? {return Err("Pull page skipped or reordered an operation".into());}
             receive(&mut tx,result).await?; order=next;
         }
+        #[cfg(feature="crash-test-hooks")]
+        if !batch.operations.is_empty() { crash_barrier("structured-pull-before-cursor")?; }
         let pending:i64=sqlx::query_scalar("SELECT count(*) FROM sync_operations WHERE status IN ('pending','rejected')").fetch_one(&mut *tx).await.map_err(|e|e.to_string())?;
         let open:i64=sqlx::query_scalar("SELECT count(*) FROM structured_conflicts WHERE json_extract(record,'$.status')='open'").fetch_one(&mut *tx).await.map_err(|e|e.to_string())?;
         sqlx::query("UPDATE sync_state SET cursor=?,head_cursor=?,last_server_order=?,last_successful_sync_at=CASE WHEN ? THEN ? ELSE last_successful_sync_at END WHERE stream='structured'")
             .bind(&batch.cursor).bind(&batch.head_cursor).bind(order).bind(!batch.has_more && pending==0 && open==0).bind(&batch.server_time).execute(&mut *tx).await.map_err(|e|e.to_string())?;
         tx.commit().await.map_err(|e|e.to_string())
     }
+}
+
+// Test-only pause at a named pre-commit boundary.
+// The OS kills the driver while the actual repository transaction is open.
+#[cfg(feature="crash-test-hooks")]
+pub(crate) fn crash_barrier(stage:&str) -> StoreResult<()> {
+    use std::{fs,io::Write,path::Path,time::{Duration,Instant}};
+    let Ok(root)=std::env::var("GREIVA_CRASH_BARRIER_ROOT") else {return Ok(());};
+    let armed=format!("{root}.armed");
+    if fs::read_to_string(&armed).ok().as_deref()!=Some(stage) {return Ok(());}
+    let mut marker=fs::File::create(format!("{root}.reached")).map_err(|e|e.to_string())?;
+    marker.write_all(json!({"pid":std::process::id(),"stage":stage}).to_string().as_bytes()).map_err(|e|e.to_string())?;
+    marker.sync_all().map_err(|e|e.to_string())?;
+    let start=Instant::now();
+    while Path::new(&armed).exists() {
+        if start.elapsed()>Duration::from_secs(60) {return Err("Crash test barrier timed out".into());}
+        std::thread::sleep(Duration::from_millis(5));
+    }
+    Ok(())
 }

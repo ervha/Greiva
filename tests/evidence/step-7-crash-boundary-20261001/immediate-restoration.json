@@ -1,0 +1,387 @@
+{
+  "boundary": "edit-immediate",
+  "device": "01a0f66e-1c88-7348-ba37-6de4395462d2",
+  "pageId": "01a0f66e-2468-75f7-8475-4fe42a392212",
+  "immediateEditedAt": "2026-10-01T07:46:51.187Z",
+  "killed": {
+    "browser": {
+      "pid": 4919,
+      "signal": "SIGKILL",
+      "startedAt": "2026-10-01T07:46:51.226Z",
+      "disconnectedAt": "2026-10-01T07:46:51.276Z"
+    },
+    "store": {
+      "signal": "SIGKILL",
+      "pid": 5008,
+      "path": "/workspace/.data/greiva_test_01a0f66e05e677069c11a7cb28eeca35-stores/01a0f66e-1c88-7348-ba37-6de4395462d2.sqlite",
+      "at": "2026-10-01T07:46:51.266Z"
+    }
+  },
+  "saveIndicator": "端末へ保存中…",
+  "pageBefore": {
+    "pageId": "01a0f66e-2468-75f7-8475-4fe42a392212",
+    "clientId": "95245824-a02f-43f6-bac3-56fb44c372b4",
+    "stateVector": [
+      2,
+      131,
+      166,
+      163,
+      196,
+      10,
+      37,
+      1,
+      1
+    ],
+    "clocks": [
+      [
+        1,
+        1
+      ],
+      [
+        2827539203,
+        37
+      ]
+    ],
+    "json": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "move"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "keep immediate"
+            }
+          ]
+        }
+      ]
+    },
+    "fragment": "<paragraph>move</paragraph><paragraph>keep immediate</paragraph>",
+    "selection": {
+      "from": 21,
+      "to": 21,
+      "parent": "keep immediate",
+      "offset": 14,
+      "size": 14
+    },
+    "pending": 30
+  },
+  "restoredPage": {
+    "pageId": "01a0f66e-2468-75f7-8475-4fe42a392212",
+    "clientId": "991fb837-c54b-4fb2-a18c-1a81071e152d",
+    "stateVector": [
+      2,
+      131,
+      166,
+      163,
+      196,
+      10,
+      34,
+      1,
+      1
+    ],
+    "clocks": [
+      [
+        1,
+        1
+      ],
+      [
+        2827539203,
+        34
+      ]
+    ],
+    "json": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "move"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "keep immedi"
+            }
+          ]
+        }
+      ]
+    },
+    "fragment": "<paragraph>move</paragraph><paragraph>keep immedi</paragraph>",
+    "selection": {
+      "from": 1,
+      "to": 1,
+      "parent": "move",
+      "offset": 0,
+      "size": 4
+    },
+    "pending": 0
+  },
+  "offlineQueue": {
+    "tasks": [
+      {
+        "id": "01a0f66e-2c86-743b-8b39-a627206f0217",
+        "title": "edited task edit-immediate 01a0f66e-2c6b-7484-91c6-34c0367fa985",
+        "status": "in_progress",
+        "due": "2028-02-29",
+        "version": 0,
+        "createdAt": "2026-10-01T07:46:50.637Z",
+        "updatedAt": "2026-10-01T07:46:50.853Z",
+        "deletedAt": null
+      }
+    ],
+    "relations": [
+      {
+        "id": "01a0f66e-2dd0-765f-b134-19e76e82d27e",
+        "fromType": "page",
+        "fromId": "01a0f66e-2468-75f7-8475-4fe42a392212",
+        "toType": "task",
+        "toId": "01a0f66e-2c86-743b-8b39-a627206f0217",
+        "version": 0,
+        "createdAt": "2026-10-01T07:46:50.966Z",
+        "updatedAt": "2026-10-01T07:46:50.966Z",
+        "deletedAt": null
+      }
+    ],
+    "operations": [
+      {
+        "operationId": "01a0f66e-2c87-777a-bc8b-394ca3e8b295",
+        "entityType": "task",
+        "entityId": "01a0f66e-2c86-743b-8b39-a627206f0217",
+        "kind": "create",
+        "baseVersion": null,
+        "payload": {
+          "due": null,
+          "status": "todo",
+          "title": "task edit-immediate 01a0f66e-2c6b-7484-91c6-34c0367fa985"
+        },
+        "clientId": "01a0f66e-235d-77a5-96f4-d1783007d6e9",
+        "createdAt": "2026-10-01T07:46:50.637Z",
+        "status": "pending"
+      },
+      {
+        "operationId": "01a0f66e-2d5d-75d6-b4a6-fc6940a95720",
+        "entityType": "task",
+        "entityId": "01a0f66e-2c86-743b-8b39-a627206f0217",
+        "kind": "update",
+        "baseVersion": 0,
+        "payload": {
+          "due": "2028-02-29",
+          "status": "in_progress",
+          "title": "edited task edit-immediate 01a0f66e-2c6b-7484-91c6-34c0367fa985"
+        },
+        "clientId": "01a0f66e-235d-77a5-96f4-d1783007d6e9",
+        "createdAt": "2026-10-01T07:46:50.853Z",
+        "status": "pending"
+      },
+      {
+        "operationId": "01a0f66e-2dd0-765f-b134-1f1e9a901017",
+        "entityType": "relation",
+        "entityId": "01a0f66e-2dd0-765f-b134-19e76e82d27e",
+        "kind": "create",
+        "baseVersion": null,
+        "payload": {
+          "fromId": "01a0f66e-2468-75f7-8475-4fe42a392212",
+          "fromType": "page",
+          "toId": "01a0f66e-2c86-743b-8b39-a627206f0217",
+          "toType": "task"
+        },
+        "clientId": "01a0f66e-235d-77a5-96f4-d1783007d6e9",
+        "createdAt": "2026-10-01T07:46:50.966Z",
+        "status": "pending"
+      }
+    ],
+    "state": {
+      "stream": "structured",
+      "cursor": null,
+      "headCursor": null,
+      "lastSuccessfulSyncAt": null
+    },
+    "clientId": "01a0f66e-235d-77a5-96f4-d1783007d6e9",
+    "conflicts": [],
+    "errors": []
+  },
+  "queueBefore": {
+    "tasks": [
+      {
+        "id": "01a0f66e-2c86-743b-8b39-a627206f0217",
+        "title": "edited task edit-immediate 01a0f66e-2c6b-7484-91c6-34c0367fa985",
+        "status": "in_progress",
+        "due": "2028-02-29",
+        "version": 0,
+        "createdAt": "2026-10-01T07:46:50.637Z",
+        "updatedAt": "2026-10-01T07:46:50.853Z",
+        "deletedAt": null
+      }
+    ],
+    "relations": [
+      {
+        "id": "01a0f66e-2dd0-765f-b134-19e76e82d27e",
+        "fromType": "page",
+        "fromId": "01a0f66e-2468-75f7-8475-4fe42a392212",
+        "toType": "task",
+        "toId": "01a0f66e-2c86-743b-8b39-a627206f0217",
+        "version": 0,
+        "createdAt": "2026-10-01T07:46:50.966Z",
+        "updatedAt": "2026-10-01T07:46:50.966Z",
+        "deletedAt": null
+      }
+    ],
+    "operations": [
+      {
+        "operationId": "01a0f66e-2c87-777a-bc8b-394ca3e8b295",
+        "entityType": "task",
+        "entityId": "01a0f66e-2c86-743b-8b39-a627206f0217",
+        "kind": "create",
+        "baseVersion": null,
+        "payload": {
+          "due": null,
+          "status": "todo",
+          "title": "task edit-immediate 01a0f66e-2c6b-7484-91c6-34c0367fa985"
+        },
+        "clientId": "01a0f66e-235d-77a5-96f4-d1783007d6e9",
+        "createdAt": "2026-10-01T07:46:50.637Z",
+        "status": "pending"
+      },
+      {
+        "operationId": "01a0f66e-2d5d-75d6-b4a6-fc6940a95720",
+        "entityType": "task",
+        "entityId": "01a0f66e-2c86-743b-8b39-a627206f0217",
+        "kind": "update",
+        "baseVersion": 0,
+        "payload": {
+          "due": "2028-02-29",
+          "status": "in_progress",
+          "title": "edited task edit-immediate 01a0f66e-2c6b-7484-91c6-34c0367fa985"
+        },
+        "clientId": "01a0f66e-235d-77a5-96f4-d1783007d6e9",
+        "createdAt": "2026-10-01T07:46:50.853Z",
+        "status": "pending"
+      },
+      {
+        "operationId": "01a0f66e-2dd0-765f-b134-1f1e9a901017",
+        "entityType": "relation",
+        "entityId": "01a0f66e-2dd0-765f-b134-19e76e82d27e",
+        "kind": "create",
+        "baseVersion": null,
+        "payload": {
+          "fromId": "01a0f66e-2468-75f7-8475-4fe42a392212",
+          "fromType": "page",
+          "toId": "01a0f66e-2c86-743b-8b39-a627206f0217",
+          "toType": "task"
+        },
+        "clientId": "01a0f66e-235d-77a5-96f4-d1783007d6e9",
+        "createdAt": "2026-10-01T07:46:50.966Z",
+        "status": "pending"
+      }
+    ],
+    "state": {
+      "stream": "structured",
+      "cursor": null,
+      "headCursor": null,
+      "lastSuccessfulSyncAt": null
+    },
+    "clientId": "01a0f66e-235d-77a5-96f4-d1783007d6e9",
+    "conflicts": [],
+    "errors": []
+  },
+  "restoredQueue": {
+    "tasks": [
+      {
+        "id": "01a0f66e-2c86-743b-8b39-a627206f0217",
+        "title": "edited task edit-immediate 01a0f66e-2c6b-7484-91c6-34c0367fa985",
+        "status": "in_progress",
+        "due": "2028-02-29",
+        "version": 0,
+        "createdAt": "2026-10-01T07:46:50.637Z",
+        "updatedAt": "2026-10-01T07:46:50.853Z",
+        "deletedAt": null
+      }
+    ],
+    "relations": [
+      {
+        "id": "01a0f66e-2dd0-765f-b134-19e76e82d27e",
+        "fromType": "page",
+        "fromId": "01a0f66e-2468-75f7-8475-4fe42a392212",
+        "toType": "task",
+        "toId": "01a0f66e-2c86-743b-8b39-a627206f0217",
+        "version": 0,
+        "createdAt": "2026-10-01T07:46:50.966Z",
+        "updatedAt": "2026-10-01T07:46:50.966Z",
+        "deletedAt": null
+      }
+    ],
+    "operations": [
+      {
+        "operationId": "01a0f66e-2c87-777a-bc8b-394ca3e8b295",
+        "entityType": "task",
+        "entityId": "01a0f66e-2c86-743b-8b39-a627206f0217",
+        "kind": "create",
+        "baseVersion": null,
+        "payload": {
+          "due": null,
+          "status": "todo",
+          "title": "task edit-immediate 01a0f66e-2c6b-7484-91c6-34c0367fa985"
+        },
+        "clientId": "01a0f66e-235d-77a5-96f4-d1783007d6e9",
+        "createdAt": "2026-10-01T07:46:50.637Z",
+        "status": "pending"
+      },
+      {
+        "operationId": "01a0f66e-2d5d-75d6-b4a6-fc6940a95720",
+        "entityType": "task",
+        "entityId": "01a0f66e-2c86-743b-8b39-a627206f0217",
+        "kind": "update",
+        "baseVersion": 0,
+        "payload": {
+          "due": "2028-02-29",
+          "status": "in_progress",
+          "title": "edited task edit-immediate 01a0f66e-2c6b-7484-91c6-34c0367fa985"
+        },
+        "clientId": "01a0f66e-235d-77a5-96f4-d1783007d6e9",
+        "createdAt": "2026-10-01T07:46:50.853Z",
+        "status": "pending"
+      },
+      {
+        "operationId": "01a0f66e-2dd0-765f-b134-1f1e9a901017",
+        "entityType": "relation",
+        "entityId": "01a0f66e-2dd0-765f-b134-19e76e82d27e",
+        "kind": "create",
+        "baseVersion": null,
+        "payload": {
+          "fromId": "01a0f66e-2468-75f7-8475-4fe42a392212",
+          "fromType": "page",
+          "toId": "01a0f66e-2c86-743b-8b39-a627206f0217",
+          "toType": "task"
+        },
+        "clientId": "01a0f66e-235d-77a5-96f4-d1783007d6e9",
+        "createdAt": "2026-10-01T07:46:50.966Z",
+        "status": "pending"
+      }
+    ],
+    "state": {
+      "stream": "structured",
+      "cursor": null,
+      "headCursor": null,
+      "lastSuccessfulSyncAt": null
+    },
+    "clientId": "01a0f66e-235d-77a5-96f4-d1783007d6e9",
+    "conflicts": [],
+    "errors": []
+  }
+}

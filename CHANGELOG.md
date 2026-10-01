@@ -2,6 +2,13 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.2 — 2026-10-01
+
+- 保存待ちと検証の更新（PATCH）: ユーザーがAを選択し、保存済みの全変更を復元保証の対象、保存中の未commit入力を強制終了時の保証対象外とする契約をPoC／製品設計へ反映。保存状態の説明を画面へ追加。
+- 待機中のYjs更新をmergeして保存回数を減らす。最初の保存を遅らせず、タイトル変更の順序、保存失敗での停止、送信前の耐久化を維持する。
+- 実APIプロセスの確定前／確定後SIGKILLと、Page・block・Task・Relationを合わせた4境界のbrowser／Rust store SIGKILL試験を追加。編集直後の試験も残し、全commit済みupdate、最後の保存済み構造・本文・queue、offline復元とpeer収束を検証する。
+- [判断と実装](docs/decisions/step-7-crash-recovery.md)、[検証証拠](tests/evidence/step-7-crash-recovery-20261001/SUMMARY.md)、[初回Failと承認後の契約](docs/failures/step-7-integrated-crash.md)。通常Tauriで試験専用停止featureを無効とする。Windows native／Microsoft IME、性能・互換性と最終Gateは後続で、無条件な未保存入力保持を実装したとは扱わない。
+
 ## 0.6.1 — 2026-10-01
 
 - 製品設計の補足（PATCH）: Notion公式Helpを再確認し、[ボタン・オートメーション設計 v0.2](docs/plan/BUTTON_AUTOMATION_SPEC.md)へDB Button／Page button／DB automationのaction対応表、通知・メール・Webhookの比較事項を追加。

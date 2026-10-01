@@ -1,0 +1,90 @@
+
+> greiva-poc@0.6.0 test:crash
+> cargo build --locked --manifest-path apps/client/src-tauri/crates/page-store/Cargo.toml --example store-driver --features crash-test-hooks --target-dir .data/crash-target && node scripts/test-structured-e2e.mjs --crash
+
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.07s
+{"event":"structured-e2e-isolation","schema":"greiva_test_01a0f6699db976308073a49a539eb156"}
+
+> greiva-poc@0.6.0 test:e2e
+> npm run build:packages && npm run build:servers && playwright test
+
+
+> greiva-poc@0.6.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync
+
+
+> @greiva/shared@0.6.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.6.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.6.0 build
+> tsc -p tsconfig.json
+
+
+> greiva-poc@0.6.0 build:servers
+> npm run build -w @greiva/api && npm run build -w @greiva/collaboration
+
+
+> @greiva/api@0.6.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/collaboration@0.6.0 build
+> tsc -p tsconfig.json
+
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.
+
+Running 4 tests using 1 worker
+
+  ✘  1 [chromium] › tests/e2e/structured-crash.spec.ts:48:3 › STEP7-COMBINED-CRASH-edit-immediate: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart (6.3s)
+  ✓  2 [chromium] › tests/e2e/structured-crash.spec.ts:48:3 › STEP7-COMBINED-CRASH-local-committed: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart (10.7s)
+  ✓  3 [chromium] › tests/e2e/structured-crash.spec.ts:48:3 › STEP7-COMBINED-CRASH-push-after-server-commit: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart (11.6s)
+  ✓  4 [chromium] › tests/e2e/structured-crash.spec.ts:48:3 › STEP7-COMBINED-CRASH-pull-before-cursor: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart (10.6s)
+
+
+  1) [chromium] › tests/e2e/structured-crash.spec.ts:48:3 › STEP7-COMBINED-CRASH-edit-immediate: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 1
+    + Received  + 1
+
+    @@ -3,8 +3,8 @@
+          1,
+          1,
+        ],
+        Array [
+          2542823843,
+    -     37,
+    +     35,
+        ],
+      ]
+
+      140 |       await expect(panel(page).getByLabel('TaskとRelationの同期状態')).toHaveText('オフライン');
+      141 |       const restoredPage=await pageState(page); const restoredQueue=await structured(request,device);
+    > 142 |       expect(restoredPage.clocks).toEqual(pageBefore.clocks); expect(restoredPage.json).toEqual(pageBefore.json); expect(restoredPage.fragment).toEqual(pageBefore.fragment);
+          |                                   ^
+      143 |       expect(restoredQueue).toEqual(queueBefore);expect(restoredQueue.clientId).toBe(offlineQueue.clientId);
+      144 |       const afterRecovery=await control(request,device,'inspect') as Inspection;
+      145 |       if(beforePull) for(const key of ['state','receipts','entities','conflicts'] as const) expect(afterRecovery[key]).toEqual(beforePull[key]);
+        at /workspace/tests/e2e/structured-crash.spec.ts:142:35
+
+    Error Context: ../evidence/step7-crash-targeted/combined/artifacts/structured-crash-STEP7-COM-a93f7-SIGKILL-and-offline-restart-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../evidence/step7-crash-targeted/combined/artifacts/structured-crash-STEP7-COM-a93f7-SIGKILL-and-offline-restart-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../evidence/step7-crash-targeted/combined/artifacts/structured-crash-STEP7-COM-a93f7-SIGKILL-and-offline-restart-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests/e2e/structured-crash.spec.ts:48:3 › STEP7-COMBINED-CRASH-edit-immediate: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart 
+  3 passed (45.9s)
+{"event":"structured-e2e-cleanup","schema":"greiva_test_01a0f6699db976308073a49a539eb156","remaining":0}

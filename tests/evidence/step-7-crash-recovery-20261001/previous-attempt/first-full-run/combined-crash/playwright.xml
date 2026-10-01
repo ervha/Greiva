@@ -1,0 +1,12 @@
+<testsuites id="" name="" tests="4" failures="0" skipped="0" errors="0" time="46.107476999999996">
+<testsuite name="structured-crash.spec.ts" timestamp="2026-10-01T08:08:07.807Z" hostname="chromium" tests="4" failures="0" skipped="0" time="41.076" errors="0">
+<testcase name="STEP7-COMBINED-CRASH-edit-immediate: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart" classname="structured-crash.spec.ts" time="10.489">
+</testcase>
+<testcase name="STEP7-COMBINED-CRASH-local-committed: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart" classname="structured-crash.spec.ts" time="10.303">
+</testcase>
+<testcase name="STEP7-COMBINED-CRASH-push-after-server-commit: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart" classname="structured-crash.spec.ts" time="9.976">
+</testcase>
+<testcase name="STEP7-COMBINED-CRASH-pull-before-cursor: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart" classname="structured-crash.spec.ts" time="10.308">
+</testcase>
+</testsuite>
+</testsuites>

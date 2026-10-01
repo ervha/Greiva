@@ -1,6 +1,6 @@
 import { spawn, type ChildProcessWithoutNullStreams } from 'node:child_process';
 import { createInterface } from 'node:readline';
-import { mkdirSync } from 'node:fs';
+import { mkdirSync,existsSync,readFileSync,writeFileSync,rmSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
 import type { Plugin } from 'vite';
@@ -16,7 +16,7 @@ export function sqliteBridge(): Plugin {
     const existing = processes.get(device);
     if (existing && existing.child.exitCode === null && existing.child.signalCode === null) return existing;
     const executable = resolve(process.env.GREIVA_STORE_DRIVER ?? '../../.data/native-target/debug/examples/store-driver');
-    const child = spawn(executable, [file(device)], { stdio: ['pipe', 'pipe', 'pipe'] });
+    const child = spawn(executable, [file(device)], { stdio: ['pipe', 'pipe', 'pipe'],env:{...process.env,GREIVA_CRASH_BARRIER_ROOT:file(device)} });
     const pending = new Map<number, (reply: Reply) => void>();
     const entry = { child, pending };
     processes.set(device, entry);
@@ -46,7 +46,27 @@ export function sqliteBridge(): Plugin {
             if (input.command === 'kill') {
               const entry = processes.get(input.device);
               if (entry) { await new Promise<void>(done => { entry.child.once('exit', () => done()); entry.child.kill('SIGKILL'); }); }
-              reply = { id: 0, value: { signal: 'SIGKILL', path: file(input.device) } };
+              reply = { id: 0, value: { signal: entry?.child.signalCode ?? null,pid:entry?.child.pid,path:file(input.device),at:new Date().toISOString() } };
+            } else if (input.command==='arm-pull-barrier' || input.command==='arm-page-barrier') {
+              rmSync(`${file(input.device)}.reached`,{force:true});
+              writeFileSync(`${file(input.device)}.armed`,input.command==='arm-pull-barrier' ? 'structured-pull-before-cursor':'page-append-before-commit');
+              reply={id:0,value:null};
+            } else if (input.command==='clear-barrier') {
+              for (const suffix of ['.armed','.reached']) rmSync(`${file(input.device)}${suffix}`,{force:true});
+              reply={id:0,value:null};
+            } else if (input.command==='inspect' || input.command==='barrier-status') {
+              const db=new DatabaseSync(file(input.device),{readOnly:true});
+              try {
+                const marker=existsSync(`${file(input.device)}.reached`) ? JSON.parse(readFileSync(`${file(input.device)}.reached`,'utf8')) as unknown : null;
+                reply={id:0,value:{marker,
+                  state:db.prepare("SELECT * FROM sync_state WHERE stream='structured'").get(),
+                  receipts:db.prepare('SELECT * FROM structured_received ORDER BY server_order').all(),
+                  entities:db.prepare('SELECT * FROM structured_server_entities ORDER BY entity_type,entity_id').all(),
+                  conflicts:db.prepare('SELECT * FROM structured_conflicts ORDER BY id').all(),
+                  pages:db.prepare('SELECT * FROM pages ORDER BY id').all(),
+                  pageUpdates:db.prepare('SELECT seq,page_id,update_bytes,digest FROM page_updates ORDER BY seq').all().map(row=> ({...row,update_bytes:Array.from(row.update_bytes as Uint8Array),digest:Array.from(row.digest as Uint8Array)})),
+                  integrity:db.prepare('PRAGMA integrity_check').get()}};
+              } finally {db.close();}
             } else {
               const db = new DatabaseSync(file(input.device));
               try {
