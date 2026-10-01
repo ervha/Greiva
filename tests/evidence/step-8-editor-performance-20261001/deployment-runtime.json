@@ -1,0 +1,43 @@
+{
+  "capturedAt": "2026-10-01T10:28:01.4028568Z",
+  "container": "/greiva-isolated-dev-1",
+  "image": "sha256:c06bb08669a73088e5c058910a0ce7288954bd7d9efb27248b5e78c4ebbcc5b3",
+  "user": "node",
+  "init": true,
+  "privileged": false,
+  "securityOptions": [
+    "no-new-privileges:true"
+  ],
+  "mounts": [
+    {
+      "Type": "volume",
+      "Name": "greiva-isolated_collaboration-data",
+      "Source": "/var/lib/docker/volumes/greiva-isolated_collaboration-data/_data",
+      "Destination": "/workspace/.data/collaboration",
+      "Driver": "local",
+      "Mode": "rw",
+      "RW": true,
+      "Propagation": ""
+    }
+  ],
+  "ports": {
+    "1234/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "1234"
+      }
+    ],
+    "1420/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "1420"
+      }
+    ],
+    "3000/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "3000"
+      }
+    ]
+  }
+}

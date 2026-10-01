@@ -1,0 +1,570 @@
+ Image greiva-poc-development:step-7-client Building 
+#1 [internal] load local bake definitions
+#1 reading from stdin 587B 0.1s done
+#1 DONE 0.1s
+
+#2 [internal] load build definition from Dockerfile
+#2 transferring dockerfile: 2.31kB 0.0s done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/node:24.19.0-bookworm-slim
+#3 ...
+
+#4 [auth] library/node:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:24.19.0-bookworm-slim
+#3 DONE 1.8s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 321B done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 DONE 0.0s
+
+#7 [ 1/16] FROM docker.io/library/node:24.19.0-bookworm-slim@sha256:a9f5f7c91a432850b2a8a7797adf5eadb6c733ceed61167806cee7ea7fbc29df
+#7 resolve docker.io/library/node:24.19.0-bookworm-slim@sha256:a9f5f7c91a432850b2a8a7797adf5eadb6c733ceed61167806cee7ea7fbc29df 0.0s done
+#7 DONE 0.0s
+
+#6 [internal] load build context
+#6 transferring context: 492.73kB 0.0s done
+#6 DONE 0.1s
+
+#8 [ 2/16] RUN apt-get update && apt-get install -y --no-install-recommends       ca-certificates curl git build-essential pkg-config       libglib2.0-dev libgtk-3-dev libwebkit2gtk-4.1-dev       libssl-dev librsvg2-dev libayatana-appindicator3-dev     && rm -rf /var/lib/apt/lists/*
+#8 CACHED
+
+#9 [ 3/16] RUN npm install --global npm@11.9.0 --ignore-scripts --no-audit --no-fund     && test "$(node --version)" = "v24.19.0"     && test "$(npm --version)" = "11.9.0"
+#9 CACHED
+
+#10 [ 4/16] RUN curl --fail --show-error --location --retry 3       https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init       --output /tmp/rustup-init     && curl --fail --show-error --location --retry 3       https://static.rust-lang.org/rustup/dist/x86_64-unknown-linux-gnu/rustup-init.sha256       --output /tmp/rustup-init.sha256     && cd /tmp && sha256sum --check rustup-init.sha256     && chmod +x rustup-init     && ./rustup-init -y --no-modify-path --profile minimal --default-toolchain "1.98.1"     && rm rustup-init rustup-init.sha256
+#10 CACHED
+
+#11 [ 5/16] WORKDIR /workspace
+#11 CACHED
+
+#12 [ 6/16] COPY package.json package-lock.json .npmrc ./
+#12 DONE 0.1s
+
+#13 [ 7/16] COPY apps/client/package.json ./apps/client/package.json
+#13 DONE 0.1s
+
+#14 [ 8/16] COPY apps/api/package.json ./apps/api/package.json
+#14 DONE 0.1s
+
+#15 [ 9/16] COPY apps/collaboration/package.json ./apps/collaboration/package.json
+#15 DONE 0.1s
+
+#16 [10/16] COPY packages/shared/package.json ./packages/shared/package.json
+#16 DONE 0.1s
+
+#17 [11/16] COPY packages/protocol/package.json ./packages/protocol/package.json
+#17 DONE 0.1s
+
+#18 [12/16] COPY packages/sync/package.json ./packages/sync/package.json
+#18 DONE 0.1s
+
+#19 [13/16] RUN npm ci --no-audit --no-fund     && npm exec -- playwright install --with-deps chromium
+#19 59.22 
+#19 59.22 added 244 packages in 59s
+#19 59.22 npm notice
+#19 59.22 npm notice New major version of npm available! 11.9.0 -> 12.2.0
+#19 59.22 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+#19 59.22 npm notice To update run: npm install -g npm@12.2.0
+#19 59.22 npm notice
+#19 60.11 Installing dependencies...
+#19 60.42 Get:1 http://deb.debian.org/debian bookworm InRelease [151 kB]
+#19 60.57 Get:2 http://deb.debian.org/debian bookworm-updates InRelease [55.4 kB]
+#19 60.69 Get:3 http://deb.debian.org/debian-security bookworm-security InRelease [34.8 kB]
+#19 60.75 Get:4 http://deb.debian.org/debian bookworm/main amd64 Packages [8790 kB]
+#19 67.45 Get:5 http://deb.debian.org/debian bookworm-updates/main amd64 Packages [6924 B]
+#19 67.48 Get:6 http://deb.debian.org/debian-security bookworm-security/main amd64 Packages [343 kB]
+#19 68.16 Fetched 9382 kB in 8s (1174 kB/s)
+#19 68.16 Reading package lists...
+#19 68.58 Reading package lists...
+#19 68.99 Building dependency tree...
+#19 69.09 Reading state information...
+#19 69.20 libasound2 is already the newest version (1.2.8-1+b1).
+#19 69.20 libasound2 set to manually installed.
+#19 69.20 libatk-bridge2.0-0 is already the newest version (2.46.0-5).
+#19 69.20 libatk-bridge2.0-0 set to manually installed.
+#19 69.20 libatk1.0-0 is already the newest version (2.46.0-5).
+#19 69.20 libatk1.0-0 set to manually installed.
+#19 69.20 libatspi2.0-0 is already the newest version (2.46.0-5).
+#19 69.20 libatspi2.0-0 set to manually installed.
+#19 69.20 libcairo2 is already the newest version (1.16.0-7).
+#19 69.20 libcairo2 set to manually installed.
+#19 69.20 libcups2 is already the newest version (2.4.2-3+deb12u9).
+#19 69.20 libcups2 set to manually installed.
+#19 69.20 libdbus-1-3 is already the newest version (1.14.10-1~deb12u1).
+#19 69.20 libdbus-1-3 set to manually installed.
+#19 69.20 libdrm2 is already the newest version (2.4.114-1+b1).
+#19 69.20 libdrm2 set to manually installed.
+#19 69.20 libgbm1 is already the newest version (22.3.6-1+deb12u2).
+#19 69.20 libgbm1 set to manually installed.
+#19 69.20 libglib2.0-0 is already the newest version (2.74.6-2+deb12u9).
+#19 69.20 libglib2.0-0 set to manually installed.
+#19 69.20 libpango-1.0-0 is already the newest version (1.50.12+ds-1).
+#19 69.20 libpango-1.0-0 set to manually installed.
+#19 69.20 libx11-6 is already the newest version (2:1.8.4-2+deb12u2).
+#19 69.20 libx11-6 set to manually installed.
+#19 69.20 libxcb1 is already the newest version (1.15-1).
+#19 69.20 libxcb1 set to manually installed.
+#19 69.20 libxcomposite1 is already the newest version (1:0.4.5-1).
+#19 69.20 libxcomposite1 set to manually installed.
+#19 69.20 libxdamage1 is already the newest version (1:1.1.6-1).
+#19 69.20 libxdamage1 set to manually installed.
+#19 69.20 libxext6 is already the newest version (2:1.3.4-1+b1).
+#19 69.20 libxext6 set to manually installed.
+#19 69.20 libxfixes3 is already the newest version (1:6.0.0-2).
+#19 69.20 libxfixes3 set to manually installed.
+#19 69.20 libxkbcommon0 is already the newest version (1.5.0-1).
+#19 69.20 libxkbcommon0 set to manually installed.
+#19 69.20 libxrandr2 is already the newest version (2:1.5.2-2+b1).
+#19 69.20 libxrandr2 set to manually installed.
+#19 69.20 libfontconfig1 is already the newest version (2.14.1-4).
+#19 69.20 libfontconfig1 set to manually installed.
+#19 69.20 libfreetype6 is already the newest version (2.12.1+dfsg-5+deb12u4).
+#19 69.20 libfreetype6 set to manually installed.
+#19 69.20 The following additional packages will be installed:
+#19 69.20   libfontenc1 libxaw7 libxfont2 libxkbfile1 libxmu6 libxpm4 libxt6
+#19 69.20   x11-xkb-utils xfonts-encodings xfonts-utils xserver-common
+#19 69.20 Recommended packages:
+#19 69.20   fonts-ipafont-mincho fonts-tlwg-loma xfonts-base xauth
+#19 69.30 The following NEW packages will be installed:
+#19 69.30   fonts-freefont-ttf fonts-ipafont-gothic fonts-liberation
+#19 69.30   fonts-noto-color-emoji fonts-tlwg-loma-otf fonts-unifont fonts-wqy-zenhei
+#19 69.30   libfontenc1 libnspr4 libnss3 libxaw7 libxfont2 libxkbfile1 libxmu6 libxpm4
+#19 69.30   libxt6 x11-xkb-utils xfonts-encodings xfonts-scalable xfonts-utils
+#19 69.30   xserver-common xvfb
+#19 69.45 0 upgraded, 22 newly installed, 0 to remove and 3 not upgraded.
+#19 69.45 Need to get 35.3 MB of archives.
+#19 69.45 After this operation, 79.5 MB of additional disk space will be used.
+#19 69.45 Get:1 http://deb.debian.org/debian bookworm/main amd64 fonts-ipafont-gothic all 00303-23 [3515 kB]
+#19 73.26 Get:2 http://deb.debian.org/debian bookworm/main amd64 fonts-freefont-ttf all 20120503-10 [2552 kB]
+#19 75.75 Get:3 http://deb.debian.org/debian bookworm/main amd64 fonts-liberation all 1:1.07.4-11 [828 kB]
+#19 76.34 Get:4 http://deb.debian.org/debian bookworm/main amd64 fonts-noto-color-emoji all 2.042-0+deb12u1 [9894 kB]
+#19 83.25 Get:5 http://deb.debian.org/debian bookworm/main amd64 fonts-tlwg-loma-otf all 1:0.7.3-1 [147 kB]
+#19 83.34 Get:6 http://deb.debian.org/debian bookworm/main amd64 fonts-unifont all 1:15.0.01-2 [2019 kB]
+#19 84.55 Get:7 http://deb.debian.org/debian bookworm/main amd64 fonts-wqy-zenhei all 0.9.45-8 [7479 kB]
+#19 91.81 Get:8 http://deb.debian.org/debian bookworm/main amd64 libfontenc1 amd64 1:1.1.4-1 [24.3 kB]
+#19 91.85 Get:9 http://deb.debian.org/debian bookworm/main amd64 libnspr4 amd64 2:4.35-1 [113 kB]
+#19 91.95 Get:10 http://deb.debian.org/debian-security bookworm-security/main amd64 libnss3 amd64 2:3.87.1-1+deb12u4 [1331 kB]
+#19 93.42 Get:11 http://deb.debian.org/debian bookworm/main amd64 libxt6 amd64 1:1.2.1-1.1 [186 kB]
+#19 93.68 Get:12 http://deb.debian.org/debian bookworm/main amd64 libxmu6 amd64 2:1.1.3-3 [60.1 kB]
+#19 93.74 Get:13 http://deb.debian.org/debian bookworm/main amd64 libxpm4 amd64 1:3.5.12-1.1+deb12u1 [48.6 kB]
+#19 93.79 Get:14 http://deb.debian.org/debian bookworm/main amd64 libxaw7 amd64 2:1.0.14-1 [201 kB]
+#19 94.06 Get:15 http://deb.debian.org/debian-security bookworm-security/main amd64 libxfont2 amd64 1:2.0.6-1+deb12u1 [132 kB]
+#19 94.17 Get:16 http://deb.debian.org/debian bookworm/main amd64 libxkbfile1 amd64 1:1.1.0-1 [75.2 kB]
+#19 94.24 Get:17 http://deb.debian.org/debian bookworm/main amd64 x11-xkb-utils amd64 7.7+7 [165 kB]
+#19 94.39 Get:18 http://deb.debian.org/debian bookworm/main amd64 xfonts-encodings all 1:1.0.4-2.2 [577 kB]
+#19 94.84 Get:19 http://deb.debian.org/debian bookworm/main amd64 xfonts-utils amd64 1:7.7+6 [93.0 kB]
+#19 94.96 Get:20 http://deb.debian.org/debian bookworm/main amd64 xfonts-scalable all 1:1.0.3-1.3 [306 kB]
+#19 95.23 Get:21 http://deb.debian.org/debian-security bookworm-security/main amd64 xserver-common all 2:21.1.7-3+deb12u13 [2384 kB]
+#19 97.76 Get:22 http://deb.debian.org/debian-security bookworm-security/main amd64 xvfb amd64 2:21.1.7-3+deb12u13 [3154 kB]
+#19 101.2 debconf: delaying package configuration, since apt-utils is not installed
+#19 101.2 Fetched 35.3 MB in 32s (1112 kB/s)
+#19 101.3 Selecting previously unselected package fonts-ipafont-gothic.
+#19 101.3 (Reading database ... 
+(Reading database ... 5%
+(Reading database ... 10%
+(Reading database ... 15%
+(Reading database ... 20%
+(Reading database ... 25%
+(Reading database ... 30%
+(Reading database ... 35%
+(Reading database ... 40%
+(Reading database ... 45%
+(Reading database ... 50%
+(Reading database ... 55%
+(Reading database ... 60%
+(Reading database ... 65%
+(Reading database ... 70%
+(Reading database ... 75%
+(Reading database ... 80%
+(Reading database ... 85%
+(Reading database ... 90%
+(Reading database ... 95%
+(Reading database ... 100%
+(Reading database ... 33719 files and directories currently installed.)
+#19 101.4 Preparing to unpack .../00-fonts-ipafont-gothic_00303-23_all.deb ...
+#19 101.4 Unpacking fonts-ipafont-gothic (00303-23) ...
+#19 101.7 Selecting previously unselected package fonts-freefont-ttf.
+#19 101.7 Preparing to unpack .../01-fonts-freefont-ttf_20120503-10_all.deb ...
+#19 101.7 Unpacking fonts-freefont-ttf (20120503-10) ...
+#19 101.9 Selecting previously unselected package fonts-liberation.
+#19 101.9 Preparing to unpack .../02-fonts-liberation_1%3a1.07.4-11_all.deb ...
+#19 101.9 Unpacking fonts-liberation (1:1.07.4-11) ...
+#19 102.0 Selecting previously unselected package fonts-noto-color-emoji.
+#19 102.0 Preparing to unpack .../03-fonts-noto-color-emoji_2.042-0+deb12u1_all.deb ...
+#19 102.0 Unpacking fonts-noto-color-emoji (2.042-0+deb12u1) ...
+#19 102.6 Selecting previously unselected package fonts-tlwg-loma-otf.
+#19 102.6 Preparing to unpack .../04-fonts-tlwg-loma-otf_1%3a0.7.3-1_all.deb ...
+#19 102.6 Unpacking fonts-tlwg-loma-otf (1:0.7.3-1) ...
+#19 102.7 Selecting previously unselected package fonts-unifont.
+#19 102.7 Preparing to unpack .../05-fonts-unifont_1%3a15.0.01-2_all.deb ...
+#19 102.7 Unpacking fonts-unifont (1:15.0.01-2) ...
+#19 102.9 Selecting previously unselected package fonts-wqy-zenhei.
+#19 102.9 Preparing to unpack .../06-fonts-wqy-zenhei_0.9.45-8_all.deb ...
+#19 102.9 Unpacking fonts-wqy-zenhei (0.9.45-8) ...
+#19 103.4 Selecting previously unselected package libfontenc1:amd64.
+#19 103.4 Preparing to unpack .../07-libfontenc1_1%3a1.1.4-1_amd64.deb ...
+#19 103.4 Unpacking libfontenc1:amd64 (1:1.1.4-1) ...
+#19 103.5 Selecting previously unselected package libnspr4:amd64.
+#19 103.5 Preparing to unpack .../08-libnspr4_2%3a4.35-1_amd64.deb ...
+#19 103.5 Unpacking libnspr4:amd64 (2:4.35-1) ...
+#19 103.6 Selecting previously unselected package libnss3:amd64.
+#19 103.6 Preparing to unpack .../09-libnss3_2%3a3.87.1-1+deb12u4_amd64.deb ...
+#19 103.6 Unpacking libnss3:amd64 (2:3.87.1-1+deb12u4) ...
+#19 103.7 Selecting previously unselected package libxt6:amd64.
+#19 103.7 Preparing to unpack .../10-libxt6_1%3a1.2.1-1.1_amd64.deb ...
+#19 103.7 Unpacking libxt6:amd64 (1:1.2.1-1.1) ...
+#19 103.8 Selecting previously unselected package libxmu6:amd64.
+#19 103.8 Preparing to unpack .../11-libxmu6_2%3a1.1.3-3_amd64.deb ...
+#19 103.8 Unpacking libxmu6:amd64 (2:1.1.3-3) ...
+#19 103.9 Selecting previously unselected package libxpm4:amd64.
+#19 103.9 Preparing to unpack .../12-libxpm4_1%3a3.5.12-1.1+deb12u1_amd64.deb ...
+#19 103.9 Unpacking libxpm4:amd64 (1:3.5.12-1.1+deb12u1) ...
+#19 104.0 Selecting previously unselected package libxaw7:amd64.
+#19 104.0 Preparing to unpack .../13-libxaw7_2%3a1.0.14-1_amd64.deb ...
+#19 104.0 Unpacking libxaw7:amd64 (2:1.0.14-1) ...
+#19 104.0 Selecting previously unselected package libxfont2:amd64.
+#19 104.0 Preparing to unpack .../14-libxfont2_1%3a2.0.6-1+deb12u1_amd64.deb ...
+#19 104.0 Unpacking libxfont2:amd64 (1:2.0.6-1+deb12u1) ...
+#19 104.1 Selecting previously unselected package libxkbfile1:amd64.
+#19 104.1 Preparing to unpack .../15-libxkbfile1_1%3a1.1.0-1_amd64.deb ...
+#19 104.1 Unpacking libxkbfile1:amd64 (1:1.1.0-1) ...
+#19 104.2 Selecting previously unselected package x11-xkb-utils.
+#19 104.2 Preparing to unpack .../16-x11-xkb-utils_7.7+7_amd64.deb ...
+#19 104.2 Unpacking x11-xkb-utils (7.7+7) ...
+#19 104.3 Selecting previously unselected package xfonts-encodings.
+#19 104.3 Preparing to unpack .../17-xfonts-encodings_1%3a1.0.4-2.2_all.deb ...
+#19 104.3 Unpacking xfonts-encodings (1:1.0.4-2.2) ...
+#19 104.4 Selecting previously unselected package xfonts-utils.
+#19 104.4 Preparing to unpack .../18-xfonts-utils_1%3a7.7+6_amd64.deb ...
+#19 104.4 Unpacking xfonts-utils (1:7.7+6) ...
+#19 104.5 Selecting previously unselected package xfonts-scalable.
+#19 104.5 Preparing to unpack .../19-xfonts-scalable_1%3a1.0.3-1.3_all.deb ...
+#19 104.5 Unpacking xfonts-scalable (1:1.0.3-1.3) ...
+#19 104.5 Selecting previously unselected package xserver-common.
+#19 104.5 Preparing to unpack .../20-xserver-common_2%3a21.1.7-3+deb12u13_all.deb ...
+#19 104.6 Unpacking xserver-common (2:21.1.7-3+deb12u13) ...
+#19 104.6 Selecting previously unselected package xvfb.
+#19 104.6 Preparing to unpack .../21-xvfb_2%3a21.1.7-3+deb12u13_amd64.deb ...
+#19 104.6 Unpacking xvfb (2:21.1.7-3+deb12u13) ...
+#19 104.7 Setting up libxpm4:amd64 (1:3.5.12-1.1+deb12u1) ...
+#19 104.8 Setting up fonts-noto-color-emoji (2.042-0+deb12u1) ...
+#19 104.8 Setting up fonts-wqy-zenhei (0.9.45-8) ...
+#19 104.9 Setting up fonts-freefont-ttf (20120503-10) ...
+#19 104.9 Setting up libfontenc1:amd64 (1:1.1.4-1) ...
+#19 104.9 Setting up fonts-tlwg-loma-otf (1:0.7.3-1) ...
+#19 104.9 Setting up libnspr4:amd64 (2:4.35-1) ...
+#19 105.0 Setting up xfonts-encodings (1:1.0.4-2.2) ...
+#19 105.0 Setting up libxt6:amd64 (1:1.2.1-1.1) ...
+#19 105.0 Setting up fonts-ipafont-gothic (00303-23) ...
+#19 105.1 update-alternatives: using /usr/share/fonts/opentype/ipafont-gothic/ipag.ttf to provide /usr/share/fonts/truetype/fonts-japanese-gothic.ttf (fonts-japanese-gothic.ttf) in auto mode
+#19 105.1 Setting up fonts-liberation (1:1.07.4-11) ...
+#19 105.1 Setting up libxkbfile1:amd64 (1:1.1.0-1) ...
+#19 105.1 Setting up libxfont2:amd64 (1:2.0.6-1+deb12u1) ...
+#19 105.2 Setting up fonts-unifont (1:15.0.01-2) ...
+#19 105.2 Setting up libxmu6:amd64 (2:1.1.3-3) ...
+#19 105.2 Setting up libnss3:amd64 (2:3.87.1-1+deb12u4) ...
+#19 105.3 Setting up libxaw7:amd64 (2:1.0.14-1) ...
+#19 105.3 Setting up xfonts-utils (1:7.7+6) ...
+#19 105.3 Setting up xfonts-scalable (1:1.0.3-1.3) ...
+#19 105.4 Setting up x11-xkb-utils (7.7+7) ...
+#19 105.4 Setting up xserver-common (2:21.1.7-3+deb12u13) ...
+#19 105.4 Setting up xvfb (2:21.1.7-3+deb12u13) ...
+#19 105.5 Processing triggers for fontconfig (2.14.1-4) ...
+#19 105.5 Processing triggers for libc-bin (2.36-9+deb12u14) ...
+#19 106.1 Downloading Chrome for Testing 153.0.8010.12 (playwright chromium v1243) from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip
+#19 106.9 |                                                                                |   0% of 186.8 MiB
+#19 118.5 |■■■■■■■■                                                                        |  10% of 186.8 MiB
+#19 131.8 |■■■■■■■■■■■■■■■■                                                                |  20% of 186.8 MiB
+#19 144.5 |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 186.8 MiB
+#19 155.0 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 186.8 MiB
+#19 167.4 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 186.8 MiB
+#19 179.6 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 186.8 MiB
+#19 193.3 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 186.8 MiB
+#19 209.1 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 186.8 MiB
+#19 222.9 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 186.8 MiB
+#19 239.7 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 186.8 MiB
+#19 243.6 Chrome for Testing 153.0.8010.12 (playwright chromium v1243) downloaded to /opt/playwright/chromium-1243
+#19 243.6 Downloading FFmpeg (playwright ffmpeg v1011) from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+#19 245.0 |                                                                                |   0% of 2.3 MiB
+#19 245.2 |■■■■■■■■                                                                        |  10% of 2.3 MiB
+#19 245.4 |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+#19 245.5 |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+#19 245.6 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+#19 245.8 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+#19 245.9 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+#19 246.1 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+#19 246.3 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+#19 246.4 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+#19 246.6 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+#19 246.7 FFmpeg (playwright ffmpeg v1011) downloaded to /opt/playwright/ffmpeg-1011
+#19 246.7 Downloading Chrome Headless Shell 153.0.8010.12 (playwright chromium-headless-shell v1243) from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-headless-shell-linux64.zip
+#19 247.5 |                                                                                |   0% of 114.3 MiB
+#19 260.1 |■■■■■■■■                                                                        |  10% of 114.3 MiB
+#19 271.8 |■■■■■■■■■■■■■■■■                                                                |  20% of 114.3 MiB
+#19 283.3 |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 114.3 MiB
+#19 293.6 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 114.3 MiB
+#19 301.7 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 114.3 MiB
+#19 313.2 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 114.3 MiB
+#19 323.3 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 114.3 MiB
+#19 336.4 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 114.3 MiB
+#19 351.1 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 114.3 MiB
+#19 365.7 |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 114.3 MiB
+#19 368.4 Chrome Headless Shell 153.0.8010.12 (playwright chromium-headless-shell v1243) downloaded to /opt/playwright/chromium_headless_shell-1243
+#19 DONE 368.5s
+
+#20 [14/16] COPY --chown=node:node . .
+#20 DONE 0.3s
+
+#21 [15/16] RUN mkdir -p /evidence /workspace/.data/collaboration     && chown node:node /workspace /workspace/node_modules /evidence     && chown -R node:node /workspace/.data     && chown -R node:node /opt/cargo
+#21 DONE 0.4s
+
+#22 [16/16] RUN cargo build --locked --manifest-path apps/client/src-tauri/crates/page-store/Cargo.toml     --example store-driver --target-dir .data/native-target
+#22 0.538     Updating crates.io index
+#22 9.609  Downloading crates ...
+#22 9.911   Downloaded block-buffer v0.10.4
+#22 10.00   Downloaded allocator-api2 v0.2.21
+#22 10.05   Downloaded futures-io v0.3.34
+#22 10.10   Downloaded futures-task v0.3.34
+#22 10.20   Downloaded hex v0.4.3
+#22 10.23   Downloaded zerofrom v0.1.8
+#22 10.28   Downloaded yoke-derive v0.8.4
+#22 10.31   Downloaded version_check v0.9.5
+#22 10.41   Downloaded itoa v1.0.18
+#22 10.44   Downloaded futures-core v0.3.34
+#22 10.47   Downloaded futures-sink v0.3.34
+#22 10.55   Downloaded form_urlencoded v1.2.2
+#22 10.64   Downloaded idna_adapter v1.2.2
+#22 10.68   Downloaded zerofrom-derive v0.1.8
+#22 10.68   Downloaded zerovec-derive v0.11.6
+#22 10.74   Downloaded cpufeatures v0.2.17
+#22 10.78   Downloaded cfg-if v1.0.5
+#22 10.82   Downloaded writeable v0.6.4
+#22 10.85   Downloaded generic-array v0.14.7
+#22 11.02   Downloaded heck v0.5.0
+#22 11.04   Downloaded equivalent v1.0.2
+#22 11.07   Downloaded zmij v1.0.23
+#22 11.17   Downloaded zerotrie v0.2.5
+#22 11.18   Downloaded atoi v2.0.0
+#22 11.21   Downloaded crc v3.4.0
+#22 11.28   Downloaded tokio-macros v2.7.2
+#22 11.30   Downloaded parking v2.2.1
+#22 11.39   Downloaded url v2.5.8
+#22 11.39   Downloaded sqlx-macros v0.8.6
+#22 11.61   Downloaded stable_deref_trait v1.2.1
+#22 11.65   Downloaded zerovec v0.11.8
+#22 11.77   Downloaded serde_urlencoded v0.7.1
+#22 11.89   Downloaded utf8_iter v1.0.4
+#22 11.89   Downloaded vcpkg v0.2.15
+#22 11.99   Downloaded potential_utf v0.1.6
+#22 12.23   Downloaded hashlink v0.10.0
+#22 12.26   Downloaded crypto-common v0.1.7
+#22 12.28   Downloaded find-msvc-tools v0.1.14
+#22 12.41   Downloaded digest v0.10.7
+#22 12.49   Downloaded dotenvy v0.15.7
+#22 12.49   Downloaded either v1.18.0
+#22 12.49   Downloaded futures-executor v0.3.34
+#22 12.60   Downloaded displaydoc v0.2.7
+#22 12.62   Downloaded crc-catalog v2.5.0
+#22 12.63   Downloaded foldhash v0.1.5
+#22 12.65   Downloaded synstructure v0.14.0
+#22 12.65   Downloaded thiserror-impl v2.0.21
+#22 12.67   Downloaded percent-encoding v2.3.2
+#22 12.77   Downloaded quote v1.0.47
+#22 12.83   Downloaded scopeguard v1.2.0
+#22 12.88   Downloaded sqlx-macros-core v0.8.6
+#22 12.90   Downloaded pin-project-lite v0.2.17
+#22 12.90   Downloaded slab v0.4.12
+#22 12.93   Downloaded thiserror v2.0.21
+#22 13.01   Downloaded sha2 v0.10.9
+#22 13.03   Downloaded shlex v2.0.1
+#22 13.06   Downloaded tinystr v0.8.4
+#22 13.18   Downloaded crossbeam-utils v0.8.23
+#22 13.24   Downloaded futures-channel v0.3.34
+#22 13.24   Downloaded litemap v0.8.3
+#22 13.25   Downloaded lock_api v0.4.14
+#22 13.32   Downloaded event-listener v5.4.2
+#22 13.40   Downloaded crossbeam-queue v0.3.14
+#22 13.51   Downloaded smallvec v1.16.2
+#22 13.52   Downloaded autocfg v1.5.1
+#22 13.53   Downloaded pkg-config v0.3.34
+#22 13.56   Downloaded parking_lot v0.12.5
+#22 13.62   Downloaded parking_lot_core v0.9.12
+#22 13.62   Downloaded spin v0.9.9
+#22 13.67   Downloaded once_cell v1.21.4
+#22 13.72   Downloaded tracing-attributes v0.1.31
+#22 13.86   Downloaded log v0.4.34
+#22 13.96   Downloaded yoke v0.8.3
+#22 14.01   Downloaded icu_provider v2.3.1
+#22 14.26   Downloaded num-traits v0.2.19
+#22 14.40   Downloaded serde_core v1.0.229
+#22 14.42   Downloaded proc-macro2 v1.0.107
+#22 14.46   Downloaded unicode-ident v1.0.26
+#22 14.49   Downloaded tracing-core v0.1.36
+#22 14.52   Downloaded serde_derive v1.0.229
+#22 14.59   Downloaded tokio-stream v0.1.19
+#22 14.77   Downloaded bytes v1.12.1
+#22 14.85   Downloaded icu_normalizer_data v2.3.0
+#22 14.87   Downloaded ryu v1.0.23
+#22 14.87   Downloaded base64 v0.22.1
+#22 14.91   Downloaded socket2 v0.6.5
+#22 15.13   Downloaded futures-intrusive v0.5.0
+#22 15.27   Downloaded flume v0.11.1
+#22 15.27   Downloaded icu_collections v2.3.0
+#22 15.33   Downloaded sqlx-sqlite v0.8.6
+#22 15.46   Downloaded serde v1.0.229
+#22 15.47   Downloaded memchr v2.8.3
+#22 15.49   Downloaded icu_properties v2.3.0
+#22 15.56   Downloaded icu_locale_core v2.3.0
+#22 15.59   Downloaded cc v1.5.1
+#22 15.83   Downloaded mio v1.2.3
+#22 15.84   Downloaded indexmap v2.14.2
+#22 15.85   Downloaded sqlx-core v0.8.6
+#22 15.86   Downloaded typenum v1.20.1
+#22 16.19   Downloaded idna v1.1.0
+#22 16.41   Downloaded hashbrown v0.15.5
+#22 16.42   Downloaded hashbrown v0.17.1
+#22 16.60   Downloaded futures-util v0.3.34
+#22 16.62   Downloaded serde_json v1.0.151
+#22 16.64   Downloaded icu_properties_data v2.3.0
+#22 17.04   Downloaded sqlx v0.8.6
+#22 17.49   Downloaded syn v3.0.6
+#22 17.71   Downloaded syn v2.0.119
+#22 18.08   Downloaded tracing v0.1.44
+#22 18.58   Downloaded icu_normalizer v2.3.0
+#22 19.29   Downloaded libc v0.2.189
+#22 19.41   Downloaded tokio v1.53.1
+#22 23.51   Downloaded libsqlite3-sys v0.30.1
+#22 23.65    Compiling proc-macro2 v1.0.107
+#22 23.65    Compiling quote v1.0.47
+#22 23.65    Compiling unicode-ident v1.0.26
+#22 23.66    Compiling stable_deref_trait v1.2.1
+#22 23.66    Compiling libc v0.2.189
+#22 23.66    Compiling smallvec v1.16.2
+#22 23.66    Compiling writeable v0.6.4
+#22 23.66    Compiling litemap v0.8.3
+#22 23.66    Compiling version_check v0.9.5
+#22 23.66    Compiling pin-project-lite v0.2.17
+#22 23.66    Compiling futures-core v0.3.34
+#22 23.67    Compiling serde_core v1.0.229
+#22 23.67    Compiling utf8_iter v1.0.4
+#22 23.68    Compiling icu_normalizer_data v2.3.0
+#22 23.68    Compiling icu_properties_data v2.3.0
+#22 23.69    Compiling scopeguard v1.2.0
+#22 23.69    Compiling typenum v1.20.1
+#22 23.69    Compiling serde v1.0.229
+#22 23.69    Compiling cfg-if v1.0.5
+#22 23.69    Compiling futures-sink v0.3.34
+#22 23.84    Compiling lock_api v0.4.14
+#22 23.85    Compiling parking_lot_core v0.9.12
+#22 23.85    Compiling percent-encoding v2.3.2
+#22 23.85    Compiling shlex v2.0.1
+#22 23.86    Compiling autocfg v1.5.1
+#22 23.89    Compiling crossbeam-utils v0.8.23
+#22 23.93    Compiling find-msvc-tools v0.1.14
+#22 24.02    Compiling memchr v2.8.3
+#22 24.03    Compiling equivalent v1.0.2
+#22 24.10    Compiling form_urlencoded v1.2.2
+#22 24.13    Compiling futures-io v0.3.34
+#22 24.16    Compiling pkg-config v0.3.34
+#22 24.18    Compiling futures-task v0.3.34
+#22 24.20    Compiling allocator-api2 v0.2.21
+#22 24.23    Compiling cc v1.5.1
+#22 24.24    Compiling bytes v1.12.1
+#22 24.27    Compiling slab v0.4.12
+#22 24.29    Compiling vcpkg v0.2.15
+#22 24.30    Compiling thiserror v2.0.21
+#22 24.31    Compiling generic-array v0.14.7
+#22 24.32    Compiling once_cell v1.21.4
+#22 24.34    Compiling foldhash v0.1.5
+#22 24.37    Compiling crc-catalog v2.5.0
+#22 24.41    Compiling hashbrown v0.17.1
+#22 24.42    Compiling itoa v1.0.18
+#22 24.48    Compiling parking v2.2.1
+#22 24.49    Compiling cpufeatures v0.2.17
+#22 24.52    Compiling log v0.4.34
+#22 24.53    Compiling num-traits v0.2.19
+#22 24.56    Compiling tracing-core v0.1.36
+#22 24.57    Compiling crc v3.4.0
+#22 24.60    Compiling event-listener v5.4.2
+#22 24.67    Compiling spin v0.9.9
+#22 24.71    Compiling ryu v1.0.23
+#22 24.77    Compiling hashbrown v0.15.5
+#22 24.79    Compiling base64 v0.22.1
+#22 24.79    Compiling zmij v1.0.23
+#22 24.87    Compiling futures-channel v0.3.34
+#22 24.94    Compiling futures-util v0.3.34
+#22 25.04    Compiling flume v0.11.1
+#22 25.06    Compiling serde_json v1.0.151
+#22 25.07    Compiling crossbeam-queue v0.3.14
+#22 25.46    Compiling indexmap v2.14.2
+#22 25.51    Compiling syn v3.0.6
+#22 25.51    Compiling syn v2.0.119
+#22 25.66    Compiling hashlink v0.10.0
+#22 25.70    Compiling block-buffer v0.10.4
+#22 25.70    Compiling crypto-common v0.1.7
+#22 25.79    Compiling atoi v2.0.0
+#22 25.80    Compiling digest v0.10.7
+#22 25.81    Compiling socket2 v0.6.5
+#22 25.81    Compiling mio v1.2.3
+#22 25.90    Compiling libsqlite3-sys v0.30.1
+#22 25.97    Compiling sha2 v0.10.9
+#22 26.00    Compiling parking_lot v0.12.5
+#22 26.22    Compiling futures-intrusive v0.5.0
+#22 27.73    Compiling futures-executor v0.3.34
+#22 28.56    Compiling tracing-attributes v0.1.31
+#22 28.56    Compiling synstructure v0.14.0
+#22 28.97    Compiling zerofrom-derive v0.1.8
+#22 28.97    Compiling yoke-derive v0.8.4
+#22 28.97    Compiling zerovec-derive v0.11.6
+#22 28.97    Compiling displaydoc v0.2.7
+#22 28.97    Compiling serde_derive v1.0.229
+#22 28.97    Compiling tokio-macros v2.7.2
+#22 28.97    Compiling thiserror-impl v2.0.21
+#22 29.35    Compiling tracing v0.1.44
+#22 29.49    Compiling tokio v1.53.1
+#22 29.71    Compiling zerofrom v0.1.8
+#22 29.79    Compiling yoke v0.8.3
+#22 29.93    Compiling zerovec v0.11.8
+#22 29.93    Compiling zerotrie v0.2.5
+#22 30.40    Compiling tinystr v0.8.4
+#22 30.40    Compiling potential_utf v0.1.6
+#22 30.46    Compiling icu_collections v2.3.0
+#22 30.50    Compiling icu_locale_core v2.3.0
+#22 31.36    Compiling icu_provider v2.3.1
+#22 31.49    Compiling either v1.18.0
+#22 31.49    Compiling serde_urlencoded v0.7.1
+#22 31.53    Compiling icu_properties v2.3.0
+#22 31.53    Compiling icu_normalizer v2.3.0
+#22 32.33    Compiling idna_adapter v1.2.2
+#22 32.37    Compiling idna v1.1.0
+#22 32.58    Compiling url v2.5.8
+#22 33.24    Compiling tokio-stream v0.1.19
+#22 33.53    Compiling sqlx-core v0.8.6
+#22 34.97    Compiling sqlx-sqlite v0.8.6
+#22 35.98    Compiling sqlx v0.8.6
+#22 36.00    Compiling greiva-page-store v0.6.4 (/workspace/apps/client/src-tauri/crates/page-store)
+#22 38.13     Finished `dev` profile [unoptimized + debuginfo] target(s) in 37.76s
+#22 DONE 38.3s
+
+#23 exporting to image
+#23 exporting layers
+#23 exporting layers 36.2s done
+#23 exporting manifest sha256:259dd897aa3a7fc6e0df1c552dfa6ce110872aa848323550916592d8bf78e305 0.0s done
+#23 exporting config sha256:46d10a4a6d0b8ea101e09b0785327c74ac593cea3f721f314d332c3d824f1645 0.0s done
+#23 exporting attestation manifest sha256:bb46126b94231a6114fdc015056e67d9a0b21f5dbc28170f4bad583cd87fc74d 0.1s done
+#23 exporting manifest list sha256:c06bb08669a73088e5c058910a0ce7288954bd7d9efb27248b5e78c4ebbcc5b3
+#23 exporting manifest list sha256:c06bb08669a73088e5c058910a0ce7288954bd7d9efb27248b5e78c4ebbcc5b3 0.0s done
+#23 naming to docker.io/library/greiva-poc-development:step-7-client done
+#23 unpacking to docker.io/library/greiva-poc-development:step-7-client
+#23 unpacking to docker.io/library/greiva-poc-development:step-7-client 11.3s done
+#23 DONE 47.8s
+
+#24 resolving provenance for metadata file
+#24 DONE 0.0s
+ Image greiva-poc-development:step-7-client Built 

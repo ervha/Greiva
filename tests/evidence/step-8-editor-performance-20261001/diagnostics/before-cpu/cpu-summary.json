@@ -1,0 +1,864 @@
+{
+  "capturedAt": "2026-10-01T09:45:57.204Z",
+  "bundle": "index-B0QYkAWx.js",
+  "bundleSha256": "57a31aa1f4d758c30b881ec612dcca7a9d8a07b353d563596c19f91d8295e894",
+  "mappedCodeEqualsMeasured": true,
+  "totalSampleMs": 9902.583,
+  "wallMs": 9903.621,
+  "scope": "CDP CPU sampling diagnostic. Self time is sampled on-stack time; inclusive functions overlap. Native program/layout/waiting is not attributed to application JS. One profiling run does not prove all save latency has one cause.",
+  "topSelf": [
+    {
+      "id": 2,
+      "parent": 1,
+      "function": "(program)",
+      "source": "",
+      "line": null,
+      "name": null,
+      "selfMs": 3473.74,
+      "inclusiveMs": 3473.74
+    },
+    {
+      "id": 516,
+      "parent": 515,
+      "function": "Qi",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 528,
+      "name": "singleRect",
+      "selfMs": 2028.057,
+      "inclusiveMs": 2033.613
+    },
+    {
+      "id": 457,
+      "parent": 456,
+      "function": "removeChild",
+      "source": "",
+      "line": null,
+      "name": null,
+      "selfMs": 376.573,
+      "inclusiveMs": 376.573
+    },
+    {
+      "id": 435,
+      "parent": 434,
+      "function": "placeWidget",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 1986,
+      "name": null,
+      "selfMs": 338.596,
+      "inclusiveMs": 1106.252
+    },
+    {
+      "id": 438,
+      "parent": 433,
+      "function": "destroyBetween",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 1800,
+      "name": null,
+      "selfMs": 336.516,
+      "inclusiveMs": 344.137
+    },
+    {
+      "id": 437,
+      "parent": 436,
+      "function": "n.push.Os.widget.side",
+      "source": "../../src/editor/block-drag.ts",
+      "line": 28,
+      "name": null,
+      "selfMs": 319.78,
+      "inclusiveMs": 620.802
+    },
+    {
+      "id": 86,
+      "parent": 1,
+      "function": "(garbage collector)",
+      "source": "",
+      "line": null,
+      "name": null,
+      "selfMs": 286.984,
+      "inclusiveMs": 286.984
+    },
+    {
+      "id": 440,
+      "parent": 431,
+      "function": "forChild",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 4295,
+      "name": null,
+      "selfMs": 169.086,
+      "inclusiveMs": 169.086
+    },
+    {
+      "id": 1006,
+      "parent": 1005,
+      "function": "Ls",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 4552,
+      "name": "takeSpansForNode",
+      "selfMs": 167.722,
+      "inclusiveMs": 167.722
+    },
+    {
+      "id": 458,
+      "parent": 455,
+      "function": "insertBefore",
+      "source": "",
+      "line": null,
+      "name": null,
+      "selfMs": 137.458,
+      "inclusiveMs": 137.458
+    },
+    {
+      "id": 427,
+      "parent": 426,
+      "function": "Ls",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 4552,
+      "name": "takeSpansForNode",
+      "selfMs": 112.125,
+      "inclusiveMs": 112.125
+    },
+    {
+      "id": 560,
+      "parent": 437,
+      "function": "createElement",
+      "source": "",
+      "line": null,
+      "name": null,
+      "selfMs": 110.165,
+      "inclusiveMs": 110.165
+    },
+    {
+      "id": 352,
+      "parent": 351,
+      "function": "_u",
+      "source": "../../../../node_modules/react-dom/cjs/react-dom-client.production.js",
+      "line": 9756,
+      "name": "commitBeforeMutationEffects",
+      "selfMs": 109.037,
+      "inclusiveMs": 120.421
+    },
+    {
+      "id": 3,
+      "parent": 1,
+      "function": "(idle)",
+      "source": "",
+      "line": null,
+      "name": null,
+      "selfMs": 107.075,
+      "inclusiveMs": 107.075
+    },
+    {
+      "id": 413,
+      "parent": 412,
+      "function": "Lj",
+      "source": "../../src/editor/collaboration-history.ts",
+      "line": 6,
+      "name": "structure",
+      "selfMs": 76.89,
+      "inclusiveMs": 81.72
+    },
+    {
+      "id": 439,
+      "parent": 437,
+      "function": "addEventListener",
+      "source": "",
+      "line": null,
+      "name": null,
+      "selfMs": 69.884,
+      "inclusiveMs": 69.884
+    },
+    {
+      "id": 561,
+      "parent": 436,
+      "function": "add",
+      "source": "",
+      "line": null,
+      "name": null,
+      "selfMs": 68.205,
+      "inclusiveMs": 68.205
+    },
+    {
+      "id": 559,
+      "parent": 437,
+      "function": "append",
+      "source": "",
+      "line": null,
+      "name": null,
+      "selfMs": 66.983,
+      "inclusiveMs": 66.983
+    },
+    {
+      "id": 455,
+      "parent": 430,
+      "function": "Ca",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 1650,
+      "name": "renderDescs",
+      "selfMs": 56.433,
+      "inclusiveMs": 587.022
+    },
+    {
+      "id": 436,
+      "parent": 435,
+      "function": "ha",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 1165,
+      "name": null,
+      "selfMs": 54.94,
+      "inclusiveMs": 749.949
+    },
+    {
+      "id": 452,
+      "parent": 437,
+      "function": "setAttribute",
+      "source": "",
+      "line": null,
+      "name": null,
+      "selfMs": 53.99,
+      "inclusiveMs": 53.99
+    },
+    {
+      "id": 710,
+      "parent": 709,
+      "function": "l",
+      "source": "../../../../node_modules/react-dom/cjs/react-dom-client.production.js",
+      "line": 3644,
+      "name": "updateElement",
+      "selfMs": 47.205,
+      "inclusiveMs": 47.205
+    },
+    {
+      "id": 411,
+      "parent": 410,
+      "function": "filterTransaction",
+      "source": "../../src/editor/collaboration-history.ts",
+      "line": 18,
+      "name": null,
+      "selfMs": 41.413,
+      "inclusiveMs": 136.287
+    },
+    {
+      "id": 45,
+      "parent": 44,
+      "function": "visitNode",
+      "source": "",
+      "line": null,
+      "name": null,
+      "selfMs": 38.354,
+      "inclusiveMs": 122.052
+    },
+    {
+      "id": 47,
+      "parent": 46,
+      "function": "visitNode",
+      "source": "",
+      "line": null,
+      "name": null,
+      "selfMs": 32.547,
+      "inclusiveMs": 76.632
+    }
+  ],
+  "topInclusive": [
+    {
+      "id": 1,
+      "function": "(root)",
+      "source": "",
+      "line": null,
+      "name": null,
+      "selfMs": 0,
+      "inclusiveMs": 9902.583
+    },
+    {
+      "id": 367,
+      "parent": 1,
+      "function": "observer",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 4699,
+      "name": null,
+      "selfMs": 2.307,
+      "inclusiveMs": 5195.852
+    },
+    {
+      "id": 368,
+      "parent": 367,
+      "function": "flush",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 4818,
+      "name": null,
+      "selfMs": 0,
+      "inclusiveMs": 5193.545
+    },
+    {
+      "id": 371,
+      "parent": 368,
+      "function": "",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 5508,
+      "name": null,
+      "selfMs": 0,
+      "inclusiveMs": 5171.426
+    },
+    {
+      "id": 372,
+      "parent": 371,
+      "function": "ic",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 5125,
+      "name": "readDOMChange",
+      "selfMs": 1.958,
+      "inclusiveMs": 5171.426
+    },
+    {
+      "id": 407,
+      "parent": 372,
+      "function": "dc.dispatch",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 5939,
+      "name": null,
+      "selfMs": 0.911,
+      "inclusiveMs": 5111.136
+    },
+    {
+      "id": 408,
+      "parent": 407,
+      "function": "dispatchTransaction",
+      "source": "../../../../node_modules/@tiptap/core/dist/index.js",
+      "line": 6517,
+      "name": null,
+      "selfMs": 3.358,
+      "inclusiveMs": 5110.225
+    },
+    {
+      "id": 417,
+      "parent": 408,
+      "function": "updateState",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 5565,
+      "name": null,
+      "selfMs": 4.564,
+      "inclusiveMs": 4853.854
+    },
+    {
+      "id": 418,
+      "parent": 417,
+      "function": "updateStateInner",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 5568,
+      "name": null,
+      "selfMs": 6.194,
+      "inclusiveMs": 4849.29
+    },
+    {
+      "id": 2,
+      "parent": 1,
+      "function": "(program)",
+      "source": "",
+      "line": null,
+      "name": null,
+      "selfMs": 3473.74,
+      "inclusiveMs": 3473.74
+    },
+    {
+      "id": 428,
+      "parent": 418,
+      "function": "update",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 1482,
+      "name": null,
+      "selfMs": 0,
+      "inclusiveMs": 2328.082
+    },
+    {
+      "id": 429,
+      "parent": 428,
+      "function": "updateInner",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 1489,
+      "name": null,
+      "selfMs": 2.386,
+      "inclusiveMs": 2326.966
+    },
+    {
+      "id": 430,
+      "parent": 429,
+      "function": "updateChildren",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 1387,
+      "name": null,
+      "selfMs": 26.596,
+      "inclusiveMs": 2322.319
+    },
+    {
+      "id": 513,
+      "parent": 418,
+      "function": "scrollToSelection",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 5655,
+      "name": null,
+      "selfMs": 1.382,
+      "inclusiveMs": 2062.31
+    },
+    {
+      "id": 514,
+      "parent": 513,
+      "function": "coordsAtPos",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 5806,
+      "name": null,
+      "selfMs": 1.117,
+      "inclusiveMs": 2040.956
+    },
+    {
+      "id": 515,
+      "parent": 514,
+      "function": "ea",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 540,
+      "name": "coordsAtPos",
+      "selfMs": 3.861,
+      "inclusiveMs": 2039.839
+    },
+    {
+      "id": 516,
+      "parent": 515,
+      "function": "Qi",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 528,
+      "name": "singleRect",
+      "selfMs": 2028.057,
+      "inclusiveMs": 2033.613
+    },
+    {
+      "id": 431,
+      "parent": 430,
+      "function": "Fa",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 2087,
+      "name": "iterDeco",
+      "selfMs": 9.644,
+      "inclusiveMs": 1699.253
+    },
+    {
+      "id": 434,
+      "parent": 431,
+      "function": "",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 1394,
+      "name": null,
+      "selfMs": 7.844,
+      "inclusiveMs": 1114.096
+    },
+    {
+      "id": 435,
+      "parent": 434,
+      "function": "placeWidget",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 1986,
+      "name": null,
+      "selfMs": 338.596,
+      "inclusiveMs": 1106.252
+    },
+    {
+      "id": 436,
+      "parent": 435,
+      "function": "ha",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 1165,
+      "name": null,
+      "selfMs": 54.94,
+      "inclusiveMs": 749.949
+    },
+    {
+      "id": 437,
+      "parent": 436,
+      "function": "n.push.Os.widget.side",
+      "source": "../../src/editor/block-drag.ts",
+      "line": 28,
+      "name": null,
+      "selfMs": 319.78,
+      "inclusiveMs": 620.802
+    },
+    {
+      "id": 455,
+      "parent": 430,
+      "function": "Ca",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 1650,
+      "name": "renderDescs",
+      "selfMs": 56.433,
+      "inclusiveMs": 587.022
+    },
+    {
+      "id": 432,
+      "parent": 431,
+      "function": "",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 1402,
+      "name": null,
+      "selfMs": 3.615,
+      "inclusiveMs": 399.476
+    },
+    {
+      "id": 456,
+      "parent": 455,
+      "function": "ja",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 1776,
+      "name": "rm",
+      "selfMs": 16.558,
+      "inclusiveMs": 393.131
+    },
+    {
+      "id": 457,
+      "parent": 456,
+      "function": "removeChild",
+      "source": "",
+      "line": null,
+      "name": null,
+      "selfMs": 376.573,
+      "inclusiveMs": 376.573
+    },
+    {
+      "id": 433,
+      "parent": 432,
+      "function": "findNodeMatch",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 1872,
+      "name": null,
+      "selfMs": 20.636,
+      "inclusiveMs": 376.527
+    },
+    {
+      "id": 438,
+      "parent": 433,
+      "function": "destroyBetween",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 1800,
+      "name": null,
+      "selfMs": 336.516,
+      "inclusiveMs": 344.137
+    },
+    {
+      "id": 419,
+      "parent": 418,
+      "function": "Us",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 4644,
+      "name": "viewDecorations",
+      "selfMs": 0,
+      "inclusiveMs": 308.174
+    },
+    {
+      "id": 420,
+      "parent": 419,
+      "function": "someProp",
+      "source": "../../../../node_modules/prosemirror-view/dist/index.js",
+      "line": 5710,
+      "name": null,
+      "selfMs": 0,
+      "inclusiveMs": 308.174
+    }
+  ],
+  "application": [
+    {
+      "id": 437,
+      "parent": 436,
+      "function": "n.push.Os.widget.side",
+      "source": "../../src/editor/block-drag.ts",
+      "line": 28,
+      "name": null,
+      "selfMs": 319.78,
+      "inclusiveMs": 620.802
+    },
+    {
+      "id": 422,
+      "parent": 421,
+      "function": "decorations",
+      "source": "../../src/editor/block-drag.ts",
+      "line": 25,
+      "name": null,
+      "selfMs": 0,
+      "inclusiveMs": 298.094
+    },
+    {
+      "id": 411,
+      "parent": 410,
+      "function": "filterTransaction",
+      "source": "../../src/editor/collaboration-history.ts",
+      "line": 18,
+      "name": null,
+      "selfMs": 41.413,
+      "inclusiveMs": 136.287
+    },
+    {
+      "id": 412,
+      "parent": 411,
+      "function": "Lj",
+      "source": "../../src/editor/collaboration-history.ts",
+      "line": 6,
+      "name": "structure",
+      "selfMs": 10.025,
+      "inclusiveMs": 94.874
+    },
+    {
+      "id": 413,
+      "parent": 412,
+      "function": "Lj",
+      "source": "../../src/editor/collaboration-history.ts",
+      "line": 6,
+      "name": "structure",
+      "selfMs": 76.89,
+      "inclusiveMs": 81.72
+    },
+    {
+      "id": 527,
+      "parent": 526,
+      "function": "selector",
+      "source": "../../src/editor/PageEditor.tsx",
+      "line": 38,
+      "name": null,
+      "selfMs": 0,
+      "inclusiveMs": 58.317
+    },
+    {
+      "id": 310,
+      "parent": 309,
+      "function": "Kj",
+      "source": "../../src/editor/PageEditor.tsx",
+      "line": 14,
+      "name": "PageEditor",
+      "selfMs": 1.135,
+      "inclusiveMs": 50.401
+    },
+    {
+      "id": 324,
+      "parent": 323,
+      "function": "selector",
+      "source": "../../src/editor/PageEditor.tsx",
+      "line": 38,
+      "name": null,
+      "selfMs": 0,
+      "inclusiveMs": 44.723
+    },
+    {
+      "id": 528,
+      "parent": 527,
+      "function": "Xm",
+      "source": "../../src/editor/blocks.ts",
+      "line": 18,
+      "name": "adjacentBlockMove",
+      "selfMs": 1.119,
+      "inclusiveMs": 35.303
+    },
+    {
+      "id": 325,
+      "parent": 324,
+      "function": "Xm",
+      "source": "../../src/editor/blocks.ts",
+      "line": 18,
+      "name": "adjacentBlockMove",
+      "selfMs": 0,
+      "inclusiveMs": 27.402
+    },
+    {
+      "id": 529,
+      "parent": 528,
+      "function": "Ym",
+      "source": "../../src/editor/blocks.ts",
+      "line": 6,
+      "name": "moveTopLevelBlock",
+      "selfMs": 3.508,
+      "inclusiveMs": 26.112
+    },
+    {
+      "id": 326,
+      "parent": 325,
+      "function": "Ym",
+      "source": "../../src/editor/blocks.ts",
+      "line": 6,
+      "name": "moveTopLevelBlock",
+      "selfMs": 0,
+      "inclusiveMs": 25.019
+    },
+    {
+      "id": 541,
+      "parent": 1,
+      "function": "",
+      "source": "../../src/editor/local-page-store.ts",
+      "line": 59,
+      "name": null,
+      "selfMs": 0,
+      "inclusiveMs": 15.021
+    },
+    {
+      "id": 542,
+      "parent": 541,
+      "function": "append",
+      "source": "../../src/editor/local-page-store.ts",
+      "line": 28,
+      "name": null,
+      "selfMs": 0,
+      "inclusiveMs": 11.518
+    },
+    {
+      "id": 543,
+      "parent": 542,
+      "function": "t",
+      "source": "../../src/editor/local-page-store.ts",
+      "line": 22,
+      "name": null,
+      "selfMs": 0,
+      "inclusiveMs": 11.518
+    },
+    {
+      "id": 252,
+      "parent": 251,
+      "function": "n.push.Os.widget.side",
+      "source": "../../src/editor/block-drag.ts",
+      "line": 28,
+      "name": null,
+      "selfMs": 2.314,
+      "inclusiveMs": 9.509
+    },
+    {
+      "id": 940,
+      "parent": 421,
+      "function": "decorations",
+      "source": "../../src/editor/placeholders.ts",
+      "line": 10,
+      "name": null,
+      "selfMs": 0,
+      "inclusiveMs": 8.932
+    },
+    {
+      "id": 892,
+      "parent": 891,
+      "function": "onUnsyncedChanges",
+      "source": "../../src/editor/page-session.ts",
+      "line": 61,
+      "name": null,
+      "selfMs": 0,
+      "inclusiveMs": 7.038
+    },
+    {
+      "id": 893,
+      "parent": 892,
+      "function": "o",
+      "source": "../../src/editor/page-session.ts",
+      "line": 23,
+      "name": null,
+      "selfMs": 1.178,
+      "inclusiveMs": 7.038
+    },
+    {
+      "id": 802,
+      "parent": 722,
+      "function": "",
+      "source": "../../src/editor/block-drag.ts",
+      "line": 27,
+      "name": null,
+      "selfMs": 4.875,
+      "inclusiveMs": 4.875
+    },
+    {
+      "id": 911,
+      "parent": 1,
+      "function": "t",
+      "source": "../../src/editor/local-page-store.ts",
+      "line": 22,
+      "name": null,
+      "selfMs": 0,
+      "inclusiveMs": 3.659
+    },
+    {
+      "id": 141,
+      "parent": 140,
+      "function": "decorations",
+      "source": "../../src/editor/block-drag.ts",
+      "line": 25,
+      "name": null,
+      "selfMs": 0,
+      "inclusiveMs": 3.581
+    },
+    {
+      "id": 639,
+      "parent": 1,
+      "function": "",
+      "source": "../../src/editor/page-session.ts",
+      "line": 54,
+      "name": null,
+      "selfMs": 0,
+      "inclusiveMs": 3.408
+    },
+    {
+      "id": 155,
+      "parent": 154,
+      "function": "n.push.Os.widget.side",
+      "source": "../../src/editor/block-drag.ts",
+      "line": 28,
+      "name": null,
+      "selfMs": 2.277,
+      "inclusiveMs": 3.387
+    },
+    {
+      "id": 666,
+      "parent": 413,
+      "function": "",
+      "source": "../../src/editor/collaboration-history.ts",
+      "line": 8,
+      "name": null,
+      "selfMs": 1.401,
+      "inclusiveMs": 2.611
+    },
+    {
+      "id": 238,
+      "parent": 237,
+      "function": "decorations",
+      "source": "../../src/editor/block-drag.ts",
+      "line": 25,
+      "name": null,
+      "selfMs": 0,
+      "inclusiveMs": 2.288
+    },
+    {
+      "id": 287,
+      "parent": 286,
+      "function": "selector",
+      "source": "../../src/editor/PageEditor.tsx",
+      "line": 38,
+      "name": null,
+      "selfMs": 0,
+      "inclusiveMs": 2.242
+    },
+    {
+      "id": 288,
+      "parent": 287,
+      "function": "Xm",
+      "source": "../../src/editor/blocks.ts",
+      "line": 18,
+      "name": "adjacentBlockMove",
+      "selfMs": 0,
+      "inclusiveMs": 2.242
+    },
+    {
+      "id": 989,
+      "parent": 412,
+      "function": "",
+      "source": "../../src/editor/collaboration-history.ts",
+      "line": 8,
+      "name": null,
+      "selfMs": 0,
+      "inclusiveMs": 1.98
+    },
+    {
+      "id": 1128,
+      "parent": 430,
+      "function": "n.push.Os.widget.side",
+      "source": "../../src/editor/block-drag.ts",
+      "line": 28,
+      "name": null,
+      "selfMs": 1.286,
+      "inclusiveMs": 1.286
+    }
+  ]
+}

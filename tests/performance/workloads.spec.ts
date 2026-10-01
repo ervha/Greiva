@@ -62,6 +62,7 @@ test('STEP8-PAGE-1000: restore every journal update and measure actual key input
     await page.evaluate(()=>{
       type Input={at:number;keydownAt:number;data:string|null;nextFrameMs?:number;keydownToFrameMs?:number};type Write={startedAt:number;finishedAt:number;bytes:number;update:number[]};
       const inputs:Input[]=[];const frames:number[]=[];const longTasks:number[]=[];const writes:Write[]=[];let stopped=false;let last:number|null=null;let keydownAt=performance.now();
+      const initialHandles=Array.from(document.querySelectorAll('.block-handle-anchor'));
       const target=window as unknown as {greivaPerf:unknown};const nativeFetch=window.fetch.bind(window);
       window.fetch=async(...args:Parameters<typeof fetch>)=>{
         const fields=typeof args[1]?.body==='string' ? JSON.parse(args[1].body) as {command?:string;update?:number[]}:null;
@@ -73,15 +74,16 @@ test('STEP8-PAGE-1000: restore every journal update and measure actual key input
       document.querySelector('[aria-label="Page本文"]')!.addEventListener('input',input);
       const observer=new PerformanceObserver(list=>{for(const entry of list.getEntries())longTasks.push(entry.duration);});observer.observe({type:'longtask'});
       const tick=(now:number)=>{if(stopped)return;if(last!==null)frames.push(now-last);last=now;requestAnimationFrame(tick);};requestAnimationFrame(tick);
-      target.greivaPerf={stop(){stopped=true;observer.disconnect();window.fetch=nativeFetch;document.removeEventListener('keydown',keydown,true);document.querySelector('[aria-label="Page本文"]')!.removeEventListener('input',input);return {inputs,frames,longTasks,writes,capturedAt:performance.now()};}};
+      target.greivaPerf={stop(){stopped=true;observer.disconnect();window.fetch=nativeFetch;document.removeEventListener('keydown',keydown,true);document.querySelector('[aria-label="Page本文"]')!.removeEventListener('input',input);const currentHandles=Array.from(document.querySelectorAll('.block-handle-anchor'));return {inputs,frames,longTasks,writes,handleCount:currentHandles.length,retainedHandles:currentHandles.filter((node,index)=>node===initialHandles[index]).length,capturedAt:performance.now()};}};
     });
     await body(page).locator(':scope > p').nth(499).click();await page.keyboard.press('End');
     const text='abcdefghijklmnopqrstuvwxyz'.repeat(4);const typingStarted=performance.now();await page.keyboard.type(text,{delay:5});const typedMs=performance.now()-typingStarted;
     const finishedTyping=performance.now();await expect(page.getByLabel('端末の保存状態')).toHaveText('端末に保存済み');const savedAfterTypingMs=performance.now()-finishedTyping;
     await page.evaluate(()=>new Promise<void>(done=>requestAnimationFrame(()=>done())));
-    const metrics=await page.evaluate(()=> (window as unknown as {greivaPerf:{stop:()=>{inputs:Array<{at:number;keydownAt:number;data:string|null;nextFrameMs?:number;keydownToFrameMs?:number}>;frames:number[];longTasks:number[];writes:Array<{startedAt:number;finishedAt:number;bytes:number;update:number[]}>;capturedAt:number}}}).greivaPerf.stop());
+    const metrics=await page.evaluate(()=> (window as unknown as {greivaPerf:{stop:()=>{inputs:Array<{at:number;keydownAt:number;data:string|null;nextFrameMs?:number;keydownToFrameMs?:number}>;frames:number[];longTasks:number[];writes:Array<{startedAt:number;finishedAt:number;bytes:number;update:number[]}>;handleCount:number;retainedHandles:number;capturedAt:number}}}).greivaPerf.stop());
     const edited=await snapshot(page);const editedRows=[...rows];editedRows[499]+=text;
     expect(edited.json.content.map(row=>row.content?.map(leaf=>leaf.text??'').join(''))).toEqual(editedRows);expect(metrics.inputs).toHaveLength(text.length);
+    expect(metrics.handleCount).toBe(1000);expect(metrics.retainedHandles).toBe(1000);
     const stored=await rpc(request,device,'load',{pageId}) as {updates:number[][]};const disk=new Y.Doc();for(const bytes of stored.updates)Y.applyUpdate(disk,Uint8Array.from(bytes));
     expect(disk.getXmlFragment('body').toJSON()).toBe(edited.fragment);expect(Array.from(Y.decodeStateVector(Y.encodeStateVector(disk))).sort(([a],[b])=>a-b)).toEqual(edited.clocks);disk.destroy();
     const seedClients=new Set(expectedClocks.map(([client])=>client));const inputCommitMs:number[]=[];let committedInputs=0;

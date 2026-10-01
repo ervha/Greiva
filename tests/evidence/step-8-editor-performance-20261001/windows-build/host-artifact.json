@@ -1,0 +1,13 @@
+{
+  "verifiedAt": "2026-10-01T10:21:18.4102086Z",
+  "version": "0.6.4",
+  "productVersion": "0.6.4",
+  "artifact": ".data/host-ime/builds/0.6.4-embedded/greiva-poc.exe",
+  "sha256": "8e4d965d85bbbd75493713bc6de290c44d207d04ee9c1bd2701b32b929d07363",
+  "bytes": 18557952,
+  "dockerHostBytesMatch": true,
+  "sourceSha256": "668dbab5744083b681f91a83cf4fe954bcfeaa0c280ebf47deddcc85639d0be3",
+  "nativeOperations": "Not run at artifact checkpoint",
+  "microsoftIme": "Not run for latest candidate",
+  "build": "Debug native shell with embedded normal production frontend; release startup performance remains unverified"
+}

@@ -124,6 +124,38 @@ test('STEP2-MOVE: drag changes order, undo restores it, keyboard moves the block
   await expect.poll(texts).toEqual(['first', 'second', 'third']);
 });
 
+test('STEP8-HANDLES: typing retains handle DOM and dragging uses current offsets and text', async ({ page }) => {
+  const editor = await body(page);
+  await page.keyboard.type('first');await page.keyboard.press('Enter');
+  await page.keyboard.type('second');await page.keyboard.press('Enter');await page.keyboard.type('third');
+  await expect(editor.locator('.block-handle-anchor')).toHaveCount(3);
+  await editor.evaluate(element => {
+    (window as unknown as {greivaHandles:Element[]}).greivaHandles=Array.from(element.querySelectorAll('.block-handle-anchor'));
+  });
+  await editor.locator(':scope > p').first().click();await page.keyboard.press('End');await page.keyboard.type(' shifted');
+  await editor.locator(':scope > p').last().click();await page.keyboard.press('End');await page.keyboard.type(' edited');
+  await expect(editor).toBeFocused();
+  expect(await editor.evaluate(element => {
+    const before=(window as unknown as {greivaHandles:Element[]}).greivaHandles;
+    return Array.from(element.querySelectorAll('.block-handle-anchor')).every((node,index)=>node===before[index]);
+  })).toBe(true);
+  const texts=()=>editor.locator(':scope > p').allTextContents();
+  await expect.poll(texts).toEqual(['first shifted','second','third edited']);
+  const transfer=await page.evaluateHandle(()=>new DataTransfer());
+  const handle=editor.getByRole('button',{name:'ブロック3をドラッグして移動',exact:true});
+  await handle.dispatchEvent('dragstart',{dataTransfer:transfer});
+  expect(await transfer.evaluate(value=>value.getData('text/plain'))).toBe('third edited');
+  await handle.dispatchEvent('dragend');await transfer.dispose();
+  // Real pointer drag verifies the reused getPos after both offset and payload changed.
+  await handle.dragTo(editor.locator(':scope > p').first(),{targetPosition:{x:5,y:2}});
+  await expect.poll(texts).toEqual(['third edited','first shifted','second']);
+  await page.getByRole('button',{name:'元に戻す',exact:true}).click();
+  await expect.poll(texts).toEqual(['first shifted','second','third edited']);
+  await page.getByRole('button',{name:'やり直す',exact:true}).click();
+  await expect.poll(texts).toEqual(['third edited','first shifted','second']);
+  await expect(editor.getByRole('button',{name:'ブロック3をドラッグして移動',exact:true})).toHaveCount(1);
+});
+
 test('STEP2-COMPOSITION: slash menu does not consume composition Enter', async ({ page }) => {
   const editor = await body(page);
   await page.keyboard.type('/');

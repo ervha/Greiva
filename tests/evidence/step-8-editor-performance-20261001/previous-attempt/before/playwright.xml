@@ -1,0 +1,41 @@
+<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="7.154977">
+<testsuite name="editor.spec.ts" timestamp="2026-10-01T09:54:31.466Z" hostname="chromium" tests="1" failures="1" skipped="0" time="2.818" errors="0">
+<testcase name="STEP8-HANDLES: typing retains handle DOM and dragging uses current offsets and text" classname="editor.spec.ts" time="2.818">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-STEP8-HANDLES-typin-1e51d-es-current-offsets-and-text-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/editor-STEP8-HANDLES-typin-1e51d-es-current-offsets-and-text-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(received).toBe(expected) // Object.is equality" type="expect.toBe">
+<![CDATA[  [chromium] › editor.spec.ts:127:1 › STEP8-HANDLES: typing retains handle DOM and dragging uses current offsets and text 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      139 |     const before=(window as unknown as {greivaHandles:Element[]}).greivaHandles;
+      140 |     return Array.from(element.querySelectorAll('.block-handle-anchor')).every((node,index)=>node===before[index]);
+    > 141 |   })).toBe(true);
+          |       ^
+      142 |   const texts=()=>editor.locator(':scope > p').allTextContents();
+      143 |   await expect.poll(texts).toEqual(['first shifted','second','third edited']);
+      144 |   const transfer=await page.evaluateHandle(()=>new DataTransfer());
+        at /workspace/tests/e2e/editor.spec.ts:141:7
+
+    Error Context: ../../../evidence/step8-handles-before/artifacts/editor-STEP8-HANDLES-typin-1e51d-es-current-offsets-and-text-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/step8-handles-before/artifacts/editor-STEP8-HANDLES-typin-1e51d-es-current-offsets-and-text-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/step8-handles-before/artifacts/editor-STEP8-HANDLES-typin-1e51d-es-current-offsets-and-text-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+</testsuite>
+</testsuites>

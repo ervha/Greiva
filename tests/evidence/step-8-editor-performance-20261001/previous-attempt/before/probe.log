@@ -1,0 +1,36 @@
+
+Running 1 test using 1 worker
+
+  ✘  1 [chromium] › tests/e2e/editor.spec.ts:127:1 › STEP8-HANDLES: typing retains handle DOM and dragging uses current offsets and text (2.8s)
+
+
+  1) [chromium] › tests/e2e/editor.spec.ts:127:1 › STEP8-HANDLES: typing retains handle DOM and dragging uses current offsets and text 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: true
+    Received: false
+
+      139 |     const before=(window as unknown as {greivaHandles:Element[]}).greivaHandles;
+      140 |     return Array.from(element.querySelectorAll('.block-handle-anchor')).every((node,index)=>node===before[index]);
+    > 141 |   })).toBe(true);
+          |       ^
+      142 |   const texts=()=>editor.locator(':scope > p').allTextContents();
+      143 |   await expect.poll(texts).toEqual(['first shifted','second','third edited']);
+      144 |   const transfer=await page.evaluateHandle(()=>new DataTransfer());
+        at /workspace/tests/e2e/editor.spec.ts:141:7
+
+    Error Context: ../evidence/step8-handles-before/artifacts/editor-STEP8-HANDLES-typin-1e51d-es-current-offsets-and-text-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../evidence/step8-handles-before/artifacts/editor-STEP8-HANDLES-typin-1e51d-es-current-offsets-and-text-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../evidence/step8-handles-before/artifacts/editor-STEP8-HANDLES-typin-1e51d-es-current-offsets-and-text-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests/e2e/editor.spec.ts:127:1 › STEP8-HANDLES: typing retains handle DOM and dragging uses current offsets and text 
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.

@@ -2,6 +2,13 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.4 — 2026-10-01
+
+- Editor性能改善（PATCH）: 入力のたびに作り直していたブロックのドラッグハンドルDOMを再利用する。ドラッグ開始時には現在の位置と本文を読み、前のブロックの編集で位置が変わっても正しいブロックを移動する。保存・同期・IMEの契約は維持。
+- 実操作E2EでDOM保持、更新後のdrag payload／実pointer移動、Undo/Redoを検証。元の再生成と古い位置を使う誤修正が試験で失敗することもDocker内のprobeで確認。1,000 block／104文字の性能試験に全ハンドルの保持検査を追加。
+- 通常production frontendを埋め込んだWindows 0.6.4候補をDockerでlocked/offline cross-buildし、Windowsへコピーしたexeのバージョン・容量・SHA-256を照合。ホストtoolchain追加なし。候補の生成と実機操作・IMEの合否を区別する。
+- [最終検証・変更前後の観測](tests/evidence/step-8-editor-performance-20261001/SUMMARY.md)、[判断と残課題](docs/decisions/step-8-editor-performance.md)。Dockerの12項目・Editor44 E2EはPass。Windows最新候補／Microsoft IME、Windows release性能、P1/P2実OS、最終Gateは別の証拠が必要。
+
 ## 0.6.3 — 2026-10-01
 
 - 検証・開発環境の更新（PATCH）: Step 8のproduction frontend／release Rust性能試験を追加。空SQLite起動のWeb補助値、1,000 blockの全journal復元・104文字の実キー入力／frame／保存ACK、100回のYjs offline編集・再接続、1,000件のTask操作を実UI engineで測定し、全内容・queue・cursorと一件性を検証する。

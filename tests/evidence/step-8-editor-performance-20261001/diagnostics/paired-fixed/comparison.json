@@ -1,0 +1,72 @@
+{
+  "mode": "fixed",
+  "version": "0.6.4",
+  "scope": "Paired Docker diagnostic; only block-drag.ts switches between original and fixed. Retention assertion omitted from both test runs solely to observe baseline; all 104 characters, full structure/clocks and committed journal equality still asserted. One sample per mode; host load not fixed, order/cache effects possible. Not a native IME result.",
+  "stats": {
+    "startTime": "2026-10-01T10:09:51.099Z",
+    "duration": 32041.411,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "capturedAt": "2026-10-01T10:10:11.850Z",
+  "handleCount": 1000,
+  "retainedHandles": 1000,
+  "dataset": {
+    "blocks": 1000,
+    "initialJournalUpdates": 1001,
+    "seedMs": 11475.804112,
+    "typedCharacters": 104,
+    "keyDelayMs": 5
+  },
+  "restoreMs": {
+    "count": 3,
+    "min": 465.97184299999935,
+    "p50": 470.9997769999991,
+    "p95": 485.2417550000009,
+    "p99": 485.2417550000009,
+    "max": 485.2417550000009
+  },
+  "typedMs": 2844.6712069999976,
+  "keydownToFrameMs": {
+    "count": 104,
+    "min": 10.400000005960464,
+    "p50": 14.700000002980232,
+    "p95": 38.5,
+    "p99": 56.6000000089407,
+    "max": 73.8999999910593
+  },
+  "keydownToInputMs": {
+    "count": 104,
+    "min": 9.099999994039536,
+    "p50": 12.299999997019768,
+    "p95": 35.79999999701977,
+    "p99": 54.6000000089407,
+    "max": 72.59999999403954
+  },
+  "inputToCommitAckMs": {
+    "count": 104,
+    "min": 33.79999999701977,
+    "p50": 61.099999994039536,
+    "p95": 126.29999999701977,
+    "p99": 192.70000000298023,
+    "max": 205.29999999701977
+  },
+  "frameIntervalsMs": {
+    "count": 162,
+    "min": 16.59999999999991,
+    "p50": 16.699999999999818,
+    "p95": 33.40000000000009,
+    "p99": 50,
+    "max": 66.70000000000027
+  },
+  "appendRoundTripMs": {
+    "count": 62,
+    "min": 15.200000002980232,
+    "p50": 23.600000008940697,
+    "p95": 62,
+    "p99": 104.30000001192093,
+    "max": 104.30000001192093
+  }
+}

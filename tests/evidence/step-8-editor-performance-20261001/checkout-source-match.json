@@ -1,0 +1,21 @@
+{
+  "verifiedAt": "2026-10-01T10:12:59.8098013Z",
+  "parentCommit": "ce5d37273bdd04ca1def8b5a8e849650906ebccb",
+  "branch": "codex/poc-editor",
+  "version": "0.6.4",
+  "sourceSha256": "668dbab5744083b681f91a83cf4fe954bcfeaa0c280ebf47deddcc85639d0be3",
+  "fileCount": 130,
+  "inventoryMatches": true,
+  "sourceBytesMatch": true,
+  "specSha256": "0d9cf458a8d7a48ba6376688bd56eb0fcc6aa2c8c3e1904bdb976c256a90e36d",
+  "checks": 12,
+  "normalPass": 45,
+  "normalSkipped": 20,
+  "postgresPass": 20,
+  "editorE2EPass": 44,
+  "structuredE2EPass": 2,
+  "combinedCrashPass": 4,
+  "performanceE2EPass": 4,
+  "externalDependencies": "External npm entries and both Cargo external package blocks unchanged; only app owned versions updated",
+  "scope": "Docker production frontend/release Rust performance and regression. Source restore for diagnostic variants verified separately. Native Windows/IME/P1/P2 and Gates require separate evidence."
+}

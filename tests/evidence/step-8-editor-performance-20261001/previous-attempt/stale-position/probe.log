@@ -1,0 +1,36 @@
+
+Running 1 test using 1 worker
+
+  ✘  1 [chromium] › tests/e2e/editor.spec.ts:127:1 › STEP8-HANDLES: typing retains handle DOM and dragging uses current offsets and text (2.7s)
+
+
+  1) [chromium] › tests/e2e/editor.spec.ts:127:1 › STEP8-HANDLES: typing retains handle DOM and dragging uses current offsets and text 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "third edited"
+    Received: "second"
+
+      145 |   const handle=editor.getByRole('button',{name:'ブロック3をドラッグして移動',exact:true});
+      146 |   await handle.dispatchEvent('dragstart',{dataTransfer:transfer});
+    > 147 |   expect(await transfer.evaluate(value=>value.getData('text/plain'))).toBe('third edited');
+          |                                                                       ^
+      148 |   await handle.dispatchEvent('dragend');await transfer.dispose();
+      149 |   // Real pointer drag verifies the reused getPos after both offset and payload changed.
+      150 |   await handle.dragTo(editor.locator(':scope > p').first(),{targetPosition:{x:5,y:2}});
+        at /workspace/tests/e2e/editor.spec.ts:147:71
+
+    Error Context: ../evidence/step8-handles-stale-position/artifacts/editor-STEP8-HANDLES-typin-1e51d-es-current-offsets-and-text-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../evidence/step8-handles-stale-position/artifacts/editor-STEP8-HANDLES-typin-1e51d-es-current-offsets-and-text-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../evidence/step8-handles-stale-position/artifacts/editor-STEP8-HANDLES-typin-1e51d-es-current-offsets-and-text-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests/e2e/editor.spec.ts:127:1 › STEP8-HANDLES: typing retains handle DOM and dragging uses current offsets and text 
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.

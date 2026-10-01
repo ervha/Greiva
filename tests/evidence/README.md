@@ -2,6 +2,12 @@
 
 `docs/plan/POC_SPEC.md` Section 18 Step 8の性能観測まで記録しました。性能改善・native全件とGate A/B/Cの最終判定は未完了です。Windows実機の初回IMEと遠隔更新中に試した操作は利用者確認による結果を保持し、Google日本語入力の実キー結果はMicrosoft IMEへ流用しません。
 
+## Step 8: 入力時のDOM再生成改善（2026-10-01、v0.6.4）
+
+[最終Docker検証](step-8-editor-performance-20261001/SUMMARY.md)、[130ファイルの照合](step-8-editor-performance-20261001/checkout-source-match.json)、[測定値](step-8-editor-performance-20261001/performance-metrics.json)、[ハンドルだけの比較](step-8-editor-performance-20261001/handle-comparison.json)。通常45件・実PostgreSQL別run20件、Editor44・structured UI2・統合crash4・性能4ケースと12項目全体がPass。1,000 block／104文字の入力で1,000個すべてのhandle DOMを保持し、本文・構造・clock・保存差分の一致を確認。元の再生成と古いpositionを使う誤修正の退行検出も保持した。
+
+最終runのkeydown→commit ACK p95 106.7ms・最大176.2ms、復元3回の最大417.46ms。別run比較の負荷差を区別し、追加のハンドルだけの比較でも保持0→1,000とp95 294.4→126.3msを観測した。短縮率をWindows IPC／IMEや製品性能の保証にしない。[実装判断](../../docs/decisions/step-8-editor-performance.md)、[Dockerでの0.6.4 Windows候補buildとhost照合](step-8-editor-performance-20261001/windows-build/host-artifact.json)。最新候補のnative全操作・Microsoft IME、Windows release性能、P1/P2実OSと最終Gateは残る。
+
 ## Step 8: 性能測定・試験transport修正（2026-10-01、v0.6.3）
 
 [最終Docker検証](step-8-performance-20261001/SUMMARY.md)、[130ファイルのソース照合](step-8-performance-20261001/checkout-source-match.json)、[測定値](step-8-performance-20261001/performance-metrics.json)、[方法と残課題](../../docs/decisions/step-8-performance.md)。12項目Pass、通常45件（PostgreSQL専用20件skip、別runで20件Pass）、Editor43・structured UI2・統合crash4・性能4ケースにskip/flakyなし。production frontend／release Rustで実SQLite journal、実keyboard、実React TaskPanel engine／PostgreSQLを使用した。

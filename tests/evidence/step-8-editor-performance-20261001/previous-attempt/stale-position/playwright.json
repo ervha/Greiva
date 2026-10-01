@@ -1,0 +1,165 @@
+{
+  "config": {
+    "argv": [
+      "/usr/local/bin/node",
+      "/workspace/node_modules/.bin/playwright",
+      "test",
+      "--grep=STEP8-HANDLES",
+      "--workers=1"
+    ],
+    "configFile": "/workspace/playwright.config.ts",
+    "rootDir": "/workspace/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/evidence/step8-handles-stale-position/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/workspace/tests/e2e",
+        "testIgnore": [
+          "structured-sync.spec.ts",
+          "structured-crash.spec.ts"
+        ],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/evidence/step8-handles-stale-position/playwright.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "/evidence/step8-handles-stale-position/playwright.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "editor.spec.ts",
+      "file": "editor.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "STEP8-HANDLES: typing retains handle DOM and dragging uses current offsets and text",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 2659,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"\u001b[7mthird edite\u001b[27md\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7msecon\u001b[27md\"\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"\u001b[7mthird edite\u001b[27md\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7msecon\u001b[27md\"\u001b[39m\n    at /workspace/tests/e2e/editor.spec.ts:147:71",
+                    "location": {
+                      "file": "/workspace/tests/e2e/editor.spec.ts",
+                      "column": 71,
+                      "line": 147
+                    },
+                    "snippet": "  145 |   const handle=editor.getByRole('button',{name:'ブロック3をドラッグして移動',exact:true});\n  146 |   await handle.dispatchEvent('dragstart',{dataTransfer:transfer});\n> 147 |   expect(await transfer.evaluate(value=>value.getData('text/plain'))).toBe('third edited');\n      |                                                                       ^\n  148 |   await handle.dispatchEvent('dragend');await transfer.dispose();\n  149 |   // Real pointer drag verifies the reused getPos after both offset and payload changed.\n  150 |   await handle.dragTo(editor.locator(':scope > p').first(),{targetPosition:{x:5,y:2}});"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/tests/e2e/editor.spec.ts",
+                        "column": 71,
+                        "line": 147
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"\u001b[7mthird edite\u001b[27md\"\u001b[39m\nReceived: \u001b[31m\"\u001b[7msecon\u001b[27md\"\u001b[39m\n\n  145 |   const handle=editor.getByRole('button',{name:'ブロック3をドラッグして移動',exact:true});\n  146 |   await handle.dispatchEvent('dragstart',{dataTransfer:transfer});\n> 147 |   expect(await transfer.evaluate(value=>value.getData('text/plain'))).toBe('third edited');\n      |                                                                       ^\n  148 |   await handle.dispatchEvent('dragend');await transfer.dispose();\n  149 |   // Real pointer drag verifies the reused getPos after both offset and payload changed.\n  150 |   await handle.dragTo(editor.locator(':scope > p').first(),{targetPosition:{x:5,y:2}});\n    at /workspace/tests/e2e/editor.spec.ts:147:71"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-01T09:54:38.008Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/evidence/step8-handles-stale-position/artifacts/editor-STEP8-HANDLES-typin-1e51d-es-current-offsets-and-text-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/evidence/step8-handles-stale-position/artifacts/editor-STEP8-HANDLES-typin-1e51d-es-current-offsets-and-text-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/tests/e2e/editor.spec.ts",
+                    "column": 71,
+                    "line": 147
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "d2f56d7d370f0ba02e91-c7945db937b1159fcf84",
+          "file": "editor.spec.ts",
+          "line": 127,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-01T09:54:36.006Z",
+    "duration": 5180.874,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "parentCommit": "ce5d37273bdd04ca1def8b5a8e849650906ebccb",
+  "instrumentation": "CDP V8 CPU sampling during actual keyboard input only; test workload and runner temporarily modified in Docker, restored finally. All application source unchanged. Profile overhead means timing is diagnostic, not a replacement acceptance run.",
+  "startedAt": "2026-10-01T09:42:53.290Z"
+}

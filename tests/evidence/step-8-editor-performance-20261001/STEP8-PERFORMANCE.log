@@ -1,0 +1,25 @@
+
+> greiva-poc@0.6.4 test:performance
+> npm run build:packages && node scripts/test-performance.mjs
+
+
+> greiva-poc@0.6.4 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync
+
+
+> @greiva/shared@0.6.4 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.6.4 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.6.4 build
+> tsc -p tsconfig.json
+
+PERF-STORE-RELEASE: Pass
+PERF-BUILD-PACKAGES: Pass
+PERF-BUILD-SERVERS: Pass
+PERF-BUILD-CLIENT: Pass
+PERF-PLAYWRIGHT: Pass

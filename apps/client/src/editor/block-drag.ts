@@ -24,8 +24,8 @@ export const BlockDrag = Extension.create({
       props: {
         decorations: state => {
           const decorations: Decoration[] = [];
-          state.doc.forEach((node, pos, index) => {
-            decorations.push(Decoration.widget(pos, view => {
+          state.doc.forEach((_node, pos, index) => {
+            decorations.push(Decoration.widget(pos, (view, getPos) => {
               const wrapper = document.createElement('span');
               wrapper.className = 'block-handle-anchor';
               wrapper.contentEditable = 'false';
@@ -39,8 +39,12 @@ export const BlockDrag = Extension.create({
               // The widget's stopEvent keeps ProseMirror from changing the selection.
               // Cancelling mousedown here would also cancel the browser's native drag.
               handle.addEventListener('dragstart', event => {
-                if (!event.dataTransfer || view.composing) { event.preventDefault(); return; }
-                drag = { from: pos, doc: view.state.doc };
+                // A retained widget may have shifted after preceding text edits.
+                // Read its current position and payload rather than its creation state.
+                const from = getPos();
+                const node = from === undefined ? null : view.state.doc.nodeAt(from);
+                if (!event.dataTransfer || view.composing || from === undefined || !node) { event.preventDefault(); return; }
+                drag = { from, doc: view.state.doc };
                 event.dataTransfer.setData(dragType, 'move');
                 event.dataTransfer.setData('text/plain', node.textContent);
                 event.dataTransfer.effectAllowed = 'move';
@@ -49,7 +53,9 @@ export const BlockDrag = Extension.create({
               handle.addEventListener('dragend', () => { drag = null; });
               wrapper.append(handle);
               return wrapper;
-            }, { side: -1, stopEvent: () => true }));
+            // The handle represents the current ordinal, not a captured block.
+            // Equal keys let ProseMirror retain its DOM during ordinary typing.
+            }, { key: `greiva-block-handle-${index}`, side: -1, stopEvent: () => true }));
           });
           return DecorationSet.create(state.doc, decorations);
         },

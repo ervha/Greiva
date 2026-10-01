@@ -1,0 +1,41 @@
+<testsuites id="" name="" tests="1" failures="1" skipped="0" errors="0" time="5.180874">
+<testsuite name="editor.spec.ts" timestamp="2026-10-01T09:54:37.704Z" hostname="chromium" tests="1" failures="1" skipped="0" time="2.659" errors="0">
+<testcase name="STEP8-HANDLES: typing retains handle DOM and dragging uses current offsets and text" classname="editor.spec.ts" time="2.659">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-STEP8-HANDLES-typin-1e51d-es-current-offsets-and-text-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/editor-STEP8-HANDLES-typin-1e51d-es-current-offsets-and-text-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(received).toBe(expected) // Object.is equality" type="expect.toBe">
+<![CDATA[  [chromium] › editor.spec.ts:127:1 › STEP8-HANDLES: typing retains handle DOM and dragging uses current offsets and text 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "third edited"
+    Received: "second"
+
+      145 |   const handle=editor.getByRole('button',{name:'ブロック3をドラッグして移動',exact:true});
+      146 |   await handle.dispatchEvent('dragstart',{dataTransfer:transfer});
+    > 147 |   expect(await transfer.evaluate(value=>value.getData('text/plain'))).toBe('third edited');
+          |                                                                       ^
+      148 |   await handle.dispatchEvent('dragend');await transfer.dispose();
+      149 |   // Real pointer drag verifies the reused getPos after both offset and payload changed.
+      150 |   await handle.dragTo(editor.locator(':scope > p').first(),{targetPosition:{x:5,y:2}});
+        at /workspace/tests/e2e/editor.spec.ts:147:71
+
+    Error Context: ../../../evidence/step8-handles-stale-position/artifacts/editor-STEP8-HANDLES-typin-1e51d-es-current-offsets-and-text-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/step8-handles-stale-position/artifacts/editor-STEP8-HANDLES-typin-1e51d-es-current-offsets-and-text-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/step8-handles-stale-position/artifacts/editor-STEP8-HANDLES-typin-1e51d-es-current-offsets-and-text-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+</testsuite>
+</testsuites>

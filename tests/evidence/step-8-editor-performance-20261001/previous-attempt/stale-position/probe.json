@@ -1,0 +1,14 @@
+{
+  "mode": "stale-position",
+  "exitCode": 1,
+  "stats": {
+    "startTime": "2026-10-01T09:54:36.006Z",
+    "duration": 5180.874,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  },
+  "scope": "Docker-only test fault probe; restore fixed app source finally. Expected Fail is retained and does not count as Pass.",
+  "expectedRegressionReproduced": true
+}

@@ -1,0 +1,75 @@
+{
+  "capturedAt": "2026-10-01T10:17:03.633Z",
+  "version": "0.6.4",
+  "sourceParentCommit": "ce5d37273bdd04ca1def8b5a8e849650906ebccb",
+  "sourceSha256": "668dbab5744083b681f91a83cf4fe954bcfeaa0c280ebf47deddcc85639d0be3",
+  "sourceFileCount": 130,
+  "sourceBytesMatch": true,
+  "scope": "Docker-only Windows x86_64 MSVC debug candidate with embedded normal production frontend. No host toolchain. Native operation/IME and Windows release performance not inferred from build.",
+  "testFrontendFlags": 0,
+  "storeFeatures": [
+    "default"
+  ],
+  "artifact": {
+    "path": ".data/windows-target/x86_64-pc-windows-msvc/debug/greiva-poc.exe",
+    "sha256": "8e4d965d85bbbd75493713bc6de290c44d207d04ee9c1bd2701b32b929d07363",
+    "bytes": 18557952
+  },
+  "results": [
+    {
+      "id": "NATIVE-FRONTEND",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "startedAt": "2026-10-01T10:16:30.210Z",
+      "finishedAt": "2026-10-01T10:16:33.584Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "id": "NATIVE-FEATURES",
+      "command": [
+        "cargo",
+        "metadata",
+        "--offline",
+        "--locked",
+        "--format-version",
+        "1",
+        "--manifest-path",
+        "apps/client/src-tauri/Cargo.toml",
+        "--filter-platform",
+        "x86_64-pc-windows-msvc",
+        "--features",
+        "custom-protocol"
+      ],
+      "startedAt": "2026-10-01T10:16:33.586Z",
+      "finishedAt": "2026-10-01T10:16:34.622Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "id": "NATIVE-CROSS-BUILD",
+      "command": [
+        "cargo",
+        "xwin",
+        "build",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "apps/client/src-tauri/Cargo.toml",
+        "--target",
+        "x86_64-pc-windows-msvc",
+        "--features",
+        "custom-protocol",
+        "--target-dir",
+        ".data/windows-target"
+      ],
+      "startedAt": "2026-10-01T10:16:34.634Z",
+      "finishedAt": "2026-10-01T10:17:03.610Z",
+      "exitCode": 0,
+      "signal": null
+    }
+  ]
+}

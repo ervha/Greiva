@@ -1,0 +1,136 @@
+[
+  {
+    "capturedAt": "2026-10-01T09:59:02.363Z",
+    "dataset": null,
+    "editableMs": {
+      "count": 3,
+      "min": 773.9791540000001,
+      "p50": 827.7567180000001,
+      "p95": 846.996826,
+      "p99": 846.996826,
+      "max": 846.996826
+    },
+    "restoreMs": null,
+    "typedMs": null,
+    "savedAfterTypingMs": null,
+    "keydownToFrameMs": null,
+    "keydownToInputMs": null,
+    "inputToCommitAckMs": null,
+    "frameIntervalsMs": null,
+    "appendRoundTripMs": null,
+    "convergenceMs": null,
+    "queueCreationMs": null,
+    "offlineRestoreMs": null,
+    "handleCount": null,
+    "retainedHandles": null
+  },
+  {
+    "capturedAt": "2026-10-01T09:59:16.106Z",
+    "dataset": {
+      "blocks": 1000,
+      "initialJournalUpdates": 1001,
+      "seedMs": 8589.441893,
+      "typedCharacters": 104,
+      "keyDelayMs": 5
+    },
+    "editableMs": null,
+    "restoreMs": {
+      "count": 3,
+      "min": 387.58018300000003,
+      "p50": 387.7380209999992,
+      "p95": 417.46472600000016,
+      "p99": 417.46472600000016,
+      "max": 417.46472600000016
+    },
+    "typedMs": 2686.0065720000002,
+    "savedAfterTypingMs": 42.8322960000005,
+    "keydownToFrameMs": {
+      "count": 104,
+      "min": 9.599999994039536,
+      "p50": 13.5,
+      "p95": 48,
+      "p99": 72.5,
+      "max": 106.29999999701977
+    },
+    "keydownToInputMs": {
+      "count": 104,
+      "min": 8.199999988079071,
+      "p50": 11.200000002980232,
+      "p95": 29.099999994039536,
+      "p99": 63.29999999701977,
+      "max": 70.79999999701977
+    },
+    "inputToCommitAckMs": {
+      "count": 104,
+      "min": 23.799999997019768,
+      "p50": 50.79999999701977,
+      "p95": 106.70000000298023,
+      "p99": 152.90000000596046,
+      "max": 176.20000000298023
+    },
+    "frameIntervalsMs": {
+      "count": 149,
+      "min": 16.5,
+      "p50": 16.699999999999818,
+      "p95": 50,
+      "p99": 100,
+      "max": 133.39999999999998
+    },
+    "appendRoundTripMs": {
+      "count": 75,
+      "min": 8.200000002980232,
+      "p50": 20,
+      "p95": 70.79999999701977,
+      "p99": 136.79999999701977,
+      "max": 136.79999999701977
+    },
+    "convergenceMs": null,
+    "queueCreationMs": null,
+    "offlineRestoreMs": null,
+    "handleCount": 1000,
+    "retainedHandles": 1000
+  },
+  {
+    "capturedAt": "2026-10-01T09:59:18.724Z",
+    "dataset": {
+      "clients": 2,
+      "keyEditsPerClient": 50
+    },
+    "editableMs": null,
+    "restoreMs": null,
+    "typedMs": null,
+    "savedAfterTypingMs": null,
+    "keydownToFrameMs": null,
+    "keydownToInputMs": null,
+    "inputToCommitAckMs": null,
+    "frameIntervalsMs": null,
+    "appendRoundTripMs": null,
+    "convergenceMs": 921.2269900000028,
+    "queueCreationMs": null,
+    "offlineRestoreMs": null,
+    "handleCount": null,
+    "retainedHandles": null
+  },
+  {
+    "capturedAt": "2026-10-01T10:00:26.024Z",
+    "dataset": {
+      "tasks": 250,
+      "operationsPerTask": 4,
+      "operations": 1000
+    },
+    "editableMs": null,
+    "restoreMs": null,
+    "typedMs": null,
+    "savedAfterTypingMs": null,
+    "keydownToFrameMs": null,
+    "keydownToInputMs": null,
+    "inputToCommitAckMs": null,
+    "frameIntervalsMs": null,
+    "appendRoundTripMs": null,
+    "convergenceMs": 55241.984683,
+    "queueCreationMs": 8728.379270999998,
+    "offlineRestoreMs": 133.7111539999969,
+    "handleCount": null,
+    "retainedHandles": null
+  }
+]

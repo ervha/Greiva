@@ -1,0 +1,117 @@
+{
+  "boundary": "after-commit",
+  "kills": [
+    {
+      "pid": 50234,
+      "signal": "SIGKILL",
+      "at": "2026-10-01T09:57:22.284Z"
+    }
+  ],
+  "prepared": {
+    "operationId": "01a0f6e5-a9ec-7203-be1c-eb3a5ec24add",
+    "entityType": "task",
+    "entityId": "01a0f6e5-a9ec-7203-be1c-ece278766ef5",
+    "kind": "create",
+    "baseVersion": null,
+    "payload": {
+      "due": null,
+      "status": "todo",
+      "title": "API process crash"
+    },
+    "clientId": "01a0f6e5-a991-73ff-bfc4-6d18b6cb3bbe"
+  },
+  "originalCursor": "g1.01a0f6e5-a98a-7616-b288-aed1085aa731.0.-nZsesWxvXWC3H3y4du6qb16K2iv5BZwZbC3CIY5tQs",
+  "local": {
+    "tasks": [
+      {
+        "id": "01a0f6e5-a9ec-7203-be1c-ece278766ef5",
+        "title": "API process crash",
+        "status": "todo",
+        "due": null,
+        "version": 1,
+        "createdAt": "2026-10-01T09:57:22.257Z",
+        "updatedAt": "2026-10-01T09:57:22.257Z",
+        "deletedAt": null
+      }
+    ],
+    "relations": [],
+    "operations": [
+      {
+        "operationId": "01a0f6e5-a9ec-7203-be1c-eb3a5ec24add",
+        "entityType": "task",
+        "entityId": "01a0f6e5-a9ec-7203-be1c-ece278766ef5",
+        "kind": "create",
+        "baseVersion": null,
+        "payload": {
+          "due": null,
+          "status": "todo",
+          "title": "API process crash"
+        },
+        "clientId": "01a0f6e5-a991-73ff-bfc4-6d18b6cb3bbe",
+        "createdAt": "2026-10-01T09:57:21.517Z",
+        "status": "acknowledged"
+      }
+    ],
+    "state": {
+      "stream": "structured",
+      "cursor": "g1.01a0f6e5-a98a-7616-b288-aed1085aa731.1.ZF7e2IKgQI7eNwCNe4SFIOUxn_CgVIDBwGdAQ9tkKvo",
+      "headCursor": "g1.01a0f6e5-a98a-7616-b288-aed1085aa731.1.ZF7e2IKgQI7eNwCNe4SFIOUxn_CgVIDBwGdAQ9tkKvo",
+      "lastSuccessfulSyncAt": "2026-10-01T09:57:23.065Z"
+    },
+    "clientId": "01a0f6e5-a991-73ff-bfc4-6d18b6cb3bbe",
+    "conflicts": [],
+    "errors": []
+  },
+  "remote": {
+    "tasks": [
+      {
+        "id": "01a0f6e5-a9ec-7203-be1c-ece278766ef5",
+        "title": "API process crash",
+        "status": "todo",
+        "due": null,
+        "version": 1,
+        "createdAt": "2026-10-01T09:57:22.257Z",
+        "updatedAt": "2026-10-01T09:57:22.257Z",
+        "deletedAt": null
+      }
+    ],
+    "relations": [],
+    "operations": [],
+    "state": {
+      "stream": "structured",
+      "cursor": "g1.01a0f6e5-a98a-7616-b288-aed1085aa731.1.ZF7e2IKgQI7eNwCNe4SFIOUxn_CgVIDBwGdAQ9tkKvo",
+      "headCursor": "g1.01a0f6e5-a98a-7616-b288-aed1085aa731.1.ZF7e2IKgQI7eNwCNe4SFIOUxn_CgVIDBwGdAQ9tkKvo",
+      "lastSuccessfulSyncAt": "2026-10-01T09:57:23.099Z"
+    },
+    "clientId": "01a0f6e5-a9bd-7687-823b-255e2e3b08d5",
+    "conflicts": [],
+    "errors": []
+  },
+  "stream": {
+    "operations": [
+      {
+        "operationId": "01a0f6e5-a9ec-7203-be1c-eb3a5ec24add",
+        "clientId": "01a0f6e5-a991-73ff-bfc4-6d18b6cb3bbe",
+        "entityType": "task",
+        "entityId": "01a0f6e5-a9ec-7203-be1c-ece278766ef5",
+        "serverOrder": "1",
+        "conflicts": [],
+        "status": "acknowledged",
+        "entity": {
+          "id": "01a0f6e5-a9ec-7203-be1c-ece278766ef5",
+          "title": "API process crash",
+          "status": "todo",
+          "due": null,
+          "version": 1,
+          "createdAt": "2026-10-01T09:57:22.257Z",
+          "updatedAt": "2026-10-01T09:57:22.257Z",
+          "deletedAt": null
+        }
+      }
+    ],
+    "cursor": "g1.01a0f6e5-a98a-7616-b288-aed1085aa731.1.ZF7e2IKgQI7eNwCNe4SFIOUxn_CgVIDBwGdAQ9tkKvo",
+    "headCursor": "g1.01a0f6e5-a98a-7616-b288-aed1085aa731.1.ZF7e2IKgQI7eNwCNe4SFIOUxn_CgVIDBwGdAQ9tkKvo",
+    "hasMore": false,
+    "serverTime": "2026-10-01T09:57:23.132Z"
+  }
+}
