@@ -1,0 +1,315 @@
+{
+  "runId": "2026-10-01T01-47-25-662Z",
+  "clientId": "bd966c8d-bf2e-4edb-8493-edcc6cdfc8b7",
+  "pageId": "019a0070-0000-7000-8000-000000000001",
+  "outcome": "Remote updates acknowledged; native IME outcome pending",
+  "records": [
+    {
+      "at": "2026-10-01T01:47:25.693Z",
+      "type": "connection",
+      "status": "connecting"
+    },
+    {
+      "at": "2026-10-01T01:47:25.719Z",
+      "type": "connection",
+      "status": "connected"
+    },
+    {
+      "at": "2026-10-01T01:47:25.719Z",
+      "type": "connection",
+      "status": "connected"
+    },
+    {
+      "at": "2026-10-01T01:47:25.720Z",
+      "type": "pending",
+      "number": 1
+    },
+    {
+      "at": "2026-10-01T01:47:25.722Z",
+      "type": "connection",
+      "status": "connected"
+    },
+    {
+      "at": "2026-10-01T01:47:25.722Z",
+      "type": "connection",
+      "status": "connected"
+    },
+    {
+      "at": "2026-10-01T01:47:25.729Z",
+      "type": "synced",
+      "state": true
+    },
+    {
+      "at": "2026-10-01T01:47:25.730Z",
+      "type": "pending",
+      "number": 0
+    },
+    {
+      "at": "2026-10-01T01:47:25.744Z",
+      "type": "ready",
+      "clientId": "bd966c8d-bf2e-4edb-8493-edcc6cdfc8b7",
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "directory": "/workspace/.data/host-ime/remote-2026-10-01T01-47-25-662Z",
+      "firstUpdateAfterMs": 20000,
+      "intervalMs": 5000,
+      "count": 12
+    },
+    {
+      "at": "2026-10-01T01:47:45.748Z",
+      "type": "pending",
+      "number": 1
+    },
+    {
+      "at": "2026-10-01T01:47:45.748Z",
+      "type": "sent",
+      "sequence": 1,
+      "target": "separate-paragraph"
+    },
+    {
+      "at": "2026-10-01T01:47:45.755Z",
+      "type": "pending",
+      "number": 0
+    },
+    {
+      "at": "2026-10-01T01:47:45.798Z",
+      "type": "acknowledged",
+      "sequence": 1
+    },
+    {
+      "at": "2026-10-01T01:47:50.798Z",
+      "type": "pending",
+      "number": 1
+    },
+    {
+      "at": "2026-10-01T01:47:50.799Z",
+      "type": "sent",
+      "sequence": 2,
+      "target": "separate-paragraph"
+    },
+    {
+      "at": "2026-10-01T01:47:50.804Z",
+      "type": "pending",
+      "number": 0
+    },
+    {
+      "at": "2026-10-01T01:47:50.849Z",
+      "type": "acknowledged",
+      "sequence": 2
+    },
+    {
+      "at": "2026-10-01T01:47:55.847Z",
+      "type": "pending",
+      "number": 1
+    },
+    {
+      "at": "2026-10-01T01:47:55.848Z",
+      "type": "sent",
+      "sequence": 3,
+      "target": "separate-paragraph"
+    },
+    {
+      "at": "2026-10-01T01:47:55.856Z",
+      "type": "pending",
+      "number": 0
+    },
+    {
+      "at": "2026-10-01T01:47:55.899Z",
+      "type": "acknowledged",
+      "sequence": 3
+    },
+    {
+      "at": "2026-10-01T01:48:00.900Z",
+      "type": "pending",
+      "number": 1
+    },
+    {
+      "at": "2026-10-01T01:48:00.900Z",
+      "type": "sent",
+      "sequence": 4,
+      "target": "separate-paragraph"
+    },
+    {
+      "at": "2026-10-01T01:48:00.907Z",
+      "type": "pending",
+      "number": 0
+    },
+    {
+      "at": "2026-10-01T01:48:00.950Z",
+      "type": "acknowledged",
+      "sequence": 4
+    },
+    {
+      "at": "2026-10-01T01:48:05.951Z",
+      "type": "pending",
+      "number": 1
+    },
+    {
+      "at": "2026-10-01T01:48:05.951Z",
+      "type": "sent",
+      "sequence": 5,
+      "target": "separate-paragraph"
+    },
+    {
+      "at": "2026-10-01T01:48:05.957Z",
+      "type": "pending",
+      "number": 0
+    },
+    {
+      "at": "2026-10-01T01:48:06.001Z",
+      "type": "acknowledged",
+      "sequence": 5
+    },
+    {
+      "at": "2026-10-01T01:48:11.001Z",
+      "type": "pending",
+      "number": 1
+    },
+    {
+      "at": "2026-10-01T01:48:11.002Z",
+      "type": "sent",
+      "sequence": 6,
+      "target": "separate-paragraph"
+    },
+    {
+      "at": "2026-10-01T01:48:11.008Z",
+      "type": "pending",
+      "number": 0
+    },
+    {
+      "at": "2026-10-01T01:48:11.052Z",
+      "type": "acknowledged",
+      "sequence": 6
+    },
+    {
+      "at": "2026-10-01T01:48:16.053Z",
+      "type": "pending",
+      "number": 1
+    },
+    {
+      "at": "2026-10-01T01:48:16.054Z",
+      "type": "sent",
+      "sequence": 7,
+      "target": "native-first-paragraph"
+    },
+    {
+      "at": "2026-10-01T01:48:16.061Z",
+      "type": "pending",
+      "number": 0
+    },
+    {
+      "at": "2026-10-01T01:48:16.104Z",
+      "type": "acknowledged",
+      "sequence": 7
+    },
+    {
+      "at": "2026-10-01T01:48:21.105Z",
+      "type": "pending",
+      "number": 1
+    },
+    {
+      "at": "2026-10-01T01:48:21.105Z",
+      "type": "sent",
+      "sequence": 8,
+      "target": "native-first-paragraph"
+    },
+    {
+      "at": "2026-10-01T01:48:21.112Z",
+      "type": "pending",
+      "number": 0
+    },
+    {
+      "at": "2026-10-01T01:48:21.155Z",
+      "type": "acknowledged",
+      "sequence": 8
+    },
+    {
+      "at": "2026-10-01T01:48:26.155Z",
+      "type": "pending",
+      "number": 1
+    },
+    {
+      "at": "2026-10-01T01:48:26.155Z",
+      "type": "sent",
+      "sequence": 9,
+      "target": "native-first-paragraph"
+    },
+    {
+      "at": "2026-10-01T01:48:26.161Z",
+      "type": "pending",
+      "number": 0
+    },
+    {
+      "at": "2026-10-01T01:48:26.205Z",
+      "type": "acknowledged",
+      "sequence": 9
+    },
+    {
+      "at": "2026-10-01T01:48:31.206Z",
+      "type": "pending",
+      "number": 1
+    },
+    {
+      "at": "2026-10-01T01:48:31.206Z",
+      "type": "sent",
+      "sequence": 10,
+      "target": "native-first-paragraph"
+    },
+    {
+      "at": "2026-10-01T01:48:31.214Z",
+      "type": "pending",
+      "number": 0
+    },
+    {
+      "at": "2026-10-01T01:48:31.256Z",
+      "type": "acknowledged",
+      "sequence": 10
+    },
+    {
+      "at": "2026-10-01T01:48:36.257Z",
+      "type": "pending",
+      "number": 1
+    },
+    {
+      "at": "2026-10-01T01:48:36.258Z",
+      "type": "sent",
+      "sequence": 11,
+      "target": "native-first-paragraph"
+    },
+    {
+      "at": "2026-10-01T01:48:36.264Z",
+      "type": "pending",
+      "number": 0
+    },
+    {
+      "at": "2026-10-01T01:48:36.308Z",
+      "type": "acknowledged",
+      "sequence": 11
+    },
+    {
+      "at": "2026-10-01T01:48:41.309Z",
+      "type": "pending",
+      "number": 1
+    },
+    {
+      "at": "2026-10-01T01:48:41.310Z",
+      "type": "sent",
+      "sequence": 12,
+      "target": "native-first-paragraph"
+    },
+    {
+      "at": "2026-10-01T01:48:41.320Z",
+      "type": "pending",
+      "number": 0
+    },
+    {
+      "at": "2026-10-01T01:48:41.360Z",
+      "type": "acknowledged",
+      "sequence": 12
+    },
+    {
+      "at": "2026-10-01T01:48:41.360Z",
+      "type": "updates-finished",
+      "nativeResult": "Pending user report and native observations"
+    }
+  ]
+}

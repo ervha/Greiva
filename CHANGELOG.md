@@ -2,6 +2,13 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.2.1 — 2026-10-01
+
+- 検証記録更新（PATCH）: Windows実機のMicrosoft IME操作中にDocker peerから12回更新し、全受領を確認。利用者が試した変換・再変換・選択・Undo/Redoはすべて正常、双方の文字保持と回答。
+- Computer Useで実機のIME候補と遠隔本文をfocus変更なしに独立観察。選別した画像・時刻、送信/ACKログ、peer状態と再現脚本を保存。[証拠と限界](tests/evidence/windows-remote-ime-20261001/SUMMARY.md)。同一段落composition重複やnative全件、Gate最終Passへ拡張しない。
+- アプリソース・依存・実行物は変更なし。frontend/app source 0.2.0、既存Windows shell 0.0.0を維持。自動試験は再実行していない。
+- 検証: Docker内脚本構文、12送信/ACK対応、JSON・リンク・差分、PoC仕様と既存native実行物hash不変。
+
 ## 0.2.0 — 2026-10-01
 
 - 実装更新（MINOR）: Page本文をYjs/Hocuspocusへ接続。Page分離、ランダムclientIdのログ、初回同期、一時切断・再接続、未確認更新の表示を追加。

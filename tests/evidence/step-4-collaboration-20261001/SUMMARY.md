@@ -38,6 +38,6 @@
 
 [初回29/37 run](previous-attempt/playwright.json)と[原因・修正](../../../docs/failures/step-4-collaboration.md)を保持した。Yjs履歴境界の実装不備と選択・NodeView対象の試験不備を区別する。
 
-Step 4の実装とA/B自動試験は完了。**実機Microsoft IMEのcomposition中にremote updateを受ける手動試験は未実施**で、利用者の操作待ち。既存Windows shellは0.0.0、今回のDocker frontendは0.2.0。Linux Cargo/ChromiumをWindows配布ビルドや実IMEの成功として数えない。
+Step 4の実装とA/B自動試験は完了。この自動run保存時には実機IMEのremote更新試験は未実施だった。その後、[2026-10-01の実機試験](../windows-remote-ime-20261001/SUMMARY.md)で12回の送信と利用者の操作Pass、実機候補画面の独立観察を追加した。既存Windows shellは0.0.0、今回のDocker frontendは0.2.0。Linux Cargo/ChromiumをWindows配布ビルドや実IMEの成功として数えない。
 
 端末SQLiteのPage/update保存、offline強制終了復元はStep 5。端末内の未送信変更はメモリー上のみで、画面終了で失われる。「サーバーと同期済み」は端末保存を意味しない。Gate A/B/Cの最終判定は行っていない。

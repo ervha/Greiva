@@ -1,0 +1,30 @@
+{
+  "recordedAt": "2026-10-01T01:50:32.3096493Z",
+  "checkpoint": "0.2.1",
+  "testedSourceCommit": "4b8469ae5b4c65c969156ee447634281e6d04e5d",
+  "frontendVersion": "0.2.0",
+  "nativeExecutableVersion": "0.0.0",
+  "nativeExecutableSha256": "1F397C61588B42F26CAA05EF7F23BA4C435CDF140F35536D70F299C8138D410C",
+  "operator": "User; actual Microsoft IME in Windows Tauri window",
+  "method": "Timed Docker Hocuspocus peer; independent native screenshot observation without focus changes",
+  "result": "Pass for user-reported tested interactions",
+  "question": "更新が届く間の日本語変換・候補選択・確定・再変換と、確定後の選択・Undo/Redoはどうでしたか？ 文字欠落、二重入力、予期しない確定、カーソル移動があれば、その操作も教えてください。",
+  "answer": "A：試した操作はすべて正常で、自分の文字と遠隔の文字が保持された",
+  "remotePeerClientId": "bd966c8d-bf2e-4edb-8493-edcc6cdfc8b7",
+  "pageId": "019a0070-0000-7000-8000-000000000001",
+  "sentCount": 12,
+  "acknowledgedCount": 12,
+  "independentObservations": [
+    "01:48:14.144Z: Microsoft IME suggestions visible with all six separate-paragraph markers",
+    "01:48:36.401Z: first-paragraph markers 7 through 11 visible; user continues native block/Slash operations"
+  ],
+  "limitations": [
+    "No exact keystroke or video log",
+    "Reconverting, selection and Undo/Redo are user reports, not independently observed",
+    "The composed text in the captured IME screenshot is in another paragraph; same-paragraph composition overlap is not established",
+    "Peer final state is one client snapshot, not a native state-vector equality check",
+    "A post-test capture showed an occluding unrelated window and is excluded from selected evidence",
+    "Gate A/B/C final judgments and remaining native block coverage are pending"
+  ],
+  "automatedEvidence": "../step-4-collaboration-20261001/SUMMARY.md"
+}

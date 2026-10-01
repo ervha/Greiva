@@ -1,0 +1,24 @@
+{
+  "verifiedAt": "2026-10-01T01:55:19.2215761Z",
+  "validation": "Pass",
+  "localLinksChecked": 114,
+  "sentAndAcknowledged": 12,
+  "specSha256": "1227C3562632C170967534FCB2AAA3557D69E033FAFBD3E959A25A84C20663C0",
+  "sourceCommit": "4b8469ae5b4c65c969156ee447634281e6d04e5d",
+  "appSourceChanged": false,
+  "appTestsRerun": false,
+  "scriptSyntaxCheck": "Pass in running Docker Node",
+  "nativeExecutableHashUnchanged": true,
+  "selectedImages": [
+    {
+      "sha256": "284F1DCFE15EAC31DC6D4EA9EEDB67F9903FD1E060BC875DA46D01838AA59E26",
+      "bytes": 69377,
+      "file": "01-during-updates.jpg"
+    },
+    {
+      "sha256": "0FB4E28E8E63FB5835CAAA2332948358D0F036AC3085E6E84B1F5CDA151927C3",
+      "bytes": 78318,
+      "file": "02-during-updates.jpg"
+    }
+  ]
+}

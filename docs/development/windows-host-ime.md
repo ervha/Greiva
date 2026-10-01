@@ -18,7 +18,7 @@ WebView2のユーザーデータは子プロセスの`WEBVIEW2_USER_DATA_FOLDER`
 
 ## 実際のIME操作
 
-日本語文字列の貼付け、Unicode直接挿入、合成CompositionEventで代替しない。Microsoft IMEへ切り替え、実際のキー入力、候補選択、未確定状態を観察する。現在の接続にはWindows GUIを操作するツールがないため、操作と画面の確認は利用者が行う。Codexは結果と証拠を整理する。
+日本語文字列の貼付け、Unicode直接挿入、合成CompositionEventで代替しない。Microsoft IMEへ切り替え、実際のキー入力、候補選択、未確定状態を観察する。初回local試験ではWindows GUIツールが利用できず、操作・画面確認は利用者が行った。2026-10-01の接続中試験ではComputer Useで実機画面を独立観察できた。利用者の入力中はfocusを変えず、クリック・入力を行わない。試験ごとに操作者・観察方法を記録する。
 
 | ID | 操作 | 期待結果 |
 | --- | --- | --- |
@@ -35,7 +35,7 @@ WebView2のユーザーデータは子プロセスの`WEBVIEW2_USER_DATA_FOLDER`
 
 ## 次のステップとの境界
 
-Step 4のDocker frontend 0.2.0は既存debug shell 0.0.0へ接続できる。元のshellを新規0.2.0実行物として扱わない。[自動試験とソース対応](../../tests/evidence/step-4-collaboration-20261001/SUMMARY.md)。接続中のIMEは追加試験が必要。
+Step 4のDocker frontend 0.2.0は既存debug shell 0.0.0へ接続できる。元のshellを新規0.2.0実行物として扱わない。[自動試験とソース対応](../../tests/evidence/step-4-collaboration-20261001/SUMMARY.md)。[接続中の追加試験](../../tests/evidence/windows-remote-ime-20261001/SUMMARY.md)では12回の遠隔更新を送信し、利用者が試した操作すべて正常・双方の文字保持と回答した。Codexは実機IME候補と遠隔文字の同時表示を独立観察した。同一段落内のcomposition重複は観察証拠からは確立していない。
 
 同一Pageの別clientから、Microsoft IMEの未確定・候補選択中に更新を送る。1人で行う場合は、別画面へ切り替えてから編集するとcomposition終了を誘発するため、遅延した別clientの更新を使い、native側にfocusを残す。CodexがDocker内の独立providerから検証用段落を追加・更新し、利用者はnativeで変換・確定・再変換・Undo/Redoを行う。受信をcomposition中に停止しない。両方の本文保持、二重確定・欠落・カーソル逸脱・クラッシュの有無を記録する。準備・更新送信だけではPassにせず、利用者の明示的な結果を要する。
 

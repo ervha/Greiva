@@ -1,10 +1,14 @@
 # 試験証拠の索引
 
-`docs/plan/POC_SPEC.md` Section 18 Step 4の共同編集とA/B自動試験まで記録しました。Windows実機の初回local IMEは利用者確認でPass。接続中の実IME、端末SQLite保存・crash recovery、Gate A/B/Cの最終判定は未完了です。
+`docs/plan/POC_SPEC.md` Section 18 Step 4の共同編集とA/B自動試験を記録しました。Windows実機のlocal IMEと遠隔更新中に試した操作は利用者確認でPass。native全件の証拠、端末SQLite保存・crash recovery、Gate A/B/Cの最終判定は未完了です。
+
+## 最新: 遠隔更新中のWindows実機IME（2026-10-01）
+
+[結果・実機画面](windows-remote-ime-20261001/SUMMARY.md)、[利用者の回答](windows-remote-ime-20261001/manual-results.json)。Docker peerから12回送信し、全ACKを確認。利用者は試した変換・再変換・選択・Undo/Redoに問題なし、双方の文字保持と回答しました。Codexは日本語候補と遠隔文字の同時表示を実機で独立観察しました。同一段落composition重複は確立していません。証拠チェックポイント0.2.1、frontend0.2.0、既存native shell0.0.0を区別します。
 
 ## 最新: Step 4共同編集（2026-10-01）
 
-[結果・収束スナップショット](step-4-collaboration-20261001/SUMMARY.md)、[metadata](step-4-collaboration-20261001/summary.json)、[ソース照合・Docker条件](step-4-collaboration-20261001/verification-context.json)。build/型、unit/integration 22件、Chromium全37件、SQLite基盤、実PostgreSQL 1件、Linux locked Cargo checkがPass。6つのA/Bケースをraw state vector・clock map・本文JSONで比較し、サーバーSIGKILL後のbinary復元も検証した。今回のfrontend/app sourceは0.2.0、既存Windows shellは0.0.0。実機IME接続中の成功や端末耐久化、Gate最終Passは主張しない。
+[結果・収束スナップショット](step-4-collaboration-20261001/SUMMARY.md)、[metadata](step-4-collaboration-20261001/summary.json)、[ソース照合・Docker条件](step-4-collaboration-20261001/verification-context.json)。build/型、unit/integration 22件、Chromium全37件、SQLite基盤、実PostgreSQL 1件、Linux locked Cargo checkがPass。6つのA/Bケースをraw state vector・clock map・本文JSONで比較し、サーバーSIGKILL後のbinary復元も検証した。今回のfrontend/app sourceは0.2.0、既存Windows shellは0.0.0。この自動runだけで実機IMEの成功は判断しない。上記の追加手動試験を別記録とし、端末耐久化・Gate最終Passは未完了。
 
 ## 最新: Windows実機の初回IME試験（2026-10-01）
 
