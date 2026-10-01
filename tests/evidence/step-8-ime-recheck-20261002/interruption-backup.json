@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-01T15:39:38.8780687Z",
+  "processAbsent": true,
+  "shutdownCause": "Not observed",
+  "files": [
+    {
+      "name": "greiva.sqlite",
+      "bytes": 4096,
+      "sha256": "1fe8f6113488865c546d2faa55b21482662ce4be19d4f505eeefa09bc3131489"
+    },
+    {
+      "name": "greiva.sqlite-shm",
+      "bytes": 32768,
+      "sha256": "27acb7f2130084c905ac9c49f679096d90fb7212fe9900b551195f2291c0f6c4"
+    },
+    {
+      "name": "greiva.sqlite-wal",
+      "bytes": 2921112,
+      "sha256": "62b76b2e5385ed404cd7f8077ef7abe561f769bafb39ed0a54f842c62f987b97"
+    }
+  ]
+}

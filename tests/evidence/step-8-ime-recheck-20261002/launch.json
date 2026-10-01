@@ -1,0 +1,11 @@
+{
+  "startedAt": "2026-10-01T15:14:12.6526015Z",
+  "processId": 9752,
+  "artifactVersion": "0.6.5",
+  "checkpoint": "0.6.6",
+  "gitCommit": "00c3d4d4412777842729e5f5e3a8c8363b57226b",
+  "sha256": "b3f09fbaad951d76f657550bdeec017cca474fd939fdc701700d2e8cfe655863",
+  "testDirectory": "C:\\Users\\danun\\Desktop\\Project\\Greiva\\.data\\host-ime\\recheck-2026-10-01T15-14-12-619Z",
+  "oldFailureDatabaseUnchanged": true,
+  "scope": "Fresh native recheck; actual observations separate from launch"
+}

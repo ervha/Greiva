@@ -4,6 +4,8 @@
 
 ## 対象・方法
 
+2026-10-02補足: 原操作を再確認すると、欠落は候補確定前、利用者の再変換開始後の最初の観測UTC14:10:20.853ですでに存在する。Return確定を原因と断定せず、手操作誤りも除外しない。[別fixtureの再確認・保存更新解析](../step-8-ime-recheck-20261002/SUMMARY.md)と[失敗記録](../../../docs/failures/step-8-ms-ime-reconversion.md)に現在の解釈を記載する。このページの原画像・原ログ・元の検証JSONは保持する。
+
 実行物・Dockerサービスは0.6.5、検証ソースはcommit `c6b1c8bde39996cd7b5bcbca5f737b6106789680`。130ファイルのSHA-256は `c0f39a8a19274ef4150c4c770189fce4b927e21befb9c542bb24402975846205`。[ソース識別](tested-source.json)、[対象一覧](tested-source-files.json)、[host環境](host-platform.json)。Windows 11 Home build 26300、Core i7-12700H、メモリ約15.58GiB。ホスト負荷は固定していない。
 
 IMEはWindows native Tauriで実キーを使用し、Dockerの独立Hocuspocus providerから同じ段落へ更新した。literal入力は段落の接頭辞の準備だけで、日本語入力の代用にしていない。Microsoft IMEへの切替と、操作APIが扱えない「変換」キーによる再変換開始だけ利用者が実施。その後の候補選択・確定と観測はCodexが実施した。Microsoftのprovider名は利用者申告とnative候補UIに基づく。Googleは今回の候補画面のGoogle表示も確認した。
@@ -18,7 +20,7 @@ debug native exeのSHA-256は `b3f09fbaad951d76f657550bdeec017cca474fd939fdc7017
 | Google: local Undo/Redo | Undoで前のカタカナ候補へ戻り、Redoで日本語へ復帰。遠隔3更新を保持、fresh peerの全本文が期待値と一致 | [Redo画像](google/after-redo.png)、[最終peer](google/peer-after-redo.json) |
 | Microsoft: preedit／候補中の同一段落遠隔更新 | 2段階で計6更新を受け、通常変換確定時の本文・遠隔接頭辞を保持 | [操作](microsoft/operations.json)、[通常確定](microsoft/committed.png) |
 | Microsoft: 候補一覧 | 第2段階の更新後にpopupが隠れた。下線付きpreeditは継続し、Upで一覧を再表示した。一覧の連続表示成功とは扱わない | [更新後](microsoft/during-candidates-0.png)、[再表示](microsoft/candidates-reopened-0.png) |
-| Microsoft: 再変換 | **Fail**。選択した「日本語」の候補をDown→Up→Returnで確定すると、直前の `al ` が欠落 | [選択範囲](microsoft/selected-for-reconvert.png)、[再変換](microsoft/reconvert-0.png)、[確定後](microsoft/reconvert-committed.png) |
+| Microsoft: 再変換 | **本文保持Fail**。開始後の最初の観測ですでに直前の `al ` が欠落。Down→Up→Return後にも残存 | [選択範囲](microsoft/selected-for-reconvert.png)、[再変換](microsoft/reconvert-0.png)、[確定後](microsoft/reconvert-committed.png) |
 
 再変換前の期待段落:
 

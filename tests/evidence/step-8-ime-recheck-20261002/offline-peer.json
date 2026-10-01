@@ -1,0 +1,9 @@
+{
+  "at": "2026-10-01T15:27:15.661Z",
+  "pageId": "01a0f808-b90b-775f-9bd2-24f83b2f40af",
+  "readOnlyObserver": true,
+  "expectedFullXml": "<paragraph>MS65 local 日本語</paragraph>",
+  "bodyXml": "<paragraph>MS65 local 日本語</paragraph>",
+  "fullXmlMatches": true,
+  "stateVector": "AueQ0LwIJgEB"
+}

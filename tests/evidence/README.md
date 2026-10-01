@@ -2,6 +2,12 @@
 
 `docs/plan/POC_SPEC.md` Section 18 Step 8の性能・実機観測を記録しました。Microsoft IME再変換に未修正の本文欠落があり、native全件・P1/P2実OSとGate A/B/Cの最終判定は未完了です。利用者の指定に従いStep 8の記録チェックポイントで停止し、Step 9へ進みません。以下は各版・時点の証拠です。
 
+## Step 8: Microsoft再変換の再確認・保存更新解析（2026-10-02、文書v0.6.7／実行物0.6.5）
+
+[今回の結果と原証拠](step-8-ime-recheck-20261002/SUMMARY.md)。遠隔なしの再変換一回は本文保持。実Microsoft入力＋遠隔6更新後の別fixtureでは、再び直前の `al ` 欠落がSQLite／fresh peerへ保存され、全XMLとclockが両者で一致した。実Rust PageStore＋Yjsの順序再生で今回のupdate 19／前回のupdate 95が直前3文字と日本語3文字を削除することを確認した。
+
+前回も欠落は候補確定前、利用者の開始後の最初の観測ですでに存在すると補足。手操作誤りの可能性を保持する。今回の二回目はnative候補操作の完走と終了理由を観測できておらず、保存結果のFailと区別する。原因層は未特定・未修正。製品ソース・依存・実行物は変更せず、Step 9へ進まない。
+
 ## Step 8: Windows IME・release起動、再変換Fail（2026-10-01、文書v0.6.6／実行物0.6.5）
 
 [実機結果と選択証拠](step-8-platform-validation-20261001/SUMMARY.md)、[再変換の失敗](../../docs/failures/step-8-ms-ime-reconversion.md)、[停止境界](../../docs/decisions/step-8-validation-boundary.md)。Googleで同一段落遠隔3更新と変換・local Undo/Redo、Microsoftで通常変換中の6更新保持を確認。ただしMicrosoft再変換後に直前の `al ` が欠落し、fresh peer／SQLite監査でも確認した。同期・保存されたことを本文保持成功へ拡張しない。

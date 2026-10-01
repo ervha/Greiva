@@ -1,0 +1,79 @@
+{
+  "at": "2026-10-01T15:40:58.285Z",
+  "databaseCopy": "/workspace/.data/recheck-interrupted-sqlite/greiva.sqlite",
+  "cases": [
+    {
+      "pageId": "01a0f808-b90b-775f-9bd2-24f83b2f40af",
+      "expectedFullXml": "<paragraph>MS65 local 日本語</paragraph>",
+      "nativeXml": "<paragraph>MS65 local 日本語</paragraph>",
+      "peerXml": "<paragraph>MS65 local 日本語</paragraph>",
+      "nativeMatchesExpected": true,
+      "peerMatchesExpected": true,
+      "nativeAndPeerMatch": true,
+      "allClocksMatch": true,
+      "nativeClocks": [
+        [
+          1,
+          1
+        ],
+        [
+          2274625639,
+          38
+        ]
+      ],
+      "peerClocks": [
+        [
+          1,
+          1
+        ],
+        [
+          2274625639,
+          38
+        ]
+      ],
+      "journalUpdates": 16,
+      "journalBytes": 442
+    },
+    {
+      "pageId": "01a0f813-c52c-71a6-a885-c030269b0788",
+      "expectedFullXml": "<paragraph>[ms65-6][ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 local 日本語</paragraph>",
+      "nativeXml": "<paragraph>[ms65-6][ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 loc日本語</paragraph>",
+      "peerXml": "<paragraph>[ms65-6][ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 loc日本語</paragraph>",
+      "nativeMatchesExpected": false,
+      "peerMatchesExpected": false,
+      "nativeAndPeerMatch": true,
+      "allClocksMatch": true,
+      "nativeClocks": [
+        [
+          1,
+          1
+        ],
+        [
+          1868094659,
+          33
+        ],
+        [
+          2182117674,
+          48
+        ]
+      ],
+      "peerClocks": [
+        [
+          1,
+          1
+        ],
+        [
+          1868094659,
+          33
+        ],
+        [
+          2182117674,
+          48
+        ]
+      ],
+      "journalUpdates": 20,
+      "journalBytes": 531
+    }
+  ],
+  "scope": "Actual saved state and fresh read-only peer after unobserved application close. Not a deliberate crash-test result or native reconversion completion proof."
+}

@@ -1,0 +1,476 @@
+{
+  "at": "2026-10-01T15:54:21.455Z",
+  "databaseCopy": "/workspace/.data/recheck-interrupted-sqlite/greiva.sqlite",
+  "cases": [
+    {
+      "pageId": "01a0f808-b90b-775f-9bd2-24f83b2f40af",
+      "journalUpdates": 16,
+      "finalXml": "<paragraph>MS65 local 日本語</paragraph>",
+      "finalXmlMatchesNativeAndPeer": true,
+      "lossTransitions": [],
+      "records": [
+        {
+          "journalIndex": 1,
+          "bytes": 23,
+          "before": "",
+          "after": "<paragraph></paragraph>",
+          "deleteRanges": [],
+          "structs": 1
+        },
+        {
+          "journalIndex": 2,
+          "bytes": 34,
+          "before": "<paragraph></paragraph>",
+          "after": "<paragraph>MS65 local </paragraph>",
+          "deleteRanges": [],
+          "structs": 2
+        },
+        {
+          "journalIndex": 3,
+          "bytes": 18,
+          "before": "<paragraph>MS65 local </paragraph>",
+          "after": "<paragraph>MS65 local n</paragraph>",
+          "deleteRanges": [],
+          "structs": 1
+        },
+        {
+          "journalIndex": 4,
+          "bytes": 10,
+          "before": "<paragraph>MS65 local n</paragraph>",
+          "after": "<paragraph>MS65 local </paragraph>",
+          "deleteRanges": [
+            {
+              "client": 2274625639,
+              "clock": 12,
+              "length": 1
+            }
+          ],
+          "structs": 0
+        },
+        {
+          "journalIndex": 5,
+          "bytes": 20,
+          "before": "<paragraph>MS65 local </paragraph>",
+          "after": "<paragraph>MS65 local ｎ</paragraph>",
+          "deleteRanges": [],
+          "structs": 1
+        },
+        {
+          "journalIndex": 6,
+          "bytes": 28,
+          "before": "<paragraph>MS65 local ｎ</paragraph>",
+          "after": "<paragraph>MS65 local に</paragraph>",
+          "deleteRanges": [
+            {
+              "client": 2274625639,
+              "clock": 13,
+              "length": 1
+            }
+          ],
+          "structs": 1
+        },
+        {
+          "journalIndex": 7,
+          "bytes": 20,
+          "before": "<paragraph>MS65 local に</paragraph>",
+          "after": "<paragraph>MS65 local にｈ</paragraph>",
+          "deleteRanges": [],
+          "structs": 1
+        },
+        {
+          "journalIndex": 8,
+          "bytes": 28,
+          "before": "<paragraph>MS65 local にｈ</paragraph>",
+          "after": "<paragraph>MS65 local にほ</paragraph>",
+          "deleteRanges": [
+            {
+              "client": 2274625639,
+              "clock": 15,
+              "length": 1
+            }
+          ],
+          "structs": 1
+        },
+        {
+          "journalIndex": 9,
+          "bytes": 20,
+          "before": "<paragraph>MS65 local にほ</paragraph>",
+          "after": "<paragraph>MS65 local にほｎ</paragraph>",
+          "deleteRanges": [],
+          "structs": 1
+        },
+        {
+          "journalIndex": 10,
+          "bytes": 31,
+          "before": "<paragraph>MS65 local にほｎ</paragraph>",
+          "after": "<paragraph>MS65 local にほんｇ</paragraph>",
+          "deleteRanges": [
+            {
+              "client": 2274625639,
+              "clock": 17,
+              "length": 1
+            }
+          ],
+          "structs": 1
+        },
+        {
+          "journalIndex": 11,
+          "bytes": 28,
+          "before": "<paragraph>MS65 local にほんｇ</paragraph>",
+          "after": "<paragraph>MS65 local にほんご</paragraph>",
+          "deleteRanges": [
+            {
+              "client": 2274625639,
+              "clock": 19,
+              "length": 1
+            }
+          ],
+          "structs": 1
+        },
+        {
+          "journalIndex": 12,
+          "bytes": 40,
+          "before": "<paragraph>MS65 local にほんご</paragraph>",
+          "after": "<paragraph>MS65 local 日本語</paragraph>",
+          "deleteRanges": [
+            {
+              "client": 2274625639,
+              "clock": 14,
+              "length": 1
+            },
+            {
+              "client": 2274625639,
+              "clock": 16,
+              "length": 1
+            },
+            {
+              "client": 2274625639,
+              "clock": 18,
+              "length": 1
+            },
+            {
+              "client": 2274625639,
+              "clock": 20,
+              "length": 1
+            }
+          ],
+          "structs": 1
+        },
+        {
+          "journalIndex": 13,
+          "bytes": 37,
+          "before": "<paragraph>MS65 local 日本語</paragraph>",
+          "after": "<paragraph>MS65 local ニホンゴ</paragraph>",
+          "deleteRanges": [
+            {
+              "client": 2274625639,
+              "clock": 21,
+              "length": 3
+            }
+          ],
+          "structs": 1
+        },
+        {
+          "journalIndex": 14,
+          "bytes": 34,
+          "before": "<paragraph>MS65 local ニホンゴ</paragraph>",
+          "after": "<paragraph>MS65 local 日本語</paragraph>",
+          "deleteRanges": [
+            {
+              "client": 2274625639,
+              "clock": 24,
+              "length": 4
+            }
+          ],
+          "structs": 1
+        },
+        {
+          "journalIndex": 15,
+          "bytes": 37,
+          "before": "<paragraph>MS65 local 日本語</paragraph>",
+          "after": "<paragraph>MS65 local にほんご</paragraph>",
+          "deleteRanges": [
+            {
+              "client": 2274625639,
+              "clock": 28,
+              "length": 3
+            }
+          ],
+          "structs": 1
+        },
+        {
+          "journalIndex": 16,
+          "bytes": 34,
+          "before": "<paragraph>MS65 local にほんご</paragraph>",
+          "after": "<paragraph>MS65 local 日本語</paragraph>",
+          "deleteRanges": [
+            {
+              "client": 2274625639,
+              "clock": 31,
+              "length": 4
+            }
+          ],
+          "structs": 1
+        }
+      ]
+    },
+    {
+      "pageId": "01a0f813-c52c-71a6-a885-c030269b0788",
+      "journalUpdates": 20,
+      "finalXml": "<paragraph>[ms65-6][ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 loc日本語</paragraph>",
+      "finalXmlMatchesNativeAndPeer": true,
+      "lossTransitions": [
+        {
+          "journalIndex": 19,
+          "bytes": 12,
+          "before": "<paragraph>[ms65-6][ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 local 日本語</paragraph>",
+          "after": "<paragraph>[ms65-6][ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 loc</paragraph>",
+          "deleteRanges": [
+            {
+              "client": 1868094659,
+              "clock": 9,
+              "length": 3
+            },
+            {
+              "client": 1868094659,
+              "clock": 27,
+              "length": 3
+            }
+          ],
+          "structs": 0
+        }
+      ],
+      "records": [
+        {
+          "journalIndex": 1,
+          "bytes": 23,
+          "before": "",
+          "after": "<paragraph></paragraph>",
+          "deleteRanges": [],
+          "structs": 1
+        },
+        {
+          "journalIndex": 2,
+          "bytes": 34,
+          "before": "<paragraph></paragraph>",
+          "after": "<paragraph>MS65 local </paragraph>",
+          "deleteRanges": [],
+          "structs": 2
+        },
+        {
+          "journalIndex": 3,
+          "bytes": 20,
+          "before": "<paragraph>MS65 local </paragraph>",
+          "after": "<paragraph>MS65 local ｎ</paragraph>",
+          "deleteRanges": [],
+          "structs": 1
+        },
+        {
+          "journalIndex": 4,
+          "bytes": 28,
+          "before": "<paragraph>MS65 local ｎ</paragraph>",
+          "after": "<paragraph>MS65 local に</paragraph>",
+          "deleteRanges": [
+            {
+              "client": 1868094659,
+              "clock": 12,
+              "length": 1
+            }
+          ],
+          "structs": 1
+        },
+        {
+          "journalIndex": 5,
+          "bytes": 20,
+          "before": "<paragraph>MS65 local に</paragraph>",
+          "after": "<paragraph>MS65 local にｈ</paragraph>",
+          "deleteRanges": [],
+          "structs": 1
+        },
+        {
+          "journalIndex": 6,
+          "bytes": 28,
+          "before": "<paragraph>MS65 local にｈ</paragraph>",
+          "after": "<paragraph>MS65 local にほ</paragraph>",
+          "deleteRanges": [
+            {
+              "client": 1868094659,
+              "clock": 14,
+              "length": 1
+            }
+          ],
+          "structs": 1
+        },
+        {
+          "journalIndex": 7,
+          "bytes": 20,
+          "before": "<paragraph>MS65 local にほ</paragraph>",
+          "after": "<paragraph>MS65 local にほｎ</paragraph>",
+          "deleteRanges": [],
+          "structs": 1
+        },
+        {
+          "journalIndex": 8,
+          "bytes": 31,
+          "before": "<paragraph>MS65 local にほｎ</paragraph>",
+          "after": "<paragraph>MS65 local にほんｇ</paragraph>",
+          "deleteRanges": [
+            {
+              "client": 1868094659,
+              "clock": 16,
+              "length": 1
+            }
+          ],
+          "structs": 1
+        },
+        {
+          "journalIndex": 9,
+          "bytes": 28,
+          "before": "<paragraph>MS65 local にほんｇ</paragraph>",
+          "after": "<paragraph>MS65 local にほんご</paragraph>",
+          "deleteRanges": [
+            {
+              "client": 1868094659,
+              "clock": 18,
+              "length": 1
+            }
+          ],
+          "structs": 1
+        },
+        {
+          "journalIndex": 10,
+          "bytes": 25,
+          "before": "<paragraph>MS65 local にほんご</paragraph>",
+          "after": "<paragraph>[ms65-1]MS65 local にほんご</paragraph>",
+          "deleteRanges": [],
+          "structs": 1
+        },
+        {
+          "journalIndex": 11,
+          "bytes": 25,
+          "before": "<paragraph>[ms65-1]MS65 local にほんご</paragraph>",
+          "after": "<paragraph>[ms65-2][ms65-1]MS65 local にほんご</paragraph>",
+          "deleteRanges": [],
+          "structs": 1
+        },
+        {
+          "journalIndex": 12,
+          "bytes": 25,
+          "before": "<paragraph>[ms65-2][ms65-1]MS65 local にほんご</paragraph>",
+          "after": "<paragraph>[ms65-3][ms65-2][ms65-1]MS65 local にほんご</paragraph>",
+          "deleteRanges": [],
+          "structs": 1
+        },
+        {
+          "journalIndex": 13,
+          "bytes": 40,
+          "before": "<paragraph>[ms65-3][ms65-2][ms65-1]MS65 local にほんご</paragraph>",
+          "after": "<paragraph>[ms65-3][ms65-2][ms65-1]MS65 local 日本語</paragraph>",
+          "deleteRanges": [
+            {
+              "client": 1868094659,
+              "clock": 13,
+              "length": 1
+            },
+            {
+              "client": 1868094659,
+              "clock": 15,
+              "length": 1
+            },
+            {
+              "client": 1868094659,
+              "clock": 17,
+              "length": 1
+            },
+            {
+              "client": 1868094659,
+              "clock": 19,
+              "length": 1
+            }
+          ],
+          "structs": 1
+        },
+        {
+          "journalIndex": 14,
+          "bytes": 37,
+          "before": "<paragraph>[ms65-3][ms65-2][ms65-1]MS65 local 日本語</paragraph>",
+          "after": "<paragraph>[ms65-3][ms65-2][ms65-1]MS65 local にほんご</paragraph>",
+          "deleteRanges": [
+            {
+              "client": 1868094659,
+              "clock": 20,
+              "length": 3
+            }
+          ],
+          "structs": 1
+        },
+        {
+          "journalIndex": 15,
+          "bytes": 25,
+          "before": "<paragraph>[ms65-3][ms65-2][ms65-1]MS65 local にほんご</paragraph>",
+          "after": "<paragraph>[ms65-4][ms65-3][ms65-2][ms65-1]MS65 local にほんご</paragraph>",
+          "deleteRanges": [],
+          "structs": 1
+        },
+        {
+          "journalIndex": 16,
+          "bytes": 25,
+          "before": "<paragraph>[ms65-4][ms65-3][ms65-2][ms65-1]MS65 local にほんご</paragraph>",
+          "after": "<paragraph>[ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 local にほんご</paragraph>",
+          "deleteRanges": [],
+          "structs": 1
+        },
+        {
+          "journalIndex": 17,
+          "bytes": 25,
+          "before": "<paragraph>[ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 local にほんご</paragraph>",
+          "after": "<paragraph>[ms65-6][ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 local にほんご</paragraph>",
+          "deleteRanges": [],
+          "structs": 1
+        },
+        {
+          "journalIndex": 18,
+          "bytes": 34,
+          "before": "<paragraph>[ms65-6][ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 local にほんご</paragraph>",
+          "after": "<paragraph>[ms65-6][ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 local 日本語</paragraph>",
+          "deleteRanges": [
+            {
+              "client": 1868094659,
+              "clock": 23,
+              "length": 4
+            }
+          ],
+          "structs": 1
+        },
+        {
+          "journalIndex": 19,
+          "bytes": 12,
+          "before": "<paragraph>[ms65-6][ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 local 日本語</paragraph>",
+          "after": "<paragraph>[ms65-6][ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 loc</paragraph>",
+          "deleteRanges": [
+            {
+              "client": 1868094659,
+              "clock": 9,
+              "length": 3
+            },
+            {
+              "client": 1868094659,
+              "clock": 27,
+              "length": 3
+            }
+          ],
+          "structs": 0
+        },
+        {
+          "journalIndex": 20,
+          "bytes": 26,
+          "before": "<paragraph>[ms65-6][ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 loc</paragraph>",
+          "after": "<paragraph>[ms65-6][ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 loc日本語</paragraph>",
+          "deleteRanges": [],
+          "structs": 1
+        }
+      ]
+    }
+  ],
+  "scope": "Ordered replay of copied native journal. Journal order is known; event/key timestamps, trusted key identity, DOM target ranges and composition state are absent. Cannot identify the responsible input layer or shutdown cause."
+}

@@ -1,0 +1,121 @@
+{
+  "runId": "2026-10-01T15-28-51-178Z",
+  "pageId": "01a0f813-c52c-71a6-a885-c030269b0788",
+  "clientId": "77a167e8-c467-4ddf-927a-79a326c2eab4",
+  "outcome": "Six same-paragraph updates acknowledged; native result requires observations",
+  "records": [
+    {
+      "at": "2026-10-01T15:28:51.210Z",
+      "type": "status",
+      "status": "connecting"
+    },
+    {
+      "at": "2026-10-01T15:28:51.226Z",
+      "type": "status",
+      "status": "connected"
+    },
+    {
+      "at": "2026-10-01T15:28:51.226Z",
+      "type": "status",
+      "status": "connected"
+    },
+    {
+      "at": "2026-10-01T15:28:51.229Z",
+      "type": "status",
+      "status": "connected"
+    },
+    {
+      "at": "2026-10-01T15:28:51.229Z",
+      "type": "status",
+      "status": "connected"
+    },
+    {
+      "at": "2026-10-01T15:28:51.235Z",
+      "type": "synced",
+      "state": true
+    },
+    {
+      "at": "2026-10-01T15:28:51.312Z",
+      "type": "ready",
+      "pageId": "01a0f813-c52c-71a6-a885-c030269b0788",
+      "clientId": "77a167e8-c467-4ddf-927a-79a326c2eab4",
+      "directory": "/workspace/.data/host-ime/ms65-2026-10-01T15-28-51-178Z",
+      "signal": "/tmp/greiva-ms65-recheck-20261002-send",
+      "beforeXml": "<paragraph>MS65 local </paragraph>",
+      "targetText": "MS65 local ",
+      "nativeResult": "Not inferred"
+    },
+    {
+      "at": "2026-10-01T15:30:12.470Z",
+      "type": "sent",
+      "sequence": 1,
+      "target": "same dedicated paragraph",
+      "text": "[ms65-1]MS65 local にほんご"
+    },
+    {
+      "at": "2026-10-01T15:30:12.571Z",
+      "type": "acknowledged",
+      "sequence": 1
+    },
+    {
+      "at": "2026-10-01T15:30:14.574Z",
+      "type": "sent",
+      "sequence": 2,
+      "target": "same dedicated paragraph",
+      "text": "[ms65-2][ms65-1]MS65 local にほんご"
+    },
+    {
+      "at": "2026-10-01T15:30:14.674Z",
+      "type": "acknowledged",
+      "sequence": 2
+    },
+    {
+      "at": "2026-10-01T15:30:16.677Z",
+      "type": "sent",
+      "sequence": 3,
+      "target": "same dedicated paragraph",
+      "text": "[ms65-3][ms65-2][ms65-1]MS65 local にほんご"
+    },
+    {
+      "at": "2026-10-01T15:30:16.778Z",
+      "type": "acknowledged",
+      "sequence": 3
+    },
+    {
+      "at": "2026-10-01T15:31:14.867Z",
+      "type": "sent",
+      "sequence": 4,
+      "target": "same dedicated paragraph",
+      "text": "[ms65-4][ms65-3][ms65-2][ms65-1]MS65 local にほんご"
+    },
+    {
+      "at": "2026-10-01T15:31:14.968Z",
+      "type": "acknowledged",
+      "sequence": 4
+    },
+    {
+      "at": "2026-10-01T15:31:16.971Z",
+      "type": "sent",
+      "sequence": 5,
+      "target": "same dedicated paragraph",
+      "text": "[ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 local にほんご"
+    },
+    {
+      "at": "2026-10-01T15:31:17.072Z",
+      "type": "acknowledged",
+      "sequence": 5
+    },
+    {
+      "at": "2026-10-01T15:31:19.074Z",
+      "type": "sent",
+      "sequence": 6,
+      "target": "same dedicated paragraph",
+      "text": "[ms65-6][ms65-5][ms65-4][ms65-3][ms65-2][ms65-1]MS65 local にほんご"
+    },
+    {
+      "at": "2026-10-01T15:31:19.175Z",
+      "type": "acknowledged",
+      "sequence": 6
+    }
+  ]
+}

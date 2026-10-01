@@ -1,0 +1,22 @@
+{
+  "at": "2026-10-01T16:02:41.0263922Z",
+  "checkpointVersion": "0.6.7",
+  "artifactVersion": "0.6.5",
+  "rawFilesChecked": 18,
+  "jsonFilesChecked": 11,
+  "localLinksChecked": 244,
+  "testedSourceFiles": 130,
+  "implementationUnchangedExceptCheckpointVersion": true,
+  "dockerSourceCheckedAt": "2026-10-01T15:56:52.981Z",
+  "dockerSourceSha256": "c0f39a8a19274ef4150c4c770189fce4b927e21befb9c542bb24402975846205",
+  "artifactHashMatches": true,
+  "offlineExpectedFullXmlMatches": true,
+  "remoteExpectedFullXmlMatches": false,
+  "persistedNativeAndFreshPeerXmlAndClocksMatch": true,
+  "originalLossUpdate": 95,
+  "currentLossUpdate": 19,
+  "nativeSecondReconversionCompletionObserved": false,
+  "shutdownCauseObserved": false,
+  "nativeProcessAbsent": true,
+  "scope": "Evidence/documentation verification; no product change, new build, full regression, crash pass or final Gate claim."
+}
