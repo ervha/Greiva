@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="18" failures="1" errors="0" time="25.489654656">
+    <testsuite name="tests/integration/postgres.test.ts" timestamp="2026-10-01T06:39:42.455Z" hostname="ce1d21fc7a9e" tests="1" failures="0" errors="0" skipped="0" time="0.031333167">
+        <testcase classname="tests/integration/postgres.test.ts" name="STEP1-POSTGRES: connects to the real development PostgreSQL" time="0.030463889">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/structured-postgres.test.ts" timestamp="2026-10-01T06:39:42.461Z" hostname="ce1d21fc7a9e" tests="1" failures="0" errors="0" skipped="0" time="0.248703303">
+        <testcase classname="tests/integration/structured-postgres.test.ts" name="STEP6-POSTGRES: real models survive reopen; version guards serialize competing edits; Nest exposes durable reads" time="0.247514619">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/structured-sync-client.test.ts" timestamp="2026-10-01T06:39:42.466Z" hostname="ce1d21fc7a9e" tests="6" failures="1" errors="0" skipped="0" time="24.109304356">
+        <testcase classname="tests/integration/structured-sync-client.test.ts" name="STEP7-CLIENT-HTTP: offline Task/Relation chains survive SIGKILL and converge through restore/pull/push/pull in creation order" time="0.458462765">
+            <system-out>
+{&quot;service&quot;:&quot;api&quot;,&quot;event&quot;:&quot;structured-push&quot;,&quot;operationId&quot;:&quot;01a0f630-5159-73f6-b958-c630de0d7ef0&quot;,&quot;clientId&quot;:&quot;01a0f630-50ff-761a-827f-d42f6c60027a&quot;,&quot;serverOrder&quot;:&quot;1&quot;,&quot;status&quot;:&quot;acknowledged&quot;,&quot;conflicts&quot;:0}
+
+{&quot;service&quot;:&quot;api&quot;,&quot;event&quot;:&quot;structured-push&quot;,&quot;operationId&quot;:&quot;01a0f630-5159-73f6-b958-c8f5d3cf7c58&quot;,&quot;clientId&quot;:&quot;01a0f630-50ff-761a-827f-d42f6c60027a&quot;,&quot;serverOrder&quot;:&quot;2&quot;,&quot;status&quot;:&quot;acknowledged&quot;,&quot;conflicts&quot;:0}
+
+{&quot;service&quot;:&quot;api&quot;,&quot;event&quot;:&quot;structured-push&quot;,&quot;operationId&quot;:&quot;01a0f630-5165-706a-83ea-81798c689585&quot;,&quot;clientId&quot;:&quot;01a0f630-50ff-761a-827f-d42f6c60027a&quot;,&quot;serverOrder&quot;:&quot;3&quot;,&quot;status&quot;:&quot;acknowledged&quot;,&quot;conflicts&quot;:0}
+
+            </system-out>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-client.test.ts" name="STEP7-CLIENT-ACK-LOSS: commit followed by dropped HTTP ACK and API/store restart is recovered once through durable pull" time="0.228955461">
+            <system-out>
+{&quot;service&quot;:&quot;api&quot;,&quot;event&quot;:&quot;structured-push&quot;,&quot;operationId&quot;:&quot;01a0f630-52b6-70bf-ae67-ed2a43276320&quot;,&quot;clientId&quot;:&quot;01a0f630-5289-769b-8792-046e71d92f9f&quot;,&quot;serverOrder&quot;:&quot;1&quot;,&quot;status&quot;:&quot;acknowledged&quot;,&quot;conflicts&quot;:0}
+
+            </system-out>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-client.test.ts" name="STEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution" time="15.003076628">
+            <system-out>
+{&quot;service&quot;:&quot;api&quot;,&quot;event&quot;:&quot;structured-push&quot;,&quot;operationId&quot;:&quot;01a0f630-5400-73e5-b323-d1e55dcbdfc5&quot;,&quot;clientId&quot;:&quot;01a0f630-5397-719a-b114-c2eae37eac5f&quot;,&quot;serverOrder&quot;:&quot;2&quot;,&quot;status&quot;:&quot;acknowledged&quot;,&quot;conflicts&quot;:0}
+
+{&quot;service&quot;:&quot;api&quot;,&quot;event&quot;:&quot;structured-push&quot;,&quot;operationId&quot;:&quot;01a0f630-53f9-74e4-9234-de71dbefe5d2&quot;,&quot;clientId&quot;:&quot;01a0f630-536e-70e9-a4cc-d9e8f421729e&quot;,&quot;serverOrder&quot;:&quot;3&quot;,&quot;status&quot;:&quot;conflict&quot;,&quot;conflicts&quot;:1}
+
+{&quot;service&quot;:&quot;api&quot;,&quot;event&quot;:&quot;structured-push&quot;,&quot;operationId&quot;:&quot;01a0f630-546f-756c-a050-aa731e9a04c2&quot;,&quot;clientId&quot;:&quot;01a0f630-536e-70e9-a4cc-d9e8f421729e&quot;,&quot;serverOrder&quot;:&quot;4&quot;,&quot;status&quot;:&quot;acknowledged&quot;,&quot;conflicts&quot;:1}
+
+            </system-out>
+            <failure message="Test timed out in 15000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with &quot;testTimeout&quot;." type="Error">
+Error: Test timed out in 15000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with &quot;testTimeout&quot;.
+ ❯ tests/integration/structured-sync-client.test.ts:71:1
+            </failure>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-client.test.ts" name="STEP7-CLIENT-PULL-FAILURE: cursor commit failure stops network progress; restart and explicit retry keep the original cursor and restore all records" time="0.235914758">
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-client.test.ts" name="STEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent" time="7.963625082">
+            <system-out>
+{&quot;service&quot;:&quot;api&quot;,&quot;event&quot;:&quot;structured-push&quot;,&quot;operationId&quot;:&quot;01a0f630-8f4d-76c4-b5f2-ddf0f7b61772&quot;,&quot;clientId&quot;:&quot;01a0f630-8ef2-746c-9905-bffc8845e3a8&quot;,&quot;serverOrder&quot;:&quot;1&quot;,&quot;status&quot;:&quot;acknowledged&quot;,&quot;conflicts&quot;:0}
+
+{&quot;service&quot;:&quot;api&quot;,&quot;event&quot;:&quot;structured-push&quot;,&quot;operationId&quot;:&quot;01a0f630-9195-73d5-8ada-6a8ec0c1d2a3&quot;,&quot;clientId&quot;:&quot;01a0f630-8ef2-746c-9905-bffc8845e3a8&quot;,&quot;serverOrder&quot;:&quot;2&quot;,&quot;status&quot;:&quot;acknowledged&quot;,&quot;conflicts&quot;:0}
+
+{&quot;service&quot;:&quot;api&quot;,&quot;event&quot;:&quot;structured-push&quot;,&quot;operationId&quot;:&quot;01a0f630-99ca-7049-8c5a-21851af7afa3&quot;,&quot;clientId&quot;:&quot;01a0f630-8ef2-746c-9905-bffc8845e3a8&quot;,&quot;serverOrder&quot;:&quot;3&quot;,&quot;status&quot;:&quot;acknowledged&quot;,&quot;conflicts&quot;:0}
+
+{&quot;service&quot;:&quot;api&quot;,&quot;event&quot;:&quot;structured-push&quot;,&quot;operationId&quot;:&quot;01a0f630-ad9f-7719-8a88-4b9e3fd0f5c1&quot;,&quot;clientId&quot;:&quot;01a0f630-8ef2-746c-9905-bffc8845e3a8&quot;,&quot;serverOrder&quot;:&quot;4&quot;,&quot;status&quot;:&quot;acknowledged&quot;,&quot;conflicts&quot;:0}
+
+            </system-out>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-client.test.ts" name="STEP7-CLIENT-REJECTED: create collision stops the affected causal chain, retains both original payloads and never displays synced" time="0.217404253">
+            <system-out>
+{&quot;service&quot;:&quot;api&quot;,&quot;event&quot;:&quot;structured-push&quot;,&quot;operationId&quot;:&quot;01a0f630-ae43-710a-9dbc-d9b470f36636&quot;,&quot;clientId&quot;:&quot;01a0f630-ae0d-762f-95fd-350285b6f53a&quot;,&quot;serverOrder&quot;:&quot;2&quot;,&quot;status&quot;:&quot;rejected&quot;,&quot;conflicts&quot;:0}
+
+            </system-out>
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/structured-sync-server.test.ts" timestamp="2026-10-01T06:39:42.490Z" hostname="ce1d21fc7a9e" tests="10" failures="0" errors="0" skipped="0" time="1.10031383">
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-IDEMPOTENCY: concurrent replays, ID collisions, malformed payloads and API recreation retain immutable results" time="0.235573402">
+            <system-out>
+{&quot;service&quot;:&quot;api&quot;,&quot;event&quot;:&quot;structured-push&quot;,&quot;operationId&quot;:&quot;01a0f630-b143-735b-ba05-9c580096d8e1&quot;,&quot;clientId&quot;:&quot;01a0f630-b143-735b-ba05-94758e641dbd&quot;,&quot;serverOrder&quot;:&quot;1&quot;,&quot;status&quot;:&quot;acknowledged&quot;,&quot;conflicts&quot;:0}
+
+{&quot;service&quot;:&quot;api&quot;,&quot;event&quot;:&quot;structured-push&quot;,&quot;operationId&quot;:&quot;01a0f630-b17f-7668-bd43-a8e0b0ec1811&quot;,&quot;clientId&quot;:&quot;01a0f630-b143-735b-ba05-94758e641dbd&quot;,&quot;serverOrder&quot;:&quot;5&quot;,&quot;status&quot;:&quot;rejected&quot;,&quot;conflicts&quot;:0}
+
+{&quot;service&quot;:&quot;api&quot;,&quot;event&quot;:&quot;structured-push&quot;,&quot;operationId&quot;:&quot;01a0f630-b143-735b-ba05-9c580096d8e1&quot;,&quot;clientId&quot;:&quot;01a0f630-b143-735b-ba05-94758e641dbd&quot;,&quot;serverOrder&quot;:&quot;1&quot;,&quot;status&quot;:&quot;acknowledged&quot;,&quot;conflicts&quot;:0}
+
+            </system-out>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-MERGE: field merge keeps peer edits and same-field conflicts retain base/local/remote through explicit resolution" time="0.122674154">
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-RELATION: disjoint endpoint edits merge and same endpoint conflicts resolve as a new operation" time="0.065832042">
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-DELETE: deletes dominate stale Task/Relation updates and close existing conflicts without resurrecting entities" time="0.091322588">
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-ORDER: concurrent writers cannot leave lower committed operations behind a pull cursor" time="0.100266584">
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-ATOMIC: ledger failure rolls back entity/history/counter and retry finalizes exactly once" time="0.069217013">
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-MIGRATION: Step 6 rows and tombstones enter the new stream atomically without fabricating missing history" time="0.067992121">
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-CAUSAL: sequential offline intent keeps competing peer values and merges its own accepted fields" time="0.097141433">
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-CAUSAL-VALIDATION: aliases preserve original intent, invalid dependencies reject durably and chained deletes remain acknowledged" time="0.139896462">
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-CAUSAL-MIGRATION: existing version 2 ledger frames are reconstructed without changing immutable ACKs or cursors" time="0.108518883">
+        </testcase>
+    </testsuite>
+</testsuites>

@@ -2,6 +2,13 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.0 — 2026-10-01
+
+- 実装更新（MINOR）: Step 7の端末structured syncを追加。SQLiteへ送信前のwire request・ACK・receipt・server replica・Conflictを耐久化し、pull適用とcursor更新を同じtransactionにした。元のbase/payloadを保持して連続offline編集・再送・古い応答・tombstoneに対応する。
+- 復元→pull→作成順push→pullの直列同期エンジン、bounded retry、明示再試行、Page/Task共通の接続停止を追加。送信待ち・競合・恒久エラーを同期済みにしない。
+- 競合UIでbase/local/remoteを表示し、local/remoteの選択を新operationへ保存。遠隔更新中のフォーム入力とfocusを保持する。[実装判断](docs/decisions/step-7-structured-client.md)・[修正記録](docs/failures/step-7-structured-client.md)・[検証証拠](tests/evidence/step-7-structured-client-20261001/SUMMARY.md)。
+- Dockerの実Rust/SQLite・PostgreSQL/HTTP結合、別runの競合UI E2Eで、ACK喪失・API再作成・store SIGKILL・cursor保存失敗・500ms/2秒/5秒遅延・接続停止/再開を検証。Windowsのnative IPC/IME、残る統合crash境界・性能・最終Gateは後続検証。
+- アプリ管理下のpackage/Tauri/Cargoとlockを0.6.0へ整合し、Windows候補をDockerでcross build・hash照合。候補の実機操作は未検証。既存0.4.0実行物と区別し、ホストへtoolchainを追加していない。汎用DB/Button/automation等は将来設計のまま。
 ## 0.5.1 — 2026-10-01
 
 - 製品設計更新（PATCH）: NotionのDBビュー・プロパティを基本すべて提供対象とし、型付きRecord・独立したビュー設定・レコード詳細配置を[汎用DB仕様](docs/plan/DATABASE_SPEC.md)へ整理。時間割は利用例とし、任意のGroup/Subgroup・カード表示・関連データ作成を設定する構造にした。

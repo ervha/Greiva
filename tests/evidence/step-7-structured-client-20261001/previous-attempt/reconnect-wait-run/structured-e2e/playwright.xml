@@ -1,0 +1,8 @@
+<testsuites id="" name="" tests="2" failures="0" skipped="0" errors="0" time="22.169408">
+<testsuite name="structured-sync.spec.ts" timestamp="2026-10-01T06:56:05.770Z" hostname="chromium" tests="2" failures="0" skipped="0" time="18.896" errors="0">
+<testcase name="STEP7-E2E: offline creation/reload, peer field merge, keyboard conflict resolution and focus preservation use real HTTP and Rust SQLite" classname="structured-sync.spec.ts" time="11.438">
+</testcase>
+<testcase name="STEP7-E2E-DRAFT: peer updates do not overwrite an active draft; stale save retains user input; remote conflict choice is explicit" classname="structured-sync.spec.ts" time="7.458">
+</testcase>
+</testsuite>
+</testsuites>

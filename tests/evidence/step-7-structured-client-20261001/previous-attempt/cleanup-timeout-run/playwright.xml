@@ -1,0 +1,105 @@
+<testsuites id="" name="" tests="43" failures="0" skipped="0" errors="0" time="122.011957">
+<testsuite name="collaboration.spec.ts" timestamp="2026-10-01T06:37:14.790Z" hostname="chromium" tests="7" failures="0" skipped="0" time="57.447" errors="0">
+<testcase name="STEP4-PARAGRAPH: simultaneous edits retain both changes and remote update keeps the caret" classname="collaboration.spec.ts" time="6.505">
+</testcase>
+<testcase name="STEP4-BLOCKS: different blocks, local undo does not undo the other client" classname="collaboration.spec.ts" time="7.282">
+</testcase>
+<testcase name="STEP4-OFFLINE: each client adds and deletes blocks, reconnect and fresh client restore the result" classname="collaboration.spec.ts" time="11.004">
+</testcase>
+<testcase name="STEP4-MOVE: both clients move blocks while offline" classname="collaboration.spec.ts" time="6.888">
+</testcase>
+<testcase name="STEP4-NESTED: edit and move within a nested Toggle, then reconnect" classname="collaboration.spec.ts" time="10.303">
+</testcase>
+<testcase name="STEP4-TODO: concurrent checked change and nested list edits retain valid nodes" classname="collaboration.spec.ts" time="10.01">
+</testcase>
+<testcase name="STEP4-ISOLATION: another Page never receives this Page body" classname="collaboration.spec.ts" time="5.455">
+</testcase>
+</testsuite>
+<testsuite name="editor-ux.spec.ts" timestamp="2026-10-01T06:37:14.790Z" hostname="chromium" tests="7" failures="0" skipped="0" time="46.479" errors="0">
+<testcase name="STEP2-UX-SLASH: pointer and keyboard share one selection and retain editor focus" classname="editor-ux.spec.ts" time="6.311">
+</testcase>
+<testcase name="STEP2-UX-SLASH: wrap, Home/End, Tab, search aliases and empty dismissal" classname="editor-ux.spec.ts" time="5.739">
+</testcase>
+<testcase name="STEP2-UX-SLASH: outside dismissal preserves query, narrow popup stays on screen" classname="editor-ux.spec.ts" time="3.652">
+</testcase>
+<testcase name="STEP2-UX-TOGGLE: Enter reuses existing body and collapse moves caret to visible heading" classname="editor-ux.spec.ts" time="7.104">
+</testcase>
+<testcase name="STEP2-UX-TOGGLE: pointer retains caret, keyboard button activation retains focus" classname="editor-ux.spec.ts" time="6.896">
+</testcase>
+<testcase name="STEP2-UX-TOGGLE: folding is excluded from content undo and nested shortcut uses nearest toggle" classname="editor-ux.spec.ts" time="7.557">
+</testcase>
+<testcase name="STEP2-UX-VISUAL: capture polished slash menu and toggle at a desktop viewport" classname="editor-ux.spec.ts" time="9.22">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-ux-STEP2-UX-VISUAL--689e1-oggle-at-a-desktop-viewport-chromium/attachments/editor-ux-f52945717aaba96acb1643353a460af965a80bbd.png]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="editor.spec.ts" timestamp="2026-10-01T06:37:14.790Z" hostname="chromium" tests="22" failures="0" skipped="0" time="67.422" errors="0">
+<testcase name="STEP2-BLOCK: slash inserts 本文, edit and delete" classname="editor.spec.ts" time="4.281">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 見出し1, edit and delete" classname="editor.spec.ts" time="4.958">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 見出し2, edit and delete" classname="editor.spec.ts" time="3.836">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 見出し3, edit and delete" classname="editor.spec.ts" time="3.497">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 箇条書き, edit and delete" classname="editor.spec.ts" time="3.637">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 番号付きリスト, edit and delete" classname="editor.spec.ts" time="4.82">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts Todo, edit and delete" classname="editor.spec.ts" time="4.831">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 引用, edit and delete" classname="editor.spec.ts" time="3.075">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts コード, edit and delete" classname="editor.spec.ts" time="4.308">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 区切り線, edit and delete" classname="editor.spec.ts" time="2.838">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts Toggle, edit and delete" classname="editor.spec.ts" time="3.675">
+</testcase>
+<testcase name="STEP2-TODO: checkbox and nested list survive undo/redo" classname="editor.spec.ts" time="3.866">
+</testcase>
+<testcase name="STEP2-TOGGLE: nested content folds without losing text and unwraps" classname="editor.spec.ts" time="6.146">
+</testcase>
+<testcase name="STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text" classname="editor.spec.ts" time="1.508">
+</testcase>
+<testcase name="STEP2-MARKDOWN: #  shortcut" classname="editor.spec.ts" time="1.465">
+</testcase>
+<testcase name="STEP2-MARKDOWN: ##  shortcut" classname="editor.spec.ts" time="1.463">
+</testcase>
+<testcase name="STEP2-MARKDOWN: ###  shortcut" classname="editor.spec.ts" time="1.317">
+</testcase>
+<testcase name="STEP2-MARKDOWN: -  shortcut" classname="editor.spec.ts" time="1.472">
+</testcase>
+<testcase name="STEP2-MARKDOWN: 1.  shortcut" classname="editor.spec.ts" time="1.548">
+</testcase>
+<testcase name="STEP2-MARKDOWN: []  shortcut" classname="editor.spec.ts" time="1.421">
+</testcase>
+<testcase name="STEP2-MOVE: drag changes order, undo restores it, keyboard moves the block" classname="editor.spec.ts" time="2.146">
+</testcase>
+<testcase name="STEP2-COMPOSITION: slash menu does not consume composition Enter" classname="editor.spec.ts" time="1.314">
+</testcase>
+</testsuite>
+<testsuite name="foundation.spec.ts" timestamp="2026-10-01T06:37:14.790Z" hostname="chromium" tests="1" failures="0" skipped="0" time="2.248" errors="0">
+<testcase name="STEP1-E2E: React client starts alongside API and collaboration services" classname="foundation.spec.ts" time="2.248">
+</testcase>
+</testsuite>
+<testsuite name="persistence.spec.ts" timestamp="2026-10-01T06:37:14.790Z" hostname="chromium" tests="4" failures="0" skipped="0" time="26.41" errors="0">
+<testcase name="STEP5-CRASH: new offline Page metadata and block edits survive renderer/store SIGKILL, reopen offline and converge" classname="persistence.spec.ts" time="14.921">
+</testcase>
+<testcase name="STEP5-WRITE-ERROR: failed SQLite commit never sends the unsafe update or reports saved/synced" classname="persistence.spec.ts" time="4.838">
+</testcase>
+<testcase name="STEP5-RESTORE-corrupt: incompatible or corrupted SQLite fails closed" classname="persistence.spec.ts" time="3.242">
+</testcase>
+<testcase name="STEP5-RESTORE-schema: incompatible or corrupted SQLite fails closed" classname="persistence.spec.ts" time="3.409">
+</testcase>
+</testsuite>
+<testsuite name="structured-local.spec.ts" timestamp="2026-10-01T06:37:14.790Z" hostname="chromium" tests="2" failures="0" skipped="0" time="7.832" errors="0">
+<testcase name="STEP6-E2E: Task and Relation pointer/keyboard CRUD persist with pending operations after renderer/store restart" classname="structured-local.spec.ts" time="4.986">
+</testcase>
+<testcase name="STEP6-WRITE-ERROR: failed queue commit retains the draft and permits a safe retry without duplicate Task" classname="structured-local.spec.ts" time="2.846">
+</testcase>
+</testsuite>
+</testsuites>

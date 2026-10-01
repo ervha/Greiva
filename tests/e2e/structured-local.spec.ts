@@ -46,6 +46,7 @@ test('STEP6-WRITE-ERROR: failed queue commit retains the draft and permits a saf
   await page.goto(`/?page=${newId()}`);
   const panel = page.getByRole('region',{name:'TaskとRelation'});
   await expect(panel.getByLabel('Taskの保存状態')).toContainText('送信待ち 0件');
+  await page.getByRole('button',{name:'接続を一時停止'}).click();
   const device = await page.evaluate(() => localStorage.getItem('greiva-test-device'));
   await page.request.post('/__greiva_test_store_control',{data:{device,command:'structured-write-failure'}});
   await panel.getByLabel('Taskの名前').fill('preserve this draft');

@@ -1,0 +1,17 @@
+[
+  {
+    "original": ".last-run.json",
+    "saved": "files/0001.json",
+    "sha256": "91d1c43004802cd49950d78eb11c8fa7d05da8ffffe219a8b13b2f561bc00903"
+  },
+  {
+    "original": "editor-ux-STEP2-UX-VISUAL--689e1-oggle-at-a-desktop-viewport-chromium/editor-ux.png",
+    "saved": "files/0002.png",
+    "sha256": "09e85be6538fa49e61d5246864d0afbdc9bafa1d45bec8750b09e03a7ba5e2e6"
+  },
+  {
+    "original": "editor-ux-STEP2-UX-VISUAL--689e1-oggle-at-a-desktop-viewport-chromium/attachments/editor-ux-5cf92ae3ebd67d8c0f3f8aee06e72ef28d98409f.png",
+    "saved": "files/0003.png",
+    "sha256": "09e85be6538fa49e61d5246864d0afbdc9bafa1d45bec8750b09e03a7ba5e2e6"
+  }
+]

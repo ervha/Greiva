@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="6" failures="0" errors="0" time="0.679163667">
+    <testsuite name="tests/integration/structured-sync-client.test.ts" timestamp="2026-10-01T06:44:35.004Z" hostname="ce1d21fc7a9e" tests="6" failures="0" errors="0" skipped="5" time="0.679163667">
+        <testcase classname="tests/integration/structured-sync-client.test.ts" name="STEP7-CLIENT-HTTP: offline Task/Relation chains survive SIGKILL and converge through restore/pull/push/pull in creation order" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-client.test.ts" name="STEP7-CLIENT-ACK-LOSS: commit followed by dropped HTTP ACK and API/store restart is recovered once through durable pull" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-client.test.ts" name="STEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution" time="0.678120995">
+            <system-out>
+{&quot;service&quot;:&quot;api&quot;,&quot;event&quot;:&quot;structured-push&quot;,&quot;operationId&quot;:&quot;01a0f635-2ac9-73c8-8704-497106dbc4ec&quot;,&quot;clientId&quot;:&quot;01a0f635-2a14-7518-8e1a-b1312c01c52c&quot;,&quot;serverOrder&quot;:&quot;2&quot;,&quot;status&quot;:&quot;acknowledged&quot;,&quot;conflicts&quot;:0}
+
+{&quot;service&quot;:&quot;api&quot;,&quot;event&quot;:&quot;structured-push&quot;,&quot;operationId&quot;:&quot;01a0f635-2abf-70bf-9680-3621215043ef&quot;,&quot;clientId&quot;:&quot;01a0f635-29ec-77ef-9051-b1ef39fb5f5a&quot;,&quot;serverOrder&quot;:&quot;3&quot;,&quot;status&quot;:&quot;conflict&quot;,&quot;conflicts&quot;:1}
+
+{&quot;service&quot;:&quot;api&quot;,&quot;event&quot;:&quot;structured-push&quot;,&quot;operationId&quot;:&quot;01a0f635-2b6b-763b-9d8d-689eb87f2b9f&quot;,&quot;clientId&quot;:&quot;01a0f635-29ec-77ef-9051-b1ef39fb5f5a&quot;,&quot;serverOrder&quot;:&quot;4&quot;,&quot;status&quot;:&quot;acknowledged&quot;,&quot;conflicts&quot;:1}
+
+            </system-out>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-client.test.ts" name="STEP7-CLIENT-PULL-FAILURE: cursor commit failure stops network progress; restart and explicit retry keep the original cursor and restore all records" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-client.test.ts" name="STEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-client.test.ts" name="STEP7-CLIENT-REJECTED: create collision stops the affected causal chain, retains both original payloads and never displays synced" time="0">
+            <skipped/>
+        </testcase>
+    </testsuite>
+</testsuites>

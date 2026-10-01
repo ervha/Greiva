@@ -1,0 +1,27 @@
+[
+  {
+    "original": ".last-run.json",
+    "saved": "files/0001.json",
+    "sha256": "a77ae0567ce6e4753476e3130b4e08189e4a02e7673ceafaa8f2ea4101fdcf0b"
+  },
+  {
+    "original": "editor-STEP2-MENTION-keybo-bb469-Escape-leaves-ordinary-text-chromium/error-context.md",
+    "saved": "files/0002.md",
+    "sha256": "764c5bf41b05566cc408502b38d3e2f47fd4d639c9c23dc85b1ed812f418635c"
+  },
+  {
+    "original": "editor-STEP2-MENTION-keybo-bb469-Escape-leaves-ordinary-text-chromium/trace.zip",
+    "saved": "files/0003.zip",
+    "sha256": "92b861dd75a0be9cf4b18de9ace0f342f57642710b58de06ee9b68f70b4869f8"
+  },
+  {
+    "original": "editor-ux-STEP2-UX-VISUAL--689e1-oggle-at-a-desktop-viewport-chromium/editor-ux.png",
+    "saved": "files/0004.png",
+    "sha256": "7fc73eaba14f9bb56493b22105f55bdb2bfa53c420b928f5cd64ca4033fd89c1"
+  },
+  {
+    "original": "editor-ux-STEP2-UX-VISUAL--689e1-oggle-at-a-desktop-viewport-chromium/attachments/editor-ux-e01a90fcbb010bf56847eda79718e1feb18ddd89.png",
+    "saved": "files/0005.png",
+    "sha256": "7fc73eaba14f9bb56493b22105f55bdb2bfa53c420b928f5cd64ca4033fd89c1"
+  }
+]

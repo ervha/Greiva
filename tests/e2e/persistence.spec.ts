@@ -79,7 +79,7 @@ test('STEP5-CRASH: new offline Page metadata and block edits survive renderer/st
     await context.close(); context = await profile(directory, false, stableDevice); a = context.pages()[0]!;
     const b = await peerContext.newPage();
     await Promise.all([a.goto('/'), b.goto(url)]);
-    for (const page of [a, b]) { await expect(body(page)).toBeVisible(); await saved(page); await expect(page.getByLabel('同期状態')).toHaveText('サーバーと同期済み'); }
+    for (const page of [a, b]) { await expect(body(page)).toBeVisible(); await saved(page); await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('サーバーと同期済み'); }
     await expect.poll(async () => { const [x, y] = await Promise.all([snapshot(a), snapshot(b)]); return JSON.stringify(x.clocks) === JSON.stringify(y.clocks) && JSON.stringify(x.json) === JSON.stringify(y.json) && x.fragment === y.fragment; }).toBe(true);
     await expect(body(b)).toContainText('keep'); await expect(body(b)).toContainText('move');
     await expect(b.getByLabel('Pageタイトル', { exact: true })).toHaveValue(''); // Metadata stays device-local in Step 5.
@@ -92,9 +92,9 @@ test('STEP5-WRITE-ERROR: failed SQLite commit never sends the unsafe update or r
   try {
     const url = `/?page=${newId()}`; const b = await peer.newPage();
     await Promise.all([page.goto(url), b.goto(url)]);
-    for (const view of [page, b]) { await expect(body(view)).toBeVisible(); await saved(view); await expect(view.getByLabel('同期状態')).toHaveText('サーバーと同期済み'); }
+    for (const view of [page, b]) { await expect(body(view)).toBeVisible(); await saved(view); await expect(view.getByLabel('同期状態', { exact: true })).toHaveText('サーバーと同期済み'); }
     await control(page, 'write-failure'); await body(page).click(); await page.keyboard.type('unsafe');
-    await expect(page.getByLabel('同期状態')).toHaveText('端末への保存エラー');
+    await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('端末への保存エラー');
     await expect(page.getByLabel('端末の保存状態')).toContainText('保存できません');
     await expect(page.getByRole('alert')).toContainText('Injected SQLite write failure');
     await expect(body(b)).not.toContainText('unsafe');
@@ -108,7 +108,7 @@ for (const fault of ['corrupt', 'schema'] as const) {
     await page.goto(`/?page=${newId()}`); await expect(body(page)).toBeVisible(); await saved(page);
     await control(page, 'kill'); await control(page, fault);
     await page.reload();
-    await expect(page.getByLabel('同期状態')).toHaveText('端末への保存エラー');
+    await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('端末への保存エラー');
     await expect(page.getByRole('alert')).toContainText(fault === 'schema' ? 'Unsupported local schema version' : 'checksum mismatch');
     await expect(body(page)).not.toBeVisible();
   });

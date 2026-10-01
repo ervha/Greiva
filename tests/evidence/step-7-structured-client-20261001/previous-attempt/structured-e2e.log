@@ -1,0 +1,89 @@
+
+> greiva-poc@0.6.0 test:structured-e2e
+> node scripts/test-structured-e2e.mjs
+
+{"event":"structured-e2e-isolation","schema":"greiva_test_01a0f62235c775b2b3f7814da6093434"}
+
+> greiva-poc@0.6.0 test:e2e
+> npm run build:packages && npm run build:servers && playwright test
+
+
+> greiva-poc@0.6.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync
+
+
+> @greiva/shared@0.6.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.6.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.6.0 build
+> tsc -p tsconfig.json
+
+
+> greiva-poc@0.6.0 build:servers
+> npm run build -w @greiva/api && npm run build -w @greiva/collaboration
+
+
+> @greiva/api@0.6.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/collaboration@0.6.0 build
+> tsc -p tsconfig.json
+
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.
+
+Running 2 tests using 1 worker
+
+  ✓  1 [chromium] › tests/e2e/structured-sync.spec.ts:11:1 › STEP7-E2E: offline creation/reload, peer field merge, keyboard conflict resolution and focus preservation use real HTTP and Rust SQLite (10.6s)
+  ✘  2 [chromium] › tests/e2e/structured-sync.spec.ts:43:1 › STEP7-E2E-DRAFT: peer updates do not overwrite an active draft; stale save retains user input; remote conflict choice is explicit (5.6s)
+
+
+  1) [chromium] › tests/e2e/structured-sync.spec.ts:43:1 › STEP7-E2E-DRAFT: peer updates do not overwrite an active draft; stale save retains user input; remote conflict choice is explicit 
+
+    Error: expect(received).toEqual(expected) // deep equality
+
+    - Expected  - 2
+    + Received  + 2
+
+    @@ -14,9 +14,9 @@
+          "deletedAt": null,
+          "due": "2026-12-24",
+          "id": "01a0f622-7a08-7632-b0b3-9d6d65287b83",
+          "status": "todo",
+          "title": "remote chosen",
+    -     "updatedAt": "2026-10-01T06:24:12.358Z",
+    -     "version": 3,
+    +     "updatedAt": "2026-10-01T06:24:12.714Z",
+    +     "version": 4,
+        },
+      ]
+
+      57 |     await page.getByRole('button',{name:'再接続',exact:true}).click(); const conflict = panel(page).getByRole('article',{name:'名前の競合'}); await expect(conflict).toBeVisible();
+      58 |     await conflict.getByRole('button',{name:'他の端末の値を採用'}).click(); await synced(page); await synced(peer);
+    > 59 |     await expect(row(page,id)).toContainText('remote chosen'); expect((await snapshot(page)).tasks).toEqual((await snapshot(peer)).tasks);
+         |                                                                                                     ^
+      60 |   } finally { await context.close(); }
+      61 | });
+      62 |
+        at /workspace/tests/e2e/structured-sync.spec.ts:59:101
+
+    Error Context: ../evidence/step7-structured-e2e/artifacts/structured-sync-STEP7-E2E--e6749-conflict-choice-is-explicit-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../evidence/step7-structured-e2e/artifacts/structured-sync-STEP7-E2E--e6749-conflict-choice-is-explicit-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../evidence/step7-structured-e2e/artifacts/structured-sync-STEP7-E2E--e6749-conflict-choice-is-explicit-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests/e2e/structured-sync.spec.ts:43:1 › STEP7-E2E-DRAFT: peer updates do not overwrite an active draft; stale save retains user input; remote conflict choice is explicit 
+  1 passed (20.8s)
+{"event":"structured-e2e-cleanup","schema":"greiva_test_01a0f62235c775b2b3f7814da6093434","remaining":0}

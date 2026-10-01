@@ -29,16 +29,18 @@ async function pair(a: Page, b: Page) {
   await Promise.all([a.goto(`/?page=${pageId}`), b.goto(`/?page=${pageId}`)]);
   for (const page of [a, b]) {
     await expect(body(page)).toBeVisible();
-    await expect(page.getByLabel('同期状態')).toHaveText('サーバーと同期済み');
+    await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('サーバーと同期済み', { timeout: 15000 });
   }
 }
 async function pause(page: Page) {
   await page.getByRole('button', { name: '接続を一時停止', exact: true }).click();
-  await expect(page.getByLabel('同期状態')).toHaveText('オフライン');
+  await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('オフライン');
 }
 async function resume(page: Page) {
   await page.getByRole('button', { name: '再接続', exact: true }).click();
-  await expect(page.getByLabel('同期状態')).toHaveText('サーバーと同期済み');
+  // Reconnect plus the following 15s convergence check stays within the 30s
+  // PoC convergence window; the default 5s assertion could stop before retry.
+  await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('サーバーと同期済み', { timeout: 15000 });
 }
 async function typeBlocks(page: Page, lines: string[]) {
   await page.bringToFront();
@@ -117,7 +119,7 @@ test('STEP4-OFFLINE: each client adds and deletes blocks, reconnect and fresh cl
     await atEnd(page, ':scope > p:last-child');
     await page.keyboard.press('Enter');
     await page.keyboard.type(text);
-    await expect(page.getByLabel('同期状態')).toHaveText('オフライン');
+    await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('オフライン');
   }
   await info.attach('offline-clients', { body: JSON.stringify(await Promise.all([snapshot(a), snapshot(b)])), contentType: 'application/json' });
   await Promise.all([resume(a), resume(b)]);
@@ -201,7 +203,7 @@ test('STEP4-ISOLATION: another Page never receives this Page body', async ({ pag
   await expect(body(a)).toBeVisible();
   await expect(body(b)).toBeVisible();
   await typeBlocks(a, ['private to this page']);
-  await expect(a.getByLabel('同期状態')).toHaveText('サーバーと同期済み');
+  await expect(a.getByLabel('同期状態', { exact: true })).toHaveText('サーバーと同期済み');
   await expect(body(b)).not.toContainText('private to this page');
   expect((await snapshot(a)).pageId).not.toBe((await snapshot(b)).pageId);
 });

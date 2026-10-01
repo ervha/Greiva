@@ -2,7 +2,7 @@
 
 [プロジェクト紹介へ戻る](../../README.md)。以下のコマンドは、特記がなければリポジトリのルートで実行します。
 
-2026-10-01時点の開発計画と検証記録。開発チェックポイント **v0.5.1**。[変更履歴](../../CHANGELOG.md)・[コミット/バージョン運用](../development/versioning.md)。更新規模に応じたGitタグを付けてGitHubへ反映します。
+2026-10-01時点の開発計画と検証記録。開発チェックポイント **v0.6.0**。[変更履歴](../../CHANGELOG.md)・[コミット/バージョン運用](../development/versioning.md)。更新規模に応じたGitタグを付けてGitHubへ反映します。
 
 [POC_SPEC.md](POC_SPEC.md) のSection 18に沿って進めています。Step 1の基盤とStep 2の最小Editorを実装し、Slash・Toggleの操作改善を含むDocker内の全30件のE2Eが成功しました。Step 3はWindows実機へ切り替え、既存native shellの起動とWebView2保存先を確認しました。初回local IMEの4群は利用者がすべて問題なしと明示回答し、手動結果と初回証拠を記録しました。[Step 3初回IME記録](../../tests/evidence/windows-host-ime-20261001/SUMMARY.md)。[版の記録](../decisions/specification-version.md)、[Step 2の範囲・検証状況](../decisions/step-2-scope.md)、[Editor操作の改善](../decisions/editor-ux.md)を参照してください。
 
@@ -28,8 +28,9 @@ Step 5ではnative Page metadataとYjs binary updateをSQLiteへ保存し、comm
 
 Step 6ではTask/Relationの端末CRUD・tombstone、entityとqueueの同一SQLite transaction、schema移行、stable client ID、PostgreSQL最小モデル・Nest読み取りAPIを追加しました。[実装判断](../decisions/step-6-structured-models.md)、[全43 E2E・unit/integration 29件・実PostgreSQL別run 2件の証拠](../../tests/evidence/step-6-structured-models-20261001/SUMMARY.md)。Windows候補0.4.0はDockerでcross buildしましたが、[実機操作APIのアクセス拒否](../../tests/evidence/step-6-native-local-20261001/SUMMARY.md)により新規Task操作は未検証です。push/pull・ACK・cursor前進・base/local/remoteの競合処理はStep 7、Microsoft IMEと最終Gate A/B/Cも未完了です。
 
-Step 7のサーバー側push/pull、操作台帳、順序付きcursor、field merge・Conflictと明示解決、連続offline編集の意図保持を追加しました。[実装判断](../decisions/step-7-structured-server.md)と[検証証拠](../../tests/evidence/step-7-structured-server-20261001/SUMMARY.md)。Dockerの通常29件、実PostgreSQL別run12件、全43 E2Eとbuild/型・保存層・locked Cargo checkが成功しました。端末ACK・pull適用とcursor保存・Conflict UI・network chaos・統合crash recoveryは続けて実装します。既存Windows実行物は0.4.0のままで、Microsoft IMEと最終Gateも未完了です。
+Step 7のサーバー側push/pull、操作台帳、順序付きcursor、field merge・Conflictと明示解決、連続offline編集の意図保持を追加しました。[実装判断](../decisions/step-7-structured-server.md)と[検証証拠](../../tests/evidence/step-7-structured-server-20261001/SUMMARY.md)。Dockerの通常29件、実PostgreSQL別run12件、全43 E2Eとbuild/型・保存層・locked Cargo checkが成功しました。サーバー側だけの当時の区切りです。端末側の進捗は次の段落に記録します。既存Windows実行物は0.4.0のままで、Microsoft IMEと最終Gateも未完了です。
 
+Step 7の端末ACK・transactional pull/cursor、prepared再送、pending intentのprojection、Conflict UI、復元→pull→push→pull engineを追加しました。[実装判断](../decisions/step-7-structured-client.md)・[Docker証拠](../../tests/evidence/step-7-structured-client-20261001/SUMMARY.md)・[修正/未解決記録](../failures/step-7-structured-client.md)。実Rust/SQLiteと実PostgreSQL/HTTPでACK喪失・API再作成・store SIGKILL・cursor保存失敗・遅延・接続停止/再開を確認し、別runの競合UIでlocal/remote選択・入力/focus保持・offline復元を検証します。Windows 0.6.0候補はDockerでcross build・hash照合済みですが、実機操作は未検証です。残るPage＋Task＋Relationの統合crash境界、APIプロセスSIGKILL、性能/P1/P2・native/IME・最終Gateは後続です。Page初期復元が5秒を超えた一回の原因は未確定として記録し、再検証成功だけで解消扱いにしません。
 現在のユーザー指定により、**Dockerで開発・自動テスト、Windows実機でTauri・Microsoft IMEを検証**します。[実機起動手順](../development/windows-host-ime.md)は既存実行物を使い、ホストへ開発ツールを追加しません。[隔離環境の詳細](../development/isolated-environment.md)。
 
 ```powershell

@@ -1,0 +1,200 @@
+{
+  "config": {
+    "argv": [
+      "/usr/local/bin/node",
+      "/workspace/node_modules/.bin/playwright",
+      "test"
+    ],
+    "configFile": "/workspace/playwright.config.ts",
+    "rootDir": "/workspace/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/evidence/step7-structured-e2e/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/workspace/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "structured-sync.spec.ts"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/evidence/step7-structured-e2e/playwright.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "/evidence/step7-structured-e2e/playwright.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 2,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "structured-sync.spec.ts",
+      "file": "structured-sync.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "STEP7-E2E: offline creation/reload, peer field merge, keyboard conflict resolution and focus preservation use real HTTP and Rust SQLite",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10555,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-01T06:23:57.790Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "structured-convergence",
+                      "contentType": "application/json",
+                      "body": "ewogICJsZWZ0IjogewogICAgInRhc2tzIjogWwogICAgICB7CiAgICAgICAgImlkIjogIjAxYTBmNjIyLTUxODUtNzRkNi04MTViLTBlZTliMDY0MjU2NCIsCiAgICAgICAgInRpdGxlIjogImxvY2FsIHRpdGxlIiwKICAgICAgICAic3RhdHVzIjogImRvbmUiLAogICAgICAgICJkdWUiOiAiMjAyNi0xMC0xMCIsCiAgICAgICAgInZlcnNpb24iOiA0LAogICAgICAgICJjcmVhdGVkQXQiOiAiMjAyNi0xMC0wMVQwNjoyMzo1OS40NzZaIiwKICAgICAgICAidXBkYXRlZEF0IjogIjIwMjYtMTAtMDFUMDY6MjQ6MDQuMzc4WiIsCiAgICAgICAgImRlbGV0ZWRBdCI6IG51bGwKICAgICAgfQogICAgXSwKICAgICJyZWxhdGlvbnMiOiBbXSwKICAgICJvcGVyYXRpb25zIjogWwogICAgICB7CiAgICAgICAgIm9wZXJhdGlvbklkIjogIjAxYTBmNjIyLTUxODUtNzRkNi04MTViLTExNmVkNGM4MmNiYyIsCiAgICAgICAgImVudGl0eVR5cGUiOiAidGFzayIsCiAgICAgICAgImVudGl0eUlkIjogIjAxYTBmNjIyLTUxODUtNzRkNi04MTViLTBlZTliMDY0MjU2NCIsCiAgICAgICAgImtpbmQiOiAiY3JlYXRlIiwKICAgICAgICAiYmFzZVZlcnNpb24iOiBudWxsLAogICAgICAgICJwYXlsb2FkIjogewogICAgICAgICAgImR1ZSI6IG51bGwsCiAgICAgICAgICAic3RhdHVzIjogInRvZG8iLAogICAgICAgICAgInRpdGxlIjogInN5bmMgMDFhMGY2MjItNTExOC03N2U1LWJhYTEtODljMGM4OWQxNDUzIgogICAgICAgIH0sCiAgICAgICAgImNsaWVudElkIjogIjAxYTBmNjIyLTUwN2EtNzBjNy1iYjYwLTI5MmY3ZmIxZDIyMCIsCiAgICAgICAgImNyZWF0ZWRBdCI6ICIyMDI2LTEwLTAxVDA2OjIzOjU5LjM3MVoiLAogICAgICAgICJzdGF0dXMiOiAiYWNrbm93bGVkZ2VkIgogICAgICB9LAogICAgICB7CiAgICAgICAgIm9wZXJhdGlvbklkIjogIjAxYTBmNjIyLTU3M2YtNzE3YS1iNzkzLTU1NGFmN2U3YTViNyIsCiAgICAgICAgImVudGl0eVR5cGUiOiAidGFzayIsCiAgICAgICAgImVudGl0eUlkIjogIjAxYTBmNjIyLTUxODUtNzRkNi04MTViLTBlZTliMDY0MjU2NCIsCiAgICAgICAgImtpbmQiOiAidXBkYXRlIiwKICAgICAgICAiYmFzZVZlcnNpb24iOiAxLAogICAgICAgICJwYXlsb2FkIjogewogICAgICAgICAgImR1ZSI6ICIyMDI2LTEwLTEwIiwKICAgICAgICAgICJzdGF0dXMiOiAidG9kbyIsCiAgICAgICAgICAidGl0bGUiOiAibG9jYWwgdGl0bGUiCiAgICAgICAgfSwKICAgICAgICAiY2xpZW50SWQiOiAiMDFhMGY2MjItNTA3YS03MGM3LWJiNjAtMjkyZjdmYjFkMjIwIiwKICAgICAgICAiY3JlYXRlZEF0IjogIjIwMjYtMTAtMDFUMDY6MjQ6MDAuODM1WiIsCiAgICAgICAgInN0YXR1cyI6ICJhY2tub3dsZWRnZWQiCiAgICAgIH0sCiAgICAgIHsKICAgICAgICAib3BlcmF0aW9uSWQiOiAiMDFhMGY2MjItNjRlMi03MWU0LWE2NmMtNGM4ZDIxZGVmZGRhIiwKICAgICAgICAiZW50aXR5VHlwZSI6ICJ0YXNrIiwKICAgICAgICAiZW50aXR5SWQiOiAiMDFhMGY2MjItNTE4NS03NGQ2LTgxNWItMGVlOWIwNjQyNTY0IiwKICAgICAgICAia2luZCI6ICJ1cGRhdGUiLAogICAgICAgICJiYXNlVmVyc2lvbiI6IDMsCiAgICAgICAgInBheWxvYWQiOiB7CiAgICAgICAgICAidGl0bGUiOiAibG9jYWwgdGl0bGUiCiAgICAgICAgfSwKICAgICAgICAiY2xpZW50SWQiOiAiMDFhMGY2MjItNTA3YS03MGM3LWJiNjAtMjkyZjdmYjFkMjIwIiwKICAgICAgICAicmVzb2x1dGlvbiI6IHsKICAgICAgICAgICJjb25mbGljdElkcyI6IFsKICAgICAgICAgICAgIjAxYTBmNjIyLTViMGMtNzYzMi04ZThmLTQ2YmRjZjFkNmVkMiIKICAgICAgICAgIF0sCiAgICAgICAgICAiY2hvaWNlIjogImxvY2FsIgogICAgICAgIH0sCiAgICAgICAgImNyZWF0ZWRBdCI6ICIyMDI2LTEwLTAxVDA2OjI0OjA0LjMyOFoiLAogICAgICAgICJzdGF0dXMiOiAiYWNrbm93bGVkZ2VkIgogICAgICB9CiAgICBdLAogICAgInN0YXRlIjogewogICAgICAic3RyZWFtIjogInN0cnVjdHVyZWQiLAogICAgICAiY3Vyc29yIjogImcxLjAxYTBmNjIyLTQ0YmYtNzdjOS1iZTg0LWJhYjcwMjY3ODdhMS40LmlUaWoteV95bjMtMmJhTWZuSFJSQnZBSTRQMF9EVWpuM3JVWXBJb3FhcU0iLAogICAgICAiaGVhZEN1cnNvciI6ICJnMS4wMWEwZjYyMi00NGJmLTc3YzktYmU4NC1iYWI3MDI2Nzg3YTEuNC5pVGlqLXlfeW4zLTJiYU1mbkhSUkJ2QUk0UDBfRFVqbjNyVVlwSW9xYXFNIiwKICAgICAgImxhc3RTdWNjZXNzZnVsU3luY0F0IjogIjIwMjYtMTAtMDFUMDY6MjQ6MDQuNDExWiIKICAgIH0sCiAgICAiY2xpZW50SWQiOiAiMDFhMGY2MjItNTA3YS03MGM3LWJiNjAtMjkyZjdmYjFkMjIwIiwKICAgICJjb25mbGljdHMiOiBbCiAgICAgIHsKICAgICAgICAiaWQiOiAiMDFhMGY2MjItNWIwYy03NjMyLThlOGYtNDZiZGNmMWQ2ZWQyIiwKICAgICAgICAib3BlcmF0aW9uSWQiOiAiMDFhMGY2MjItNTczZi03MTdhLWI3OTMtNTU0YWY3ZTdhNWI3IiwKICAgICAgICAiZW50aXR5VHlwZSI6ICJ0YXNrIiwKICAgICAgICAiZW50aXR5SWQiOiAiMDFhMGY2MjItNTE4NS03NGQ2LTgxNWItMGVlOWIwNjQyNTY0IiwKICAgICAgICAiZmllbGQiOiAidGl0bGUiLAogICAgICAgICJiYXNlIjogInN5bmMgMDFhMGY2MjItNTExOC03N2U1LWJhYTEtODljMGM4OWQxNDUzIiwKICAgICAgICAibG9jYWwiOiAibG9jYWwgdGl0bGUiLAogICAgICAgICJyZW1vdGUiOiAicmVtb3RlIHRpdGxlIiwKICAgICAgICAiY3JlYXRlZEF0IjogIjIwMjYtMTAtMDFUMDY6MjQ6MDEuODAzWiIsCiAgICAgICAgInN0YXR1cyI6ICJyZXNvbHZlZCIsCiAgICAgICAgInJlc29sdmVkQnkiOiAiMDFhMGY2MjItNjRlMi03MWU0LWE2NmMtNGM4ZDIxZGVmZGRhIgogICAgICB9CiAgICBdLAogICAgImVycm9ycyI6IFtdCiAgfSwKICAicmlnaHQiOiB7CiAgICAidGFza3MiOiBbCiAgICAgIHsKICAgICAgICAiaWQiOiAiMDFhMGY2MjItNTE4NS03NGQ2LTgxNWItMGVlOWIwNjQyNTY0IiwKICAgICAgICAidGl0bGUiOiAibG9jYWwgdGl0bGUiLAogICAgICAgICJzdGF0dXMiOiAiZG9uZSIsCiAgICAgICAgImR1ZSI6ICIyMDI2LTEwLTEwIiwKICAgICAgICAidmVyc2lvbiI6IDQsCiAgICAgICAgImNyZWF0ZWRBdCI6ICIyMDI2LTEwLTAxVDA2OjIzOjU5LjQ3NloiLAogICAgICAgICJ1cGRhdGVkQXQiOiAiMjAyNi0xMC0wMVQwNjoyNDowNC4zNzhaIiwKICAgICAgICAiZGVsZXRlZEF0IjogbnVsbAogICAgICB9CiAgICBdLAogICAgInJlbGF0aW9ucyI6IFtdLAogICAgIm9wZXJhdGlvbnMiOiBbCiAgICAgIHsKICAgICAgICAib3BlcmF0aW9uSWQiOiAiMDFhMGY2MjItNTlkZS03MzI3LWI5NDctNjQxNGQ3NWQyMzViIiwKICAgICAgICAiZW50aXR5VHlwZSI6ICJ0YXNrIiwKICAgICAgICAiZW50aXR5SWQiOiAiMDFhMGY2MjItNTE4NS03NGQ2LTgxNWItMGVlOWIwNjQyNTY0IiwKICAgICAgICAia2luZCI6ICJ1cGRhdGUiLAogICAgICAgICJiYXNlVmVyc2lvbiI6IDEsCiAgICAgICAgInBheWxvYWQiOiB7CiAgICAgICAgICAiZHVlIjogbnVsbCwKICAgICAgICAgICJzdGF0dXMiOiAiZG9uZSIsCiAgICAgICAgICAidGl0bGUiOiAicmVtb3RlIHRpdGxlIgogICAgICAgIH0sCiAgICAgICAgImNsaWVudElkIjogIjAxYTBmNjIyLTU1Y2MtNzJjYi1hNmRlLWVlN2I3NDFkYjFlMSIsCiAgICAgICAgImNyZWF0ZWRBdCI6ICIyMDI2LTEwLTAxVDA2OjI0OjAxLjUwN1oiLAogICAgICAgICJzdGF0dXMiOiAiYWNrbm93bGVkZ2VkIgogICAgICB9CiAgICBdLAogICAgInN0YXRlIjogewogICAgICAic3RyZWFtIjogInN0cnVjdHVyZWQiLAogICAgICAiY3Vyc29yIjogImcxLjAxYTBmNjIyLTQ0YmYtNzdjOS1iZTg0LWJhYjcwMjY3ODdhMS40LmlUaWoteV95bjMtMmJhTWZuSFJSQnZBSTRQMF9EVWpuM3JVWXBJb3FhcU0iLAogICAgICAiaGVhZEN1cnNvciI6ICJnMS4wMWEwZjYyMi00NGJmLTc3YzktYmU4NC1iYWI3MDI2Nzg3YTEuNC5pVGlqLXlfeW4zLTJiYU1mbkhSUkJ2QUk0UDBfRFVqbjNyVVlwSW9xYXFNIiwKICAgICAgImxhc3RTdWNjZXNzZnVsU3luY0F0IjogIjIwMjYtMTAtMDFUMDY6MjQ6MDUuNzM3WiIKICAgIH0sCiAgICAiY2xpZW50SWQiOiAiMDFhMGY2MjItNTVjYy03MmNiLWE2ZGUtZWU3Yjc0MWRiMWUxIiwKICAgICJjb25mbGljdHMiOiBbCiAgICAgIHsKICAgICAgICAiaWQiOiAiMDFhMGY2MjItNWIwYy03NjMyLThlOGYtNDZiZGNmMWQ2ZWQyIiwKICAgICAgICAib3BlcmF0aW9uSWQiOiAiMDFhMGY2MjItNTczZi03MTdhLWI3OTMtNTU0YWY3ZTdhNWI3IiwKICAgICAgICAiZW50aXR5VHlwZSI6ICJ0YXNrIiwKICAgICAgICAiZW50aXR5SWQiOiAiMDFhMGY2MjItNTE4NS03NGQ2LTgxNWItMGVlOWIwNjQyNTY0IiwKICAgICAgICAiZmllbGQiOiAidGl0bGUiLAogICAgICAgICJiYXNlIjogInN5bmMgMDFhMGY2MjItNTExOC03N2U1LWJhYTEtODljMGM4OWQxNDUzIiwKICAgICAgICAibG9jYWwiOiAibG9jYWwgdGl0bGUiLAogICAgICAgICJyZW1vdGUiOiAicmVtb3RlIHRpdGxlIiwKICAgICAgICAiY3JlYXRlZEF0IjogIjIwMjYtMTAtMDFUMDY6MjQ6MDEuODAzWiIsCiAgICAgICAgInN0YXR1cyI6ICJyZXNvbHZlZCIsCiAgICAgICAgInJlc29sdmVkQnkiOiAiMDFhMGY2MjItNjRlMi03MWU0LWE2NmMtNGM4ZDIxZGVmZGRhIgogICAgICB9CiAgICBdLAogICAgImVycm9ycyI6IFtdCiAgfQp9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e31b5415fd9bd8fc33cc-ffd192eab28c32c82434",
+          "file": "structured-sync.spec.ts",
+          "line": 11,
+          "column": 1
+        },
+        {
+          "title": "STEP7-E2E-DRAFT: peer updates do not overwrite an active draft; stale save retains user input; remote conflict choice is explicit",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 5641,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 2\u001b[39m\n\n\u001b[33m@@ -14,9 +14,9 @@\u001b[39m\n\u001b[2m      \"deletedAt\": null,\u001b[22m\n\u001b[2m      \"due\": \"2026-12-24\",\u001b[22m\n\u001b[2m      \"id\": \"01a0f622-7a08-7632-b0b3-9d6d65287b83\",\u001b[22m\n\u001b[2m      \"status\": \"todo\",\u001b[22m\n\u001b[2m      \"title\": \"remote chosen\",\u001b[22m\n\u001b[32m-     \"updatedAt\": \"2026-10-01T06:24:12.358Z\",\u001b[39m\n\u001b[32m-     \"version\": 3,\u001b[39m\n\u001b[31m+     \"updatedAt\": \"2026-10-01T06:24:12.714Z\",\u001b[39m\n\u001b[31m+     \"version\": 4,\u001b[39m\n\u001b[2m    },\u001b[22m\n\u001b[2m  ]\u001b[22m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 2\u001b[39m\n\n\u001b[33m@@ -14,9 +14,9 @@\u001b[39m\n\u001b[2m      \"deletedAt\": null,\u001b[22m\n\u001b[2m      \"due\": \"2026-12-24\",\u001b[22m\n\u001b[2m      \"id\": \"01a0f622-7a08-7632-b0b3-9d6d65287b83\",\u001b[22m\n\u001b[2m      \"status\": \"todo\",\u001b[22m\n\u001b[2m      \"title\": \"remote chosen\",\u001b[22m\n\u001b[32m-     \"updatedAt\": \"2026-10-01T06:24:12.358Z\",\u001b[39m\n\u001b[32m-     \"version\": 3,\u001b[39m\n\u001b[31m+     \"updatedAt\": \"2026-10-01T06:24:12.714Z\",\u001b[39m\n\u001b[31m+     \"version\": 4,\u001b[39m\n\u001b[2m    },\u001b[22m\n\u001b[2m  ]\u001b[22m\n    at /workspace/tests/e2e/structured-sync.spec.ts:59:101",
+                    "location": {
+                      "file": "/workspace/tests/e2e/structured-sync.spec.ts",
+                      "column": 101,
+                      "line": 59
+                    },
+                    "snippet": "  57 |     await page.getByRole('button',{name:'再接続',exact:true}).click(); const conflict = panel(page).getByRole('article',{name:'名前の競合'}); await expect(conflict).toBeVisible();\n  58 |     await conflict.getByRole('button',{name:'他の端末の値を採用'}).click(); await synced(page); await synced(peer);\n> 59 |     await expect(row(page,id)).toContainText('remote chosen'); expect((await snapshot(page)).tasks).toEqual((await snapshot(peer)).tasks);\n     |                                                                                                     ^\n  60 |   } finally { await context.close(); }\n  61 | });\n  62 |"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/tests/e2e/structured-sync.spec.ts",
+                        "column": 101,
+                        "line": 59
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 2\u001b[39m\n\n\u001b[33m@@ -14,9 +14,9 @@\u001b[39m\n\u001b[2m      \"deletedAt\": null,\u001b[22m\n\u001b[2m      \"due\": \"2026-12-24\",\u001b[22m\n\u001b[2m      \"id\": \"01a0f622-7a08-7632-b0b3-9d6d65287b83\",\u001b[22m\n\u001b[2m      \"status\": \"todo\",\u001b[22m\n\u001b[2m      \"title\": \"remote chosen\",\u001b[22m\n\u001b[32m-     \"updatedAt\": \"2026-10-01T06:24:12.358Z\",\u001b[39m\n\u001b[32m-     \"version\": 3,\u001b[39m\n\u001b[31m+     \"updatedAt\": \"2026-10-01T06:24:12.714Z\",\u001b[39m\n\u001b[31m+     \"version\": 4,\u001b[39m\n\u001b[2m    },\u001b[22m\n\u001b[2m  ]\u001b[22m\n\n  57 |     await page.getByRole('button',{name:'再接続',exact:true}).click(); const conflict = panel(page).getByRole('article',{name:'名前の競合'}); await expect(conflict).toBeVisible();\n  58 |     await conflict.getByRole('button',{name:'他の端末の値を採用'}).click(); await synced(page); await synced(peer);\n> 59 |     await expect(row(page,id)).toContainText('remote chosen'); expect((await snapshot(page)).tasks).toEqual((await snapshot(peer)).tasks);\n     |                                                                                                     ^\n  60 |   } finally { await context.close(); }\n  61 | });\n  62 |\n    at /workspace/tests/e2e/structured-sync.spec.ts:59:101"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-01T06:24:08.624Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/evidence/step7-structured-e2e/artifacts/structured-sync-STEP7-E2E--e6749-conflict-choice-is-explicit-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/evidence/step7-structured-e2e/artifacts/structured-sync-STEP7-E2E--e6749-conflict-choice-is-explicit-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/tests/e2e/structured-sync.spec.ts",
+                    "column": 101,
+                    "line": 59
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "e31b5415fd9bd8fc33cc-ccabfe59e6dd67d66d51",
+          "file": "structured-sync.spec.ts",
+          "line": 43,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-01T06:23:54.663Z",
+    "duration": 20786.517,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

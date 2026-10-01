@@ -1,0 +1,42 @@
+<testsuites id="" name="" tests="10" failures="0" skipped="0" errors="0" time="20.276491999999998">
+<testsuite name="editor.spec.ts" timestamp="2026-10-01T06:52:04.710Z" hostname="chromium" tests="1" failures="0" skipped="0" time="3.36" errors="0">
+<testcase name="STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text" classname="editor.spec.ts" time="3.36">
+</testcase>
+</testsuite>
+<testsuite name="editor.spec.ts" timestamp="2026-10-01T06:52:04.710Z" hostname="chromium" tests="1" failures="0" skipped="0" time="3.306" errors="0">
+<testcase name="STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text" classname="editor.spec.ts" time="3.306">
+</testcase>
+</testsuite>
+<testsuite name="editor.spec.ts" timestamp="2026-10-01T06:52:04.710Z" hostname="chromium" tests="1" failures="0" skipped="0" time="3.055" errors="0">
+<testcase name="STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text" classname="editor.spec.ts" time="3.055">
+</testcase>
+</testsuite>
+<testsuite name="editor.spec.ts" timestamp="2026-10-01T06:52:04.710Z" hostname="chromium" tests="1" failures="0" skipped="0" time="2.832" errors="0">
+<testcase name="STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text" classname="editor.spec.ts" time="2.832">
+</testcase>
+</testsuite>
+<testsuite name="editor.spec.ts" timestamp="2026-10-01T06:52:04.710Z" hostname="chromium" tests="1" failures="0" skipped="0" time="3.137" errors="0">
+<testcase name="STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text" classname="editor.spec.ts" time="3.137">
+</testcase>
+</testsuite>
+<testsuite name="editor.spec.ts" timestamp="2026-10-01T06:52:04.710Z" hostname="chromium" tests="1" failures="0" skipped="0" time="2.903" errors="0">
+<testcase name="STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text" classname="editor.spec.ts" time="2.903">
+</testcase>
+</testsuite>
+<testsuite name="editor.spec.ts" timestamp="2026-10-01T06:52:04.710Z" hostname="chromium" tests="1" failures="0" skipped="0" time="2.938" errors="0">
+<testcase name="STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text" classname="editor.spec.ts" time="2.938">
+</testcase>
+</testsuite>
+<testsuite name="editor.spec.ts" timestamp="2026-10-01T06:52:04.710Z" hostname="chromium" tests="1" failures="0" skipped="0" time="2.602" errors="0">
+<testcase name="STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text" classname="editor.spec.ts" time="2.602">
+</testcase>
+</testsuite>
+<testsuite name="editor.spec.ts" timestamp="2026-10-01T06:52:04.710Z" hostname="chromium" tests="1" failures="0" skipped="0" time="2.855" errors="0">
+<testcase name="STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text" classname="editor.spec.ts" time="2.855">
+</testcase>
+</testsuite>
+<testsuite name="editor.spec.ts" timestamp="2026-10-01T06:52:04.710Z" hostname="chromium" tests="1" failures="0" skipped="0" time="2.784" errors="0">
+<testcase name="STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text" classname="editor.spec.ts" time="2.784">
+</testcase>
+</testsuite>
+</testsuites>

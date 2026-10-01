@@ -52,6 +52,7 @@ export const syncOperationSchema = pushOperationSchema.extend({
 });
 export const syncStateSchema = z.strictObject({
   stream: z.literal('structured'), cursor: cursorSchema.nullable(),
+  headCursor: cursorSchema.nullable().default(null),
   lastSuccessfulSyncAt: utcTimestampSchema.nullable(),
 });
 export const pullRequestSchema = z.strictObject({ cursor: cursorSchema.nullable(), limit: z.number().int().min(1).max(500).default(100) });
@@ -87,6 +88,8 @@ export type PullResponse = z.infer<typeof pullResponseSchema>;
 export const structuredSnapshotSchema = z.strictObject({
   tasks: z.array(taskSchema), relations: z.array(relationSchema), operations: z.array(syncOperationSchema),
   state: syncStateSchema, clientId: idSchema.nullable(),
+  conflicts: z.array(conflictSchema),
+  errors: z.array(z.strictObject({operationId:idSchema,error:z.string()})),
 });
 export type StructuredSnapshot = z.infer<typeof structuredSnapshotSchema>;
 export type Page = z.infer<typeof pageSchema>;

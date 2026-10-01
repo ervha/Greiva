@@ -5,6 +5,13 @@ use sqlx::{Sqlite, Transaction};
 
 #[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
 #[serde(rename_all = "camelCase", deny_unknown_fields)]
+pub struct Resolution {
+    pub conflict_ids: Vec<String>,
+    pub choice: String,
+}
+
+#[derive(Deserialize, Serialize, Debug, Clone, PartialEq)]
+#[serde(rename_all = "camelCase", deny_unknown_fields)]
 pub struct LocalOperation {
     pub operation_id: String,
     pub entity_type: String,
@@ -13,6 +20,8 @@ pub struct LocalOperation {
     pub base_version: Option<i64>,
     pub payload: Value,
     pub client_id: String,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub resolution: Option<Resolution>,
 }
 #[derive(Serialize)]
 #[serde(rename_all = "camelCase")]
@@ -22,6 +31,8 @@ pub struct StructuredSnapshot {
     pub operations: Vec<Value>,
     pub state: Value,
     pub client_id: Option<String>,
+    pub conflicts: Vec<Value>,
+    pub errors: Vec<Value>,
 }
 
 // The frontend can request an entity mutation, never execute arbitrary SQL.
@@ -40,12 +51,12 @@ pub(super) async fn validate_schema(tx: &mut Transaction<'_, Sqlite>) -> StoreRe
     if count != 1 { return Err("Structured sync state is missing".into()); }
     Ok(())
 }
-fn uuid_v7(value: &str) -> bool {
+pub(super) fn uuid_v7(value: &str) -> bool {
     let b = value.as_bytes();
     b.len() == 36 && b[14] == b'7' && matches!(b[19], b'8'|b'9'|b'a'|b'b'|b'A'|b'B') &&
         b.iter().enumerate().all(|(i,c)| if [8,13,18,23].contains(&i) { *c == b'-' } else { c.is_ascii_hexdigit() })
 }
-fn date_only(value: &str) -> bool {
+pub(super) fn date_only(value: &str) -> bool {
     let b = value.as_bytes();
     if b.len() != 10 || b[4] != b'-' || b[7] != b'-' || !b.iter().enumerate().all(|(i,c)| [4,7].contains(&i) || c.is_ascii_digit()) { return false; }
     let year = value[0..4].parse::<u32>().unwrap();
@@ -54,7 +65,7 @@ fn date_only(value: &str) -> bool {
     let days = [31, if year%4 == 0 && (year%100 != 0 || year%400 == 0) {29} else {28},31,30,31,30,31,31,30,31,30,31];
     year > 0 && (1..=12).contains(&month) && day > 0 && day <= days[month-1]
 }
-fn validate(operation: &LocalOperation) -> StoreResult<&Map<String, Value>> {
+pub(super) fn validate(operation: &LocalOperation) -> StoreResult<&Map<String, Value>> {
     if !uuid_v7(&operation.operation_id) || !uuid_v7(&operation.entity_id) || !uuid_v7(&operation.client_id) { return Err("Structured IDs must be UUIDv7".into()); }
     if !["task","relation"].contains(&operation.entity_type.as_str()) || !["create","update","delete"].contains(&operation.kind.as_str()) { return Err("Invalid operation kind or entity type".into()); }
     match (operation.kind.as_str(), operation.base_version) {
@@ -63,6 +74,13 @@ fn validate(operation: &LocalOperation) -> StoreResult<&Map<String, Value>> {
         _ => return Err("Invalid base version".into()),
     }
     let payload = operation.payload.as_object().ok_or("Payload must be an object")?;
+    if let Some(resolution) = &operation.resolution {
+        if operation.kind != "update" || !["local","remote"].contains(&resolution.choice.as_str()) || resolution.conflict_ids.is_empty() ||
+            resolution.conflict_ids.len() > 7 || resolution.conflict_ids.iter().any(|id| !uuid_v7(id)) ||
+            resolution.conflict_ids.iter().collect::<std::collections::HashSet<_>>().len() != resolution.conflict_ids.len() {
+            return Err("Invalid conflict resolution".into());
+        }
+    }
     let allowed = if operation.kind == "delete" { vec![] } else if operation.entity_type == "task" { vec!["title","status","due"] } else { vec!["fromType","fromId","toType","toId"] };
     if payload.keys().any(|key| !allowed.contains(&key.as_str())) { return Err("Unknown or immutable payload field".into()); }
     if operation.kind == "create" && payload.len() != allowed.len() { return Err("Create payload is incomplete".into()); }
@@ -100,14 +118,18 @@ impl PageStore {
                 .fetch_all(&mut *tx).await.map_err(|e| e.to_string())?;
             entities.push(raws.into_iter().map(decoded).collect::<StoreResult<Vec<_>>>()?);
         }
-        let raws: Vec<String> = sqlx::query_scalar("SELECT json_object('operationId',operation_id,'entityType',entity_type,'entityId',entity_id,'kind',kind,'baseVersion',base_version,'payload',json(payload),'clientId',client_id,'createdAt',created_at,'status',status) FROM sync_operations ORDER BY seq")
+        let raws: Vec<String> = sqlx::query_scalar("SELECT json_object('operationId',operation_id,'entityType',entity_type,'entityId',entity_id,'kind',kind,'baseVersion',base_version,'payload',json(payload),'clientId',client_id,'createdAt',created_at,'status',status,'resolution',json(resolution)) FROM sync_operations ORDER BY seq")
             .fetch_all(&mut *tx).await.map_err(|e| e.to_string())?;
-        let operations = raws.into_iter().map(decoded).collect::<StoreResult<Vec<_>>>()?;
-        let state: String = sqlx::query_scalar("SELECT json_object('stream',stream,'cursor',cursor,'lastSuccessfulSyncAt',last_successful_sync_at) FROM sync_state WHERE stream='structured'")
+        let operations = raws.into_iter().map(|raw| { let mut value=decoded(raw)?; if value["resolution"].is_null() { value.as_object_mut().unwrap().remove("resolution"); } Ok(value) }).collect::<StoreResult<Vec<_>>>()?;
+        let state: String = sqlx::query_scalar("SELECT json_object('stream',stream,'cursor',cursor,'headCursor',head_cursor,'lastSuccessfulSyncAt',last_successful_sync_at) FROM sync_state WHERE stream='structured'")
             .fetch_one(&mut *tx).await.map_err(|e| e.to_string())?;
         let client_id = sqlx::query_scalar("SELECT client_id FROM structured_client WHERE singleton=1").fetch_optional(&mut *tx).await.map_err(|e| e.to_string())?;
+        let raws: Vec<String> = sqlx::query_scalar("SELECT record FROM structured_conflicts ORDER BY server_order,id").fetch_all(&mut *tx).await.map_err(|e| e.to_string())?;
+        let conflicts = raws.into_iter().map(decoded).collect::<StoreResult<Vec<_>>>()?;
+        let raws: Vec<String> = sqlx::query_scalar("SELECT json_object('operationId',operation_id,'error',local_error) FROM sync_operations WHERE status='rejected' ORDER BY seq").fetch_all(&mut *tx).await.map_err(|e| e.to_string())?;
+        let errors = raws.into_iter().map(decoded).collect::<StoreResult<Vec<_>>>()?;
         tx.commit().await.map_err(|e| e.to_string())?;
-        Ok(StructuredSnapshot { tasks: entities.remove(0), relations: entities.remove(0), operations, state: decoded(state)?, client_id })
+        Ok(StructuredSnapshot { tasks: entities.remove(0), relations: entities.remove(0), operations, state: decoded(state)?, client_id, conflicts, errors })
     }
 
     pub async fn structured_mutate(&self, operation: LocalOperation) -> StoreResult<Value> {
@@ -116,7 +138,7 @@ impl PageStore {
         let mut tx = self.pool.begin().await.map_err(|e| e.to_string())?;
         let client_id: Option<String> = sqlx::query_scalar("SELECT client_id FROM structured_client WHERE singleton=1").fetch_optional(&mut *tx).await.map_err(|e| e.to_string())?;
         if client_id.as_deref() != Some(&operation.client_id) { return Err("Local client identity mismatch".into()); }
-        let previous: Option<String> = sqlx::query_scalar("SELECT json_object('operationId',operation_id,'entityType',entity_type,'entityId',entity_id,'kind',kind,'baseVersion',base_version,'payload',json(payload),'clientId',client_id) FROM sync_operations WHERE operation_id=?")
+        let previous: Option<String> = sqlx::query_scalar("SELECT json_object('operationId',operation_id,'entityType',entity_type,'entityId',entity_id,'kind',kind,'baseVersion',base_version,'payload',json(payload),'clientId',client_id,'resolution',json(resolution)) FROM sync_operations WHERE operation_id=?")
             .bind(&operation.operation_id).fetch_optional(&mut *tx).await.map_err(|e| e.to_string())?;
         let current: Option<String> = sqlx::query_scalar(&format!("SELECT {projection} FROM {table} WHERE id=?"))
             .bind(&operation.entity_id).fetch_optional(&mut *tx).await.map_err(|e| e.to_string())?;
@@ -130,6 +152,19 @@ impl PageStore {
             let entity = base.as_ref().ok_or("Entity not found")?;
             if !entity["deletedAt"].is_null() { return Err("Entity is deleted".into()); }
             if entity["version"].as_i64() != operation.base_version { return Err("Stale local base version".into()); }
+        }
+        if let Some(resolution) = &operation.resolution {
+            let pending: i64 = sqlx::query_scalar("SELECT count(*) FROM sync_operations WHERE entity_type=? AND entity_id=? AND status='pending'")
+                .bind(&operation.entity_type).bind(&operation.entity_id).fetch_one(&mut *tx).await.map_err(|e| e.to_string())?;
+            if pending > 0 { return Err("Wait for pending entity changes before resolving".into()); }
+            for id in &resolution.conflict_ids {
+                let raw: String = sqlx::query_scalar("SELECT record FROM structured_conflicts WHERE id=?").bind(id).fetch_one(&mut *tx).await.map_err(|e| e.to_string())?;
+                let record = decoded(raw)?;
+                if record["status"] != "open" || record["entityType"] != operation.entity_type || record["entityId"] != operation.entity_id ||
+                    payload.get(record["field"].as_str().unwrap_or("")) != Some(&record[&resolution.choice]) {
+                    return Err("Conflict choice does not match the current record".into());
+                }
+            }
         }
         let now: String = sqlx::query_scalar("SELECT strftime('%Y-%m-%dT%H:%M:%fZ','now')").fetch_one(&mut *tx).await.map_err(|e| e.to_string())?;
         let mut entity = base.clone().unwrap_or_else(|| json!({"id":operation.entity_id,"version":0,"createdAt":now,"deletedAt":null}));
@@ -149,9 +184,9 @@ impl PageStore {
         // Step 7 will prepare immutable wire operations before their first send.
         let dependency: Option<String> = sqlx::query_scalar("SELECT operation_id FROM sync_operations WHERE entity_type=? AND entity_id=? AND status='pending' ORDER BY seq DESC LIMIT 1")
             .bind(&operation.entity_type).bind(&operation.entity_id).fetch_optional(&mut *tx).await.map_err(|e| e.to_string())?;
-        sqlx::query("INSERT INTO sync_operations(operation_id,entity_type,entity_id,kind,base_version,payload,client_id,created_at,status,base_entity,dependency_operation_id) VALUES (?,?,?,?,?,?,?,?,'pending',?,?)")
+        sqlx::query("INSERT INTO sync_operations(operation_id,entity_type,entity_id,kind,base_version,payload,client_id,created_at,status,base_entity,dependency_operation_id,resolution) VALUES (?,?,?,?,?,?,?,?,'pending',?,?,?)")
             .bind(&operation.operation_id).bind(&operation.entity_type).bind(&operation.entity_id).bind(&operation.kind).bind(operation.base_version).bind(operation.payload.to_string())
-            .bind(&operation.client_id).bind(&now).bind(base.map(|v| v.to_string())).bind(dependency).execute(&mut *tx).await.map_err(|e| e.to_string())?;
+            .bind(&operation.client_id).bind(&now).bind(base.map(|v| v.to_string())).bind(dependency).bind(operation.resolution.as_ref().map(|value| serde_json::to_string(value).unwrap())).execute(&mut *tx).await.map_err(|e| e.to_string())?;
         tx.commit().await.map_err(|e| e.to_string())?;
         Ok(entity)
     }

@@ -1,0 +1,442 @@
+
+> greiva-poc@0.6.0 test:e2e
+> npm run build:packages && npm run build:servers && playwright test
+
+
+> greiva-poc@0.6.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync
+
+
+> @greiva/shared@0.6.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.6.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.6.0 build
+> tsc -p tsconfig.json
+
+
+> greiva-poc@0.6.0 build:servers
+> npm run build -w @greiva/api && npm run build -w @greiva/collaboration
+
+
+> @greiva/api@0.6.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/collaboration@0.6.0 build
+> tsc -p tsconfig.json
+
+
+Running 43 tests using 2 workers
+
+  ✓   1 [chromium] › tests/e2e/editor-ux.spec.ts:17:1 › STEP2-UX-SLASH: pointer and keyboard share one selection and retain editor focus (6.1s)
+  ✘   2 [chromium] › tests/e2e/collaboration.spec.ts:64:1 › STEP4-PARAGRAPH: simultaneous edits retain both changes and remote update keeps the caret (6.6s)
+  ✓   3 [chromium] › tests/e2e/editor-ux.spec.ts:35:1 › STEP2-UX-SLASH: wrap, Home/End, Tab, search aliases and empty dismissal (3.6s)
+  ✓   5 [chromium] › tests/e2e/editor-ux.spec.ts:63:1 › STEP2-UX-SLASH: outside dismissal preserves query, narrow popup stays on screen (2.7s)
+  ✘   4 [chromium] › tests/e2e/collaboration.spec.ts:80:1 › STEP4-BLOCKS: different blocks, local undo does not undo the other client (4.8s)
+  ✓   6 [chromium] › tests/e2e/editor-ux.spec.ts:80:1 › STEP2-UX-TOGGLE: Enter reuses existing body and collapse moves caret to visible heading (5.3s)
+  ✘   7 [chromium] › tests/e2e/collaboration.spec.ts:98:1 › STEP4-OFFLINE: each client adds and deletes blocks, reconnect and fresh client restore the result (4.2s)
+  ✓   8 [chromium] › tests/e2e/editor-ux.spec.ts:100:1 › STEP2-UX-TOGGLE: pointer retains caret, keyboard button activation retains focus (4.5s)
+  ✘   9 [chromium] › tests/e2e/collaboration.spec.ts:137:1 › STEP4-MOVE: both clients move blocks while offline (3.9s)
+  ✓  10 [chromium] › tests/e2e/editor-ux.spec.ts:120:1 › STEP2-UX-TOGGLE: folding is excluded from content undo and nested shortcut uses nearest toggle (4.9s)
+  ✘  11 [chromium] › tests/e2e/collaboration.spec.ts:151:1 › STEP4-NESTED: edit and move within a nested Toggle, then reconnect (4.6s)
+  ✓  12 [chromium] › tests/e2e/editor-ux.spec.ts:140:1 › STEP2-UX-VISUAL: capture polished slash menu and toggle at a desktop viewport (5.9s)
+  ✘  13 [chromium] › tests/e2e/collaboration.spec.ts:176:1 › STEP4-TODO: concurrent checked change and nested list edits retain valid nodes (4.1s)
+  ✓  14 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 本文, edit and delete (3.0s)
+  ✓  15 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 見出し1, edit and delete (5.0s)
+  ✓  17 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 見出し2, edit and delete (2.3s)
+  ✘  16 [chromium] › tests/e2e/collaboration.spec.ts:199:1 › STEP4-ISOLATION: another Page never receives this Page body (6.2s)
+  ✓  18 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 見出し3, edit and delete (3.3s)
+  ✘  19 [chromium] › tests/e2e/foundation.spec.ts:2:1 › STEP1-E2E: React client starts alongside API and collaboration services (2.5s)
+  ✓  20 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 箇条書き, edit and delete (2.6s)
+  ✓  22 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 番号付きリスト, edit and delete (3.3s)
+  ✓  23 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts Todo, edit and delete (3.9s)
+  ✓  24 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 引用, edit and delete (5.0s)
+  ✘  21 [chromium] › tests/e2e/persistence.spec.ts:35:1 › STEP5-CRASH: new offline Page metadata and block edits survive renderer/store SIGKILL, reopen offline and converge (13.3s)
+  ✓  25 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts コード, edit and delete (3.6s)
+  ✘  26 [chromium] › tests/e2e/persistence.spec.ts:90:1 › STEP5-WRITE-ERROR: failed SQLite commit never sends the unsafe update or reports saved/synced (4.7s)
+  ✓  27 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 区切り線, edit and delete (4.1s)
+  ✓  28 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts Toggle, edit and delete (4.5s)
+  ✓  29 [chromium] › tests/e2e/persistence.spec.ts:107:3 › STEP5-RESTORE-corrupt: incompatible or corrupted SQLite fails closed (3.8s)
+  ✓  31 [chromium] › tests/e2e/persistence.spec.ts:107:3 › STEP5-RESTORE-schema: incompatible or corrupted SQLite fails closed (5.0s)
+  ✓  30 [chromium] › tests/e2e/editor.spec.ts:40:1 › STEP2-TODO: checkbox and nested list survive undo/redo (6.6s)
+  ✓  32 [chromium] › tests/e2e/structured-local.spec.ts:3:1 › STEP6-E2E: Task and Relation pointer/keyboard CRUD persist with pending operations after renderer/store restart (7.8s)
+  ✓  33 [chromium] › tests/e2e/editor.spec.ts:59:1 › STEP2-TOGGLE: nested content folds without losing text and unwraps (9.0s)
+  ✓  34 [chromium] › tests/e2e/structured-local.spec.ts:45:1 › STEP6-WRITE-ERROR: failed queue commit retains the draft and permits a safe retry without duplicate Task (2.8s)
+  ✓  35 [chromium] › tests/e2e/editor.spec.ts:82:1 › STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text (2.4s)
+  ✓  36 [chromium] › tests/e2e/editor.spec.ts:97:3 › STEP2-MARKDOWN: #  shortcut (1.3s)
+  ✓  37 [chromium] › tests/e2e/editor.spec.ts:97:3 › STEP2-MARKDOWN: ##  shortcut (2.1s)
+  ✓  38 [chromium] › tests/e2e/editor.spec.ts:97:3 › STEP2-MARKDOWN: ###  shortcut (1.8s)
+  ✓  39 [chromium] › tests/e2e/editor.spec.ts:97:3 › STEP2-MARKDOWN: -  shortcut (1.6s)
+  ✓  40 [chromium] › tests/e2e/editor.spec.ts:97:3 › STEP2-MARKDOWN: 1.  shortcut (1.9s)
+  ✓  41 [chromium] › tests/e2e/editor.spec.ts:97:3 › STEP2-MARKDOWN: []  shortcut (2.0s)
+  ✓  42 [chromium] › tests/e2e/editor.spec.ts:106:1 › STEP2-MOVE: drag changes order, undo restores it, keyboard moves the block (3.2s)
+  ✓  43 [chromium] › tests/e2e/editor.spec.ts:126:1 › STEP2-COMPOSITION: slash menu does not consume composition Enter (2.5s)
+
+
+  1) [chromium] › tests/e2e/collaboration.spec.ts:64:1 › STEP4-PARAGRAPH: simultaneous edits retain both changes and remote update keeps the caret 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByLabel('同期状態')
+    Expected: "サーバーと同期済み"
+    Error: strict mode violation: getByLabel('同期状態') resolved to 2 elements:
+        1) <output aria-label="同期状態" aria-live="polite" data-status="connected">サーバーと同期済み</output> aka getByRole('status', { name: '同期状態', exact: true })
+        2) <output aria-live="polite" aria-label="TaskとRelationの同期状態">再試行待ち</output> aka getByRole('status', { name: 'TaskとRelationの同期状態' })
+
+    Call log:
+      - Expect "toHaveText" getByLabel('同期状態') with timeout 5000ms
+      - waiting for getByLabel('同期状態')
+
+
+      30 |   for (const page of [a, b]) {
+      31 |     await expect(body(page)).toBeVisible();
+    > 32 |     await expect(page.getByLabel('同期状態')).toHaveText('サーバーと同期済み');
+         |                                           ^
+      33 |   }
+      34 | }
+      35 | async function pause(page: Page) {
+        at pair (/workspace/tests/e2e/collaboration.spec.ts:32:43)
+        at /workspace/tests/e2e/collaboration.spec.ts:65:3
+
+    Error Context: ../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-PARAGR-7f5f3-mote-update-keeps-the-caret-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-PARAGR-7f5f3-mote-update-keeps-the-caret-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-PARAGR-7f5f3-mote-update-keeps-the-caret-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests/e2e/collaboration.spec.ts:80:1 › STEP4-BLOCKS: different blocks, local undo does not undo the other client 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByLabel('同期状態')
+    Expected: "サーバーと同期済み"
+    Error: strict mode violation: getByLabel('同期状態') resolved to 2 elements:
+        1) <output aria-label="同期状態" aria-live="polite" data-status="connected">サーバーと同期済み</output> aka getByRole('status', { name: '同期状態', exact: true })
+        2) <output aria-live="polite" aria-label="TaskとRelationの同期状態">読み込み中…</output> aka getByRole('status', { name: 'TaskとRelationの同期状態' })
+
+    Call log:
+      - Expect "toHaveText" getByLabel('同期状態') with timeout 5000ms
+      - waiting for getByLabel('同期状態')
+
+
+      30 |   for (const page of [a, b]) {
+      31 |     await expect(body(page)).toBeVisible();
+    > 32 |     await expect(page.getByLabel('同期状態')).toHaveText('サーバーと同期済み');
+         |                                           ^
+      33 |   }
+      34 | }
+      35 | async function pause(page: Page) {
+        at pair (/workspace/tests/e2e/collaboration.spec.ts:32:43)
+        at /workspace/tests/e2e/collaboration.spec.ts:81:3
+
+    Error Context: ../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-BLOCKS-2f232-s-not-undo-the-other-client-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-BLOCKS-2f232-s-not-undo-the-other-client-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-BLOCKS-2f232-s-not-undo-the-other-client-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chromium] › tests/e2e/collaboration.spec.ts:98:1 › STEP4-OFFLINE: each client adds and deletes blocks, reconnect and fresh client restore the result 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByLabel('同期状態')
+    Expected: "サーバーと同期済み"
+    Error: strict mode violation: getByLabel('同期状態') resolved to 2 elements:
+        1) <output aria-label="同期状態" aria-live="polite" data-status="connected">サーバーと同期済み</output> aka getByRole('status', { name: '同期状態', exact: true })
+        2) <output aria-live="polite" aria-label="TaskとRelationの同期状態">読み込み中…</output> aka getByRole('status', { name: 'TaskとRelationの同期状態' })
+
+    Call log:
+      - Expect "toHaveText" getByLabel('同期状態') with timeout 5000ms
+      - waiting for getByLabel('同期状態')
+
+
+      30 |   for (const page of [a, b]) {
+      31 |     await expect(body(page)).toBeVisible();
+    > 32 |     await expect(page.getByLabel('同期状態')).toHaveText('サーバーと同期済み');
+         |                                           ^
+      33 |   }
+      34 | }
+      35 | async function pause(page: Page) {
+        at pair (/workspace/tests/e2e/collaboration.spec.ts:32:43)
+        at /workspace/tests/e2e/collaboration.spec.ts:99:3
+
+    Error Context: ../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-OFFLIN-d2c9e-h-client-restore-the-result-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-OFFLIN-d2c9e-h-client-restore-the-result-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-OFFLIN-d2c9e-h-client-restore-the-result-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chromium] › tests/e2e/collaboration.spec.ts:137:1 › STEP4-MOVE: both clients move blocks while offline 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByLabel('同期状態')
+    Expected: "サーバーと同期済み"
+    Error: strict mode violation: getByLabel('同期状態') resolved to 2 elements:
+        1) <output aria-label="同期状態" aria-live="polite" data-status="connected">サーバーと同期済み</output> aka getByRole('status', { name: '同期状態', exact: true })
+        2) <output aria-live="polite" aria-label="TaskとRelationの同期状態">同期中…</output> aka getByRole('status', { name: 'TaskとRelationの同期状態' })
+
+    Call log:
+      - Expect "toHaveText" getByLabel('同期状態') with timeout 5000ms
+      - waiting for getByLabel('同期状態')
+
+
+      30 |   for (const page of [a, b]) {
+      31 |     await expect(body(page)).toBeVisible();
+    > 32 |     await expect(page.getByLabel('同期状態')).toHaveText('サーバーと同期済み');
+         |                                           ^
+      33 |   }
+      34 | }
+      35 | async function pause(page: Page) {
+        at pair (/workspace/tests/e2e/collaboration.spec.ts:32:43)
+        at /workspace/tests/e2e/collaboration.spec.ts:138:3
+
+    Error Context: ../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-MOVE-b-b6329-s-move-blocks-while-offline-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-MOVE-b-b6329-s-move-blocks-while-offline-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-MOVE-b-b6329-s-move-blocks-while-offline-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [chromium] › tests/e2e/collaboration.spec.ts:151:1 › STEP4-NESTED: edit and move within a nested Toggle, then reconnect 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByLabel('同期状態')
+    Expected: "サーバーと同期済み"
+    Error: strict mode violation: getByLabel('同期状態') resolved to 2 elements:
+        1) <output aria-label="同期状態" aria-live="polite" data-status="connected">サーバーと同期済み</output> aka getByRole('status', { name: '同期状態', exact: true })
+        2) <output aria-live="polite" aria-label="TaskとRelationの同期状態">読み込み中…</output> aka getByRole('status', { name: 'TaskとRelationの同期状態' })
+
+    Call log:
+      - Expect "toHaveText" getByLabel('同期状態') with timeout 5000ms
+      - waiting for getByLabel('同期状態')
+
+
+      30 |   for (const page of [a, b]) {
+      31 |     await expect(body(page)).toBeVisible();
+    > 32 |     await expect(page.getByLabel('同期状態')).toHaveText('サーバーと同期済み');
+         |                                           ^
+      33 |   }
+      34 | }
+      35 | async function pause(page: Page) {
+        at pair (/workspace/tests/e2e/collaboration.spec.ts:32:43)
+        at /workspace/tests/e2e/collaboration.spec.ts:152:3
+
+    Error Context: ../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-NESTED-c7628-ested-Toggle-then-reconnect-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-NESTED-c7628-ested-Toggle-then-reconnect-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-NESTED-c7628-ested-Toggle-then-reconnect-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [chromium] › tests/e2e/collaboration.spec.ts:176:1 › STEP4-TODO: concurrent checked change and nested list edits retain valid nodes 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByLabel('同期状態')
+    Expected: "サーバーと同期済み"
+    Error: strict mode violation: getByLabel('同期状態') resolved to 2 elements:
+        1) <output aria-label="同期状態" aria-live="polite" data-status="connected">サーバーと同期済み</output> aka getByRole('status', { name: '同期状態', exact: true })
+        2) <output aria-live="polite" aria-label="TaskとRelationの同期状態">再試行待ち</output> aka getByRole('status', { name: 'TaskとRelationの同期状態' })
+
+    Call log:
+      - Expect "toHaveText" getByLabel('同期状態') with timeout 5000ms
+      - waiting for getByLabel('同期状態')
+
+
+      30 |   for (const page of [a, b]) {
+      31 |     await expect(body(page)).toBeVisible();
+    > 32 |     await expect(page.getByLabel('同期状態')).toHaveText('サーバーと同期済み');
+         |                                           ^
+      33 |   }
+      34 | }
+      35 | async function pause(page: Page) {
+        at pair (/workspace/tests/e2e/collaboration.spec.ts:32:43)
+        at /workspace/tests/e2e/collaboration.spec.ts:177:3
+
+    Error Context: ../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-TODO-c-0232c-st-edits-retain-valid-nodes-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-TODO-c-0232c-st-edits-retain-valid-nodes-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-TODO-c-0232c-st-edits-retain-valid-nodes-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7) [chromium] › tests/e2e/collaboration.spec.ts:199:1 › STEP4-ISOLATION: another Page never receives this Page body 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByLabel('同期状態')
+    Expected: "サーバーと同期済み"
+    Error: strict mode violation: getByLabel('同期状態') resolved to 2 elements:
+        1) <output aria-label="同期状態" aria-live="polite" data-status="connected">同期中…</output> aka getByRole('status', { name: '同期状態', exact: true })
+        2) <output aria-live="polite" aria-label="TaskとRelationの同期状態">再試行待ち</output> aka getByRole('status', { name: 'TaskとRelationの同期状態' })
+
+    Call log:
+      - Expect "toHaveText" getByLabel('同期状態') with timeout 5000ms
+      - waiting for getByLabel('同期状態')
+
+
+      202 |   await expect(body(b)).toBeVisible();
+      203 |   await typeBlocks(a, ['private to this page']);
+    > 204 |   await expect(a.getByLabel('同期状態')).toHaveText('サーバーと同期済み');
+          |                                      ^
+      205 |   await expect(body(b)).not.toContainText('private to this page');
+      206 |   expect((await snapshot(a)).pageId).not.toBe((await snapshot(b)).pageId);
+      207 | });
+        at /workspace/tests/e2e/collaboration.spec.ts:204:38
+
+    Error Context: ../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-ISOLAT-d289c-ver-receives-this-Page-body-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-ISOLAT-d289c-ver-receives-this-Page-body-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-ISOLAT-d289c-ver-receives-this-Page-body-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  8) [chromium] › tests/e2e/foundation.spec.ts:2:1 › STEP1-E2E: React client starts alongside API and collaboration services 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByLabel('同期状態')
+    Expected: "サーバーと同期済み"
+    Error: strict mode violation: getByLabel('同期状態') resolved to 2 elements:
+        1) <output aria-label="同期状態" aria-live="polite" data-status="connected">同期中…</output> aka getByRole('status', { name: '同期状態', exact: true })
+        2) <output aria-live="polite" aria-label="TaskとRelationの同期状態">読み込み中…</output> aka getByRole('status', { name: 'TaskとRelationの同期状態' })
+
+    Call log:
+      - Expect "toHaveText" getByLabel('同期状態') with timeout 5000ms
+      - waiting for getByLabel('同期状態')
+        2 × locator resolved to <output aria-label="同期状態" aria-live="polite" data-status="connecting">接続中…</output>
+          - unexpected value "接続中…"
+
+
+      3 |   await page.goto('/');
+      4 |   await expect(page.getByRole('heading', { name: 'Greiva PoC' })).toBeVisible();
+    > 5 |   await expect(page.getByLabel('同期状態')).toHaveText('サーバーと同期済み');
+        |                                         ^
+      6 |   for (const [port, service] of [[3000, 'api'], [1234, 'collaboration']] as const) {
+      7 |     const response = await request.get(`http://127.0.0.1:${port}/health`);
+      8 |     expect(response.ok()).toBe(true);
+        at /workspace/tests/e2e/foundation.spec.ts:5:41
+
+    Error Context: ../evidence/2026-10-01T06-27-50.140Z/artifacts/foundation-STEP1-E2E-React-57ccc--and-collaboration-services-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../evidence/2026-10-01T06-27-50.140Z/artifacts/foundation-STEP1-E2E-React-57ccc--and-collaboration-services-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../evidence/2026-10-01T06-27-50.140Z/artifacts/foundation-STEP1-E2E-React-57ccc--and-collaboration-services-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  9) [chromium] › tests/e2e/persistence.spec.ts:35:1 › STEP5-CRASH: new offline Page metadata and block edits survive renderer/store SIGKILL, reopen offline and converge 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByLabel('同期状態')
+    Expected: "サーバーと同期済み"
+    Error: strict mode violation: getByLabel('同期状態') resolved to 2 elements:
+        1) <output aria-label="同期状態" aria-live="polite" data-status="connected">サーバーと同期済み</output> aka getByRole('status', { name: '同期状態', exact: true })
+        2) <output aria-live="polite" aria-label="TaskとRelationの同期状態">再試行待ち</output> aka getByRole('status', { name: 'TaskとRelationの同期状態' })
+
+    Call log:
+      - Expect "toHaveText" getByLabel('同期状態') with timeout 5000ms
+      - waiting for getByLabel('同期状態')
+
+
+      80 |     const b = await peerContext.newPage();
+      81 |     await Promise.all([a.goto('/'), b.goto(url)]);
+    > 82 |     for (const page of [a, b]) { await expect(body(page)).toBeVisible(); await saved(page); await expect(page.getByLabel('同期状態')).toHaveText('サーバーと同期済み'); }
+         |                                                                                                                                   ^
+      83 |     await expect.poll(async () => { const [x, y] = await Promise.all([snapshot(a), snapshot(b)]); return JSON.stringify(x.clocks) === JSON.stringify(y.clocks) && JSON.stringify(x.json) === JSON.stringify(y.json) && x.fragment === y.fragment; }).toBe(true);
+      84 |     await expect(body(b)).toContainText('keep'); await expect(body(b)).toContainText('move');
+      85 |     await expect(b.getByLabel('Pageタイトル', { exact: true })).toHaveValue(''); // Metadata stays device-local in Step 5.
+        at /workspace/tests/e2e/persistence.spec.ts:82:131
+
+    Error Context: ../evidence/2026-10-01T06-27-50.140Z/artifacts/persistence-STEP5-CRASH-ne-51e49-reopen-offline-and-converge-chromium/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../evidence/2026-10-01T06-27-50.140Z/artifacts/persistence-STEP5-CRASH-ne-51e49-reopen-offline-and-converge-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../evidence/2026-10-01T06-27-50.140Z/artifacts/persistence-STEP5-CRASH-ne-51e49-reopen-offline-and-converge-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  10) [chromium] › tests/e2e/persistence.spec.ts:90:1 › STEP5-WRITE-ERROR: failed SQLite commit never sends the unsafe update or reports saved/synced 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByLabel('同期状態')
+    Expected: "サーバーと同期済み"
+    Error: strict mode violation: getByLabel('同期状態') resolved to 2 elements:
+        1) <output aria-label="同期状態" aria-live="polite" data-status="connected">サーバーと同期済み</output> aka getByRole('status', { name: '同期状態', exact: true })
+        2) <output aria-live="polite" aria-label="TaskとRelationの同期状態">再試行待ち</output> aka getByRole('status', { name: 'TaskとRelationの同期状態' })
+
+    Call log:
+      - Expect "toHaveText" getByLabel('同期状態') with timeout 5000ms
+      - waiting for getByLabel('同期状態')
+
+
+      93 |     const url = `/?page=${newId()}`; const b = await peer.newPage();
+      94 |     await Promise.all([page.goto(url), b.goto(url)]);
+    > 95 |     for (const view of [page, b]) { await expect(body(view)).toBeVisible(); await saved(view); await expect(view.getByLabel('同期状態')).toHaveText('サーバーと同期済み'); }
+         |                                                                                                                                      ^
+      96 |     await control(page, 'write-failure'); await body(page).click(); await page.keyboard.type('unsafe');
+      97 |     await expect(page.getByLabel('同期状態')).toHaveText('端末への保存エラー');
+      98 |     await expect(page.getByLabel('端末の保存状態')).toContainText('保存できません');
+        at /workspace/tests/e2e/persistence.spec.ts:95:134
+
+    Error Context: ../evidence/2026-10-01T06-27-50.140Z/artifacts/persistence-STEP5-WRITE-ER-1c9d7-ate-or-reports-saved-synced-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../evidence/2026-10-01T06-27-50.140Z/artifacts/persistence-STEP5-WRITE-ER-1c9d7-ate-or-reports-saved-synced-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../evidence/2026-10-01T06-27-50.140Z/artifacts/persistence-STEP5-WRITE-ER-1c9d7-ate-or-reports-saved-synced-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  10 failed
+    [chromium] › tests/e2e/collaboration.spec.ts:64:1 › STEP4-PARAGRAPH: simultaneous edits retain both changes and remote update keeps the caret 
+    [chromium] › tests/e2e/collaboration.spec.ts:80:1 › STEP4-BLOCKS: different blocks, local undo does not undo the other client 
+    [chromium] › tests/e2e/collaboration.spec.ts:98:1 › STEP4-OFFLINE: each client adds and deletes blocks, reconnect and fresh client restore the result 
+    [chromium] › tests/e2e/collaboration.spec.ts:137:1 › STEP4-MOVE: both clients move blocks while offline 
+    [chromium] › tests/e2e/collaboration.spec.ts:151:1 › STEP4-NESTED: edit and move within a nested Toggle, then reconnect 
+    [chromium] › tests/e2e/collaboration.spec.ts:176:1 › STEP4-TODO: concurrent checked change and nested list edits retain valid nodes 
+    [chromium] › tests/e2e/collaboration.spec.ts:199:1 › STEP4-ISOLATION: another Page never receives this Page body 
+    [chromium] › tests/e2e/foundation.spec.ts:2:1 › STEP1-E2E: React client starts alongside API and collaboration services 
+    [chromium] › tests/e2e/persistence.spec.ts:35:1 › STEP5-CRASH: new offline Page metadata and block edits survive renderer/store SIGKILL, reopen offline and converge 
+    [chromium] › tests/e2e/persistence.spec.ts:90:1 › STEP5-WRITE-ERROR: failed SQLite commit never sends the unsafe update or reports saved/synced 
+  33 passed (1.9m)
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.

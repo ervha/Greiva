@@ -1,0 +1,17 @@
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.
+
+Running 10 tests using 2 workers
+
+  ✓   2 [chromium] › tests/e2e/editor.spec.ts:82:1 › STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text (3.3s)
+  ✓   1 [chromium] › tests/e2e/editor.spec.ts:82:1 › STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text (3.4s)
+  ✓   3 [chromium] › tests/e2e/editor.spec.ts:82:1 › STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text (3.1s)
+  ✓   4 [chromium] › tests/e2e/editor.spec.ts:82:1 › STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text (2.8s)
+  ✓   5 [chromium] › tests/e2e/editor.spec.ts:82:1 › STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text (3.1s)
+  ✓   6 [chromium] › tests/e2e/editor.spec.ts:82:1 › STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text (2.9s)
+  ✓   8 [chromium] › tests/e2e/editor.spec.ts:82:1 › STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text (2.6s)
+  ✓   7 [chromium] › tests/e2e/editor.spec.ts:82:1 › STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text (2.9s)
+  ✓   9 [chromium] › tests/e2e/editor.spec.ts:82:1 › STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text (2.9s)
+  ✓  10 [chromium] › tests/e2e/editor.spec.ts:82:1 › STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text (2.8s)
+
+  10 passed (20.3s)

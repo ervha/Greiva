@@ -83,3 +83,13 @@ kbd { font: inherit; font-size: 11px; padding: 1px 4px; background: #f4f6f4; bor
 .task-list li > div, .relation-list li > span { flex: 1; min-width: 0; overflow-wrap: break-word; }
 .task-list li > div { display: grid; }
 .task-list li span { font-size: 12px; color: var(--muted); }
+.structured-sync { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 8px; font-size: 13px; }
+.structured-sync span { color: var(--muted); overflow-wrap: anywhere; }
+.structured-conflicts { margin-top: 20px; }
+.conflict-card { padding: 14px; border: 1px solid var(--border); border-radius: 7px; margin: 10px 0; }
+.conflict-card dl { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 12px; }
+.conflict-card dt, .conflict-card time { font-size: 12px; color: var(--muted); }
+.conflict-card dd { margin: 4px 0 0; overflow-wrap: anywhere; }
+.conflict-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+.structured-errors pre { white-space: pre-wrap; overflow-wrap: anywhere; }
+@media (max-width: 600px) { .conflict-card dl { grid-template-columns: 1fr; } }

@@ -1,0 +1,82 @@
+
+> greiva-poc@0.6.0 test:e2e
+> npm run build:packages && npm run build:servers && playwright test
+
+
+> greiva-poc@0.6.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync
+
+
+> @greiva/shared@0.6.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.6.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.6.0 build
+> tsc -p tsconfig.json
+
+
+> greiva-poc@0.6.0 build:servers
+> npm run build -w @greiva/api && npm run build -w @greiva/collaboration
+
+
+> @greiva/api@0.6.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/collaboration@0.6.0 build
+> tsc -p tsconfig.json
+
+
+Running 43 tests using 2 workers
+
+  ✓   2 [chromium] › tests/e2e/editor-ux.spec.ts:17:1 › STEP2-UX-SLASH: pointer and keyboard share one selection and retain editor focus (6.3s)
+  ✓   1 [chromium] › tests/e2e/collaboration.spec.ts:64:1 › STEP4-PARAGRAPH: simultaneous edits retain both changes and remote update keeps the caret (6.5s)
+  ✓   3 [chromium] › tests/e2e/editor-ux.spec.ts:35:1 › STEP2-UX-SLASH: wrap, Home/End, Tab, search aliases and empty dismissal (5.7s)
+  ✓   4 [chromium] › tests/e2e/collaboration.spec.ts:80:1 › STEP4-BLOCKS: different blocks, local undo does not undo the other client (7.3s)
+  ✓   5 [chromium] › tests/e2e/editor-ux.spec.ts:63:1 › STEP2-UX-SLASH: outside dismissal preserves query, narrow popup stays on screen (3.7s)
+  ✓   7 [chromium] › tests/e2e/editor-ux.spec.ts:80:1 › STEP2-UX-TOGGLE: Enter reuses existing body and collapse moves caret to visible heading (7.1s)
+  ✓   6 [chromium] › tests/e2e/collaboration.spec.ts:98:1 › STEP4-OFFLINE: each client adds and deletes blocks, reconnect and fresh client restore the result (11.0s)
+  ✓   8 [chromium] › tests/e2e/editor-ux.spec.ts:100:1 › STEP2-UX-TOGGLE: pointer retains caret, keyboard button activation retains focus (6.9s)
+  ✓   9 [chromium] › tests/e2e/collaboration.spec.ts:137:1 › STEP4-MOVE: both clients move blocks while offline (6.9s)
+  ✓  10 [chromium] › tests/e2e/editor-ux.spec.ts:120:1 › STEP2-UX-TOGGLE: folding is excluded from content undo and nested shortcut uses nearest toggle (7.6s)
+  ✓  11 [chromium] › tests/e2e/collaboration.spec.ts:151:1 › STEP4-NESTED: edit and move within a nested Toggle, then reconnect (10.3s)
+  ✓  12 [chromium] › tests/e2e/editor-ux.spec.ts:140:1 › STEP2-UX-VISUAL: capture polished slash menu and toggle at a desktop viewport (9.2s)
+  ✓  14 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 本文, edit and delete (4.3s)
+  ✓  13 [chromium] › tests/e2e/collaboration.spec.ts:176:1 › STEP4-TODO: concurrent checked change and nested list edits retain valid nodes (10.0s)
+  ✓  15 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 見出し1, edit and delete (5.0s)
+  ✓  16 [chromium] › tests/e2e/collaboration.spec.ts:199:1 › STEP4-ISOLATION: another Page never receives this Page body (5.5s)
+  ✓  17 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 見出し2, edit and delete (3.8s)
+  ✓  18 [chromium] › tests/e2e/foundation.spec.ts:2:1 › STEP1-E2E: React client starts alongside API and collaboration services (2.2s)
+  ✓  19 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 見出し3, edit and delete (3.5s)
+  ✓  21 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 箇条書き, edit and delete (3.6s)
+  ✓  22 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 番号付きリスト, edit and delete (4.8s)
+  ✓  20 [chromium] › tests/e2e/persistence.spec.ts:35:1 › STEP5-CRASH: new offline Page metadata and block edits survive renderer/store SIGKILL, reopen offline and converge (14.9s)
+  ✓  23 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts Todo, edit and delete (4.8s)
+  ✓  24 [chromium] › tests/e2e/persistence.spec.ts:90:1 › STEP5-WRITE-ERROR: failed SQLite commit never sends the unsafe update or reports saved/synced (4.8s)
+  ✓  25 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 引用, edit and delete (3.1s)
+  ✓  26 [chromium] › tests/e2e/persistence.spec.ts:107:3 › STEP5-RESTORE-corrupt: incompatible or corrupted SQLite fails closed (3.2s)
+  ✓  27 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts コード, edit and delete (4.3s)
+  ✓  28 [chromium] › tests/e2e/persistence.spec.ts:107:3 › STEP5-RESTORE-schema: incompatible or corrupted SQLite fails closed (3.4s)
+  ✓  29 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts 区切り線, edit and delete (2.8s)
+  ✓  31 [chromium] › tests/e2e/editor.spec.ts:25:3 › STEP2-BLOCK: slash inserts Toggle, edit and delete (3.7s)
+  ✓  30 [chromium] › tests/e2e/structured-local.spec.ts:3:1 › STEP6-E2E: Task and Relation pointer/keyboard CRUD persist with pending operations after renderer/store restart (5.0s)
+  ✓  33 [chromium] › tests/e2e/structured-local.spec.ts:45:1 › STEP6-WRITE-ERROR: failed queue commit retains the draft and permits a safe retry without duplicate Task (2.8s)
+  ✓  32 [chromium] › tests/e2e/editor.spec.ts:40:1 › STEP2-TODO: checkbox and nested list survive undo/redo (3.9s)
+  ✓  34 [chromium] › tests/e2e/editor.spec.ts:59:1 › STEP2-TOGGLE: nested content folds without losing text and unwraps (6.1s)
+  ✓  35 [chromium] › tests/e2e/editor.spec.ts:82:1 › STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text (1.5s)
+  ✓  36 [chromium] › tests/e2e/editor.spec.ts:97:3 › STEP2-MARKDOWN: #  shortcut (1.5s)
+  ✓  37 [chromium] › tests/e2e/editor.spec.ts:97:3 › STEP2-MARKDOWN: ##  shortcut (1.5s)
+  ✓  38 [chromium] › tests/e2e/editor.spec.ts:97:3 › STEP2-MARKDOWN: ###  shortcut (1.3s)
+  ✓  39 [chromium] › tests/e2e/editor.spec.ts:97:3 › STEP2-MARKDOWN: -  shortcut (1.5s)
+  ✓  40 [chromium] › tests/e2e/editor.spec.ts:97:3 › STEP2-MARKDOWN: 1.  shortcut (1.5s)
+  ✓  41 [chromium] › tests/e2e/editor.spec.ts:97:3 › STEP2-MARKDOWN: []  shortcut (1.4s)
+  ✓  42 [chromium] › tests/e2e/editor.spec.ts:106:1 › STEP2-MOVE: drag changes order, undo restores it, keyboard moves the block (2.1s)
+  ✓  43 [chromium] › tests/e2e/editor.spec.ts:126:1 › STEP2-COMPOSITION: slash menu does not consume composition Enter (1.3s)
+
+  43 passed (2.0m)
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.

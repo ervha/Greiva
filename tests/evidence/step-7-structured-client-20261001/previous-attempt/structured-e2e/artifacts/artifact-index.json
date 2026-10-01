@@ -1,0 +1,17 @@
+[
+  {
+    "original": ".last-run.json",
+    "saved": "files/0001.json",
+    "sha256": "c758f5fe28994e1520ac35ce9c3a5f34748377f8618fa3979480eecd7aee1422"
+  },
+  {
+    "original": "structured-sync-STEP7-E2E--e6749-conflict-choice-is-explicit-chromium/error-context.md",
+    "saved": "files/0002.md",
+    "sha256": "08e752bfbebdb478dcdd5c30d1476317c3096501989daaa0820a32562ed7fa99"
+  },
+  {
+    "original": "structured-sync-STEP7-E2E--e6749-conflict-choice-is-explicit-chromium/trace.zip",
+    "saved": "files/0003.zip",
+    "sha256": "42d1ffa2f6701b383f512aa0468e7ef555860de8a3d031017db8db6a058a5477"
+  }
+]

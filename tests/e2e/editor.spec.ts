@@ -3,7 +3,8 @@ import { test, expect, type Page } from '@playwright/test';
 async function body(page: Page) {
   await page.goto(`/?page=${crypto.randomUUID()}`);
   const editor = page.getByRole('textbox', { name: 'Page本文' });
-  await expect(editor).toBeVisible();
+  // This is interaction setup, not the release startup performance gate.
+  await expect(editor).toBeVisible({ timeout: 15000 });
   await editor.click();
   return editor;
 }

@@ -1,0 +1,50 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f634-07df-732d-b963-94e96936acb7","clientId":"01a0f634-072c-7778-9178-88b6ad4d9597","serverOrder":"2","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f634-07d6-71fc-af0d-8519cb92afdc","clientId":"01a0f634-0702-709e-9260-dc0524d69a8e","serverOrder":"3","status":"conflict","conflicts":1}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f634-0886-7508-a2ca-907c9ea18bb8","clientId":"01a0f634-0702-709e-9260-dc0524d69a8e","serverOrder":"4","status":"acknowledged","conflicts":1}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution
+[22m[39mStructured conflict: all assertions completed
+Structured fixture cleanup: stop engines
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution
+[22m[39mStructured fixture cleanup: devices closed
+
+ [31m❯[39m tests/integration/structured-sync-client.test.ts [2m([22m[2m6 tests[22m[2m | [22m[31m1 failed[39m[2m | [22m[33m5 skipped[39m[2m)[22m[33m 15009[2mms[22m[39m
+   [2m[90m↓[39m[22m STEP7-CLIENT-HTTP: offline Task/Relation chains survive SIGKILL and converge through restore/pull/push/pull in creation order
+   [2m[90m↓[39m[22m STEP7-CLIENT-ACK-LOSS: commit followed by dropped HTTP ACK and API/store restart is recovered once through durable pull
+[31m   [31m×[31m STEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution[39m[33m 15008[2mms[22m[39m
+   [2m[90m↓[39m[22m STEP7-CLIENT-PULL-FAILURE: cursor commit failure stops network progress; restart and explicit retry keep the original cursor and restore all records
+   [2m[90m↓[39m[22m STEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent
+   [2m[90m↓[39m[22m STEP7-CLIENT-REJECTED: create collision stops the affected causal chain, retains both original payloads and never displays synced
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/integration/structured-sync-client.test.ts[2m > [22mSTEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution
+[31m[1mError[22m: Test timed out in 15000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+[36m [2m❯[22m tests/integration/structured-sync-client.test.ts:[2m81:1[22m[39m
+    [90m 79|[39m   } finally { await f.cleanup(); }
+    [90m 80|[39m });
+    [90m 81|[39m real('STEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve pee…
+    [90m   |[39m [31m^[39m
+    [90m 82|[39m   const f = await fixture(); const a = await f.device(); const b = awa…
+    [90m 83|[39m   try {
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[33m5 skipped[39m[90m (6)[39m
+[2m   Start at [22m 06:43:19
+[2m   Duration [22m 15.75s[2m (tests 96%, import 3%, transform 1%)[22m
+
+JSON report written to /evidence/step7-conflict-cleanup-3/vitest.json
+JUNIT report written to /evidence/step7-conflict-cleanup-3/vitest.xml

@@ -1,0 +1,543 @@
+<testsuites id="" name="" tests="43" failures="10" skipped="0" errors="0" time="114.55641">
+<testsuite name="collaboration.spec.ts" timestamp="2026-10-01T06:28:08.385Z" hostname="chromium" tests="7" failures="7" skipped="0" time="34.395" errors="0">
+<testcase name="STEP4-PARAGRAPH: simultaneous edits retain both changes and remote update keeps the caret" classname="collaboration.spec.ts" time="6.581">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/collaboration-STEP4-PARAGR-7f5f3-mote-update-keeps-the-caret-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/collaboration-STEP4-PARAGR-7f5f3-mote-update-keeps-the-caret-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(locator).toHaveText(expected) failed" type="expect.toHaveText">
+<![CDATA[  [chromium] › collaboration.spec.ts:64:1 › STEP4-PARAGRAPH: simultaneous edits retain both changes and remote update keeps the caret 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByLabel('同期状態')
+    Expected: "サーバーと同期済み"
+    Error: strict mode violation: getByLabel('同期状態') resolved to 2 elements:
+        1) <output aria-label="同期状態" aria-live="polite" data-status="connected">サーバーと同期済み</output> aka getByRole('status', { name: '同期状態', exact: true })
+        2) <output aria-live="polite" aria-label="TaskとRelationの同期状態">再試行待ち</output> aka getByRole('status', { name: 'TaskとRelationの同期状態' })
+
+    Call log:
+      - Expect "toHaveText" getByLabel('同期状態') with timeout 5000ms
+      - waiting for getByLabel('同期状態')
+
+
+      30 |   for (const page of [a, b]) {
+      31 |     await expect(body(page)).toBeVisible();
+    > 32 |     await expect(page.getByLabel('同期状態')).toHaveText('サーバーと同期済み');
+         |                                           ^
+      33 |   }
+      34 | }
+      35 | async function pause(page: Page) {
+        at pair (/workspace/tests/e2e/collaboration.spec.ts:32:43)
+        at /workspace/tests/e2e/collaboration.spec.ts:65:3
+
+    Error Context: ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-PARAGR-7f5f3-mote-update-keeps-the-caret-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-PARAGR-7f5f3-mote-update-keeps-the-caret-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-PARAGR-7f5f3-mote-update-keeps-the-caret-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="STEP4-BLOCKS: different blocks, local undo does not undo the other client" classname="collaboration.spec.ts" time="4.811">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/collaboration-STEP4-BLOCKS-2f232-s-not-undo-the-other-client-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/collaboration-STEP4-BLOCKS-2f232-s-not-undo-the-other-client-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(locator).toHaveText(expected) failed" type="expect.toHaveText">
+<![CDATA[  [chromium] › collaboration.spec.ts:80:1 › STEP4-BLOCKS: different blocks, local undo does not undo the other client 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByLabel('同期状態')
+    Expected: "サーバーと同期済み"
+    Error: strict mode violation: getByLabel('同期状態') resolved to 2 elements:
+        1) <output aria-label="同期状態" aria-live="polite" data-status="connected">サーバーと同期済み</output> aka getByRole('status', { name: '同期状態', exact: true })
+        2) <output aria-live="polite" aria-label="TaskとRelationの同期状態">読み込み中…</output> aka getByRole('status', { name: 'TaskとRelationの同期状態' })
+
+    Call log:
+      - Expect "toHaveText" getByLabel('同期状態') with timeout 5000ms
+      - waiting for getByLabel('同期状態')
+
+
+      30 |   for (const page of [a, b]) {
+      31 |     await expect(body(page)).toBeVisible();
+    > 32 |     await expect(page.getByLabel('同期状態')).toHaveText('サーバーと同期済み');
+         |                                           ^
+      33 |   }
+      34 | }
+      35 | async function pause(page: Page) {
+        at pair (/workspace/tests/e2e/collaboration.spec.ts:32:43)
+        at /workspace/tests/e2e/collaboration.spec.ts:81:3
+
+    Error Context: ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-BLOCKS-2f232-s-not-undo-the-other-client-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-BLOCKS-2f232-s-not-undo-the-other-client-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-BLOCKS-2f232-s-not-undo-the-other-client-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="STEP4-OFFLINE: each client adds and deletes blocks, reconnect and fresh client restore the result" classname="collaboration.spec.ts" time="4.195">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/collaboration-STEP4-OFFLIN-d2c9e-h-client-restore-the-result-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/collaboration-STEP4-OFFLIN-d2c9e-h-client-restore-the-result-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(locator).toHaveText(expected) failed" type="expect.toHaveText">
+<![CDATA[  [chromium] › collaboration.spec.ts:98:1 › STEP4-OFFLINE: each client adds and deletes blocks, reconnect and fresh client restore the result 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByLabel('同期状態')
+    Expected: "サーバーと同期済み"
+    Error: strict mode violation: getByLabel('同期状態') resolved to 2 elements:
+        1) <output aria-label="同期状態" aria-live="polite" data-status="connected">サーバーと同期済み</output> aka getByRole('status', { name: '同期状態', exact: true })
+        2) <output aria-live="polite" aria-label="TaskとRelationの同期状態">読み込み中…</output> aka getByRole('status', { name: 'TaskとRelationの同期状態' })
+
+    Call log:
+      - Expect "toHaveText" getByLabel('同期状態') with timeout 5000ms
+      - waiting for getByLabel('同期状態')
+
+
+      30 |   for (const page of [a, b]) {
+      31 |     await expect(body(page)).toBeVisible();
+    > 32 |     await expect(page.getByLabel('同期状態')).toHaveText('サーバーと同期済み');
+         |                                           ^
+      33 |   }
+      34 | }
+      35 | async function pause(page: Page) {
+        at pair (/workspace/tests/e2e/collaboration.spec.ts:32:43)
+        at /workspace/tests/e2e/collaboration.spec.ts:99:3
+
+    Error Context: ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-OFFLIN-d2c9e-h-client-restore-the-result-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-OFFLIN-d2c9e-h-client-restore-the-result-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-OFFLIN-d2c9e-h-client-restore-the-result-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="STEP4-MOVE: both clients move blocks while offline" classname="collaboration.spec.ts" time="3.925">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/collaboration-STEP4-MOVE-b-b6329-s-move-blocks-while-offline-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/collaboration-STEP4-MOVE-b-b6329-s-move-blocks-while-offline-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(locator).toHaveText(expected) failed" type="expect.toHaveText">
+<![CDATA[  [chromium] › collaboration.spec.ts:137:1 › STEP4-MOVE: both clients move blocks while offline ────
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByLabel('同期状態')
+    Expected: "サーバーと同期済み"
+    Error: strict mode violation: getByLabel('同期状態') resolved to 2 elements:
+        1) <output aria-label="同期状態" aria-live="polite" data-status="connected">サーバーと同期済み</output> aka getByRole('status', { name: '同期状態', exact: true })
+        2) <output aria-live="polite" aria-label="TaskとRelationの同期状態">同期中…</output> aka getByRole('status', { name: 'TaskとRelationの同期状態' })
+
+    Call log:
+      - Expect "toHaveText" getByLabel('同期状態') with timeout 5000ms
+      - waiting for getByLabel('同期状態')
+
+
+      30 |   for (const page of [a, b]) {
+      31 |     await expect(body(page)).toBeVisible();
+    > 32 |     await expect(page.getByLabel('同期状態')).toHaveText('サーバーと同期済み');
+         |                                           ^
+      33 |   }
+      34 | }
+      35 | async function pause(page: Page) {
+        at pair (/workspace/tests/e2e/collaboration.spec.ts:32:43)
+        at /workspace/tests/e2e/collaboration.spec.ts:138:3
+
+    Error Context: ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-MOVE-b-b6329-s-move-blocks-while-offline-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-MOVE-b-b6329-s-move-blocks-while-offline-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-MOVE-b-b6329-s-move-blocks-while-offline-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="STEP4-NESTED: edit and move within a nested Toggle, then reconnect" classname="collaboration.spec.ts" time="4.596">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/collaboration-STEP4-NESTED-c7628-ested-Toggle-then-reconnect-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/collaboration-STEP4-NESTED-c7628-ested-Toggle-then-reconnect-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(locator).toHaveText(expected) failed" type="expect.toHaveText">
+<![CDATA[  [chromium] › collaboration.spec.ts:151:1 › STEP4-NESTED: edit and move within a nested Toggle, then reconnect 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByLabel('同期状態')
+    Expected: "サーバーと同期済み"
+    Error: strict mode violation: getByLabel('同期状態') resolved to 2 elements:
+        1) <output aria-label="同期状態" aria-live="polite" data-status="connected">サーバーと同期済み</output> aka getByRole('status', { name: '同期状態', exact: true })
+        2) <output aria-live="polite" aria-label="TaskとRelationの同期状態">読み込み中…</output> aka getByRole('status', { name: 'TaskとRelationの同期状態' })
+
+    Call log:
+      - Expect "toHaveText" getByLabel('同期状態') with timeout 5000ms
+      - waiting for getByLabel('同期状態')
+
+
+      30 |   for (const page of [a, b]) {
+      31 |     await expect(body(page)).toBeVisible();
+    > 32 |     await expect(page.getByLabel('同期状態')).toHaveText('サーバーと同期済み');
+         |                                           ^
+      33 |   }
+      34 | }
+      35 | async function pause(page: Page) {
+        at pair (/workspace/tests/e2e/collaboration.spec.ts:32:43)
+        at /workspace/tests/e2e/collaboration.spec.ts:152:3
+
+    Error Context: ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-NESTED-c7628-ested-Toggle-then-reconnect-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-NESTED-c7628-ested-Toggle-then-reconnect-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-NESTED-c7628-ested-Toggle-then-reconnect-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="STEP4-TODO: concurrent checked change and nested list edits retain valid nodes" classname="collaboration.spec.ts" time="4.071">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/collaboration-STEP4-TODO-c-0232c-st-edits-retain-valid-nodes-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/collaboration-STEP4-TODO-c-0232c-st-edits-retain-valid-nodes-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(locator).toHaveText(expected) failed" type="expect.toHaveText">
+<![CDATA[  [chromium] › collaboration.spec.ts:176:1 › STEP4-TODO: concurrent checked change and nested list edits retain valid nodes 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByLabel('同期状態')
+    Expected: "サーバーと同期済み"
+    Error: strict mode violation: getByLabel('同期状態') resolved to 2 elements:
+        1) <output aria-label="同期状態" aria-live="polite" data-status="connected">サーバーと同期済み</output> aka getByRole('status', { name: '同期状態', exact: true })
+        2) <output aria-live="polite" aria-label="TaskとRelationの同期状態">再試行待ち</output> aka getByRole('status', { name: 'TaskとRelationの同期状態' })
+
+    Call log:
+      - Expect "toHaveText" getByLabel('同期状態') with timeout 5000ms
+      - waiting for getByLabel('同期状態')
+
+
+      30 |   for (const page of [a, b]) {
+      31 |     await expect(body(page)).toBeVisible();
+    > 32 |     await expect(page.getByLabel('同期状態')).toHaveText('サーバーと同期済み');
+         |                                           ^
+      33 |   }
+      34 | }
+      35 | async function pause(page: Page) {
+        at pair (/workspace/tests/e2e/collaboration.spec.ts:32:43)
+        at /workspace/tests/e2e/collaboration.spec.ts:177:3
+
+    Error Context: ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-TODO-c-0232c-st-edits-retain-valid-nodes-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-TODO-c-0232c-st-edits-retain-valid-nodes-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-TODO-c-0232c-st-edits-retain-valid-nodes-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="STEP4-ISOLATION: another Page never receives this Page body" classname="collaboration.spec.ts" time="6.216">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/collaboration-STEP4-ISOLAT-d289c-ver-receives-this-Page-body-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/collaboration-STEP4-ISOLAT-d289c-ver-receives-this-Page-body-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(locator).toHaveText(expected) failed" type="expect.toHaveText">
+<![CDATA[  [chromium] › collaboration.spec.ts:199:1 › STEP4-ISOLATION: another Page never receives this Page body 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByLabel('同期状態')
+    Expected: "サーバーと同期済み"
+    Error: strict mode violation: getByLabel('同期状態') resolved to 2 elements:
+        1) <output aria-label="同期状態" aria-live="polite" data-status="connected">同期中…</output> aka getByRole('status', { name: '同期状態', exact: true })
+        2) <output aria-live="polite" aria-label="TaskとRelationの同期状態">再試行待ち</output> aka getByRole('status', { name: 'TaskとRelationの同期状態' })
+
+    Call log:
+      - Expect "toHaveText" getByLabel('同期状態') with timeout 5000ms
+      - waiting for getByLabel('同期状態')
+
+
+      202 |   await expect(body(b)).toBeVisible();
+      203 |   await typeBlocks(a, ['private to this page']);
+    > 204 |   await expect(a.getByLabel('同期状態')).toHaveText('サーバーと同期済み');
+          |                                      ^
+      205 |   await expect(body(b)).not.toContainText('private to this page');
+      206 |   expect((await snapshot(a)).pageId).not.toBe((await snapshot(b)).pageId);
+      207 | });
+        at /workspace/tests/e2e/collaboration.spec.ts:204:38
+
+    Error Context: ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-ISOLAT-d289c-ver-receives-this-Page-body-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-ISOLAT-d289c-ver-receives-this-Page-body-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/collaboration-STEP4-ISOLAT-d289c-ver-receives-this-Page-body-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+</testsuite>
+<testsuite name="editor-ux.spec.ts" timestamp="2026-10-01T06:28:08.385Z" hostname="chromium" tests="7" failures="0" skipped="0" time="32.982" errors="0">
+<testcase name="STEP2-UX-SLASH: pointer and keyboard share one selection and retain editor focus" classname="editor-ux.spec.ts" time="6.087">
+</testcase>
+<testcase name="STEP2-UX-SLASH: wrap, Home/End, Tab, search aliases and empty dismissal" classname="editor-ux.spec.ts" time="3.615">
+</testcase>
+<testcase name="STEP2-UX-SLASH: outside dismissal preserves query, narrow popup stays on screen" classname="editor-ux.spec.ts" time="2.74">
+</testcase>
+<testcase name="STEP2-UX-TOGGLE: Enter reuses existing body and collapse moves caret to visible heading" classname="editor-ux.spec.ts" time="5.271">
+</testcase>
+<testcase name="STEP2-UX-TOGGLE: pointer retains caret, keyboard button activation retains focus" classname="editor-ux.spec.ts" time="4.475">
+</testcase>
+<testcase name="STEP2-UX-TOGGLE: folding is excluded from content undo and nested shortcut uses nearest toggle" classname="editor-ux.spec.ts" time="4.876">
+</testcase>
+<testcase name="STEP2-UX-VISUAL: capture polished slash menu and toggle at a desktop viewport" classname="editor-ux.spec.ts" time="5.918">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-ux-STEP2-UX-VISUAL--689e1-oggle-at-a-desktop-viewport-chromium/attachments/editor-ux-998e44d37ec2e83f7eb2e9431d603190e4572368.png]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="editor.spec.ts" timestamp="2026-10-01T06:28:08.385Z" hostname="chromium" tests="22" failures="0" skipped="0" time="74.939" errors="0">
+<testcase name="STEP2-BLOCK: slash inserts 本文, edit and delete" classname="editor.spec.ts" time="3.034">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 見出し1, edit and delete" classname="editor.spec.ts" time="5.032">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 見出し2, edit and delete" classname="editor.spec.ts" time="2.304">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 見出し3, edit and delete" classname="editor.spec.ts" time="3.28">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 箇条書き, edit and delete" classname="editor.spec.ts" time="2.562">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 番号付きリスト, edit and delete" classname="editor.spec.ts" time="3.322">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts Todo, edit and delete" classname="editor.spec.ts" time="3.917">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 引用, edit and delete" classname="editor.spec.ts" time="5.044">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts コード, edit and delete" classname="editor.spec.ts" time="3.603">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 区切り線, edit and delete" classname="editor.spec.ts" time="4.089">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts Toggle, edit and delete" classname="editor.spec.ts" time="4.474">
+</testcase>
+<testcase name="STEP2-TODO: checkbox and nested list survive undo/redo" classname="editor.spec.ts" time="6.642">
+</testcase>
+<testcase name="STEP2-TOGGLE: nested content folds without losing text and unwraps" classname="editor.spec.ts" time="8.982">
+</testcase>
+<testcase name="STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text" classname="editor.spec.ts" time="2.395">
+</testcase>
+<testcase name="STEP2-MARKDOWN: #  shortcut" classname="editor.spec.ts" time="1.287">
+</testcase>
+<testcase name="STEP2-MARKDOWN: ##  shortcut" classname="editor.spec.ts" time="2.067">
+</testcase>
+<testcase name="STEP2-MARKDOWN: ###  shortcut" classname="editor.spec.ts" time="1.776">
+</testcase>
+<testcase name="STEP2-MARKDOWN: -  shortcut" classname="editor.spec.ts" time="1.622">
+</testcase>
+<testcase name="STEP2-MARKDOWN: 1.  shortcut" classname="editor.spec.ts" time="1.872">
+</testcase>
+<testcase name="STEP2-MARKDOWN: []  shortcut" classname="editor.spec.ts" time="1.992">
+</testcase>
+<testcase name="STEP2-MOVE: drag changes order, undo restores it, keyboard moves the block" classname="editor.spec.ts" time="3.159">
+</testcase>
+<testcase name="STEP2-COMPOSITION: slash menu does not consume composition Enter" classname="editor.spec.ts" time="2.484">
+</testcase>
+</testsuite>
+<testsuite name="foundation.spec.ts" timestamp="2026-10-01T06:28:08.385Z" hostname="chromium" tests="1" failures="1" skipped="0" time="2.454" errors="0">
+<testcase name="STEP1-E2E: React client starts alongside API and collaboration services" classname="foundation.spec.ts" time="2.454">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/foundation-STEP1-E2E-React-57ccc--and-collaboration-services-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/foundation-STEP1-E2E-React-57ccc--and-collaboration-services-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(locator).toHaveText(expected) failed" type="expect.toHaveText">
+<![CDATA[  [chromium] › foundation.spec.ts:2:1 › STEP1-E2E: React client starts alongside API and collaboration services 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByLabel('同期状態')
+    Expected: "サーバーと同期済み"
+    Error: strict mode violation: getByLabel('同期状態') resolved to 2 elements:
+        1) <output aria-label="同期状態" aria-live="polite" data-status="connected">同期中…</output> aka getByRole('status', { name: '同期状態', exact: true })
+        2) <output aria-live="polite" aria-label="TaskとRelationの同期状態">読み込み中…</output> aka getByRole('status', { name: 'TaskとRelationの同期状態' })
+
+    Call log:
+      - Expect "toHaveText" getByLabel('同期状態') with timeout 5000ms
+      - waiting for getByLabel('同期状態')
+        2 × locator resolved to <output aria-label="同期状態" aria-live="polite" data-status="connecting">接続中…</output>
+          - unexpected value "接続中…"
+
+
+      3 |   await page.goto('/');
+      4 |   await expect(page.getByRole('heading', { name: 'Greiva PoC' })).toBeVisible();
+    > 5 |   await expect(page.getByLabel('同期状態')).toHaveText('サーバーと同期済み');
+        |                                         ^
+      6 |   for (const [port, service] of [[3000, 'api'], [1234, 'collaboration']] as const) {
+      7 |     const response = await request.get(`http://127.0.0.1:${port}/health`);
+      8 |     expect(response.ok()).toBe(true);
+        at /workspace/tests/e2e/foundation.spec.ts:5:41
+
+    Error Context: ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/foundation-STEP1-E2E-React-57ccc--and-collaboration-services-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/foundation-STEP1-E2E-React-57ccc--and-collaboration-services-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/foundation-STEP1-E2E-React-57ccc--and-collaboration-services-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+</testsuite>
+<testsuite name="persistence.spec.ts" timestamp="2026-10-01T06:28:08.385Z" hostname="chromium" tests="4" failures="2" skipped="0" time="26.851" errors="0">
+<testcase name="STEP5-CRASH: new offline Page metadata and block edits survive renderer/store SIGKILL, reopen offline and converge" classname="persistence.spec.ts" time="13.262">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/persistence-STEP5-CRASH-ne-51e49-reopen-offline-and-converge-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/persistence-STEP5-CRASH-ne-51e49-reopen-offline-and-converge-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(locator).toHaveText(expected) failed" type="expect.toHaveText">
+<![CDATA[  [chromium] › persistence.spec.ts:35:1 › STEP5-CRASH: new offline Page metadata and block edits survive renderer/store SIGKILL, reopen offline and converge 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByLabel('同期状態')
+    Expected: "サーバーと同期済み"
+    Error: strict mode violation: getByLabel('同期状態') resolved to 2 elements:
+        1) <output aria-label="同期状態" aria-live="polite" data-status="connected">サーバーと同期済み</output> aka getByRole('status', { name: '同期状態', exact: true })
+        2) <output aria-live="polite" aria-label="TaskとRelationの同期状態">再試行待ち</output> aka getByRole('status', { name: 'TaskとRelationの同期状態' })
+
+    Call log:
+      - Expect "toHaveText" getByLabel('同期状態') with timeout 5000ms
+      - waiting for getByLabel('同期状態')
+
+
+      80 |     const b = await peerContext.newPage();
+      81 |     await Promise.all([a.goto('/'), b.goto(url)]);
+    > 82 |     for (const page of [a, b]) { await expect(body(page)).toBeVisible(); await saved(page); await expect(page.getByLabel('同期状態')).toHaveText('サーバーと同期済み'); }
+         |                                                                                                                                   ^
+      83 |     await expect.poll(async () => { const [x, y] = await Promise.all([snapshot(a), snapshot(b)]); return JSON.stringify(x.clocks) === JSON.stringify(y.clocks) && JSON.stringify(x.json) === JSON.stringify(y.json) && x.fragment === y.fragment; }).toBe(true);
+      84 |     await expect(body(b)).toContainText('keep'); await expect(body(b)).toContainText('move');
+      85 |     await expect(b.getByLabel('Pageタイトル', { exact: true })).toHaveValue(''); // Metadata stays device-local in Step 5.
+        at /workspace/tests/e2e/persistence.spec.ts:82:131
+
+    Error Context: ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/persistence-STEP5-CRASH-ne-51e49-reopen-offline-and-converge-chromium/error-context.md
+
+    attachment #4: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/persistence-STEP5-CRASH-ne-51e49-reopen-offline-and-converge-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/persistence-STEP5-CRASH-ne-51e49-reopen-offline-and-converge-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="STEP5-WRITE-ERROR: failed SQLite commit never sends the unsafe update or reports saved/synced" classname="persistence.spec.ts" time="4.731">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/persistence-STEP5-WRITE-ER-1c9d7-ate-or-reports-saved-synced-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/persistence-STEP5-WRITE-ER-1c9d7-ate-or-reports-saved-synced-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(locator).toHaveText(expected) failed" type="expect.toHaveText">
+<![CDATA[  [chromium] › persistence.spec.ts:90:1 › STEP5-WRITE-ERROR: failed SQLite commit never sends the unsafe update or reports saved/synced 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByLabel('同期状態')
+    Expected: "サーバーと同期済み"
+    Error: strict mode violation: getByLabel('同期状態') resolved to 2 elements:
+        1) <output aria-label="同期状態" aria-live="polite" data-status="connected">サーバーと同期済み</output> aka getByRole('status', { name: '同期状態', exact: true })
+        2) <output aria-live="polite" aria-label="TaskとRelationの同期状態">再試行待ち</output> aka getByRole('status', { name: 'TaskとRelationの同期状態' })
+
+    Call log:
+      - Expect "toHaveText" getByLabel('同期状態') with timeout 5000ms
+      - waiting for getByLabel('同期状態')
+
+
+      93 |     const url = `/?page=${newId()}`; const b = await peer.newPage();
+      94 |     await Promise.all([page.goto(url), b.goto(url)]);
+    > 95 |     for (const view of [page, b]) { await expect(body(view)).toBeVisible(); await saved(view); await expect(view.getByLabel('同期状態')).toHaveText('サーバーと同期済み'); }
+         |                                                                                                                                      ^
+      96 |     await control(page, 'write-failure'); await body(page).click(); await page.keyboard.type('unsafe');
+      97 |     await expect(page.getByLabel('同期状態')).toHaveText('端末への保存エラー');
+      98 |     await expect(page.getByLabel('端末の保存状態')).toContainText('保存できません');
+        at /workspace/tests/e2e/persistence.spec.ts:95:134
+
+    Error Context: ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/persistence-STEP5-WRITE-ER-1c9d7-ate-or-reports-saved-synced-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/persistence-STEP5-WRITE-ER-1c9d7-ate-or-reports-saved-synced-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T06-27-50.140Z/artifacts/persistence-STEP5-WRITE-ER-1c9d7-ate-or-reports-saved-synced-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="STEP5-RESTORE-corrupt: incompatible or corrupted SQLite fails closed" classname="persistence.spec.ts" time="3.814">
+</testcase>
+<testcase name="STEP5-RESTORE-schema: incompatible or corrupted SQLite fails closed" classname="persistence.spec.ts" time="5.044">
+</testcase>
+</testsuite>
+<testsuite name="structured-local.spec.ts" timestamp="2026-10-01T06:28:08.385Z" hostname="chromium" tests="2" failures="0" skipped="0" time="10.577" errors="0">
+<testcase name="STEP6-E2E: Task and Relation pointer/keyboard CRUD persist with pending operations after renderer/store restart" classname="structured-local.spec.ts" time="7.792">
+</testcase>
+<testcase name="STEP6-WRITE-ERROR: failed queue commit retains the draft and permits a safe retry without duplicate Task" classname="structured-local.spec.ts" time="2.785">
+</testcase>
+</testsuite>
+</testsuites>

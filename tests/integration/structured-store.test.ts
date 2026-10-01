@@ -37,7 +37,7 @@ it('STEP6-LOCAL: atomically migrates Page schema, keeps binary updates and stabl
     expect(f.snapshot()).toMatchObject({ tasks: [], relations: [], operations: [], clientId: f.clientId, state: { stream: 'structured', cursor: null, lastSuccessfulSyncAt: null } });
     expect(f.request({ command: 'load',pageId })[0]!.value).toMatchObject({ metadata: { title: 'old Page' },updates:[Array.from(bytes)] });
     const after = new DatabaseSync(f.path);
-    expect(after.prepare('PRAGMA user_version').get()?.user_version).toBe(3); after.close();
+    expect(after.prepare('PRAGMA user_version').get()?.user_version).toBe(4); after.close();
   } finally { f.cleanup(); }
 });
 it('STEP6-MIGRATION: an incompatible existing table rolls back the whole upgrade and preserves Page data', () => {

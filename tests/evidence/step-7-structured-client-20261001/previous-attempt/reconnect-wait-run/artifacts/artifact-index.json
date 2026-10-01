@@ -1,0 +1,27 @@
+[
+  {
+    "original": ".last-run.json",
+    "saved": "files/0001.json",
+    "sha256": "b7883469c45195c3e561e125518c183a0d6892daf931e4f01b145fd4a343ea53"
+  },
+  {
+    "original": "collaboration-STEP4-TODO-c-0232c-st-edits-retain-valid-nodes-chromium/error-context.md",
+    "saved": "files/0002.md",
+    "sha256": "98aa4211bd9485dbcb7c84cbfeff1926a7686457ce6017615dd0749e0979284b"
+  },
+  {
+    "original": "collaboration-STEP4-TODO-c-0232c-st-edits-retain-valid-nodes-chromium/trace.zip",
+    "saved": "files/0003.zip",
+    "sha256": "290b3edde6bff9f17c7151f4007f1ee4932e5408b12d39fddd506f9ff61b9875"
+  },
+  {
+    "original": "editor-ux-STEP2-UX-VISUAL--689e1-oggle-at-a-desktop-viewport-chromium/editor-ux.png",
+    "saved": "files/0004.png",
+    "sha256": "d6ecc8cb9603fba4b4782ee5689a4b0d195fa40ce745169b1fe00fbf7fe3558d"
+  },
+  {
+    "original": "editor-ux-STEP2-UX-VISUAL--689e1-oggle-at-a-desktop-viewport-chromium/attachments/editor-ux-9092989aad48b57a9f90ec16b390adb5f1b7d37f.png",
+    "saved": "files/0005.png",
+    "sha256": "d6ecc8cb9603fba4b4782ee5689a4b0d195fa40ce745169b1fe00fbf7fe3558d"
+  }
+]

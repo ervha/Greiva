@@ -2,6 +2,7 @@ import { HocuspocusProvider, HocuspocusProviderWebsocket } from '@hocuspocus/pro
 import { emptyPageUpdate } from '@greiva/sync';
 import * as Y from 'yjs';
 import { DurabilityBoundary, localPageStore, type LocalPageStore, type PageMetadata } from './local-page-store';
+import { connectionPaused } from '../connection-preference';
 
 export const defaultPageId = '019a0070-0000-7000-8000-000000000001';
 const requestedPageId = new URLSearchParams(location.search).get('page');
@@ -9,7 +10,7 @@ export const pageId = requestedPageId ?? defaultPageId;
 export const clientId = crypto.randomUUID();
 export type ConnectionState = { status: string; synced: boolean; pending: number; ready: boolean; paused: boolean; error: string | null;
   local: boolean; saving: number; storageError: string | null; title: string; pages: PageMetadata[] };
-export const initialConnectionState: ConnectionState = { status: 'connecting', synced: false, pending: 0, ready: false, paused: false, error: null, local: false, saving: 0, storageError: null, title: '', pages: [] };
+export const initialConnectionState: ConnectionState = { status: 'connecting', synced: false, pending: 0, ready: false, paused: connectionPaused(), error: null, local: false, saving: 0, storageError: null, title: '', pages: [] };
 export type PageSession = { document: Y.Doc; provider: HocuspocusProvider; clientId: string; pageId: string;
   local: boolean; setTitle: (title: string) => void; destroy: () => void; durable: () => Promise<void>;
   connect: () => Promise<unknown>; disconnect: () => void };
@@ -67,7 +68,7 @@ export async function createPageSession(report: (state: ConnectionState) => void
     if (document.getXmlFragment('body').length === 0) Y.applyUpdate(document, emptyPageUpdate(), 'offline-bootstrap');
     update({ ready: true });
   }, 500) : undefined;
-  void socket.connect().catch(error => console.error('Page connection failed', error));
+  if (!state.paused) void socket.connect().catch(error => console.error('Page connection failed', error));
   return { document, provider, clientId, pageId: selectedPageId, local: Boolean(store), durable: () => boundary.tail,
     connect: () => socket.connect(), disconnect: () => socket.disconnect(),
     setTitle: title => { update({ title, pages: state.pages.map(page => page.id === selectedPageId ? { ...page, title } : page) }); if (store) boundary.enqueue(() => store.setTitle(selectedPageId, title)); },

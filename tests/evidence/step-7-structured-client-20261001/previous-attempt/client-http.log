@@ -1,0 +1,87 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-HTTP: offline Task/Relation chains survive SIGKILL and converge through restore/pull/push/pull in creation order
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f61d-5d5e-701f-be2e-46e749efb894","clientId":"01a0f61d-5cfd-7158-b6d1-979ee63fba93","serverOrder":"1","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-HTTP: offline Task/Relation chains survive SIGKILL and converge through restore/pull/push/pull in creation order
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f61d-5d5e-701f-be2e-4adddc11a41d","clientId":"01a0f61d-5cfd-7158-b6d1-979ee63fba93","serverOrder":"2","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-HTTP: offline Task/Relation chains survive SIGKILL and converge through restore/pull/push/pull in creation order
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f61d-5d6c-7549-ab22-72e874ec221c","clientId":"01a0f61d-5cfd-7158-b6d1-979ee63fba93","serverOrder":"3","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-ACK-LOSS: commit followed by dropped HTTP ACK and API/store restart is recovered once through durable pull
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f61d-5ef2-72d1-9589-f227dcd06c7a","clientId":"01a0f61d-5ecc-704c-985b-7556fe4f4969","serverOrder":"1","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f61d-6042-74d3-8c93-91e061c3cece","clientId":"01a0f61d-5fd6-70da-b5d5-e39b1d3479cb","serverOrder":"2","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f61d-603a-70bc-bf21-fcb4aadcbcac","clientId":"01a0f61d-5fa9-76d9-9c0c-5b3b15e4f41e","serverOrder":"3","status":"conflict","conflicts":1}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f61d-60e3-727a-aad7-5ddb725d1f69","clientId":"01a0f61d-5fa9-76d9-9c0c-5b3b15e4f41e","serverOrder":"4","status":"acknowledged","conflicts":1}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f61d-6309-77ec-a7de-39510b41e613","clientId":"01a0f61d-62ae-7071-817e-7349838e8a9c","serverOrder":"1","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f61d-6557-74d4-83a0-ab2e40ade1c7","clientId":"01a0f61d-62ae-7071-817e-7349838e8a9c","serverOrder":"2","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f61d-6d8b-729e-893a-5d518e3f92de","clientId":"01a0f61d-62ae-7071-817e-7349838e8a9c","serverOrder":"3","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f61d-8166-725f-ac95-64cf9eb5954a","clientId":"01a0f61d-62ae-7071-817e-7349838e8a9c","serverOrder":"4","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-REJECTED: create collision stops the affected causal chain, retains both original payloads and never displays synced
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f61d-8202-74b7-a716-698e839bb303","clientId":"01a0f61d-81d3-7025-82ed-c42b40c27d9d","serverOrder":"2","status":"rejected","conflicts":0}
+
+ [31m❯[39m tests/integration/structured-sync-client.test.ts [2m([22m[2m6 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 9797[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP7-CLIENT-HTTP: offline Task/Relation chains survive SIGKILL and converge through restore/pull/push/pull in creation order[33m 606[2mms[22m[39m
+   [32m✓[39m STEP7-CLIENT-ACK-LOSS: commit followed by dropped HTTP ACK and API/store restart is recovered once through durable pull[32m 227[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution[33m 539[2mms[22m[39m
+   [32m✓[39m STEP7-CLIENT-PULL-FAILURE: cursor commit failure stops network progress; restart and explicit retry keep the original cursor and restore all records[32m 235[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent[33m 7970[2mms[22m[39m
+[31m   [31m×[31m STEP7-CLIENT-REJECTED: create collision stops the affected causal chain, retains both original payloads and never displays synced[39m[32m 218[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/integration/structured-sync-client.test.ts[2m > [22mSTEP7-CLIENT-REJECTED: create collision stops the affected causal chain, retains both original payloads and never displays synced
+[31m[1mAssertionError[22m: expected [ { …(8) } ] to deeply equal [ { …(8) } ][39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[33m@@ -3,10 +3,10 @@[39m
+[2m      "createdAt": "2026-10-01T06:18:44.093Z",[22m
+[2m      "deletedAt": null,[22m
+[2m      "due": null,[22m
+[2m      "id": "01a0f61d-81fb-74d3-a755-9a2033f3640b",[22m
+[2m      "status": "todo",[22m
+[32m-     "title": "server",[39m
+[32m-     "updatedAt": "2026-10-01T06:18:44.093Z",[39m
+[31m+     "title": "next local",[39m
+[31m+     "updatedAt": "2026-10-01T06:18:44.105Z",[39m
+[2m      "version": 1,[22m
+[2m    },[22m
+[2m  ][22m
+
+[36m [2m❯[22m tests/integration/structured-sync-client.test.ts:[2m136:28[22m[39m
+    [90m134|[39m     expect(snapshot.errors.map(value=>value.error)).toEqual(['entity_i…
+    [90m135|[39m     expect(snapshot.operations[0]?.payload).toMatchObject({title:'diff…
+    [90m136|[39m     expect(snapshot.tasks).toEqual(await f.repository.tasks(true)); ex…
+    [90m   |[39m                            [31m^[39m
+    [90m137|[39m   } finally { await f.cleanup(); }
+    [90m138|[39m });
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m5 passed[39m[22m[90m (6)[39m
+[2m   Start at [22m 06:18:33
+[2m   Duration [22m 10.96s[2m (tests 90%, import 9%, transform 1%)[22m
+
+JSON report written to /evidence/step7-client-http/vitest.json
+JUNIT report written to /evidence/step7-client-http/vitest.xml

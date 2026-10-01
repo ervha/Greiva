@@ -1,0 +1,29 @@
+{
+  "observedAt": "2026-10-01T06:55:51.0312742Z",
+  "container": "/greiva-step5-work",
+  "image": "sha256:1b18f67bc1e89fa7134fc40cc48b780ff7b1ccbfd24389425ca2ba5b4d829cf7",
+  "user": "node",
+  "privileged": false,
+  "securityOptions": [
+    "no-new-privileges:true"
+  ],
+  "memoryBytes": 4294967296,
+  "nanoCpus": 2000000000,
+  "init": null,
+  "mounts": [
+    {
+      "Type": "volume",
+      "Source": "/var/lib/docker/volumes/greiva-step5-cargo/_data",
+      "Destination": "/opt/cargo",
+      "RW": true
+    },
+    {
+      "Type": "bind",
+      "Source": "/run/desktop/mnt/host/c/Users/danun/Desktop/Project/Greiva/tests/evidence/runs/container",
+      "Destination": "/evidence",
+      "RW": true
+    }
+  ],
+  "ports": {},
+  "gitAvailability": "No .git in container; copied source is fingerprinted"
+}

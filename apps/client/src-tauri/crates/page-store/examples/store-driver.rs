@@ -1,6 +1,6 @@
 // Docker-only transport for exercising the same repository used by Tauri.
 // JSON-lines over inherited stdin/stdout; no network listener or raw SQL API.
-use greiva_page_store::{PageStore, LocalOperation};
+use greiva_page_store::{PageStore, LocalOperation, PullBatch};
 use serde_json::{json, Value};
 use std::{io::{self, BufRead, Write}, path::Path};
 #[tokio::main]
@@ -18,6 +18,12 @@ async fn main() {
                 "structured-client-id" => store.structured_client_id(request["candidate"].as_str().unwrap_or("")).await.map(Value::String),
                 "structured-mutate" => match serde_json::from_value::<LocalOperation>(request["operation"].clone()) {
                     Ok(operation) => store.structured_mutate(operation).await, Err(e) => Err(e.to_string()),
+                },
+                "structured-prepare" => store.structured_prepare().await.map(|value| value.unwrap_or(Value::Null)),
+                "structured-ack" => store.structured_ack(request["result"].clone()).await.map(|_| Value::Null),
+                "structured-pull" => match serde_json::from_value::<PullBatch>(request["batch"].clone()) {
+                    Ok(batch) => store.structured_pull(request["baseCursor"].as_str().map(String::from),batch).await.map(|_| Value::Null),
+                    Err(e) => Err(e.to_string()),
                 },
                 "load" => store.load(id).await.map(|value| serde_json::to_value(value).unwrap()),
                 "append" => match serde_json::from_value::<Vec<u8>>(request["update"].clone()) {

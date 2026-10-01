@@ -1,0 +1,19 @@
+{
+  "verifiedAt": "2026-10-01T07:10:12.8813994Z",
+  "parentCommit": "3651291797d0cad6b44721444b3626481dafb458",
+  "branch": "codex/poc-editor",
+  "version": "0.6.0",
+  "sourceSha256": "49a2d250c9f76cc44bc840528079f70aed533a052cc0824c10da6287ab3f0189",
+  "fileCount": 123,
+  "inventoryMatches": true,
+  "sourceBytesMatch": true,
+  "specSha256": "1227c3562632c170967534fcb2aaa3557d69e033fafbd3e959a25a84c20663c0",
+  "checks": 9,
+  "normalPass": 41,
+  "normalSkipped": 18,
+  "postgresPass": 18,
+  "editorE2EPass": 43,
+  "structuredE2EPass": 2,
+  "execution": "Docker only; Windows 0.6.0 cross-build and hash comparison are separate from native operation/IME evidence",
+  "limits": "One initial Page restore exceeded 5s before Mention input; cause remains unconfirmed despite separate repeat success. Integrated crash boundaries, performance/native/final Gates remain pending."
+}

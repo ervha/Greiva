@@ -1,0 +1,10 @@
+{
+  "version": "0.6.0",
+  "artifact": ".data/host-ime/builds/0.6.0-embedded/greiva-poc.exe",
+  "sha256": "343c5ca13d5baed61b8f5dc186357a6d64746ed4bfed615931f121b4ac9a1abf",
+  "bytes": 18557952,
+  "sourceParentCommit": "3651291797d0cad6b44721444b3626481dafb458",
+  "build": "Docker cargo xwin build --locked --manifest-path apps/client/src-tauri/Cargo.toml --target x86_64-pc-windows-msvc --features custom-protocol --target-dir .data/windows-target",
+  "result": "Build completed; missing MSVC PDB linker warning; executable copied and Docker/host hash matched",
+  "nativeTest": "Not run for 0.6.0; existing 0.4.0 window remains separate"
+}

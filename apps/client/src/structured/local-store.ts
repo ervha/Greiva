@@ -1,10 +1,8 @@
 import { invoke, isTauri } from '@tauri-apps/api/core';
 import { newId } from '@greiva/shared';
-import { parseOperationPayload, pushOperationSchema, structuredSnapshotSchema, type PushOperation, type StructuredSnapshot } from '@greiva/protocol';
-export interface LocalStructuredStore {
-  snapshot(): Promise<StructuredSnapshot>;
-  mutate(operation: PushOperation): Promise<void>;
-}
+import { parseOperationPayload, pushOperationSchema, pushResultSchema, pullResponseSchema, structuredSnapshotSchema } from '@greiva/protocol';
+import type { StructuredStore } from '@greiva/sync';
+export type LocalStructuredStore = StructuredStore;
 export function localStructuredStore(): LocalStructuredStore | null {
   if (!isTauri() && import.meta.env.VITE_GREIVA_TEST_SQLITE !== '1') return null;
   const request = async <T>(command: string, fields: Record<string, unknown>): Promise<T> => {
@@ -25,5 +23,8 @@ export function localStructuredStore(): LocalStructuredStore | null {
       if (parsed.clientId !== clientId) throw new Error('Local client identity mismatch');
       await request('structured-mutate', { operation: parsed });
     },
+    async prepare() { await initialized; const wire = await request('structured-prepare',{}); return wire===null ? null : pushOperationSchema.parse(wire); },
+    async acknowledge(result) { await initialized; await request('structured-ack',{result:pushResultSchema.parse(result)}); },
+    async applyPull(baseCursor,batch) { await initialized; await request('structured-pull',{baseCursor,batch:pullResponseSchema.parse(batch)}); },
   };
 }

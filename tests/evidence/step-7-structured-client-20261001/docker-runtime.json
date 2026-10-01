@@ -1,0 +1,23 @@
+{
+  "observedAt": "2026-10-01T07:01:51.3720923Z",
+  "container": "/greiva-step7-client-checkpoint",
+  "image": "sha256:07b87eb84ab8dac058346e34a80bf75884641bc311df53f9f68f47c81b795ce8",
+  "user": "node",
+  "privileged": false,
+  "securityOptions": [
+    "no-new-privileges:true"
+  ],
+  "memoryBytes": 4294967296,
+  "nanoCpus": 2000000000,
+  "init": true,
+  "mounts": [
+    {
+      "Type": "bind",
+      "Source": "C:\\Users\\danun\\Desktop\\Project\\Greiva\\tests\\evidence\\runs\\container",
+      "Destination": "/evidence",
+      "RW": true
+    }
+  ],
+  "ports": {},
+  "gitAvailability": "No .git in image; copied source is fingerprinted"
+}

@@ -5,6 +5,7 @@ import { connectionLabel, createPageSession, initialConnectionState, pageId, typ
 import './style.css';
 import { newId } from '@greiva/shared';
 import { TaskPanel } from './structured/TaskPanel';
+import { setConnectionPaused } from './connection-preference';
 function App() {
   const [session, setSession] = useState<PageSession | null>(null);
   const [state, setState] = useState<ConnectionState>(initialConnectionState);
@@ -19,8 +20,8 @@ function App() {
   }, []);
   const toggleConnection = () => {
     if (!session) return;
-    if (state.paused) { setState(current => ({ ...current, paused: false, synced: false, status: 'connecting' })); void session.connect(); }
-    else { setState(current => ({ ...current, paused: true, synced: false })); session.disconnect(); }
+    if (state.paused) { setConnectionPaused(false); setState(current => ({ ...current, paused: false, synced: false, status: 'connecting' })); void session.connect(); }
+    else { setConnectionPaused(true); setState(current => ({ ...current, paused: true, synced: false })); session.disconnect(); }
   };
   return <main><header><h1>Greiva PoC</h1>
     <div className="page-sync-status"><span>本文 </span><output aria-label="同期状態" aria-live="polite" data-status={state.paused ? 'disconnected' : state.status}>{connectionLabel(state)}</output></div></header>
@@ -37,7 +38,7 @@ function App() {
       {state.pending > 0 && <span aria-label="未送信の変更">未確認の更新 {state.pending}件</span>}
     </div>
     {state.ready && session ? <PageEditor session={session} title={state.title} storageError={state.storageError} /> : !state.storageError && <p role="status">Pageを読み込んでいます…</p>}
-    {state.ready && session && <TaskPanel pageId={session.pageId} pages={state.pages} />}
+    {state.ready && session && <TaskPanel pageId={session.pageId} pages={state.pages} paused={state.paused} />}
   </main>;
 }
 createRoot(document.getElementById('root')!).render(<StrictMode><App /></StrictMode>);

@@ -1,6 +1,12 @@
 # 試験証拠の索引
 
-`docs/plan/POC_SPEC.md` Section 18 Step 7のサーバー側同期まで記録しました。端末側の同期適用・競合UI・network chaosは未完了です。Windows実機の初回IMEと遠隔更新中に試した操作は利用者確認による結果を保持します。今回のCodex実キー入力はGoogle日本語入力で、Microsoft IMEの結果に流用しません。native全件の証拠とGate A/B/Cの最終判定は未完了です。
+`docs/plan/POC_SPEC.md` Section 18 Step 7の端末同期・競合UIと一部のnetwork chaosまで記録しました。残る統合crash境界・性能・native全件とGate A/B/Cの最終判定は未完了です。Windows実機の初回IMEと遠隔更新中に試した操作は利用者確認による結果を保持し、Google日本語入力の実キー結果はMicrosoft IMEへ流用しません。
+
+## Step 7: structured sync端末・競合UI（2026-10-01）
+
+[Docker検証](step-7-structured-client-20261001/SUMMARY.md)、[ソース照合](step-7-structured-client-20261001/checkout-source-match.json)、[修正/未解決記録](../../docs/failures/step-7-structured-client.md)。通常41件・実PostgreSQL別run18件、Editor43 E2E・専用namespaceの競合UI2 E2Eとbuild/型・保存層・locked Cargo checkを確認する区切り。prepared request、ACK/receipt、transactional pull/cursor、pending intent・tombstone・Conflict選択を実Rust/SQLiteへ接続し、ACK喪失・API再作成・store SIGKILL・cursor失敗・遅延・pause/resumeを試験する。
+
+[Windows候補0.6.0](step-7-structured-client-20261001/windows-candidate.json)はDockerでcross build・host hash照合済みで、実機操作はNot run。API再作成をプロセスSIGKILLとして数えず、Rust橋をWindows IPC/IMEの証拠としない。初回Page復元が5秒を超えた一回は原因未確定であり、[元の条件での10回](step-7-structured-client-20261001/mention-repeat/playwright.json)と最終回帰の成功だけで解消扱いにしない。release起動/復元性能は後続検証。
 
 ## Step 7: structured syncサーバー（2026-10-01）
 
