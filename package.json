@@ -1,7 +1,7 @@
 {
   "name": "greiva-poc",
   "private": true,
-  "version": "0.6.2",
+  "version": "0.6.3",
   "type": "module",
   "workspaces": [
     "packages/*",
@@ -22,6 +22,7 @@
     "test": "npm run build:packages && npm run build:servers && vitest run",
     "test:e2e": "npm run build:packages && npm run build:servers && playwright test",
     "test:postgres": "node scripts/test-postgres.mjs",
+    "test:performance": "npm run build:packages && node scripts/test-performance.mjs",
     "test:structured-e2e": "node scripts/test-structured-e2e.mjs",
     "test:crash": "cargo build --locked --manifest-path apps/client/src-tauri/crates/page-store/Cargo.toml --example store-driver --features crash-test-hooks --target-dir .data/crash-target && node scripts/test-structured-e2e.mjs --crash",
     "db:up": "docker compose -f infrastructure/postgres/compose.yaml up -d --wait",
@@ -29,7 +30,7 @@
     "db:sqlite": "node scripts/init-sqlite.mjs",
     "versions": "node scripts/versions.mjs",
     "evidence": "node scripts/evidence.mjs",
-    "evidence:container": "node scripts/evidence.mjs --container --desktop --step=7-recovery",
+    "evidence:container": "node scripts/evidence.mjs --container --desktop --step=8",
     "build:servers": "npm run build -w @greiva/api && npm run build -w @greiva/collaboration"
   },
   "devDependencies": {

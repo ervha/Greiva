@@ -1,0 +1,72 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/sqlite-bridge-stream.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 733[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP8-BRIDGE: killing a real Rust store during concurrent requests never terminates the HTTP server[33m 731[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m     Errors [22m [1m[31m4 errors[39m[22m
+[2m   Start at [22m 09:16:53
+[2m   Duration [22m 1.13s[2m (tests 74%, import 19%, transform 7%)[22m
+
+JSON report written to /evidence/step8-bridge-before-fix/vitest.json
+JUNIT report written to /evidence/step8-bridge-before-fix/vitest.xml
+[31m⎯⎯⎯⎯⎯⎯[39m[1m[41m Unhandled Errors [49m[22m[31m⎯⎯⎯⎯⎯⎯[39m
+[31m[1m
+Vitest caught 4 unhandled errors during the test run.
+This might cause false positive tests. Resolve unhandled errors to make sure your tests are not affected.[22m[39m
+
+[31m⎯⎯⎯⎯⎯[39m[1m[41m Uncaught Exception [49m[22m[31m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: write EPIPE[39m
+[90m [2m❯[22m WriteWrap.onWriteComplete [as oncomplete] node:internal/stream_base_commons:[2m87:19[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22m[39m
+[31m[1mSerialized Error:[22m[39m [90m{ errno: -32, code: 'EPIPE', syscall: 'write' }[39m
+[31mThis error originated in "[1mtests/integration/sqlite-bridge-stream.test.ts[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+[31mThe last test to run before this error was "[1mSTEP8-BRIDGE: killing a real Rust store during concurrent requests never terminates the HTTP server[22m". This means either:
+- the error was thrown while Vitest was running this test, or
+- the error was thrown after the test completed, and this was the most recent test at that point.[39m
+
+[31m⎯⎯⎯⎯⎯[39m[1m[41m Uncaught Exception [49m[22m[31m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: write EPIPE[39m
+[90m [2m❯[22m WriteWrap.onWriteComplete [as oncomplete] node:internal/stream_base_commons:[2m87:19[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22m[39m
+[31m[1mSerialized Error:[22m[39m [90m{ errno: -32, code: 'EPIPE', syscall: 'write' }[39m
+[31mThis error originated in "[1mtests/integration/sqlite-bridge-stream.test.ts[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+[31mThe last test to run before this error was "[1mSTEP8-BRIDGE: killing a real Rust store during concurrent requests never terminates the HTTP server[22m". This means either:
+- the error was thrown while Vitest was running this test, or
+- the error was thrown after the test completed, and this was the most recent test at that point.[39m
+
+[31m⎯⎯⎯⎯⎯[39m[1m[41m Uncaught Exception [49m[22m[31m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: write EPIPE[39m
+[90m [2m❯[22m WriteWrap.onWriteComplete [as oncomplete] node:internal/stream_base_commons:[2m87:19[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22m[39m
+[31m[1mSerialized Error:[22m[39m [90m{ errno: -32, code: 'EPIPE', syscall: 'write' }[39m
+[31mThis error originated in "[1mtests/integration/sqlite-bridge-stream.test.ts[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+[31mThe last test to run before this error was "[1mSTEP8-BRIDGE: killing a real Rust store during concurrent requests never terminates the HTTP server[22m". This means either:
+- the error was thrown while Vitest was running this test, or
+- the error was thrown after the test completed, and this was the most recent test at that point.[39m
+
+[31m⎯⎯⎯⎯⎯[39m[1m[41m Uncaught Exception [49m[22m[31m⎯⎯⎯⎯⎯[39m
+[31m[1mError[22m: write EPIPE[39m
+[90m [2m❯[22m afterWriteDispatched node:internal/stream_base_commons:[2m159:15[22m[39m
+[90m [2m❯[22m writevGeneric node:internal/stream_base_commons:[2m142:3[22m[39m
+[90m [2m❯[22m Socket._writeGeneric node:net:[2m1169:11[22m[39m
+[90m [2m❯[22m Socket._writev node:net:[2m1178:8[22m[39m
+[90m [2m❯[22m doWrite node:internal/streams/writable:[2m594:12[22m[39m
+[90m [2m❯[22m clearBuffer node:internal/streams/writable:[2m773:5[22m[39m
+[90m [2m❯[22m onwrite node:internal/streams/writable:[2m651:7[22m[39m
+[90m [2m❯[22m WriteWrap.WritableState.onwrite [as callback] node:internal/streams/writable:[2m350:26[22m[39m
+[90m [2m❯[22m WriteWrap.onWriteComplete [as oncomplete] node:internal/stream_base_commons:[2m105:10[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22m[39m
+[31m[1mSerialized Error:[22m[39m [90m{ errno: -32, code: 'EPIPE', syscall: 'write' }[39m
+[31mThis error originated in "[1mtests/integration/sqlite-bridge-stream.test.ts[22m" test file. It doesn't mean the error was thrown inside the file itself, but while it was running.[39m
+[31mThe last test to run before this error was "[1mSTEP8-BRIDGE: killing a real Rust store during concurrent requests never terminates the HTTP server[22m". This means either:
+- the error was thrown while Vitest was running this test, or
+- the error was thrown after the test completed, and this was the most recent test at that point.[39m
+[31m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[39m
+

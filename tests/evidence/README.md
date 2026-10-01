@@ -1,6 +1,14 @@
 # 試験証拠の索引
 
-`docs/plan/POC_SPEC.md` Section 18 Step 7の端末同期・競合UI、network chaosと統合crash境界まで記録しました。性能・native全件とGate A/B/Cの最終判定は未完了です。Windows実機の初回IMEと遠隔更新中に試した操作は利用者確認による結果を保持し、Google日本語入力の実キー結果はMicrosoft IMEへ流用しません。
+`docs/plan/POC_SPEC.md` Section 18 Step 8の性能観測まで記録しました。性能改善・native全件とGate A/B/Cの最終判定は未完了です。Windows実機の初回IMEと遠隔更新中に試した操作は利用者確認による結果を保持し、Google日本語入力の実キー結果はMicrosoft IMEへ流用しません。
+
+## Step 8: 性能測定・試験transport修正（2026-10-01、v0.6.3）
+
+[最終Docker検証](step-8-performance-20261001/SUMMARY.md)、[130ファイルのソース照合](step-8-performance-20261001/checkout-source-match.json)、[測定値](step-8-performance-20261001/performance-metrics.json)、[方法と残課題](../../docs/decisions/step-8-performance.md)。12項目Pass、通常45件（PostgreSQL専用20件skip、別runで20件Pass）、Editor43・structured UI2・統合crash4・性能4ケースにskip/flakyなし。production frontend／release Rustで実SQLite journal、実keyboard、実React TaskPanel engine／PostgreSQLを使用した。
+
+1,000 block復元の3 sampleは中央値1.17秒・最大2.47秒で、一回が2秒目安を超過。104文字のkeydown→commit ACKはp95 962ms・最大1.32秒、keydown→次のframe機会はp95 163ms。100回Yjs編集は1.29秒で収束、1,000 Task操作は106.53秒で全内容・queue・cursorと一件性を保持した。回帰成功を性能目安全達成やWindows release／IMEのPassへ拡張しない。初回のEPIPE／Cargo版置換Failと修正前の再現、修正後の復帰は[記録](../../docs/failures/step-8-test-harness.md)に保持した。
+
+[Windows既存0.6.0の限定smoke](step-8-native-smoke-20261001/SUMMARY.md)では新規Page・literal入力・保存／同期表示とTask一件の確定を自動操作で確認。接続するpreviewは0.6.2。最新native候補、Microsoft IME、全native操作、Windows release性能、P1/P2実OSと最終Gateは未完了。
 
 ## Step 7: 保存待ち改善・統合crash recovery（2026-10-01、v0.6.2）
 

@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="65" failures="0" errors="0" time="4.075569229">
+    <testsuite name="tests/integration/api.test.ts" timestamp="2026-10-01T09:17:36.503Z" hostname="b994ee08d3ce" tests="1" failures="0" errors="0" skipped="0" time="0.121664519">
+        <testcase classname="tests/integration/api.test.ts" name="STEP6-API: boots NestJS/Fastify and reports unavailable storage without an in-memory substitute" time="0.026877861">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/collaboration-restart.test.ts" timestamp="2026-10-01T09:17:36.512Z" hostname="b994ee08d3ce" tests="2" failures="0" errors="0" skipped="0" time="0.643397173">
+        <testcase classname="tests/integration/collaboration-restart.test.ts" name="STEP4-RESTART: ACKed binary updates survive SIGKILL; disconnected edits converge after restart" time="0.625515938">
+        </testcase>
+        <testcase classname="tests/integration/collaboration-restart.test.ts" name="STEP4-JOURNAL: partial final append recovers; checksum corruption fails closed" time="0.016638162">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/collaboration.test.ts" timestamp="2026-10-01T09:17:36.521Z" hostname="b994ee08d3ce" tests="1" failures="0" errors="0" skipped="0" time="0.036193956">
+        <testcase classname="tests/integration/collaboration.test.ts" name="STEP1-COLLAB: boots Hocuspocus and responds to a real HTTP request" time="0.025170268">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/page-store.test.ts" timestamp="2026-10-01T09:17:36.525Z" hostname="b994ee08d3ce" tests="1" failures="0" errors="0" skipped="0" time="0.16473578">
+        <testcase classname="tests/integration/page-store.test.ts" name="STEP5-TRANSACTION: native repository rolls back the update with failed metadata and deduplicates replay" time="0.162991268">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/postgres.test.ts" timestamp="2026-10-01T09:17:36.530Z" hostname="b994ee08d3ce" tests="1" failures="0" errors="0" skipped="1" time="0">
+        <testcase classname="tests/integration/postgres.test.ts" name="STEP1-POSTGRES: connects to the real development PostgreSQL" time="0">
+            <skipped/>
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/sqlite-bridge-stream.test.ts" timestamp="2026-10-01T09:17:36.535Z" hostname="b994ee08d3ce" tests="1" failures="0" errors="0" skipped="0" time="0.663672136">
+        <testcase classname="tests/integration/sqlite-bridge-stream.test.ts" name="STEP8-BRIDGE: killing a real Rust store during concurrent requests never terminates the HTTP server" time="0.661810853">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/sqlite.test.ts" timestamp="2026-10-01T09:17:36.538Z" hostname="b994ee08d3ce" tests="1" failures="0" errors="0" skipped="0" time="0.050668264">
+        <testcase classname="tests/integration/sqlite.test.ts" name="STEP1-SQLITE: initializes and reopens a local development database" time="0.049232204">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/structured-postgres.test.ts" timestamp="2026-10-01T09:17:36.545Z" hostname="b994ee08d3ce" tests="1" failures="0" errors="0" skipped="1" time="0">
+        <testcase classname="tests/integration/structured-postgres.test.ts" name="STEP6-POSTGRES: real models survive reopen; version guards serialize competing edits; Nest exposes durable reads" time="0">
+            <skipped/>
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/structured-process-crash.test.ts" timestamp="2026-10-01T09:17:36.551Z" hostname="b994ee08d3ce" tests="2" failures="0" errors="0" skipped="2" time="0">
+        <testcase classname="tests/integration/structured-process-crash.test.ts" name="STEP7-API-SIGKILL-before-commit: an actual API process crash preserves immutable wire, cursor and exactly one final operation" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/structured-process-crash.test.ts" name="STEP7-API-SIGKILL-after-commit: an actual API process crash preserves immutable wire, cursor and exactly one final operation" time="0">
+            <skipped/>
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/structured-store.test.ts" timestamp="2026-10-01T09:17:36.559Z" hostname="b994ee08d3ce" tests="4" failures="0" errors="0" skipped="0" time="0.726697367">
+        <testcase classname="tests/integration/structured-store.test.ts" name="STEP6-LOCAL: atomically migrates Page schema, keeps binary updates and stable client identity across reopen" time="0.210524642">
+        </testcase>
+        <testcase classname="tests/integration/structured-store.test.ts" name="STEP6-MIGRATION: an incompatible existing table rolls back the whole upgrade and preserves Page data" time="0.109834543">
+        </testcase>
+        <testcase classname="tests/integration/structured-store.test.ts" name="STEP6-ATOMIC: queue failure rolls back Task/Relation edits, retains pending operations and causal bases after restart" time="0.264861194">
+        </testcase>
+        <testcase classname="tests/integration/structured-store.test.ts" name="STEP6-VALIDATION: native IPC rejects malformed, immutable and stale writes without creating queue entries" time="0.138762511">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/structured-sync-client.test.ts" timestamp="2026-10-01T09:17:36.567Z" hostname="b994ee08d3ce" tests="6" failures="0" errors="0" skipped="6" time="0">
+        <testcase classname="tests/integration/structured-sync-client.test.ts" name="STEP7-CLIENT-HTTP: offline Task/Relation chains survive SIGKILL and converge through restore/pull/push/pull in creation order" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-client.test.ts" name="STEP7-CLIENT-ACK-LOSS: commit followed by dropped HTTP ACK and API/store restart is recovered once through durable pull" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-client.test.ts" name="STEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-client.test.ts" name="STEP7-CLIENT-PULL-FAILURE: cursor commit failure stops network progress; restart and explicit retry keep the original cursor and restore all records" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-client.test.ts" name="STEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-client.test.ts" name="STEP7-CLIENT-REJECTED: create collision stops the affected causal chain, retains both original payloads and never displays synced" time="0">
+            <skipped/>
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/structured-sync-server.test.ts" timestamp="2026-10-01T09:17:36.588Z" hostname="b994ee08d3ce" tests="10" failures="0" errors="0" skipped="10" time="0">
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-IDEMPOTENCY: concurrent replays, ID collisions, malformed payloads and API recreation retain immutable results" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-MERGE: field merge keeps peer edits and same-field conflicts retain base/local/remote through explicit resolution" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-RELATION: disjoint endpoint edits merge and same endpoint conflicts resolve as a new operation" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-DELETE: deletes dominate stale Task/Relation updates and close existing conflicts without resurrecting entities" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-ORDER: concurrent writers cannot leave lower committed operations behind a pull cursor" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-ATOMIC: ledger failure rolls back entity/history/counter and retry finalizes exactly once" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-MIGRATION: Step 6 rows and tombstones enter the new stream atomically without fabricating missing history" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-CAUSAL: sequential offline intent keeps competing peer values and merges its own accepted fields" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-CAUSAL-VALIDATION: aliases preserve original intent, invalid dependencies reject durably and chained deletes remain acknowledged" time="0">
+            <skipped/>
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-server.test.ts" name="STEP7-SERVER-CAUSAL-MIGRATION: existing version 2 ledger frames are reconstructed without changing immutable ACKs or cursors" time="0">
+            <skipped/>
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/integration/structured-sync-store.test.ts" timestamp="2026-10-01T09:17:36.617Z" hostname="b994ee08d3ce" tests="9" failures="0" errors="0" skipped="0" time="1.518068338">
+        <testcase classname="tests/integration/structured-sync-store.test.ts" name="STEP7-STORE: immutable prepared requests and causal offline intent survive store SIGKILL; ACK does not skip pull" time="0.15797118">
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-store.test.ts" name="STEP7-PROJECTION: pulling a peer edit preserves only local changed fields, causal bases and unsent intent" time="0.102035591">
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-store.test.ts" name="STEP7-PULL-ATOMIC: cursor-write failure rolls back entity, receipt and cursor; committed pages replay idempotently" time="0.083943966">
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-store.test.ts" name="STEP7-ACK-ATOMIC: failed ACK keeps prepared wire and pending status; delayed older ACK cannot roll back newer pull" time="0.100528191">
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-store.test.ts" name="STEP7-CONFLICT: preserve base/local/remote; resolve as a new operation; old receipt cannot reopen it" time="0.141283411">
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-store.test.ts" name="STEP7-TOMBSTONE: remote deletion wins over pending update without discarding its recorded payload" time="0.115353427">
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-store.test.ts" name="STEP7-REJECTION: permanent rejection and dependent local operations remain inspectable after restart" time="0.106952035">
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-store.test.ts" name="STEP7-VALIDATION: malformed metadata, mismatched identity, unknown fields and invalid Conflict values leave storage unchanged" time="0.064697834">
+        </testcase>
+        <testcase classname="tests/integration/structured-sync-store.test.ts" name="STEP7-MIGRATION: schema 3 queue/client/Page survive schema 4 upgrade; incompatible destination rolls back columns and version" time="0.642997617">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/unit/block-move.test.ts" timestamp="2026-10-01T09:17:36.635Z" hostname="b994ee08d3ce" tests="4" failures="0" errors="0" skipped="0" time="0.009579748">
+        <testcase classname="tests/unit/block-move.test.ts" name="STEP2-MOVE: structured block transactions &gt; undoes an immediate move separately from the preceding typing" time="0.00510651">
+        </testcase>
+        <testcase classname="tests/unit/block-move.test.ts" name="STEP2-MOVE: structured block transactions &gt; retains a nested subtree and supports history undo" time="0.001898649">
+        </testcase>
+        <testcase classname="tests/unit/block-move.test.ts" name="STEP2-MOVE: structured block transactions &gt; rejects offsets inside a block and self-drops without changing the document" time="0.000851697">
+        </testcase>
+        <testcase classname="tests/unit/block-move.test.ts" name="STEP2-MOVE: structured block transactions &gt; moves upwards and leaves the selection inside the moved block" time="0.000339665">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/unit/durability-boundary.test.ts" timestamp="2026-10-01T09:17:36.649Z" hostname="b994ee08d3ce" tests="2" failures="0" errors="0" skipped="0" time="0.015346777">
+        <testcase classname="tests/unit/durability-boundary.test.ts" name="STEP5-BARRIER: waits for each commit in order and stops after a write failure" time="0.003761333">
+        </testcase>
+        <testcase classname="tests/unit/durability-boundary.test.ts" name="STEP5-BOOTSTRAP: offline and server seeds merge as exactly one empty paragraph" time="0.010601873">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/unit/page-writes.test.ts" timestamp="2026-10-01T09:17:36.652Z" hostname="b994ee08d3ce" tests="3" failures="0" errors="0" skipped="0" time="0.042528264">
+        <testcase classname="tests/unit/page-writes.test.ts" name="STEP7-PAGE-BATCH: commits a burst behind an in-flight write in one batch, with identical full Yjs state" time="0.023944003">
+        </testcase>
+        <testcase classname="tests/unit/page-writes.test.ts" name="STEP7-PAGE-BATCH-ORDER: metadata separates batches and append copies caller-owned bytes" time="0.008157539">
+        </testcase>
+        <testcase classname="tests/unit/page-writes.test.ts" name="STEP7-PAGE-BATCH-ERROR: a failed commit blocks queued batches and their outgoing-frame promise" time="0.009222184">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/unit/protocol.test.ts" timestamp="2026-10-01T09:17:36.660Z" hostname="b994ee08d3ce" tests="12" failures="0" errors="0" skipped="0" time="0.025691392">
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; accepts the minimal Page, Task, Relation and operation fixtures" time="0.016644032">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; requires page:{pageId} document names and rejects body duplication" time="0.000597489">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; rejects invalid due date 2026-02-30" time="0.000418209">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; rejects invalid due date 2026-10-01T00:00:00Z" time="0.000181456">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; rejects invalid due date 2026-1-1" time="0.0001647">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; accepts leap day and null due, and preserves tombstones" time="0.000208712">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; rejects invalid server version -1" time="0.000225737">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; rejects invalid server version 1.5" time="0.000182228">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; rejects invalid server version 9007199254740992" time="0.00033811">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; requires UTC timestamps and v7 IDs" time="0.000366924">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; excludes Page and local status/timestamps from structured push" time="0.001392058">
+        </testcase>
+        <testcase classname="tests/unit/protocol.test.ts" name="STEP1-PROTOCOL: Section 4 shared model validation &gt; treats cursor as opaque and initializes the structured stream without a cursor" time="0.002308277">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/unit/shared.test.ts" timestamp="2026-10-01T09:17:36.688Z" hostname="b994ee08d3ce" tests="1" failures="0" errors="0" skipped="0" time="0.007529611">
+        <testcase classname="tests/unit/shared.test.ts" name="STEP1-ID: creates unique, sortable UUID v7 IDs and UTC times" time="0.006018468">
+        </testcase>
+    </testsuite>
+    <testsuite name="tests/unit/structured-transport.test.ts" timestamp="2026-10-01T09:17:36.692Z" hostname="b994ee08d3ce" tests="3" failures="0" errors="0" skipped="0" time="0.049795904">
+        <testcase classname="tests/unit/structured-transport.test.ts" name="STEP7-TRANSPORT: separates retryable service failures, permanent protocol errors and permission errors" time="0.030116681">
+        </testcase>
+        <testcase classname="tests/unit/structured-transport.test.ts" name="STEP7-TRANSPORT: refuses ACKs for another operation/client/entity and malformed result envelopes" time="0.013007511">
+        </testcase>
+        <testcase classname="tests/unit/structured-transport.test.ts" name="STEP7-TRANSPORT: rejects nonadvancing, empty intermediate and inconsistent last-page cursors" time="0.005358028">
+        </testcase>
+    </testsuite>
+</testsuites>

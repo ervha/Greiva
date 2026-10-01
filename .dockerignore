@@ -19,3 +19,4 @@ playwright-report
 test-results
 tests/evidence/*
 !tests/evidence/README.md
+**/dist-performance

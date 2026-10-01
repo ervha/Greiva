@@ -1,0 +1,727 @@
+<testsuites id="" name="" tests="43" failures="1" skipped="0" errors="16" time="172.36365099999998">
+<testsuite name="collaboration.spec.ts" timestamp="2026-10-01T09:04:13.638Z" hostname="chromium" tests="7" failures="0" skipped="0" time="87.774" errors="0">
+<testcase name="STEP4-PARAGRAPH: simultaneous edits retain both changes and remote update keeps the caret" classname="collaboration.spec.ts" time="11.216">
+</testcase>
+<testcase name="STEP4-BLOCKS: different blocks, local undo does not undo the other client" classname="collaboration.spec.ts" time="10.901">
+</testcase>
+<testcase name="STEP4-OFFLINE: each client adds and deletes blocks, reconnect and fresh client restore the result" classname="collaboration.spec.ts" time="18.583">
+</testcase>
+<testcase name="STEP4-MOVE: both clients move blocks while offline" classname="collaboration.spec.ts" time="11.073">
+</testcase>
+<testcase name="STEP4-NESTED: edit and move within a nested Toggle, then reconnect" classname="collaboration.spec.ts" time="16.216">
+</testcase>
+<testcase name="STEP4-TODO: concurrent checked change and nested list edits retain valid nodes" classname="collaboration.spec.ts" time="11.994">
+</testcase>
+<testcase name="STEP4-ISOLATION: another Page never receives this Page body" classname="collaboration.spec.ts" time="7.791">
+</testcase>
+</testsuite>
+<testsuite name="editor-ux.spec.ts" timestamp="2026-10-01T09:04:13.638Z" hostname="chromium" tests="7" failures="0" skipped="0" time="74.028" errors="0">
+<testcase name="STEP2-UX-SLASH: pointer and keyboard share one selection and retain editor focus" classname="editor-ux.spec.ts" time="10.091">
+</testcase>
+<testcase name="STEP2-UX-SLASH: wrap, Home/End, Tab, search aliases and empty dismissal" classname="editor-ux.spec.ts" time="9.18">
+</testcase>
+<testcase name="STEP2-UX-SLASH: outside dismissal preserves query, narrow popup stays on screen" classname="editor-ux.spec.ts" time="6.393">
+</testcase>
+<testcase name="STEP2-UX-TOGGLE: Enter reuses existing body and collapse moves caret to visible heading" classname="editor-ux.spec.ts" time="11.298">
+</testcase>
+<testcase name="STEP2-UX-TOGGLE: pointer retains caret, keyboard button activation retains focus" classname="editor-ux.spec.ts" time="10.104">
+</testcase>
+<testcase name="STEP2-UX-TOGGLE: folding is excluded from content undo and nested shortcut uses nearest toggle" classname="editor-ux.spec.ts" time="12.987">
+</testcase>
+<testcase name="STEP2-UX-VISUAL: capture polished slash menu and toggle at a desktop viewport" classname="editor-ux.spec.ts" time="13.975">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-ux-STEP2-UX-VISUAL--689e1-oggle-at-a-desktop-viewport-chromium/attachments/editor-ux-af9a36e713453922bb38ddbb1797ff2ae3f25cac.png]]
+]]>
+</system-out>
+</testcase>
+</testsuite>
+<testsuite name="editor.spec.ts" timestamp="2026-10-01T09:04:13.638Z" hostname="chromium" tests="22" failures="1" skipped="0" time="78.472" errors="13">
+<testcase name="STEP2-BLOCK: slash inserts 本文, edit and delete" classname="editor.spec.ts" time="8.872">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 見出し1, edit and delete" classname="editor.spec.ts" time="7.563">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 見出し2, edit and delete" classname="editor.spec.ts" time="6">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 見出し3, edit and delete" classname="editor.spec.ts" time="6.091">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 箇条書き, edit and delete" classname="editor.spec.ts" time="7.231">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 番号付きリスト, edit and delete" classname="editor.spec.ts" time="7.195">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts Todo, edit and delete" classname="editor.spec.ts" time="6.201">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 引用, edit and delete" classname="editor.spec.ts" time="6.778">
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts コード, edit and delete" classname="editor.spec.ts" time="17.801">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-STEP2-BLOCK-slash-inserts-コード-edit-and-delete-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/editor-STEP2-BLOCK-slash-inserts-コード-edit-and-delete-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(locator).toBeVisible() failed" type="expect.toBeVisible">
+<![CDATA[  [chromium] › editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts コード, edit and delete ───────────────
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('textbox', { name: 'Page本文' })
+    Expected: visible
+    Timeout: 15000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('textbox', { name: 'Page本文' }) with timeout 15000ms
+      - waiting for getByRole('textbox', { name: 'Page本文' })
+
+
+       5 |   const editor = page.getByRole('textbox', { name: 'Page本文' });
+       6 |   // This is interaction setup, not the release startup performance gate.
+    >  7 |   await expect(editor).toBeVisible({ timeout: 15000 });
+         |                        ^
+       8 |   await editor.click();
+       9 |   return editor;
+      10 | }
+        at body (/workspace/tests/e2e/editor.spec.ts:7:24)
+        at /workspace/tests/e2e/editor.spec.ts:27:20
+
+    Error Context: ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-BLOCK-slash-inserts-コード-edit-and-delete-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-BLOCK-slash-inserts-コード-edit-and-delete-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-BLOCK-slash-inserts-コード-edit-and-delete-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts 区切り線, edit and delete" classname="editor.spec.ts" time="0.409">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-STEP2-BLOCK-slash-inserts-区切り線-edit-and-delete-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/editor-STEP2-BLOCK-slash-inserts-区切り線-edit-and-delete-chromium/trace.zip]]
+]]>
+</system-out>
+<error message="page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=579187fd-fd0b-4b93-86aa-3c013c49cfee" type="Error">
+<![CDATA[  [chromium] › editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts 区切り線, edit and delete ──────────────
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=579187fd-fd0b-4b93-86aa-3c013c49cfee
+    Call log:
+      - navigating to "http://127.0.0.1:1420/?page=579187fd-fd0b-4b93-86aa-3c013c49cfee", waiting until "load"
+
+
+      2 |
+      3 | async function body(page: Page) {
+    > 4 |   await page.goto(`/?page=${crypto.randomUUID()}`);
+        |              ^
+      5 |   const editor = page.getByRole('textbox', { name: 'Page本文' });
+      6 |   // This is interaction setup, not the release startup performance gate.
+      7 |   await expect(editor).toBeVisible({ timeout: 15000 });
+        at body (/workspace/tests/e2e/editor.spec.ts:4:14)
+        at /workspace/tests/e2e/editor.spec.ts:27:26
+
+    Error Context: ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-BLOCK-slash-inserts-区切り線-edit-and-delete-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-BLOCK-slash-inserts-区切り線-edit-and-delete-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-BLOCK-slash-inserts-区切り線-edit-and-delete-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
+</testcase>
+<testcase name="STEP2-BLOCK: slash inserts Toggle, edit and delete" classname="editor.spec.ts" time="0.427">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-STEP2-BLOCK-slash-inserts-Toggle-edit-and-delete-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/editor-STEP2-BLOCK-slash-inserts-Toggle-edit-and-delete-chromium/trace.zip]]
+]]>
+</system-out>
+<error message="page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=b6f64245-29b1-471b-8148-fa3b33b93d78" type="Error">
+<![CDATA[  [chromium] › editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts Toggle, edit and delete ────────────
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=b6f64245-29b1-471b-8148-fa3b33b93d78
+    Call log:
+      - navigating to "http://127.0.0.1:1420/?page=b6f64245-29b1-471b-8148-fa3b33b93d78", waiting until "load"
+
+
+      2 |
+      3 | async function body(page: Page) {
+    > 4 |   await page.goto(`/?page=${crypto.randomUUID()}`);
+        |              ^
+      5 |   const editor = page.getByRole('textbox', { name: 'Page本文' });
+      6 |   // This is interaction setup, not the release startup performance gate.
+      7 |   await expect(editor).toBeVisible({ timeout: 15000 });
+        at body (/workspace/tests/e2e/editor.spec.ts:4:14)
+        at /workspace/tests/e2e/editor.spec.ts:27:26
+
+    Error Context: ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-BLOCK-slash-inserts-Toggle-edit-and-delete-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-BLOCK-slash-inserts-Toggle-edit-and-delete-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-BLOCK-slash-inserts-Toggle-edit-and-delete-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
+</testcase>
+<testcase name="STEP2-TODO: checkbox and nested list survive undo/redo" classname="editor.spec.ts" time="0.366">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-STEP2-TODO-checkbox-and-nested-list-survive-undo-redo-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/editor-STEP2-TODO-checkbox-and-nested-list-survive-undo-redo-chromium/trace.zip]]
+]]>
+</system-out>
+<error message="page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=400417d7-94d2-4fd5-824d-40a4f77b4c3a" type="Error">
+<![CDATA[  [chromium] › editor.spec.ts:41:1 › STEP2-TODO: checkbox and nested list survive undo/redo ────────
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=400417d7-94d2-4fd5-824d-40a4f77b4c3a
+    Call log:
+      - navigating to "http://127.0.0.1:1420/?page=400417d7-94d2-4fd5-824d-40a4f77b4c3a", waiting until "load"
+
+
+      2 |
+      3 | async function body(page: Page) {
+    > 4 |   await page.goto(`/?page=${crypto.randomUUID()}`);
+        |              ^
+      5 |   const editor = page.getByRole('textbox', { name: 'Page本文' });
+      6 |   // This is interaction setup, not the release startup performance gate.
+      7 |   await expect(editor).toBeVisible({ timeout: 15000 });
+        at body (/workspace/tests/e2e/editor.spec.ts:4:14)
+        at /workspace/tests/e2e/editor.spec.ts:42:24
+
+    Error Context: ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-TODO-checkbox-and-nested-list-survive-undo-redo-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-TODO-checkbox-and-nested-list-survive-undo-redo-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-TODO-checkbox-and-nested-list-survive-undo-redo-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
+</testcase>
+<testcase name="STEP2-TOGGLE: nested content folds without losing text and unwraps" classname="editor.spec.ts" time="0.414">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-STEP2-TOGGLE-nested-8d20c-out-losing-text-and-unwraps-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/editor-STEP2-TOGGLE-nested-8d20c-out-losing-text-and-unwraps-chromium/trace.zip]]
+]]>
+</system-out>
+<error message="page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=a272232e-f2c4-4911-b0d1-17a71825529a" type="Error">
+<![CDATA[  [chromium] › editor.spec.ts:60:1 › STEP2-TOGGLE: nested content folds without losing text and unwraps 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=a272232e-f2c4-4911-b0d1-17a71825529a
+    Call log:
+      - navigating to "http://127.0.0.1:1420/?page=a272232e-f2c4-4911-b0d1-17a71825529a", waiting until "load"
+
+
+      2 |
+      3 | async function body(page: Page) {
+    > 4 |   await page.goto(`/?page=${crypto.randomUUID()}`);
+        |              ^
+      5 |   const editor = page.getByRole('textbox', { name: 'Page本文' });
+      6 |   // This is interaction setup, not the release startup performance gate.
+      7 |   await expect(editor).toBeVisible({ timeout: 15000 });
+        at body (/workspace/tests/e2e/editor.spec.ts:4:14)
+        at /workspace/tests/e2e/editor.spec.ts:61:24
+
+    Error Context: ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-TOGGLE-nested-8d20c-out-losing-text-and-unwraps-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-TOGGLE-nested-8d20c-out-losing-text-and-unwraps-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-TOGGLE-nested-8d20c-out-losing-text-and-unwraps-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
+</testcase>
+<testcase name="STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text" classname="editor.spec.ts" time="0.371">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-STEP2-MENTION-keybo-bb469-Escape-leaves-ordinary-text-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/editor-STEP2-MENTION-keybo-bb469-Escape-leaves-ordinary-text-chromium/trace.zip]]
+]]>
+</system-out>
+<error message="page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=f5e6ef27-eb26-4915-bf04-b6447aaf7c18" type="Error">
+<![CDATA[  [chromium] › editor.spec.ts:83:1 › STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=f5e6ef27-eb26-4915-bf04-b6447aaf7c18
+    Call log:
+      - navigating to "http://127.0.0.1:1420/?page=f5e6ef27-eb26-4915-bf04-b6447aaf7c18", waiting until "load"
+
+
+      2 |
+      3 | async function body(page: Page) {
+    > 4 |   await page.goto(`/?page=${crypto.randomUUID()}`);
+        |              ^
+      5 |   const editor = page.getByRole('textbox', { name: 'Page本文' });
+      6 |   // This is interaction setup, not the release startup performance gate.
+      7 |   await expect(editor).toBeVisible({ timeout: 15000 });
+        at body (/workspace/tests/e2e/editor.spec.ts:4:14)
+        at /workspace/tests/e2e/editor.spec.ts:84:24
+
+    Error Context: ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MENTION-keybo-bb469-Escape-leaves-ordinary-text-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MENTION-keybo-bb469-Escape-leaves-ordinary-text-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MENTION-keybo-bb469-Escape-leaves-ordinary-text-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
+</testcase>
+<testcase name="STEP2-MARKDOWN: #  shortcut" classname="editor.spec.ts" time="0.326">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-STEP2-MARKDOWN-shortcut-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/editor-STEP2-MARKDOWN-shortcut-chromium/trace.zip]]
+]]>
+</system-out>
+<error message="page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=7259c501-1195-4c18-a95d-3dc07d654dd2" type="Error">
+<![CDATA[  [chromium] › editor.spec.ts:98:3 › STEP2-MARKDOWN: #  shortcut ───────────────────────────────────
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=7259c501-1195-4c18-a95d-3dc07d654dd2
+    Call log:
+      - navigating to "http://127.0.0.1:1420/?page=7259c501-1195-4c18-a95d-3dc07d654dd2", waiting until "load"
+
+
+      2 |
+      3 | async function body(page: Page) {
+    > 4 |   await page.goto(`/?page=${crypto.randomUUID()}`);
+        |              ^
+      5 |   const editor = page.getByRole('textbox', { name: 'Page本文' });
+      6 |   // This is interaction setup, not the release startup performance gate.
+      7 |   await expect(editor).toBeVisible({ timeout: 15000 });
+        at body (/workspace/tests/e2e/editor.spec.ts:4:14)
+        at /workspace/tests/e2e/editor.spec.ts:99:26
+
+    Error Context: ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MARKDOWN-shortcut-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MARKDOWN-shortcut-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MARKDOWN-shortcut-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
+</testcase>
+<testcase name="STEP2-MARKDOWN: ##  shortcut" classname="editor.spec.ts" time="0.374">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-STEP2-MARKDOWN-shortcut-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/editor-STEP2-MARKDOWN-shortcut-chromium/trace.zip]]
+]]>
+</system-out>
+<error message="page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=49532241-df33-4f3f-ac90-4c0b9a0ca8c6" type="Error">
+<![CDATA[  [chromium] › editor.spec.ts:98:3 › STEP2-MARKDOWN: ##  shortcut ──────────────────────────────────
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=49532241-df33-4f3f-ac90-4c0b9a0ca8c6
+    Call log:
+      - navigating to "http://127.0.0.1:1420/?page=49532241-df33-4f3f-ac90-4c0b9a0ca8c6", waiting until "load"
+
+
+      2 |
+      3 | async function body(page: Page) {
+    > 4 |   await page.goto(`/?page=${crypto.randomUUID()}`);
+        |              ^
+      5 |   const editor = page.getByRole('textbox', { name: 'Page本文' });
+      6 |   // This is interaction setup, not the release startup performance gate.
+      7 |   await expect(editor).toBeVisible({ timeout: 15000 });
+        at body (/workspace/tests/e2e/editor.spec.ts:4:14)
+        at /workspace/tests/e2e/editor.spec.ts:99:26
+
+    Error Context: ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MARKDOWN-shortcut-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MARKDOWN-shortcut-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MARKDOWN-shortcut-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
+</testcase>
+<testcase name="STEP2-MARKDOWN: ###  shortcut" classname="editor.spec.ts" time="0.34">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-STEP2-MARKDOWN-shortcut-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/editor-STEP2-MARKDOWN-shortcut-chromium/trace.zip]]
+]]>
+</system-out>
+<error message="page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=ba989f6b-cb31-4d79-ab49-add6be60b237" type="Error">
+<![CDATA[  [chromium] › editor.spec.ts:98:3 › STEP2-MARKDOWN: ###  shortcut ─────────────────────────────────
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=ba989f6b-cb31-4d79-ab49-add6be60b237
+    Call log:
+      - navigating to "http://127.0.0.1:1420/?page=ba989f6b-cb31-4d79-ab49-add6be60b237", waiting until "load"
+
+
+      2 |
+      3 | async function body(page: Page) {
+    > 4 |   await page.goto(`/?page=${crypto.randomUUID()}`);
+        |              ^
+      5 |   const editor = page.getByRole('textbox', { name: 'Page本文' });
+      6 |   // This is interaction setup, not the release startup performance gate.
+      7 |   await expect(editor).toBeVisible({ timeout: 15000 });
+        at body (/workspace/tests/e2e/editor.spec.ts:4:14)
+        at /workspace/tests/e2e/editor.spec.ts:99:26
+
+    Error Context: ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MARKDOWN-shortcut-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MARKDOWN-shortcut-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MARKDOWN-shortcut-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
+</testcase>
+<testcase name="STEP2-MARKDOWN: -  shortcut" classname="editor.spec.ts" time="0.351">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-STEP2-MARKDOWN---shortcut-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/editor-STEP2-MARKDOWN---shortcut-chromium/trace.zip]]
+]]>
+</system-out>
+<error message="page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=ac575165-b8eb-4b30-81e0-29af5a481556" type="Error">
+<![CDATA[  [chromium] › editor.spec.ts:98:3 › STEP2-MARKDOWN: -  shortcut ───────────────────────────────────
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=ac575165-b8eb-4b30-81e0-29af5a481556
+    Call log:
+      - navigating to "http://127.0.0.1:1420/?page=ac575165-b8eb-4b30-81e0-29af5a481556", waiting until "load"
+
+
+      2 |
+      3 | async function body(page: Page) {
+    > 4 |   await page.goto(`/?page=${crypto.randomUUID()}`);
+        |              ^
+      5 |   const editor = page.getByRole('textbox', { name: 'Page本文' });
+      6 |   // This is interaction setup, not the release startup performance gate.
+      7 |   await expect(editor).toBeVisible({ timeout: 15000 });
+        at body (/workspace/tests/e2e/editor.spec.ts:4:14)
+        at /workspace/tests/e2e/editor.spec.ts:99:26
+
+    Error Context: ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MARKDOWN---shortcut-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MARKDOWN---shortcut-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MARKDOWN---shortcut-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
+</testcase>
+<testcase name="STEP2-MARKDOWN: 1.  shortcut" classname="editor.spec.ts" time="0.387">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-STEP2-MARKDOWN-1-shortcut-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/editor-STEP2-MARKDOWN-1-shortcut-chromium/trace.zip]]
+]]>
+</system-out>
+<error message="page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=0fb43740-19ed-4539-8582-25c269d152e2" type="Error">
+<![CDATA[  [chromium] › editor.spec.ts:98:3 › STEP2-MARKDOWN: 1.  shortcut ──────────────────────────────────
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=0fb43740-19ed-4539-8582-25c269d152e2
+    Call log:
+      - navigating to "http://127.0.0.1:1420/?page=0fb43740-19ed-4539-8582-25c269d152e2", waiting until "load"
+
+
+      2 |
+      3 | async function body(page: Page) {
+    > 4 |   await page.goto(`/?page=${crypto.randomUUID()}`);
+        |              ^
+      5 |   const editor = page.getByRole('textbox', { name: 'Page本文' });
+      6 |   // This is interaction setup, not the release startup performance gate.
+      7 |   await expect(editor).toBeVisible({ timeout: 15000 });
+        at body (/workspace/tests/e2e/editor.spec.ts:4:14)
+        at /workspace/tests/e2e/editor.spec.ts:99:26
+
+    Error Context: ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MARKDOWN-1-shortcut-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MARKDOWN-1-shortcut-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MARKDOWN-1-shortcut-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
+</testcase>
+<testcase name="STEP2-MARKDOWN: []  shortcut" classname="editor.spec.ts" time="0.308">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-STEP2-MARKDOWN-shortcut-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/editor-STEP2-MARKDOWN-shortcut-chromium/trace.zip]]
+]]>
+</system-out>
+<error message="page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=261f1d09-12aa-46c3-9370-4e79ccbe995f" type="Error">
+<![CDATA[  [chromium] › editor.spec.ts:98:3 › STEP2-MARKDOWN: []  shortcut ──────────────────────────────────
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=261f1d09-12aa-46c3-9370-4e79ccbe995f
+    Call log:
+      - navigating to "http://127.0.0.1:1420/?page=261f1d09-12aa-46c3-9370-4e79ccbe995f", waiting until "load"
+
+
+      2 |
+      3 | async function body(page: Page) {
+    > 4 |   await page.goto(`/?page=${crypto.randomUUID()}`);
+        |              ^
+      5 |   const editor = page.getByRole('textbox', { name: 'Page本文' });
+      6 |   // This is interaction setup, not the release startup performance gate.
+      7 |   await expect(editor).toBeVisible({ timeout: 15000 });
+        at body (/workspace/tests/e2e/editor.spec.ts:4:14)
+        at /workspace/tests/e2e/editor.spec.ts:99:26
+
+    Error Context: ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MARKDOWN-shortcut-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MARKDOWN-shortcut-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MARKDOWN-shortcut-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
+</testcase>
+<testcase name="STEP2-MOVE: drag changes order, undo restores it, keyboard moves the block" classname="editor.spec.ts" time="0.329">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-STEP2-MOVE-drag-cha-0402d-it-keyboard-moves-the-block-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/editor-STEP2-MOVE-drag-cha-0402d-it-keyboard-moves-the-block-chromium/trace.zip]]
+]]>
+</system-out>
+<error message="page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=8a9a8de7-286b-46d5-8136-0aa0fe79ba15" type="Error">
+<![CDATA[  [chromium] › editor.spec.ts:107:1 › STEP2-MOVE: drag changes order, undo restores it, keyboard moves the block 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=8a9a8de7-286b-46d5-8136-0aa0fe79ba15
+    Call log:
+      - navigating to "http://127.0.0.1:1420/?page=8a9a8de7-286b-46d5-8136-0aa0fe79ba15", waiting until "load"
+
+
+      2 |
+      3 | async function body(page: Page) {
+    > 4 |   await page.goto(`/?page=${crypto.randomUUID()}`);
+        |              ^
+      5 |   const editor = page.getByRole('textbox', { name: 'Page本文' });
+      6 |   // This is interaction setup, not the release startup performance gate.
+      7 |   await expect(editor).toBeVisible({ timeout: 15000 });
+        at body (/workspace/tests/e2e/editor.spec.ts:4:14)
+        at /workspace/tests/e2e/editor.spec.ts:108:24
+
+    Error Context: ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MOVE-drag-cha-0402d-it-keyboard-moves-the-block-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MOVE-drag-cha-0402d-it-keyboard-moves-the-block-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-MOVE-drag-cha-0402d-it-keyboard-moves-the-block-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
+</testcase>
+<testcase name="STEP2-COMPOSITION: slash menu does not consume composition Enter" classname="editor.spec.ts" time="0.338">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/editor-STEP2-COMPOSITION-s-72579-t-consume-composition-Enter-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/editor-STEP2-COMPOSITION-s-72579-t-consume-composition-Enter-chromium/trace.zip]]
+]]>
+</system-out>
+<error message="page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=41202a64-84f0-425e-ac2f-a81ceca7f08b" type="Error">
+<![CDATA[  [chromium] › editor.spec.ts:127:1 › STEP2-COMPOSITION: slash menu does not consume composition Enter 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=41202a64-84f0-425e-ac2f-a81ceca7f08b
+    Call log:
+      - navigating to "http://127.0.0.1:1420/?page=41202a64-84f0-425e-ac2f-a81ceca7f08b", waiting until "load"
+
+
+      2 |
+      3 | async function body(page: Page) {
+    > 4 |   await page.goto(`/?page=${crypto.randomUUID()}`);
+        |              ^
+      5 |   const editor = page.getByRole('textbox', { name: 'Page本文' });
+      6 |   // This is interaction setup, not the release startup performance gate.
+      7 |   await expect(editor).toBeVisible({ timeout: 15000 });
+        at body (/workspace/tests/e2e/editor.spec.ts:4:14)
+        at /workspace/tests/e2e/editor.spec.ts:128:24
+
+    Error Context: ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-COMPOSITION-s-72579-t-consume-composition-Enter-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-COMPOSITION-s-72579-t-consume-composition-Enter-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/editor-STEP2-COMPOSITION-s-72579-t-consume-composition-Enter-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
+</testcase>
+</testsuite>
+<testsuite name="foundation.spec.ts" timestamp="2026-10-01T09:04:13.638Z" hostname="chromium" tests="1" failures="0" skipped="0" time="4.318" errors="0">
+<testcase name="STEP1-E2E: React client starts alongside API and collaboration services" classname="foundation.spec.ts" time="4.318">
+</testcase>
+</testsuite>
+<testsuite name="persistence.spec.ts" timestamp="2026-10-01T09:04:13.638Z" hostname="chromium" tests="4" failures="0" skipped="0" time="41.354" errors="1">
+<testcase name="STEP5-CRASH: new offline Page metadata and block edits survive renderer/store SIGKILL, reopen offline and converge" classname="persistence.spec.ts" time="23.079">
+</testcase>
+<testcase name="STEP5-WRITE-ERROR: failed SQLite commit never sends the unsafe update or reports saved/synced" classname="persistence.spec.ts" time="7.847">
+</testcase>
+<testcase name="STEP5-RESTORE-corrupt: incompatible or corrupted SQLite fails closed" classname="persistence.spec.ts" time="6.267">
+</testcase>
+<testcase name="STEP5-RESTORE-schema: incompatible or corrupted SQLite fails closed" classname="persistence.spec.ts" time="4.161">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/persistence-STEP5-RESTORE--29676-rrupted-SQLite-fails-closed-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/persistence-STEP5-RESTORE--29676-rrupted-SQLite-fails-closed-chromium/trace.zip]]
+]]>
+</system-out>
+<error message="apiRequestContext.post: socket hang up" type="Error">
+<![CDATA[  [chromium] › persistence.spec.ts:107:3 › STEP5-RESTORE-schema: incompatible or corrupted SQLite fails closed 
+
+    Error: apiRequestContext.post: socket hang up
+    Call log:
+      - → POST http://127.0.0.1:1420/__greiva_test_store_control
+        - user-agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.8010.12 Safari/537.36
+        - accept: */*
+        - accept-encoding: gzip,deflate,br
+        - content-type: application/json
+        - content-length: 66
+
+
+      12 | async function device(page: Page) { return page.evaluate(() => localStorage.getItem('greiva-test-device')); }
+      13 | async function control(page: Page, command: string) {
+    > 14 |   const response = await page.request.post('/__greiva_test_store_control', { data: { device: await device(page), command } });
+         |                                       ^
+      15 |   expect(response.ok()).toBe(true); return response.json();
+      16 | }
+      17 | async function profile(path: string, offline: boolean, stableDevice: string) {
+        at control (/workspace/tests/e2e/persistence.spec.ts:14:39)
+        at /workspace/tests/e2e/persistence.spec.ts:109:5
+
+    Error Context: ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/persistence-STEP5-RESTORE--29676-rrupted-SQLite-fails-closed-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/persistence-STEP5-RESTORE--29676-rrupted-SQLite-fails-closed-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/persistence-STEP5-RESTORE--29676-rrupted-SQLite-fails-closed-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
+</testcase>
+</testsuite>
+<testsuite name="structured-local.spec.ts" timestamp="2026-10-01T09:04:13.638Z" hostname="chromium" tests="2" failures="0" skipped="0" time="0.697" errors="2">
+<testcase name="STEP6-E2E: Task and Relation pointer/keyboard CRUD persist with pending operations after renderer/store restart" classname="structured-local.spec.ts" time="0.335">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/structured-local-STEP6-E2E-3c737-fter-renderer-store-restart-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/structured-local-STEP6-E2E-3c737-fter-renderer-store-restart-chromium/trace.zip]]
+]]>
+</system-out>
+<error message="page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=01a0f6b7-2879-76d0-b8f8-7d7e545cddf5" type="Error">
+<![CDATA[  [chromium] › structured-local.spec.ts:3:1 › STEP6-E2E: Task and Relation pointer/keyboard CRUD persist with pending operations after renderer/store restart 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=01a0f6b7-2879-76d0-b8f8-7d7e545cddf5
+    Call log:
+      - navigating to "http://127.0.0.1:1420/?page=01a0f6b7-2879-76d0-b8f8-7d7e545cddf5", waiting until "load"
+
+
+      3 | test('STEP6-E2E: Task and Relation pointer/keyboard CRUD persist with pending operations after renderer/store restart', async ({page}) => {
+      4 |   test.setTimeout(60_000);
+    > 5 |   const pageId = newId(); await page.goto(`/?page=${pageId}`);
+        |                                      ^
+      6 |   const panel = page.getByRole('region',{name:'TaskとRelation'});
+      7 |   await expect(panel.getByLabel('Taskの保存状態')).toContainText('送信待ち 0件');
+      8 |   await page.getByRole('button',{name:'接続を一時停止'}).click();
+        at /workspace/tests/e2e/structured-local.spec.ts:5:38
+
+    Error Context: ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/structured-local-STEP6-E2E-3c737-fter-renderer-store-restart-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/structured-local-STEP6-E2E-3c737-fter-renderer-store-restart-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/structured-local-STEP6-E2E-3c737-fter-renderer-store-restart-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
+</testcase>
+<testcase name="STEP6-WRITE-ERROR: failed queue commit retains the draft and permits a safe retry without duplicate Task" classname="structured-local.spec.ts" time="0.362">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/structured-local-STEP6-WRI-f1998-etry-without-duplicate-Task-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/structured-local-STEP6-WRI-f1998-etry-without-duplicate-Task-chromium/trace.zip]]
+]]>
+</system-out>
+<error message="page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=01a0f6b7-33f6-7684-ae1d-35c3957852c3" type="Error">
+<![CDATA[  [chromium] › structured-local.spec.ts:45:1 › STEP6-WRITE-ERROR: failed queue commit retains the draft and permits a safe retry without duplicate Task 
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:1420/?page=01a0f6b7-33f6-7684-ae1d-35c3957852c3
+    Call log:
+      - navigating to "http://127.0.0.1:1420/?page=01a0f6b7-33f6-7684-ae1d-35c3957852c3", waiting until "load"
+
+
+      44 | });
+      45 | test('STEP6-WRITE-ERROR: failed queue commit retains the draft and permits a safe retry without duplicate Task',async ({page}) => {
+    > 46 |   await page.goto(`/?page=${newId()}`);
+         |              ^
+      47 |   const panel = page.getByRole('region',{name:'TaskとRelation'});
+      48 |   await expect(panel.getByLabel('Taskの保存状態')).toContainText('送信待ち 0件');
+      49 |   await page.getByRole('button',{name:'接続を一時停止'}).click();
+        at /workspace/tests/e2e/structured-local.spec.ts:46:14
+
+    Error Context: ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/structured-local-STEP6-WRI-f1998-etry-without-duplicate-Task-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/structured-local-STEP6-WRI-f1998-etry-without-duplicate-Task-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/2026-10-01T09-03-38.869Z/artifacts/structured-local-STEP6-WRI-f1998-etry-without-duplicate-Task-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</error>
+</testcase>
+</testsuite>
+</testsuites>

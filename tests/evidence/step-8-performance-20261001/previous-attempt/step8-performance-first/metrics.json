@@ -1,0 +1,130 @@
+[
+  {
+    "capturedAt": "2026-10-01T08:48:39.262Z",
+    "dataset": null,
+    "editableMs": {
+      "count": 3,
+      "min": 781.6461359999998,
+      "p50": 825.0936859999999,
+      "p95": 872.7884439999999,
+      "p99": 872.7884439999999,
+      "max": 872.7884439999999
+    },
+    "restoreMs": null,
+    "typedMs": null,
+    "savedAfterTypingMs": null,
+    "nextFrameOpportunityMs": null,
+    "keydownToFrameMs": null,
+    "keydownToInputMs": null,
+    "inputToCommitAckMs": null,
+    "frameIntervalsMs": null,
+    "appendRoundTripMs": null,
+    "convergenceMs": null,
+    "queueCreationMs": null,
+    "offlineRestoreMs": null,
+    "ledger": null,
+    "scope": "Empty real SQLite; fresh browser contexts, already-running browser/preview/services. Not Windows executable launch time or a native release startup Pass."
+  },
+  {
+    "capturedAt": "2026-10-01T08:48:57.48Z",
+    "dataset": {
+      "blocks": 1000,
+      "initialJournalUpdates": 1001,
+      "seedMs": 9422.665195000001,
+      "typedCharacters": 104,
+      "keyDelayMs": 5
+    },
+    "editableMs": null,
+    "restoreMs": {
+      "count": 3,
+      "min": 541.7834619999994,
+      "p50": 611.963839,
+      "p95": 759.8595339999993,
+      "p99": 759.8595339999993,
+      "max": 759.8595339999993
+    },
+    "typedMs": 5456.6783350000005,
+    "savedAfterTypingMs": 40.33419500000309,
+    "nextFrameOpportunityMs": {
+      "count": 104,
+      "min": 2.6000000089406967,
+      "p50": 3.5,
+      "p95": 6.5,
+      "p99": 7.600000008940697,
+      "max": 9.100000008940697
+    },
+    "keydownToFrameMs": null,
+    "keydownToInputMs": null,
+    "inputToCommitAckMs": null,
+    "frameIntervalsMs": {
+      "count": 229,
+      "min": -10.581999994039506,
+      "p50": 16.700000000000045,
+      "p95": 50.099999999999454,
+      "p99": 83.30000000000018,
+      "max": 100
+    },
+    "appendRoundTripMs": {
+      "count": 26,
+      "min": 29.30000001192093,
+      "p50": 62.19999998807907,
+      "p95": 160.20000000298023,
+      "p99": 183.3999999910593,
+      "max": 183.3999999910593
+    },
+    "convergenceMs": null,
+    "queueCreationMs": null,
+    "offlineRestoreMs": null,
+    "ledger": null,
+    "scope": "Actual Chromium keyboard events on 1000 blocks; release Rust SQLite commit ACK via test bridge. rAF measures the next frame opportunity, not a native IME result."
+  },
+  {
+    "capturedAt": "2026-10-01T08:49:07.922Z",
+    "dataset": {
+      "clients": 2,
+      "keyEditsPerClient": 50
+    },
+    "editableMs": null,
+    "restoreMs": null,
+    "typedMs": null,
+    "savedAfterTypingMs": null,
+    "nextFrameOpportunityMs": null,
+    "keydownToFrameMs": null,
+    "keydownToInputMs": null,
+    "inputToCommitAckMs": null,
+    "frameIntervalsMs": null,
+    "appendRoundTripMs": null,
+    "convergenceMs": 898.3485629999996,
+    "queueCreationMs": null,
+    "offlineRestoreMs": null,
+    "ledger": null,
+    "scope": null
+  },
+  {
+    "capturedAt": "2026-10-01T08:50:28.321Z",
+    "dataset": {
+      "tasks": 250,
+      "operationsPerTask": 4,
+      "operations": 1000
+    },
+    "editableMs": null,
+    "restoreMs": null,
+    "typedMs": null,
+    "savedAfterTypingMs": null,
+    "nextFrameOpportunityMs": null,
+    "keydownToFrameMs": null,
+    "keydownToInputMs": null,
+    "inputToCommitAckMs": null,
+    "frameIntervalsMs": null,
+    "appendRoundTripMs": null,
+    "convergenceMs": 66130.00138999999,
+    "queueCreationMs": 9375.063656999999,
+    "offlineRestoreMs": 223.95514900000126,
+    "ledger": {
+      "operations": 1000,
+      "distinct_operations": 1000,
+      "head": 1000
+    },
+    "scope": "Actual React TaskPanel sync engine, real HTTP/PostgreSQL and release Rust SQLite; no batch push shortcut. 240s harness bound is not a product SLO."
+  }
+]

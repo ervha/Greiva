@@ -1,0 +1,74 @@
+
+> greiva-poc@0.6.3 test:postgres
+> node scripts/test-postgres.mjs
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/postgres.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 31[2mms[22m[39m
+ [32m✓[39m tests/integration/structured-postgres.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 1602[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP6-POSTGRES: real models survive reopen; version guards serialize competing edits; Nest exposes durable reads[33m 1599[2mms[22m[39m
+ [32m✓[39m tests/integration/structured-process-crash.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 4977[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP7-API-SIGKILL-before-commit: an actual API process crash preserves immutable wire, cursor and exactly one final operation[33m 2461[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP7-API-SIGKILL-after-commit: an actual API process crash preserves immutable wire, cursor and exactly one final operation[33m 2515[2mms[22m[39m
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-HTTP: offline Task/Relation chains survive SIGKILL and converge through restore/pull/push/pull in creation order
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f6c4-74e4-75f6-9638-4b2b0c8c7e36","clientId":"01a0f6c4-7482-7537-a241-d0142e58cc4a","serverOrder":"1","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-HTTP: offline Task/Relation chains survive SIGKILL and converge through restore/pull/push/pull in creation order
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f6c4-74e4-75f6-9638-4df6b65aaae6","clientId":"01a0f6c4-7482-7537-a241-d0142e58cc4a","serverOrder":"2","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-HTTP: offline Task/Relation chains survive SIGKILL and converge through restore/pull/push/pull in creation order
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f6c4-74f2-73ac-9ee3-007193a04155","clientId":"01a0f6c4-7482-7537-a241-d0142e58cc4a","serverOrder":"3","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-ACK-LOSS: commit followed by dropped HTTP ACK and API/store restart is recovered once through durable pull
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f6c4-76a9-76c6-9ddf-87f08876d4bc","clientId":"01a0f6c4-7677-778c-a069-3df1e68d86db","serverOrder":"1","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f6c4-78a0-77aa-b5bd-819726cbec46","clientId":"01a0f6c4-780e-7673-b7c4-3760c2986468","serverOrder":"2","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f6c4-7896-7296-ac40-7198e6d9e3df","clientId":"01a0f6c4-77d4-73bb-95b4-792fbc21fd6f","serverOrder":"3","status":"conflict","conflicts":1}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f6c4-797b-76ec-95c5-9198828fd9b4","clientId":"01a0f6c4-77d4-73bb-95b4-792fbc21fd6f","serverOrder":"4","status":"acknowledged","conflicts":1}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f6c4-7bf2-764b-bfc4-2622047c78a3","clientId":"01a0f6c4-7b8e-7695-9387-2917954a1bea","serverOrder":"1","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f6c4-7e44-7508-bc8e-1c0c3f887036","clientId":"01a0f6c4-7b8e-7695-9387-2917954a1bea","serverOrder":"2","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f6c4-868a-73cb-80f0-4de9ac77e1b9","clientId":"01a0f6c4-7b8e-7695-9387-2917954a1bea","serverOrder":"3","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f6c4-9a8b-73e0-9494-ab03253a9865","clientId":"01a0f6c4-7b8e-7695-9387-2917954a1bea","serverOrder":"4","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-REJECTED: create collision stops the affected causal chain, retains both original payloads and never displays synced
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f6c4-9b7d-7688-a2f3-e34758b6d00c","clientId":"01a0f6c4-9b47-77d8-81e3-b4e20b06b89e","serverOrder":"2","status":"rejected","conflicts":0}
+
+ [32m✓[39m tests/integration/structured-sync-client.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 10260[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP7-CLIENT-HTTP: offline Task/Relation chains survive SIGKILL and converge through restore/pull/push/pull in creation order[33m 577[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP7-CLIENT-ACK-LOSS: commit followed by dropped HTTP ACK and API/store restart is recovered once through durable pull[33m 339[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution[33m 651[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP7-CLIENT-PULL-FAILURE: cursor commit failure stops network progress; restart and explicit retry keep the original cursor and restore all records[33m 327[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent[33m 8118[2mms[22m[39m
+[90mstdout[2m | tests/integration/structured-sync-server.test.ts[2m > [22m[2mSTEP7-SERVER-IDEMPOTENCY: concurrent replays, ID collisions, malformed payloads and API recreation retain immutable results
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f6c4-9ffe-7521-b4d7-b190c33d2534","clientId":"01a0f6c4-9ffe-7521-b4d7-abe930e0cb27","serverOrder":"1","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-server.test.ts[2m > [22m[2mSTEP7-SERVER-IDEMPOTENCY: concurrent replays, ID collisions, malformed payloads and API recreation retain immutable results
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f6c4-a057-745f-8e68-1393c4887379","clientId":"01a0f6c4-9ffe-7521-b4d7-abe930e0cb27","serverOrder":"5","status":"rejected","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-server.test.ts[2m > [22m[2mSTEP7-SERVER-IDEMPOTENCY: concurrent replays, ID collisions, malformed payloads and API recreation retain immutable results
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a0f6c4-9ffe-7521-b4d7-b190c33d2534","clientId":"01a0f6c4-9ffe-7521-b4d7-abe930e0cb27","serverOrder":"1","status":"acknowledged","conflicts":0}
+
+ [32m✓[39m tests/integration/structured-sync-server.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 1797[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP7-SERVER-IDEMPOTENCY: concurrent replays, ID collisions, malformed payloads and API recreation retain immutable results[33m 357[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m5 passed[39m[22m[90m (5)[39m
+[2m      Tests [22m [1m[32m20 passed[39m[22m[90m (20)[39m
+[2m   Start at [22m 09:20:55
+[2m   Duration [22m 22.59s[2m (tests 85%, import 14%, transform 1%)[22m
+
+JSON report written to /evidence/2026-10-01T09-17-13.288Z/postgres/vitest.json
+JUNIT report written to /evidence/2026-10-01T09-17-13.288Z/postgres/vitest.xml

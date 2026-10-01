@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="5" failures="0" errors="4" time="0.732797706">
+    <testsuite name="tests/integration/sqlite-bridge-stream.test.ts" timestamp="2026-10-01T09:16:54.913Z" hostname="b994ee08d3ce" tests="1" failures="0" errors="0" skipped="0" time="0.732797706">
+        <testcase classname="tests/integration/sqlite-bridge-stream.test.ts" name="STEP8-BRIDGE: killing a real Rust store during concurrent requests never terminates the HTTP server" time="0.730696848">
+        </testcase>
+    </testsuite>
+    <testsuite name="vitest unhandled errors" timestamp="2026-10-01T09:16:54.920Z" hostname="b994ee08d3ce" tests="4" failures="0" errors="4" skipped="0" time="0">
+        <testcase classname="vitest unhandled errors" name="Uncaught Exception: write EPIPE" time="0">
+            <error message="write EPIPE" type="Error">
+Error: write EPIPE
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { errno: -32, code: &apos;EPIPE&apos;, syscall: &apos;write&apos; }
+This error originated in &quot;tests/integration/sqlite-bridge-stream.test.ts&quot; test file. It doesn&apos;t mean the error was thrown inside the file itself, but while it was running.
+The last test to run before this error was &quot;STEP8-BRIDGE: killing a real Rust store during concurrent requests never terminates the HTTP server&quot;. This means either:
+- the error was thrown while Vitest was running this test, or
+- the error was thrown after the test completed, and this was the most recent test at that point.
+            </error>
+        </testcase>
+        <testcase classname="vitest unhandled errors" name="Uncaught Exception: write EPIPE" time="0">
+            <error message="write EPIPE" type="Error">
+Error: write EPIPE
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { errno: -32, code: &apos;EPIPE&apos;, syscall: &apos;write&apos; }
+This error originated in &quot;tests/integration/sqlite-bridge-stream.test.ts&quot; test file. It doesn&apos;t mean the error was thrown inside the file itself, but while it was running.
+The last test to run before this error was &quot;STEP8-BRIDGE: killing a real Rust store during concurrent requests never terminates the HTTP server&quot;. This means either:
+- the error was thrown while Vitest was running this test, or
+- the error was thrown after the test completed, and this was the most recent test at that point.
+            </error>
+        </testcase>
+        <testcase classname="vitest unhandled errors" name="Uncaught Exception: write EPIPE" time="0">
+            <error message="write EPIPE" type="Error">
+Error: write EPIPE
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { errno: -32, code: &apos;EPIPE&apos;, syscall: &apos;write&apos; }
+This error originated in &quot;tests/integration/sqlite-bridge-stream.test.ts&quot; test file. It doesn&apos;t mean the error was thrown inside the file itself, but while it was running.
+The last test to run before this error was &quot;STEP8-BRIDGE: killing a real Rust store during concurrent requests never terminates the HTTP server&quot;. This means either:
+- the error was thrown while Vitest was running this test, or
+- the error was thrown after the test completed, and this was the most recent test at that point.
+            </error>
+        </testcase>
+        <testcase classname="vitest unhandled errors" name="Uncaught Exception: write EPIPE" time="0">
+            <error message="write EPIPE" type="Error">
+Error: write EPIPE
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯
+Serialized Error: { errno: -32, code: &apos;EPIPE&apos;, syscall: &apos;write&apos; }
+This error originated in &quot;tests/integration/sqlite-bridge-stream.test.ts&quot; test file. It doesn&apos;t mean the error was thrown inside the file itself, but while it was running.
+The last test to run before this error was &quot;STEP8-BRIDGE: killing a real Rust store during concurrent requests never terminates the HTTP server&quot;. This means either:
+- the error was thrown while Vitest was running this test, or
+- the error was thrown after the test completed, and this was the most recent test at that point.
+            </error>
+        </testcase>
+    </testsuite>
+</testsuites>

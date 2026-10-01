@@ -11,10 +11,11 @@ const directory = resolve(process.env.GREIVA_EVIDENCE_ROOT ?? 'tests/evidence/ru
 mkdirSync(directory, { recursive: true });
 const npm = process.platform === 'win32' ? 'npm.cmd' : 'npm';
 const serverSync = process.argv.includes('--step=7-server');
-const crashRecovery = process.argv.includes('--step=7-recovery');
+const performanceTests = process.argv.includes('--step=8');
+const crashRecovery = performanceTests || process.argv.includes('--step=7-recovery');
 const clientSync = crashRecovery || process.argv.includes('--step=7-client');
-const step = clientSync || serverSync ? 7 : process.argv.includes('--step=6') ? 6 : process.argv.includes('--step=5') ? 5 : process.argv.includes('--step=4') ? 4 : process.argv.includes('--step=1') ? 1 : 2;
-const prefix = crashRecovery ? 'STEP7-RECOVERY' : clientSync ? 'STEP7-CLIENT' : serverSync ? 'STEP7-SERVER' : `STEP${step}`;
+const step = performanceTests ? 8 : clientSync || serverSync ? 7 : process.argv.includes('--step=6') ? 6 : process.argv.includes('--step=5') ? 5 : process.argv.includes('--step=4') ? 4 : process.argv.includes('--step=1') ? 1 : 2;
+const prefix = performanceTests ? 'STEP8' : crashRecovery ? 'STEP7-RECOVERY' : clientSync ? 'STEP7-CLIENT' : serverSync ? 'STEP7-SERVER' : `STEP${step}`;
 const container = process.argv.includes('--container');
 const browserExecutable = process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE ?? chromium.executablePath();
 const browserVersionResult = spawnSync(browserExecutable, ['--version'], { encoding: 'utf8' });
@@ -39,10 +40,11 @@ const report = {
     'Section 18 Steps 1–2. Editor operations in Chromium; native compile optional. Microsoft IME, native UI, sync and crash recovery need separate evidence. No Gate verdict.',
 };
 if (crashRecovery) report.scope = 'Section 18 Step 7 recovery checkpoint: actual standalone API process SIGKILL before/after commit, plus combined Chromium and Rust SQLite Page/block/Task/Relation SIGKILL at immediate edit, local commit, committed push without ACK and staged pull before cursor. Approved 2026-10-01 A contract: all committed/saved input survives; optimistic input still saving may be absent. Tests compare every committed SQLite update, full Yjs state and saved structure/intent, and require complete pre-kill equality if saved was displayed. Page pending updates coalesce without debounce or metadata reordering. Fresh PostgreSQL schemas isolate each run. Windows native IPC/IME, performance and final Gates require separate evidence. No Gate verdict.';
+if (performanceTests) report.scope = 'Section 18 Step 8: Step 7 regression plus production frontend/release Rust performance workloads: empty SQLite navigation, 1000-block journal restore and actual keyboard/frame/commit observations, 100 offline Yjs key edits and reconnect convergence, 1000 durable Task operations through the actual React sync engine. Browser uses read-only diagnostics and a test-only bridge. Timing observations are not a native Windows release startup or Microsoft IME Pass. P1/P2 actual OS checks and final Gates require separate evidence. No Gate verdict.';
 const gitFiles = spawnSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z'], { encoding: 'utf8' });
 function sourceFiles(directory = '.') {
   return readdirSync(directory, { withFileTypes: true }).flatMap(entry => {
-    if (['.git', '.tools', '.data', '.codex-remote-attachments', 'node_modules', 'dist', 'target', 'playwright-report', 'test-results'].includes(entry.name) ||
+    if (['.git', '.tools', '.data', '.codex-remote-attachments', 'node_modules', 'dist', 'dist-performance', 'target', 'playwright-report', 'test-results'].includes(entry.name) ||
         entry.name === '.env' || entry.name.endsWith('.tsbuildinfo')) return [];
     const file = `${directory}/${entry.name}`;
     if (file === './tests/evidence' || file === './docs' || file === './apps/client/src-tauri/gen') return [];
@@ -89,6 +91,7 @@ if (process.argv.includes('--desktop')) {
   run(`${prefix}-DESKTOP-CHECK`, 'cargo', ['check', '--locked', '--manifest-path', 'apps/client/src-tauri/Cargo.toml'], 'Tauri desktop crate typechecks against the locked graph');
   if (crashRecovery) run(`${prefix}-DEFAULT-FEATURES`,'node',['scripts/verify-native-features.mjs'],'Normal Tauri dependency graph does not enable the crash-test-hooks feature');
 } else report.results.push({ id: `${prefix}-DESKTOP-CHECK`, status: 'Not run', reason: 'Use --desktop with the native Tauri prerequisites' });
+if (performanceTests && container) run(`${prefix}-PERFORMANCE`,npm,['run','test:performance'],'Production frontend and release Rust measure the Section 13 workloads and verify data correctness; timings and native/platform scope remain explicit',`${directory}/performance`);
 report.finishedAt = new Date().toISOString();
 writeFileSync(`${directory}/summary.json`, JSON.stringify(report, null, 2));
 const rows = report.results.map(result => `| ${result.id} | ${result.status} | ${result.log ? `[log](${result.log})` : result.reason} |`).join('\n');

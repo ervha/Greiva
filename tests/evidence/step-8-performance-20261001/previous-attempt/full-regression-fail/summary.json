@@ -1,0 +1,299 @@
+{
+  "id": "STEP8-2026-10-01T09-03-38.869Z",
+  "startedAt": "2026-10-01T09:03:39.086Z",
+  "operator": "Codex",
+  "gitCommit": null,
+  "gitStatus": null,
+  "gitAvailability": "unavailable in execution environment",
+  "environment": {
+    "os": "linux",
+    "release": "6.18.33.2-microsoft-standard-WSL2",
+    "arch": "x64",
+    "cpu": "12th Gen Intel(R) Core(TM) i7-12700H",
+    "node": "v24.19.0",
+    "execution": "Docker container; source copied into image; no Docker socket mount",
+    "browserExecutable": "/opt/playwright/chromium-1243/chrome-linux64/chrome",
+    "browserVersion": "Google Chrome for Testing 153.0.8010.12",
+    "build": "web production build + Node server builds; desktop check optional",
+    "network": "loopback for smoke tests; package/registry access uses the execution environment policy"
+  },
+  "versions": {
+    "runtime": {
+      "node": "v24.19.0",
+      "npm": "npm@11.9.0",
+      "rust": "1.98.1",
+      "postgres": "18.4-bookworm"
+    },
+    "directDependencies": {
+      "greiva-poc": {
+        "typescript": "7.0.2",
+        "vitest": "5.0.2",
+        "@playwright/test": "1.63.0",
+        "tsx": "4.23.15",
+        "@types/node": "26.6.3",
+        "concurrently": "10.0.5"
+      },
+      "@greiva/api": {
+        "@greiva/protocol": "0.6.3",
+        "@greiva/shared": "0.6.3",
+        "@nestjs/common": "12.1.1",
+        "@nestjs/core": "12.1.1",
+        "@nestjs/platform-fastify": "12.1.1",
+        "drizzle-orm": "0.45.3",
+        "fastify": "5.12.5",
+        "pg": "8.23.0",
+        "reflect-metadata": "0.2.2",
+        "rxjs": "7.8.2",
+        "@types/pg": "8.23.1"
+      },
+      "@greiva/client": {
+        "@greiva/protocol": "0.6.3",
+        "@greiva/shared": "0.6.3",
+        "@greiva/sync": "0.6.3",
+        "@hocuspocus/provider": "4.7.0",
+        "@tauri-apps/api": "2.12.0",
+        "@tauri-apps/plugin-sql": "2.5.0",
+        "@tiptap/core": "3.31.3",
+        "@tiptap/extension-details": "3.31.3",
+        "@tiptap/extension-list": "3.31.3",
+        "@tiptap/extension-mention": "3.31.3",
+        "@tiptap/pm": "3.31.3",
+        "@tiptap/react": "3.31.3",
+        "@tiptap/starter-kit": "3.31.3",
+        "@tiptap/suggestion": "3.31.3",
+        "react": "19.3.0",
+        "react-dom": "19.3.0",
+        "yjs": "13.6.33",
+        "@tiptap/extension-collaboration": "3.31.3",
+        "@tiptap/y-tiptap": "3.0.9",
+        "@tauri-apps/cli": "2.12.0",
+        "@types/react": "19.3.0",
+        "@types/react-dom": "19.3.0",
+        "@vitejs/plugin-react": "6.1.1",
+        "vite": "8.3.1"
+      },
+      "@greiva/collaboration": {
+        "@hocuspocus/server": "4.7.0",
+        "yjs": "13.6.33",
+        "@greiva/protocol": "0.6.3",
+        "@greiva/shared": "0.6.3",
+        "@greiva/sync": "0.6.3"
+      },
+      "@greiva/protocol": {
+        "zod": "4.6.5",
+        "@greiva/shared": "0.6.3"
+      },
+      "@greiva/shared": {
+        "uuid": "14.0.2",
+        "zod": "4.6.5"
+      },
+      "@greiva/sync": {
+        "@greiva/protocol": "0.6.3",
+        "@greiva/shared": "0.6.3",
+        "yjs": "13.6.33"
+      }
+    },
+    "rust": {
+      "tauri": "2.12.0",
+      "tauri-build": "2.7.0",
+      "tauri-plugin-sql": "2.5.0"
+    },
+    "hashes": {
+      "npmLock": "80bb08af85c4e7ce5149b1f9d2a6b38394e8d56d9588c63f3a331a1eccad4831",
+      "cargoLock": "f402db4faa14c589b6749ac5bbaa9cf315e3d59cbfcbe1f15aa5590b6d030078",
+      "spec": "1227c3562632c170967534fcb2aaa3557d69e033fafbd3e959a25a84c20663c0"
+    }
+  },
+  "results": [
+    {
+      "id": "STEP8-STORE-DRIVER",
+      "command": [
+        "cargo",
+        "build",
+        "--locked",
+        "--manifest-path",
+        "apps/client/src-tauri/crates/page-store/Cargo.toml",
+        "--example",
+        "store-driver",
+        "--target-dir",
+        ".data/native-target"
+      ],
+      "startedAt": "2026-10-01T09:03:39.107Z",
+      "finishedAt": "2026-10-01T09:03:43.924Z",
+      "exitCode": 0,
+      "signal": null,
+      "expected": "Actual native repository builds for Docker IPC integration and browser E2E",
+      "status": "Pass",
+      "log": "STEP8-STORE-DRIVER.log"
+    },
+    {
+      "id": "STEP8-BUILD",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "startedAt": "2026-10-01T09:03:43.925Z",
+      "finishedAt": "2026-10-01T09:03:48.671Z",
+      "exitCode": 0,
+      "signal": null,
+      "expected": "All packages and app production builds succeed",
+      "status": "Pass",
+      "log": "STEP8-BUILD.log"
+    },
+    {
+      "id": "STEP8-TYPES",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "startedAt": "2026-10-01T09:03:48.671Z",
+      "finishedAt": "2026-10-01T09:03:52.778Z",
+      "exitCode": 0,
+      "signal": null,
+      "expected": "Strict TypeScript checks succeed, including tests",
+      "status": "Pass",
+      "log": "STEP8-TYPES.log"
+    },
+    {
+      "id": "STEP8-UNIT-INTEGRATION",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "startedAt": "2026-10-01T09:03:52.786Z",
+      "finishedAt": "2026-10-01T09:04:07.216Z",
+      "exitCode": 0,
+      "signal": null,
+      "expected": "Model contracts, block transactions, real API/collaboration boot and SQLite tests pass; PostgreSQL is separately gated",
+      "status": "Pass",
+      "log": "STEP8-UNIT-INTEGRATION.log"
+    },
+    {
+      "id": "STEP8-E2E",
+      "command": [
+        "npm",
+        "run",
+        "test:e2e"
+      ],
+      "startedAt": "2026-10-01T09:04:07.217Z",
+      "finishedAt": "2026-10-01T09:07:02.961Z",
+      "exitCode": 1,
+      "signal": null,
+      "expected": "Chromium verifies editor blocks, slash, Mention, Todo, Toggle, movement, undo/redo, Markdown and service health",
+      "status": "Fail",
+      "log": "STEP8-E2E.log"
+    },
+    {
+      "id": "STEP8-SQLITE-INIT",
+      "command": [
+        "npm",
+        "run",
+        "db:sqlite"
+      ],
+      "startedAt": "2026-10-01T09:07:02.962Z",
+      "finishedAt": "2026-10-01T09:07:03.171Z",
+      "exitCode": 0,
+      "signal": null,
+      "expected": "File database initializes with WAL and integrity_check=ok",
+      "status": "Pass",
+      "log": "STEP8-SQLITE-INIT.log"
+    },
+    {
+      "id": "STEP8-POSTGRES",
+      "command": [
+        "npm",
+        "run",
+        "test:postgres"
+      ],
+      "startedAt": "2026-10-01T09:07:03.171Z",
+      "finishedAt": "2026-10-01T09:07:25.482Z",
+      "exitCode": 0,
+      "signal": null,
+      "expected": "Live PostgreSQL 18.4 on the Compose network verifies database and server version",
+      "status": "Pass",
+      "log": "STEP8-POSTGRES.log"
+    },
+    {
+      "id": "STEP8-STRUCTURED-E2E",
+      "command": [
+        "npm",
+        "run",
+        "test:structured-e2e"
+      ],
+      "startedAt": "2026-10-01T09:07:25.483Z",
+      "finishedAt": "2026-10-01T09:08:03.689Z",
+      "exitCode": 0,
+      "signal": null,
+      "expected": "Real HTTP, PostgreSQL and Rust SQLite verify conflict resolution, offline restart, remote updates, draft and focus preservation",
+      "status": "Pass",
+      "log": "STEP8-STRUCTURED-E2E.log"
+    },
+    {
+      "id": "STEP8-COMBINED-CRASH",
+      "command": [
+        "npm",
+        "run",
+        "test:crash"
+      ],
+      "startedAt": "2026-10-01T09:08:03.690Z",
+      "finishedAt": "2026-10-01T09:09:19.378Z",
+      "exitCode": 0,
+      "signal": null,
+      "expected": "Four actual browser/store SIGKILL boundaries preserve all committed Page/block changes and structured intent, restore offline and converge with peers under the approved A contract",
+      "status": "Pass",
+      "log": "STEP8-COMBINED-CRASH.log"
+    },
+    {
+      "id": "STEP8-DESKTOP-CHECK",
+      "command": [
+        "cargo",
+        "check",
+        "--locked",
+        "--manifest-path",
+        "apps/client/src-tauri/Cargo.toml"
+      ],
+      "startedAt": "2026-10-01T09:09:19.378Z",
+      "finishedAt": "2026-10-01T09:09:20.315Z",
+      "exitCode": 101,
+      "signal": null,
+      "expected": "Tauri desktop crate typechecks against the locked graph",
+      "status": "Fail",
+      "log": "STEP8-DESKTOP-CHECK.log"
+    },
+    {
+      "id": "STEP8-DEFAULT-FEATURES",
+      "command": [
+        "node",
+        "scripts/verify-native-features.mjs"
+      ],
+      "startedAt": "2026-10-01T09:09:20.315Z",
+      "finishedAt": "2026-10-01T09:09:20.635Z",
+      "exitCode": 101,
+      "signal": null,
+      "expected": "Normal Tauri dependency graph does not enable the crash-test-hooks feature",
+      "status": "Fail",
+      "log": "STEP8-DEFAULT-FEATURES.log"
+    },
+    {
+      "id": "STEP8-PERFORMANCE",
+      "command": [
+        "npm",
+        "run",
+        "test:performance"
+      ],
+      "startedAt": "2026-10-01T09:09:20.635Z",
+      "finishedAt": "2026-10-01T09:14:40.210Z",
+      "exitCode": 0,
+      "signal": null,
+      "expected": "Production frontend and release Rust measure the Section 13 workloads and verify data correctness; timings and native/platform scope remain explicit",
+      "status": "Pass",
+      "log": "STEP8-PERFORMANCE.log"
+    }
+  ],
+  "sourceSha256": "72c94797750ea2ab41abf6e143ab7d71b157fe39a004152951cc2bbff9a22e0c",
+  "scope": "Section 18 Step 8: Step 7 regression plus production frontend/release Rust performance workloads: empty SQLite navigation, 1000-block journal restore and actual keyboard/frame/commit observations, 100 offline Yjs key edits and reconnect convergence, 1000 durable Task operations through the actual React sync engine. Browser uses read-only diagnostics and a test-only bridge. Timing observations are not a native Windows release startup or Microsoft IME Pass. P1/P2 actual OS checks and final Gates require separate evidence. No Gate verdict.",
+  "sourceDiscovery": "filesystem (image excludes .git)",
+  "finishedAt": "2026-10-01T09:14:40.211Z"
+}

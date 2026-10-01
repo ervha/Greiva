@@ -1,0 +1,21 @@
+{
+  "verifiedAt": "2026-10-01T09:29:30.5496811Z",
+  "parentCommit": "256b71be0600b915a1e6113151af317de3a214ef",
+  "branch": "codex/poc-editor",
+  "version": "0.6.3",
+  "sourceSha256": "2c3a843cc412d5ca0b4e203bb33d525aaf6410f4beb610c3010c703fd6a90723",
+  "fileCount": 130,
+  "inventoryMatches": true,
+  "sourceBytesMatch": true,
+  "specSha256": "0d9cf458a8d7a48ba6376688bd56eb0fcc6aa2c8c3e1904bdb976c256a90e36d",
+  "checks": 12,
+  "normalPass": 45,
+  "normalSkipped": 20,
+  "postgresPass": 20,
+  "editorE2EPass": 43,
+  "structuredE2EPass": 2,
+  "combinedCrashPass": 4,
+  "performanceE2EPass": 4,
+  "externalDependencies": "npm external entries and both Cargo external package blocks match parent commit; only app owned versions changed",
+  "scope": "Docker production-frontend/release-Rust performance and regression. Native 0.6.0 smoke is separate. Latest native/IME and Gates remain pending."
+}

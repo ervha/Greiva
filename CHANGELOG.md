@@ -2,6 +2,13 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.3 — 2026-10-01
+
+- 検証・開発環境の更新（PATCH）: Step 8のproduction frontend／release Rust性能試験を追加。空SQLite起動のWeb補助値、1,000 blockの全journal復元・104文字の実キー入力／frame／保存ACK、100回のYjs offline編集・再接続、1,000件のTask操作を実UI engineで測定し、全内容・queue・cursorと一件性を検証する。
+- 試験用Rust transportのSIGKILLとrequestが競合した際のstdin EPIPEを受け止め、Viteが停止しないよう修正。大きな並行requestのbackpressureで修正前の失敗を再現し、修正後の復帰を検証。生成した性能bundleをGit／Docker入力から除外。
+- Windowsの既存0.6.0候補で新規Page・title／本文のliteral入力、保存・同期表示、Task作成と実APIで一件の確定を確認した。[限定的な実機証拠](tests/evidence/step-8-native-smoke-20261001/SUMMARY.md)。最新候補・Microsoft IME・全native操作・release起動のPassではない。
+- [測定方法と制約](docs/decisions/step-8-performance.md)、[最終証拠](tests/evidence/step-8-performance-20261001/SUMMARY.md)、[初回回帰と修正](docs/failures/step-8-test-harness.md)。入力待ち・frame間隔・大量同期の改善余地を記録し、性能やP1/P2実OS、Gate A/B/Cと技術選定は未完了。外部依存の固定版は維持し、アプリ所有manifest／lockのみ0.6.3へ整合する。
+
 ## 0.6.2 — 2026-10-01
 
 - 保存待ちと検証の更新（PATCH）: ユーザーがAを選択し、保存済みの全変更を復元保証の対象、保存中の未commit入力を強制終了時の保証対象外とする契約をPoC／製品設計へ反映。保存状態の説明を画面へ追加。

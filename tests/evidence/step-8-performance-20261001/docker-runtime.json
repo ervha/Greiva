@@ -1,0 +1,24 @@
+{
+  "capturedAt": "2026-10-01T09:21:49.5831863Z",
+  "container": "greiva-step7-crash-work",
+  "image": "sha256:07b87eb84ab8dac058346e34a80bf75884641bc311df53f9f68f47c81b795ce8",
+  "user": "node",
+  "init": true,
+  "memoryBytes": 4294967296,
+  "nanoCpus": 2000000000,
+  "privileged": false,
+  "securityOptions": [
+    "no-new-privileges:true"
+  ],
+  "mounts": [
+    {
+      "Type": "bind",
+      "Source": "C:\\Users\\danun\\Desktop\\Project\\Greiva\\tests\\evidence\\runs\\container",
+      "Destination": "/evidence",
+      "Mode": "",
+      "RW": true,
+      "Propagation": "rprivate"
+    }
+  ],
+  "note": "Sources copied into an existing isolated container. Copied source fingerprint is authoritative; image alone represents an earlier checkpoint."
+}

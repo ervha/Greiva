@@ -3,7 +3,7 @@ import { createInterface } from 'node:readline';
 import { mkdirSync,existsSync,readFileSync,writeFileSync,rmSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { DatabaseSync } from 'node:sqlite';
-import type { Plugin } from 'vite';
+import type { Plugin, ViteDevServer, PreviewServer } from 'vite';
 
 type Reply = { id: number; value?: unknown; error?: string };
 export function sqliteBridge(): Plugin {
@@ -30,10 +30,12 @@ export function sqliteBridge(): Plugin {
       pending.clear(); if (processes.get(device) === entry) processes.delete(device);
     };
     child.on('exit', ended); child.on('error', ended);
+    // A request can race a deliberate store SIGKILL. A broken stdin is a
+    // failed store command, not an unhandled event that may stop Vite.
+    child.stdin.on('error', () => { ended(); child.kill('SIGKILL'); });
     return entry;
   }
-  return { name: 'greiva-test-sqlite-bridge',
-    configureServer(server) {
+  const configure = (server: ViteDevServer | PreviewServer) => {
       server.httpServer?.on('close', () => { for (const value of processes.values()) value.child.kill('SIGKILL'); });
       server.middlewares.use(async (request, response, next) => {
         if (!request.url?.startsWith('/__greiva_test_store')) return next();
@@ -88,6 +90,6 @@ export function sqliteBridge(): Plugin {
           response.statusCode = 500; response.setHeader('Content-Type', 'application/json'); response.end(JSON.stringify({ error: String(error) }));
         }
       });
-    },
   };
+  return { name: 'greiva-test-sqlite-bridge', configureServer: configure, configurePreviewServer: configure };
 }

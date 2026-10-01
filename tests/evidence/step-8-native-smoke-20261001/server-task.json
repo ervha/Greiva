@@ -1,0 +1,15 @@
+{
+  "capturedAt": "2026-10-01T08:59:33.372Z",
+  "tasks": [
+    {
+      "id": "01a0f6af-f9d2-733f-ba4d-bac1cf97331a",
+      "title": "Native IPC smoke 2026-10-01 0.6.0",
+      "status": "todo",
+      "due": null,
+      "version": 1,
+      "createdAt": "2026-10-01T08:58:43.144Z",
+      "updatedAt": "2026-10-01T08:58:43.144Z",
+      "deletedAt": null
+    }
+  ]
+}

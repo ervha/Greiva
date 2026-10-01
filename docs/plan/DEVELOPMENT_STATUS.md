@@ -2,7 +2,7 @@
 
 [プロジェクト紹介へ戻る](../../README.md)。以下のコマンドは、特記がなければリポジトリのルートで実行します。
 
-2026-10-01時点の開発計画と検証記録。開発チェックポイント **v0.6.2**（保存契約・保存待ち改善とcrash試験。既存Windows候補は0.6.0）。[変更履歴](../../CHANGELOG.md)・[コミット/バージョン運用](../development/versioning.md)。更新規模に応じたGitタグを付けてGitHubへ反映します。
+2026-10-01時点の開発計画と検証記録。開発チェックポイント **v0.6.3**（Step 8の性能測定・試験transport修正。Windows既存0.6.0の限定操作を確認、プレビューは0.6.2）。[変更履歴](../../CHANGELOG.md)・[コミット/バージョン運用](../development/versioning.md)。更新規模に応じたGitタグを付けてGitHubへ反映します。
 
 [POC_SPEC.md](POC_SPEC.md) のSection 18に沿って進めています。Step 1の基盤とStep 2の最小Editorを実装し、Slash・Toggleの操作改善を含むDocker内の全30件のE2Eが成功しました。Step 3はWindows実機へ切り替え、既存native shellの起動とWebView2保存先を確認しました。初回local IMEの4群は利用者がすべて問題なしと明示回答し、手動結果と初回証拠を記録しました。[Step 3初回IME記録](../../tests/evidence/windows-host-ime-20261001/SUMMARY.md)。[版の記録](../decisions/specification-version.md)、[Step 2の範囲・検証状況](../decisions/step-2-scope.md)、[Editor操作の改善](../decisions/editor-ux.md)を参照してください。
 
@@ -32,6 +32,8 @@ Step 7のサーバー側push/pull、操作台帳、順序付きcursor、field me
 
 Step 7の端末ACK・transactional pull/cursor、prepared再送、pending intentのprojection、Conflict UI、復元→pull→push→pull engineを追加しました。[実装判断](../decisions/step-7-structured-client.md)・[Docker証拠](../../tests/evidence/step-7-structured-client-20261001/SUMMARY.md)・[修正/未解決記録](../failures/step-7-structured-client.md)。実Rust/SQLiteと実PostgreSQL/HTTPでACK喪失・API再作成・store SIGKILL・cursor保存失敗・遅延・接続停止/再開を確認し、別runの競合UIでlocal/remote選択・入力/focus保持・offline復元を検証します。Windows 0.6.0候補はDockerでcross build・hash照合済みですが、実機操作は未検証です。0.6.0時点ではPage＋Task＋Relationの統合crash境界とAPIプロセスSIGKILLが未実施でした。最新の検証は次の段落に記録します。性能/P1/P2・native/IME・最終Gateは後続です。Page初期復元が5秒を超えた一回の原因は未確定として記録し、再検証成功だけで解消扱いにしません。
 Step 7の保存待ち改善と統合crash recoveryをv0.6.2で確認しました。[判断](../decisions/step-7-crash-recovery.md)・[最終証拠](../../tests/evidence/step-7-crash-recovery-20261001/SUMMARY.md)・[初回Failと承認A](../failures/step-7-integrated-crash.md)。保存済み全変更を保証し、保存中を明示する契約を反映しました。待機Yjs updateを順序を保ってmergeし、Dockerの11項目、通常44件・実PostgreSQL別run20件、Editor43・structured UI2・統合crash4 E2EがPass。実APIの確定前／確定後SIGKILLと、Page／block／Task／Relationの4境界で保存済み内容・queueのoffline復元とpeer収束を検証しました。試験専用停止featureは通常Tauriに含まれず、プレビューの126ソースと検証ソースの一致・3サービスhealthを確認済みです。Windows候補は既存0.6.0、実機操作とMicrosoft IME、Step 8性能/P1/P2とStep 9最終Gateは未完了です。
+
+Step 8ではproduction bundle／release Rustで、空SQLiteのWeb補助起動、1,000 block復元と実キー入力・保存ACK、100回Yjs編集・再接続、1,000 Task操作の実UI engine同期を測定しました。[方法と残課題](../decisions/step-8-performance.md)・[最終証拠](../../tests/evidence/step-8-performance-20261001/SUMMARY.md)。最終回帰12項目（通常45件・実PostgreSQL別run20件、Editor43・structured UI2・統合crash4・性能4ケース）はPass。正確性と時間を区別し、1,000 block復元は3回中1回が2.47秒で2秒目安を超過、入力からcommit ACKはp95 962ms・最大1.32秒だったため、入力待ち・frame間隔・大量同期を改善課題として記録しています。初回回帰の試験transport EPIPEとCargo版置換の誤りは[修正記録](../failures/step-8-test-harness.md)へ保持しました。Windows既存0.6.0では利用者補助なしで新規Page・title／本文のliteral入力、Task作成・保存／同期表示と実APIでの一件確定を確認しましたが、[限定的なsmoke](../../tests/evidence/step-8-native-smoke-20261001/SUMMARY.md)です。最新native候補・Microsoft IME・全native操作、Windows release起動／性能、P1/P2実OSと最終Gateは未完了。プレビューは0.6.2の検証済みimageを維持しています。
 
 現在のユーザー指定により、**Dockerで開発・自動テスト、Windows実機でTauri・Microsoft IMEを検証**します。[実機起動手順](../development/windows-host-ime.md)は既存実行物を使い、ホストへ開発ツールを追加しません。[隔離環境の詳細](../development/isolated-environment.md)。
 

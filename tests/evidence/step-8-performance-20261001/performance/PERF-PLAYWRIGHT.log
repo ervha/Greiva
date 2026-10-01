@@ -1,0 +1,11 @@
+
+Running 4 tests using 1 worker
+
+  ✓  1 [chromium] › tests/performance/workloads.spec.ts:27:1 › STEP8-STARTUP-WEB: empty SQLite navigation to an editable production-bundle UI (5.1s)
+  ✓  2 [chromium] › tests/performance/workloads.spec.ts:41:1 › STEP8-PAGE-1000: restore every journal update and measure actual key input and durable-save wait (46.6s)
+  ✓  3 [chromium] › tests/performance/workloads.spec.ts:102:1 › STEP8-YJS-100: fifty actual key edits per offline client converge completely after reconnect (7.6s)
+  ✓  4 [chromium] › tests/performance/workloads.spec.ts:117:1 › STEP8-STRUCTURED-1000: durable Task chains restore offline and the actual UI engine converges without duplicates (3.9m)
+
+  4 passed (5.4m)
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.
