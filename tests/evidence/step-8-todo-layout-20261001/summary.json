@@ -1,0 +1,72 @@
+{
+  "at": "2026-10-01T13:01:33.073Z",
+  "version": "0.6.5",
+  "parentCommit": "aac671a8115c6a68f418a27a24eaaf6bbe4737f8",
+  "sourceSha256": "c0f39a8a19274ef4150c4c770189fce4b927e21befb9c542bb24402975846205",
+  "files": 130,
+  "scope": "Todo CSS and pointer editing regression. Existing PostgreSQL, integrated crash, performance and native IME evidence remains separately scoped; not re-run by this script.",
+  "results": [
+    {
+      "id": "BUILD",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "startedAt": "2026-10-01T12:58:37.336Z",
+      "finishedAt": "2026-10-01T12:58:41.097Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "id": "TYPES",
+      "command": [
+        "npm",
+        "run",
+        "typecheck"
+      ],
+      "startedAt": "2026-10-01T12:58:41.098Z",
+      "finishedAt": "2026-10-01T12:58:44.317Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "id": "UNIT-INTEGRATION",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "startedAt": "2026-10-01T12:58:44.317Z",
+      "finishedAt": "2026-10-01T12:58:55.654Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "id": "EDITOR-E2E",
+      "command": [
+        "npm",
+        "run",
+        "test:e2e"
+      ],
+      "startedAt": "2026-10-01T12:58:55.654Z",
+      "finishedAt": "2026-10-01T13:01:29.166Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "id": "DESKTOP-CHECK",
+      "command": [
+        "cargo",
+        "check",
+        "--locked",
+        "--offline",
+        "--manifest-path",
+        "apps/client/src-tauri/Cargo.toml"
+      ],
+      "startedAt": "2026-10-01T13:01:29.166Z",
+      "finishedAt": "2026-10-01T13:01:33.073Z",
+      "exitCode": 0,
+      "signal": null
+    }
+  ]
+}

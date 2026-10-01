@@ -2,6 +2,10 @@
 
 `docs/plan/POC_SPEC.md` Section 18 Step 8の性能観測まで記録しました。性能改善・native全件とGate A/B/Cの最終判定は未完了です。Windows実機の初回IMEと遠隔更新中に試した操作は利用者確認による結果を保持し、Google日本語入力の実キー結果はMicrosoft IMEへ流用しません。
 
+## Step 8: Todoの配置・限定的な実機操作（2026-10-01、v0.6.5）
+
+[修正と検証](step-8-todo-layout-20261001/SUMMARY.md)、[実装判断](../../docs/decisions/step-8-todo-layout.md)。実DOMに一致しないTodo CSSを修正し、修正前の位置検査Fail／修正後Pass、全E2E45件とbuild・型・通常試験・locked Tauri checkを確認。実機操作とrelease artifactは実際の0.6.4として保持し、Microsoft IME・再変換・同一段落composition重複、最新native全操作／Windows release性能／最終Gateは未検証。
+
 ## Step 8: 入力時のDOM再生成改善（2026-10-01、v0.6.4）
 
 [最終Docker検証](step-8-editor-performance-20261001/SUMMARY.md)、[130ファイルの照合](step-8-editor-performance-20261001/checkout-source-match.json)、[測定値](step-8-editor-performance-20261001/performance-metrics.json)、[ハンドルだけの比較](step-8-editor-performance-20261001/handle-comparison.json)。通常45件・実PostgreSQL別run20件、Editor44・structured UI2・統合crash4・性能4ケースと12項目全体がPass。1,000 block／104文字の入力で1,000個すべてのhandle DOMを保持し、本文・構造・clock・保存差分の一致を確認。元の再生成と古いpositionを使う誤修正の退行検出も保持した。

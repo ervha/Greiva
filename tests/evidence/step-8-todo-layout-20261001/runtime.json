@@ -1,0 +1,37 @@
+{
+  "image": "sha256:50277a5f84065501795f4106631bb39cda9df4c87ec7a5969b0f99c2518c2b3b",
+  "running": true,
+  "init": true,
+  "securityOpt": [
+    "no-new-privileges:true"
+  ],
+  "capDrop": null,
+  "ports": {
+    "1234/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "1234"
+      }
+    ],
+    "1420/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "1420"
+      }
+    ],
+    "3000/tcp": [
+      {
+        "HostIp": "127.0.0.1",
+        "HostPort": "3000"
+      }
+    ]
+  },
+  "mounts": [
+    {
+      "Type": "volume",
+      "Name": "greiva-isolated_collaboration-data",
+      "Destination": "/workspace/.data/collaboration",
+      "RW": true
+    }
+  ]
+}

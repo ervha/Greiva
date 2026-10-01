@@ -1,0 +1,6 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="8.596763999999999">
+<testsuite name="editor.spec.ts" timestamp="2026-10-01T12:55:24.990Z" hostname="chromium" tests="1" failures="0" skipped="0" time="4.331" errors="0">
+<testcase name="STEP8-TODO: each checkbox aligns with its editable text and pointer editing keeps the item" classname="editor.spec.ts" time="4.331">
+</testcase>
+</testsuite>
+</testsuites>

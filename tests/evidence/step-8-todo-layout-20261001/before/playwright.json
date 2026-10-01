@@ -1,0 +1,166 @@
+{
+  "config": {
+    "argv": [
+      "/usr/local/bin/node",
+      "/workspace/node_modules/.bin/playwright",
+      "test",
+      "tests/e2e/editor.spec.ts",
+      "--grep",
+      "STEP8-TODO"
+    ],
+    "configFile": "/workspace/playwright.config.ts",
+    "rootDir": "/workspace/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/evidence/step8-todo-before/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/workspace/tests/e2e",
+        "testIgnore": [
+          "structured-sync.spec.ts",
+          "structured-crash.spec.ts"
+        ],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/evidence/step8-todo-before/playwright.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "/evidence/step8-todo-before/playwright.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 2,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "editor.spec.ts",
+      "file": "editor.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "STEP8-TODO: each checkbox aligns with its editable text and pointer editing keeps the item",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4571,
+                  "error": {
+                    "message": "Error: Todo text must sit to the right of its checkbox\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m180\u001b[39m\nReceived:   \u001b[31m163\u001b[39m",
+                    "stack": "Error: Todo text must sit to the right of its checkbox\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m180\u001b[39m\nReceived:   \u001b[31m163\u001b[39m\n    at /workspace/tests/e2e/editor.spec.ts:73:72",
+                    "location": {
+                      "file": "/workspace/tests/e2e/editor.spec.ts",
+                      "column": 72,
+                      "line": 73
+                    },
+                    "snippet": "  71 |     expect(checkbox).not.toBeNull();\n  72 |     expect(text).not.toBeNull();\n> 73 |     expect(text!.x, 'Todo text must sit to the right of its checkbox').toBeGreaterThan(checkbox!.x + checkbox!.width);\n     |                                                                        ^\n  74 |     expect(Math.abs(checkbox!.y + checkbox!.height / 2 - text!.y - text!.height / 2),\n  75 |       'Todo checkbox and its text must share the same line').toBeLessThan(text!.height / 2);\n  76 |   }"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/tests/e2e/editor.spec.ts",
+                        "column": 72,
+                        "line": 73
+                      },
+                      "message": "Error: Todo text must sit to the right of its checkbox\n\n\u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBeGreaterThan\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nExpected: > \u001b[32m180\u001b[39m\nReceived:   \u001b[31m163\u001b[39m\n\n  71 |     expect(checkbox).not.toBeNull();\n  72 |     expect(text).not.toBeNull();\n> 73 |     expect(text!.x, 'Todo text must sit to the right of its checkbox').toBeGreaterThan(checkbox!.x + checkbox!.width);\n     |                                                                        ^\n  74 |     expect(Math.abs(checkbox!.y + checkbox!.height / 2 - text!.y - text!.height / 2),\n  75 |       'Todo checkbox and its text must share the same line').toBeLessThan(text!.height / 2);\n  76 |   }\n    at /workspace/tests/e2e/editor.spec.ts:73:72"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-01T12:54:26.643Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/evidence/step8-todo-before/artifacts/editor-STEP8-TODO-each-che-28966-nter-editing-keeps-the-item-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/evidence/step8-todo-before/artifacts/editor-STEP8-TODO-each-che-28966-nter-editing-keeps-the-item-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/tests/e2e/editor.spec.ts",
+                    "column": 72,
+                    "line": 73
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "d2f56d7d370f0ba02e91-e5d044d1ad23ae7dbc7a",
+          "file": "editor.spec.ts",
+          "line": 60,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-01T12:54:21.221Z",
+    "duration": 11069.717,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

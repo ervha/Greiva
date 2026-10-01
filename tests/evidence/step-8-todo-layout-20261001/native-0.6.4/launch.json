@@ -1,0 +1,19 @@
+{
+  "startedAt": "2026-10-01T10:45:11.9097667Z",
+  "execution": "Windows host; verified debug native shell with embedded production assets",
+  "executableSha256": "8E4D965D85BBBD75493713BC6DE290C44D207D04EE9C1BD2701B32B929D07363",
+  "executableVersion": "0.6.4",
+  "executableLastWriteUtc": "2026-10-01T10:17:03.0000000Z",
+  "frontend": "embedded assets; no development server required",
+  "requestedWebviewUserData": ".data/host-ime/runs/2026-10-01T10-45-11Z/webview2",
+  "requestedDebugDatabaseDirectory": ".data/host-ime/sqlite",
+  "checkpoint": "0.6.4",
+  "gitCommit": "aac671a8115c6a68f418a27a24eaaf6bbe4737f8",
+  "stdout": "stdout.log",
+  "stderr": "stderr.log",
+  "hostToolchainInstalled": false,
+  "nativeRendering": "Not verified",
+  "microsoftIme": "Not run; requires actual keyboard composition and observed results",
+  "processId": 18064,
+  "processState": "Running after initial startup check; rendering not verified"
+}

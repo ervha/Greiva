@@ -2,6 +2,12 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.5 — 2026-10-01
+
+- Todo配置の修正（PATCH）: 固定版Tiptapの実DOMに一致するCSSへ変更し、チェック欄と本文を同じ行に配置する。完了状態の取り消し線、保存・同期・IME処理は維持。
+- 修正前の位置検査Fail、修正後のpointer編集・本文保持・チェックと全E2E45件Pass。build・型・通常試験・locked Tauri checkもPass。[証拠](tests/evidence/step-8-todo-layout-20261001/SUMMARY.md)。外部依存を維持し、アプリ所有manifest／lockの版を整合。
+- Windows 0.6.4の新規Page・Slash／選択・Undo/Redo／Toggle／Todoと実キー日本語変換を限定的に記録。修正後0.6.5でTodo配置・pointer編集・完了表示を実機確認し、Docker previewもsource一致を確認して反映。0.6.4 release artifactはDocker build・host照合のみ。最新native全操作、Microsoft IME、同一段落composition重複・再変換、release起動時間と最終Gateは未検証。
+
 ## 0.6.4 — 2026-10-01
 
 - Editor性能改善（PATCH）: 入力のたびに作り直していたブロックのドラッグハンドルDOMを再利用する。ドラッグ開始時には現在の位置と本文を読み、前のブロックの編集で位置が変わっても正しいブロックを移動する。保存・同期・IMEの契約は維持。

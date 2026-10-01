@@ -2,7 +2,7 @@
 
 [プロジェクト紹介へ戻る](../../README.md)。以下のコマンドは、特記がなければリポジトリのルートで実行します。
 
-2026-10-01時点の開発計画と検証記録。開発チェックポイント **v0.6.4**（Step 8の入力時DOM再生成を改善、全回帰12項目Pass。Windows 0.6.4候補はDocker build・host照合済み、最新候補のnative全操作／IMEは後続。プレビューは0.6.4）。[変更履歴](../../CHANGELOG.md)・[コミット/バージョン運用](../development/versioning.md)。更新規模に応じたGitタグを付けてGitHubへ反映します。
+2026-10-01時点の開発計画と検証記録。開発チェックポイント **v0.6.5**（Todo配置を実DOMに合わせて修正。関連5項目・全E2E45件Pass。修正前の実機操作は0.6.4、0.6.5でTodo配置・pointer編集・チェックを実機確認。最新native全操作／Microsoft IMEは後続。プレビューも0.6.5へ反映・source一致を確認済み）。[変更履歴](../../CHANGELOG.md)・[コミット/バージョン運用](../development/versioning.md)。更新規模に応じたGitタグを付けてGitHubへ反映します。
 
 [POC_SPEC.md](POC_SPEC.md) のSection 18に沿って進めています。Step 1の基盤とStep 2の最小Editorを実装し、Slash・Toggleの操作改善を含むDocker内の全30件のE2Eが成功しました。Step 3はWindows実機へ切り替え、既存native shellの起動とWebView2保存先を確認しました。初回local IMEの4群は利用者がすべて問題なしと明示回答し、手動結果と初回証拠を記録しました。[Step 3初回IME記録](../../tests/evidence/windows-host-ime-20261001/SUMMARY.md)。[版の記録](../decisions/specification-version.md)、[Step 2の範囲・検証状況](../decisions/step-2-scope.md)、[Editor操作の改善](../decisions/editor-ux.md)を参照してください。
 
@@ -37,6 +37,7 @@ Step 8ではproduction bundle／release Rustで、空SQLiteのWeb補助起動、
 
 v0.6.4では入力時のドラッグハンドルDOM再生成を改善しました。[判断](../decisions/step-8-editor-performance.md)・[証跡](../../tests/evidence/step-8-editor-performance-20261001/SUMMARY.md)。12項目、通常45件／実PostgreSQL別run20件、Editor44・structured UI2・統合crash4・性能4ケースがPass。1,000 block／104文字入力で全handleを保持し、前の本文変更後の位置・payloadと実pointer移動・Undo/Redoも検証。最終runのkeydown→commit ACKはp95 106.7ms・最大176.2ms、ハンドルだけの追加比較でも保持0→1,000と待ち短縮を観測しました。短縮率を製品やnative IPCの保証とせず、試験sourceは元へ戻して照合しています。0.6.4 Windows候補はDocker buildとhost artifact照合済みで、ホストtoolchainは追加していません。最新native全操作・Microsoft IME、Windows release性能、P1/P2実OSと最終Gateは残ります。プレビューは0.6.4へ更新し、実行中130ファイルと検証sourceのhash一致・3サービスhealthを確認しました。
 
+v0.6.5ではWindows 0.6.4で観察したTodoの別行配置を、固定版Tiptapの実DOMに一致するCSSへ修正しました。[判断](../decisions/step-8-todo-layout.md)・[証拠](../../tests/evidence/step-8-todo-layout-20261001/SUMMARY.md)。修正前に失敗する実位置検査、修正後のpointer編集と全E2E45件、build／型／通常45件（実DB専用20件skip）／locked Tauri checkがPass。実機0.6.4のSlash・選択置換／Undo/Redo・Toggle・Todoと実キー日本語変換は限定証拠として保持します。Googleを使うと利用者が回答しましたが、今回の画像でProvider名を独立確認しておらず、Microsoft IME・再変換・同一段落composition重複・全native操作の合格には読み替えません。0.6.4 release exeはDocker build・host照合済みで、起動・空DB隔離・性能は未検証。0.6.5ではTodoの配置・pointer編集・チェックをWindowsで確認し、Docker previewにもsource一致を確認して反映しました。最新native全操作、P1/P2実OSと最終Gateは残ります。
 現在のユーザー指定により、**Dockerで開発・自動テスト、Windows実機でTauri・Microsoft IMEを検証**します。[実機起動手順](../development/windows-host-ime.md)は既存実行物を使い、ホストへ開発ツールを追加しません。[隔離環境の詳細](../development/isolated-environment.md)。
 
 ```powershell

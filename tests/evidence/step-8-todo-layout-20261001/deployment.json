@@ -1,0 +1,22 @@
+{
+  "capturedAt": "2026-10-01T13:36:19.102Z",
+  "version": "0.6.5",
+  "fileCount": 130,
+  "sourceSha256": "c0f39a8a19274ef4150c4c770189fce4b927e21befb9c542bb24402975846205",
+  "sourceBytesMatch": true,
+  "health": [
+    {
+      "port": 1420,
+      "status": 200
+    },
+    {
+      "port": 3000,
+      "status": 200
+    },
+    {
+      "port": 1234,
+      "status": 200
+    }
+  ],
+  "scope": "Live Docker dev preview, API and collaboration. Actual Windows native/IME tests are separate."
+}

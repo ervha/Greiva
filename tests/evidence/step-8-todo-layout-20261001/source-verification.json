@@ -1,0 +1,8 @@
+{
+  "at": "2026-10-01T13:08:58.1381864Z",
+  "version": "0.6.5",
+  "files": 130,
+  "sourceSha256": "c0f39a8a19274ef4150c4c770189fce4b927e21befb9c542bb24402975846205",
+  "sourceMatches": true,
+  "externalDependencyCheck": "prepare-step8-todo.ps1 checked every external npm and Cargo entry against HEAD"
+}

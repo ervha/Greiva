@@ -57,6 +57,35 @@ test('STEP2-TODO: checkbox and nested list survive undo/redo', async ({ page }) 
   await expect(checkbox).toBeChecked();
 });
 
+test('STEP8-TODO: each checkbox aligns with its editable text and pointer editing keeps the item', async ({ page }) => {
+  const editor = await body(page);
+  await slash(page, 'Todo');
+  await page.keyboard.type('first');
+  await page.keyboard.press('Enter');
+  await page.keyboard.type('second');
+  const items = editor.locator('ul[data-type="taskList"] > li');
+  await expect(items).toHaveCount(2);
+  for (const item of await items.all()) {
+    const checkbox = await item.getByRole('checkbox').boundingBox();
+    const text = await item.locator(':scope > div > p').boundingBox();
+    expect(checkbox).not.toBeNull();
+    expect(text).not.toBeNull();
+    expect(text!.x, 'Todo text must sit to the right of its checkbox').toBeGreaterThan(checkbox!.x + checkbox!.width);
+    expect(Math.abs(checkbox!.y + checkbox!.height / 2 - text!.y - text!.height / 2),
+      'Todo checkbox and its text must share the same line').toBeLessThan(text!.height / 2);
+  }
+  const first = items.first().locator(':scope > div > p');
+  await first.click();
+  await page.keyboard.press('End');
+  await page.keyboard.type(' edited');
+  await expect(first).toHaveText('first edited');
+  await expect(items.nth(1).locator(':scope > div > p')).toHaveText('second');
+  const checkbox = items.first().getByRole('checkbox', { name: 'Todo: first edited', exact: true });
+  await checkbox.check();
+  await expect(checkbox).toBeChecked();
+  await expect(first).toHaveCSS('text-decoration-line', 'line-through');
+});
+
 test('STEP2-TOGGLE: nested content folds without losing text and unwraps', async ({ page }) => {
   const editor = await body(page);
   await slash(page, 'Toggle');
