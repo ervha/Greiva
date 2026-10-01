@@ -2,7 +2,7 @@
 
 [プロジェクト紹介へ戻る](../../README.md)。以下のコマンドは、特記がなければリポジトリのルートで実行します。
 
-2026-10-01時点の開発計画と検証記録。開発チェックポイント **v0.6.0**。[変更履歴](../../CHANGELOG.md)・[コミット/バージョン運用](../development/versioning.md)。更新規模に応じたGitタグを付けてGitHubへ反映します。
+2026-10-01時点の開発計画と検証記録。開発チェックポイント **v0.6.1**（文書補足。最新の実装・Windows候補は0.6.0）。[変更履歴](../../CHANGELOG.md)・[コミット/バージョン運用](../development/versioning.md)。更新規模に応じたGitタグを付けてGitHubへ反映します。
 
 [POC_SPEC.md](POC_SPEC.md) のSection 18に沿って進めています。Step 1の基盤とStep 2の最小Editorを実装し、Slash・Toggleの操作改善を含むDocker内の全30件のE2Eが成功しました。Step 3はWindows実機へ切り替え、既存native shellの起動とWebView2保存先を確認しました。初回local IMEの4群は利用者がすべて問題なしと明示回答し、手動結果と初回証拠を記録しました。[Step 3初回IME記録](../../tests/evidence/windows-host-ime-20261001/SUMMARY.md)。[版の記録](../decisions/specification-version.md)、[Step 2の範囲・検証状況](../decisions/step-2-scope.md)、[Editor操作の改善](../decisions/editor-ux.md)を参照してください。
 

@@ -1,4 +1,4 @@
-# 汎用ボタン・データベースオートメーション 設計案 v0.1
+# 汎用ボタン・データベースオートメーション 設計案 v0.2
 
 更新: 2026-10-01。製品要求と実装前の詳細案。未実装であり、PoCの範囲・順序・Gateを変更しない。
 
@@ -25,6 +25,29 @@
 根拠: [Database buttons](https://www.notion.com/help/database-buttons)、[Page buttons](https://www.notion.com/help/buttons)、[Database automations](https://www.notion.com/help/database-automations)。Greivaの後続節はこれらを基にした設計案で、Notionの内部実装を説明するものではない。
 
 Notionのボタンは確認・Page/URLを開くactionを持つ。DB automationはPage追加、Property編集、頻度による定期実行をtriggerにし、any/allを選べる。定期triggerは他triggerと組合せず、現在PageのEdit propertyとは組合せない。複数の編集triggerのall判定には約3秒の窓があり、式はaction入力で使い、trigger自体の任意式としては使わない。Greivaでも対応の可否・差異を隠さない。
+
+### 2.1 配置・起動方法ごとのアクション対応
+
+以下は上記の公式Helpで確認した提供範囲。Greivaの実装済み機能の一覧ではない。共通action editorでも、配置・起動方法に合った候補だけを表示し、保存時と実行時に再検証する。
+
+| アクション | DBのButtonプロパティ | Page本文のButton | DB automation |
+| --- | --- | --- | --- |
+| 現在RecordのProperty編集 | 対応 | 一覧にない。対象を指定したレコード編集を使う | 対応。ただし定期triggerでは不可 |
+| 別DataSourceへのRecord作成 | 対応 | 対応 | 対応 |
+| 対象レコード群の編集 | 対応 | 対応 | 対応 |
+| 変数・式を定義し後続actionで参照 | 対応 | 対応 | 対応 |
+| 確認を表示 | 対応 | 対応 | 一覧にない |
+| 既存／今回作成したPage・URLを開く | 対応 | 対応 | 一覧にない |
+| 本文blockの挿入 | 一覧にない | 対応。ボタンの上／下、Pageの先頭／末尾 | 一覧にない |
+| アプリ内通知・メール・Webhook・Slack通知 | 対応 | 対応 | 対応 |
+
+Greivaでは手動Buttonの確認・画面遷移と、利用者が画面を開いていなくても動くserver automationを区別する。本文挿入はPage buttonからYjs commandへ接続する。対応表にない処理を追加する場合はGreivaの拡張として記録し、Notionと同じ機能として扱わない。式の入力可否は第4節の制約も併せて適用する。
+
+### 2.2 通知・外部連携の比較事項
+
+Notionのアプリ内通知は直接指定で最大20人、またはPeopleプロパティを宛先にできる。メールにはGmail接続が必要で、接続後の設定編集者にも制限がある。Greivaでは宛先指定、送信アカウント、接続管理者と実行者の権限を分け、通知上限・Provider制限・提供時期を個別に定める。Notionの有料プラン制限は比較情報であり、Greivaの料金設定として引き継がない。
+
+[Webhook公式Help](https://www.notion.com/help/webhook-actions)では、POST、custom header、1 automationにつき最大5 action、DBのPropertyのみの送信（本文は対象外）、Buttonプロパティをpayload項目に選べないこと、失敗時の停止と手動再開を確認した。Greivaの初期対応案もPOSTと選択したPropertyを基本とし、headerの秘密値は接続設定へ保存する。本文送信・任意HTTP method・上限緩和を追加する場合は明示的な拡張とする。送信前にpayloadを表示する機能はGreivaの改善案で、Notionの現行機能と混同しない。具体的な上限と再開条件はProvider仕様で確定する。
 
 ## 3. 設定モデルの案
 
@@ -77,7 +100,7 @@ Pageの初期本文を使う場合は、予約済みPage IDと冪等な初期化
 
 any/allの条件はUIで明確に表示する。複数の変更条件を一つのcommand内で満たす場合は同じ変更eventで評価する案。別command間のall編集triggerを元仕様と同様に短い窓でまとめる場合は、サーバー受理時点を使うdurableな窓・締切・復旧を定義する。約3秒の挙動を端末時計やpullのタイミングで模倣しない。厳密な時間窓とoffline連続操作の判定は実装前の未決定事項とする。
 
-保存ビューを対象とする場合、評価に使う共有filterとその版を固定する。個人の一時filterではautomation定義を変えない。後値がfilterを満たす場合に対象とする案を基本とし、「ビューから外れる」triggerを追加する場合は別契約とする。
+保存ビューを対象とする場合、評価に使う共有filterとその版を固定する。共有ビューの保存済みfilterを変更した後の新しいeventは、新しいfilterで判定する。既に開始したExecutionの対象・入力は変更しない。個人の一時filterではautomation定義を変えない。Notion同様、変更後のRecordがビューのfilterを満たすことを基本とし、「ビューから外れる」triggerを追加する場合は別契約とする。
 
 操作原因を`user` / `button` / `automation` / `import`等で記録する。Buttonによる確定変更はtriggerになり、automation由来の変更は他automationを起動しない。pull適用、ACK、派生値再計算、閲覧、CRDT projection生成で新しい変更eventを作らない。importと繰り返しtemplate由来の起動可否は対応表で明示する。
 
@@ -150,6 +173,9 @@ Buttonのローカル変更を受理した場合もeventは同じoperationを原
 | AUTO-13 | 定義/Property名を変更し、実行中に別版を保存 | 安定IDを維持し、既実行は元版で完了。新実行から新定義を使う |
 | AUTO-14 | keyboard/タッチで編集/実行、日本語IME中に同期応答 | hoverなしで操作でき、compositionとfocus・選択を維持 |
 | AUTO-15 | 個人/共有filterと不可視Recordが混在 | 共有対象の契約と認可を維持し、履歴/候補/通知に不可視値を漏らさない |
+| AUTO-16 | Page button、DB Button、定期automationでactionを選ぶ | 配置・triggerごとの対応表を適用し、不適合な処理を保存・実行しない |
+| AUTO-17 | 保存ビューfilterを変更し、実行中と新規eventが共存 | 開始済み実行の対象を保持し、新しいeventは変更後filterで判定する |
+| AUTO-18 | Webhookへ送信項目・headerを設定 | 選択したPropertyのみ送信し、秘密値を通常ログへ出さない。本文送信等の拡張は明示する |
 
 これらは将来の受入条件であり、PoCの試験成功や対応完了の証拠ではない。
 

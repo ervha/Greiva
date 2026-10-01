@@ -2,6 +2,12 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.1 — 2026-10-01
+
+- 製品設計の補足（PATCH）: Notion公式Helpを再確認し、[ボタン・オートメーション設計 v0.2](docs/plan/BUTTON_AUTOMATION_SPEC.md)へDB Button／Page button／DB automationのaction対応表、通知・メール・Webhookの比較事項を追加。
+- 保存ビューのfilter変更は新しいeventへ適用し、実行中の対象は保持する契約と、将来の受入条件を補足。汎用action・Button・automationは未実装で、PoCの範囲・順序・Gateと既存実行物の版は変更しない。
+- 検証は公式情報との照合、文書内の参照・受入条件・差分の確認。進行中のcrash試験変更はこの文書チェックポイントに含めず、新たなアプリ試験成功を主張しない。
+
 ## 0.6.0 — 2026-10-01
 
 - 実装更新（MINOR）: Step 7の端末structured syncを追加。SQLiteへ送信前のwire request・ACK・receipt・server replica・Conflictを耐久化し、pull適用とcursor更新を同じtransactionにした。元のbase/payloadを保持して連続offline編集・再送・古い応答・tombstoneに対応する。
