@@ -1,0 +1,177 @@
+{
+  "at": "2026-10-03T13:40:47.592Z",
+  "outcome": "Pass",
+  "pageId": "01a101fe-e2a6-7434-ad5c-0c449d7f0751",
+  "preservedIME": {
+    "at": "2026-10-03T13:40:43.156Z",
+    "bodyXml": "<paragraph>ANDROID611 local 日本語</paragraph><paragraph>［遠隔3］［遠隔2］［遠隔1］ANDROID611 remote 日本語</paragraph><paragraph>ANDROID611 peer</paragraph>",
+    "clocks": [
+      [
+        1,
+        1
+      ],
+      [
+        3173321062,
+        15
+      ],
+      [
+        3209286858,
+        71
+      ]
+    ],
+    "status": "サーバーと同期済み",
+    "testHooks": "undefined"
+  },
+  "records": [
+    {
+      "name": "OFFLINE-SEPARATE-EDITS",
+      "result": "Pass",
+      "baseline": {
+        "at": "2026-10-03T13:40:46.175Z",
+        "bodyXml": "<paragraph>ANDROID611 sync baseline</paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            1181937727,
+            25
+          ]
+        ],
+        "status": "サーバーと同期済み",
+        "testHooks": "undefined"
+      },
+      "offline": {
+        "at": "2026-10-03T13:40:47.533Z",
+        "bodyXml": "<paragraph>ANDROID611 sync baseline LOCAL-OFFLINE</paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            1181937727,
+            39
+          ]
+        ],
+        "status": "オフライン",
+        "testHooks": "undefined"
+      },
+      "remote": "<paragraph>REMOTE-OFFLINE ANDROID611 sync baseline</paragraph>"
+    },
+    {
+      "name": "RECONNECT-PEER-CONVERGENCE",
+      "result": "Pass",
+      "state": {
+        "at": "2026-10-03T13:40:48.230Z",
+        "bodyXml": "<paragraph>REMOTE-OFFLINE ANDROID611 sync baseline LOCAL-OFFLINE</paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            1181937727,
+            39
+          ],
+          [
+            2391686345,
+            15
+          ]
+        ],
+        "status": "サーバーと同期済み",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "FIVE-CONNECTED-INTERLEAVED-EDITS",
+      "result": "Pass",
+      "state": {
+        "at": "2026-10-03T13:40:50.809Z",
+        "bodyXml": "<paragraph>REMOTE5 REMOTE4 REMOTE3 REMOTE2 REMOTE1 REMOTE-OFFLINE ANDROID611 sync baseline LOCAL-OFFLINE LOCAL1 LOCAL2 LOCAL3 LOCAL4 LOCAL5</paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            1181937727,
+            74
+          ],
+          [
+            2391686345,
+            55
+          ]
+        ],
+        "status": "サーバーと同期済み",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "CONNECTED-RELOAD-FROM-SERVER",
+      "result": "Pass",
+      "state": {
+        "at": "2026-10-03T13:40:51.339Z",
+        "bodyXml": "<paragraph>REMOTE5 REMOTE4 REMOTE3 REMOTE2 REMOTE1 REMOTE-OFFLINE ANDROID611 sync baseline LOCAL-OFFLINE LOCAL1 LOCAL2 LOCAL3 LOCAL4 LOCAL5</paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            1181937727,
+            74
+          ],
+          [
+            2391686345,
+            55
+          ]
+        ],
+        "status": "サーバーと同期済み",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    }
+  ],
+  "final": {
+    "at": "2026-10-03T13:40:51.345Z",
+    "bodyXml": "<paragraph>REMOTE5 REMOTE4 REMOTE3 REMOTE2 REMOTE1 REMOTE-OFFLINE ANDROID611 sync baseline LOCAL-OFFLINE LOCAL1 LOCAL2 LOCAL3 LOCAL4 LOCAL5</paragraph>",
+    "clocks": [
+      [
+        1,
+        1
+      ],
+      [
+        1181937727,
+        74
+      ],
+      [
+        2391686345,
+        55
+      ]
+    ],
+    "status": "サーバーと同期済み",
+    "testHooks": "undefined"
+  },
+  "peer": {
+    "bodyXml": "<paragraph>REMOTE5 REMOTE4 REMOTE3 REMOTE2 REMOTE1 REMOTE-OFFLINE ANDROID611 sync baseline LOCAL-OFFLINE LOCAL1 LOCAL2 LOCAL3 LOCAL4 LOCAL5</paragraph>",
+    "clocks": [
+      [
+        1,
+        1
+      ],
+      [
+        1181937727,
+        74
+      ],
+      [
+        2391686345,
+        55
+      ]
+    ]
+  },
+  "scope": "Actual physical Android browser UI pause/reconnect and literal edits, independent Yjs peer. Connected reload is server restoration, not SQLite durability or offline restart. IME fixture observed unchanged before leaving, never edited."
+}

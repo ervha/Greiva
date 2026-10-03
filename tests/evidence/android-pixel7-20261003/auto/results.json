@@ -1,0 +1,1369 @@
+{
+  "at": "2026-10-03T13:23:14.803Z",
+  "outcome": "Pass",
+  "browser": "154.0.8037.126",
+  "physicalDevice": "Pixel 7",
+  "pageId": "01a101ee-6bc2-7163-8167-a777f82c7aef",
+  "preservedOriginal": {
+    "at": "2026-10-03T13:22:44.192Z",
+    "url": "http://127.0.0.1:1420/?page=01a101eb-2835-77d8-9999-076c50a514fa",
+    "json": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "paragraph"
+        }
+      ]
+    },
+    "bodyXml": "<paragraph></paragraph>",
+    "clocks": [
+      [
+        1,
+        1
+      ],
+      [
+        2587323807,
+        38
+      ]
+    ],
+    "viewport": {
+      "width": 520,
+      "height": 492,
+      "devicePixelRatio": 2.075000047683716,
+      "visualWidth": 520.48193359375,
+      "visualHeight": 492.0481872558594
+    },
+    "focused": null,
+    "testHooks": "undefined"
+  },
+  "records": [
+    {
+      "name": "ANDROID-BLOCK-本文",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:22:42.201Z",
+      "finishedAt": "2026-10-03T13:22:43.641Z",
+      "state": {
+        "at": "2026-10-03T13:22:47.347Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "android paragraph"
+                }
+              ]
+            }
+          ]
+        },
+        "bodyXml": "<paragraph>android paragraph</paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            19
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-DELETE-本文",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:22:43.642Z",
+      "finishedAt": "2026-10-03T13:22:44.007Z",
+      "state": {
+        "at": "2026-10-03T13:22:47.714Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            19
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-BLOCK-見出し1",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:22:44.007Z",
+      "finishedAt": "2026-10-03T13:22:45.168Z",
+      "state": {
+        "at": "2026-10-03T13:22:48.875Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "heading",
+              "attrs": {
+                "level": 1
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "android h1"
+                }
+              ]
+            },
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<heading level=\"1\">android h1</heading><paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            33
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-DELETE-見出し1",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:22:45.169Z",
+      "finishedAt": "2026-10-03T13:22:45.537Z",
+      "state": {
+        "at": "2026-10-03T13:22:49.244Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            33
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-BLOCK-見出し2",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:22:45.537Z",
+      "finishedAt": "2026-10-03T13:22:46.729Z",
+      "state": {
+        "at": "2026-10-03T13:22:50.436Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "heading",
+              "attrs": {
+                "level": 2
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "android h2"
+                }
+              ]
+            },
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<heading level=\"2\">android h2</heading><paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            47
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-DELETE-見出し2",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:22:46.729Z",
+      "finishedAt": "2026-10-03T13:22:47.113Z",
+      "state": {
+        "at": "2026-10-03T13:22:50.818Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            47
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-BLOCK-見出し3",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:22:47.113Z",
+      "finishedAt": "2026-10-03T13:22:48.227Z",
+      "state": {
+        "at": "2026-10-03T13:22:51.935Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "heading",
+              "attrs": {
+                "level": 3
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "android h3"
+                }
+              ]
+            },
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<heading level=\"3\">android h3</heading><paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            61
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-DELETE-見出し3",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:22:48.227Z",
+      "finishedAt": "2026-10-03T13:22:48.602Z",
+      "state": {
+        "at": "2026-10-03T13:22:52.308Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            61
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-BLOCK-箇条書き",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:22:48.602Z",
+      "finishedAt": "2026-10-03T13:22:50.457Z",
+      "state": {
+        "at": "2026-10-03T13:22:54.160Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "bulletList",
+              "content": [
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "android ul:not([data-type])"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<bulletlist><listitem><paragraph>android ul:not([data-type])</paragraph></listitem></bulletlist><paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            93
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-DELETE-箇条書き",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:22:50.458Z",
+      "finishedAt": "2026-10-03T13:22:50.849Z",
+      "state": {
+        "at": "2026-10-03T13:22:54.553Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            93
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-BLOCK-番号付きリスト",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:22:50.849Z",
+      "finishedAt": "2026-10-03T13:22:52.076Z",
+      "state": {
+        "at": "2026-10-03T13:22:55.747Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "orderedList",
+              "attrs": {
+                "start": 1,
+                "type": null
+              },
+              "content": [
+                {
+                  "type": "listItem",
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "android ol"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<orderedlist start=\"1\"><listitem><paragraph>android ol</paragraph></listitem></orderedlist><paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            109
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-DELETE-番号付きリスト",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:22:52.076Z",
+      "finishedAt": "2026-10-03T13:22:52.444Z",
+      "state": {
+        "at": "2026-10-03T13:22:56.153Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            109
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-BLOCK-Todo",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:22:52.444Z",
+      "finishedAt": "2026-10-03T13:22:54.628Z",
+      "state": {
+        "at": "2026-10-03T13:22:58.337Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "taskList",
+              "content": [
+                {
+                  "type": "taskItem",
+                  "attrs": {
+                    "checked": false
+                  },
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "android ul[data-type=\"taskList\"]"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<tasklist><taskitem checked=\"false\"><paragraph>android ul[data-type=\"taskList\"]</paragraph></taskitem></tasklist><paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            147
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-DELETE-Todo",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:22:54.628Z",
+      "finishedAt": "2026-10-03T13:22:55.026Z",
+      "state": {
+        "at": "2026-10-03T13:22:58.733Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            147
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-BLOCK-引用",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:22:55.026Z",
+      "finishedAt": "2026-10-03T13:22:56.532Z",
+      "state": {
+        "at": "2026-10-03T13:23:00.204Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "blockquote",
+              "content": [
+                {
+                  "type": "paragraph",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "android blockquote"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<blockquote><paragraph>android blockquote</paragraph></blockquote><paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            169
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-DELETE-引用",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:22:56.532Z",
+      "finishedAt": "2026-10-03T13:22:56.925Z",
+      "state": {
+        "at": "2026-10-03T13:23:00.634Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            169
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-BLOCK-コード",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:22:56.925Z",
+      "finishedAt": "2026-10-03T13:22:58.126Z",
+      "state": {
+        "at": "2026-10-03T13:23:01.833Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "codeBlock",
+              "attrs": {
+                "language": null
+              },
+              "content": [
+                {
+                  "type": "text",
+                  "text": "android pre"
+                }
+              ]
+            },
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<codeblock>android pre</codeblock><paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            183
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-DELETE-コード",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:22:58.126Z",
+      "finishedAt": "2026-10-03T13:22:58.509Z",
+      "state": {
+        "at": "2026-10-03T13:23:02.219Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            183
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-BLOCK-区切り線",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:22:58.509Z",
+      "finishedAt": "2026-10-03T13:22:59.170Z",
+      "state": {
+        "at": "2026-10-03T13:23:02.878Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "horizontalRule"
+            },
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<horizontalrule></horizontalrule><paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            185
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-DELETE-区切り線",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:22:59.170Z",
+      "finishedAt": "2026-10-03T13:22:59.520Z",
+      "state": {
+        "at": "2026-10-03T13:23:03.227Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            185
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-BLOCK-Toggle",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:22:59.520Z",
+      "finishedAt": "2026-10-03T13:23:01.576Z",
+      "state": {
+        "at": "2026-10-03T13:23:05.245Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "details",
+              "attrs": {
+                "open": true
+              },
+              "content": [
+                {
+                  "type": "detailsSummary",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "android [data-type=\"details\"]"
+                    }
+                  ]
+                },
+                {
+                  "type": "detailsContent",
+                  "content": [
+                    {
+                      "type": "paragraph"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<details open=\"true\"><detailssummary>android [data-type=\"details\"]</detailssummary><detailscontent><paragraph></paragraph></detailscontent></details><paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            221
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-DELETE-Toggle",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:23:01.576Z",
+      "finishedAt": "2026-10-03T13:23:01.965Z",
+      "state": {
+        "at": "2026-10-03T13:23:05.674Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            221
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-TODO-TOUCH-INDENT-UNDO",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:23:01.965Z",
+      "finishedAt": "2026-10-03T13:23:05.935Z",
+      "state": {
+        "at": "2026-10-03T13:23:09.642Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "taskList",
+              "content": [
+                {
+                  "type": "taskItem",
+                  "attrs": {
+                    "checked": true
+                  },
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "first"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "taskItem",
+                  "attrs": {
+                    "checked": false
+                  },
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "second"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<tasklist><taskitem checked=\"true\"><paragraph>first</paragraph></taskitem><taskitem checked=\"false\"><paragraph>second</paragraph></taskitem></tasklist><paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            266
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-NESTED-TOGGLE-TOUCH",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:23:06.231Z",
+      "finishedAt": "2026-10-03T13:23:10.844Z",
+      "state": {
+        "at": "2026-10-03T13:23:14.550Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "details",
+              "attrs": {
+                "open": true
+              },
+              "content": [
+                {
+                  "type": "detailsSummary",
+                  "content": [
+                    {
+                      "type": "text",
+                      "text": "summary"
+                    }
+                  ]
+                },
+                {
+                  "type": "detailsContent",
+                  "content": [
+                    {
+                      "type": "paragraph",
+                      "content": [
+                        {
+                          "type": "text",
+                          "text": "nested text"
+                        }
+                      ]
+                    },
+                    {
+                      "type": "details",
+                      "attrs": {
+                        "open": true
+                      },
+                      "content": [
+                        {
+                          "type": "detailsSummary",
+                          "content": [
+                            {
+                              "type": "text",
+                              "text": "nested summary"
+                            }
+                          ]
+                        },
+                        {
+                          "type": "detailsContent",
+                          "content": [
+                            {
+                              "type": "paragraph"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "paragraph"
+            }
+          ]
+        },
+        "bodyXml": "<details open=\"true\"><detailssummary>summary</detailssummary><detailscontent><paragraph>nested text</paragraph><details open=\"true\"><detailssummary>nested summary</detailssummary><detailscontent><paragraph></paragraph></detailscontent></details></detailscontent></details><paragraph></paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            317
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-MENTION-SELECTION-UNDO-REDO",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:23:11.206Z",
+      "finishedAt": "2026-10-03T13:23:12.064Z",
+      "state": {
+        "at": "2026-10-03T13:23:15.772Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "mention",
+                  "attrs": {
+                    "id": "demo-task",
+                    "label": "サンプルTask",
+                    "mentionSuggestionChar": "@"
+                  }
+                },
+                {
+                  "type": "text",
+                  "text": "  ABC"
+                }
+              ]
+            }
+          ]
+        },
+        "bodyXml": "<paragraph><mention id=\"demo-task\" label=\"サンプルTask\" mentionSuggestionChar=\"@\"></mention>  ABC</paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            339
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    },
+    {
+      "name": "ANDROID-TOUCH-SLASH-BOUNDS-ESCAPE",
+      "result": "Pass",
+      "startedAt": "2026-10-03T13:23:12.356Z",
+      "finishedAt": "2026-10-03T13:23:12.672Z",
+      "state": {
+        "at": "2026-10-03T13:23:16.380Z",
+        "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+        "json": {
+          "type": "doc",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "/"
+                }
+              ]
+            }
+          ]
+        },
+        "bodyXml": "<paragraph>/</paragraph>",
+        "clocks": [
+          [
+            1,
+            1
+          ],
+          [
+            222714188,
+            341
+          ]
+        ],
+        "viewport": {
+          "width": 520,
+          "height": 492,
+          "devicePixelRatio": 2.075000047683716,
+          "visualWidth": 520.48193359375,
+          "visualHeight": 492.0481872558594
+        },
+        "focused": "Page本文",
+        "testHooks": "undefined"
+      },
+      "peerMatches": true
+    }
+  ],
+  "final": {
+    "at": "2026-10-03T13:23:18.520Z",
+    "url": "http://127.0.0.1:1420/?page=01a101ee-6bc2-7163-8167-a777f82c7aef",
+    "json": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "ANDROID611 automatic done"
+            }
+          ]
+        }
+      ]
+    },
+    "bodyXml": "<paragraph>ANDROID611 automatic done</paragraph>",
+    "clocks": [
+      [
+        1,
+        1
+      ],
+      [
+        222714188,
+        366
+      ]
+    ],
+    "viewport": {
+      "width": 520,
+      "height": 492,
+      "devicePixelRatio": 2.075000047683716,
+      "visualWidth": 520,
+      "visualHeight": 492.0481872558594
+    },
+    "focused": null,
+    "testHooks": "undefined"
+  },
+  "scope": "Actual physical Android Chrome via Docker CDP controller; trusted browser touch/key events and literal text, normal product bundle without test hooks. These are not real Gboard composition/OS key events or SQLite durability results."
+}

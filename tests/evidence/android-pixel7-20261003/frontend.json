@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-03T13:43:14.7432146Z",
+  "product": "0.6.11",
+  "buildCheckpoint": "d55044e4b660c3c26e774bf1111de5a619a685eb",
+  "testFrontendFlags": 0,
+  "matchesVerifiedReleaseDist": true,
+  "files": [
+    {
+      "path": "assets/index-Bm_wJd53.css",
+      "bytes": 8048,
+      "sha256": "499f83f71a0ba473d76dfd2e48abede52aac9025bb2f6b4c3995367bee606c9d"
+    },
+    {
+      "path": "assets/index-Ic6yEojM.js",
+      "bytes": 920686,
+      "sha256": "074548cc8c198fcf87e8967c42c8dd596c427e39775aaaed8a7596ba8e32a0a3"
+    },
+    {
+      "path": "index.html",
+      "bytes": 356,
+      "sha256": "7254a9ede47f809affc15afb755a089e6fce49f3f4179e6e4b64c80a084865dc"
+    }
+  ]
+}

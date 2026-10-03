@@ -1,0 +1,12 @@
+{
+  "at": "2026-10-03T13:32:45.3670707Z",
+  "device": "Pixel 7",
+  "osRelease": "17",
+  "sdk": "37",
+  "buildId": "CP3A.260905.009",
+  "browser": "Chrome 154.0.8037.126",
+  "inputMethod": "com.google.android.inputmethod.latin/com.android.inputmethod.latin.LatinIME",
+  "inputReporter": "User: both E/F completed without problems",
+  "connection": "User-authorized wireless ADB; loopback reverse to Docker HTTP and collaboration; ephemeral reverse CDP relay, no host toolchain installed",
+  "scope": "Physical Android browser, no SQLite/native Task save"
+}

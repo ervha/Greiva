@@ -1,5 +1,9 @@
 # 試験証拠の索引
 
+## Step 8: Pixel 7 / Android Chrome / Gboard（2026-10-03、記録v0.6.15／製品0.6.11）
+
+[実機26＋4自動操作・実Gboard E/F・遠隔3更新](android-pixel7-20261003/SUMMARY.md)。Android 17 / Chrome 154、normal release frontend、独立peerの全文／state vector一致。P2 browser互換性の証拠で、SQLite・offline終了復旧・composition中reconnect・Windows性能を含めない。
+
 ## Step 8: Windows Conflict UI・保持・明示解決（2026-10-03、記録v0.6.14／製品0.6.11）
 
 [native実操作・強制終了復元・独立peer／台帳照合](windows-native-conflict-20261003/SUMMARY.md)。base/local/remote保持、状態／期限merge、draft保持、local pointer採用とremote Tab／Enter採用を検証。open Conflictを保持したconnected再起動、native7操作・receipt9件、台帳9件とpeerの一致。全操作・実IME・offline再起動・性能・Androidをこのrunの結果へ混ぜない。

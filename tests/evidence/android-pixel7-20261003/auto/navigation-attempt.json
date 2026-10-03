@@ -1,0 +1,73 @@
+{
+  "at": "2026-10-03T13:19:06.964Z",
+  "outcome": "Incomplete",
+  "browser": "154.0.8037.126",
+  "physicalDevice": "Pixel 7",
+  "pageId": "01a10240-0000-7000-8000-000000000001",
+  "preservedOriginal": {
+    "at": "2026-10-03T13:19:09.998Z",
+    "url": "http://127.0.0.1:1420/?page=01a10240-0000-7000-8000-000000000001",
+    "json": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "paragraph"
+        }
+      ]
+    },
+    "bodyXml": "<paragraph></paragraph>",
+    "clocks": [
+      [
+        1,
+        1
+      ],
+      [
+        1968432318,
+        10
+      ]
+    ],
+    "viewport": {
+      "width": 520,
+      "height": 493,
+      "devicePixelRatio": 2.075000047683716,
+      "visualWidth": 520.48193359375,
+      "visualHeight": 493.01202392578125
+    },
+    "focused": null,
+    "testHooks": "undefined"
+  },
+  "records": [],
+  "final": {
+    "at": "2026-10-03T13:19:10.672Z",
+    "url": "http://127.0.0.1:1420/?page=01a10240-0000-7000-8000-000000000001",
+    "json": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "paragraph"
+        }
+      ]
+    },
+    "bodyXml": "<paragraph></paragraph>",
+    "clocks": [
+      [
+        1,
+        1
+      ],
+      [
+        1968432318,
+        10
+      ]
+    ],
+    "viewport": {
+      "width": 520,
+      "height": 493,
+      "devicePixelRatio": 2.075000047683716,
+      "visualWidth": 520.48193359375,
+      "visualHeight": 493.01202392578125
+    },
+    "focused": null,
+    "testHooks": "undefined"
+  },
+  "scope": "Actual physical Android Chrome via Docker CDP controller; trusted browser touch/key events and literal text, normal product bundle without test hooks. These are not real Gboard composition/OS key events or SQLite durability results."
+}

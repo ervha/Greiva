@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.15 — 2026-10-03
+
+- Pixel 7 / Android 17 / Chrome 154の実機互換性証拠を追加（PATCH）。必須blockなど自動26項目、接続停止／再接続／交互編集／connected reloadの4項目、実Gboard E/Fの日本語変換を確認。[原結果と監査](tests/evidence/android-pixel7-20261003/SUMMARY.md)。Fの実composition中に同じ段落へ遠隔3更新を送り、最終本文とstate vectorが独立peerと一致。候補表示は利用者の問題なし報告と区別して記録。
+- AndroidはP2のブラウザ検証で、SQLite・native Task保存やoffline終了復旧を主張しない。compositionendのisTrusted=falseを原値のまま残す。配信frontendと確認済みrelease buildのhash一致・hook無効を照合。製品／manifestは0.6.11のまま。Windows release性能・macOS P1／iOS P2・最終Gateは継続する。
+
 ## 0.6.14 — 2026-10-03
 
 - Windows native Conflict検証の記録（PATCH）。通常0.6.11で同fieldのbase/local/remote保持、別fieldの状態／期限merge、未保存draft保持、local pointer採用とremote Tab／Enter採用を確認。未解決Conflictを保持した強制終了・connected再起動も検証。[実操作と独立照合](tests/evidence/windows-native-conflict-20261003/SUMMARY.md)。

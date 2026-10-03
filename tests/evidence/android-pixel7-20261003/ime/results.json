@@ -1,0 +1,988 @@
+{
+  "at": "2026-10-03T13:32:46.842Z",
+  "pageId": "01a101f1-ca11-7047-82ff-0455d1b6a940",
+  "outcome": "User input finished; inspect raw events and convergence",
+  "remote": [
+    {
+      "at": "2026-10-03T13:28:02.274Z",
+      "index": 1,
+      "trigger": {
+        "at": "2026-10-03T13:28:05.926Z",
+        "performanceAt": 100372.19999992847,
+        "type": "compositionstart",
+        "isTrusted": true,
+        "data": "",
+        "inputType": null,
+        "isComposing": null,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 41,
+          "to": 41
+        },
+        "text": "ANDROID611 local 日本語ANDROID611 remote ANDROID611 peer"
+      },
+      "bodyXml": "<paragraph>ANDROID611 local 日本語</paragraph><paragraph>［遠隔1］ANDROID611 remote に</paragraph><paragraph>ANDROID611 peer</paragraph>"
+    },
+    {
+      "at": "2026-10-03T13:28:02.925Z",
+      "index": 2,
+      "trigger": {
+        "at": "2026-10-03T13:28:05.926Z",
+        "performanceAt": 100372.19999992847,
+        "type": "compositionstart",
+        "isTrusted": true,
+        "data": "",
+        "inputType": null,
+        "isComposing": null,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 41,
+          "to": 41
+        },
+        "text": "ANDROID611 local 日本語ANDROID611 remote ANDROID611 peer"
+      },
+      "bodyXml": "<paragraph>ANDROID611 local 日本語</paragraph><paragraph>［遠隔2］［遠隔1］ANDROID611 remote にほんこ</paragraph><paragraph>ANDROID611 peer</paragraph>"
+    },
+    {
+      "at": "2026-10-03T13:28:03.577Z",
+      "index": 3,
+      "trigger": {
+        "at": "2026-10-03T13:28:05.926Z",
+        "performanceAt": 100372.19999992847,
+        "type": "compositionstart",
+        "isTrusted": true,
+        "data": "",
+        "inputType": null,
+        "isComposing": null,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 41,
+          "to": 41
+        },
+        "text": "ANDROID611 local 日本語ANDROID611 remote ANDROID611 peer"
+      },
+      "bodyXml": "<paragraph>ANDROID611 local 日本語</paragraph><paragraph>［遠隔3］［遠隔2］［遠隔1］ANDROID611 remote にほんご</paragraph><paragraph>ANDROID611 peer</paragraph>"
+    }
+  ],
+  "final": {
+    "at": "2026-10-03T13:32:50.551Z",
+    "bodyXml": "<paragraph>ANDROID611 local 日本語</paragraph><paragraph>［遠隔3］［遠隔2］［遠隔1］ANDROID611 remote 日本語</paragraph><paragraph>ANDROID611 peer</paragraph>",
+    "json": {
+      "type": "doc",
+      "content": [
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "ANDROID611 local 日本語"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "［遠隔3］［遠隔2］［遠隔1］ANDROID611 remote 日本語"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "ANDROID611 peer"
+            }
+          ]
+        }
+      ]
+    },
+    "clocks": [
+      [
+        1,
+        1
+      ],
+      [
+        3173321062,
+        15
+      ],
+      [
+        3209286858,
+        71
+      ]
+    ],
+    "events": [
+      {
+        "at": "2026-10-03T13:26:29.750Z",
+        "performanceAt": 4196.5,
+        "type": "keydown",
+        "isTrusted": true,
+        "data": null,
+        "inputType": null,
+        "isComposing": false,
+        "key": "End",
+        "block": 0,
+        "selection": {
+          "from": 18,
+          "to": 18
+        },
+        "text": "ANDROID611 local ANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:58.131Z",
+        "performanceAt": 92577.09999990463,
+        "type": "keydown",
+        "isTrusted": true,
+        "data": null,
+        "inputType": null,
+        "isComposing": false,
+        "key": "Unidentified",
+        "block": 0,
+        "selection": {
+          "from": 18,
+          "to": 18
+        },
+        "text": "ANDROID611 local ANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:58.135Z",
+        "performanceAt": 92581.59999990463,
+        "type": "compositionstart",
+        "isTrusted": true,
+        "data": "",
+        "inputType": null,
+        "isComposing": null,
+        "key": null,
+        "block": 0,
+        "selection": {
+          "from": 18,
+          "to": 18
+        },
+        "text": "ANDROID611 local ANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:58.136Z",
+        "performanceAt": 92582.19999992847,
+        "type": "compositionupdate",
+        "isTrusted": true,
+        "data": "に",
+        "inputType": null,
+        "isComposing": null,
+        "key": null,
+        "block": 0,
+        "selection": {
+          "from": 18,
+          "to": 18
+        },
+        "text": "ANDROID611 local ANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:58.136Z",
+        "performanceAt": 92582.39999997616,
+        "type": "beforeinput",
+        "isTrusted": true,
+        "data": "に",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 0,
+        "selection": {
+          "from": 18,
+          "to": 18
+        },
+        "text": "ANDROID611 local ANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:58.146Z",
+        "performanceAt": 92592.09999990463,
+        "type": "input",
+        "isTrusted": true,
+        "data": "に",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 0,
+        "selection": {
+          "from": 19,
+          "to": 19
+        },
+        "text": "ANDROID611 local にANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:58.385Z",
+        "performanceAt": 92831.59999990463,
+        "type": "keydown",
+        "isTrusted": true,
+        "data": null,
+        "inputType": null,
+        "isComposing": true,
+        "key": "Unidentified",
+        "block": 0,
+        "selection": {
+          "from": 19,
+          "to": 19
+        },
+        "text": "ANDROID611 local にANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:58.386Z",
+        "performanceAt": 92832.39999997616,
+        "type": "compositionupdate",
+        "isTrusted": true,
+        "data": "にほ",
+        "inputType": null,
+        "isComposing": null,
+        "key": null,
+        "block": 0,
+        "selection": {
+          "from": 19,
+          "to": 19
+        },
+        "text": "ANDROID611 local にANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:58.386Z",
+        "performanceAt": 92832.69999992847,
+        "type": "beforeinput",
+        "isTrusted": true,
+        "data": "にほ",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 0,
+        "selection": {
+          "from": 19,
+          "to": 19
+        },
+        "text": "ANDROID611 local にANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:58.391Z",
+        "performanceAt": 92837,
+        "type": "input",
+        "isTrusted": true,
+        "data": "にほ",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 0,
+        "selection": {
+          "from": 20,
+          "to": 20
+        },
+        "text": "ANDROID611 local にほANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:58.580Z",
+        "performanceAt": 93026.5,
+        "type": "keydown",
+        "isTrusted": true,
+        "data": null,
+        "inputType": null,
+        "isComposing": true,
+        "key": "Unidentified",
+        "block": 0,
+        "selection": {
+          "from": 20,
+          "to": 20
+        },
+        "text": "ANDROID611 local にほANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:58.581Z",
+        "performanceAt": 93027.19999992847,
+        "type": "compositionupdate",
+        "isTrusted": true,
+        "data": "にほん",
+        "inputType": null,
+        "isComposing": null,
+        "key": null,
+        "block": 0,
+        "selection": {
+          "from": 20,
+          "to": 20
+        },
+        "text": "ANDROID611 local にほANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:58.581Z",
+        "performanceAt": 93027.39999997616,
+        "type": "beforeinput",
+        "isTrusted": true,
+        "data": "にほん",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 0,
+        "selection": {
+          "from": 20,
+          "to": 20
+        },
+        "text": "ANDROID611 local にほANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:58.587Z",
+        "performanceAt": 93033,
+        "type": "input",
+        "isTrusted": true,
+        "data": "にほん",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 0,
+        "selection": {
+          "from": 21,
+          "to": 21
+        },
+        "text": "ANDROID611 local にほんANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:59.224Z",
+        "performanceAt": 93670.69999992847,
+        "type": "keydown",
+        "isTrusted": true,
+        "data": null,
+        "inputType": null,
+        "isComposing": true,
+        "key": "Unidentified",
+        "block": 0,
+        "selection": {
+          "from": 21,
+          "to": 21
+        },
+        "text": "ANDROID611 local にほんANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:59.226Z",
+        "performanceAt": 93672.69999992847,
+        "type": "compositionupdate",
+        "isTrusted": true,
+        "data": "にほんこ",
+        "inputType": null,
+        "isComposing": null,
+        "key": null,
+        "block": 0,
+        "selection": {
+          "from": 21,
+          "to": 21
+        },
+        "text": "ANDROID611 local にほんANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:59.227Z",
+        "performanceAt": 93673.29999995232,
+        "type": "beforeinput",
+        "isTrusted": true,
+        "data": "にほんこ",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 0,
+        "selection": {
+          "from": 21,
+          "to": 21
+        },
+        "text": "ANDROID611 local にほんANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:59.232Z",
+        "performanceAt": 93678.79999995232,
+        "type": "input",
+        "isTrusted": true,
+        "data": "にほんこ",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 0,
+        "selection": {
+          "from": 22,
+          "to": 22
+        },
+        "text": "ANDROID611 local にほんこANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:59.431Z",
+        "performanceAt": 93877.29999995232,
+        "type": "keydown",
+        "isTrusted": true,
+        "data": null,
+        "inputType": null,
+        "isComposing": true,
+        "key": "Unidentified",
+        "block": 0,
+        "selection": {
+          "from": 22,
+          "to": 22
+        },
+        "text": "ANDROID611 local にほんこANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:59.432Z",
+        "performanceAt": 93878.09999990463,
+        "type": "compositionupdate",
+        "isTrusted": true,
+        "data": "にほんご",
+        "inputType": null,
+        "isComposing": null,
+        "key": null,
+        "block": 0,
+        "selection": {
+          "from": 22,
+          "to": 22
+        },
+        "text": "ANDROID611 local にほんこANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:59.432Z",
+        "performanceAt": 93878.19999992847,
+        "type": "beforeinput",
+        "isTrusted": true,
+        "data": "にほんご",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 0,
+        "selection": {
+          "from": 22,
+          "to": 22
+        },
+        "text": "ANDROID611 local にほんこANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:59.437Z",
+        "performanceAt": 93883,
+        "type": "input",
+        "isTrusted": true,
+        "data": "にほんご",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 0,
+        "selection": {
+          "from": 22,
+          "to": 22
+        },
+        "text": "ANDROID611 local にほんごANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:59.982Z",
+        "performanceAt": 94427.89999997616,
+        "type": "keydown",
+        "isTrusted": true,
+        "data": null,
+        "inputType": null,
+        "isComposing": true,
+        "key": "Unidentified",
+        "block": 0,
+        "selection": {
+          "from": 22,
+          "to": 22
+        },
+        "text": "ANDROID611 local にほんごANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:59.982Z",
+        "performanceAt": 94428.69999992847,
+        "type": "compositionupdate",
+        "isTrusted": true,
+        "data": "日本語",
+        "inputType": null,
+        "isComposing": null,
+        "key": null,
+        "block": 0,
+        "selection": {
+          "from": 22,
+          "to": 22
+        },
+        "text": "ANDROID611 local にほんごANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:59.983Z",
+        "performanceAt": 94428.79999995232,
+        "type": "beforeinput",
+        "isTrusted": true,
+        "data": "日本語",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 0,
+        "selection": {
+          "from": 22,
+          "to": 22
+        },
+        "text": "ANDROID611 local にほんごANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:59.987Z",
+        "performanceAt": 94433.29999995232,
+        "type": "input",
+        "isTrusted": true,
+        "data": "日本語",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 0,
+        "selection": {
+          "from": 21,
+          "to": 21
+        },
+        "text": "ANDROID611 local 日本語ANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:27:59.987Z",
+        "performanceAt": 94433.69999992847,
+        "type": "compositionend",
+        "isTrusted": false,
+        "data": "日本語",
+        "inputType": null,
+        "isComposing": null,
+        "key": null,
+        "block": 0,
+        "selection": {
+          "from": 21,
+          "to": 21
+        },
+        "text": "ANDROID611 local 日本語ANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:05.925Z",
+        "performanceAt": 100371.5,
+        "type": "keydown",
+        "isTrusted": true,
+        "data": null,
+        "inputType": null,
+        "isComposing": false,
+        "key": "Unidentified",
+        "block": 1,
+        "selection": {
+          "from": 41,
+          "to": 41
+        },
+        "text": "ANDROID611 local 日本語ANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:05.926Z",
+        "performanceAt": 100372.19999992847,
+        "type": "compositionstart",
+        "isTrusted": true,
+        "data": "",
+        "inputType": null,
+        "isComposing": null,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 41,
+          "to": 41
+        },
+        "text": "ANDROID611 local 日本語ANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:05.927Z",
+        "performanceAt": 100373.39999997616,
+        "type": "compositionupdate",
+        "isTrusted": true,
+        "data": "に",
+        "inputType": null,
+        "isComposing": null,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 41,
+          "to": 41
+        },
+        "text": "ANDROID611 local 日本語ANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:05.927Z",
+        "performanceAt": 100373.59999990463,
+        "type": "beforeinput",
+        "isTrusted": true,
+        "data": "に",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 41,
+          "to": 41
+        },
+        "text": "ANDROID611 local 日本語ANDROID611 remote ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:05.932Z",
+        "performanceAt": 100378.39999997616,
+        "type": "input",
+        "isTrusted": true,
+        "data": "に",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 42,
+          "to": 42
+        },
+        "text": "ANDROID611 local 日本語ANDROID611 remote にANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:06.151Z",
+        "performanceAt": 100597.89999997616,
+        "type": "keydown",
+        "isTrusted": true,
+        "data": null,
+        "inputType": null,
+        "isComposing": true,
+        "key": "Unidentified",
+        "block": 1,
+        "selection": {
+          "from": 47,
+          "to": 47
+        },
+        "text": "ANDROID611 local 日本語［遠隔1］ANDROID611 remote にANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:06.152Z",
+        "performanceAt": 100598.39999997616,
+        "type": "compositionupdate",
+        "isTrusted": true,
+        "data": "にほ",
+        "inputType": null,
+        "isComposing": null,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 47,
+          "to": 47
+        },
+        "text": "ANDROID611 local 日本語［遠隔1］ANDROID611 remote にANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:06.152Z",
+        "performanceAt": 100598.5,
+        "type": "beforeinput",
+        "isTrusted": true,
+        "data": "にほ",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 47,
+          "to": 47
+        },
+        "text": "ANDROID611 local 日本語［遠隔1］ANDROID611 remote にANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:06.156Z",
+        "performanceAt": 100602.19999992847,
+        "type": "input",
+        "isTrusted": true,
+        "data": "にほ",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 48,
+          "to": 48
+        },
+        "text": "ANDROID611 local 日本語［遠隔1］ANDROID611 remote にほANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:06.374Z",
+        "performanceAt": 100820.79999995232,
+        "type": "keydown",
+        "isTrusted": true,
+        "data": null,
+        "inputType": null,
+        "isComposing": true,
+        "key": "Unidentified",
+        "block": 1,
+        "selection": {
+          "from": 48,
+          "to": 48
+        },
+        "text": "ANDROID611 local 日本語［遠隔1］ANDROID611 remote にほANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:06.375Z",
+        "performanceAt": 100821.39999997616,
+        "type": "compositionupdate",
+        "isTrusted": true,
+        "data": "にほん",
+        "inputType": null,
+        "isComposing": null,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 48,
+          "to": 48
+        },
+        "text": "ANDROID611 local 日本語［遠隔1］ANDROID611 remote にほANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:06.375Z",
+        "performanceAt": 100821.69999992847,
+        "type": "beforeinput",
+        "isTrusted": true,
+        "data": "にほん",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 48,
+          "to": 48
+        },
+        "text": "ANDROID611 local 日本語［遠隔1］ANDROID611 remote にほANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:06.379Z",
+        "performanceAt": 100825.79999995232,
+        "type": "input",
+        "isTrusted": true,
+        "data": "にほん",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 49,
+          "to": 49
+        },
+        "text": "ANDROID611 local 日本語［遠隔1］ANDROID611 remote にほんANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:06.611Z",
+        "performanceAt": 101057.39999997616,
+        "type": "keydown",
+        "isTrusted": true,
+        "data": null,
+        "inputType": null,
+        "isComposing": true,
+        "key": "Unidentified",
+        "block": 1,
+        "selection": {
+          "from": 49,
+          "to": 49
+        },
+        "text": "ANDROID611 local 日本語［遠隔1］ANDROID611 remote にほんANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:06.612Z",
+        "performanceAt": 101058.29999995232,
+        "type": "compositionupdate",
+        "isTrusted": true,
+        "data": "にほんこ",
+        "inputType": null,
+        "isComposing": null,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 49,
+          "to": 49
+        },
+        "text": "ANDROID611 local 日本語［遠隔1］ANDROID611 remote にほんANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:06.612Z",
+        "performanceAt": 101058.5,
+        "type": "beforeinput",
+        "isTrusted": true,
+        "data": "にほんこ",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 49,
+          "to": 49
+        },
+        "text": "ANDROID611 local 日本語［遠隔1］ANDROID611 remote にほんANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:06.617Z",
+        "performanceAt": 101063.69999992847,
+        "type": "input",
+        "isTrusted": true,
+        "data": "にほんこ",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 50,
+          "to": 50
+        },
+        "text": "ANDROID611 local 日本語［遠隔1］ANDROID611 remote にほんこANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:06.876Z",
+        "performanceAt": 101322.5,
+        "type": "keydown",
+        "isTrusted": true,
+        "data": null,
+        "inputType": null,
+        "isComposing": true,
+        "key": "Unidentified",
+        "block": 1,
+        "selection": {
+          "from": 55,
+          "to": 55
+        },
+        "text": "ANDROID611 local 日本語［遠隔2］［遠隔1］ANDROID611 remote にほんこANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:06.877Z",
+        "performanceAt": 101323.29999995232,
+        "type": "compositionupdate",
+        "isTrusted": true,
+        "data": "にほんご",
+        "inputType": null,
+        "isComposing": null,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 55,
+          "to": 55
+        },
+        "text": "ANDROID611 local 日本語［遠隔2］［遠隔1］ANDROID611 remote にほんこANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:06.877Z",
+        "performanceAt": 101323.39999997616,
+        "type": "beforeinput",
+        "isTrusted": true,
+        "data": "にほんご",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 55,
+          "to": 55
+        },
+        "text": "ANDROID611 local 日本語［遠隔2］［遠隔1］ANDROID611 remote にほんこANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:06.884Z",
+        "performanceAt": 101330.5,
+        "type": "input",
+        "isTrusted": true,
+        "data": "にほんご",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 55,
+          "to": 55
+        },
+        "text": "ANDROID611 local 日本語［遠隔2］［遠隔1］ANDROID611 remote にほんごANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:10.124Z",
+        "performanceAt": 104570.29999995232,
+        "type": "keydown",
+        "isTrusted": true,
+        "data": null,
+        "inputType": null,
+        "isComposing": true,
+        "key": "Unidentified",
+        "block": 1,
+        "selection": {
+          "from": 60,
+          "to": 60
+        },
+        "text": "ANDROID611 local 日本語［遠隔3］［遠隔2］［遠隔1］ANDROID611 remote にほんごANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:10.125Z",
+        "performanceAt": 104571,
+        "type": "compositionupdate",
+        "isTrusted": true,
+        "data": "日本語",
+        "inputType": null,
+        "isComposing": null,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 60,
+          "to": 60
+        },
+        "text": "ANDROID611 local 日本語［遠隔3］［遠隔2］［遠隔1］ANDROID611 remote にほんごANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:10.125Z",
+        "performanceAt": 104571.09999990463,
+        "type": "beforeinput",
+        "isTrusted": true,
+        "data": "日本語",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 60,
+          "to": 60
+        },
+        "text": "ANDROID611 local 日本語［遠隔3］［遠隔2］［遠隔1］ANDROID611 remote にほんごANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:10.130Z",
+        "performanceAt": 104576,
+        "type": "input",
+        "isTrusted": true,
+        "data": "日本語",
+        "inputType": "insertCompositionText",
+        "isComposing": true,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 59,
+          "to": 59
+        },
+        "text": "ANDROID611 local 日本語［遠隔3］［遠隔2］［遠隔1］ANDROID611 remote 日本語ANDROID611 peer"
+      },
+      {
+        "at": "2026-10-03T13:28:10.130Z",
+        "performanceAt": 104576.09999990463,
+        "type": "compositionend",
+        "isTrusted": false,
+        "data": "日本語",
+        "inputType": null,
+        "isComposing": null,
+        "key": null,
+        "block": 1,
+        "selection": {
+          "from": 59,
+          "to": 59
+        },
+        "text": "ANDROID611 local 日本語［遠隔3］［遠隔2］［遠隔1］ANDROID611 remote 日本語ANDROID611 peer"
+      }
+    ]
+  },
+  "peer": {
+    "bodyXml": "<paragraph>ANDROID611 local 日本語</paragraph><paragraph>［遠隔3］［遠隔2］［遠隔1］ANDROID611 remote 日本語</paragraph><paragraph>ANDROID611 peer</paragraph>",
+    "clocks": [
+      [
+        1,
+        1
+      ],
+      [
+        3173321062,
+        15
+      ],
+      [
+        3209286858,
+        71
+      ]
+    ]
+  },
+  "scope": "Actual trusted Gboard events observed on physical Android Chrome; remote update trigger must be confirmed from recorded composition, no synthetic event substitute."
+}

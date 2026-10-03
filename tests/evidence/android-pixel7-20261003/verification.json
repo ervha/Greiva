@@ -1,0 +1,33 @@
+{
+  "at": "2026-10-03T13:42:24.673Z",
+  "result": "Pass",
+  "automaticCases": 26,
+  "reconnectCases": 4,
+  "compositions": [
+    {
+      "block": 0,
+      "startPerformanceAt": 92581.59999990463,
+      "convertedPerformanceAt": 94433.29999995232,
+      "elapsedMs": 1851.7000000476837
+    },
+    {
+      "block": 1,
+      "startPerformanceAt": 100372.19999992847,
+      "convertedPerformanceAt": 104576,
+      "elapsedMs": 4203.800000071526
+    }
+  ],
+  "eventTrust": {
+    "keydown:true": 13,
+    "compositionstart:true": 2,
+    "compositionupdate:true": 12,
+    "beforeinput:true": 12,
+    "input:true": 12,
+    "compositionend:false": 2
+  },
+  "remoteUpdates": 3,
+  "imeTextAndClocksMatch": true,
+  "syncTextAndClocksMatch": true,
+  "imeFixtureUnchangedBeforeNextTest": true,
+  "scope": "Trusted Gboard start/update/beforeinput/input observed; compositionend events have isTrusted=false and are preserved as such, not presented as trusted OS events. Controller did not dispatch composition events. Phone and controller wall clocks differ; duration uses phone performance timestamps only. Candidate appearance is user-reported, not independently recorded."
+}

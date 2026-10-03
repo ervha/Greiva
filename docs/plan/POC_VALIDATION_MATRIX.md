@@ -1,5 +1,7 @@
 # PoC受入条件・証拠・再開順序
 
+2026-10-03、v0.6.15追記: [Android P2実機証拠](../../tests/evidence/android-pixel7-20261003/SUMMARY.md)。Pixel 7 / Android 17 / Chrome 154で26自動操作＋4接続／復元操作、実Gboardのlocal変換と同一段落遠隔3更新中の変換を確認。全文／clock一致、文字欠落・二重入力・候補異常なしの利用者報告を記録。§12のAndroid browser互換性を補完し、SQLite／offline終了復旧・composition中reconnect・macOS／iOS・Windows性能・最終Gateへ読み替えない。
+
 2026-10-03、v0.6.14追記: §14-7の[通常Windows Conflict UI・実保存層照合](../../tests/evidence/windows-native-conflict-20261003/SUMMARY.md)を補完。3値保持・別field merge・draft保持、local／remoteの新operationによる明示解決、open Conflictの強制終了・connected再起動保持を確認。native7操作・receipt9件と台帳・独立peerが一致。実IME／offline再起動／性能／Androidの合格へ読み替えない。最終Gateは未判定。
 
 2026-10-03、v0.6.13追記: 通常0.6.11 WindowsでRelationのserver commit後・ACK到着前の強制終了、offline再起動、再接続のpullによるreceipt／cursor復旧を確認。[通信境界・独立peer／台帳の一致](../../tests/evidence/windows-native-network-20261003/SUMMARY.md)。§14-3/4/5/6のnative証拠を補完。Page2件のXML／clock、Task／Relation、台帳2件と独立peerが一致し、元DB一式はhash不変。native duplicate POST・SQLite transaction途中の全境界・Conflict UI・性能・Androidの証拠にはしない。最終Gateは未判定。以下の各版は履歴で、対応表は0.6.10監査baselineを保持する。
