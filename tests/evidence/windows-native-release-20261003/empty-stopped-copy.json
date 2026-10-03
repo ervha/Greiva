@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-03T13:50:06.0146709Z",
+  "processAbsent": true,
+  "logicalConfigPath": "C:\\Users\\danun\\AppData\\Roaming\\dev.greiva.poc.bench20261003v611",
+  "actualConfigPath": "C:\\Users\\danun\\AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\LocalCache\\Roaming\\dev.greiva.poc.bench20261003v611",
+  "reason": "Windows package filesystem virtualization of Computer Use launched process",
+  "files": [
+    {
+      "name": "greiva.sqlite",
+      "bytes": 4096,
+      "sha256": "1fe8f6113488865c546d2faa55b21482662ce4be19d4f505eeefa09bc3131489"
+    },
+    {
+      "name": "greiva.sqlite-shm",
+      "bytes": 32768,
+      "sha256": "8b6f1ba2894f195b5be67f3cacc8287a5c225e7f95b30fb874fb3b71f9e7a3c0"
+    },
+    {
+      "name": "greiva.sqlite-wal",
+      "bytes": 943512,
+      "sha256": "42c48554f485846d49ea96c415f35133e842cf8289efb2a18875734d4551cbd6"
+    }
+  ]
+}

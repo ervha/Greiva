@@ -1,5 +1,9 @@
 # 試験証拠の索引
 
+## Step 8: Windows通常release大量データ・native性能観測（2026-10-03、記録v0.6.16／製品0.6.11）
+
+[1,000 block／111文字・1,000 native ACK・250 Task・独立照合](windows-native-release-20261003/SUMMARY.md)。空SQLite2.663秒・復元3.567秒の観測上限、server応答間75.973秒。helper／UIA込みの一回と正確なpaint／per-key／実IMEを区別し、復元目安未達と内訳未測定を残す。
+
 ## Step 8: Pixel 7 / Android Chrome / Gboard（2026-10-03、記録v0.6.15／製品0.6.11）
 
 [実機26＋4自動操作・実Gboard E/F・遠隔3更新](android-pixel7-20261003/SUMMARY.md)。Android 17 / Chrome 154、normal release frontend、独立peerの全文／state vector一致。P2 browser互換性の証拠で、SQLite・offline終了復旧・composition中reconnect・Windows性能を含めない。

@@ -1,0 +1,16 @@
+{
+  "at": "2026-10-03T13:53:04.0638275Z",
+  "os": "Microsoft Windows 11 Home",
+  "version": "10.0.26300",
+  "osBuild": "26300",
+  "cpu": [
+    {
+      "Name": "12th Gen Intel(R) Core(TM) i7-12700H",
+      "NumberOfCores": 14,
+      "NumberOfLogicalProcessors": 20
+    }
+  ],
+  "ramBytes": 16731652096,
+  "appBuild": "Normal release 0.6.11, custom-protocol, isolated identifier only",
+  "testHooks": false
+}

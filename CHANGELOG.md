@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.16 — 2026-10-03
+
+- Windows通常release 0.6.11の性能・大量データ証拠を追加（PATCH）。1,000 block上の111文字保存、1,000 structured operationのnative ACK、250 Taskの最終状態、1009件の台帳／receipt、独立Rust／Y.Doc peerとの一致を確認。[原観測・監査](tests/evidence/windows-native-release-20261003/SUMMARY.md)。製品／manifestは0.6.11のまま。
+- 空SQLite・warm WebViewのUI観測上限2,662.7ms、1,000 block復元の上限3,567.4ms、1,000操作のserver応答間75,973msを記録。helper／起動／UIAを含む上限と、cold paint・per-key・実IME・native SLOを区別する。fixture／observer／監査準備の失敗も記録。復元2秒の目安は未達の観測として、内訳計測を次の課題に残す。最終Gateは未判定。
+
 ## 0.6.15 — 2026-10-03
 
 - Pixel 7 / Android 17 / Chrome 154の実機互換性証拠を追加（PATCH）。必須blockなど自動26項目、接続停止／再接続／交互編集／connected reloadの4項目、実Gboard E/Fの日本語変換を確認。[原結果と監査](tests/evidence/android-pixel7-20261003/SUMMARY.md)。Fの実composition中に同じ段落へ遠隔3更新を送り、最終本文とstate vectorが独立peerと一致。候補表示は利用者の問題なし報告と区別して記録。

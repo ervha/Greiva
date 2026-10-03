@@ -1,0 +1,23 @@
+{
+  "at": "2026-10-03T13:53:04.3543089Z",
+  "processAbsent": true,
+  "runtime": "C:\\Users\\danun\\AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\LocalCache\\Roaming\\dev.greiva.poc.bench20261003v611",
+  "originalPreserved": ".data/native-release-0611/empty-stopped-copy",
+  "files": [
+    {
+      "name": "greiva.sqlite",
+      "bytes": 942080,
+      "sha256": "9d5a9a18cf0e4be801d97f2a0789c8aa7a050f9f72839fcba75831d67d7cbeab"
+    },
+    {
+      "name": "greiva.sqlite-shm",
+      "bytes": 32768,
+      "sha256": "7b286b9cf27e6c3c1a0b94533c6572adab438d398836cdb211df0f9c8eb4d7af"
+    },
+    {
+      "name": "greiva.sqlite-wal",
+      "bytes": 4140632,
+      "sha256": "bc4daef5a7226bb219a3c8644718140b18c03859a0cb7bdee065fd92de0cb153"
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-03T13:57:57.052Z",
+  "text": " NATIVE611 0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789",
+  "characters": 111,
+  "startedAt": "2026-10-03T13:56:41.339Z",
+  "actionMs": 138.4130999999761,
+  "observationUpperBoundMs": 727.4018999999971,
+  "visibleSaved": true,
+  "scope": "Normal Windows release, 1000 paragraphs after deleting initial empty fixture row. Literal SendInput text; aggregate API action and screenshot bounds, not per-key latency, frame timing or actual Microsoft IME."
+}

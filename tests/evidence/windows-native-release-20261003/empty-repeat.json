@@ -1,0 +1,37 @@
+{
+  "startAt": "2026-10-03T14:07:28.504Z",
+  "observedReady": true,
+  "observationUpperBoundMs": 2662.7197000000015,
+  "samples": [
+    {
+      "elapsedMs": 1543.6103000000003,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 1772.7266999999993,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 1947.792300000001,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 2143.0287000000026,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 2326.25,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 2495.0761999999995,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 2662.7122000000018,
+      "mainUIVisible": true
+    }
+  ],
+  "documentText": "Greiva PoC\n本文 \nオフライン\n本文とタイトルを端末のSQLiteへ保存します。タイトルは端末内のみで、他の端末とは同期しません。\n端末に保存済み\n保存中の入力は、強制終了すると失われることがあります。端末に保存済みの変更は、同期前でも保持されます。\n保存したPage \n保存したPage\n新しいPage\n同じPageを別画面で開く\n接続を一時停止\n未確認の更新 1件\nPageタイトル\n元に戻す\nやり直す\nブロックを挿入\n上へ移動\n下へ移動\nインデント\nインデント解除\n行頭の / でブロック追加、@ でMention。トグルは Enter で本文へ、Ctrl+Enter で開閉。\n⠿\n「/」でブロックを追加\nTaskとRelation\nTaskとRelationを端末へ保存し、接続中はサーバーへ同期します。\n端末に保存済み・送信待ち 0件\n再試行待ち\nTypeError: Failed to fetch\nTaskの同期を再試行\nTaskの名前\n￼\n状態\nTaskの状態\n期限\n年 期限\n/\n月 期限\n/\n日 期限\n￼\nTaskを追加\n保存したTask\nRelation\n関連元\n￼\n関連先\n￼\nRelationを追加\n保存したRelation\n競合 0件\n未解決の競合はありません。",
+  "scope": "Empty SQLite, warm WebView profile, services stopped. Corrected observer checks real UI labels. Includes helper launch/selection/activation/UIA; not cold WebView first paint timing."
+}

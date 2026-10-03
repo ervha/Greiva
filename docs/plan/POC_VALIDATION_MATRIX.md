@@ -1,5 +1,7 @@
 # PoC受入条件・証拠・再開順序
 
+2026-10-03、v0.6.16追記: [Windows通常release大量データ・native同期](../../tests/evidence/windows-native-release-20261003/SUMMARY.md)を§13および§14-5/6の補完証拠として追加。1,000 block／111文字、native1,000 ACK・250 Task、台帳／receipt1009件と独立peer一致。空SQLite2.663秒・復元3.567秒はhelper／起動／UIA込みの一回の観測上限。復元2秒目安を超えるが内訳未測定。cold paint、per-key frame、1,000 block実IME、Gate判定へ読み替えない。
+
 2026-10-03、v0.6.15追記: [Android P2実機証拠](../../tests/evidence/android-pixel7-20261003/SUMMARY.md)。Pixel 7 / Android 17 / Chrome 154で26自動操作＋4接続／復元操作、実Gboardのlocal変換と同一段落遠隔3更新中の変換を確認。全文／clock一致、文字欠落・二重入力・候補異常なしの利用者報告を記録。§12のAndroid browser互換性を補完し、SQLite／offline終了復旧・composition中reconnect・macOS／iOS・Windows性能・最終Gateへ読み替えない。
 
 2026-10-03、v0.6.14追記: §14-7の[通常Windows Conflict UI・実保存層照合](../../tests/evidence/windows-native-conflict-20261003/SUMMARY.md)を補完。3値保持・別field merge・draft保持、local／remoteの新operationによる明示解決、open Conflictの強制終了・connected再起動保持を確認。native7操作・receipt9件と台帳・独立peerが一致。実IME／offline再起動／性能／Androidの合格へ読み替えない。最終Gateは未判定。

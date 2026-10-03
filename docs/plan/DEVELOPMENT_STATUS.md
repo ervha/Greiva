@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+2026-10-03、最新記録checkpoint **v0.6.16**、製品 **0.6.11**。[Windows通常release](../../tests/evidence/windows-native-release-20261003/SUMMARY.md)で1,000 block／111文字の保存、native1,000操作ACK・250 Task、台帳／receipt1009件、独立peer一致を確認。空SQLiteの観測上限2.663秒、1,000 block復元3.567秒（起動・UIAを含む）、server応答間75.973秒。復元目安の未達観測と内訳未測定を明示する。Computer Useは区切りで解除。残るnative必須操作・最新実IMEと最終Gate資料を続ける。
+
 2026-10-03、最新記録checkpoint **v0.6.15**、製品は **0.6.11**。[Pixel 7 / Android 17実機](../../tests/evidence/android-pixel7-20261003/SUMMARY.md)で自動26項目、接続停止／再接続など4項目、実Gboard E/Fを確認。Fの同一段落composition中の遠隔3更新を保持し、全文／clockが独立peerと一致。AndroidはP2 browserでSQLite復旧を含まない。試験用CDP・ADB転送は使用後に解除し、Windows release性能・残るP0操作と最終Gateへ続ける。以下は過去checkpointの履歴。
 
 2026-10-03、最新記録checkpoint **v0.6.14**、製品・候補は **0.6.11**。Windowsの同field Conflict3値保持・状態／期限merge・draft保持、local pointer採用とremote Tab／Enter採用、未解決Conflictを保持した強制終了・connected再起動を確認。[実機Conflict証拠](../../tests/evidence/windows-native-conflict-20261003/SUMMARY.md)。native7操作・receipt9件、台帳9件・独立peerが一致。元Page2件は全更新・XML・clock不変。利用者指定により停止指示・完了・回答が必要な問題での待機まで継続する。残るWindows操作／release性能、Android実IME／再接続・P2・最終Gateを続けて確認する。以下は過去checkpointの履歴。

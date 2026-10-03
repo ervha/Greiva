@@ -1,0 +1,201 @@
+{
+  "startAt": "2026-10-03T14:06:06.947Z",
+  "observedReady": false,
+  "observationUpperBoundMs": 10053.2929,
+  "samples": [
+    {
+      "elapsedMs": 1580.8464000000022,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 1809.6319000000003,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 2008.9953999999998,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 2181.358,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 2387.654200000001,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 2575.290100000002,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 2755.367000000002,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 2934.2541999999994,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 3101.8375000000015,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 3271.378499999999,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 3460.451799999999,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 3625.636300000002,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 3784.9033999999992,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 3935.864300000001,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 4103.7703,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 4263.190600000002,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 4438.881700000002,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 4674.621800000001,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 4896.708999999999,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 5074.001899999999,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 5244.755799999999,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 5404.400600000001,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 5605.791000000001,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 5833.0458,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 6002.3562999999995,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 6160.8461000000025,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 6329.7382,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 6513.178500000002,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 6674.8629,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 6861.965800000002,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 7021.856599999999,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 7188.310000000001,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 7359.3024000000005,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 7519.193600000002,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 7691.9288000000015,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 7869.1126,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 8029.1106,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 8185.4594,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 8337.965400000001,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 8535.911,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 8708.534800000001,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 8895.782,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 9063.400000000001,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 9226.968399999998,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 9388.732499999998,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 9603.241999999998,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 9786.8237,
+      "mainUIVisible": false
+    },
+    {
+      "elapsedMs": 9948.784800000001,
+      "mainUIVisible": false
+    }
+  ],
+  "documentText": "Greiva PoC\n本文 \nオフライン\n本文とタイトルを端末のSQLiteへ保存します。タイトルは端末内のみで、他の端末とは同期しません。\n端末に保存済み\n保存中の入力は、強制終了すると失われることがあります。端末に保存済みの変更は、同期前でも保持されます。\n保存したPage \n保存したPage\n新しいPage\n同じPageを別画面で開く\n接続を一時停止\n未確認の更新 1件\nPageタイトル\n元に戻す\nやり直す\nブロックを挿入\n上へ移動\n下へ移動\nインデント\nインデント解除\n行頭の / でブロック追加、@ でMention。トグルは Enter で本文へ、Ctrl+Enter で開閉。\n⠿\n「/」でブロックを追加\nTaskとRelation\nTaskとRelationを端末へ保存し、接続中はサーバーへ同期します。\n端末に保存済み・送信待ち 0件\n再試行待ち\nTypeError: Failed to fetch\nTaskの同期を再試行\nTaskの名前\n￼\n状態\nTaskの状態\n期限\n年 期限\n/\n月 期限\n/\n日 期限\n￼\nTaskを追加\n保存したTask\nRelation\n関連元\n￼\n関連先\n￼\nRelationを追加\n保存したRelation\n競合 0件\n未解決の競合はありません。",
+  "scope": "Empty SQLite, warm WebView profile, services stopped. Includes helper launch/selection/activation/UIA; not cold WebView first paint timing."
+}

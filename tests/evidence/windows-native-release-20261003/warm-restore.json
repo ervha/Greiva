@@ -1,0 +1,56 @@
+{
+  "startAt": "2026-10-03T14:04:24.028Z",
+  "observedReady": true,
+  "observationUpperBoundMs": 3567.3668000000034,
+  "samples": [
+    {
+      "elapsedMs": 1489.2814000000071,
+      "mainUIAndFirstTextVisible": false
+    },
+    {
+      "elapsedMs": 1706.6915000000008,
+      "mainUIAndFirstTextVisible": false
+    },
+    {
+      "elapsedMs": 1899.4334999999992,
+      "mainUIAndFirstTextVisible": false
+    },
+    {
+      "elapsedMs": 2066.932400000005,
+      "mainUIAndFirstTextVisible": false
+    },
+    {
+      "elapsedMs": 2289.841100000005,
+      "mainUIAndFirstTextVisible": false
+    },
+    {
+      "elapsedMs": 2493.961500000005,
+      "mainUIAndFirstTextVisible": false
+    },
+    {
+      "elapsedMs": 2679.5802000000112,
+      "mainUIAndFirstTextVisible": false
+    },
+    {
+      "elapsedMs": 2875.083500000008,
+      "mainUIAndFirstTextVisible": false
+    },
+    {
+      "elapsedMs": 3042.310700000002,
+      "mainUIAndFirstTextVisible": false
+    },
+    {
+      "elapsedMs": 3195.9367000000057,
+      "mainUIAndFirstTextVisible": false
+    },
+    {
+      "elapsedMs": 3404.838400000008,
+      "mainUIAndFirstTextVisible": false
+    },
+    {
+      "elapsedMs": 3567.356899999999,
+      "mainUIAndFirstTextVisible": true
+    }
+  ],
+  "scope": "Single warm WebView profile / SQLite 1000-block restore, includes helper launch, selection, activation and UIA observation. Main UI/first text/saved status, not exact first paint or input-ready timing."
+}
