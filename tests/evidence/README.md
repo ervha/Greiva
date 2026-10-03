@@ -1,6 +1,10 @@
 # 試験証拠の索引
 
-`docs/plan/POC_SPEC.md` Section 18 Step 8の検証記録です。2026-10-03は遠隔文字編集後の選択位置を限定修正し、Docker回帰とWindows 0.6.9候補の準備を行いました。Microsoft IME再変換の本文欠落は別件として未解決、新しいnative回帰・P1/P2実OSとGate A/B/Cの最終判定は未完了です。利用者の最新指定に従いv0.6.9のcommit/tag/pushまでで停止します。以下は各版・時点の証拠です。
+`docs/plan/POC_SPEC.md` Section 18 Step 8の検証記録です。2026-10-03のv0.6.10では利用者の再開指示に従い、保存済み0.6.9証拠の監査と実機再開準備を追加しました。Microsoft IME再変換の本文欠落は未解決、新しいnative回帰・P1/P2実OSとGate A/B/Cの最終判定は未完了です。製品・候補は0.6.9のまま。以下は各版・時点の証拠です。
+
+## Step 8: 証拠監査・受入条件対応・実機再開準備（2026-10-03、v0.6.10）
+
+[実行結果と制約](poc-audit-20261003/SUMMARY.md)・[受入条件対応表](../../docs/plan/POC_VALIDATION_MATRIX.md)。専用Docker、networkなしで監査試験9件と実証拠監査Pass。skipの別run、原Failとfeature再検査、改行差と内容差、候補hashを照合しました。Windowsインストール済み環境と利用者申告のPixel 7／Android 17 QPR1を記録。アプリの試験再実行・native操作・IME成功・Gate合格ではありません。
 
 ## Step 8: 遠隔選択保持と再接続の回帰（2026-10-03、v0.6.9）
 

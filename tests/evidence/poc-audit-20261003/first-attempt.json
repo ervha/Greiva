@@ -1,0 +1,11 @@
+{
+  "execution": "Docker; network none; initial audit implementation",
+  "testsPassed": 8,
+  "auditExitCode": 1,
+  "reason": "HTML and CSS were absent from the text-extension allowlist; their CRLF-only checkout differences were conservatively rejected as content changes",
+  "rejectedPaths": ["apps/client/index.html", "apps/client/src/style.css"],
+  "correction": "Allow valid UTF-8 HTML/CSS CRLF-to-LF comparisons, retaining exact-byte status separately and rejecting binary/BOM/content changes",
+  "productSourceChanged": false,
+  "nativeTestPerformed": false,
+  "finalEvidence": "unit.log and audit.json"
+}

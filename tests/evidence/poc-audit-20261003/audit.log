@@ -1,0 +1,9 @@
+{
+  "output": "/tmp/audit.json",
+  "evidenceIntegrity": "Pass",
+  "sourceByteIdentical": 6,
+  "sourceNewlineOnly": 125,
+  "originalRun": "11 Pass / 1 Fail; separate offline feature recheck Pass",
+  "readyForFinalGate": false,
+  "appTestsRerun": false
+}

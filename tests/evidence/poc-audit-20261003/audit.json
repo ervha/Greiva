@@ -1,0 +1,1799 @@
+{
+  "auditedAt": "2026-10-03T01:27:00.911Z",
+  "auditExecution": "linux",
+  "checkpoint": "0.6.10",
+  "baselineVersion": "0.6.9",
+  "baselineRunId": "STEP8-2026-10-03T00-28-12.777Z",
+  "originalRun": {
+    "passed": 11,
+    "failed": [
+      {
+        "id": "STEP8-DEFAULT-FEATURES",
+        "command": [
+          "node",
+          "scripts/verify-native-features.mjs"
+        ],
+        "startedAt": "2026-10-03T00:34:41.741Z",
+        "finishedAt": "2026-10-03T00:34:41.917Z",
+        "exitCode": 101,
+        "signal": null,
+        "expected": "Normal Tauri dependency graph does not enable the crash-test-hooks feature",
+        "status": "Fail",
+        "log": "STEP8-DEFAULT-FEATURES.log"
+      }
+    ]
+  },
+  "featureRecheck": {
+    "startedAt": "2026-10-03T00:44:04.4903025Z",
+    "finishedAt": "2026-10-03T00:44:05.4155277Z",
+    "command": [
+      "node",
+      "scripts/verify-native-features.mjs"
+    ],
+    "environment": {
+      "CARGO_NET_OFFLINE": "true"
+    },
+    "exitCode": 0,
+    "status": "Pass",
+    "reason": "After locked dependency download inside Docker, verify the repaired cache with the same offline feature check",
+    "log": "feature-cache-recheck.log"
+  },
+  "evidenceIntegrity": "Pass",
+  "meaning": "Saved evidence consistency only. No app test rerun, native Pass, or Gate verdict.",
+  "source": {
+    "inventoryScope": "132 baseline files; new audit tooling listed separately",
+    "additions": [
+      "scripts/audit-poc-evidence.mjs",
+      "scripts/audit-poc-evidence.test.mjs"
+    ],
+    "byteIdentical": 6,
+    "newlineOnly": 125,
+    "changed": [
+      {
+        "path": "VERSION",
+        "expectedSha256": "13eb74b44be6e3a85a0efa0dedf56aec05e9e50140e1c8bbc0d0fbd8097b0717",
+        "currentSha256": "bed2b130eec69d461c5f69ba218c386c442ccf2319f3c3476e4faff1d76147e8",
+        "comparison": "changed"
+      }
+    ],
+    "files": [
+      {
+        "path": ".dockerignore",
+        "expectedSha256": "62488383aace603b3d5ff07c15c0c83dfd5094cb2f96d62ab34f50b6fccb6d6d",
+        "currentSha256": "d8b177c1bbfff62a642dd5ed7523ae406cd194141ff69d15111eddd3b39cebe5",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": ".env.example",
+        "expectedSha256": "bf65198a5ec45b3aa4cb63feb17bc95eed4acf5960b93ea32deb8c98e31af705",
+        "currentSha256": "073e65e7c6045c4265ca4b8d50299a8336d9cafe4cb9a80d4d27354735ee71d3",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": ".gitignore",
+        "expectedSha256": "b2539d972687bc282bd3fed3f1cb5e64a1ec56dc9583793d9ac84a0b5598271e",
+        "currentSha256": "72984bc2bb78749480c5380e1e7892871fac961a3c9a24971cc9d54df5a0e7e1",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": ".node-version",
+        "expectedSha256": "7e8a2fa94951112b894a3dbe3d05efef5e9263741fa49125f0a70f40fedab4cc",
+        "currentSha256": "11237abfee2e76519e2dd9c69cb8790b2a15ce25aaa0540aa4e227ce8dfa2ac7",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": ".npmrc",
+        "expectedSha256": "cde76ca04e048c3eba070a2c0dfcf5b723cf6014eab177157096b924f24ec4ca",
+        "currentSha256": "15710541251db726de1491304fa7ca666f8eefc2af25e0ebf9a7efa4e1c5980f",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": ".nvmrc",
+        "expectedSha256": "7e8a2fa94951112b894a3dbe3d05efef5e9263741fa49125f0a70f40fedab4cc",
+        "currentSha256": "11237abfee2e76519e2dd9c69cb8790b2a15ce25aaa0540aa4e227ce8dfa2ac7",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "AGENTS.md",
+        "expectedSha256": "9f5e8e0bf79900fb4128c35aa9b667364ebdc06e73d95b36131b1967b7c74e60",
+        "currentSha256": "3495880e7ec81126badaa2c5b9b9ca8ffadb98f27d77dbe64453768a546ac8d3",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "VERSION",
+        "expectedSha256": "13eb74b44be6e3a85a0efa0dedf56aec05e9e50140e1c8bbc0d0fbd8097b0717",
+        "currentSha256": "bed2b130eec69d461c5f69ba218c386c442ccf2319f3c3476e4faff1d76147e8",
+        "comparison": "changed"
+      },
+      {
+        "path": "apps/api/package.json",
+        "expectedSha256": "abbe28386c658f6799456be7ba62b1f8ab820197538585a620dc6425da7d72db",
+        "currentSha256": "84460e026bab66837a84e09dc50b823622c3875b9303427140d0336a9d0e491e",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/api/src/app.ts",
+        "expectedSha256": "38411d00d6eb81cf9648dbc43bb234accb5228ac516ebde8ffdeb1c03efd1843",
+        "currentSha256": "9359f3bb32f5d6e492c34443eaa416c7dd890c80fc7da5f9dcb580b7207a0b5d",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/api/src/main.ts",
+        "expectedSha256": "6b906253044f757a2ee37c952083c313453f37d8589b1f1bbbee63f4ee6d85e5",
+        "currentSha256": "9c94a53a1c00fd78e23ae819580c2ef47a2982d514dfac1714e969baf8e1f22b",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/api/src/structured-repository.ts",
+        "expectedSha256": "58b88cb3b76603e286522b6d201835b3a330bd776d1914aa7e1268f79dab7eee",
+        "currentSha256": "7aedcf36dedcc54f1e6b03596d55b8361957c268271b5e88a38317d88096ba1a",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/api/src/sync-schema.ts",
+        "expectedSha256": "b79862f2fb9f4a047f85b3362272d8c59ec78687227afdd2004a0becd6388f43",
+        "currentSha256": "a3f905e254ab7b63416d1955d35dc6fdd7822b0dd9e888d28d18c0f80a4581b4",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/api/tsconfig.json",
+        "expectedSha256": "84d7be17bbae2cd4731c38e75970f3b1e7915e6d09c096770a1e7ecc9e5247ae",
+        "currentSha256": "bf76c9712c298dc326961ad7fbd6480d41f5d53f1f81696d37d6d876d314b24c",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/index.html",
+        "expectedSha256": "618a245aa6ef4558138a4493788e3ca8026cddc154843b407347d5485486a5e4",
+        "currentSha256": "b871ce8b219e9cc0a59fe8565d91eb1f302202fddd2e917f0741ad2af223bffc",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/package.json",
+        "expectedSha256": "78f1d418087e3216647075e73416513a85339e062b8913b10034d8ab747ce2f4",
+        "currentSha256": "7641eeca676e1fbfa2c043be49e6a07f0968c9b93f25d7b1c390de16f39b0734",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src-tauri/Cargo.lock",
+        "expectedSha256": "b89c1a42da3e4524c63cc606322d73107cfc8653e94abfe27ca356a1e8be5c3f",
+        "currentSha256": "10e2ac9f5915d6486df5edbf73ecd0634c570f3018fe79f0ab50da0cce123de6",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src-tauri/Cargo.toml",
+        "expectedSha256": "25e1dd8184dc322a31a9256100677883fa245940f0f66f82e2da72d54556ef58",
+        "currentSha256": "fc3d6063815636f9081a0463793f70ca6bd8bfcae6de92ba235d1baca606ed65",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src-tauri/build.rs",
+        "expectedSha256": "8af41c0062014fc594e4bb9899e60ee9930ab57d4cf0c73041ff557d6ec736e6",
+        "currentSha256": "ce55d94ef836cc138523951d99018387fd9eba7a8ae5875a622aada3f5b06ce1",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src-tauri/capabilities/default.json",
+        "expectedSha256": "bb252ceb2fd9b50a8932931110fbac586b9160494168d887b6f57475353d5668",
+        "currentSha256": "62ba416f654bb2e0e6f5dc9b9c8bf0deb95c8435996774b5273a18c7e00e77b2",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src-tauri/crates/page-store/Cargo.lock",
+        "expectedSha256": "b4e7e67311b749d73815b4f1aed77f9da6f8e00c2a6a41c59377c26516afa369",
+        "currentSha256": "6ce6499bd1d7bc5c639051473675ceb5e081126e755fc1cb322dc0535f76f282",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src-tauri/crates/page-store/Cargo.toml",
+        "expectedSha256": "0e8865e2fea8be265fc8882850a04c952fd048a1cc51c396c16d4483592b9541",
+        "currentSha256": "6e71494c09c57702edaec10cabaa850e9e86b52de18a9fd99a1fa3c273f79279",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src-tauri/crates/page-store/examples/store-driver.rs",
+        "expectedSha256": "79c251d11947bbeade1a601ac4a81e29e98c5e0a19464cb15bee6e11e12b513b",
+        "currentSha256": "7a6f7a4161746e6820595f93bdbe1f3cd24a4688ef9dd1e715bd3e15e3dc43c3",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src-tauri/crates/page-store/schema.sql",
+        "expectedSha256": "1c3b2fec7937641b257580e75ae71c23ee23d636928820070f3d4ed4c7194ad3",
+        "currentSha256": "63fee0bc5c1377e5202246c2297dba3acb75edeed0cac45e41cd980aa926b9c9",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src-tauri/crates/page-store/src/lib.rs",
+        "expectedSha256": "53273e30564de1d30ab20668bf094797a8f812e507a87e4ffd081a7634843698",
+        "currentSha256": "071097b65c2e9d1ca88f433b5360eeeecf28e9d422a77f576479ed123d816601",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src-tauri/crates/page-store/src/structured.rs",
+        "expectedSha256": "0670c1e2778f2304452ab7619bbd9f4f65170efb2b3bd2f776e8b08c6f975e53",
+        "currentSha256": "206091ab5cf1d3303115859c50d3227350d4a4e3c02c106ba1cde9957ac4537e",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src-tauri/crates/page-store/src/structured_sync.rs",
+        "expectedSha256": "6a8fdd35723f64d90efb9543c72e292ddc33f5928d26c6a0592401c5ef3948b9",
+        "currentSha256": "0c20ffd21d893ea8673b9a06e55a57294be39417de19472a6fc995ace1575461",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src-tauri/crates/page-store/structured-sync.sql",
+        "expectedSha256": "7b23c76e867badfdaf1c6aede100ed6e3e34a3a0894146bfa8ad05533591a7d7",
+        "currentSha256": "61d0a30ab6e0ec07f3f0b280a56a2c0d4988390f2ba6d122b8c1cc938672b323",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src-tauri/crates/page-store/structured.sql",
+        "expectedSha256": "2fe370c8f84695ec9bbf11cccc0afb276ecb1aa143ee1d7ebf69721bd8f7af3c",
+        "currentSha256": "330dd17265dcb4d541ee48eed55ff021a0b206275ca6b57983d970d53e6aae32",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src-tauri/icons/128x128.png",
+        "expectedSha256": "96e97665701008c6f8eb5f9358c9eadabdc6ec22cbda6fadb03419dc732ddbf8",
+        "currentSha256": "96e97665701008c6f8eb5f9358c9eadabdc6ec22cbda6fadb03419dc732ddbf8",
+        "comparison": "byte-identical"
+      },
+      {
+        "path": "apps/client/src-tauri/icons/128x128@2x.png",
+        "expectedSha256": "d4ddbddd6f69adb4b25ecefa8b7f90b38508d996a26625f32ba908a91c5e91cd",
+        "currentSha256": "d4ddbddd6f69adb4b25ecefa8b7f90b38508d996a26625f32ba908a91c5e91cd",
+        "comparison": "byte-identical"
+      },
+      {
+        "path": "apps/client/src-tauri/icons/32x32.png",
+        "expectedSha256": "8faafa635227e2205d440b1cd85d57cd5124f114c8661414df0d3bead6671c86",
+        "currentSha256": "8faafa635227e2205d440b1cd85d57cd5124f114c8661414df0d3bead6671c86",
+        "comparison": "byte-identical"
+      },
+      {
+        "path": "apps/client/src-tauri/icons/icon.ico",
+        "expectedSha256": "282d6e8a8ef22ff7af88b7e8c0f6116020b980c8c1da3fb2e4fc1546e6cf5c17",
+        "currentSha256": "282d6e8a8ef22ff7af88b7e8c0f6116020b980c8c1da3fb2e4fc1546e6cf5c17",
+        "comparison": "byte-identical"
+      },
+      {
+        "path": "apps/client/src-tauri/icons/icon.png",
+        "expectedSha256": "2e0efc4a2f8708189471ed9efc3345220297a3c204683fd28fae8bc4098a6db4",
+        "currentSha256": "2e0efc4a2f8708189471ed9efc3345220297a3c204683fd28fae8bc4098a6db4",
+        "comparison": "byte-identical"
+      },
+      {
+        "path": "apps/client/src-tauri/icons/source.svg",
+        "expectedSha256": "e2574475aac87ac31a5c31b6667b4961de057a8f8b689fa8f8db329e360f64fc",
+        "currentSha256": "7f109f89c92fee34e12902585c0b7577443462324d6f647506e19a0bfa8fab3c",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src-tauri/src/lib.rs",
+        "expectedSha256": "662671e2eaeecee54386c4ffa169ed107e02b02c7b918bb7c073d7ed5c03f2b7",
+        "currentSha256": "8dbd2d86136d8572861174b87030813861657c5f702b8424a8973e3ba03ee14e",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src-tauri/src/main.rs",
+        "expectedSha256": "c43d26c2585bff63d5ff5ed9e010ef98fa7ee5a20d9da7e2d042178bc516bf00",
+        "currentSha256": "34912b9fb02ff009c2d1a388a4a837511f53185cee4f3dedbef766347871dc33",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src-tauri/tauri.conf.json",
+        "expectedSha256": "6b30a02f0cfc1ddd86a250c1eb7628ca8bcd726679781f30e91900f7a8ed3468",
+        "currentSha256": "c3ff900dcccecebccf56cfc316f40e4d56609521af87ec916b46aa8e6f907348",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src/connection-preference.ts",
+        "expectedSha256": "a47277e4fbbdcbc65dc3c2855d2de0ae4ca5e4678f929b43c34e052c6bc16cee",
+        "currentSha256": "79319019a3e0d2c6c485ee54e8015940b40177f7f2e6cbf050acb3342a100a0c",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src/editor/PageEditor.tsx",
+        "expectedSha256": "6dd3d9fd613cce5135724000df2b093c2d86ed1093dd469dc0eaa5cd178591d5",
+        "currentSha256": "a32a0ddd306a5df5fa1b66c609ea9dee2b766e7aa864ae6bffa262d79ba9bb34",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src/editor/block-drag.ts",
+        "expectedSha256": "ad16ad68edceb0c940bc5aaa1218be57fe30fc523bd00b232165a440cd7df527",
+        "currentSha256": "9eb2a1aae35588f3c0fa247ec3ea8dc48b91262e65524e47acb0569ddbba3f37",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src/editor/blocks.ts",
+        "expectedSha256": "6e55c139cdf0049f177bf0db433d65e9a233e822f35c7423d599316fb044e36c",
+        "currentSha256": "116b2a91a8a104fa220185f1549368c04c6933a1de8002a6f100e5d444485dd3",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src/editor/collaboration-history.ts",
+        "expectedSha256": "3723b280da25ee804efa2f410e734b47df93389566a00db9f6be153caf150717",
+        "currentSha256": "ccc32a036b934c3400d5aee2d32327bb052944c0be6850ba0cc4b2bb6f4ba823",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src/editor/collaboration-selection.ts",
+        "expectedSha256": "68c71ab42f96e98e9f2c535ae0aeb2b599cfb3dc4ec9b921b9a38c082c2be8fd",
+        "currentSha256": "b78ae41ea14548deb772271c091a63db9804b805b67770599ee7bfa407748a9d",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src/editor/details-ux.ts",
+        "expectedSha256": "f82bf10dad8790b03900d15ce1b92d730a3886514974ff04126cc267c071b719",
+        "currentSha256": "1ef300afb7bd734f97c9a7e62c8ae553b9780547856eb295bef212341d16d56d",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src/editor/extensions.ts",
+        "expectedSha256": "7fc651773c172070d4ad842d6dd1b70e60a8b04dd24cd6f3d202af1ba668b2be",
+        "currentSha256": "b8f49e8435c4b031ccbae6008df45c5a5607858d9b25389fe1352ffa3e7d4ddb",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src/editor/local-page-store.ts",
+        "expectedSha256": "a825002201b0aa5e5d7cbdf1d3d5f8840a03927b5eb38a73a6a979be7540f9ed",
+        "currentSha256": "c20310008fbfaf4da1c1efc8e146bdb50ef03090e76ffc8c92f085d11feec1fb",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src/editor/page-session.ts",
+        "expectedSha256": "70483f921e93d7d2f1896a3dbcedec6bf0e97c8563236b70c9f380dd4afbcb45",
+        "currentSha256": "14c7ed68301a58201cf2496e8e895cd7b63b3e5760e258d80d80356da51d849c",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src/editor/placeholders.ts",
+        "expectedSha256": "cb93d297d1aba933f1dc0b90872073158be7f20bd80553dda6f1b023b2a5494c",
+        "currentSha256": "18a3dfe80d6f0f9a24dfe781825964b408fb1235df189324ae024432fb4f0ed0",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src/editor/suggestion-menu.ts",
+        "expectedSha256": "2845228480f00b619637c15b55a010ed3aac5a3f598900eaa544e1d5ef36d208",
+        "currentSha256": "901290a745067a7a73fbfc7b0951332803a9b4ca531a023580e67f142896051d",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src/main.tsx",
+        "expectedSha256": "9fd16c61c3e612bc336d03a3ab6c0598e7acbdeecb5645d22502e00c5c3929f7",
+        "currentSha256": "0c0fdb560733b50a1b0a803a52e6e57997656140e729a2ef6beba7a550e02bac",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src/structured/TaskPanel.tsx",
+        "expectedSha256": "70c8f95e6e8b7b51def62d7891b120e16a4513d54611c28b8cb75a065a1e48b9",
+        "currentSha256": "65849ccef558d2571e69ead2dc8db810929d12fe3beb0a38571aa50a61286c0e",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src/structured/local-store.ts",
+        "expectedSha256": "0856f9dcfba46243799f016fe9f0c4a4b111168f65743090e5dbf7aca521f470",
+        "currentSha256": "c8a006687d53b45c1b8edc08ff908c5a4ffcd32b455c323800a80ba2c641987d",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src/style.css",
+        "expectedSha256": "16c6fe8fc1d7bcc8e32a9be8664c88088f98881a2ebe834b7c279ed6ee221f03",
+        "currentSha256": "34ad6e864159b9cc01aeaea9e31e1ca795dc7a9e886f3f2efb766860bbc613c5",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/src/vite-env.d.ts",
+        "expectedSha256": "65996936fbb042915f7b74a200fcdde7e410f32a669b1ab9597cfaa4b0faddb5",
+        "currentSha256": "424faf9241dd699dda995b367ed36665732da1e6ec1f33b2fd40394488ecac92",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/tsconfig.json",
+        "expectedSha256": "310082212e18182391efa9bc33732b4c49f713a537ac248749c2292e2939b5b8",
+        "currentSha256": "71e1a2de3e4c0bdfae77e0e559b554765b4dc40728bad5e9400c55dd98944f85",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/client/vite.config.ts",
+        "expectedSha256": "5eecf41deffe89f5b5ff5f7b7151e6d5027eab53df04d183722eb4c9f0c92f5a",
+        "currentSha256": "2be9a438445215a81d018363f601f7b6cc4869027a4ec569a4123fdc196cd85b",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/collaboration/package.json",
+        "expectedSha256": "bce7abbcf95e5a47cc064fcd8fc897fdda90c8e067fb13cc59b9f464f6f6433e",
+        "currentSha256": "92028a572bdae817e7a367c59999a14fcf36e12ffe18b24cf222db3332d85514",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/collaboration/src/main.ts",
+        "expectedSha256": "657343c599d6bfed865b31dd7543e34037ecabcb5480178c62c34687bb9af750",
+        "currentSha256": "c6ac5b4f576878829d12590888535e9563ad7f8d9ee4401b932e5b4045971dc7",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/collaboration/src/server.ts",
+        "expectedSha256": "57582ac2018d697ca8c315aa367e6ddc66f3f129b6eca80e2d822fb0e010467e",
+        "currentSha256": "2cc45bade02b7342e5b214eaf0708b81d25e2d839b6d2595bfb4d2fdbcb024a3",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/collaboration/src/update-store.ts",
+        "expectedSha256": "f686f9800cbb4bfdb54f251f1f0a81145635fe674262d3fc49ebd84d9f51ff7c",
+        "currentSha256": "fede0d89ae6f030eb8535695cf7f93a1c08a88d2476758930070bc6334d1f83b",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "apps/collaboration/tsconfig.json",
+        "expectedSha256": "84d7be17bbae2cd4731c38e75970f3b1e7915e6d09c096770a1e7ecc9e5247ae",
+        "currentSha256": "bf76c9712c298dc326961ad7fbd6480d41f5d53f1f81696d37d6d876d314b24c",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "infrastructure/development/Dockerfile",
+        "expectedSha256": "ea59408f1762874bfc90f4d2a50a9e1ff567ca012ec3155c2a6f53e089fee5b2",
+        "currentSha256": "4fbf59191fcb416f5f0f3578f1853413466ef0ac19c9cf09c7b215b7826f685b",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "infrastructure/development/compose.yaml",
+        "expectedSha256": "b934178a1ec603323639bb3f7c11bc4f16c25048edaa0113428cc7064a5d9052",
+        "currentSha256": "9365f99a550095857966fdab8f0a64519099472f3ff697f10ab69c9cedd5631d",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "infrastructure/postgres/compose.yaml",
+        "expectedSha256": "e175487b480da2c3d54aff18aab1a90e9a1d2f99e3035c8019c782e84a961fc0",
+        "currentSha256": "6a92890adca971be9dbd029745c25a0c67ad7f6e04eea53d730a9515780e1756",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "infrastructure/sqlite/schema.sql",
+        "expectedSha256": "2f0d1b012ff92a72a211e9cf0c15562af31e20070ea0e7f6c05e0c3dec5acb88",
+        "currentSha256": "38720b18a5c0fcba047a6e5d51e20b2645c5e285fa9e24d60f835215cfe93795",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "package-lock.json",
+        "expectedSha256": "e9b8e33cf9517fe18a85926b6b77dd022afc2daace7d5e921b9355f5b06fe7b3",
+        "currentSha256": "e927365e291ac3e9a3d3a498da4bdca14402609fc4982f9501dd0d7cb3095bd9",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "package.json",
+        "expectedSha256": "61bcbef6809aad2e95ccf049f8c371302af02d72eafa8b44ef5443fe25966188",
+        "currentSha256": "65eb68c82ce973e8be6c910cd829f70cbc9e43b930b6bc2e2cd50d4409d0cdec",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "packages/protocol/package.json",
+        "expectedSha256": "676a26998c906506c82efec80554910e64cf0f14975db7a516877c60d3b46150",
+        "currentSha256": "b73fec316fd89d9bd25b0c99369e375fcea5d08c66bbc131fd7abd215503630b",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "packages/protocol/src/index.ts",
+        "expectedSha256": "5e58330d3b676dae3d2a0f6e672e37b15b2074aea02e41db85fd551fbb622df8",
+        "currentSha256": "5a4c631ec5745d92865ae373a0189d80342fbebe0f522ecf8832d0d4a21704bd",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "packages/protocol/tsconfig.json",
+        "expectedSha256": "8362482b1b200dbceea41ab7d28cefcddae11f3e796d82ceb8f62a3f97a8b031",
+        "currentSha256": "f61c41de4d34ec8af30dd26edbc33db312fba7cdf7f158147546f39fe0e076cf",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "packages/shared/package.json",
+        "expectedSha256": "13eea6ec3c5cd4b6f2f89032c4fd017e38f79b074871da0184da8b82d653c4da",
+        "currentSha256": "31e377d9879a7e0861b46e57fb2b8757a151a10465e495830f65c447aace17ad",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "packages/shared/src/index.ts",
+        "expectedSha256": "8c9a5147b9f7923e6cda544304c87222f7d90a72b9b5c348c55655aeef101e39",
+        "currentSha256": "f4614ca18f7ce30d59fdb9038a7f6f8c2c66c0782030a96328bb336089639f4d",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "packages/shared/tsconfig.json",
+        "expectedSha256": "8362482b1b200dbceea41ab7d28cefcddae11f3e796d82ceb8f62a3f97a8b031",
+        "currentSha256": "f61c41de4d34ec8af30dd26edbc33db312fba7cdf7f158147546f39fe0e076cf",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "packages/sync/package.json",
+        "expectedSha256": "c7de38eef75a5013b5b149e4c071e4cc043a96b3b4d032533fc531013f1e4311",
+        "currentSha256": "997cb850eb45199fa7dc9cbad9601aeac48f960e028d573828c3515118659eec",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "packages/sync/src/index.ts",
+        "expectedSha256": "3be7eed7b5a3c3e6849be7ca5869246e76946cbb3d8da516864d4fbfc0ea44e2",
+        "currentSha256": "6f56b4ccfeb5f8574733d2154804322fd5df7ae492fe46ea95409c59de4ff184",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "packages/sync/src/page-bootstrap.ts",
+        "expectedSha256": "a54b8d075dcc956b0841951988d63c84391f7dfb33e12264a9887050ae3cc052",
+        "currentSha256": "4c425f68edf359b0a43b3aa86a846fd15b6e5109bdbec297776f54e329a4c452",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "packages/sync/src/structured-engine.ts",
+        "expectedSha256": "09590b82edb0305cb9ecb693a3003f08e7682e01eb1270bbfef338599e44427d",
+        "currentSha256": "870e5d78870b9a9fa86fe91307e00023ed8ed842d5311d4261f0cd7aac433e8f",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "packages/sync/tsconfig.json",
+        "expectedSha256": "8362482b1b200dbceea41ab7d28cefcddae11f3e796d82ceb8f62a3f97a8b031",
+        "currentSha256": "f61c41de4d34ec8af30dd26edbc33db312fba7cdf7f158147546f39fe0e076cf",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "playwright.config.ts",
+        "expectedSha256": "90cbe9e9625257a91a41bcc1eeaadfe4cf270726fa28f41812474862e9108ee1",
+        "currentSha256": "8eda8ac7cae6653f6a102eee94cc5713999588ba22b4fbb534e21cfe46db28b1",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "playwright.performance.config.ts",
+        "expectedSha256": "6f56954fba4793d54769a02d1a78461c15e4b7dbd648c1be69ebddec5448d891",
+        "currentSha256": "eee5752d1b0aff991de57fe0880fc139030abfffdffe0c171f7a5657292a69bf",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "rust-toolchain.toml",
+        "expectedSha256": "72da9f9e503464ba7393560f6f51a69fb06be72633d52ae7725fa0ba59dfda22",
+        "currentSha256": "826f0972b069069343ccc3b118e4c6fb13227a1224c3d1d961283afdcea4547d",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "scripts/create-windows-vm.ps1",
+        "expectedSha256": "7174f27da3da33c53a7a4daf3ec1b54173efb9221cbd1312bd743ccd673e8dea",
+        "currentSha256": "aa4d5e762e0011c840d96161f186b0044ed5778fcb3cf19df7a0cb93d3f6a82f",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "scripts/evidence.mjs",
+        "expectedSha256": "e7d700b47c8a7ac93936d555826a4a04d501b786800c7b571c9baba102c53013",
+        "currentSha256": "3680dae646396f097d92c92071dac1eb41267214879756dfd07c238858afa609",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "scripts/init-sqlite.mjs",
+        "expectedSha256": "b59a65acff5450782501d1bd65fe9ff93828f5e294bcb5ba2b6dde7ca7f01571",
+        "currentSha256": "63987d35014a5a256147fecd3f299f7f60134b33de24cfb1cba9a63e08dea053",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "scripts/setup-windows-vm.ps1",
+        "expectedSha256": "3f5df90aaf3ccd06b7d964ff7a6d85e0f215444a3c48230d957c1c372513e1c3",
+        "currentSha256": "c07d035609f3c27e9e091bf7479bd3831d06f58a0e587d21df2aba9e40b686ae",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "scripts/start-windows-ime.ps1",
+        "expectedSha256": "c5bbd7b1a4423449130b80d90fa5bcacaac391e88591e9bec8ca365f98d11efe",
+        "currentSha256": "0681e78b6b6b6043c48554cf00ad001e483a3d8576280ccc12cf410d9c33fbe4",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "scripts/test-performance.mjs",
+        "expectedSha256": "ad2387ec32f7280662ec541c81dd930f9f87a096815a59f46afdf78ace24f58f",
+        "currentSha256": "8288f11359e8bc4778542fdc2c4cf4e7eb06d4fe506d9e8b6b628051980633f0",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "scripts/test-postgres.mjs",
+        "expectedSha256": "1aeebdec2ed1b5f4bc987ffab38a7212bdb7d35932d12a7fd9ecf5998b7900cf",
+        "currentSha256": "b2010148ad617c928717bc44ab655f575ec583193fa85edf64c456d55d3266f2",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "scripts/test-structured-e2e.mjs",
+        "expectedSha256": "2bbdef3e5f884e3b0cef5c1e0188f96b322e2dd834acb1d5e934e753b3c766d8",
+        "currentSha256": "a68b8fce3152a5d31a8993ebd417d1d4150cb09727b0d2c9c6a85219bc6d54b9",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "scripts/use-tools.ps1",
+        "expectedSha256": "92a3cd10e4ec5ddd468eb3c6e85e3723103ef73fae09f67cfa755282985151fc",
+        "currentSha256": "536f5a1e3b279ecc547788335f9d288af5c2756d01ea05d0a71891dd51c95d4f",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "scripts/verify-native-features.mjs",
+        "expectedSha256": "f1acbeb1a8ce395e2a5e6bc9e5c8ded01a0a2cef75f606650545b1a866c45d10",
+        "currentSha256": "fd0cd328d94e555df9feec1b065582c4e3ae0592a3d4665af443a06a8eb7d2f2",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "scripts/versions.mjs",
+        "expectedSha256": "64560f9bf5cb8ea816592fbe021404289fac420dca4c036b3e5fb318520bd74f",
+        "currentSha256": "553e896ec8dbee76d08b013b2a27bc786b2c06db0988bac82db5b72c62be9ef7",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/e2e/collaboration.spec.ts",
+        "expectedSha256": "8cf7bbcecb66a4c428c0a3dfdfc629d2c278eb464d2d554ca0fe30a314507683",
+        "currentSha256": "47663caafd3ca04482da8b23709913b5358778f34bc565a3c5dd3bd26bfb11a4",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/e2e/editor-ux.spec.ts",
+        "expectedSha256": "f49f3ea006b01a08a61bb90ee029298d9519a9e85a3a3eaa124485a240ce8984",
+        "currentSha256": "101d36a2b34c61d03b25b2918d8956592fe868b87374cfd2ae6e020a2b20d56e",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/e2e/editor.spec.ts",
+        "expectedSha256": "a8fbe20cf4be21caa58de7e0e68e0061ba1212df0d23ecb36b193ce24341dade",
+        "currentSha256": "c2fbe728b583023f65a2d3c8277597283e412b01b5ad82cf9d1879c05a5685a9",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/e2e/focus-reconnect.spec.ts",
+        "expectedSha256": "f06771b50c110feb12d525e942a2896a52723bf41123a3de8a24412228d02add",
+        "currentSha256": "1a394bb10fc8f87bcecfe99c346cbf4a4899111e53db6e21b10fb24895848735",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/e2e/foundation.spec.ts",
+        "expectedSha256": "0615c4d9a3363d1b1585b3b45409fbe02e890ea81812fdf5c4443efe398b0da1",
+        "currentSha256": "5634a95096f19bc5b1b4e7daa041512a4998772561dff60dbba5723fa685fce7",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/e2e/persistence.spec.ts",
+        "expectedSha256": "e5fd15017a76b76a050d3522b1653170b61d4e320fb9d711d9127178194f0269",
+        "currentSha256": "b97ee0d7c2d993d3483589969360cfeb9cc9c9c441751b0e86619948924f6c95",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/e2e/structured-crash.spec.ts",
+        "expectedSha256": "b671160740c148b8480e05c47056f5d37aff06f730ae017e3e77114aa85c44a5",
+        "currentSha256": "3f0b6a5f37cb63f6b0f023daf6dae2d6e9b1058f7df9f2e692c0838c19e5d2e4",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/e2e/structured-local.spec.ts",
+        "expectedSha256": "ee8df48616910a0a0b2171816ae0ee0c7eb22368833b0a78d4b289161a28604e",
+        "currentSha256": "5eb56a57faa3a1c40df1fcfe4c76c0328dcb4b096748ea3d5e0b58771f206192",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/e2e/structured-sync.spec.ts",
+        "expectedSha256": "fe93f592e6510da091848185519ea928ce184c6efba8da58bafcae09dcde4c77",
+        "currentSha256": "08cb100c4c5c4b23b6f02a4dfa0eba1dd7ea3d1da962d7e5cec4f1c41a662d99",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/fixtures/.gitkeep",
+        "expectedSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "currentSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "comparison": "byte-identical"
+      },
+      {
+        "path": "tests/fixtures/entities.ts",
+        "expectedSha256": "a90416f7ba85e7d4f633e2ffb1749805a4f4238a106eecc610fe3283c4237e12",
+        "currentSha256": "f15863fcab1bc75f3a8d2ae50cb5a0ec89e7bd77b1d689dfd6d4b4762df88d9d",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/integration/api.test.ts",
+        "expectedSha256": "a4f5c664bef65ef1216eb0dff2d98483c8c6409a6058199ff644adae554830f4",
+        "currentSha256": "58fee96fd8bd6fbd6a975b004b2e9c27303a6f5459a8aff18f46fae87a67f473",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/integration/collaboration-restart.test.ts",
+        "expectedSha256": "db8021df599d211f9aea10ab87356912cabf09d18d7c00e4550ff0f379f65186",
+        "currentSha256": "3fb8ec77406f72651707f5d8951624c0f0cc70918dfc905a48f869606c6ccf89",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/integration/collaboration.test.ts",
+        "expectedSha256": "07a229fcbb9fa2ac3dd99ca12411caa03fce82fd3c05a02cdab293eeb236c1f4",
+        "currentSha256": "2cc5785529bbb2710077e55167ef4b463f88de1267643a06996859e34c1eed01",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/integration/page-store.test.ts",
+        "expectedSha256": "5dd8f6148f75b5e0400a0cae4356c03c1a0b0ad127b25359ccb6da2befce8db2",
+        "currentSha256": "6c8cf621bcddb3e173bef8eb8b80bf39ed7dd965d6dd8cae7ff02f9953013e61",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/integration/postgres.test.ts",
+        "expectedSha256": "8f2eb3cb26a514789501b97de5d4d6715f6edc1f5ec1aa32e48cb577fe6ba33d",
+        "currentSha256": "0719d8524e1fa388fe19d2901db95d79fd3c8a16702c2232aa2649a35f33ba70",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/integration/sqlite-bridge-stream.test.ts",
+        "expectedSha256": "7aaaea91912bbbf032c09d71685bab97797f9e05cb2b54b4a7605afbd407368a",
+        "currentSha256": "80925e53fa45dc4ff427822bc258532532306d6d6e8782d9dcdfae30e2724bf3",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/integration/sqlite.test.ts",
+        "expectedSha256": "0650f09acce63096ded935a5629b22aa1cd4c2fbd156ed3dac8ce386bc1b0234",
+        "currentSha256": "b0bf68769c7f7c3f7893bedc2ff6c7b9c367e55072b1e89c9b6f1fd63255fb1b",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/integration/structured-postgres.test.ts",
+        "expectedSha256": "4a4955707b6de256b1ab60dbc863d8ac2a0f022c231c808c2ad997ebdaa476a7",
+        "currentSha256": "56657abd9dc9d996e784e8430b07bbfc25c70c22974493d9f4deb53d1a4391f4",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/integration/structured-process-crash.test.ts",
+        "expectedSha256": "cf6b73da7fce46831ac5c79ae3913e7940a267a789f7b24fed94b9d2e447f114",
+        "currentSha256": "84d1a3350653641aaf88d3a23d8d310e08dfe2f2c9caec28b21daeb1efaa733c",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/integration/structured-store.test.ts",
+        "expectedSha256": "c8e3906706be37b31b8a897e79248c1347a25a7cc12871d6621fca17010caa2e",
+        "currentSha256": "1c520b97c16446a8e06e366c5f219af97e8262dd8071032af68c996e5adc3340",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/integration/structured-sync-client.test.ts",
+        "expectedSha256": "57abe6c2e2575b61d873be6b2f5d9e0daf11f20ee1ef3d111e2469d4b2187247",
+        "currentSha256": "79d8ba0a076427b4ee549d64994f704da42a9508837cb5d7d1a3f90be2ee7298",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/integration/structured-sync-server.test.ts",
+        "expectedSha256": "f31502a45e3aa6951258fe9dc604fae5338a288d52e067d14388591564a80c6f",
+        "currentSha256": "940a61fd988925315e6777abfb67483d17d2736a65812ed4643e8ad15b7b4e4a",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/integration/structured-sync-store.test.ts",
+        "expectedSha256": "a9d4bba21590da62ebad9c11bc299503f982029027b0e87a4c8fcb34c1739690",
+        "currentSha256": "cedef0d3fa631c85461638d5f4d5e28e7b464aaeb2fb70c54056a273b89a9e36",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/manual/inspect-native-page.mjs",
+        "expectedSha256": "62f0608388d511ddedf668b2802b1bd52813b9b580cec5c4d61739db33d003bc",
+        "currentSha256": "f18cd13494787e9e54fe08f38cee66f3d23161ec2a1239bc81d91929b2616cca",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/manual/native-page-peer.mjs",
+        "expectedSha256": "1c5fe8c9dcde32f01854aaace0da785f15e006569e6b673bb986cc12548241c2",
+        "currentSha256": "86953e02d0b1460f4fbc54b6175e9aecd31441358b11b7fcc838c808730aa4de",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/manual/remote-ime-peer.mjs",
+        "expectedSha256": "99d77648a0db91e83827c97f7125422de5c1580b7c79ba0fa06987316cd928b0",
+        "currentSha256": "dd297ae4154fc4edc3d57dd051bd0b29fa15449331c089b47e20b8e87bd24064",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/performance/workloads.spec.ts",
+        "expectedSha256": "7259b69d8d192fc67a6071797b4ee60fe9b978a47a0cfd80f43930cdd5950b52",
+        "currentSha256": "a51c62503fddfe6b003876022ae19d2bcdfe69f833dee1fec9120512ff213ec0",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/support/sqlite-bridge.ts",
+        "expectedSha256": "baa2b0c52edc046fc83ccc348422e9850b1f2fd98112296da718afe85ac56c6a",
+        "currentSha256": "7ad35fa94ab3af8be6e9a421a2396594129c0977bece7d8fac9323ec3194a95a",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/support/structured-device.ts",
+        "expectedSha256": "84730c5282ebeb02200be7facf1d327910e7009a613bdcc4d68c229ea0329eee",
+        "currentSha256": "f1b0b4a5bdb61560995c8ff0de30a98911ba0942d30abda8679f633b3ed88220",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/unit/block-move.test.ts",
+        "expectedSha256": "f675b7d7f874ad7865e24769710eac987dad3a23c7d0c34ead34a5b97f45a31d",
+        "currentSha256": "a44093f045b344994634ca1154ce93402349bc72026be7801b5c22506ff3d026",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/unit/durability-boundary.test.ts",
+        "expectedSha256": "a6b53f3f587e9130b99fa257560ee7b6ac79f483a5dda6d17c11d3fbe2656f47",
+        "currentSha256": "661bc52d8defa9094f115be1cb7eb87e67e8da62daeec985c6bdc40bdee914a4",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/unit/page-writes.test.ts",
+        "expectedSha256": "79c3e16794c9e863e5baf614623a5736287cb9a2c22e3b54a6901aa3ed992099",
+        "currentSha256": "45fd94255c5af0d1a85dc534346e7dfd62786913cd797cbf4eaed8d6974be2c7",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/unit/protocol.test.ts",
+        "expectedSha256": "8e1c07487e9e265856c3911b87791a366b82925b3701cf8c26ddb89bad267e8f",
+        "currentSha256": "f617399ec21c9aafb52237c85cf7b4e356712eaf120473b84394f7195c957f94",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/unit/shared.test.ts",
+        "expectedSha256": "4f6bb22d9f25ff40dec4b9e630b916cd6b7a079c57209198163a2b233b34c7d7",
+        "currentSha256": "a6d2e6981b94d1a565f56e161cea5099f64af9c480f90c3260c425ecfd68f53f",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tests/unit/structured-transport.test.ts",
+        "expectedSha256": "baf1cd77ed0f98e861e935e4767f7f126b1db0e88b0ce6427c0bd3ec2d16180f",
+        "currentSha256": "982e20f8c5a63a7349168affba106e045884c50a182b148f91428d4336e544ae",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tsconfig.base.json",
+        "expectedSha256": "5e86cf5d62e5a9f66589e39b7cfc11af75602d8a7eb462d04c7798c6ea09408e",
+        "currentSha256": "cf9e7c2d1f31285b4fdf9f8361b6c33eb3d61808fe79c4a47837a420ad7392b5",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "tsconfig.tests.json",
+        "expectedSha256": "6f5bea1b4386609be31ffbd1a1d86f01833285944dda954d449b31b48ba034ce",
+        "currentSha256": "448683d8aa2dfb45d94dfa322c5095ec4e3fa62c582997891d5ef4d787652634",
+        "comparison": "CRLF-to-LF-only"
+      },
+      {
+        "path": "vitest.config.ts",
+        "expectedSha256": "a61a2b12d9df2b4dfe75f27a6b3708bd4cdb00defb8742e040144e1a94cc7399",
+        "currentSha256": "ede0c1fff49c1ab237de52e2982f6393c288cf1d0a2306c61bd8adb337473f0c",
+        "comparison": "CRLF-to-LF-only"
+      }
+    ]
+  },
+  "suites": [
+    {
+      "name": "Selection/reconnect focused",
+      "scope": "Docker Chromium + Rust bridge; not native IPC/IME",
+      "path": "tests/evidence/step-8-focus-20261003/focused/playwright.json",
+      "cases": [
+        {
+          "name": "focus-reconnect.spec.ts > STEP8-FOCUS-paragraph-forward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "project": "chromium"
+        },
+        {
+          "name": "focus-reconnect.spec.ts > STEP8-FOCUS-paragraph-backward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "project": "chromium"
+        },
+        {
+          "name": "focus-reconnect.spec.ts > STEP8-FOCUS-heading-forward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "project": "chromium"
+        },
+        {
+          "name": "focus-reconnect.spec.ts > STEP8-FOCUS-heading-backward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "project": "chromium"
+        },
+        {
+          "name": "focus-reconnect.spec.ts > STEP8-FOCUS-todo-forward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "project": "chromium"
+        },
+        {
+          "name": "focus-reconnect.spec.ts > STEP8-FOCUS-todo-backward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "project": "chromium"
+        },
+        {
+          "name": "focus-reconnect.spec.ts > STEP8-FOCUS-toggle-forward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "project": "chromium"
+        },
+        {
+          "name": "focus-reconnect.spec.ts > STEP8-FOCUS-toggle-backward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "project": "chromium"
+        },
+        {
+          "name": "focus-reconnect.spec.ts > STEP8-RECONNECT-CYCLES: repeated offline edits converge once and restore to an independent client",
+          "project": "chromium"
+        }
+      ]
+    },
+    {
+      "name": "Editor/persistence/collaboration",
+      "scope": "Docker Chromium + Rust bridge; not native IPC/IME",
+      "path": "tests/evidence/step-8-focus-20261003/full/playwright.json",
+      "cases": [
+        {
+          "name": "collaboration.spec.ts > STEP4-PARAGRAPH: simultaneous edits retain both changes and remote update keeps the caret",
+          "project": "chromium"
+        },
+        {
+          "name": "collaboration.spec.ts > STEP4-BLOCKS: different blocks, local undo does not undo the other client",
+          "project": "chromium"
+        },
+        {
+          "name": "collaboration.spec.ts > STEP4-OFFLINE: each client adds and deletes blocks, reconnect and fresh client restore the result",
+          "project": "chromium"
+        },
+        {
+          "name": "collaboration.spec.ts > STEP4-MOVE: both clients move blocks while offline",
+          "project": "chromium"
+        },
+        {
+          "name": "collaboration.spec.ts > STEP4-NESTED: edit and move within a nested Toggle, then reconnect",
+          "project": "chromium"
+        },
+        {
+          "name": "collaboration.spec.ts > STEP4-TODO: concurrent checked change and nested list edits retain valid nodes",
+          "project": "chromium"
+        },
+        {
+          "name": "collaboration.spec.ts > STEP4-ISOLATION: another Page never receives this Page body",
+          "project": "chromium"
+        },
+        {
+          "name": "editor-ux.spec.ts > STEP2-UX-SLASH: pointer and keyboard share one selection and retain editor focus",
+          "project": "chromium"
+        },
+        {
+          "name": "editor-ux.spec.ts > STEP2-UX-SLASH: wrap, Home/End, Tab, search aliases and empty dismissal",
+          "project": "chromium"
+        },
+        {
+          "name": "editor-ux.spec.ts > STEP2-UX-SLASH: outside dismissal preserves query, narrow popup stays on screen",
+          "project": "chromium"
+        },
+        {
+          "name": "editor-ux.spec.ts > STEP2-UX-TOGGLE: Enter reuses existing body and collapse moves caret to visible heading",
+          "project": "chromium"
+        },
+        {
+          "name": "editor-ux.spec.ts > STEP2-UX-TOGGLE: pointer retains caret, keyboard button activation retains focus",
+          "project": "chromium"
+        },
+        {
+          "name": "editor-ux.spec.ts > STEP2-UX-TOGGLE: folding is excluded from content undo and nested shortcut uses nearest toggle",
+          "project": "chromium"
+        },
+        {
+          "name": "editor-ux.spec.ts > STEP2-UX-VISUAL: capture polished slash menu and toggle at a desktop viewport",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP2-BLOCK: slash inserts 本文, edit and delete",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP2-BLOCK: slash inserts 見出し1, edit and delete",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP2-BLOCK: slash inserts 見出し2, edit and delete",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP2-BLOCK: slash inserts 見出し3, edit and delete",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP2-BLOCK: slash inserts 箇条書き, edit and delete",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP2-BLOCK: slash inserts 番号付きリスト, edit and delete",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP2-BLOCK: slash inserts Todo, edit and delete",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP2-BLOCK: slash inserts 引用, edit and delete",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP2-BLOCK: slash inserts コード, edit and delete",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP2-BLOCK: slash inserts 区切り線, edit and delete",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP2-BLOCK: slash inserts Toggle, edit and delete",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP2-TODO: checkbox and nested list survive undo/redo",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP8-TODO: each checkbox aligns with its editable text and pointer editing keeps the item",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP2-TOGGLE: nested content folds without losing text and unwraps",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP2-MARKDOWN: #  shortcut",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP2-MARKDOWN: ##  shortcut",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP2-MARKDOWN: ###  shortcut",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP2-MARKDOWN: -  shortcut",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP2-MARKDOWN: 1.  shortcut",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP2-MARKDOWN: []  shortcut",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP2-MOVE: drag changes order, undo restores it, keyboard moves the block",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP8-HANDLES: typing retains handle DOM and dragging uses current offsets and text",
+          "project": "chromium"
+        },
+        {
+          "name": "editor.spec.ts > STEP2-COMPOSITION: slash menu does not consume composition Enter",
+          "project": "chromium"
+        },
+        {
+          "name": "focus-reconnect.spec.ts > STEP8-FOCUS-paragraph-forward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "project": "chromium"
+        },
+        {
+          "name": "focus-reconnect.spec.ts > STEP8-FOCUS-paragraph-backward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "project": "chromium"
+        },
+        {
+          "name": "focus-reconnect.spec.ts > STEP8-FOCUS-heading-forward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "project": "chromium"
+        },
+        {
+          "name": "focus-reconnect.spec.ts > STEP8-FOCUS-heading-backward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "project": "chromium"
+        },
+        {
+          "name": "focus-reconnect.spec.ts > STEP8-FOCUS-todo-forward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "project": "chromium"
+        },
+        {
+          "name": "focus-reconnect.spec.ts > STEP8-FOCUS-todo-backward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "project": "chromium"
+        },
+        {
+          "name": "focus-reconnect.spec.ts > STEP8-FOCUS-toggle-forward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "project": "chromium"
+        },
+        {
+          "name": "focus-reconnect.spec.ts > STEP8-FOCUS-toggle-backward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "project": "chromium"
+        },
+        {
+          "name": "focus-reconnect.spec.ts > STEP8-RECONNECT-CYCLES: repeated offline edits converge once and restore to an independent client",
+          "project": "chromium"
+        },
+        {
+          "name": "foundation.spec.ts > STEP1-E2E: React client starts alongside API and collaboration services",
+          "project": "chromium"
+        },
+        {
+          "name": "persistence.spec.ts > STEP5-CRASH: new offline Page metadata and block edits survive renderer/store SIGKILL, reopen offline and converge",
+          "project": "chromium"
+        },
+        {
+          "name": "persistence.spec.ts > STEP5-WRITE-ERROR: failed SQLite commit never sends the unsafe update or reports saved/synced",
+          "project": "chromium"
+        },
+        {
+          "name": "persistence.spec.ts > STEP5-RESTORE-corrupt: incompatible or corrupted SQLite fails closed",
+          "project": "chromium"
+        },
+        {
+          "name": "persistence.spec.ts > STEP5-RESTORE-schema: incompatible or corrupted SQLite fails closed",
+          "project": "chromium"
+        },
+        {
+          "name": "structured-local.spec.ts > STEP6-E2E: Task and Relation pointer/keyboard CRUD persist with pending operations after renderer/store restart",
+          "project": "chromium"
+        },
+        {
+          "name": "structured-local.spec.ts > STEP6-WRITE-ERROR: failed queue commit retains the draft and permits a safe retry without duplicate Task",
+          "project": "chromium"
+        }
+      ]
+    },
+    {
+      "name": "Conflict UI",
+      "scope": "Docker Chromium + Rust bridge; not native IPC/IME",
+      "path": "tests/evidence/step-8-focus-20261003/full/structured-e2e/playwright.json",
+      "cases": [
+        {
+          "name": "structured-sync.spec.ts > STEP7-E2E: offline creation/reload, peer field merge, keyboard conflict resolution and focus preservation use real HTTP and Rust SQLite",
+          "project": "chromium"
+        },
+        {
+          "name": "structured-sync.spec.ts > STEP7-E2E-DRAFT: peer updates do not overwrite an active draft; stale save retains user input; remote conflict choice is explicit",
+          "project": "chromium"
+        }
+      ]
+    },
+    {
+      "name": "Combined crash boundaries",
+      "scope": "Docker Chromium + Rust bridge; not native IPC/IME",
+      "path": "tests/evidence/step-8-focus-20261003/full/combined-crash/playwright.json",
+      "cases": [
+        {
+          "name": "structured-crash.spec.ts > STEP7-COMBINED-CRASH-edit-immediate: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart",
+          "project": "chromium"
+        },
+        {
+          "name": "structured-crash.spec.ts > STEP7-COMBINED-CRASH-local-committed: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart",
+          "project": "chromium"
+        },
+        {
+          "name": "structured-crash.spec.ts > STEP7-COMBINED-CRASH-push-after-server-commit: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart",
+          "project": "chromium"
+        },
+        {
+          "name": "structured-crash.spec.ts > STEP7-COMBINED-CRASH-pull-before-cursor: Page blocks, Task intent and Relation survive browser/store SIGKILL and offline restart",
+          "project": "chromium"
+        }
+      ]
+    },
+    {
+      "name": "Performance correctness workloads",
+      "scope": "Docker Chromium + Rust bridge; not native IPC/IME",
+      "path": "tests/evidence/step-8-focus-20261003/full/performance/playwright.json",
+      "cases": [
+        {
+          "name": "workloads.spec.ts > STEP8-STARTUP-WEB: empty SQLite navigation to an editable production-bundle UI",
+          "project": "chromium"
+        },
+        {
+          "name": "workloads.spec.ts > STEP8-PAGE-1000: restore every journal update and measure actual key input and durable-save wait",
+          "project": "chromium"
+        },
+        {
+          "name": "workloads.spec.ts > STEP8-YJS-100: fifty actual key edits per offline client converge completely after reconnect",
+          "project": "chromium"
+        },
+        {
+          "name": "workloads.spec.ts > STEP8-STRUCTURED-1000: durable Task chains restore offline and the actual UI engine converges without duplicates",
+          "project": "chromium"
+        }
+      ]
+    }
+  ],
+  "unit": {
+    "passed": 45,
+    "skipped": 20,
+    "cases": [
+      {
+        "name": "STEP6-API: boots NestJS/Fastify and reports unavailable storage without an in-memory substitute",
+        "status": "passed"
+      },
+      {
+        "name": "STEP4-RESTART: ACKed binary updates survive SIGKILL; disconnected edits converge after restart",
+        "status": "passed"
+      },
+      {
+        "name": "STEP4-JOURNAL: partial final append recovers; checksum corruption fails closed",
+        "status": "passed"
+      },
+      {
+        "name": "STEP1-COLLAB: boots Hocuspocus and responds to a real HTTP request",
+        "status": "passed"
+      },
+      {
+        "name": "STEP5-TRANSACTION: native repository rolls back the update with failed metadata and deduplicates replay",
+        "status": "passed"
+      },
+      {
+        "name": "STEP1-POSTGRES: connects to the real development PostgreSQL",
+        "status": "skipped"
+      },
+      {
+        "name": "STEP8-BRIDGE: killing a real Rust store during concurrent requests never terminates the HTTP server",
+        "status": "passed"
+      },
+      {
+        "name": "STEP1-SQLITE: initializes and reopens a local development database",
+        "status": "passed"
+      },
+      {
+        "name": "STEP6-POSTGRES: real models survive reopen; version guards serialize competing edits; Nest exposes durable reads",
+        "status": "skipped"
+      },
+      {
+        "name": "STEP7-API-SIGKILL-before-commit: an actual API process crash preserves immutable wire, cursor and exactly one final operation",
+        "status": "skipped"
+      },
+      {
+        "name": "STEP7-API-SIGKILL-after-commit: an actual API process crash preserves immutable wire, cursor and exactly one final operation",
+        "status": "skipped"
+      },
+      {
+        "name": "STEP6-LOCAL: atomically migrates Page schema, keeps binary updates and stable client identity across reopen",
+        "status": "passed"
+      },
+      {
+        "name": "STEP6-MIGRATION: an incompatible existing table rolls back the whole upgrade and preserves Page data",
+        "status": "passed"
+      },
+      {
+        "name": "STEP6-ATOMIC: queue failure rolls back Task/Relation edits, retains pending operations and causal bases after restart",
+        "status": "passed"
+      },
+      {
+        "name": "STEP6-VALIDATION: native IPC rejects malformed, immutable and stale writes without creating queue entries",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-CLIENT-HTTP: offline Task/Relation chains survive SIGKILL and converge through restore/pull/push/pull in creation order",
+        "status": "skipped"
+      },
+      {
+        "name": "STEP7-CLIENT-ACK-LOSS: commit followed by dropped HTTP ACK and API/store restart is recovered once through durable pull",
+        "status": "skipped"
+      },
+      {
+        "name": "STEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution",
+        "status": "skipped"
+      },
+      {
+        "name": "STEP7-CLIENT-PULL-FAILURE: cursor commit failure stops network progress; restart and explicit retry keep the original cursor and restore all records",
+        "status": "skipped"
+      },
+      {
+        "name": "STEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent",
+        "status": "skipped"
+      },
+      {
+        "name": "STEP7-CLIENT-REJECTED: create collision stops the affected causal chain, retains both original payloads and never displays synced",
+        "status": "skipped"
+      },
+      {
+        "name": "STEP7-SERVER-IDEMPOTENCY: concurrent replays, ID collisions, malformed payloads and API recreation retain immutable results",
+        "status": "skipped"
+      },
+      {
+        "name": "STEP7-SERVER-MERGE: field merge keeps peer edits and same-field conflicts retain base/local/remote through explicit resolution",
+        "status": "skipped"
+      },
+      {
+        "name": "STEP7-SERVER-RELATION: disjoint endpoint edits merge and same endpoint conflicts resolve as a new operation",
+        "status": "skipped"
+      },
+      {
+        "name": "STEP7-SERVER-DELETE: deletes dominate stale Task/Relation updates and close existing conflicts without resurrecting entities",
+        "status": "skipped"
+      },
+      {
+        "name": "STEP7-SERVER-ORDER: concurrent writers cannot leave lower committed operations behind a pull cursor",
+        "status": "skipped"
+      },
+      {
+        "name": "STEP7-SERVER-ATOMIC: ledger failure rolls back entity/history/counter and retry finalizes exactly once",
+        "status": "skipped"
+      },
+      {
+        "name": "STEP7-SERVER-MIGRATION: Step 6 rows and tombstones enter the new stream atomically without fabricating missing history",
+        "status": "skipped"
+      },
+      {
+        "name": "STEP7-SERVER-CAUSAL: sequential offline intent keeps competing peer values and merges its own accepted fields",
+        "status": "skipped"
+      },
+      {
+        "name": "STEP7-SERVER-CAUSAL-VALIDATION: aliases preserve original intent, invalid dependencies reject durably and chained deletes remain acknowledged",
+        "status": "skipped"
+      },
+      {
+        "name": "STEP7-SERVER-CAUSAL-MIGRATION: existing version 2 ledger frames are reconstructed without changing immutable ACKs or cursors",
+        "status": "skipped"
+      },
+      {
+        "name": "STEP7-STORE: immutable prepared requests and causal offline intent survive store SIGKILL; ACK does not skip pull",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-PROJECTION: pulling a peer edit preserves only local changed fields, causal bases and unsent intent",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-PULL-ATOMIC: cursor-write failure rolls back entity, receipt and cursor; committed pages replay idempotently",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-ACK-ATOMIC: failed ACK keeps prepared wire and pending status; delayed older ACK cannot roll back newer pull",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-CONFLICT: preserve base/local/remote; resolve as a new operation; old receipt cannot reopen it",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-TOMBSTONE: remote deletion wins over pending update without discarding its recorded payload",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-REJECTION: permanent rejection and dependent local operations remain inspectable after restart",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-VALIDATION: malformed metadata, mismatched identity, unknown fields and invalid Conflict values leave storage unchanged",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-MIGRATION: schema 3 queue/client/Page survive schema 4 upgrade; incompatible destination rolls back columns and version",
+        "status": "passed"
+      },
+      {
+        "name": "STEP2-MOVE: structured block transactions undoes an immediate move separately from the preceding typing",
+        "status": "passed"
+      },
+      {
+        "name": "STEP2-MOVE: structured block transactions retains a nested subtree and supports history undo",
+        "status": "passed"
+      },
+      {
+        "name": "STEP2-MOVE: structured block transactions rejects offsets inside a block and self-drops without changing the document",
+        "status": "passed"
+      },
+      {
+        "name": "STEP2-MOVE: structured block transactions moves upwards and leaves the selection inside the moved block",
+        "status": "passed"
+      },
+      {
+        "name": "STEP5-BARRIER: waits for each commit in order and stops after a write failure",
+        "status": "passed"
+      },
+      {
+        "name": "STEP5-BOOTSTRAP: offline and server seeds merge as exactly one empty paragraph",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-PAGE-BATCH: commits a burst behind an in-flight write in one batch, with identical full Yjs state",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-PAGE-BATCH-ORDER: metadata separates batches and append copies caller-owned bytes",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-PAGE-BATCH-ERROR: a failed commit blocks queued batches and their outgoing-frame promise",
+        "status": "passed"
+      },
+      {
+        "name": "STEP1-PROTOCOL: Section 4 shared model validation accepts the minimal Page, Task, Relation and operation fixtures",
+        "status": "passed"
+      },
+      {
+        "name": "STEP1-PROTOCOL: Section 4 shared model validation requires page:{pageId} document names and rejects body duplication",
+        "status": "passed"
+      },
+      {
+        "name": "STEP1-PROTOCOL: Section 4 shared model validation rejects invalid due date 2026-02-30",
+        "status": "passed"
+      },
+      {
+        "name": "STEP1-PROTOCOL: Section 4 shared model validation rejects invalid due date 2026-10-01T00:00:00Z",
+        "status": "passed"
+      },
+      {
+        "name": "STEP1-PROTOCOL: Section 4 shared model validation rejects invalid due date 2026-1-1",
+        "status": "passed"
+      },
+      {
+        "name": "STEP1-PROTOCOL: Section 4 shared model validation accepts leap day and null due, and preserves tombstones",
+        "status": "passed"
+      },
+      {
+        "name": "STEP1-PROTOCOL: Section 4 shared model validation rejects invalid server version -1",
+        "status": "passed"
+      },
+      {
+        "name": "STEP1-PROTOCOL: Section 4 shared model validation rejects invalid server version 1.5",
+        "status": "passed"
+      },
+      {
+        "name": "STEP1-PROTOCOL: Section 4 shared model validation rejects invalid server version 9007199254740992",
+        "status": "passed"
+      },
+      {
+        "name": "STEP1-PROTOCOL: Section 4 shared model validation requires UTC timestamps and v7 IDs",
+        "status": "passed"
+      },
+      {
+        "name": "STEP1-PROTOCOL: Section 4 shared model validation excludes Page and local status/timestamps from structured push",
+        "status": "passed"
+      },
+      {
+        "name": "STEP1-PROTOCOL: Section 4 shared model validation treats cursor as opaque and initializes the structured stream without a cursor",
+        "status": "passed"
+      },
+      {
+        "name": "STEP1-ID: creates unique, sortable UUID v7 IDs and UTC times",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-TRANSPORT: separates retryable service failures, permanent protocol errors and permission errors",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-TRANSPORT: refuses ACKs for another operation/client/entity and malformed result envelopes",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-TRANSPORT: rejects nonadvancing, empty intermediate and inconsistent last-page cursors",
+        "status": "passed"
+      }
+    ]
+  },
+  "postgres": {
+    "passed": 20,
+    "cases": [
+      {
+        "name": "STEP1-POSTGRES: connects to the real development PostgreSQL",
+        "status": "passed"
+      },
+      {
+        "name": "STEP6-POSTGRES: real models survive reopen; version guards serialize competing edits; Nest exposes durable reads",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-API-SIGKILL-before-commit: an actual API process crash preserves immutable wire, cursor and exactly one final operation",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-API-SIGKILL-after-commit: an actual API process crash preserves immutable wire, cursor and exactly one final operation",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-CLIENT-HTTP: offline Task/Relation chains survive SIGKILL and converge through restore/pull/push/pull in creation order",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-CLIENT-ACK-LOSS: commit followed by dropped HTTP ACK and API/store restart is recovered once through durable pull",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-CLIENT-PULL-FAILURE: cursor commit failure stops network progress; restart and explicit retry keep the original cursor and restore all records",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-CLIENT-REJECTED: create collision stops the affected causal chain, retains both original payloads and never displays synced",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-SERVER-IDEMPOTENCY: concurrent replays, ID collisions, malformed payloads and API recreation retain immutable results",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-SERVER-MERGE: field merge keeps peer edits and same-field conflicts retain base/local/remote through explicit resolution",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-SERVER-RELATION: disjoint endpoint edits merge and same endpoint conflicts resolve as a new operation",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-SERVER-DELETE: deletes dominate stale Task/Relation updates and close existing conflicts without resurrecting entities",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-SERVER-ORDER: concurrent writers cannot leave lower committed operations behind a pull cursor",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-SERVER-ATOMIC: ledger failure rolls back entity/history/counter and retry finalizes exactly once",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-SERVER-MIGRATION: Step 6 rows and tombstones enter the new stream atomically without fabricating missing history",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-SERVER-CAUSAL: sequential offline intent keeps competing peer values and merges its own accepted fields",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-SERVER-CAUSAL-VALIDATION: aliases preserve original intent, invalid dependencies reject durably and chained deletes remain acknowledged",
+        "status": "passed"
+      },
+      {
+        "name": "STEP7-SERVER-CAUSAL-MIGRATION: existing version 2 ledger frames are reconstructed without changing immutable ACKs or cursors",
+        "status": "passed"
+      }
+    ]
+  },
+  "performanceObservations": {
+    "startup-production-web": {
+      "capturedAt": "2026-10-03T00:37:09.075Z",
+      "dataset": null,
+      "editableMs": {
+        "count": 3,
+        "min": 1113.5177359999998,
+        "p50": 1262.1507920000004,
+        "p95": 1665.201177,
+        "p99": 1665.201177,
+        "max": 1665.201177
+      },
+      "restoreMs": null,
+      "inputToCommitAckMs": null,
+      "keydownToFrameMs": null,
+      "typedMs": null,
+      "savedAfterTypingMs": null,
+      "convergenceMs": null,
+      "queueCreationMs": null,
+      "offlineRestoreMs": null,
+      "ledger": null,
+      "scope": "Empty real SQLite; fresh browser contexts, already-running browser/preview/services. Not Windows executable launch time or a native release startup Pass."
+    },
+    "page-1000-production": {
+      "capturedAt": "2026-10-03T00:37:38.602Z",
+      "dataset": {
+        "blocks": 1000,
+        "initialJournalUpdates": 1001,
+        "seedMs": 18939.740909,
+        "typedCharacters": 104,
+        "keyDelayMs": 5
+      },
+      "editableMs": null,
+      "restoreMs": {
+        "count": 3,
+        "min": 743.6683859999976,
+        "p50": 871.3888000000006,
+        "p95": 1773.3847720000012,
+        "p99": 1773.3847720000012,
+        "max": 1773.3847720000012
+      },
+      "inputToCommitAckMs": {
+        "count": 104,
+        "min": 50.700000000186265,
+        "p50": 172,
+        "p95": 356.69999999995343,
+        "p99": 397.60000000009313,
+        "max": 400.20000000018626
+      },
+      "keydownToFrameMs": {
+        "count": 104,
+        "min": 14.200000000186265,
+        "p50": 27.200000000186265,
+        "p95": 77.69999999995343,
+        "p99": 86.10000000009313,
+        "max": 96.80000000004657
+      },
+      "typedMs": 4673.015876999998,
+      "savedAfterTypingMs": 112.08909299999505,
+      "convergenceMs": null,
+      "queueCreationMs": null,
+      "offlineRestoreMs": null,
+      "ledger": null,
+      "scope": "Actual Chromium keyboard events on 1000 blocks; release Rust SQLite commit ACK via test bridge. rAF measures the next frame opportunity, not a native IME result."
+    },
+    "yjs-100-reconnect": {
+      "capturedAt": "2026-10-03T00:38:01.043Z",
+      "dataset": {
+        "clients": 2,
+        "keyEditsPerClient": 50
+      },
+      "editableMs": null,
+      "restoreMs": null,
+      "inputToCommitAckMs": null,
+      "keydownToFrameMs": null,
+      "typedMs": null,
+      "savedAfterTypingMs": null,
+      "convergenceMs": 1104.6125170000014,
+      "queueCreationMs": null,
+      "offlineRestoreMs": null,
+      "ledger": null,
+      "scope": null
+    },
+    "structured-1000-ui-engine": {
+      "capturedAt": "2026-10-03T00:39:58.094Z",
+      "dataset": {
+        "tasks": 250,
+        "operationsPerTask": 4,
+        "operations": 1000
+      },
+      "editableMs": null,
+      "restoreMs": null,
+      "inputToCommitAckMs": null,
+      "keydownToFrameMs": null,
+      "typedMs": null,
+      "savedAfterTypingMs": null,
+      "convergenceMs": 96515.03963200001,
+      "queueCreationMs": 13018.363378000002,
+      "offlineRestoreMs": 262.1830730000074,
+      "ledger": {
+        "operations": 1000,
+        "distinct_operations": 1000,
+        "head": 1000
+      },
+      "scope": "Actual React TaskPanel sync engine, real HTTP/PostgreSQL and release Rust SQLite; no batch push shortcut. 240s harness bound is not a product SLO."
+    }
+  },
+  "candidate": {
+    "status": "Hash verified; not launched",
+    "capturedAt": "2026-10-03T00:46:47.5395627Z",
+    "path": ".data/host-ime/builds/0.6.9-embedded/greiva-poc.exe",
+    "version": "0.6.9",
+    "bytes": 18558464,
+    "sha256": "65edd5c8f629f3acfc7ba3b8ff381938f6bd27a0712532af5726782194d14aca",
+    "hostToolchainInstalled": false,
+    "launched": false,
+    "nativeUi": "Not run",
+    "microsoftIme": "Not run"
+  },
+  "inputs": [
+    {
+      "path": "tests/evidence/step-8-focus-20261003/full/summary.json",
+      "sha256": "2a3d2a5d0530f484ae432223e91c68ebea3a4cc5a53b55c6af585d5139a952d0",
+      "bytes": 10049
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/source-verification.json",
+      "sha256": "ff4f673a617f63a455c713f676e09a0fed1158c2c6ef898eaac42dcca737e8b6",
+      "bytes": 23164
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/full/source-files.json",
+      "sha256": "321b87dc264420258e4985e0ac7ca46532bcf6ad9d4020f8ba9c4e150cc5b659",
+      "bytes": 5173
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/full/STEP8-STORE-DRIVER.log",
+      "sha256": "8dcb2f212e57aee7b6ad187643c9ccbd191e29913ed41c908ada280bbc3555f3",
+      "bytes": 165
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/full/STEP8-BUILD.log",
+      "sha256": "261aa474fad864698236c30e0f8b8aed5936e0a58e37d75407cec6dd9a58f26d",
+      "bytes": 1448
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/full/STEP8-TYPES.log",
+      "sha256": "0563ffd62afb84f1e9f6a350996a76c7cabb5775a7b55f4aabe547e29a208c32",
+      "bytes": 861
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/full/STEP8-UNIT-INTEGRATION.log",
+      "sha256": "ff4e64b0b67d98be13e77e64e675f7cec283b1b7cc48e70093abfa38988b4b4d",
+      "bytes": 4462
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/full/STEP8-E2E.log",
+      "sha256": "45ced8ee7ffe5884237e9cebbd6b3a1da31ae06dd8d6d7644a7a18bdd3bcfc6d",
+      "bytes": 8682
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/full/STEP8-SQLITE-INIT.log",
+      "sha256": "44382949e5f99dcc68061f5f07e732415e4907956152532a2dc2ed1ad256b571",
+      "bytes": 213
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/full/STEP8-POSTGRES.log",
+      "sha256": "9e3dda09f610b2d9f9db33e5b0b3f904a1bc15f519f238980aeabdb8f77ba122",
+      "bytes": 8677
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/full/STEP8-STRUCTURED-E2E.log",
+      "sha256": "47adca8e1204460259ef700c3ef7e2561f9894e1697c69d9dab450a7efaddea4",
+      "bytes": 1556
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/full/STEP8-COMBINED-CRASH.log",
+      "sha256": "bc6ae025a7d4564a2122b95af9554ebf715be304bdb0b77d5defa3d81e44f889",
+      "bytes": 5789
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/full/STEP8-DESKTOP-CHECK.log",
+      "sha256": "c717538fba0fd2f27dec0a3f30bc3b7c473cbe686d59fd8eed7a63606cb22b5e",
+      "bytes": 232
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/full/STEP8-DEFAULT-FEATURES.log",
+      "sha256": "a7603589f048eb7f50ea7de046aaf62bddbb58a6723c82c28f9d50b5df15f5a7",
+      "bytes": 143
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/full/STEP8-PERFORMANCE.log",
+      "sha256": "cef9eb2435fe1709e1afa08172a9ff6932fab659986e6e9bad27b959edfe4980",
+      "bytes": 576
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/feature-cache-recheck.json",
+      "sha256": "4586e27c003c7cc35d4be7e642a743669c698bc294995b5b5148f316567a9013",
+      "bytes": 442
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/feature-cache-recheck.log",
+      "sha256": "2e04fbb478f8bbe6f6ce7d88e3a7520ce4de0ffcc2a00b1b4b0d717e4e2fab69",
+      "bytes": 346
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/focused/playwright.json",
+      "sha256": "ee8d1805d61d8c740ece4d7436ce9c6327024a7e1c97cb935b62d292e774414b",
+      "bytes": 231681
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/full/playwright.json",
+      "sha256": "d8782eff3c37035fd326b878c34bf1769952a754ffa269d23222aef50775d233",
+      "bytes": 382163
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/full/structured-e2e/playwright.json",
+      "sha256": "a40fef583aea1ebc8f8ba97dcd5ce026e8da9e646b6d55505e75c286a49f2245",
+      "bytes": 10959
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/full/combined-crash/playwright.json",
+      "sha256": "0e248907e504ade1a492b9885496a15ef3241eefe3820eef9c6c934c63876361",
+      "bytes": 470476
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/full/performance/playwright.json",
+      "sha256": "b298ae406920960699d71ff40b03534e505eb6e4238908541b4d5a121cc6240c",
+      "bytes": 3805577
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/full/vitest.json",
+      "sha256": "6b84ae9b2d88ebb3a0d4fa3cfda321590ea354a98801802d478ee5626d713488",
+      "bytes": 26499
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/full/postgres/vitest.json",
+      "sha256": "e3496e5fcb2bb1882a21637e87259b3e8bc8c0f47b713ef60e3260bf7f541642",
+      "bytes": 9087
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/performance-metrics.json",
+      "sha256": "5bfc7f97db7d2a22882489c78e70335518cc2c3ace98f6bfe22954d840e44892",
+      "bytes": 3254
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/windows-build/build.json",
+      "sha256": "72faeb305cc77c6657df94d3bfb6dd9164f20e1e65d5a9a10817339ac4ad10b6",
+      "bytes": 2138
+    },
+    {
+      "path": "tests/evidence/step-8-focus-20261003/windows-build/host-artifact.json",
+      "sha256": "2c9473b9082a8094fa228e2ca4bb74ede97a3fe9891520561d160ccdb42c24bf",
+      "bytes": 360
+    }
+  ],
+  "remaining": [
+    "Microsoft IME reconversion loss unresolved",
+    "v0.6.9 Windows regression not run",
+    "Native integrated crash and large-data performance incomplete",
+    "Pixel 7 / Android 17 QPR1: user-reported target; actual OS test not run",
+    "macOS/iOS actual OS tests not run",
+    "Gate A/B/C final adjudication not completed"
+  ],
+  "readyForFinalGate": false
+}

@@ -1,0 +1,28 @@
+{
+  "verifiedAt": "2026-10-03T01:27:28.137Z",
+  "execution": "Docker; network none",
+  "documents": [
+    "CHANGELOG.md",
+    "docs/plan/POC_VALIDATION_MATRIX.md",
+    "docs/plan/DEFERRED_VALIDATION.md",
+    "docs/plan/DEVELOPMENT_STATUS.md",
+    "docs/decisions/step-8-validation-boundary.md",
+    "tests/evidence/README.md",
+    "tests/evidence/poc-audit-20261003/SUMMARY.md"
+  ],
+  "linksChecked": 211,
+  "source": [
+    {
+      "path": "scripts/audit-poc-evidence.mjs",
+      "sha256": "e18e88f6fb95b3909ff255ee0ddc3bd9634c26313906d253ffd179b69c94bff2"
+    },
+    {
+      "path": "scripts/audit-poc-evidence.test.mjs",
+      "sha256": "e750b5845711b4b13aea553826a502f1d4546f9af37f544232821f140fe2d4e7"
+    }
+  ],
+  "auditCheckpoint": "0.6.10",
+  "productVersion": "0.6.9",
+  "gateReady": false,
+  "result": "Pass"
+}

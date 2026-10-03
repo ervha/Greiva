@@ -2,6 +2,13 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.10 — 2026-10-03
+
+- 検証準備の更新（PATCH）: [PoCの8受入条件と証拠・残課題の対応表](docs/plan/POC_VALIDATION_MATRIX.md)を追加。参照セッションの判断を引き継いで再開し、Microsoft再変換Fail、native未実施、最終Gate未判定を保持する。
+- 保存済み0.6.9証拠を監査するツールを追加。個々のPlaywright／Vitest結果、通常skip20件の実PostgreSQL別run、原12検査の11 Pass／1 Failと別feature再検査、132 baselineソース、任意のWindows候補hashを照合。CRLF差・内容差・新規ソース追加を区別し、監査成功をアプリ再試験やGate Passにしない。Dockerで監査試験9件と実証拠監査Pass。[証拠](tests/evidence/poc-audit-20261003/SUMMARY.md)。
+- インストール済みWindows／WebView2／IME部品情報を読み取りで収集し、通常製品・比較入力欄での実機再開条件を固定。利用者申告のAndroid対象はPixel 7／Android 17 QPR1。実OS・Chrome版・接続経路は未確認、端末試験はNot run。
+- 文書・検証環境のみ。製品manifest／lockfile／候補exeは0.6.9を維持し、今回native起動・IME操作・全E2Eを再実行していない。
+
 ## 0.6.9 — 2026-10-03
 
 - Editorの互換修正（PATCH）: 構造が同じ遠隔文字編集で、見出し／Toggleの選択が古い絶対位置へ戻る不備を限定修正。Yjs相対位置を使用し、範囲・方向を維持する。構造変更・local Undo/Redo・composition中には介入せず、Microsoft IME再変換の未解決問題とは分ける。

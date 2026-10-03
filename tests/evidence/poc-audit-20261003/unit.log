@@ -1,0 +1,17 @@
+✔ Playwright: reject failures even if aggregate stats claim success (2.175142ms)
+✔ Playwright: reject skipped and expected-failure cases (0.38209ms)
+✔ Playwright: reject retries, missing cases and runner errors (1.386361ms)
+✔ Playwright: traverse nested suites and reject duplicates (0.5007ms)
+✔ Vitest: preserve skips and reject false aggregate success (0.399837ms)
+✔ Vitest: reject duplicate case identities (0.168237ms)
+✔ Source: distinguish byte identity, newline-only changes and content changes (0.547453ms)
+✔ Source: never normalize binary or strip BOM (0.292231ms)
+✔ Full audit: reject stale source, unexecuted DB cases, cache failures and wrong artifacts (268.099872ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 339.330515

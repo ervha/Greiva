@@ -1,0 +1,138 @@
+{
+  "collectedAt": "2026-10-03T01:24:43.2476137Z",
+  "collection": "Read-only host Windows OS/registry/file metadata; no native app launch or input operation",
+  "operatingSystem": {
+    "Caption": "Microsoft Windows 11 Home",
+    "Version": "10.0.26300",
+    "BuildNumber": "26300"
+  },
+  "windowsVersion": {
+    "DisplayVersion": "26H2",
+    "CurrentBuild": "26300",
+    "UBR": 9457
+  },
+  "installedWebView2": [
+    {
+      "name": "Microsoft Edge WebView2 Runtime",
+      "pv": "154.0.4258.53",
+      "location": "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application"
+    }
+  ],
+  "imeInstalledComponents": [
+    {
+      "path": "C:\\Windows\\System32\\IME\\IMEJP\\IMJPAPI.DLL",
+      "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+      "sha256": "04db8fce09e47ee7fd30117a5312c3daecb3d8204e73f0941ef855d4e49a9ed5"
+    },
+    {
+      "path": "C:\\Windows\\System32\\IME\\IMEJP\\IMJPCD.DLL",
+      "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+      "sha256": "c4a73ebbae2242ba2e21c274088c10cf6fad713ffd1d987ec3049b7a51b89211"
+    },
+    {
+      "path": "C:\\Windows\\System32\\IME\\IMEJP\\IMJPCMLD.DLL",
+      "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+      "sha256": "efbd01164313049a095e7ec3648c4b7ded1e53c099bd07641390370c653b2032"
+    },
+    {
+      "path": "C:\\Windows\\System32\\IME\\IMEJP\\imjpcus.dll",
+      "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+      "sha256": "727b09a4d526f690550afdba8620f1a76d89d012531e649c7eefd7aa66fef909"
+    },
+    {
+      "path": "C:\\Windows\\System32\\IME\\IMEJP\\IMJPDAPI.DLL",
+      "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+      "sha256": "06507ddd754b72faafbe87058d9a2a81f598f2a2baf165e68d3c7a5d7520c3c0"
+    },
+    {
+      "path": "C:\\Windows\\System32\\IME\\IMEJP\\IMJPDCT.EXE",
+      "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+      "sha256": "92babfe226ddde610afdce661610d5aeb72d303cf7105289e16f2d7f6ea1322c"
+    },
+    {
+      "path": "C:\\Windows\\System32\\IME\\IMEJP\\IMJPDCTP.DLL",
+      "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+      "sha256": "f6caec51cea7a13b6f1f82dba86c915f4ee3bed3bf8d77f199cd07ce22ceef09"
+    },
+    {
+      "path": "C:\\Windows\\System32\\IME\\IMEJP\\IMJPLMP.DLL",
+      "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+      "sha256": "44d5dafbba45f5d064854d12e60c4594afc9145efc3eed60414d4016a538b3b2"
+    },
+    {
+      "path": "C:\\Windows\\System32\\IME\\IMEJP\\IMJPPRED.DLL",
+      "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+      "sha256": "82bdc09d8f09293330b22514fe56be5601b3bc6ee9f6922b60fb6493e0678f72"
+    },
+    {
+      "path": "C:\\Windows\\System32\\IME\\IMEJP\\IMJPRANKER.DLL",
+      "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+      "sha256": "3571fbe2687db1df3938cd638999006978a30215b5d7c156a1a052799513e543"
+    },
+    {
+      "path": "C:\\Windows\\System32\\IME\\IMEJP\\IMJPSET.EXE",
+      "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+      "sha256": "96e71cb45c706b393e5507cf61de8eb173ee0f6a51f7b71c305553aa2332c020"
+    },
+    {
+      "path": "C:\\Windows\\System32\\IME\\IMEJP\\IMJPTIP.DLL",
+      "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+      "sha256": "e21681aa081305492c79cdd7196dbb25ba45bc001aa087f38d9ec89721d7481e"
+    },
+    {
+      "path": "C:\\Windows\\System32\\IME\\IMEJP\\IMJPUEX.EXE",
+      "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+      "sha256": "ce8015b1d8adf6836ae7d7da5c8b9c921a6fb86f8b930f8c2c20cbb2cc74df14"
+    },
+    {
+      "path": "C:\\Windows\\System32\\IME\\IMEJP\\imjpuexc.exe",
+      "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+      "sha256": "e19002ce2a789078999125f718d42c62f58b34f1cb868e2dc54940a24b7802ff"
+    },
+    {
+      "path": "C:\\Windows\\System32\\IME\\IMEJP\\imjputyc.dll",
+      "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+      "sha256": "39d8235c41f00db6de35cdc391eeae257b9170f0c1c08c5e2094da839dac1f41"
+    },
+    {
+      "path": "C:\\Windows\\System32\\IME\\IMEJP\\APPLETS\\IMJPCAC.DLL",
+      "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+      "sha256": "b9517e2153deadad0db6ac090c4600ca3e4bc78465c618df907ba3b332ad6f92"
+    },
+    {
+      "path": "C:\\Windows\\System32\\IME\\IMEJP\\APPLETS\\IMJPCLST.DLL",
+      "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+      "sha256": "772c3d6146b955f2adaf770c727d38a69ee7af1b66dbde1aa2d56b9d6ec36607"
+    },
+    {
+      "path": "C:\\Windows\\System32\\IME\\IMEJP\\APPLETS\\IMJPKDIC.DLL",
+      "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+      "sha256": "7b4b6e3ad41e11982b070a2a503f47018ddea490907362fbcf35f55af3ed66c3"
+    },
+    {
+      "path": "C:\\Windows\\System32\\IME\\IMEJP\\APPLETS\\imjpskey.DLL",
+      "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+      "sha256": "c35d6c05dd2b4a7306074064b1b4eedc05e0c79b6bffced1bc5335b21682c274"
+    },
+    {
+      "path": "C:\\Windows\\System32\\IME\\IMEJP\\APPLETS\\IMJPSKF.DLL",
+      "fileVersion": "10.0.26100.9278 (WinBuild.160101.0800)",
+      "sha256": "1744ba04ac5384afea6e80c44f1202c9bbfbd9437320a74a5de33152c1ef3d0b"
+    }
+  ],
+  "activeImeProvider": "Not observed",
+  "loadedWebView2Runtime": "Not observed; no Greiva process running",
+  "imeCompatibilityMode": "Not observed",
+  "nativeUi": "Not run",
+  "microsoftIme": "Not run",
+  "hostToolchainInstalled": false,
+  "android": {
+    "source": "User reply in current conversation",
+    "device": "Google Pixel 7",
+    "os": "Android 17 QPR1",
+    "actualOsConfirmed": false,
+    "chromeVersion": "Not observed",
+    "connectionMethod": "Not confirmed",
+    "testResult": "Not run"
+  }
+}
