@@ -1,0 +1,1733 @@
+{
+  "records": 266,
+  "probeSwitches": 0,
+  "cEvents": [
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:18.27Z",
+      "code": "",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "isComposing": false,
+      "key": "Shift",
+      "keyCode": 16,
+      "monotonicMs": 111332.09999996424,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 119,
+      "shift": true,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 14,
+        "start": 14,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keydown"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:18.448Z",
+      "code": "ArrowLeft",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "isComposing": false,
+      "key": "ArrowLeft",
+      "keyCode": 37,
+      "monotonicMs": 111509.5,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 120,
+      "shift": true,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 14,
+        "start": 14,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keydown"
+    },
+    {
+      "at": "2026-10-03T11:23:18.449Z",
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "語"
+      },
+      "domText": "",
+      "monotonicMs": 111510.89999997616,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "pm": null,
+      "seq": 121,
+      "surface": "textarea",
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 13,
+        "value": "MS65 local 日本語"
+      },
+      "type": "selectionchange"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:18.564Z",
+      "code": "ArrowLeft",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "語"
+      },
+      "domText": "",
+      "isComposing": false,
+      "key": "ArrowLeft",
+      "keyCode": 37,
+      "monotonicMs": 111626.09999996424,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 122,
+      "shift": true,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 13,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keyup"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:18.633Z",
+      "code": "ArrowLeft",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "語"
+      },
+      "domText": "",
+      "isComposing": false,
+      "key": "ArrowLeft",
+      "keyCode": 37,
+      "monotonicMs": 111694.89999997616,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 123,
+      "shift": true,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 13,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keydown"
+    },
+    {
+      "at": "2026-10-03T11:23:18.634Z",
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "本語"
+      },
+      "domText": "",
+      "monotonicMs": 111696,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "pm": null,
+      "seq": 124,
+      "surface": "textarea",
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 12,
+        "value": "MS65 local 日本語"
+      },
+      "type": "selectionchange"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:18.729Z",
+      "code": "ArrowLeft",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "本語"
+      },
+      "domText": "",
+      "isComposing": false,
+      "key": "ArrowLeft",
+      "keyCode": 37,
+      "monotonicMs": 111790.59999996424,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 125,
+      "shift": true,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 12,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keyup"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:18.804Z",
+      "code": "ArrowLeft",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "本語"
+      },
+      "domText": "",
+      "isComposing": false,
+      "key": "ArrowLeft",
+      "keyCode": 37,
+      "monotonicMs": 111866.19999998808,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 126,
+      "shift": true,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 12,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keydown"
+    },
+    {
+      "at": "2026-10-03T11:23:18.806Z",
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "日本語"
+      },
+      "domText": "",
+      "monotonicMs": 111867.80000001192,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "pm": null,
+      "seq": 127,
+      "surface": "textarea",
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 11,
+        "value": "MS65 local 日本語"
+      },
+      "type": "selectionchange"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:18.908Z",
+      "code": "ArrowLeft",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "日本語"
+      },
+      "domText": "",
+      "isComposing": false,
+      "key": "ArrowLeft",
+      "keyCode": 37,
+      "monotonicMs": 111970.09999996424,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 128,
+      "shift": true,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 11,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keyup"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:19.015Z",
+      "code": "",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "日本語"
+      },
+      "domText": "",
+      "isComposing": false,
+      "key": "Shift",
+      "keyCode": 16,
+      "monotonicMs": 112076.80000001192,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 129,
+      "shift": false,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 11,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keyup"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:19.478Z",
+      "code": "Convert",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "日本語"
+      },
+      "domText": "",
+      "isComposing": false,
+      "key": "Process",
+      "keyCode": 229,
+      "monotonicMs": 112540.09999996424,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 130,
+      "shift": false,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 11,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keydown"
+    },
+    {
+      "at": "2026-10-03T11:23:19.479Z",
+      "data": "日本語",
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "日本語"
+      },
+      "domText": "",
+      "monotonicMs": 112540.89999997616,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 131,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 11,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "compositionstart"
+    },
+    {
+      "at": "2026-10-03T11:23:19.479Z",
+      "data": "日本語",
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "日本語"
+      },
+      "domText": "",
+      "monotonicMs": 112541.39999997616,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 132,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 11,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "compositionupdate"
+    },
+    {
+      "at": "2026-10-03T11:23:19.48Z",
+      "data": "日本語",
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "日本語"
+      },
+      "domText": "",
+      "inputType": "insertCompositionText",
+      "isComposing": true,
+      "monotonicMs": 112541.5,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 133,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 11,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "beforeinput"
+    },
+    {
+      "at": "2026-10-03T11:23:19.48Z",
+      "data": "日本語",
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "inputType": "insertCompositionText",
+      "isComposing": true,
+      "monotonicMs": 112542,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 134,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 14,
+        "start": 14,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "input"
+    },
+    {
+      "at": "2026-10-03T11:23:19.481Z",
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "monotonicMs": 112543,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "pm": null,
+      "seq": 135,
+      "surface": "textarea",
+      "textarea": {
+        "direction": "forward",
+        "end": 14,
+        "start": 14,
+        "value": "MS65 local 日本語"
+      },
+      "type": "selectionchange"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:19.588Z",
+      "code": "Convert",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "isComposing": true,
+      "key": "Process",
+      "keyCode": 229,
+      "monotonicMs": 112649.80000001192,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 136,
+      "shift": false,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 14,
+        "start": 14,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keyup"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:19.61Z",
+      "code": "Convert",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "isComposing": true,
+      "key": "Convert",
+      "keyCode": 28,
+      "monotonicMs": 112671.69999998808,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 137,
+      "shift": false,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 14,
+        "start": 14,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keyup"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:19.997Z",
+      "code": "Enter",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "isComposing": true,
+      "key": "Process",
+      "keyCode": 229,
+      "monotonicMs": 113059.09999996424,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 138,
+      "shift": false,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 14,
+        "start": 14,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keydown"
+    },
+    {
+      "at": "2026-10-03T11:23:20.001Z",
+      "data": "日本語",
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "日本語"
+      },
+      "domText": "",
+      "monotonicMs": 113062.59999996424,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 139,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 14,
+        "start": 11,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "compositionupdate"
+    },
+    {
+      "at": "2026-10-03T11:23:20.001Z",
+      "data": "日本語",
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "日本語"
+      },
+      "domText": "",
+      "inputType": "insertCompositionText",
+      "isComposing": true,
+      "monotonicMs": 113063.09999996424,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 140,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 14,
+        "start": 11,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "beforeinput"
+    },
+    {
+      "at": "2026-10-03T11:23:20.002Z",
+      "data": "日本語",
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "inputType": "insertCompositionText",
+      "isComposing": true,
+      "monotonicMs": 113063.89999997616,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 141,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 14,
+        "start": 14,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "input"
+    },
+    {
+      "at": "2026-10-03T11:23:20.002Z",
+      "data": "日本語",
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "monotonicMs": 113064.19999998808,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 142,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 14,
+        "start": 14,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": false,
+      "type": "compositionend"
+    },
+    {
+      "at": "2026-10-03T11:23:20.004Z",
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "monotonicMs": 113065.30000001192,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "pm": null,
+      "seq": 143,
+      "surface": "textarea",
+      "textarea": {
+        "direction": "forward",
+        "end": 14,
+        "start": 14,
+        "value": "MS65 local 日本語"
+      },
+      "type": "selectionchange"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:20.113Z",
+      "code": "Enter",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "isComposing": false,
+      "key": "Process",
+      "keyCode": 229,
+      "monotonicMs": 113175.30000001192,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 144,
+      "shift": false,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 14,
+        "start": 14,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keyup"
+    }
+  ],
+  "dEvents": [
+    {
+      "at": "2026-10-03T11:23:28.58Z",
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "monotonicMs": 121641.5,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "pm": null,
+      "seq": 229,
+      "surface": "textarea",
+      "textarea": {
+        "direction": "forward",
+        "end": 14,
+        "start": 14,
+        "value": "MS65 local 日本語"
+      },
+      "type": "selectionchange"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:28.677Z",
+      "code": "Enter",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "isComposing": false,
+      "key": "Process",
+      "keyCode": 229,
+      "monotonicMs": 121739,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 230,
+      "shift": false,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 14,
+        "start": 14,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keyup"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:29.396Z",
+      "code": "",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "isComposing": false,
+      "key": "Shift",
+      "keyCode": 16,
+      "monotonicMs": 122458.19999998808,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 231,
+      "shift": true,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 14,
+        "start": 14,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keydown"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:29.604Z",
+      "code": "ArrowLeft",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "isComposing": false,
+      "key": "ArrowLeft",
+      "keyCode": 37,
+      "monotonicMs": 122666.30000001192,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 232,
+      "shift": true,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 14,
+        "start": 14,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keydown"
+    },
+    {
+      "at": "2026-10-03T11:23:29.606Z",
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "語"
+      },
+      "domText": "",
+      "monotonicMs": 122667.69999998808,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "pm": null,
+      "seq": 233,
+      "surface": "textarea",
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 13,
+        "value": "MS65 local 日本語"
+      },
+      "type": "selectionchange"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:29.677Z",
+      "code": "ArrowLeft",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "語"
+      },
+      "domText": "",
+      "isComposing": false,
+      "key": "ArrowLeft",
+      "keyCode": 37,
+      "monotonicMs": 122738.5,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 234,
+      "shift": true,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 13,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keyup"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:29.765Z",
+      "code": "ArrowLeft",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "語"
+      },
+      "domText": "",
+      "isComposing": false,
+      "key": "ArrowLeft",
+      "keyCode": 37,
+      "monotonicMs": 122827.09999996424,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 235,
+      "shift": true,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 13,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keydown"
+    },
+    {
+      "at": "2026-10-03T11:23:29.766Z",
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "本語"
+      },
+      "domText": "",
+      "monotonicMs": 122828.30000001192,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "pm": null,
+      "seq": 236,
+      "surface": "textarea",
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 12,
+        "value": "MS65 local 日本語"
+      },
+      "type": "selectionchange"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:29.849Z",
+      "code": "ArrowLeft",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "本語"
+      },
+      "domText": "",
+      "isComposing": false,
+      "key": "ArrowLeft",
+      "keyCode": 37,
+      "monotonicMs": 122910.89999997616,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 237,
+      "shift": true,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 12,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keyup"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:29.924Z",
+      "code": "ArrowLeft",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "本語"
+      },
+      "domText": "",
+      "isComposing": false,
+      "key": "ArrowLeft",
+      "keyCode": 37,
+      "monotonicMs": 122985.5,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 238,
+      "shift": true,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 12,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keydown"
+    },
+    {
+      "at": "2026-10-03T11:23:29.925Z",
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "日本語"
+      },
+      "domText": "",
+      "monotonicMs": 122986.89999997616,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "pm": null,
+      "seq": 239,
+      "surface": "textarea",
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 11,
+        "value": "MS65 local 日本語"
+      },
+      "type": "selectionchange"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:30.018Z",
+      "code": "ArrowLeft",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "日本語"
+      },
+      "domText": "",
+      "isComposing": false,
+      "key": "ArrowLeft",
+      "keyCode": 37,
+      "monotonicMs": 123079.69999998808,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 240,
+      "shift": true,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 11,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keyup"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:30.108Z",
+      "code": "",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "日本語"
+      },
+      "domText": "",
+      "isComposing": false,
+      "key": "Shift",
+      "keyCode": 16,
+      "monotonicMs": 123169.39999997616,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 241,
+      "shift": false,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 11,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keyup"
+    },
+    {
+      "alt": true,
+      "at": "2026-10-03T11:23:31.198Z",
+      "code": "AltLeft",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "日本語"
+      },
+      "domText": "",
+      "isComposing": false,
+      "key": "Alt",
+      "keyCode": 18,
+      "monotonicMs": 124260.09999996424,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 242,
+      "shift": false,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 11,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keydown"
+    },
+    {
+      "at": "2026-10-03T11:23:31.366Z",
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "日本語"
+      },
+      "domText": "",
+      "monotonicMs": 124427.89999997616,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 243,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 11,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "blur"
+    },
+    {
+      "at": "2026-10-03T11:23:34.249Z",
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "日本語"
+      },
+      "domText": "",
+      "monotonicMs": 127311.19999998808,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 244,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 11,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "focus"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:40.485Z",
+      "code": "Convert",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "日本語"
+      },
+      "domText": "",
+      "isComposing": false,
+      "key": "Process",
+      "keyCode": 229,
+      "monotonicMs": 133547.09999996424,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 245,
+      "shift": false,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "backward",
+        "end": 14,
+        "start": 11,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "keydown"
+    },
+    {
+      "at": "2026-10-03T11:23:40.486Z",
+      "data": null,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "al 日本語"
+      },
+      "domText": "",
+      "inputType": "deleteContentBackward",
+      "isComposing": false,
+      "monotonicMs": 133547.59999996424,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 246,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 14,
+        "start": 8,
+        "value": "MS65 local 日本語"
+      },
+      "trusted": true,
+      "type": "beforeinput"
+    },
+    {
+      "at": "2026-10-03T11:23:40.486Z",
+      "data": null,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "inputType": "deleteContentBackward",
+      "isComposing": false,
+      "monotonicMs": 133548.19999998808,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 247,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 8,
+        "start": 8,
+        "value": "MS65 loc"
+      },
+      "trusted": true,
+      "type": "input"
+    },
+    {
+      "at": "2026-10-03T11:23:40.487Z",
+      "data": "",
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "monotonicMs": 133548.5,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 248,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 8,
+        "start": 8,
+        "value": "MS65 loc"
+      },
+      "trusted": true,
+      "type": "compositionstart"
+    },
+    {
+      "at": "2026-10-03T11:23:40.487Z",
+      "data": "日本語",
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "monotonicMs": 133548.69999998808,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 249,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 8,
+        "start": 8,
+        "value": "MS65 loc"
+      },
+      "trusted": true,
+      "type": "compositionupdate"
+    },
+    {
+      "at": "2026-10-03T11:23:40.487Z",
+      "data": "日本語",
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "inputType": "insertCompositionText",
+      "isComposing": true,
+      "monotonicMs": 133548.89999997616,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 250,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 8,
+        "start": 8,
+        "value": "MS65 loc"
+      },
+      "trusted": true,
+      "type": "beforeinput"
+    },
+    {
+      "at": "2026-10-03T11:23:40.487Z",
+      "data": "日本語",
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "inputType": "insertCompositionText",
+      "isComposing": true,
+      "monotonicMs": 133549.30000001192,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 251,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 11,
+        "start": 11,
+        "value": "MS65 loc日本語"
+      },
+      "trusted": true,
+      "type": "input"
+    },
+    {
+      "at": "2026-10-03T11:23:40.488Z",
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "monotonicMs": 133550.19999998808,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "pm": null,
+      "seq": 252,
+      "surface": "textarea",
+      "textarea": {
+        "direction": "forward",
+        "end": 11,
+        "start": 11,
+        "value": "MS65 loc日本語"
+      },
+      "type": "selectionchange"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:40.648Z",
+      "code": "Convert",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "isComposing": true,
+      "key": "Process",
+      "keyCode": 229,
+      "monotonicMs": 133709.69999998808,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 253,
+      "shift": false,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 11,
+        "start": 11,
+        "value": "MS65 loc日本語"
+      },
+      "trusted": true,
+      "type": "keyup"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:40.67Z",
+      "code": "Convert",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "isComposing": true,
+      "key": "Convert",
+      "keyCode": 28,
+      "monotonicMs": 133732,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 254,
+      "shift": false,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 11,
+        "start": 11,
+        "value": "MS65 loc日本語"
+      },
+      "trusted": true,
+      "type": "keyup"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:41.682Z",
+      "code": "Enter",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "isComposing": true,
+      "key": "Process",
+      "keyCode": 229,
+      "monotonicMs": 134744.19999998808,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 255,
+      "shift": false,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 11,
+        "start": 11,
+        "value": "MS65 loc日本語"
+      },
+      "trusted": true,
+      "type": "keydown"
+    },
+    {
+      "at": "2026-10-03T11:23:41.685Z",
+      "data": "日本語",
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "日本語"
+      },
+      "domText": "",
+      "monotonicMs": 134747.30000001192,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 256,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 11,
+        "start": 8,
+        "value": "MS65 loc日本語"
+      },
+      "trusted": true,
+      "type": "compositionupdate"
+    },
+    {
+      "at": "2026-10-03T11:23:41.686Z",
+      "data": "日本語",
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": "日本語"
+      },
+      "domText": "",
+      "inputType": "insertCompositionText",
+      "isComposing": true,
+      "monotonicMs": 134747.80000001192,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 257,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 11,
+        "start": 8,
+        "value": "MS65 loc日本語"
+      },
+      "trusted": true,
+      "type": "beforeinput"
+    },
+    {
+      "at": "2026-10-03T11:23:41.686Z",
+      "data": "日本語",
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "inputType": "insertCompositionText",
+      "isComposing": true,
+      "monotonicMs": 134748.19999998808,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 258,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 11,
+        "start": 11,
+        "value": "MS65 loc日本語"
+      },
+      "trusted": true,
+      "type": "input"
+    },
+    {
+      "at": "2026-10-03T11:23:41.687Z",
+      "data": "日本語",
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "monotonicMs": 134748.39999997616,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 259,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 11,
+        "start": 11,
+        "value": "MS65 loc日本語"
+      },
+      "trusted": false,
+      "type": "compositionend"
+    },
+    {
+      "at": "2026-10-03T11:23:41.688Z",
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "monotonicMs": 134750.30000001192,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "pm": null,
+      "seq": 260,
+      "surface": "textarea",
+      "textarea": {
+        "direction": "forward",
+        "end": 11,
+        "start": 11,
+        "value": "MS65 loc日本語"
+      },
+      "type": "selectionchange"
+    },
+    {
+      "alt": false,
+      "at": "2026-10-03T11:23:41.789Z",
+      "code": "Enter",
+      "ctrl": false,
+      "defaultPrevented": false,
+      "domHtml": "",
+      "domSelection": {
+        "anchor": null,
+        "focus": null,
+        "selected": ""
+      },
+      "domText": "",
+      "isComposing": false,
+      "key": "Process",
+      "keyCode": 229,
+      "monotonicMs": 134850.89999997616,
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "phase": "capture",
+      "pm": null,
+      "seq": 261,
+      "shift": false,
+      "surface": "textarea",
+      "targetRanges": [],
+      "textarea": {
+        "direction": "forward",
+        "end": 11,
+        "start": 11,
+        "value": "MS65 loc日本語"
+      },
+      "trusted": true,
+      "type": "keyup"
+    }
+  ],
+  "scope": "Read-only native trace extraction. User manually reports C preserved and D lost al . Diagnostic 0.6.5, not product acceptance."
+}

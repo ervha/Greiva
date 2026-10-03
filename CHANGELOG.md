@@ -2,6 +2,12 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.11 — 2026-10-03
+
+- 既存structured同期の性能改善（PATCH）: 通常ACK後の表示snapshotを100ms間隔へ抑制。ACKのdurable保存順序、local変更・pull・Conflict/rejected・最終確認の即時反映を維持。1,000操作のsnapshotは1,024→300回、応答は約375→110MB。観測同期時間71.78→44.94秒は長いpullとhost負荷の影響も含むため、全差を改善の効果とはしない。
+- 実SQLiteの追加3試験、通常48件／別PostgreSQL20件、全54 E2E、Conflict UI2件、統合crash4境界、性能4ケースを確認。原full runの型検査Failを保持し、試験fixtureの型guard修正後の型検査と3試験Passを別記。135ソース・外部lock不変を照合し、通常0.6.11 Windows候補をDockerでbuild。[証拠](tests/evidence/step-8-structured-progress-20261003/SUMMARY.md)。新候補のnative操作・性能はNot run。
+- 通常0.6.9のA/Bと診断0.6.5 textareaのC/Dを利用者が実キーで比較。移動なしは本文保持、移動ありは `al ` 欠落。停止後SQLiteコピーとnativeイベントで照合。[原証拠](tests/evidence/windows-ime-reconfirm-20261003/SUMMARY.md)。他アプリ複数でも発生したとの利用者報告を受け、この環境のMicrosoft再変換問題を[受入例外](docs/decisions/step-8-ms-ime-exception.md)としてGreiva修正待ちから外す。観測Failは保持し、他の未実施条件・最終Gateは継続する。
+
 ## 0.6.10 — 2026-10-03
 
 - 検証準備の更新（PATCH）: [PoCの8受入条件と証拠・残課題の対応表](docs/plan/POC_VALIDATION_MATRIX.md)を追加。参照セッションの判断を引き継いで再開し、Microsoft再変換Fail、native未実施、最終Gate未判定を保持する。

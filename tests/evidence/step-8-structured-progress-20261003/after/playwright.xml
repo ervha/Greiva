@@ -1,0 +1,6 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="69.871775">
+<testsuite name="workloads.spec.ts" timestamp="2026-10-03T11:09:56.250Z" hostname="chromium" tests="1" failures="0" skipped="0" time="65.454" errors="0">
+<testcase name="STEP8-STRUCTURED-1000: durable Task chains restore offline and the actual UI engine converges without duplicates" classname="workloads.spec.ts" time="65.454">
+</testcase>
+</testsuite>
+</testsuites>

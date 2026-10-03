@@ -8,6 +8,7 @@ import type { Plugin, ViteDevServer, PreviewServer } from 'vite';
 type Reply = { id: number; value?: unknown; error?: string };
 export function sqliteBridge(): Plugin {
   const processes = new Map<string, { child: ChildProcessWithoutNullStreams; pending: Map<number, (reply: Reply) => void> }>();
+  const metrics = new Map<string, Record<string, { count: number; totalMs: number; maxMs: number; responseBytes: number }>>();
   const root = resolve(process.env.GREIVA_TEST_STORE_DIR ?? '../../.data/test-stores');
   mkdirSync(root, { recursive: true });
   let sequence = 0;
@@ -43,9 +44,14 @@ export function sqliteBridge(): Plugin {
           let raw = ''; for await (const chunk of request) raw += chunk;
           const input = JSON.parse(raw) as { device: string; command: string; [key: string]: unknown };
           if (!/^[a-zA-Z0-9-]{1,80}$/.test(input.device)) throw new Error('Invalid test device');
+          const started = performance.now();
           let reply: Reply;
           if (request.url === '/__greiva_test_store_control') {
-            if (input.command === 'kill') {
+            if (input.command === 'rpc-metrics') {
+              reply = { id: 0, value: metrics.get(input.device) ?? {} };
+            } else if (input.command === 'reset-rpc-metrics') {
+              metrics.delete(input.device); reply = { id: 0, value: null };
+            } else if (input.command === 'kill') {
               const entry = processes.get(input.device);
               if (entry) { await new Promise<void>(done => { entry.child.once('exit', () => done()); entry.child.kill('SIGKILL'); }); }
               reply = { id: 0, value: { signal: entry?.child.signalCode ?? null,pid:entry?.child.pid,path:file(input.device),at:new Date().toISOString() } };
@@ -85,7 +91,15 @@ export function sqliteBridge(): Plugin {
             const entry = processFor(input.device); const id = ++sequence;
             reply = await new Promise<Reply>(done => { entry.pending.set(id, done); entry.child.stdin.write(`${JSON.stringify({ ...input, id })}\n`); });
           }
-          response.setHeader('Content-Type', 'application/json'); response.end(JSON.stringify(reply));
+          const body = JSON.stringify(reply);
+          if (request.url === '/__greiva_test_store') {
+            const commands = metrics.get(input.device) ?? {};
+            const entry = commands[input.command] ?? { count: 0, totalMs: 0, maxMs: 0, responseBytes: 0 };
+            const elapsed = performance.now() - started;
+            entry.count++; entry.totalMs += elapsed; entry.maxMs = Math.max(entry.maxMs, elapsed); entry.responseBytes += Buffer.byteLength(body);
+            commands[input.command] = entry; metrics.set(input.device, commands);
+          }
+          response.setHeader('Content-Type', 'application/json'); response.end(body);
         } catch (error) {
           response.statusCode = 500; response.setHeader('Content-Type', 'application/json'); response.end(JSON.stringify({ error: String(error) }));
         }

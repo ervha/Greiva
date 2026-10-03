@@ -1,0 +1,5327 @@
+{
+  "analyzedAt": "2026-10-03T11:32:50.385Z",
+  "records": 266,
+  "parseErrors": [],
+  "pages": [
+    {
+      "pageId": "019a0070-0000-7000-8000-000000000001",
+      "records": 266,
+      "sequenceGaps": [],
+      "events": [
+        {
+          "seq": 5,
+          "at": "2026-10-03T11:22:54.312Z",
+          "surface": "textarea",
+          "type": "focus",
+          "trusted": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 0,
+            "start": 0,
+            "value": "MS65 local "
+          }
+        },
+        {
+          "seq": 7,
+          "at": "2026-10-03T11:23:09.986Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "n",
+          "code": "KeyN",
+          "keyCode": 78,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 local "
+          }
+        },
+        {
+          "seq": 8,
+          "at": "2026-10-03T11:23:09.986Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertText",
+          "data": "n",
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 local "
+          }
+        },
+        {
+          "seq": 9,
+          "at": "2026-10-03T11:23:09.989Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertText",
+          "data": "n",
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local n"
+          }
+        },
+        {
+          "seq": 11,
+          "at": "2026-10-03T11:23:10.071Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "i",
+          "code": "KeyI",
+          "keyCode": 73,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local n"
+          }
+        },
+        {
+          "seq": 12,
+          "at": "2026-10-03T11:23:10.072Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertText",
+          "data": "i",
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local n"
+          }
+        },
+        {
+          "seq": 13,
+          "at": "2026-10-03T11:23:10.073Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertText",
+          "data": "i",
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local ni"
+          }
+        },
+        {
+          "seq": 15,
+          "at": "2026-10-03T11:23:10.152Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "n",
+          "code": "KeyN",
+          "keyCode": 78,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local ni"
+          }
+        },
+        {
+          "seq": 16,
+          "at": "2026-10-03T11:23:10.154Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "i",
+          "code": "KeyI",
+          "keyCode": 73,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local ni"
+          }
+        },
+        {
+          "seq": 17,
+          "at": "2026-10-03T11:23:10.355Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "h",
+          "code": "KeyH",
+          "keyCode": 72,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local ni"
+          }
+        },
+        {
+          "seq": 18,
+          "at": "2026-10-03T11:23:10.355Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertText",
+          "data": "h",
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local ni"
+          }
+        },
+        {
+          "seq": 19,
+          "at": "2026-10-03T11:23:10.356Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertText",
+          "data": "h",
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local nih"
+          }
+        },
+        {
+          "seq": 21,
+          "at": "2026-10-03T11:23:10.429Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "o",
+          "code": "KeyO",
+          "keyCode": 79,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local nih"
+          }
+        },
+        {
+          "seq": 22,
+          "at": "2026-10-03T11:23:10.429Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertText",
+          "data": "o",
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local nih"
+          }
+        },
+        {
+          "seq": 23,
+          "at": "2026-10-03T11:23:10.430Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertText",
+          "data": "o",
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 15,
+            "value": "MS65 local niho"
+          }
+        },
+        {
+          "seq": 25,
+          "at": "2026-10-03T11:23:10.503Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "h",
+          "code": "KeyH",
+          "keyCode": 72,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 15,
+            "value": "MS65 local niho"
+          }
+        },
+        {
+          "seq": 26,
+          "at": "2026-10-03T11:23:10.545Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "o",
+          "code": "KeyO",
+          "keyCode": 79,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 15,
+            "value": "MS65 local niho"
+          }
+        },
+        {
+          "seq": 27,
+          "at": "2026-10-03T11:23:11.093Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Backspace",
+          "code": "Backspace",
+          "keyCode": 8,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 15,
+            "value": "MS65 local niho"
+          }
+        },
+        {
+          "seq": 28,
+          "at": "2026-10-03T11:23:11.096Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "deleteContentBackward",
+          "data": null,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 15,
+            "value": "MS65 local niho"
+          }
+        },
+        {
+          "seq": 29,
+          "at": "2026-10-03T11:23:11.097Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "deleteContentBackward",
+          "data": null,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local nih"
+          }
+        },
+        {
+          "seq": 31,
+          "at": "2026-10-03T11:23:11.452Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Backspace",
+          "code": "Backspace",
+          "keyCode": 8,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local nih"
+          }
+        },
+        {
+          "seq": 32,
+          "at": "2026-10-03T11:23:11.453Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Backspace",
+          "code": "Backspace",
+          "keyCode": 8,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local nih"
+          }
+        },
+        {
+          "seq": 33,
+          "at": "2026-10-03T11:23:11.453Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "deleteContentBackward",
+          "data": null,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local nih"
+          }
+        },
+        {
+          "seq": 34,
+          "at": "2026-10-03T11:23:11.454Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "deleteContentBackward",
+          "data": null,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local ni"
+          }
+        },
+        {
+          "seq": 35,
+          "at": "2026-10-03T11:23:11.454Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Backspace",
+          "code": "Backspace",
+          "keyCode": 8,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local ni"
+          }
+        },
+        {
+          "seq": 37,
+          "at": "2026-10-03T11:23:11.458Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Backspace",
+          "code": "Backspace",
+          "keyCode": 8,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local ni"
+          }
+        },
+        {
+          "seq": 38,
+          "at": "2026-10-03T11:23:11.458Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "deleteContentBackward",
+          "data": null,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local ni"
+          }
+        },
+        {
+          "seq": 39,
+          "at": "2026-10-03T11:23:11.458Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "deleteContentBackward",
+          "data": null,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local n"
+          }
+        },
+        {
+          "seq": 40,
+          "at": "2026-10-03T11:23:11.459Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Backspace",
+          "code": "Backspace",
+          "keyCode": 8,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local n"
+          }
+        },
+        {
+          "seq": 42,
+          "at": "2026-10-03T11:23:11.651Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Backspace",
+          "code": "Backspace",
+          "keyCode": 8,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local n"
+          }
+        },
+        {
+          "seq": 43,
+          "at": "2026-10-03T11:23:11.652Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "deleteContentBackward",
+          "data": null,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local n"
+          }
+        },
+        {
+          "seq": 44,
+          "at": "2026-10-03T11:23:11.652Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "deleteContentBackward",
+          "data": null,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 local "
+          }
+        },
+        {
+          "seq": 45,
+          "at": "2026-10-03T11:23:11.653Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Backspace",
+          "code": "Backspace",
+          "keyCode": 8,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 local "
+          }
+        },
+        {
+          "seq": 47,
+          "at": "2026-10-03T11:23:12.691Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Hankaku",
+          "code": "Backquote",
+          "keyCode": 243,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 local "
+          }
+        },
+        {
+          "seq": 48,
+          "at": "2026-10-03T11:23:13.329Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "KeyN",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 local "
+          }
+        },
+        {
+          "seq": 49,
+          "at": "2026-10-03T11:23:13.329Z",
+          "surface": "textarea",
+          "type": "compositionstart",
+          "trusted": true,
+          "data": "",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 local "
+          }
+        },
+        {
+          "seq": 50,
+          "at": "2026-10-03T11:23:13.330Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "ｎ",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 local "
+          }
+        },
+        {
+          "seq": 51,
+          "at": "2026-10-03T11:23:13.330Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "ｎ",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 local "
+          }
+        },
+        {
+          "seq": 52,
+          "at": "2026-10-03T11:23:13.332Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "ｎ",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local ｎ"
+          }
+        },
+        {
+          "seq": 54,
+          "at": "2026-10-03T11:23:13.458Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "KeyI",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local ｎ"
+          }
+        },
+        {
+          "seq": 55,
+          "at": "2026-10-03T11:23:13.460Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "に",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "ｎ"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 11,
+            "value": "MS65 local ｎ"
+          }
+        },
+        {
+          "seq": 56,
+          "at": "2026-10-03T11:23:13.461Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "に",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "ｎ"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 11,
+            "value": "MS65 local ｎ"
+          }
+        },
+        {
+          "seq": 57,
+          "at": "2026-10-03T11:23:13.461Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "に",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local に"
+          }
+        },
+        {
+          "seq": 59,
+          "at": "2026-10-03T11:23:13.563Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "KeyN",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local に"
+          }
+        },
+        {
+          "seq": 60,
+          "at": "2026-10-03T11:23:13.564Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "n",
+          "code": "KeyN",
+          "keyCode": 78,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local に"
+          }
+        },
+        {
+          "seq": 61,
+          "at": "2026-10-03T11:23:13.565Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "KeyI",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local に"
+          }
+        },
+        {
+          "seq": 62,
+          "at": "2026-10-03T11:23:13.566Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "i",
+          "code": "KeyI",
+          "keyCode": 73,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local に"
+          }
+        },
+        {
+          "seq": 63,
+          "at": "2026-10-03T11:23:13.651Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "KeyH",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local に"
+          }
+        },
+        {
+          "seq": 64,
+          "at": "2026-10-03T11:23:13.653Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "にｈ",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "に"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 11,
+            "value": "MS65 local に"
+          }
+        },
+        {
+          "seq": 65,
+          "at": "2026-10-03T11:23:13.653Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にｈ",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "に"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 11,
+            "value": "MS65 local に"
+          }
+        },
+        {
+          "seq": 66,
+          "at": "2026-10-03T11:23:13.654Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にｈ",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local にｈ"
+          }
+        },
+        {
+          "seq": 68,
+          "at": "2026-10-03T11:23:13.744Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "KeyO",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local にｈ"
+          }
+        },
+        {
+          "seq": 69,
+          "at": "2026-10-03T11:23:13.747Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "にほ",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にｈ"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 11,
+            "value": "MS65 local にｈ"
+          }
+        },
+        {
+          "seq": 70,
+          "at": "2026-10-03T11:23:13.748Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にほ",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にｈ"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 11,
+            "value": "MS65 local にｈ"
+          }
+        },
+        {
+          "seq": 71,
+          "at": "2026-10-03T11:23:13.748Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にほ",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local にほ"
+          }
+        },
+        {
+          "seq": 73,
+          "at": "2026-10-03T11:23:13.839Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "KeyH",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local にほ"
+          }
+        },
+        {
+          "seq": 74,
+          "at": "2026-10-03T11:23:13.841Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "h",
+          "code": "KeyH",
+          "keyCode": 72,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local にほ"
+          }
+        },
+        {
+          "seq": 75,
+          "at": "2026-10-03T11:23:13.841Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "KeyO",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local にほ"
+          }
+        },
+        {
+          "seq": 76,
+          "at": "2026-10-03T11:23:13.842Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "o",
+          "code": "KeyO",
+          "keyCode": 79,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local にほ"
+          }
+        },
+        {
+          "seq": 77,
+          "at": "2026-10-03T11:23:13.940Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "KeyN",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local にほ"
+          }
+        },
+        {
+          "seq": 78,
+          "at": "2026-10-03T11:23:13.942Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "にほｎ",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にほ"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 11,
+            "value": "MS65 local にほ"
+          }
+        },
+        {
+          "seq": 79,
+          "at": "2026-10-03T11:23:13.943Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にほｎ",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にほ"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 11,
+            "value": "MS65 local にほ"
+          }
+        },
+        {
+          "seq": 80,
+          "at": "2026-10-03T11:23:13.943Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にほｎ",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local にほｎ"
+          }
+        },
+        {
+          "seq": 82,
+          "at": "2026-10-03T11:23:14.033Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "KeyN",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local にほｎ"
+          }
+        },
+        {
+          "seq": 83,
+          "at": "2026-10-03T11:23:14.035Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "n",
+          "code": "KeyN",
+          "keyCode": 78,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local にほｎ"
+          }
+        },
+        {
+          "seq": 84,
+          "at": "2026-10-03T11:23:14.077Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "KeyN",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local にほｎ"
+          }
+        },
+        {
+          "seq": 85,
+          "at": "2026-10-03T11:23:14.079Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "にほん",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にほｎ"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local にほｎ"
+          }
+        },
+        {
+          "seq": 86,
+          "at": "2026-10-03T11:23:14.079Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にほん",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にほｎ"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local にほｎ"
+          }
+        },
+        {
+          "seq": 87,
+          "at": "2026-10-03T11:23:14.080Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にほん",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local にほん"
+          }
+        },
+        {
+          "seq": 89,
+          "at": "2026-10-03T11:23:14.177Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "KeyN",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local にほん"
+          }
+        },
+        {
+          "seq": 90,
+          "at": "2026-10-03T11:23:14.178Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "n",
+          "code": "KeyN",
+          "keyCode": 78,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local にほん"
+          }
+        },
+        {
+          "seq": 91,
+          "at": "2026-10-03T11:23:14.409Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "KeyG",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local にほん"
+          }
+        },
+        {
+          "seq": 92,
+          "at": "2026-10-03T11:23:14.412Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "にほんｇ",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にほん"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local にほん"
+          }
+        },
+        {
+          "seq": 93,
+          "at": "2026-10-03T11:23:14.412Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にほんｇ",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にほん"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local にほん"
+          }
+        },
+        {
+          "seq": 94,
+          "at": "2026-10-03T11:23:14.413Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にほんｇ",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 15,
+            "value": "MS65 local にほんｇ"
+          }
+        },
+        {
+          "seq": 96,
+          "at": "2026-10-03T11:23:14.496Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "KeyG",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 15,
+            "value": "MS65 local にほんｇ"
+          }
+        },
+        {
+          "seq": 97,
+          "at": "2026-10-03T11:23:14.497Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "g",
+          "code": "KeyG",
+          "keyCode": 71,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 15,
+            "value": "MS65 local にほんｇ"
+          }
+        },
+        {
+          "seq": 98,
+          "at": "2026-10-03T11:23:14.536Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "KeyO",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 15,
+            "value": "MS65 local にほんｇ"
+          }
+        },
+        {
+          "seq": 99,
+          "at": "2026-10-03T11:23:14.538Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "にほんご",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にほんｇ"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 11,
+            "value": "MS65 local にほんｇ"
+          }
+        },
+        {
+          "seq": 100,
+          "at": "2026-10-03T11:23:14.539Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にほんご",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にほんｇ"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 11,
+            "value": "MS65 local にほんｇ"
+          }
+        },
+        {
+          "seq": 101,
+          "at": "2026-10-03T11:23:14.540Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にほんご",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 15,
+            "value": "MS65 local にほんご"
+          }
+        },
+        {
+          "seq": 103,
+          "at": "2026-10-03T11:23:14.626Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "KeyO",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 15,
+            "value": "MS65 local にほんご"
+          }
+        },
+        {
+          "seq": 104,
+          "at": "2026-10-03T11:23:14.627Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "o",
+          "code": "KeyO",
+          "keyCode": 79,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 15,
+            "value": "MS65 local にほんご"
+          }
+        },
+        {
+          "seq": 105,
+          "at": "2026-10-03T11:23:14.703Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "Space",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 15,
+            "value": "MS65 local にほんご"
+          }
+        },
+        {
+          "seq": 106,
+          "at": "2026-10-03T11:23:14.744Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "日本語",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にほんご"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 11,
+            "value": "MS65 local にほんご"
+          }
+        },
+        {
+          "seq": 107,
+          "at": "2026-10-03T11:23:14.745Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "日本語",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にほんご"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 11,
+            "value": "MS65 local にほんご"
+          }
+        },
+        {
+          "seq": 108,
+          "at": "2026-10-03T11:23:14.747Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "日本語",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 110,
+          "at": "2026-10-03T11:23:14.853Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "Space",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 111,
+          "at": "2026-10-03T11:23:14.854Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": " ",
+          "code": "Space",
+          "keyCode": 32,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 112,
+          "at": "2026-10-03T11:23:16.677Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "Enter",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 113,
+          "at": "2026-10-03T11:23:16.679Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "日本語",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "日本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 114,
+          "at": "2026-10-03T11:23:16.679Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "日本語",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "日本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 115,
+          "at": "2026-10-03T11:23:16.680Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "日本語",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 116,
+          "at": "2026-10-03T11:23:16.680Z",
+          "surface": "textarea",
+          "type": "compositionend",
+          "trusted": false,
+          "data": "日本語",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 118,
+          "at": "2026-10-03T11:23:16.780Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "Enter",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 119,
+          "at": "2026-10-03T11:23:18.270Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Shift",
+          "code": "",
+          "keyCode": 16,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 120,
+          "at": "2026-10-03T11:23:18.448Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "ArrowLeft",
+          "code": "ArrowLeft",
+          "keyCode": 37,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 122,
+          "at": "2026-10-03T11:23:18.564Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "ArrowLeft",
+          "code": "ArrowLeft",
+          "keyCode": 37,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "backward",
+            "end": 14,
+            "start": 13,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 123,
+          "at": "2026-10-03T11:23:18.633Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "ArrowLeft",
+          "code": "ArrowLeft",
+          "keyCode": 37,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "backward",
+            "end": 14,
+            "start": 13,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 125,
+          "at": "2026-10-03T11:23:18.729Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "ArrowLeft",
+          "code": "ArrowLeft",
+          "keyCode": 37,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "backward",
+            "end": 14,
+            "start": 12,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 126,
+          "at": "2026-10-03T11:23:18.804Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "ArrowLeft",
+          "code": "ArrowLeft",
+          "keyCode": 37,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "backward",
+            "end": 14,
+            "start": 12,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 128,
+          "at": "2026-10-03T11:23:18.908Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "ArrowLeft",
+          "code": "ArrowLeft",
+          "keyCode": 37,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "日本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "backward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 129,
+          "at": "2026-10-03T11:23:19.015Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Shift",
+          "code": "",
+          "keyCode": 16,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "日本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "backward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 130,
+          "at": "2026-10-03T11:23:19.478Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "Convert",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "日本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "backward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 131,
+          "at": "2026-10-03T11:23:19.479Z",
+          "surface": "textarea",
+          "type": "compositionstart",
+          "trusted": true,
+          "data": "日本語",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "日本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "backward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 132,
+          "at": "2026-10-03T11:23:19.479Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "日本語",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "日本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "backward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 133,
+          "at": "2026-10-03T11:23:19.480Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "日本語",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "日本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "backward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 134,
+          "at": "2026-10-03T11:23:19.480Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "日本語",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 136,
+          "at": "2026-10-03T11:23:19.588Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "Convert",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 137,
+          "at": "2026-10-03T11:23:19.610Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Convert",
+          "code": "Convert",
+          "keyCode": 28,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 138,
+          "at": "2026-10-03T11:23:19.997Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "Enter",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 139,
+          "at": "2026-10-03T11:23:20.001Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "日本語",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "日本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 140,
+          "at": "2026-10-03T11:23:20.001Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "日本語",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "日本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 141,
+          "at": "2026-10-03T11:23:20.002Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "日本語",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 142,
+          "at": "2026-10-03T11:23:20.002Z",
+          "surface": "textarea",
+          "type": "compositionend",
+          "trusted": false,
+          "data": "日本語",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 144,
+          "at": "2026-10-03T11:23:20.113Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "Enter",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 145,
+          "at": "2026-10-03T11:23:24.355Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Backspace",
+          "code": "Backspace",
+          "keyCode": 8,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 146,
+          "at": "2026-10-03T11:23:24.356Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "deleteContentBackward",
+          "data": null,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 147,
+          "at": "2026-10-03T11:23:24.357Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "deleteContentBackward",
+          "data": null,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local 日本"
+          }
+        },
+        {
+          "seq": 149,
+          "at": "2026-10-03T11:23:24.427Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Backspace",
+          "code": "Backspace",
+          "keyCode": 8,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local 日本"
+          }
+        },
+        {
+          "seq": 150,
+          "at": "2026-10-03T11:23:24.529Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Backspace",
+          "code": "Backspace",
+          "keyCode": 8,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local 日本"
+          }
+        },
+        {
+          "seq": 151,
+          "at": "2026-10-03T11:23:24.530Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "deleteContentBackward",
+          "data": null,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local 日本"
+          }
+        },
+        {
+          "seq": 152,
+          "at": "2026-10-03T11:23:24.531Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "deleteContentBackward",
+          "data": null,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local 日"
+          }
+        },
+        {
+          "seq": 154,
+          "at": "2026-10-03T11:23:24.633Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Backspace",
+          "code": "Backspace",
+          "keyCode": 8,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local 日"
+          }
+        },
+        {
+          "seq": 155,
+          "at": "2026-10-03T11:23:24.765Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Backspace",
+          "code": "Backspace",
+          "keyCode": 8,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local 日"
+          }
+        },
+        {
+          "seq": 156,
+          "at": "2026-10-03T11:23:24.766Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "deleteContentBackward",
+          "data": null,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local 日"
+          }
+        },
+        {
+          "seq": 157,
+          "at": "2026-10-03T11:23:24.766Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "deleteContentBackward",
+          "data": null,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 local "
+          }
+        },
+        {
+          "seq": 159,
+          "at": "2026-10-03T11:23:24.850Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Backspace",
+          "code": "Backspace",
+          "keyCode": 8,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 local "
+          }
+        },
+        {
+          "seq": 160,
+          "at": "2026-10-03T11:23:25.905Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "KeyN",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 local "
+          }
+        },
+        {
+          "seq": 161,
+          "at": "2026-10-03T11:23:25.906Z",
+          "surface": "textarea",
+          "type": "compositionstart",
+          "trusted": true,
+          "data": "",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 local "
+          }
+        },
+        {
+          "seq": 162,
+          "at": "2026-10-03T11:23:25.906Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "ｎ",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 local "
+          }
+        },
+        {
+          "seq": 163,
+          "at": "2026-10-03T11:23:25.906Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "ｎ",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 local "
+          }
+        },
+        {
+          "seq": 164,
+          "at": "2026-10-03T11:23:25.907Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "ｎ",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local ｎ"
+          }
+        },
+        {
+          "seq": 166,
+          "at": "2026-10-03T11:23:26.031Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "KeyN",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local ｎ"
+          }
+        },
+        {
+          "seq": 167,
+          "at": "2026-10-03T11:23:26.032Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "n",
+          "code": "KeyN",
+          "keyCode": 78,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local ｎ"
+          }
+        },
+        {
+          "seq": 168,
+          "at": "2026-10-03T11:23:26.787Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "KeyI",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local ｎ"
+          }
+        },
+        {
+          "seq": 169,
+          "at": "2026-10-03T11:23:26.789Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "に",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "ｎ"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 11,
+            "value": "MS65 local ｎ"
+          }
+        },
+        {
+          "seq": 170,
+          "at": "2026-10-03T11:23:26.790Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "に",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "ｎ"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 11,
+            "value": "MS65 local ｎ"
+          }
+        },
+        {
+          "seq": 171,
+          "at": "2026-10-03T11:23:26.790Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "に",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local に"
+          }
+        },
+        {
+          "seq": 173,
+          "at": "2026-10-03T11:23:26.891Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "KeyI",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local に"
+          }
+        },
+        {
+          "seq": 174,
+          "at": "2026-10-03T11:23:26.892Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "i",
+          "code": "KeyI",
+          "keyCode": 73,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local に"
+          }
+        },
+        {
+          "seq": 175,
+          "at": "2026-10-03T11:23:26.981Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "KeyH",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 12,
+            "value": "MS65 local に"
+          }
+        },
+        {
+          "seq": 176,
+          "at": "2026-10-03T11:23:26.983Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "にｈ",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "に"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 11,
+            "value": "MS65 local に"
+          }
+        },
+        {
+          "seq": 177,
+          "at": "2026-10-03T11:23:26.983Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にｈ",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "に"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 12,
+            "start": 11,
+            "value": "MS65 local に"
+          }
+        },
+        {
+          "seq": 178,
+          "at": "2026-10-03T11:23:26.983Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にｈ",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local にｈ"
+          }
+        },
+        {
+          "seq": 180,
+          "at": "2026-10-03T11:23:27.071Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "KeyH",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local にｈ"
+          }
+        },
+        {
+          "seq": 181,
+          "at": "2026-10-03T11:23:27.072Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "h",
+          "code": "KeyH",
+          "keyCode": 72,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local にｈ"
+          }
+        },
+        {
+          "seq": 182,
+          "at": "2026-10-03T11:23:27.138Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "KeyO",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local にｈ"
+          }
+        },
+        {
+          "seq": 183,
+          "at": "2026-10-03T11:23:27.140Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "にほ",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にｈ"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 11,
+            "value": "MS65 local にｈ"
+          }
+        },
+        {
+          "seq": 184,
+          "at": "2026-10-03T11:23:27.141Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にほ",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にｈ"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 11,
+            "value": "MS65 local にｈ"
+          }
+        },
+        {
+          "seq": 185,
+          "at": "2026-10-03T11:23:27.141Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にほ",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local にほ"
+          }
+        },
+        {
+          "seq": 187,
+          "at": "2026-10-03T11:23:27.236Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "KeyO",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local にほ"
+          }
+        },
+        {
+          "seq": 188,
+          "at": "2026-10-03T11:23:27.238Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "o",
+          "code": "KeyO",
+          "keyCode": 79,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local にほ"
+          }
+        },
+        {
+          "seq": 189,
+          "at": "2026-10-03T11:23:27.384Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "KeyN",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 13,
+            "value": "MS65 local にほ"
+          }
+        },
+        {
+          "seq": 190,
+          "at": "2026-10-03T11:23:27.385Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "にほｎ",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にほ"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 11,
+            "value": "MS65 local にほ"
+          }
+        },
+        {
+          "seq": 191,
+          "at": "2026-10-03T11:23:27.386Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にほｎ",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にほ"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 13,
+            "start": 11,
+            "value": "MS65 local にほ"
+          }
+        },
+        {
+          "seq": 192,
+          "at": "2026-10-03T11:23:27.386Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にほｎ",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local にほｎ"
+          }
+        },
+        {
+          "seq": 194,
+          "at": "2026-10-03T11:23:27.473Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "KeyN",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local にほｎ"
+          }
+        },
+        {
+          "seq": 195,
+          "at": "2026-10-03T11:23:27.474Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "n",
+          "code": "KeyN",
+          "keyCode": 78,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local にほｎ"
+          }
+        },
+        {
+          "seq": 196,
+          "at": "2026-10-03T11:23:27.516Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "KeyN",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local にほｎ"
+          }
+        },
+        {
+          "seq": 197,
+          "at": "2026-10-03T11:23:27.517Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "にほん",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にほｎ"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local にほｎ"
+          }
+        },
+        {
+          "seq": 198,
+          "at": "2026-10-03T11:23:27.518Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にほん",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にほｎ"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local にほｎ"
+          }
+        },
+        {
+          "seq": 199,
+          "at": "2026-10-03T11:23:27.518Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にほん",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local にほん"
+          }
+        },
+        {
+          "seq": 201,
+          "at": "2026-10-03T11:23:27.602Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "KeyN",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local にほん"
+          }
+        },
+        {
+          "seq": 202,
+          "at": "2026-10-03T11:23:27.604Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "n",
+          "code": "KeyN",
+          "keyCode": 78,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local にほん"
+          }
+        },
+        {
+          "seq": 203,
+          "at": "2026-10-03T11:23:27.958Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "KeyG",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local にほん"
+          }
+        },
+        {
+          "seq": 204,
+          "at": "2026-10-03T11:23:27.960Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "にほんｇ",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にほん"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local にほん"
+          }
+        },
+        {
+          "seq": 205,
+          "at": "2026-10-03T11:23:27.961Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にほんｇ",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にほん"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local にほん"
+          }
+        },
+        {
+          "seq": 206,
+          "at": "2026-10-03T11:23:27.961Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にほんｇ",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 15,
+            "value": "MS65 local にほんｇ"
+          }
+        },
+        {
+          "seq": 208,
+          "at": "2026-10-03T11:23:28.063Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "KeyG",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 15,
+            "value": "MS65 local にほんｇ"
+          }
+        },
+        {
+          "seq": 209,
+          "at": "2026-10-03T11:23:28.066Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "g",
+          "code": "KeyG",
+          "keyCode": 71,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 15,
+            "value": "MS65 local にほんｇ"
+          }
+        },
+        {
+          "seq": 210,
+          "at": "2026-10-03T11:23:28.067Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "KeyO",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 15,
+            "value": "MS65 local にほんｇ"
+          }
+        },
+        {
+          "seq": 211,
+          "at": "2026-10-03T11:23:28.069Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "にほんご",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にほんｇ"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 11,
+            "value": "MS65 local にほんｇ"
+          }
+        },
+        {
+          "seq": 212,
+          "at": "2026-10-03T11:23:28.070Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にほんご",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にほんｇ"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 11,
+            "value": "MS65 local にほんｇ"
+          }
+        },
+        {
+          "seq": 213,
+          "at": "2026-10-03T11:23:28.070Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "にほんご",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 15,
+            "value": "MS65 local にほんご"
+          }
+        },
+        {
+          "seq": 215,
+          "at": "2026-10-03T11:23:28.235Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "KeyO",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 15,
+            "value": "MS65 local にほんご"
+          }
+        },
+        {
+          "seq": 216,
+          "at": "2026-10-03T11:23:28.236Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "o",
+          "code": "KeyO",
+          "keyCode": 79,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 15,
+            "value": "MS65 local にほんご"
+          }
+        },
+        {
+          "seq": 217,
+          "at": "2026-10-03T11:23:28.237Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "Space",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 15,
+            "value": "MS65 local にほんご"
+          }
+        },
+        {
+          "seq": 218,
+          "at": "2026-10-03T11:23:28.241Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "日本語",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にほんご"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 11,
+            "value": "MS65 local にほんご"
+          }
+        },
+        {
+          "seq": 219,
+          "at": "2026-10-03T11:23:28.241Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "日本語",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "にほんご"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 15,
+            "start": 11,
+            "value": "MS65 local にほんご"
+          }
+        },
+        {
+          "seq": 220,
+          "at": "2026-10-03T11:23:28.242Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "日本語",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 222,
+          "at": "2026-10-03T11:23:28.372Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "Space",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 223,
+          "at": "2026-10-03T11:23:28.373Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": " ",
+          "code": "Space",
+          "keyCode": 32,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 224,
+          "at": "2026-10-03T11:23:28.576Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "Enter",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 225,
+          "at": "2026-10-03T11:23:28.578Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "日本語",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "日本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 226,
+          "at": "2026-10-03T11:23:28.578Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "日本語",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "日本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 227,
+          "at": "2026-10-03T11:23:28.579Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "日本語",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 228,
+          "at": "2026-10-03T11:23:28.579Z",
+          "surface": "textarea",
+          "type": "compositionend",
+          "trusted": false,
+          "data": "日本語",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 230,
+          "at": "2026-10-03T11:23:28.677Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "Enter",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 231,
+          "at": "2026-10-03T11:23:29.396Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Shift",
+          "code": "",
+          "keyCode": 16,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 232,
+          "at": "2026-10-03T11:23:29.604Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "ArrowLeft",
+          "code": "ArrowLeft",
+          "keyCode": 37,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 14,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 234,
+          "at": "2026-10-03T11:23:29.677Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "ArrowLeft",
+          "code": "ArrowLeft",
+          "keyCode": 37,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "backward",
+            "end": 14,
+            "start": 13,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 235,
+          "at": "2026-10-03T11:23:29.765Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "ArrowLeft",
+          "code": "ArrowLeft",
+          "keyCode": 37,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "backward",
+            "end": 14,
+            "start": 13,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 237,
+          "at": "2026-10-03T11:23:29.849Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "ArrowLeft",
+          "code": "ArrowLeft",
+          "keyCode": 37,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "backward",
+            "end": 14,
+            "start": 12,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 238,
+          "at": "2026-10-03T11:23:29.924Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "ArrowLeft",
+          "code": "ArrowLeft",
+          "keyCode": 37,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "backward",
+            "end": 14,
+            "start": 12,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 240,
+          "at": "2026-10-03T11:23:30.018Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "ArrowLeft",
+          "code": "ArrowLeft",
+          "keyCode": 37,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "日本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "backward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 241,
+          "at": "2026-10-03T11:23:30.108Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Shift",
+          "code": "",
+          "keyCode": 16,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "日本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "backward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 242,
+          "at": "2026-10-03T11:23:31.198Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Alt",
+          "code": "AltLeft",
+          "keyCode": 18,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "日本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "backward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 243,
+          "at": "2026-10-03T11:23:31.366Z",
+          "surface": "textarea",
+          "type": "blur",
+          "trusted": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "日本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "backward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 244,
+          "at": "2026-10-03T11:23:34.249Z",
+          "surface": "textarea",
+          "type": "focus",
+          "trusted": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "日本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "backward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 245,
+          "at": "2026-10-03T11:23:40.485Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "Convert",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "日本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "backward",
+            "end": 14,
+            "start": 11,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 246,
+          "at": "2026-10-03T11:23:40.486Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "deleteContentBackward",
+          "data": null,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "al 日本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 14,
+            "start": 8,
+            "value": "MS65 local 日本語"
+          }
+        },
+        {
+          "seq": 247,
+          "at": "2026-10-03T11:23:40.486Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "deleteContentBackward",
+          "data": null,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 8,
+            "start": 8,
+            "value": "MS65 loc"
+          }
+        },
+        {
+          "seq": 248,
+          "at": "2026-10-03T11:23:40.487Z",
+          "surface": "textarea",
+          "type": "compositionstart",
+          "trusted": true,
+          "data": "",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 8,
+            "start": 8,
+            "value": "MS65 loc"
+          }
+        },
+        {
+          "seq": 249,
+          "at": "2026-10-03T11:23:40.487Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "日本語",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 8,
+            "start": 8,
+            "value": "MS65 loc"
+          }
+        },
+        {
+          "seq": 250,
+          "at": "2026-10-03T11:23:40.487Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "日本語",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 8,
+            "start": 8,
+            "value": "MS65 loc"
+          }
+        },
+        {
+          "seq": 251,
+          "at": "2026-10-03T11:23:40.487Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "日本語",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 loc日本語"
+          }
+        },
+        {
+          "seq": 253,
+          "at": "2026-10-03T11:23:40.648Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "Convert",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 loc日本語"
+          }
+        },
+        {
+          "seq": 254,
+          "at": "2026-10-03T11:23:40.670Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Convert",
+          "code": "Convert",
+          "keyCode": 28,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 loc日本語"
+          }
+        },
+        {
+          "seq": 255,
+          "at": "2026-10-03T11:23:41.682Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Process",
+          "code": "Enter",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 loc日本語"
+          }
+        },
+        {
+          "seq": 256,
+          "at": "2026-10-03T11:23:41.685Z",
+          "surface": "textarea",
+          "type": "compositionupdate",
+          "trusted": true,
+          "data": "日本語",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "日本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 8,
+            "value": "MS65 loc日本語"
+          }
+        },
+        {
+          "seq": 257,
+          "at": "2026-10-03T11:23:41.686Z",
+          "surface": "textarea",
+          "type": "beforeinput",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "日本語",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": "日本語"
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 8,
+            "value": "MS65 loc日本語"
+          }
+        },
+        {
+          "seq": 258,
+          "at": "2026-10-03T11:23:41.686Z",
+          "surface": "textarea",
+          "type": "input",
+          "trusted": true,
+          "inputType": "insertCompositionText",
+          "data": "日本語",
+          "isComposing": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 loc日本語"
+          }
+        },
+        {
+          "seq": 259,
+          "at": "2026-10-03T11:23:41.687Z",
+          "surface": "textarea",
+          "type": "compositionend",
+          "trusted": false,
+          "data": "日本語",
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 loc日本語"
+          }
+        },
+        {
+          "seq": 261,
+          "at": "2026-10-03T11:23:41.789Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Process",
+          "code": "Enter",
+          "keyCode": 229,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 loc日本語"
+          }
+        },
+        {
+          "seq": 262,
+          "at": "2026-10-03T11:23:43.022Z",
+          "surface": "textarea",
+          "type": "blur",
+          "trusted": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 loc日本語"
+          }
+        },
+        {
+          "seq": 263,
+          "at": "2026-10-03T11:25:29.305Z",
+          "surface": "textarea",
+          "type": "focus",
+          "trusted": true,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 loc日本語"
+          }
+        },
+        {
+          "seq": 264,
+          "at": "2026-10-03T11:25:29.376Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "F4",
+          "code": "F4",
+          "keyCode": 115,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 loc日本語"
+          }
+        },
+        {
+          "seq": 265,
+          "at": "2026-10-03T11:25:29.450Z",
+          "surface": "textarea",
+          "type": "keyup",
+          "key": "Alt",
+          "code": "AltLeft",
+          "keyCode": 18,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 loc日本語"
+          }
+        },
+        {
+          "seq": 266,
+          "at": "2026-10-03T11:25:31.311Z",
+          "surface": "textarea",
+          "type": "keydown",
+          "key": "Alt",
+          "code": "AltLeft",
+          "keyCode": 18,
+          "trusted": true,
+          "isComposing": false,
+          "domSelection": {
+            "anchor": null,
+            "focus": null,
+            "selected": ""
+          },
+          "targetRanges": [],
+          "pm": null,
+          "domText": "",
+          "textarea": {
+            "direction": "forward",
+            "end": 11,
+            "start": 11,
+            "value": "MS65 loc日本語"
+          }
+        }
+      ]
+    }
+  ],
+  "scope": "Read-only analysis of diagnostic app stderr. Probe instrumentation is a source override; not a production native Pass or a complete physical keyboard trace outside the observed surfaces."
+}

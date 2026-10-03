@@ -1,0 +1,20 @@
+[
+  {
+    "name": "greiva.sqlite",
+    "bytes": 4096,
+    "sha256": "1fe8f6113488865c546d2faa55b21482662ce4be19d4f505eeefa09bc3131489",
+    "copiedAfterProcessExit": true
+  },
+  {
+    "name": "greiva.sqlite-shm",
+    "bytes": 32768,
+    "sha256": "7e1f4e3ce9a9b2c58155b6308681dc722b83fd6b5635b8d780e64950ce723969",
+    "copiedAfterProcessExit": true
+  },
+  {
+    "name": "greiva.sqlite-wal",
+    "bytes": 1351392,
+    "sha256": "56e3aba82262755ea758d379136f9b69115c42918cb2743b86ee02df5da17343",
+    "copiedAfterProcessExit": true
+  }
+]

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites name="vitest tests" tests="3" failures="0" errors="0" time="1.202543617">
+    <testsuite name="tests/integration/structured-progress.test.ts" timestamp="2026-10-03T11:20:27.581Z" hostname="b994ee08d3ce" tests="3" failures="0" errors="0" skipped="0" time="1.202543617">
+        <testcase classname="tests/integration/structured-progress.test.ts" name="STEP8-PROGRESS: coalesces ordinary ACK snapshots while retaining durable order and final state" time="0.81911664">
+        </testcase>
+        <testcase classname="tests/integration/structured-progress.test.ts" name="STEP8-PROGRESS: local edits refresh immediately while a later network ACK is held" time="0.170686846">
+        </testcase>
+        <testcase classname="tests/integration/structured-progress.test.ts" name="STEP8-PROGRESS: exposes conflicts and rejections before the next push even inside the display interval" time="0.210679533">
+        </testcase>
+    </testsuite>
+</testsuites>

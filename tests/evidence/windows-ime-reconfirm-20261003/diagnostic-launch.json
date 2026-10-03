@@ -1,0 +1,9 @@
+{
+  "startedAt": "2026-10-03T11:21:26.2125223Z",
+  "pid": 26032,
+  "sha256": "b9143ddfb6da3c3c997a53606ae9df95cd226061acb5f5a55a71ccd13278247b",
+  "version": "0.6.5",
+  "scope": "Existing 0.6.5 focusguard diagnostic candidate; experimental checkbox defaults false and must remain unchecked; plain textarea comparison only; not a product build or native Pass",
+  "dataDirectory": ".data/host-ime/probe-runs/2026-10-03T11-21-25Z",
+  "hostToolchainInstalled": false
+}

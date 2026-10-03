@@ -134,8 +134,14 @@ test('STEP8-STRUCTURED-1000: durable Task chains restore offline and the actual 
     expect(before.operations).toHaveLength(1000);expect(before.operations.every(op=>op.status==='pending')).toBe(true);expect(before.tasks).toHaveLength(250);
     const killed=await kill(request,device);const restoring=performance.now();await page.reload();await ready(page);
     const restored=structuredSnapshotSchema.parse(await rpc(request,device,'structured-snapshot'));expect(restored).toEqual(before);const offlineRestoreMs=performance.now()-restoring;
+    await request.post('/__greiva_test_store_control',{data:{device,command:'reset-rpc-metrics'}});
     const started=performance.now();await page.getByRole('button',{name:'再接続',exact:true}).click();
     await expect(page.getByLabel('TaskとRelationの同期状態')).toHaveText('サーバーと同期済み',{timeout:240_000});const convergenceMs=performance.now()-started;
+    const measured=await request.post('/__greiva_test_store_control',{data:{device,command:'rpc-metrics'}});
+    expect(measured.ok()).toBe(true);
+    const rpcMetrics=(await measured.json()).value as Record<string,{count:number;totalMs:number;maxMs:number;responseBytes:number}>;
+    expect(rpcMetrics['structured-ack']?.count).toBe(1000);
+    expect(rpcMetrics['structured-snapshot']?.count).toBeGreaterThan(0);
     const local=structuredSnapshotSchema.parse(await rpc(request,device,'structured-snapshot'));expect(local.operations).toHaveLength(1000);expect(local.operations.every(op=>op.status==='acknowledged')).toBe(true);
     expect(local.errors).toEqual([]);expect(local.conflicts).toEqual([]);expect(local.tasks.map(({id,title,status,due,version})=>({id,title,status,due,version})).sort((a,b)=>a.id.localeCompare(b.id))).toEqual(tasks.sort((a,b)=>a.id.localeCompare(b.id)));
     await peer.goto(`/?page=${newId()}`);await ready(peer);await expect(peer.getByLabel('TaskとRelationの同期状態')).toHaveText('サーバーと同期済み',{timeout:60_000});
@@ -147,7 +153,7 @@ test('STEP8-STRUCTURED-1000: durable Task chains restore offline and the actual 
     // Repeated reconnect must not add operations or change the final entities.
     await page.getByRole('button',{name:'接続を一時停止',exact:true}).click();await page.getByRole('button',{name:'再接続',exact:true}).click();await expect(page.getByLabel('TaskとRelationの同期状態')).toHaveText('サーバーと同期済み');
     const after=structuredSnapshotSchema.parse(await rpc(request,device,'structured-snapshot'));expect(after.tasks).toEqual(local.tasks);expect((await database.query(`SELECT count(*)::int AS operations FROM "${schema}".server_operations`)).rows[0]?.operations).toBe(1000);
-    await attach(info,'structured-1000-ui-engine',{dataset:{tasks:250,operationsPerTask:4,operations:1000},queueCreationMs,offlineRestoreMs,convergenceMs,killed,ledger:ledger.rows[0],before,restored,local,remote,
+    await attach(info,'structured-1000-ui-engine',{dataset:{tasks:250,operationsPerTask:4,operations:1000},queueCreationMs,offlineRestoreMs,convergenceMs,rpcMetrics,killed,ledger:ledger.rows[0],before,restored,local,remote,
       scope:'Actual React TaskPanel sync engine, real HTTP/PostgreSQL and release Rust SQLite; no batch push shortcut. 240s harness bound is not a product SLO.'});
   }finally{await database.end();await context.close();await peerContext.close();}
 });

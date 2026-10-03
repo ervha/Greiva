@@ -1,0 +1,68 @@
+{
+  "version": "0.6.11",
+  "builtAt": "2026-10-03T11:24:58.703Z",
+  "results": [
+    {
+      "id": "NORMAL-BUILD",
+      "command": [
+        "npm",
+        "run",
+        "build"
+      ],
+      "startedAt": "2026-10-03T11:24:41.882Z",
+      "finishedAt": "2026-10-03T11:24:46.094Z",
+      "exitCode": 0
+    },
+    {
+      "id": "NORMAL-FEATURES",
+      "command": [
+        "cargo",
+        "metadata",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "apps/client/src-tauri/Cargo.toml",
+        "--filter-platform",
+        "x86_64-pc-windows-msvc",
+        "--features",
+        "custom-protocol",
+        "--format-version",
+        "1"
+      ],
+      "startedAt": "2026-10-03T11:24:46.097Z",
+      "finishedAt": "2026-10-03T11:24:46.919Z",
+      "exitCode": 0
+    },
+    {
+      "id": "CROSS-BUILD",
+      "command": [
+        "cargo",
+        "xwin",
+        "build",
+        "--offline",
+        "--locked",
+        "--manifest-path",
+        "apps/client/src-tauri/Cargo.toml",
+        "--target",
+        "x86_64-pc-windows-msvc",
+        "--features",
+        "custom-protocol",
+        "--target-dir",
+        ".data/windows-target"
+      ],
+      "startedAt": "2026-10-03T11:24:46.930Z",
+      "finishedAt": "2026-10-03T11:24:58.680Z",
+      "exitCode": 0
+    }
+  ],
+  "frontendIncludesSnapshotCadence": true,
+  "storeFeatures": [
+    "default"
+  ],
+  "testFrontendFlags": 0,
+  "artifact": {
+    "bytes": 18558976,
+    "sha256": "cc806e646f8093fe3ee387d0524c68dd4ec3c6808fa794be33e84d0fd74ecf36"
+  },
+  "scope": "Docker-only cross-build; normal production frontend rebuilt after all workspace packages. Not native UI/IME or release performance."
+}

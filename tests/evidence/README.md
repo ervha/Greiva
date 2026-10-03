@@ -1,5 +1,11 @@
 # 試験証拠の索引
 
+## Step 8: structured同期進捗改善・実機再変換再確認（2026-10-03、v0.6.11）
+
+[同期改善とDocker回帰](step-8-structured-progress-20261003/SUMMARY.md)。通常ACKのdurable保存を維持して表示snapshotを100ms間隔へ抑制。通常48件／別PostgreSQL20件、全54 E2E、Conflict UI2、統合crash4、性能4を確認。原型検査Failと試験fixture修正後の再検査Passを別記し、通常0.6.11 Windows候補をbuild。新候補のnative操作・性能はNot run。
+
+[通常0.6.9 A/Bと旧診断0.6.5 C/D](windows-ime-reconfirm-20261003/SUMMARY.md)。window移動なしは保持、ありは `al ` 欠落をSQLite／native eventで照合。他アプリ複数でも同症状との利用者報告を受け、この条件を[受入例外](../../docs/decisions/step-8-ms-ime-exception.md)としてGreiva修正待ちから外す。原Failを保持し、他の未実施条件とGate最終判定は継続する。以下は各版の履歴。
+
 `docs/plan/POC_SPEC.md` Section 18 Step 8の検証記録です。2026-10-03のv0.6.10では利用者の再開指示に従い、保存済み0.6.9証拠の監査と実機再開準備を追加しました。Microsoft IME再変換の本文欠落は未解決、新しいnative回帰・P1/P2実OSとGate A/B/Cの最終判定は未完了です。製品・候補は0.6.9のまま。以下は各版・時点の証拠です。
 
 ## Step 8: 証拠監査・受入条件対応・実機再開準備（2026-10-03、v0.6.10）

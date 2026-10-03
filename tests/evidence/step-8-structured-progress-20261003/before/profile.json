@@ -1,0 +1,55 @@
+{
+  "stats": {
+    "startTime": "2026-10-03T11:05:16.960Z",
+    "duration": 95959.11,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  },
+  "metrics": [
+    {
+      "status": "passed",
+      "dataset": {
+        "tasks": 250,
+        "operationsPerTask": 4,
+        "operations": 1000
+      },
+      "convergenceMs": 71780.68540799999,
+      "queueCreationMs": 9372.531536999999,
+      "offlineRestoreMs": 173.04651999999987,
+      "rpcMetrics": {
+        "structured-snapshot": {
+          "count": 1024,
+          "totalMs": 17316.925437000078,
+          "maxMs": 64.19307100000151,
+          "responseBytes": 375154898
+        },
+        "structured-pull": {
+          "count": 11,
+          "totalMs": 16956.47309099999,
+          "maxMs": 16791.495895999993,
+          "responseBytes": 264
+        },
+        "structured-prepare": {
+          "count": 1001,
+          "totalMs": 6770.626527000057,
+          "maxMs": 72.89301899999555,
+          "responseBytes": 319054
+        },
+        "structured-ack": {
+          "count": 1000,
+          "totalMs": 7011.548593999938,
+          "maxMs": 23.105805999999575,
+          "responseBytes": 24000
+        }
+      },
+      "ledger": {
+        "operations": 1000,
+        "distinct_operations": 1000,
+        "head": 1000
+      },
+      "scope": "Actual React TaskPanel sync engine, real HTTP/PostgreSQL and release Rust SQLite; no batch push shortcut. 240s harness bound is not a product SLO."
+    }
+  ]
+}

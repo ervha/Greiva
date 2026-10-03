@@ -1,5 +1,9 @@
 # Greiva 開発計画・状況・セットアップ
 
+2026-10-03、最新checkpointは **v0.6.11**、製品・Windows候補も **0.6.11**。structured同期の通常ACK後snapshotを100ms間隔に抑え、1,000操作のsnapshot回数・応答量削減と保存順序・収束を確認した。[Docker回帰・型再検査・候補build](../../tests/evidence/step-8-structured-progress-20261003/SUMMARY.md)。新候補のnative操作・性能はNot run。利用者の手操作が可能になり、通常0.6.9 A/Bと旧診断0.6.5 textarea C/Dを再確認。window移動ありだけで直前の文字が欠落し、停止後SQLiteとnative eventを照合した。[実機証拠](../../tests/evidence/windows-ime-reconfirm-20261003/SUMMARY.md)。他アプリ複数でも同症状との利用者報告を受け、この環境のMicrosoft再変換は[受入例外](../decisions/step-8-ms-ime-exception.md)としてGreiva修正待ちから外す。原Failは保持する。次は最新Windowsの他の必須操作・保存／復旧、Android実OSの検証。Gate最終未判定。
+
+以下の各版の状況は過去checkpointの履歴として保持する。
+
 [プロジェクト紹介へ戻る](../../README.md)。以下のコマンドは、特記がなければリポジトリのルートで実行します。
 
 2026-10-03、最新の検証準備checkpointは **v0.6.10**、製品・Windows候補は **0.6.9**。利用者の再開指示と参照セッションの判断を引き継ぎ、[8受入条件・証拠・実機再開順序](POC_VALIDATION_MATRIX.md)と保存済み証拠の監査を追加した。[今回の証拠](../../tests/evidence/poc-audit-20261003/SUMMARY.md)。専用Dockerで監査試験9件と実証拠監査Pass。原full runの11 Pass／1 Fail、別offline feature再検査Pass、通常skip20件と実PostgreSQL別run20件の対応を確認。Windows worktreeの改行差と内容差を区別し、候補exeのhashを再照合した。Windowsインストール済み環境を読み取りで記録、Android対象は利用者申告のGoogle Pixel 7／Android 17 QPR1。最新native／IME・Android実OSはNot run、Microsoft再変換FailとGate最終未判定を維持する。今回は文書・検証ツールだけで製品版を変更しない。以下の0.6.9停止は過去checkpointの履歴である。

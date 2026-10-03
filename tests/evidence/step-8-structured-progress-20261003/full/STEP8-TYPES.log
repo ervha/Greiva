@@ -1,0 +1,50 @@
+
+> greiva-poc@0.6.11 typecheck
+> npm run build:packages && npm run typecheck --workspaces --if-present && tsc -p tsconfig.tests.json
+
+
+> greiva-poc@0.6.11 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync
+
+
+> @greiva/shared@0.6.11 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.6.11 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.6.11 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.6.11 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/shared@0.6.11 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/sync@0.6.11 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/api@0.6.11 typecheck
+> tsc --noEmit
+
+
+> @greiva/client@0.6.11 typecheck
+> tsc --noEmit
+
+
+> @greiva/collaboration@0.6.11 typecheck
+> tsc --noEmit
+
+tests/integration/structured-progress.test.ts(109,9): error TS2322: Type '{ operationId: string; clientId: string; entityType: "relation" | "task"; entityId: string; serverOrder: string; entity: { createdAt: string; updatedAt: string; id: string; title: string; status: "done" | ... 1 more ... | "todo"; due: string | null; version: number; deletedAt: string | null; } | { ...; }; status: "c...' is not assignable to type '{ operationId: string; clientId: string; entityType: "relation" | "task"; entityId: string; serverOrder: string; conflicts: { id: string; operationId: string; entityType: "relation" | "task"; ... 7 more ...; resolvedBy: string | null; }[]; status: "acknowledged"; entity: { ...; } | { ...; }; } | { ...; } | { ...; }'.
+  Type '{ operationId: string; clientId: string; entityType: "relation" | "task"; entityId: string; serverOrder: string; entity: { createdAt: string; updatedAt: string; id: string; title: string; status: "done" | ... 1 more ... | "todo"; due: string | null; version: number; deletedAt: string | null; } | { ...; } | null; err...' is not assignable to type '{ operationId: string; clientId: string; entityType: "relation" | "task"; entityId: string; serverOrder: string; conflicts: { id: string; operationId: string; entityType: "relation" | "task"; ... 7 more ...; resolvedBy: string | null; }[]; status: "acknowledged"; entity: { ...; } | { ...; }; } | { ...; } | { ...; }'.
+    Type '{ operationId: string; clientId: string; entityType: "relation" | "task"; entityId: string; serverOrder: string; entity: { createdAt: string; updatedAt: string; id: string; title: string; status: "done" | ... 1 more ... | "todo"; due: string | null; version: number; deletedAt: string | null; } | { ...; } | null; err...' is not assignable to type '{ operationId: string; clientId: string; entityType: "relation" | "task"; entityId: string; serverOrder: string; conflicts: { id: string; operationId: string; entityType: "relation" | "task"; ... 7 more ...; resolvedBy: string | null; }[]; status: "conflict"; entity: { ...; } | { ...; }; }'.
+      Types of property 'entity' are incompatible.
+        Type '{ createdAt: string; updatedAt: string; id: string; title: string; status: "done" | "in_progress" | "todo"; due: string | null; version: number; deletedAt: string | null; } | { createdAt: string; ... 7 more ...; deletedAt: string | null; } | null' is not assignable to type '{ createdAt: string; updatedAt: string; id: string; title: string; status: "done" | "in_progress" | "todo"; due: string | null; version: number; deletedAt: string | null; } | { createdAt: string; ... 7 more ...; deletedAt: string | null; }'.
+          Type 'null' is not assignable to type '{ createdAt: string; updatedAt: string; id: string; title: string; status: "done" | "in_progress" | "todo"; due: string | null; version: number; deletedAt: string | null; } | { createdAt: string; ... 7 more ...; deletedAt: string | null; }'.

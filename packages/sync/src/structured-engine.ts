@@ -56,6 +56,7 @@ export class StructuredSyncEngine {
   private timer: ReturnType<typeof setTimeout> | undefined;
   private controller: AbortController | undefined;
   private retryDelay = 1000;
+  private lastRefreshAt = -Infinity;
   private report: StructuredReport = {phase:'loading',snapshot:null,error:null};
   constructor(private readonly store: StructuredStore,private readonly transport: StructuredTransport,
     private readonly onReport: (report: StructuredReport)=>void,options: {paused?: boolean; pollMs?: number} = {}) {
@@ -70,6 +71,7 @@ export class StructuredSyncEngine {
   }
   private async refresh() {
     const snapshot = await this.stored(()=>this.store.snapshot()); this.report = {...this.report,snapshot};
+    this.lastRefreshAt = performance.now();
     if (this.report.phase==='synced' && (snapshot.operations.some(operation=>operation.status==='pending') || snapshot.errors.length>0 || snapshot.conflicts.some(conflict=>conflict.status==='open') || snapshot.state.cursor!==snapshot.state.headCursor)) {
       this.report = {...this.report,phase:this.paused ? 'offline' : 'syncing'};
     }
@@ -115,7 +117,12 @@ export class StructuredSyncEngine {
       while (this.allowed()) {
         const operation = await this.stored(()=>this.store.prepare()); if (!operation || !this.allowed()) break;
         const result = await this.transport.push(operation,signal); if (!this.allowed()) return;
-        await this.stored(()=>this.store.acknowledge(result)); await this.refresh();
+        await this.stored(()=>this.store.acknowledge(result));
+        // Every ACK is already durable. Reading and serializing the complete
+        // operation history after each one is unnecessary for progress display.
+        // Local edits, pull pages and the final state still refresh immediately;
+        // conflicts/rejections must be visible before preparing the next push.
+        if (result.status!=='acknowledged' || result.conflicts.length>0 || performance.now()-this.lastRefreshAt>=100) await this.refresh();
       }
       if (!this.allowed()) return;
       await this.pullAll(signal); if (!this.allowed()) return;

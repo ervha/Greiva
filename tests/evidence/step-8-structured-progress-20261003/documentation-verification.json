@@ -1,0 +1,57 @@
+{
+  "verifiedAt": "2026-10-03T11:38:29.700Z",
+  "checkedLinks": 241,
+  "brokenLinks": [],
+  "originalFullSourceReconstructed": true,
+  "fullResults": [
+    {
+      "id": "STEP8-STORE-DRIVER",
+      "status": "Pass"
+    },
+    {
+      "id": "STEP8-BUILD",
+      "status": "Pass"
+    },
+    {
+      "id": "STEP8-TYPES",
+      "status": "Fail"
+    },
+    {
+      "id": "STEP8-UNIT-INTEGRATION",
+      "status": "Pass"
+    },
+    {
+      "id": "STEP8-E2E",
+      "status": "Pass"
+    },
+    {
+      "id": "STEP8-SQLITE-INIT",
+      "status": "Pass"
+    },
+    {
+      "id": "STEP8-POSTGRES",
+      "status": "Pass"
+    },
+    {
+      "id": "STEP8-STRUCTURED-E2E",
+      "status": "Pass"
+    },
+    {
+      "id": "STEP8-COMBINED-CRASH",
+      "status": "Pass"
+    },
+    {
+      "id": "STEP8-DESKTOP-CHECK",
+      "status": "Pass"
+    },
+    {
+      "id": "STEP8-DEFAULT-FEATURES",
+      "status": "Pass"
+    },
+    {
+      "id": "STEP8-PERFORMANCE",
+      "status": "Pass"
+    }
+  ],
+  "scope": "Documentation links and original source provenance; not new product tests or a Gate verdict"
+}

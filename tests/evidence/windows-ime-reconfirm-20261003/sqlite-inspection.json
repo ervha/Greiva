@@ -1,0 +1,743 @@
+{
+  "inspectedAt": "2026-10-03T11:18:45.566Z",
+  "execution": "Docker; stopped Windows DB copy; read-only SQLite/Yjs replay",
+  "nativeVersion": "0.6.9",
+  "loadedWebView2Version": "154.0.4258.53",
+  "operator": "User manual IME; Codex saved-data audit",
+  "nativeEventsRecorded": false,
+  "remoteUpdatesSent": false,
+  "pages": [
+    {
+      "fixture": "A",
+      "pageId": "01a10176-5779-7501-8b63-8de20252aae7",
+      "title": "PIME69-A",
+      "bodyXml": "<paragraph>MS65 local 日本語</paragraph>",
+      "clocks": [
+        [
+          3699522192,
+          23
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "observedOutcome": "Fixture text retained",
+      "history": [
+        {
+          "seq": 2,
+          "sha256": "a5c7e0fc50f0613c2a899c4a242dc4da6ab17226de4d4e847dd258d5975de74e",
+          "bytes": 23,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph></paragraph>"
+        },
+        {
+          "seq": 3,
+          "sha256": "6a851ca9d48f8e9a52ebeb7febf3503ebb3a22813f70a39f240e50a33a497c9a",
+          "bytes": 24,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>M</paragraph>"
+        },
+        {
+          "seq": 4,
+          "sha256": "d5e461c18ccbde9aabe7d3166cf5293d978b1f97e8fe7d27c090aec7a5ccb351",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS</paragraph>"
+        },
+        {
+          "seq": 5,
+          "sha256": "49a0d7e4b240d6eb1c4b9130b81c730fa3395f7292b537df880ebde57c3034e1",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS6</paragraph>"
+        },
+        {
+          "seq": 6,
+          "sha256": "be7eb4a8f14b25fbaf786e99d09b74878b3167bbd17696ec9660679a4141e93a",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65</paragraph>"
+        },
+        {
+          "seq": 7,
+          "sha256": "ff3c81e9c7aeed99d588cf6985a68ae69efec5db8f2113fbc0cc8bfea33727dd",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 </paragraph>"
+        },
+        {
+          "seq": 8,
+          "sha256": "bc845b286a7d00f8246beb931176b2bea16ed4831224d21c9fd142652266159b",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 l</paragraph>"
+        },
+        {
+          "seq": 9,
+          "sha256": "2887115a092ff0309f957eff0c4a271ecdd1e09d983c9bd3ef8fa071383b9722",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 lo</paragraph>"
+        },
+        {
+          "seq": 10,
+          "sha256": "7026cdd6ad1812f96c60b58dd3577f217f0a51afea4824b26824c704f879f3e6",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 loc</paragraph>"
+        },
+        {
+          "seq": 11,
+          "sha256": "6cdbc7e1a37f434f56b216aa7aaec453c0d8d0da235b88f979e74fddbafc978d",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 loca</paragraph>"
+        },
+        {
+          "seq": 12,
+          "sha256": "b26daea7eb205c2221f845581346de8117fd5aad21951e58f8b8443b758f7545",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 local</paragraph>"
+        },
+        {
+          "seq": 13,
+          "sha256": "08075184367210862c5b142a0d3bf2fcb3d3a3db7152f16c965f230efac31f9b",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 local </paragraph>"
+        },
+        {
+          "seq": 14,
+          "sha256": "3b3af7befa3bffb03f0ec9fcaf787cd2bf0b3975990a9cea5dba1df1fa952756",
+          "bytes": 20,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 local ｎ</paragraph>"
+        },
+        {
+          "seq": 15,
+          "sha256": "f88f58927a2616acabd590c090a335a62b5cc66dbce7098b24229ec15c95cc62",
+          "bytes": 28,
+          "deletedRanges": [
+            {
+              "client": 3699522192,
+              "ranges": [
+                {
+                  "clock": 12,
+                  "len": 1
+                }
+              ]
+            }
+          ],
+          "bodyXml": "<paragraph>MS65 local に</paragraph>"
+        },
+        {
+          "seq": 16,
+          "sha256": "046f6653259db0914162e0148870cffa9008f6904ea8769d919baf2f2582bcaa",
+          "bytes": 20,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 local にｈ</paragraph>"
+        },
+        {
+          "seq": 17,
+          "sha256": "0759c3cc7768530f19c112d2a544a1a2d2ad3e77ba57e294761e81f9d16ba322",
+          "bytes": 28,
+          "deletedRanges": [
+            {
+              "client": 3699522192,
+              "ranges": [
+                {
+                  "clock": 14,
+                  "len": 1
+                }
+              ]
+            }
+          ],
+          "bodyXml": "<paragraph>MS65 local にほ</paragraph>"
+        },
+        {
+          "seq": 18,
+          "sha256": "1532d9c4154c131b50aedc156f5e5c71eb04107f54110fbe11353ded06bc54fa",
+          "bytes": 20,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 local にほｎ</paragraph>"
+        },
+        {
+          "seq": 19,
+          "sha256": "32d722bc3072f50a575a9e42090af37717b5fd0c23ea8874f705f9aa47c8c908",
+          "bytes": 28,
+          "deletedRanges": [
+            {
+              "client": 3699522192,
+              "ranges": [
+                {
+                  "clock": 16,
+                  "len": 1
+                }
+              ]
+            }
+          ],
+          "bodyXml": "<paragraph>MS65 local にほん</paragraph>"
+        },
+        {
+          "seq": 20,
+          "sha256": "786a1fd673474e4b5362dbf85818219e38836cca989d20a2d033d72d77843107",
+          "bytes": 20,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 local にほんｇ</paragraph>"
+        },
+        {
+          "seq": 21,
+          "sha256": "9b2650484d72201e292c45fd1f457a73eddc48f4fdc3aec285010867d841ca9c",
+          "bytes": 28,
+          "deletedRanges": [
+            {
+              "client": 3699522192,
+              "ranges": [
+                {
+                  "clock": 18,
+                  "len": 1
+                }
+              ]
+            }
+          ],
+          "bodyXml": "<paragraph>MS65 local にほんご</paragraph>"
+        },
+        {
+          "seq": 22,
+          "sha256": "fb27dc9ab421986deb86a5b634561b74fb00f9d69e99f24589318d6f22ae50e8",
+          "bytes": 40,
+          "deletedRanges": [
+            {
+              "client": 3699522192,
+              "ranges": [
+                {
+                  "clock": 13,
+                  "len": 1
+                },
+                {
+                  "clock": 15,
+                  "len": 1
+                },
+                {
+                  "clock": 17,
+                  "len": 1
+                },
+                {
+                  "clock": 19,
+                  "len": 1
+                }
+              ]
+            }
+          ],
+          "bodyXml": "<paragraph>MS65 local 日本語</paragraph>"
+        }
+      ]
+    },
+    {
+      "fixture": "B",
+      "pageId": "01a10177-58f6-774e-9bd2-4e0ce2a216c2",
+      "title": "IME69-B",
+      "bodyXml": "<paragraph>MS65 loc日本語</paragraph>",
+      "clocks": [
+        [
+          3121510162,
+          39
+        ],
+        [
+          1,
+          1
+        ]
+      ],
+      "observedOutcome": "Fixture al-space missing",
+      "history": [
+        {
+          "seq": 23,
+          "sha256": "a5c7e0fc50f0613c2a899c4a242dc4da6ab17226de4d4e847dd258d5975de74e",
+          "bytes": 23,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph></paragraph>"
+        },
+        {
+          "seq": 24,
+          "sha256": "2cc503864d7d097c1eca64568d559ae35b291e978f9a93dcca02d320fd553f98",
+          "bytes": 24,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>M</paragraph>"
+        },
+        {
+          "seq": 25,
+          "sha256": "178e8bf28968e18b163a93786b0c5509c5fb6fc5419a57ffe5c0c3e0645588ff",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS</paragraph>"
+        },
+        {
+          "seq": 26,
+          "sha256": "9dd1e45a3e82abb9f9c6e57ff2757382e2dec1bb655ed968493a8419d57a651f",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS6</paragraph>"
+        },
+        {
+          "seq": 27,
+          "sha256": "909ddbc70041194ba690d23c0ef31215f632facf085f429714a89434432a4ee2",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65</paragraph>"
+        },
+        {
+          "seq": 28,
+          "sha256": "41c9158394106b421064c819c769141b17725d6898b44caba4defa0bfb0a24ce",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 </paragraph>"
+        },
+        {
+          "seq": 29,
+          "sha256": "840d5706c1f0a3e5f7dfc145039937304e810794711340d4bfbf6053e7e930e2",
+          "bytes": 20,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 ｌ</paragraph>"
+        },
+        {
+          "seq": 30,
+          "sha256": "7841a457b97c68bd612ab6084f39e51e5886458e904af3911c809ffb71beeba5",
+          "bytes": 28,
+          "deletedRanges": [
+            {
+              "client": 3121510162,
+              "ranges": [
+                {
+                  "clock": 6,
+                  "len": 1
+                }
+              ]
+            }
+          ],
+          "bodyXml": "<paragraph>MS65 ぉ</paragraph>"
+        },
+        {
+          "seq": 31,
+          "sha256": "10c6f37e5e2507e54046cc21910baad1a7876045fdf7511d7d10cc56c1fd4b13",
+          "bytes": 20,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 ぉｃ</paragraph>"
+        },
+        {
+          "seq": 32,
+          "sha256": "37b2eb89570babb590323d2fa74fe0ee7a40e793f60539c31f574d3b25557cb0",
+          "bytes": 28,
+          "deletedRanges": [
+            {
+              "client": 3121510162,
+              "ranges": [
+                {
+                  "clock": 8,
+                  "len": 1
+                }
+              ]
+            }
+          ],
+          "bodyXml": "<paragraph>MS65 ぉか</paragraph>"
+        },
+        {
+          "seq": 33,
+          "sha256": "4e15a1d497651a3db0ac2aa5627ac8adca335a595ff9130dea61174dd037b1ff",
+          "bytes": 20,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 ぉかｌ</paragraph>"
+        },
+        {
+          "seq": 34,
+          "sha256": "143e057f1ab1a6514abbc622aabbcf5979225b48588ed95c69b6d118b061606f",
+          "bytes": 32,
+          "deletedRanges": [
+            {
+              "client": 3121510162,
+              "ranges": [
+                {
+                  "clock": 7,
+                  "len": 1
+                },
+                {
+                  "clock": 9,
+                  "len": 2
+                }
+              ]
+            }
+          ],
+          "bodyXml": "<paragraph>MS65 l岡l</paragraph>"
+        },
+        {
+          "seq": 35,
+          "sha256": "c1ce7507aecca6ef387e9d3608530abc5aa9e1f29497547c6c15f6a427c1f587",
+          "bytes": 10,
+          "deletedRanges": [
+            {
+              "client": 3121510162,
+              "ranges": [
+                {
+                  "clock": 13,
+                  "len": 1
+                }
+              ]
+            }
+          ],
+          "bodyXml": "<paragraph>MS65 l岡</paragraph>"
+        },
+        {
+          "seq": 36,
+          "sha256": "b12cdc0540afb728804a275500f588f6da01173319c09323754442ff950761d1",
+          "bytes": 10,
+          "deletedRanges": [
+            {
+              "client": 3121510162,
+              "ranges": [
+                {
+                  "clock": 12,
+                  "len": 1
+                }
+              ]
+            }
+          ],
+          "bodyXml": "<paragraph>MS65 l</paragraph>"
+        },
+        {
+          "seq": 37,
+          "sha256": "01dcd6998f19a5bb83e2dec9873c51d686819c00cf642931e025a6e671a09e0b",
+          "bytes": 10,
+          "deletedRanges": [
+            {
+              "client": 3121510162,
+              "ranges": [
+                {
+                  "clock": 11,
+                  "len": 1
+                }
+              ]
+            }
+          ],
+          "bodyXml": "<paragraph>MS65 </paragraph>"
+        },
+        {
+          "seq": 38,
+          "sha256": "c0e6270521f367f8065a63eb09e18db70f829663e804d2871c9407fb16bc4676",
+          "bytes": 10,
+          "deletedRanges": [
+            {
+              "client": 3121510162,
+              "ranges": [
+                {
+                  "clock": 5,
+                  "len": 1
+                }
+              ]
+            }
+          ],
+          "bodyXml": "<paragraph>MS65</paragraph>"
+        },
+        {
+          "seq": 39,
+          "sha256": "bf2d2b86ef4da4d2328ab9276f4494c3a1e0c28d7b7de069ab625b930e636779",
+          "bytes": 10,
+          "deletedRanges": [
+            {
+              "client": 3121510162,
+              "ranges": [
+                {
+                  "clock": 4,
+                  "len": 1
+                }
+              ]
+            }
+          ],
+          "bodyXml": "<paragraph>MS6</paragraph>"
+        },
+        {
+          "seq": 40,
+          "sha256": "2f3661ace103089932a2eb76beb359895411ebab76fa74f47673dfa69cfe4368",
+          "bytes": 10,
+          "deletedRanges": [
+            {
+              "client": 3121510162,
+              "ranges": [
+                {
+                  "clock": 3,
+                  "len": 1
+                }
+              ]
+            }
+          ],
+          "bodyXml": "<paragraph>MS</paragraph>"
+        },
+        {
+          "seq": 41,
+          "sha256": "18d27711d08a2abae10a39f834c2be140f9b831f8b998a8e6da2c37f5f3de271",
+          "bytes": 10,
+          "deletedRanges": [
+            {
+              "client": 3121510162,
+              "ranges": [
+                {
+                  "clock": 2,
+                  "len": 1
+                }
+              ]
+            }
+          ],
+          "bodyXml": "<paragraph>M</paragraph>"
+        },
+        {
+          "seq": 42,
+          "sha256": "389b8b774dadfffd9e4e37b046faf215708a55cd2a6a676b498d5f81b205538e",
+          "bytes": 10,
+          "deletedRanges": [
+            {
+              "client": 3121510162,
+              "ranges": [
+                {
+                  "clock": 1,
+                  "len": 1
+                }
+              ]
+            }
+          ],
+          "bodyXml": "<paragraph></paragraph>"
+        },
+        {
+          "seq": 43,
+          "sha256": "47690e7fa245641ac4c31f22cc39a6137af7dca378afe390e8b53ec83a31d6c5",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>M</paragraph>"
+        },
+        {
+          "seq": 44,
+          "sha256": "762d46ef84cfd638de91f14b817268faa91e9a168ac104e005ad9a5f5170b28e",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS</paragraph>"
+        },
+        {
+          "seq": 45,
+          "sha256": "92cf70636fe53f16a6d5f52aa99c99904f7f99234080809e98db8b5ab6c2a75a",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS6</paragraph>"
+        },
+        {
+          "seq": 46,
+          "sha256": "dcd9ece988045c8ae74e20f60eab05cad272004ab33a6c8aae58e24d90bab85a",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65</paragraph>"
+        },
+        {
+          "seq": 47,
+          "sha256": "269d4c666ab38320042394dd5bbdb0b8211b735937bbfa74947d2ae7c785a8f9",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 </paragraph>"
+        },
+        {
+          "seq": 48,
+          "sha256": "a8fdfd2491b0d5fdb47b079fde564e43eeb1b0bc2a66f69b877253931e8c6ff2",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 l</paragraph>"
+        },
+        {
+          "seq": 49,
+          "sha256": "2bda57fbab97d330cb664a950090f7fbb376b97373a38810b66d403dbf45be47",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 lo</paragraph>"
+        },
+        {
+          "seq": 50,
+          "sha256": "478f5a35ba81d81eaf21faabb1194e5fdcaea9a5338818f69ed85b78b41f17eb",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 loc</paragraph>"
+        },
+        {
+          "seq": 51,
+          "sha256": "d0310f53f0283c04c0a195e289c0528a80d13061bc0c3988648acd0ed6939ba7",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 loca</paragraph>"
+        },
+        {
+          "seq": 52,
+          "sha256": "18a12e0ca243c5d3ff09ac29356046bb534c7f215e1ff23d1abee829191830d2",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 local</paragraph>"
+        },
+        {
+          "seq": 53,
+          "sha256": "49d67c0d9c182e4de748216868cbc3a2822b938d73810c059395f78f4f355a4a",
+          "bytes": 18,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 local </paragraph>"
+        },
+        {
+          "seq": 54,
+          "sha256": "552e84bc74346494e0b536237e39a988078c2af448cfdf7eb64d8afef0e42502",
+          "bytes": 20,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 local ｎ</paragraph>"
+        },
+        {
+          "seq": 55,
+          "sha256": "2a7eac8e416db36ba2235debb90cf727e545a1186d513184f1bb91257c994f81",
+          "bytes": 28,
+          "deletedRanges": [
+            {
+              "client": 3121510162,
+              "ranges": [
+                {
+                  "clock": 25,
+                  "len": 1
+                }
+              ]
+            }
+          ],
+          "bodyXml": "<paragraph>MS65 local に</paragraph>"
+        },
+        {
+          "seq": 56,
+          "sha256": "45abcc0b71eb0d6fc9bd1e4f78e558fc773f5e0b6fb5ebf5533f11a194784c62",
+          "bytes": 20,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 local にｈ</paragraph>"
+        },
+        {
+          "seq": 57,
+          "sha256": "350b886599aab024e5690db0722e0f9fcb474cfe53903d1721801cead21c728c",
+          "bytes": 28,
+          "deletedRanges": [
+            {
+              "client": 3121510162,
+              "ranges": [
+                {
+                  "clock": 27,
+                  "len": 1
+                }
+              ]
+            }
+          ],
+          "bodyXml": "<paragraph>MS65 local にほ</paragraph>"
+        },
+        {
+          "seq": 58,
+          "sha256": "f2d3ad9b2d61b4db29c645d06ab833f4611eee0b797449b478a0b6330e5c5ce6",
+          "bytes": 20,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 local にほｎ</paragraph>"
+        },
+        {
+          "seq": 59,
+          "sha256": "c40378f916d1dd6c2783f2ee7c485f188d823380adf8eeffe72ff6c0d3e6ec36",
+          "bytes": 28,
+          "deletedRanges": [
+            {
+              "client": 3121510162,
+              "ranges": [
+                {
+                  "clock": 29,
+                  "len": 1
+                }
+              ]
+            }
+          ],
+          "bodyXml": "<paragraph>MS65 local にほん</paragraph>"
+        },
+        {
+          "seq": 60,
+          "sha256": "3ba1b4db78cdfbb989121582042bdaea77baf8e6539680b96d1447560099bf3a",
+          "bytes": 20,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 local にほんｇ</paragraph>"
+        },
+        {
+          "seq": 61,
+          "sha256": "0eb06b46dbf0d2f82bb0e6c4bed389705b33cdc4eb70cb8bf7eb5babaface3b1",
+          "bytes": 28,
+          "deletedRanges": [
+            {
+              "client": 3121510162,
+              "ranges": [
+                {
+                  "clock": 31,
+                  "len": 1
+                }
+              ]
+            }
+          ],
+          "bodyXml": "<paragraph>MS65 local にほんご</paragraph>"
+        },
+        {
+          "seq": 62,
+          "sha256": "9eaaa6b6791039aa9b815b8bd33d10b3c27e6bebf02fce9d0998128f8d50cbea",
+          "bytes": 40,
+          "deletedRanges": [
+            {
+              "client": 3121510162,
+              "ranges": [
+                {
+                  "clock": 26,
+                  "len": 1
+                },
+                {
+                  "clock": 28,
+                  "len": 1
+                },
+                {
+                  "clock": 30,
+                  "len": 1
+                },
+                {
+                  "clock": 32,
+                  "len": 1
+                }
+              ]
+            }
+          ],
+          "bodyXml": "<paragraph>MS65 local 日本語</paragraph>"
+        },
+        {
+          "seq": 63,
+          "sha256": "21333df83a2bcf8b7e8fbab5d9fcd61e91ada0f754b194392396667519b8ae98",
+          "bytes": 12,
+          "deletedRanges": [
+            {
+              "client": 3121510162,
+              "ranges": [
+                {
+                  "clock": 22,
+                  "len": 3
+                },
+                {
+                  "clock": 33,
+                  "len": 3
+                }
+              ]
+            }
+          ],
+          "bodyXml": "<paragraph>MS65 loc</paragraph>"
+        },
+        {
+          "seq": 64,
+          "sha256": "0bf87560b9640a6500cc5fc88a26848f78aade562b39e45a9bea0486ebd5258d",
+          "bytes": 26,
+          "deletedRanges": [],
+          "bodyXml": "<paragraph>MS65 loc日本語</paragraph>"
+        }
+      ]
+    }
+  ],
+  "scope": "Persisted fixture comparison only; no independent GUI/candidate observation or proof of the OS input-layer cause. B remains a text-retention failure."
+}

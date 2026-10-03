@@ -1,5 +1,7 @@
 # PoC受入条件・証拠・再開順序
 
+2026-10-03、v0.6.11追記: structured同期snapshot改善と[新しいDocker回帰](../../tests/evidence/step-8-structured-progress-20261003/SUMMARY.md)を確認し、通常Windows候補0.6.11を作成。native操作・性能はNot run。通常0.6.9と旧診断0.6.5の[再変換比較](../../tests/evidence/windows-ime-reconfirm-20261003/SUMMARY.md)では移動ありだけで欠落を再現した。利用者は他アプリ複数でも同症状と報告し、無視して先へ進むよう指示。この条件は[受入例外](../decisions/step-8-ms-ime-exception.md)として扱い、下記の「未解決のままPass/Conditionalにしない」は従来判断として保持する。再変換対策を最終判断の前提から外すが、原FailをPassへ変更せず、Gate最終資料に例外を明記する。他の条件・native不足は免除しない。以下は0.6.10時点の監査baseline。
+
 2026-10-03、検証準備checkpoint **v0.6.10**。製品・Windows候補は **0.6.9**。参照セッション `01a0f17f-74f8-71e1-9c31-65689f9c11da` の「手操作は記録して後回し」「対応案を複数残す」「検証済み区切りでcommit」を引き継ぐ。今回の再開指示は前回0.6.9の停止を解除する。PoCの範囲と受入条件は変更しない。
 
 これは[POC_SPEC §14](POC_SPEC.md)に対する証拠の対応表であり、Step 9の最終Gate判定ではない。Dockerでの検証、Windows実機、利用者の回答、未実施を分ける。

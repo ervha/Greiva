@@ -1,0 +1,92 @@
+{
+  "capturedAt": "2026-10-03T11:06:53.030Z",
+  "version": "0.6.11",
+  "platform": "linux",
+  "os": "6.18.40.1-microsoft-standard-WSL2",
+  "cpu": "12th Gen Intel(R) Core(TM) i7-12700H",
+  "node": "v24.19.0",
+  "schema": "greiva_test_01a101705a71729193c02819cf095801",
+  "remainingSchemas": 0,
+  "results": [
+    {
+      "id": "PERF-STORE-RELEASE",
+      "command": [
+        "cargo",
+        "build",
+        "--release",
+        "--locked",
+        "--manifest-path",
+        "apps/client/src-tauri/crates/page-store/Cargo.toml",
+        "--example",
+        "store-driver",
+        "--target-dir",
+        ".data/performance-target"
+      ],
+      "startedAt": "2026-10-03T11:05:02.855Z",
+      "finishedAt": "2026-10-03T11:05:12.929Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "id": "PERF-BUILD-PACKAGES",
+      "command": [
+        "npm",
+        "run",
+        "build:packages"
+      ],
+      "startedAt": "2026-10-03T11:05:12.930Z",
+      "finishedAt": "2026-10-03T11:05:13.698Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "id": "PERF-BUILD-SERVERS",
+      "command": [
+        "npm",
+        "run",
+        "build:servers"
+      ],
+      "startedAt": "2026-10-03T11:05:13.698Z",
+      "finishedAt": "2026-10-03T11:05:14.882Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "id": "PERF-BUILD-CLIENT",
+      "command": [
+        "npm",
+        "exec",
+        "-w",
+        "@greiva/client",
+        "--",
+        "vite",
+        "build",
+        "--outDir",
+        "dist-performance"
+      ],
+      "startedAt": "2026-10-03T11:05:14.882Z",
+      "finishedAt": "2026-10-03T11:05:16.211Z",
+      "exitCode": 0,
+      "signal": null
+    },
+    {
+      "id": "PERF-PLAYWRIGHT",
+      "command": [
+        "npm",
+        "exec",
+        "--",
+        "playwright",
+        "test",
+        "--config=playwright.performance.config.ts",
+        "--grep",
+        "STEP8-STRUCTURED-1000"
+      ],
+      "startedAt": "2026-10-03T11:05:16.212Z",
+      "finishedAt": "2026-10-03T11:06:52.944Z",
+      "exitCode": 0,
+      "signal": null
+    }
+  ],
+  "build": "Vite production bundle with read-only diagnostics and test-only Rust bridge; release Rust repository. Not a Windows Tauri release startup measurement.",
+  "scope": "Navigation/startup, 1000-block restore and actual key input, 100 Yjs edits/reconnect, 1000 durable Task operations through the actual UI sync engine. No native IME or mobile OS claim."
+}

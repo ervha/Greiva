@@ -1,0 +1,8 @@
+
+Running 1 test using 1 worker
+
+  ✓  1 [chromium] › tests/performance/workloads.spec.ts:119:1 › STEP8-STRUCTURED-1000: durable Task chains restore offline and the actual UI engine converges without duplicates (1.1m)
+
+  1 passed (1.2m)
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.

@@ -26,7 +26,7 @@ try {
   const built=run('PERF-STORE-RELEASE','cargo',['build','--release','--locked','--manifest-path','apps/client/src-tauri/crates/page-store/Cargo.toml','--example','store-driver','--target-dir','.data/performance-target']) &&
     run('PERF-BUILD-PACKAGES','npm',['run','build:packages']) && run('PERF-BUILD-SERVERS','npm',['run','build:servers']) &&
     run('PERF-BUILD-CLIENT','npm',['exec','-w','@greiva/client','--','vite','build','--outDir','dist-performance']);
-  if(built) run('PERF-PLAYWRIGHT','npm',['exec','--','playwright','test','--config=playwright.performance.config.ts']);
+  if(built) run('PERF-PLAYWRIGHT','npm',['exec','--','playwright','test','--config=playwright.performance.config.ts',...process.argv.slice(2)]);
 } finally {
   await admin.query(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);
   const remaining=await admin.query('SELECT 1 FROM pg_namespace WHERE nspname=$1',[schema]);

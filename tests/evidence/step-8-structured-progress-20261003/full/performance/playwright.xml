@@ -1,0 +1,12 @@
+<testsuites id="" name="" tests="4" failures="0" skipped="0" errors="0" time="75.68763699999998">
+<testsuite name="workloads.spec.ts" timestamp="2026-10-03T11:17:00.268Z" hostname="chromium" tests="4" failures="0" skipped="0" time="72.536" errors="0">
+<testcase name="STEP8-STARTUP-WEB: empty SQLite navigation to an editable production-bundle UI" classname="workloads.spec.ts" time="2.765">
+</testcase>
+<testcase name="STEP8-PAGE-1000: restore every journal update and measure actual key input and durable-save wait" classname="workloads.spec.ts" time="14.341">
+</testcase>
+<testcase name="STEP8-YJS-100: fifty actual key edits per offline client converge completely after reconnect" classname="workloads.spec.ts" time="2.546">
+</testcase>
+<testcase name="STEP8-STRUCTURED-1000: durable Task chains restore offline and the actual UI engine converges without duplicates" classname="workloads.spec.ts" time="52.884">
+</testcase>
+</testsuite>
+</testsuites>
