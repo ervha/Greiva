@@ -1,0 +1,3 @@
+   Compiling greiva-poc v0.6.9 (/workspace/apps/client/src-tauri)
+    Checking greiva-page-store v0.6.9 (/workspace/apps/client/src-tauri/crates/page-store)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 3.81s

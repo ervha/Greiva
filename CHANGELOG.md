@@ -2,6 +2,13 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.9 — 2026-10-03
+
+- Editorの互換修正（PATCH）: 構造が同じ遠隔文字編集で、見出し／Toggleの選択が古い絶対位置へ戻る不備を限定修正。Yjs相対位置を使用し、範囲・方向を維持する。構造変更・local Undo/Redo・composition中には介入せず、Microsoft IME再変換の未解決問題とは分ける。
+- 4種類のblock×前後両方向の選択、blur中の遠隔挿入／削除、復帰後の置換とlocal Undo/Redo、4回のoffline編集／再接続と独立client復元の9 E2Eを追加。独立run9件・全回帰54件、通常45件・実PostgreSQL別run20件・競合UI2件・統合crash4境界・性能4ケースを確認。通常機能検査の初回offline cache不足Failと、Docker内の固定依存取得後のoffline再検査Passを併記。
+- 132ソースとDockerのbyte一致・外部lock entry不変を確認し、アプリ所有manifest／lockの版を0.6.9へ整合。Windows候補はDockerで作成し、実機操作・IMEの合否をbuild成功と分ける。1,000 block復元最大1.77秒、入力→commit ACK p95 356.7ms、100回Yjs再接続約1.10秒、1,000 Task操作の同期約96.52秒はDocker観測であり、Windows性能の保証ではない。
+- 手操作待ちの項目、複数の解決案・制約・推奨順序と再開手順を記録。利用者はWindows／Androidを利用可能と回答。最新の停止依頼に従い、このcheckpointのcommit／pushまでで停止。全Step 8受入条件・Gate A/B/C最終判定は未完了。
+
 ## 0.6.8 — 2026-10-02
 
 - Step 8の再変換診断・比較証拠を追加（PATCH）。製品コード・app manifest／lockfileは0.6.5を維持。Dockerで診断専用の3候補をbuildし、Windows native結果と分けて記録する。

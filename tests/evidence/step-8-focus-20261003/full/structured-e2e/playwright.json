@@ -1,0 +1,165 @@
+{
+  "config": {
+    "argv": [
+      "/usr/local/bin/node",
+      "/workspace/node_modules/.bin/playwright",
+      "test"
+    ],
+    "configFile": "/workspace/playwright.config.ts",
+    "rootDir": "/workspace/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/evidence/step8-focus-full/2026-10-03T00-28-12.777Z/structured-e2e/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/workspace/tests/e2e",
+        "testIgnore": [],
+        "testMatch": [
+          "structured-sync.spec.ts"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/evidence/step8-focus-full/2026-10-03T00-28-12.777Z/structured-e2e/playwright.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "/evidence/step8-focus-full/2026-10-03T00-28-12.777Z/structured-e2e/playwright.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 2,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "structured-sync.spec.ts",
+      "file": "structured-sync.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "STEP7-E2E: offline creation/reload, peer field merge, keyboard conflict resolution and focus preservation use real HTTP and Rust SQLite",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 13122,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-03T00:32:43.574Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "structured-convergence",
+                      "contentType": "application/json",
+                      "body": "ewogICJsZWZ0IjogewogICAgInRhc2tzIjogWwogICAgICB7CiAgICAgICAgImlkIjogIjAxYTBmZjJkLTdhYjEtNzVjMC1hNzdlLWRiMzE1MTA3NjE4NCIsCiAgICAgICAgInRpdGxlIjogImxvY2FsIHRpdGxlIiwKICAgICAgICAic3RhdHVzIjogImRvbmUiLAogICAgICAgICJkdWUiOiAiMjAyNi0xMC0xMCIsCiAgICAgICAgInZlcnNpb24iOiA0LAogICAgICAgICJjcmVhdGVkQXQiOiAiMjAyNi0xMC0wM1QwMDozMjo0NS44MjRaIiwKICAgICAgICAidXBkYXRlZEF0IjogIjIwMjYtMTAtMDNUMDA6MzI6NTIuMTAxWiIsCiAgICAgICAgImRlbGV0ZWRBdCI6IG51bGwKICAgICAgfQogICAgXSwKICAgICJyZWxhdGlvbnMiOiBbXSwKICAgICJvcGVyYXRpb25zIjogWwogICAgICB7CiAgICAgICAgIm9wZXJhdGlvbklkIjogIjAxYTBmZjJkLTdhYjEtNzVjMC1hNzdlLWRjNTlmN2MyZmUxNyIsCiAgICAgICAgImVudGl0eVR5cGUiOiAidGFzayIsCiAgICAgICAgImVudGl0eUlkIjogIjAxYTBmZjJkLTdhYjEtNzVjMC1hNzdlLWRiMzE1MTA3NjE4NCIsCiAgICAgICAgImtpbmQiOiAiY3JlYXRlIiwKICAgICAgICAiYmFzZVZlcnNpb24iOiBudWxsLAogICAgICAgICJwYXlsb2FkIjogewogICAgICAgICAgImR1ZSI6IG51bGwsCiAgICAgICAgICAic3RhdHVzIjogInRvZG8iLAogICAgICAgICAgInRpdGxlIjogInN5bmMgMDFhMGZmMmQtN2E5MS03MTUxLWI3MDQtZmQyNjExNzQ2YmNjIgogICAgICAgIH0sCiAgICAgICAgImNsaWVudElkIjogIjAxYTBmZjJkLTc3ODktNzFhYy1iOGZjLTRkZWVlNWRhYzRjOSIsCiAgICAgICAgImNyZWF0ZWRBdCI6ICIyMDI2LTEwLTAzVDAwOjMyOjQ1Ljc1MVoiLAogICAgICAgICJzdGF0dXMiOiAiYWNrbm93bGVkZ2VkIgogICAgICB9LAogICAgICB7CiAgICAgICAgIm9wZXJhdGlvbklkIjogIjAxYTBmZjJkLTgzNWYtNzMyNy05YTBiLTFiMTBmZmNjZmIwYiIsCiAgICAgICAgImVudGl0eVR5cGUiOiAidGFzayIsCiAgICAgICAgImVudGl0eUlkIjogIjAxYTBmZjJkLTdhYjEtNzVjMC1hNzdlLWRiMzE1MTA3NjE4NCIsCiAgICAgICAgImtpbmQiOiAidXBkYXRlIiwKICAgICAgICAiYmFzZVZlcnNpb24iOiAxLAogICAgICAgICJwYXlsb2FkIjogewogICAgICAgICAgImR1ZSI6ICIyMDI2LTEwLTEwIiwKICAgICAgICAgICJzdGF0dXMiOiAidG9kbyIsCiAgICAgICAgICAidGl0bGUiOiAibG9jYWwgdGl0bGUiCiAgICAgICAgfSwKICAgICAgICAiY2xpZW50SWQiOiAiMDFhMGZmMmQtNzc4OS03MWFjLWI4ZmMtNGRlZWU1ZGFjNGM5IiwKICAgICAgICAiY3JlYXRlZEF0IjogIjIwMjYtMTAtMDNUMDA6MzI6NDcuOTc0WiIsCiAgICAgICAgInN0YXR1cyI6ICJhY2tub3dsZWRnZWQiCiAgICAgIH0sCiAgICAgIHsKICAgICAgICAib3BlcmF0aW9uSWQiOiAiMDFhMGZmMmQtOTJmYS03NjE2LThmYTEtMTFiZTQxY2Q0MDExIiwKICAgICAgICAiZW50aXR5VHlwZSI6ICJ0YXNrIiwKICAgICAgICAiZW50aXR5SWQiOiAiMDFhMGZmMmQtN2FiMS03NWMwLWE3N2UtZGIzMTUxMDc2MTg0IiwKICAgICAgICAia2luZCI6ICJ1cGRhdGUiLAogICAgICAgICJiYXNlVmVyc2lvbiI6IDMsCiAgICAgICAgInBheWxvYWQiOiB7CiAgICAgICAgICAidGl0bGUiOiAibG9jYWwgdGl0bGUiCiAgICAgICAgfSwKICAgICAgICAiY2xpZW50SWQiOiAiMDFhMGZmMmQtNzc4OS03MWFjLWI4ZmMtNGRlZWU1ZGFjNGM5IiwKICAgICAgICAicmVzb2x1dGlvbiI6IHsKICAgICAgICAgICJjb25mbGljdElkcyI6IFsKICAgICAgICAgICAgIjAxYTBmZjJkLTg4ZmItNzY0YS04YTFiLWFjOTkzNDdkMjdiZiIKICAgICAgICAgIF0sCiAgICAgICAgICAiY2hvaWNlIjogImxvY2FsIgogICAgICAgIH0sCiAgICAgICAgImNyZWF0ZWRBdCI6ICIyMDI2LTEwLTAzVDAwOjMyOjUxLjk2OVoiLAogICAgICAgICJzdGF0dXMiOiAiYWNrbm93bGVkZ2VkIgogICAgICB9CiAgICBdLAogICAgInN0YXRlIjogewogICAgICAic3RyZWFtIjogInN0cnVjdHVyZWQiLAogICAgICAiY3Vyc29yIjogImcxLjAxYTBmZjJkLTZiMjUtNzNjZi1hY2I4LWY4OGU2MDQ5N2Y5NS40LkpFSVNRSWpaci1QSGZ3VkhLaG5WSGp6WWZ3VkZUOFNMSEphdEZnMmd2MTgiLAogICAgICAiaGVhZEN1cnNvciI6ICJnMS4wMWEwZmYyZC02YjI1LTczY2YtYWNiOC1mODhlNjA0OTdmOTUuNC5KRUlTUUlqWnItUEhmd1ZIS2huVkhqellmd1ZGVDhTTEhKYXRGZzJndjE4IiwKICAgICAgImxhc3RTdWNjZXNzZnVsU3luY0F0IjogIjIwMjYtMTAtMDNUMDA6MzI6NTIuMTY1WiIKICAgIH0sCiAgICAiY2xpZW50SWQiOiAiMDFhMGZmMmQtNzc4OS03MWFjLWI4ZmMtNGRlZWU1ZGFjNGM5IiwKICAgICJjb25mbGljdHMiOiBbCiAgICAgIHsKICAgICAgICAiaWQiOiAiMDFhMGZmMmQtODhmYi03NjRhLThhMWItYWM5OTM0N2QyN2JmIiwKICAgICAgICAib3BlcmF0aW9uSWQiOiAiMDFhMGZmMmQtODM1Zi03MzI3LTlhMGItMWIxMGZmY2NmYjBiIiwKICAgICAgICAiZW50aXR5VHlwZSI6ICJ0YXNrIiwKICAgICAgICAiZW50aXR5SWQiOiAiMDFhMGZmMmQtN2FiMS03NWMwLWE3N2UtZGIzMTUxMDc2MTg0IiwKICAgICAgICAiZmllbGQiOiAidGl0bGUiLAogICAgICAgICJiYXNlIjogInN5bmMgMDFhMGZmMmQtN2E5MS03MTUxLWI3MDQtZmQyNjExNzQ2YmNjIiwKICAgICAgICAibG9jYWwiOiAibG9jYWwgdGl0bGUiLAogICAgICAgICJyZW1vdGUiOiAicmVtb3RlIHRpdGxlIiwKICAgICAgICAiY3JlYXRlZEF0IjogIjIwMjYtMTAtMDNUMDA6MzI6NDkuNDAxWiIsCiAgICAgICAgInN0YXR1cyI6ICJyZXNvbHZlZCIsCiAgICAgICAgInJlc29sdmVkQnkiOiAiMDFhMGZmMmQtOTJmYS03NjE2LThmYTEtMTFiZTQxY2Q0MDExIgogICAgICB9CiAgICBdLAogICAgImVycm9ycyI6IFtdCiAgfSwKICAicmlnaHQiOiB7CiAgICAidGFza3MiOiBbCiAgICAgIHsKICAgICAgICAiaWQiOiAiMDFhMGZmMmQtN2FiMS03NWMwLWE3N2UtZGIzMTUxMDc2MTg0IiwKICAgICAgICAidGl0bGUiOiAibG9jYWwgdGl0bGUiLAogICAgICAgICJzdGF0dXMiOiAiZG9uZSIsCiAgICAgICAgImR1ZSI6ICIyMDI2LTEwLTEwIiwKICAgICAgICAidmVyc2lvbiI6IDQsCiAgICAgICAgImNyZWF0ZWRBdCI6ICIyMDI2LTEwLTAzVDAwOjMyOjQ1LjgyNFoiLAogICAgICAgICJ1cGRhdGVkQXQiOiAiMjAyNi0xMC0wM1QwMDozMjo1Mi4xMDFaIiwKICAgICAgICAiZGVsZXRlZEF0IjogbnVsbAogICAgICB9CiAgICBdLAogICAgInJlbGF0aW9ucyI6IFtdLAogICAgIm9wZXJhdGlvbnMiOiBbCiAgICAgIHsKICAgICAgICAib3BlcmF0aW9uSWQiOiAiMDFhMGZmMmQtODZlOC03NzY4LWJhZWQtZDc2ZDIxM2RiZWUwIiwKICAgICAgICAiZW50aXR5VHlwZSI6ICJ0YXNrIiwKICAgICAgICAiZW50aXR5SWQiOiAiMDFhMGZmMmQtN2FiMS03NWMwLWE3N2UtZGIzMTUxMDc2MTg0IiwKICAgICAgICAia2luZCI6ICJ1cGRhdGUiLAogICAgICAgICJiYXNlVmVyc2lvbiI6IDEsCiAgICAgICAgInBheWxvYWQiOiB7CiAgICAgICAgICAiZHVlIjogbnVsbCwKICAgICAgICAgICJzdGF0dXMiOiAiZG9uZSIsCiAgICAgICAgICAidGl0bGUiOiAicmVtb3RlIHRpdGxlIgogICAgICAgIH0sCiAgICAgICAgImNsaWVudElkIjogIjAxYTBmZjJkLTdmYzItNzc1Yy1iYThjLWE2YmNlZjJmMzlkZCIsCiAgICAgICAgImNyZWF0ZWRBdCI6ICIyMDI2LTEwLTAzVDAwOjMyOjQ4Ljg4MloiLAogICAgICAgICJzdGF0dXMiOiAiYWNrbm93bGVkZ2VkIgogICAgICB9CiAgICBdLAogICAgInN0YXRlIjogewogICAgICAic3RyZWFtIjogInN0cnVjdHVyZWQiLAogICAgICAiY3Vyc29yIjogImcxLjAxYTBmZjJkLTZiMjUtNzNjZi1hY2I4LWY4OGU2MDQ5N2Y5NS40LkpFSVNRSWpaci1QSGZ3VkhLaG5WSGp6WWZ3VkZUOFNMSEphdEZnMmd2MTgiLAogICAgICAiaGVhZEN1cnNvciI6ICJnMS4wMWEwZmYyZC02YjI1LTczY2YtYWNiOC1mODhlNjA0OTdmOTUuNC5KRUlTUUlqWnItUEhmd1ZIS2huVkhqellmd1ZGVDhTTEhKYXRGZzJndjE4IiwKICAgICAgImxhc3RTdWNjZXNzZnVsU3luY0F0IjogIjIwMjYtMTAtMDNUMDA6MzI6NTMuMjY3WiIKICAgIH0sCiAgICAiY2xpZW50SWQiOiAiMDFhMGZmMmQtN2ZjMi03NzVjLWJhOGMtYTZiY2VmMmYzOWRkIiwKICAgICJjb25mbGljdHMiOiBbCiAgICAgIHsKICAgICAgICAiaWQiOiAiMDFhMGZmMmQtODhmYi03NjRhLThhMWItYWM5OTM0N2QyN2JmIiwKICAgICAgICAib3BlcmF0aW9uSWQiOiAiMDFhMGZmMmQtODM1Zi03MzI3LTlhMGItMWIxMGZmY2NmYjBiIiwKICAgICAgICAiZW50aXR5VHlwZSI6ICJ0YXNrIiwKICAgICAgICAiZW50aXR5SWQiOiAiMDFhMGZmMmQtN2FiMS03NWMwLWE3N2UtZGIzMTUxMDc2MTg0IiwKICAgICAgICAiZmllbGQiOiAidGl0bGUiLAogICAgICAgICJiYXNlIjogInN5bmMgMDFhMGZmMmQtN2E5MS03MTUxLWI3MDQtZmQyNjExNzQ2YmNjIiwKICAgICAgICAibG9jYWwiOiAibG9jYWwgdGl0bGUiLAogICAgICAgICJyZW1vdGUiOiAicmVtb3RlIHRpdGxlIiwKICAgICAgICAiY3JlYXRlZEF0IjogIjIwMjYtMTAtMDNUMDA6MzI6NDkuNDAxWiIsCiAgICAgICAgInN0YXR1cyI6ICJyZXNvbHZlZCIsCiAgICAgICAgInJlc29sdmVkQnkiOiAiMDFhMGZmMmQtOTJmYS03NjE2LThmYTEtMTFiZTQxY2Q0MDExIgogICAgICB9CiAgICBdLAogICAgImVycm9ycyI6IFtdCiAgfQp9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e31b5415fd9bd8fc33cc-ffd192eab28c32c82434",
+          "file": "structured-sync.spec.ts",
+          "line": 11,
+          "column": 1
+        },
+        {
+          "title": "STEP7-E2E-DRAFT: peer updates do not overwrite an active draft; stale save retains user input; remote conflict choice is explicit",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 10658,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-03T00:32:56.797Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e31b5415fd9bd8fc33cc-ccabfe59e6dd67d66d51",
+          "file": "structured-sync.spec.ts",
+          "line": 43,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-03T00:32:40.461Z",
+    "duration": 28270.86,
+    "expected": 2,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

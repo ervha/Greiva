@@ -1,0 +1,15 @@
+{
+  "startedAt": "2026-10-03T00:44:04.4903025Z",
+  "finishedAt": "2026-10-03T00:44:05.4155277Z",
+  "command": [
+    "node",
+    "scripts/verify-native-features.mjs"
+  ],
+  "environment": {
+    "CARGO_NET_OFFLINE": "true"
+  },
+  "exitCode": 0,
+  "status": "Pass",
+  "reason": "After locked dependency download inside Docker, verify the repaired cache with the same offline feature check",
+  "log": "feature-cache-recheck.log"
+}

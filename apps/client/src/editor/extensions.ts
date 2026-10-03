@@ -12,6 +12,7 @@ import { EditorPlaceholders } from './placeholders';
 import Collaboration from '@tiptap/extension-collaboration';
 import type { Doc } from 'yjs';
 import { CollaborationHistory } from './collaboration-history';
+import { CollaborationSelection } from './collaboration-selection';
 
 type BlockCommand = MenuItem & { run: (chain: ChainedCommands) => ChainedCommands };
 export const blockCommands: BlockCommand[] = [
@@ -48,7 +49,7 @@ export const dummyEntities: MenuItem[] = [
 export function editorExtensions(yDocument?: Doc) {
   return [
     StarterKit.configure({ heading: { levels: [1, 2, 3] }, ...(yDocument ? { undoRedo: false } : {}) }),
-    ...(yDocument ? [Collaboration.configure({ document: yDocument, field: 'body' }), CollaborationHistory] : []),
+    ...(yDocument ? [Collaboration.configure({ document: yDocument, field: 'body' }), CollaborationHistory, CollaborationSelection] : []),
     TaskList,
     TaskItem.configure({ nested: true, a11y: { checkboxLabel: node => `Todo: ${node.textBetween(0, node.content.size, ' ') || '未入力'}` } }),
     RefinedDetails.configure({

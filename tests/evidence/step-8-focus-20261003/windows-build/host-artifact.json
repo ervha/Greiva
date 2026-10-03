@@ -1,0 +1,11 @@
+{
+  "capturedAt": "2026-10-03T00:46:47.5395627Z",
+  "path": ".data/host-ime/builds/0.6.9-embedded/greiva-poc.exe",
+  "version": "0.6.9",
+  "bytes": 18558464,
+  "sha256": "65edd5c8f629f3acfc7ba3b8ff381938f6bd27a0712532af5726782194d14aca",
+  "hostToolchainInstalled": false,
+  "launched": false,
+  "nativeUi": "Not run",
+  "microsoftIme": "Not run"
+}

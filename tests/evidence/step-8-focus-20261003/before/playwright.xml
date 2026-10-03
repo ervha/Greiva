@@ -1,0 +1,244 @@
+<testsuites id="" name="" tests="9" failures="6" skipped="0" errors="0" time="91.359137">
+<testsuite name="focus-reconnect.spec.ts" timestamp="2026-10-03T00:16:20.009Z" hostname="chromium" tests="9" failures="6" skipped="0" time="78.15" errors="0">
+<testcase name="STEP8-FOCUS-paragraph-forward: peer updates during blur retain selection and local Undo excludes remote edits" classname="focus-reconnect.spec.ts" time="5.937">
+</testcase>
+<testcase name="STEP8-FOCUS-paragraph-backward: peer updates during blur retain selection and local Undo excludes remote edits" classname="focus-reconnect.spec.ts" time="5.427">
+</testcase>
+<testcase name="STEP8-FOCUS-heading-forward: peer updates during blur retain selection and local Undo excludes remote edits" classname="focus-reconnect.spec.ts" time="11.079">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/focus-reconnect-STEP8-FOCU-62fd6--Undo-excludes-remote-edits-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/focus-reconnect-STEP8-FOCU-62fd6--Undo-excludes-remote-edits-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(received).toBe(expected) // Object.is equality" type="expect.toBe">
+<![CDATA[  [chromium] › focus-reconnect.spec.ts:32:3 › STEP8-FOCUS-heading-forward: peer updates during blur retain selection and local Undo excludes remote edits 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "日本語"
+    Received: "65 "
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      52 |       for(let i=1;i<=3;i++){await b.keyboard.type(`R${i} `);await b.keyboard.press('Home');await expect(body(a).locator(layout.selector)).toHaveText(`${Array.from({length:i},(_,j)=>`R${i-j} `).join('')}MS65 local 日本語`);}
+      53 |       await a.bringToFront();await body(a).focus();await expect(body(a)).toBeFocused();
+    > 54 |       await expect.poll(async()=> (await selection(a))?.text).toBe('日本語');
+         |                                                               ^
+      55 |       const restored=await selection(a);expect(restored!.anchor-before!.anchor).toBe(9);expect(restored!.focus-before!.focus).toBe(9);
+      56 |       expect(restored!.anchor<restored!.focus).toBe(direction==='forward');
+      57 |       const pm=(await snapshot(a)).selection;expect(pm.to-pm.from).toBe(3);
+        at /workspace/tests/e2e/focus-reconnect.spec.ts:54:63
+
+    Error Context: ../../../evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-62fd6--Undo-excludes-remote-edits-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-62fd6--Undo-excludes-remote-edits-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-62fd6--Undo-excludes-remote-edits-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="STEP8-FOCUS-heading-backward: peer updates during blur retain selection and local Undo excludes remote edits" classname="focus-reconnect.spec.ts" time="11.26">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/focus-reconnect-STEP8-FOCU-23167--Undo-excludes-remote-edits-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/focus-reconnect-STEP8-FOCU-23167--Undo-excludes-remote-edits-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(received).toBe(expected) // Object.is equality" type="expect.toBe">
+<![CDATA[  [chromium] › focus-reconnect.spec.ts:32:3 › STEP8-FOCUS-heading-backward: peer updates during blur retain selection and local Undo excludes remote edits 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "日本語"
+    Received: "65 "
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      52 |       for(let i=1;i<=3;i++){await b.keyboard.type(`R${i} `);await b.keyboard.press('Home');await expect(body(a).locator(layout.selector)).toHaveText(`${Array.from({length:i},(_,j)=>`R${i-j} `).join('')}MS65 local 日本語`);}
+      53 |       await a.bringToFront();await body(a).focus();await expect(body(a)).toBeFocused();
+    > 54 |       await expect.poll(async()=> (await selection(a))?.text).toBe('日本語');
+         |                                                               ^
+      55 |       const restored=await selection(a);expect(restored!.anchor-before!.anchor).toBe(9);expect(restored!.focus-before!.focus).toBe(9);
+      56 |       expect(restored!.anchor<restored!.focus).toBe(direction==='forward');
+      57 |       const pm=(await snapshot(a)).selection;expect(pm.to-pm.from).toBe(3);
+        at /workspace/tests/e2e/focus-reconnect.spec.ts:54:63
+
+    Error Context: ../../../evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-23167--Undo-excludes-remote-edits-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-23167--Undo-excludes-remote-edits-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-23167--Undo-excludes-remote-edits-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="STEP8-FOCUS-todo-forward: peer updates during blur retain selection and local Undo excludes remote edits" classname="focus-reconnect.spec.ts" time="6.032">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/focus-reconnect-STEP8-FOCU-b2fec--Undo-excludes-remote-edits-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/focus-reconnect-STEP8-FOCU-b2fec--Undo-excludes-remote-edits-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(received).toBe(expected) // Object.is equality" type="expect.toBe">
+<![CDATA[  [chromium] › focus-reconnect.spec.ts:32:3 › STEP8-FOCUS-todo-forward: peer updates during blur retain selection and local Undo excludes remote edits 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 9
+    Received: 18
+
+      53 |       await a.bringToFront();await body(a).focus();await expect(body(a)).toBeFocused();
+      54 |       await expect.poll(async()=> (await selection(a))?.text).toBe('日本語');
+    > 55 |       const restored=await selection(a);expect(restored!.anchor-before!.anchor).toBe(9);expect(restored!.focus-before!.focus).toBe(9);
+         |                                                                                 ^
+      56 |       expect(restored!.anchor<restored!.focus).toBe(direction==='forward');
+      57 |       const pm=(await snapshot(a)).selection;expect(pm.to-pm.from).toBe(3);
+      58 |       await info.attach('selection-after-focus-and-remote',{body:JSON.stringify({before,restored,pm},null,2),contentType:'application/json'});
+        at /workspace/tests/e2e/focus-reconnect.spec.ts:55:81
+
+    Error Context: ../../../evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-b2fec--Undo-excludes-remote-edits-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-b2fec--Undo-excludes-remote-edits-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-b2fec--Undo-excludes-remote-edits-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="STEP8-FOCUS-todo-backward: peer updates during blur retain selection and local Undo excludes remote edits" classname="focus-reconnect.spec.ts" time="6.653">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/focus-reconnect-STEP8-FOCU-c9605--Undo-excludes-remote-edits-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/focus-reconnect-STEP8-FOCU-c9605--Undo-excludes-remote-edits-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(received).toBe(expected) // Object.is equality" type="expect.toBe">
+<![CDATA[  [chromium] › focus-reconnect.spec.ts:32:3 › STEP8-FOCUS-todo-backward: peer updates during blur retain selection and local Undo excludes remote edits 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 9
+    Received: 18
+
+      53 |       await a.bringToFront();await body(a).focus();await expect(body(a)).toBeFocused();
+      54 |       await expect.poll(async()=> (await selection(a))?.text).toBe('日本語');
+    > 55 |       const restored=await selection(a);expect(restored!.anchor-before!.anchor).toBe(9);expect(restored!.focus-before!.focus).toBe(9);
+         |                                                                                 ^
+      56 |       expect(restored!.anchor<restored!.focus).toBe(direction==='forward');
+      57 |       const pm=(await snapshot(a)).selection;expect(pm.to-pm.from).toBe(3);
+      58 |       await info.attach('selection-after-focus-and-remote',{body:JSON.stringify({before,restored,pm},null,2),contentType:'application/json'});
+        at /workspace/tests/e2e/focus-reconnect.spec.ts:55:81
+
+    Error Context: ../../../evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-c9605--Undo-excludes-remote-edits-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-c9605--Undo-excludes-remote-edits-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-c9605--Undo-excludes-remote-edits-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="STEP8-FOCUS-toggle-forward: peer updates during blur retain selection and local Undo excludes remote edits" classname="focus-reconnect.spec.ts" time="11.349">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/focus-reconnect-STEP8-FOCU-50f2c--Undo-excludes-remote-edits-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/focus-reconnect-STEP8-FOCU-50f2c--Undo-excludes-remote-edits-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(received).toBe(expected) // Object.is equality" type="expect.toBe">
+<![CDATA[  [chromium] › focus-reconnect.spec.ts:32:3 › STEP8-FOCUS-toggle-forward: peer updates during blur retain selection and local Undo excludes remote edits 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "日本語"
+    Received: "65 "
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      52 |       for(let i=1;i<=3;i++){await b.keyboard.type(`R${i} `);await b.keyboard.press('Home');await expect(body(a).locator(layout.selector)).toHaveText(`${Array.from({length:i},(_,j)=>`R${i-j} `).join('')}MS65 local 日本語`);}
+      53 |       await a.bringToFront();await body(a).focus();await expect(body(a)).toBeFocused();
+    > 54 |       await expect.poll(async()=> (await selection(a))?.text).toBe('日本語');
+         |                                                               ^
+      55 |       const restored=await selection(a);expect(restored!.anchor-before!.anchor).toBe(9);expect(restored!.focus-before!.focus).toBe(9);
+      56 |       expect(restored!.anchor<restored!.focus).toBe(direction==='forward');
+      57 |       const pm=(await snapshot(a)).selection;expect(pm.to-pm.from).toBe(3);
+        at /workspace/tests/e2e/focus-reconnect.spec.ts:54:63
+
+    Error Context: ../../../evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-50f2c--Undo-excludes-remote-edits-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-50f2c--Undo-excludes-remote-edits-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-50f2c--Undo-excludes-remote-edits-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="STEP8-FOCUS-toggle-backward: peer updates during blur retain selection and local Undo excludes remote edits" classname="focus-reconnect.spec.ts" time="10.903">
+<system-out>
+<![CDATA[
+[[ATTACHMENT|artifacts/focus-reconnect-STEP8-FOCU-ec1c8--Undo-excludes-remote-edits-chromium/error-context.md]]
+
+[[ATTACHMENT|artifacts/focus-reconnect-STEP8-FOCU-ec1c8--Undo-excludes-remote-edits-chromium/trace.zip]]
+]]>
+</system-out>
+<failure message="expect(received).toBe(expected) // Object.is equality" type="expect.toBe">
+<![CDATA[  [chromium] › focus-reconnect.spec.ts:32:3 › STEP8-FOCUS-toggle-backward: peer updates during blur retain selection and local Undo excludes remote edits 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: "日本語"
+    Received: "65 "
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+      52 |       for(let i=1;i<=3;i++){await b.keyboard.type(`R${i} `);await b.keyboard.press('Home');await expect(body(a).locator(layout.selector)).toHaveText(`${Array.from({length:i},(_,j)=>`R${i-j} `).join('')}MS65 local 日本語`);}
+      53 |       await a.bringToFront();await body(a).focus();await expect(body(a)).toBeFocused();
+    > 54 |       await expect.poll(async()=> (await selection(a))?.text).toBe('日本語');
+         |                                                               ^
+      55 |       const restored=await selection(a);expect(restored!.anchor-before!.anchor).toBe(9);expect(restored!.focus-before!.focus).toBe(9);
+      56 |       expect(restored!.anchor<restored!.focus).toBe(direction==='forward');
+      57 |       const pm=(await snapshot(a)).selection;expect(pm.to-pm.from).toBe(3);
+        at /workspace/tests/e2e/focus-reconnect.spec.ts:54:63
+
+    Error Context: ../../../evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-ec1c8--Undo-excludes-remote-edits-chromium/error-context.md
+
+    attachment #3: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../../../evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-ec1c8--Undo-excludes-remote-edits-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../../../evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-ec1c8--Undo-excludes-remote-edits-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+]]>
+</failure>
+</testcase>
+<testcase name="STEP8-RECONNECT-CYCLES: repeated offline edits converge once and restore to an independent client" classname="focus-reconnect.spec.ts" time="9.51">
+</testcase>
+</testsuite>
+</testsuites>

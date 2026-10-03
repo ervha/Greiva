@@ -1,6 +1,14 @@
 # 試験証拠の索引
 
-`docs/plan/POC_SPEC.md` Section 18 Step 8の性能・実機観測を記録しました。Microsoft IME再変換に未修正の本文欠落があり、native全件・P1/P2実OSとGate A/B/Cの最終判定は未完了です。利用者の指定に従いStep 8の記録チェックポイントで停止し、Step 9へ進みません。以下は各版・時点の証拠です。
+`docs/plan/POC_SPEC.md` Section 18 Step 8の検証記録です。2026-10-03は遠隔文字編集後の選択位置を限定修正し、Docker回帰とWindows 0.6.9候補の準備を行いました。Microsoft IME再変換の本文欠落は別件として未解決、新しいnative回帰・P1/P2実OSとGate A/B/Cの最終判定は未完了です。利用者の最新指定に従いv0.6.9のcommit/tag/pushまでで停止します。以下は各版・時点の証拠です。
+
+## Step 8: 遠隔選択保持と再接続の回帰（2026-10-03、v0.6.9）
+
+[修正・原Fail・回帰・Windows候補](step-8-focus-20261003/SUMMARY.md)。文書構造が同じ遠隔文字編集だけYjs相対位置で選択を保持する。追加9 E2Eと全54 E2E、通常45件／実PostgreSQL別run20件、Conflict UI2件、統合crash4境界、性能4ケースを確認。通常機能検査の初回offline cache不足Failと、固定依存取得後のoffline再検査Passを分ける。132ソース一致、Windows候補build／host照合済みで、新しいnative操作・IMEはNot run。[複数の対策案と再開手順](../../docs/plan/DEFERRED_VALIDATION.md)。
+
+## Step 8: 選択後のwindow移動とnative再変換範囲（2026-10-02、文書v0.6.8／診断候補0.6.5）
+
+[native event・素の入力欄・対策候補の比較](step-8-ime-focus-20261002/SUMMARY.md)。選択後のblur／focusを経ると3文字の範囲がnative削除eventで6文字へ広がり、素の入力欄でも直前の文字が欠落した。移動なしの限定比較は本文保持。keydown候補は失敗回にイベント未受領、focus復帰時の方向更新候補は実行されたが防止できず、製品へ採用していない。根本原因未確定・本文保持Failを維持する。
 
 ## Step 8: Microsoft再変換の再確認・保存更新解析（2026-10-02、文書v0.6.7／実行物0.6.5）
 

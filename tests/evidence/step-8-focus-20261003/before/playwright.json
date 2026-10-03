@@ -1,0 +1,724 @@
+{
+  "config": {
+    "argv": [
+      "/usr/local/bin/node",
+      "/workspace/node_modules/.bin/playwright",
+      "test",
+      "tests/e2e/focus-reconnect.spec.ts"
+    ],
+    "configFile": "/workspace/playwright.config.ts",
+    "rootDir": "/workspace/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/evidence/step8-unattended-initial/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/workspace/tests/e2e",
+        "testIgnore": [
+          "structured-sync.spec.ts",
+          "structured-crash.spec.ts"
+        ],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/evidence/step8-unattended-initial/playwright.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "/evidence/step8-unattended-initial/playwright.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 2,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "focus-reconnect.spec.ts",
+      "file": "focus-reconnect.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "STEP8-FOCUS-paragraph-forward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5937,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-03T00:16:20.411Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "seed",
+                      "contentType": "application/json",
+                      "body": "ewogICJhdCI6ICIyMDI2LTEwLTAzVDAwOjE2OjIzLjg1OFoiLAogICJjbGllbnRzIjogWwogICAgewogICAgICAicGFnZUlkIjogImY3MzA4YWM2LTA2MDAtNGMxMi05NDc4LTNiZDNlZjU0ZTcwYyIsCiAgICAgICJjbGllbnRJZCI6ICJiNjIxOGU4Zi0yNDA2LTRhYWYtOGUxZS03MzhlOWYzYTczNDMiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMiwKICAgICAgICAxNzEsCiAgICAgICAgMTg4LAogICAgICAgIDIyMCwKICAgICAgICAxOTgsCiAgICAgICAgMSwKICAgICAgICAxNSwKICAgICAgICAxLAogICAgICAgIDEKICAgICAgXSwKICAgICAgImNsb2NrcyI6IFsKICAgICAgICBbCiAgICAgICAgICAxLAogICAgICAgICAgMQogICAgICAgIF0sCiAgICAgICAgWwogICAgICAgICAgNDE2NzUxMTQ3LAogICAgICAgICAgMTUKICAgICAgICBdCiAgICAgIF0sCiAgICAgICJqc29uIjogewogICAgICAgICJ0eXBlIjogImRvYyIsCiAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJ0eXBlIjogInBhcmFncmFwaCIsCiAgICAgICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJ0eXBlIjogInRleHQiLAogICAgICAgICAgICAgICAgInRleHQiOiAiTVM2NSBsb2NhbCDml6XmnKzoqp4iCiAgICAgICAgICAgICAgfQogICAgICAgICAgICBdCiAgICAgICAgICB9CiAgICAgICAgXQogICAgICB9LAogICAgICAiZnJhZ21lbnQiOiAiPHBhcmFncmFwaD5NUzY1IGxvY2FsIOaXpeacrOiqnjwvcGFyYWdyYXBoPiIsCiAgICAgICJzZWxlY3Rpb24iOiB7CiAgICAgICAgImZyb20iOiAxNSwKICAgICAgICAidG8iOiAxNSwKICAgICAgICAicGFyZW50IjogIk1TNjUgbG9jYWwg5pel5pys6KqeIiwKICAgICAgICAib2Zmc2V0IjogMTQsCiAgICAgICAgInNpemUiOiAxNAogICAgICB9LAogICAgICAicGVuZGluZyI6IDAKICAgIH0sCiAgICB7CiAgICAgICJwYWdlSWQiOiAiZjczMDhhYzYtMDYwMC00YzEyLTk0NzgtM2JkM2VmNTRlNzBjIiwKICAgICAgImNsaWVudElkIjogIjgyM2VjY2FkLWY4NDEtNDVmYi04NjQ1LTg3ODI3NjIyOTliYiIsCiAgICAgICJzdGF0ZVZlY3RvciI6IFsKICAgICAgICAyLAogICAgICAgIDE3MSwKICAgICAgICAxODgsCiAgICAgICAgMjIwLAogICAgICAgIDE5OCwKICAgICAgICAxLAogICAgICAgIDE1LAogICAgICAgIDEsCiAgICAgICAgMQogICAgICBdLAogICAgICAiY2xvY2tzIjogWwogICAgICAgIFsKICAgICAgICAgIDEsCiAgICAgICAgICAxCiAgICAgICAgXSwKICAgICAgICBbCiAgICAgICAgICA0MTY3NTExNDcsCiAgICAgICAgICAxNQogICAgICAgIF0KICAgICAgXSwKICAgICAgImpzb24iOiB7CiAgICAgICAgInR5cGUiOiAiZG9jIiwKICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgIHsKICAgICAgICAgICAgInR5cGUiOiAicGFyYWdyYXBoIiwKICAgICAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgInR5cGUiOiAidGV4dCIsCiAgICAgICAgICAgICAgICAidGV4dCI6ICJNUzY1IGxvY2FsIOaXpeacrOiqniIKICAgICAgICAgICAgICB9CiAgICAgICAgICAgIF0KICAgICAgICAgIH0KICAgICAgICBdCiAgICAgIH0sCiAgICAgICJmcmFnbWVudCI6ICI8cGFyYWdyYXBoPk1TNjUgbG9jYWwg5pel5pys6KqePC9wYXJhZ3JhcGg+IiwKICAgICAgInNlbGVjdGlvbiI6IHsKICAgICAgICAiZnJvbSI6IDE1LAogICAgICAgICJ0byI6IDE1LAogICAgICAgICJwYXJlbnQiOiAiTVM2NSBsb2NhbCDml6XmnKzoqp4iLAogICAgICAgICJvZmZzZXQiOiAxNCwKICAgICAgICAic2l6ZSI6IDE0CiAgICAgIH0sCiAgICAgICJwZW5kaW5nIjogMAogICAgfQogIF0KfQ=="
+                    },
+                    {
+                      "name": "selection-after-focus-and-remote",
+                      "contentType": "application/json",
+                      "body": "ewogICJiZWZvcmUiOiB7CiAgICAidGV4dCI6ICLml6XmnKzoqp4iLAogICAgImFuY2hvciI6IDEyLAogICAgImZvY3VzIjogMTUKICB9LAogICJyZXN0b3JlZCI6IHsKICAgICJ0ZXh0IjogIuaXpeacrOiqniIsCiAgICAiYW5jaG9yIjogMjEsCiAgICAiZm9jdXMiOiAyNAogIH0sCiAgInBtIjogewogICAgImZyb20iOiAyMSwKICAgICJ0byI6IDI0LAogICAgInBhcmVudCI6ICJSMyBSMiBSMSBNUzY1IGxvY2FsIOaXpeacrOiqniIsCiAgICAib2Zmc2V0IjogMjAsCiAgICAic2l6ZSI6IDIzCiAgfQp9"
+                    },
+                    {
+                      "name": "replacement",
+                      "contentType": "application/json",
+                      "body": "ewogICJhdCI6ICIyMDI2LTEwLTAzVDAwOjE2OjI1Ljc2MloiLAogICJjbGllbnRzIjogWwogICAgewogICAgICAicGFnZUlkIjogImY3MzA4YWM2LTA2MDAtNGMxMi05NDc4LTNiZDNlZjU0ZTcwYyIsCiAgICAgICJjbGllbnRJZCI6ICJiNjIxOGU4Zi0yNDA2LTRhYWYtOGUxZS03MzhlOWYzYTczNDMiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMywKICAgICAgICAxODYsCiAgICAgICAgMTcxLAogICAgICAgIDIyNCwKICAgICAgICAxMzcsCiAgICAgICAgNSwKICAgICAgICA5LAogICAgICAgIDE3MSwKICAgICAgICAxODgsCiAgICAgICAgMjIwLAogICAgICAgIDE5OCwKICAgICAgICAxLAogICAgICAgIDE5LAogICAgICAgIDEsCiAgICAgICAgMQogICAgICBdLAogICAgICAiY2xvY2tzIjogWwogICAgICAgIFsKICAgICAgICAgIDEsCiAgICAgICAgICAxCiAgICAgICAgXSwKICAgICAgICBbCiAgICAgICAgICA0MTY3NTExNDcsCiAgICAgICAgICAxOQogICAgICAgIF0sCiAgICAgICAgWwogICAgICAgICAgMTM2MjYzMDA3NCwKICAgICAgICAgIDkKICAgICAgICBdCiAgICAgIF0sCiAgICAgICJqc29uIjogewogICAgICAgICJ0eXBlIjogImRvYyIsCiAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJ0eXBlIjogInBhcmFncmFwaCIsCiAgICAgICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJ0eXBlIjogInRleHQiLAogICAgICAgICAgICAgICAgInRleHQiOiAiUjMgUjIgUjEgTVM2NSBsb2NhbCBFRElUIgogICAgICAgICAgICAgIH0KICAgICAgICAgICAgXQogICAgICAgICAgfQogICAgICAgIF0KICAgICAgfSwKICAgICAgImZyYWdtZW50IjogIjxwYXJhZ3JhcGg+UjMgUjIgUjEgTVM2NSBsb2NhbCBFRElUPC9wYXJhZ3JhcGg+IiwKICAgICAgInNlbGVjdGlvbiI6IHsKICAgICAgICAiZnJvbSI6IDI1LAogICAgICAgICJ0byI6IDI1LAogICAgICAgICJwYXJlbnQiOiAiUjMgUjIgUjEgTVM2NSBsb2NhbCBFRElUIiwKICAgICAgICAib2Zmc2V0IjogMjQsCiAgICAgICAgInNpemUiOiAyNAogICAgICB9LAogICAgICAicGVuZGluZyI6IDAKICAgIH0sCiAgICB7CiAgICAgICJwYWdlSWQiOiAiZjczMDhhYzYtMDYwMC00YzEyLTk0NzgtM2JkM2VmNTRlNzBjIiwKICAgICAgImNsaWVudElkIjogIjgyM2VjY2FkLWY4NDEtNDVmYi04NjQ1LTg3ODI3NjIyOTliYiIsCiAgICAgICJzdGF0ZVZlY3RvciI6IFsKICAgICAgICAzLAogICAgICAgIDE4NiwKICAgICAgICAxNzEsCiAgICAgICAgMjI0LAogICAgICAgIDEzNywKICAgICAgICA1LAogICAgICAgIDksCiAgICAgICAgMTcxLAogICAgICAgIDE4OCwKICAgICAgICAyMjAsCiAgICAgICAgMTk4LAogICAgICAgIDEsCiAgICAgICAgMTksCiAgICAgICAgMSwKICAgICAgICAxCiAgICAgIF0sCiAgICAgICJjbG9ja3MiOiBbCiAgICAgICAgWwogICAgICAgICAgMSwKICAgICAgICAgIDEKICAgICAgICBdLAogICAgICAgIFsKICAgICAgICAgIDQxNjc1MTE0NywKICAgICAgICAgIDE5CiAgICAgICAgXSwKICAgICAgICBbCiAgICAgICAgICAxMzYyNjMwMDc0LAogICAgICAgICAgOQogICAgICAgIF0KICAgICAgXSwKICAgICAgImpzb24iOiB7CiAgICAgICAgInR5cGUiOiAiZG9jIiwKICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgIHsKICAgICAgICAgICAgInR5cGUiOiAicGFyYWdyYXBoIiwKICAgICAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgInR5cGUiOiAidGV4dCIsCiAgICAgICAgICAgICAgICAidGV4dCI6ICJSMyBSMiBSMSBNUzY1IGxvY2FsIEVESVQiCiAgICAgICAgICAgICAgfQogICAgICAgICAgICBdCiAgICAgICAgICB9CiAgICAgICAgXQogICAgICB9LAogICAgICAiZnJhZ21lbnQiOiAiPHBhcmFncmFwaD5SMyBSMiBSMSBNUzY1IGxvY2FsIEVESVQ8L3BhcmFncmFwaD4iLAogICAgICAic2VsZWN0aW9uIjogewogICAgICAgICJmcm9tIjogMSwKICAgICAgICAidG8iOiAxLAogICAgICAgICJwYXJlbnQiOiAiUjMgUjIgUjEgTVM2NSBsb2NhbCBFRElUIiwKICAgICAgICAib2Zmc2V0IjogMCwKICAgICAgICAic2l6ZSI6IDI0CiAgICAgIH0sCiAgICAgICJwZW5kaW5nIjogMAogICAgfQogIF0KfQ=="
+                    },
+                    {
+                      "name": "local-undo",
+                      "contentType": "application/json",
+                      "body": "ewogICJhdCI6ICIyMDI2LTEwLTAzVDAwOjE2OjI1Ljk0MVoiLAogICJjbGllbnRzIjogWwogICAgewogICAgICAicGFnZUlkIjogImY3MzA4YWM2LTA2MDAtNGMxMi05NDc4LTNiZDNlZjU0ZTcwYyIsCiAgICAgICJjbGllbnRJZCI6ICJiNjIxOGU4Zi0yNDA2LTRhYWYtOGUxZS03MzhlOWYzYTczNDMiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMywKICAgICAgICAxODYsCiAgICAgICAgMTcxLAogICAgICAgIDIyNCwKICAgICAgICAxMzcsCiAgICAgICAgNSwKICAgICAgICA5LAogICAgICAgIDE3MSwKICAgICAgICAxODgsCiAgICAgICAgMjIwLAogICAgICAgIDE5OCwKICAgICAgICAxLAogICAgICAgIDIyLAogICAgICAgIDEsCiAgICAgICAgMQogICAgICBdLAogICAgICAiY2xvY2tzIjogWwogICAgICAgIFsKICAgICAgICAgIDEsCiAgICAgICAgICAxCiAgICAgICAgXSwKICAgICAgICBbCiAgICAgICAgICA0MTY3NTExNDcsCiAgICAgICAgICAyMgogICAgICAgIF0sCiAgICAgICAgWwogICAgICAgICAgMTM2MjYzMDA3NCwKICAgICAgICAgIDkKICAgICAgICBdCiAgICAgIF0sCiAgICAgICJqc29uIjogewogICAgICAgICJ0eXBlIjogImRvYyIsCiAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJ0eXBlIjogInBhcmFncmFwaCIsCiAgICAgICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJ0eXBlIjogInRleHQiLAogICAgICAgICAgICAgICAgInRleHQiOiAiUjMgUjIgUjEgTVM2NSBsb2NhbCDml6XmnKzoqp4iCiAgICAgICAgICAgICAgfQogICAgICAgICAgICBdCiAgICAgICAgICB9CiAgICAgICAgXQogICAgICB9LAogICAgICAiZnJhZ21lbnQiOiAiPHBhcmFncmFwaD5SMyBSMiBSMSBNUzY1IGxvY2FsIOaXpeacrOiqnjwvcGFyYWdyYXBoPiIsCiAgICAgICJzZWxlY3Rpb24iOiB7CiAgICAgICAgImZyb20iOiAyNCwKICAgICAgICAidG8iOiAyNCwKICAgICAgICAicGFyZW50IjogIlIzIFIyIFIxIE1TNjUgbG9jYWwg5pel5pys6KqeIiwKICAgICAgICAib2Zmc2V0IjogMjMsCiAgICAgICAgInNpemUiOiAyMwogICAgICB9LAogICAgICAicGVuZGluZyI6IDAKICAgIH0sCiAgICB7CiAgICAgICJwYWdlSWQiOiAiZjczMDhhYzYtMDYwMC00YzEyLTk0NzgtM2JkM2VmNTRlNzBjIiwKICAgICAgImNsaWVudElkIjogIjgyM2VjY2FkLWY4NDEtNDVmYi04NjQ1LTg3ODI3NjIyOTliYiIsCiAgICAgICJzdGF0ZVZlY3RvciI6IFsKICAgICAgICAzLAogICAgICAgIDE4NiwKICAgICAgICAxNzEsCiAgICAgICAgMjI0LAogICAgICAgIDEzNywKICAgICAgICA1LAogICAgICAgIDksCiAgICAgICAgMTcxLAogICAgICAgIDE4OCwKICAgICAgICAyMjAsCiAgICAgICAgMTk4LAogICAgICAgIDEsCiAgICAgICAgMjIsCiAgICAgICAgMSwKICAgICAgICAxCiAgICAgIF0sCiAgICAgICJjbG9ja3MiOiBbCiAgICAgICAgWwogICAgICAgICAgMSwKICAgICAgICAgIDEKICAgICAgICBdLAogICAgICAgIFsKICAgICAgICAgIDQxNjc1MTE0NywKICAgICAgICAgIDIyCiAgICAgICAgXSwKICAgICAgICBbCiAgICAgICAgICAxMzYyNjMwMDc0LAogICAgICAgICAgOQogICAgICAgIF0KICAgICAgXSwKICAgICAgImpzb24iOiB7CiAgICAgICAgInR5cGUiOiAiZG9jIiwKICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgIHsKICAgICAgICAgICAgInR5cGUiOiAicGFyYWdyYXBoIiwKICAgICAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgInR5cGUiOiAidGV4dCIsCiAgICAgICAgICAgICAgICAidGV4dCI6ICJSMyBSMiBSMSBNUzY1IGxvY2FsIOaXpeacrOiqniIKICAgICAgICAgICAgICB9CiAgICAgICAgICAgIF0KICAgICAgICAgIH0KICAgICAgICBdCiAgICAgIH0sCiAgICAgICJmcmFnbWVudCI6ICI8cGFyYWdyYXBoPlIzIFIyIFIxIE1TNjUgbG9jYWwg5pel5pys6KqePC9wYXJhZ3JhcGg+IiwKICAgICAgInNlbGVjdGlvbiI6IHsKICAgICAgICAiZnJvbSI6IDEsCiAgICAgICAgInRvIjogMSwKICAgICAgICAicGFyZW50IjogIlIzIFIyIFIxIE1TNjUgbG9jYWwg5pel5pys6KqeIiwKICAgICAgICAib2Zmc2V0IjogMCwKICAgICAgICAic2l6ZSI6IDIzCiAgICAgIH0sCiAgICAgICJwZW5kaW5nIjogMAogICAgfQogIF0KfQ=="
+                    },
+                    {
+                      "name": "local-redo",
+                      "contentType": "application/json",
+                      "body": "ewogICJhdCI6ICIyMDI2LTEwLTAzVDAwOjE2OjI2LjA5NFoiLAogICJjbGllbnRzIjogWwogICAgewogICAgICAicGFnZUlkIjogImY3MzA4YWM2LTA2MDAtNGMxMi05NDc4LTNiZDNlZjU0ZTcwYyIsCiAgICAgICJjbGllbnRJZCI6ICJiNjIxOGU4Zi0yNDA2LTRhYWYtOGUxZS03MzhlOWYzYTczNDMiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMywKICAgICAgICAxODYsCiAgICAgICAgMTcxLAogICAgICAgIDIyNCwKICAgICAgICAxMzcsCiAgICAgICAgNSwKICAgICAgICA5LAogICAgICAgIDE3MSwKICAgICAgICAxODgsCiAgICAgICAgMjIwLAogICAgICAgIDE5OCwKICAgICAgICAxLAogICAgICAgIDI2LAogICAgICAgIDEsCiAgICAgICAgMQogICAgICBdLAogICAgICAiY2xvY2tzIjogWwogICAgICAgIFsKICAgICAgICAgIDEsCiAgICAgICAgICAxCiAgICAgICAgXSwKICAgICAgICBbCiAgICAgICAgICA0MTY3NTExNDcsCiAgICAgICAgICAyNgogICAgICAgIF0sCiAgICAgICAgWwogICAgICAgICAgMTM2MjYzMDA3NCwKICAgICAgICAgIDkKICAgICAgICBdCiAgICAgIF0sCiAgICAgICJqc29uIjogewogICAgICAgICJ0eXBlIjogImRvYyIsCiAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJ0eXBlIjogInBhcmFncmFwaCIsCiAgICAgICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJ0eXBlIjogInRleHQiLAogICAgICAgICAgICAgICAgInRleHQiOiAiUjMgUjIgUjEgTVM2NSBsb2NhbCBFRElUIgogICAgICAgICAgICAgIH0KICAgICAgICAgICAgXQogICAgICAgICAgfQogICAgICAgIF0KICAgICAgfSwKICAgICAgImZyYWdtZW50IjogIjxwYXJhZ3JhcGg+UjMgUjIgUjEgTVM2NSBsb2NhbCBFRElUPC9wYXJhZ3JhcGg+IiwKICAgICAgInNlbGVjdGlvbiI6IHsKICAgICAgICAiZnJvbSI6IDIxLAogICAgICAgICJ0byI6IDIxLAogICAgICAgICJwYXJlbnQiOiAiUjMgUjIgUjEgTVM2NSBsb2NhbCBFRElUIiwKICAgICAgICAib2Zmc2V0IjogMjAsCiAgICAgICAgInNpemUiOiAyNAogICAgICB9LAogICAgICAicGVuZGluZyI6IDAKICAgIH0sCiAgICB7CiAgICAgICJwYWdlSWQiOiAiZjczMDhhYzYtMDYwMC00YzEyLTk0NzgtM2JkM2VmNTRlNzBjIiwKICAgICAgImNsaWVudElkIjogIjgyM2VjY2FkLWY4NDEtNDVmYi04NjQ1LTg3ODI3NjIyOTliYiIsCiAgICAgICJzdGF0ZVZlY3RvciI6IFsKICAgICAgICAzLAogICAgICAgIDE4NiwKICAgICAgICAxNzEsCiAgICAgICAgMjI0LAogICAgICAgIDEzNywKICAgICAgICA1LAogICAgICAgIDksCiAgICAgICAgMTcxLAogICAgICAgIDE4OCwKICAgICAgICAyMjAsCiAgICAgICAgMTk4LAogICAgICAgIDEsCiAgICAgICAgMjYsCiAgICAgICAgMSwKICAgICAgICAxCiAgICAgIF0sCiAgICAgICJjbG9ja3MiOiBbCiAgICAgICAgWwogICAgICAgICAgMSwKICAgICAgICAgIDEKICAgICAgICBdLAogICAgICAgIFsKICAgICAgICAgIDQxNjc1MTE0NywKICAgICAgICAgIDI2CiAgICAgICAgXSwKICAgICAgICBbCiAgICAgICAgICAxMzYyNjMwMDc0LAogICAgICAgICAgOQogICAgICAgIF0KICAgICAgXSwKICAgICAgImpzb24iOiB7CiAgICAgICAgInR5cGUiOiAiZG9jIiwKICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgIHsKICAgICAgICAgICAgInR5cGUiOiAicGFyYWdyYXBoIiwKICAgICAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgInR5cGUiOiAidGV4dCIsCiAgICAgICAgICAgICAgICAidGV4dCI6ICJSMyBSMiBSMSBNUzY1IGxvY2FsIEVESVQiCiAgICAgICAgICAgICAgfQogICAgICAgICAgICBdCiAgICAgICAgICB9CiAgICAgICAgXQogICAgICB9LAogICAgICAiZnJhZ21lbnQiOiAiPHBhcmFncmFwaD5SMyBSMiBSMSBNUzY1IGxvY2FsIEVESVQ8L3BhcmFncmFwaD4iLAogICAgICAic2VsZWN0aW9uIjogewogICAgICAgICJmcm9tIjogMSwKICAgICAgICAidG8iOiAxLAogICAgICAgICJwYXJlbnQiOiAiUjMgUjIgUjEgTVM2NSBsb2NhbCBFRElUIiwKICAgICAgICAib2Zmc2V0IjogMCwKICAgICAgICAic2l6ZSI6IDI0CiAgICAgIH0sCiAgICAgICJwZW5kaW5nIjogMAogICAgfQogIF0KfQ=="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1ee54b9dfd74ae1014af-2c0b081af979ed3170e5",
+          "file": "focus-reconnect.spec.ts",
+          "line": 32,
+          "column": 3
+        },
+        {
+          "title": "STEP8-FOCUS-paragraph-backward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 5427,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-03T00:16:26.670Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "seed",
+                      "contentType": "application/json",
+                      "body": "ewogICJhdCI6ICIyMDI2LTEwLTAzVDAwOjE2OjI5LjQ0NloiLAogICJjbGllbnRzIjogWwogICAgewogICAgICAicGFnZUlkIjogImIzZDU4NzliLTViZWItNDE4NC05ZTkzLTdmZWRmNGQ1YmNlOSIsCiAgICAgICJjbGllbnRJZCI6ICJhNTE5NGE0MS1iNmVkLTQ4NzgtYmI3OS1mMjhmZDdlZGY1OTkiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMiwKICAgICAgICAyMzgsCiAgICAgICAgMTMxLAogICAgICAgIDEzNCwKICAgICAgICAxNTksCiAgICAgICAgMSwKICAgICAgICAxNSwKICAgICAgICAxLAogICAgICAgIDEKICAgICAgXSwKICAgICAgImNsb2NrcyI6IFsKICAgICAgICBbCiAgICAgICAgICAxLAogICAgICAgICAgMQogICAgICAgIF0sCiAgICAgICAgWwogICAgICAgICAgMzMzNTQ1OTY2LAogICAgICAgICAgMTUKICAgICAgICBdCiAgICAgIF0sCiAgICAgICJqc29uIjogewogICAgICAgICJ0eXBlIjogImRvYyIsCiAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJ0eXBlIjogInBhcmFncmFwaCIsCiAgICAgICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJ0eXBlIjogInRleHQiLAogICAgICAgICAgICAgICAgInRleHQiOiAiTVM2NSBsb2NhbCDml6XmnKzoqp4iCiAgICAgICAgICAgICAgfQogICAgICAgICAgICBdCiAgICAgICAgICB9CiAgICAgICAgXQogICAgICB9LAogICAgICAiZnJhZ21lbnQiOiAiPHBhcmFncmFwaD5NUzY1IGxvY2FsIOaXpeacrOiqnjwvcGFyYWdyYXBoPiIsCiAgICAgICJzZWxlY3Rpb24iOiB7CiAgICAgICAgImZyb20iOiAxNSwKICAgICAgICAidG8iOiAxNSwKICAgICAgICAicGFyZW50IjogIk1TNjUgbG9jYWwg5pel5pys6KqeIiwKICAgICAgICAib2Zmc2V0IjogMTQsCiAgICAgICAgInNpemUiOiAxNAogICAgICB9LAogICAgICAicGVuZGluZyI6IDAKICAgIH0sCiAgICB7CiAgICAgICJwYWdlSWQiOiAiYjNkNTg3OWItNWJlYi00MTg0LTllOTMtN2ZlZGY0ZDViY2U5IiwKICAgICAgImNsaWVudElkIjogImVmYTZmMzRhLWEzOGQtNDEzMC05OTlkLWMxNzY2Y2E5N2IxMiIsCiAgICAgICJzdGF0ZVZlY3RvciI6IFsKICAgICAgICAyLAogICAgICAgIDIzOCwKICAgICAgICAxMzEsCiAgICAgICAgMTM0LAogICAgICAgIDE1OSwKICAgICAgICAxLAogICAgICAgIDE1LAogICAgICAgIDEsCiAgICAgICAgMQogICAgICBdLAogICAgICAiY2xvY2tzIjogWwogICAgICAgIFsKICAgICAgICAgIDEsCiAgICAgICAgICAxCiAgICAgICAgXSwKICAgICAgICBbCiAgICAgICAgICAzMzM1NDU5NjYsCiAgICAgICAgICAxNQogICAgICAgIF0KICAgICAgXSwKICAgICAgImpzb24iOiB7CiAgICAgICAgInR5cGUiOiAiZG9jIiwKICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgIHsKICAgICAgICAgICAgInR5cGUiOiAicGFyYWdyYXBoIiwKICAgICAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgInR5cGUiOiAidGV4dCIsCiAgICAgICAgICAgICAgICAidGV4dCI6ICJNUzY1IGxvY2FsIOaXpeacrOiqniIKICAgICAgICAgICAgICB9CiAgICAgICAgICAgIF0KICAgICAgICAgIH0KICAgICAgICBdCiAgICAgIH0sCiAgICAgICJmcmFnbWVudCI6ICI8cGFyYWdyYXBoPk1TNjUgbG9jYWwg5pel5pys6KqePC9wYXJhZ3JhcGg+IiwKICAgICAgInNlbGVjdGlvbiI6IHsKICAgICAgICAiZnJvbSI6IDE1LAogICAgICAgICJ0byI6IDE1LAogICAgICAgICJwYXJlbnQiOiAiTVM2NSBsb2NhbCDml6XmnKzoqp4iLAogICAgICAgICJvZmZzZXQiOiAxNCwKICAgICAgICAic2l6ZSI6IDE0CiAgICAgIH0sCiAgICAgICJwZW5kaW5nIjogMAogICAgfQogIF0KfQ=="
+                    },
+                    {
+                      "name": "selection-after-focus-and-remote",
+                      "contentType": "application/json",
+                      "body": "ewogICJiZWZvcmUiOiB7CiAgICAidGV4dCI6ICLml6XmnKzoqp4iLAogICAgImFuY2hvciI6IDE1LAogICAgImZvY3VzIjogMTIKICB9LAogICJyZXN0b3JlZCI6IHsKICAgICJ0ZXh0IjogIuaXpeacrOiqniIsCiAgICAiYW5jaG9yIjogMjQsCiAgICAiZm9jdXMiOiAyMQogIH0sCiAgInBtIjogewogICAgImZyb20iOiAyMSwKICAgICJ0byI6IDI0LAogICAgInBhcmVudCI6ICJSMyBSMiBSMSBNUzY1IGxvY2FsIOaXpeacrOiqniIsCiAgICAib2Zmc2V0IjogMjAsCiAgICAic2l6ZSI6IDIzCiAgfQp9"
+                    },
+                    {
+                      "name": "replacement",
+                      "contentType": "application/json",
+                      "body": "ewogICJhdCI6ICIyMDI2LTEwLTAzVDAwOjE2OjMxLjA0OFoiLAogICJjbGllbnRzIjogWwogICAgewogICAgICAicGFnZUlkIjogImIzZDU4NzliLTViZWItNDE4NC05ZTkzLTdmZWRmNGQ1YmNlOSIsCiAgICAgICJjbGllbnRJZCI6ICJhNTE5NGE0MS1iNmVkLTQ4NzgtYmI3OS1mMjhmZDdlZGY1OTkiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMywKICAgICAgICAxODYsCiAgICAgICAgMjIzLAogICAgICAgIDE1MSwKICAgICAgICAxMzQsCiAgICAgICAgMTQsCiAgICAgICAgOSwKICAgICAgICAyMzgsCiAgICAgICAgMTMxLAogICAgICAgIDEzNCwKICAgICAgICAxNTksCiAgICAgICAgMSwKICAgICAgICAxOSwKICAgICAgICAxLAogICAgICAgIDEKICAgICAgXSwKICAgICAgImNsb2NrcyI6IFsKICAgICAgICBbCiAgICAgICAgICAxLAogICAgICAgICAgMQogICAgICAgIF0sCiAgICAgICAgWwogICAgICAgICAgMzMzNTQ1OTY2LAogICAgICAgICAgMTkKICAgICAgICBdLAogICAgICAgIFsKICAgICAgICAgIDM3NzEwNjgzNDYsCiAgICAgICAgICA5CiAgICAgICAgXQogICAgICBdLAogICAgICAianNvbiI6IHsKICAgICAgICAidHlwZSI6ICJkb2MiLAogICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgewogICAgICAgICAgICAidHlwZSI6ICJwYXJhZ3JhcGgiLAogICAgICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAidHlwZSI6ICJ0ZXh0IiwKICAgICAgICAgICAgICAgICJ0ZXh0IjogIlIzIFIyIFIxIE1TNjUgbG9jYWwgRURJVCIKICAgICAgICAgICAgICB9CiAgICAgICAgICAgIF0KICAgICAgICAgIH0KICAgICAgICBdCiAgICAgIH0sCiAgICAgICJmcmFnbWVudCI6ICI8cGFyYWdyYXBoPlIzIFIyIFIxIE1TNjUgbG9jYWwgRURJVDwvcGFyYWdyYXBoPiIsCiAgICAgICJzZWxlY3Rpb24iOiB7CiAgICAgICAgImZyb20iOiAyNSwKICAgICAgICAidG8iOiAyNSwKICAgICAgICAicGFyZW50IjogIlIzIFIyIFIxIE1TNjUgbG9jYWwgRURJVCIsCiAgICAgICAgIm9mZnNldCI6IDI0LAogICAgICAgICJzaXplIjogMjQKICAgICAgfSwKICAgICAgInBlbmRpbmciOiAwCiAgICB9LAogICAgewogICAgICAicGFnZUlkIjogImIzZDU4NzliLTViZWItNDE4NC05ZTkzLTdmZWRmNGQ1YmNlOSIsCiAgICAgICJjbGllbnRJZCI6ICJlZmE2ZjM0YS1hMzhkLTQxMzAtOTk5ZC1jMTc2NmNhOTdiMTIiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMywKICAgICAgICAxODYsCiAgICAgICAgMjIzLAogICAgICAgIDE1MSwKICAgICAgICAxMzQsCiAgICAgICAgMTQsCiAgICAgICAgOSwKICAgICAgICAyMzgsCiAgICAgICAgMTMxLAogICAgICAgIDEzNCwKICAgICAgICAxNTksCiAgICAgICAgMSwKICAgICAgICAxOSwKICAgICAgICAxLAogICAgICAgIDEKICAgICAgXSwKICAgICAgImNsb2NrcyI6IFsKICAgICAgICBbCiAgICAgICAgICAxLAogICAgICAgICAgMQogICAgICAgIF0sCiAgICAgICAgWwogICAgICAgICAgMzMzNTQ1OTY2LAogICAgICAgICAgMTkKICAgICAgICBdLAogICAgICAgIFsKICAgICAgICAgIDM3NzEwNjgzNDYsCiAgICAgICAgICA5CiAgICAgICAgXQogICAgICBdLAogICAgICAianNvbiI6IHsKICAgICAgICAidHlwZSI6ICJkb2MiLAogICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgewogICAgICAgICAgICAidHlwZSI6ICJwYXJhZ3JhcGgiLAogICAgICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAidHlwZSI6ICJ0ZXh0IiwKICAgICAgICAgICAgICAgICJ0ZXh0IjogIlIzIFIyIFIxIE1TNjUgbG9jYWwgRURJVCIKICAgICAgICAgICAgICB9CiAgICAgICAgICAgIF0KICAgICAgICAgIH0KICAgICAgICBdCiAgICAgIH0sCiAgICAgICJmcmFnbWVudCI6ICI8cGFyYWdyYXBoPlIzIFIyIFIxIE1TNjUgbG9jYWwgRURJVDwvcGFyYWdyYXBoPiIsCiAgICAgICJzZWxlY3Rpb24iOiB7CiAgICAgICAgImZyb20iOiAxLAogICAgICAgICJ0byI6IDEsCiAgICAgICAgInBhcmVudCI6ICJSMyBSMiBSMSBNUzY1IGxvY2FsIEVESVQiLAogICAgICAgICJvZmZzZXQiOiAwLAogICAgICAgICJzaXplIjogMjQKICAgICAgfSwKICAgICAgInBlbmRpbmciOiAwCiAgICB9CiAgXQp9"
+                    },
+                    {
+                      "name": "local-undo",
+                      "contentType": "application/json",
+                      "body": "ewogICJhdCI6ICIyMDI2LTEwLTAzVDAwOjE2OjMxLjIyNVoiLAogICJjbGllbnRzIjogWwogICAgewogICAgICAicGFnZUlkIjogImIzZDU4NzliLTViZWItNDE4NC05ZTkzLTdmZWRmNGQ1YmNlOSIsCiAgICAgICJjbGllbnRJZCI6ICJhNTE5NGE0MS1iNmVkLTQ4NzgtYmI3OS1mMjhmZDdlZGY1OTkiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMywKICAgICAgICAxODYsCiAgICAgICAgMjIzLAogICAgICAgIDE1MSwKICAgICAgICAxMzQsCiAgICAgICAgMTQsCiAgICAgICAgOSwKICAgICAgICAyMzgsCiAgICAgICAgMTMxLAogICAgICAgIDEzNCwKICAgICAgICAxNTksCiAgICAgICAgMSwKICAgICAgICAyMiwKICAgICAgICAxLAogICAgICAgIDEKICAgICAgXSwKICAgICAgImNsb2NrcyI6IFsKICAgICAgICBbCiAgICAgICAgICAxLAogICAgICAgICAgMQogICAgICAgIF0sCiAgICAgICAgWwogICAgICAgICAgMzMzNTQ1OTY2LAogICAgICAgICAgMjIKICAgICAgICBdLAogICAgICAgIFsKICAgICAgICAgIDM3NzEwNjgzNDYsCiAgICAgICAgICA5CiAgICAgICAgXQogICAgICBdLAogICAgICAianNvbiI6IHsKICAgICAgICAidHlwZSI6ICJkb2MiLAogICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgewogICAgICAgICAgICAidHlwZSI6ICJwYXJhZ3JhcGgiLAogICAgICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAidHlwZSI6ICJ0ZXh0IiwKICAgICAgICAgICAgICAgICJ0ZXh0IjogIlIzIFIyIFIxIE1TNjUgbG9jYWwg5pel5pys6KqeIgogICAgICAgICAgICAgIH0KICAgICAgICAgICAgXQogICAgICAgICAgfQogICAgICAgIF0KICAgICAgfSwKICAgICAgImZyYWdtZW50IjogIjxwYXJhZ3JhcGg+UjMgUjIgUjEgTVM2NSBsb2NhbCDml6XmnKzoqp48L3BhcmFncmFwaD4iLAogICAgICAic2VsZWN0aW9uIjogewogICAgICAgICJmcm9tIjogMjQsCiAgICAgICAgInRvIjogMjQsCiAgICAgICAgInBhcmVudCI6ICJSMyBSMiBSMSBNUzY1IGxvY2FsIOaXpeacrOiqniIsCiAgICAgICAgIm9mZnNldCI6IDIzLAogICAgICAgICJzaXplIjogMjMKICAgICAgfSwKICAgICAgInBlbmRpbmciOiAwCiAgICB9LAogICAgewogICAgICAicGFnZUlkIjogImIzZDU4NzliLTViZWItNDE4NC05ZTkzLTdmZWRmNGQ1YmNlOSIsCiAgICAgICJjbGllbnRJZCI6ICJlZmE2ZjM0YS1hMzhkLTQxMzAtOTk5ZC1jMTc2NmNhOTdiMTIiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMywKICAgICAgICAxODYsCiAgICAgICAgMjIzLAogICAgICAgIDE1MSwKICAgICAgICAxMzQsCiAgICAgICAgMTQsCiAgICAgICAgOSwKICAgICAgICAyMzgsCiAgICAgICAgMTMxLAogICAgICAgIDEzNCwKICAgICAgICAxNTksCiAgICAgICAgMSwKICAgICAgICAyMiwKICAgICAgICAxLAogICAgICAgIDEKICAgICAgXSwKICAgICAgImNsb2NrcyI6IFsKICAgICAgICBbCiAgICAgICAgICAxLAogICAgICAgICAgMQogICAgICAgIF0sCiAgICAgICAgWwogICAgICAgICAgMzMzNTQ1OTY2LAogICAgICAgICAgMjIKICAgICAgICBdLAogICAgICAgIFsKICAgICAgICAgIDM3NzEwNjgzNDYsCiAgICAgICAgICA5CiAgICAgICAgXQogICAgICBdLAogICAgICAianNvbiI6IHsKICAgICAgICAidHlwZSI6ICJkb2MiLAogICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgewogICAgICAgICAgICAidHlwZSI6ICJwYXJhZ3JhcGgiLAogICAgICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAidHlwZSI6ICJ0ZXh0IiwKICAgICAgICAgICAgICAgICJ0ZXh0IjogIlIzIFIyIFIxIE1TNjUgbG9jYWwg5pel5pys6KqeIgogICAgICAgICAgICAgIH0KICAgICAgICAgICAgXQogICAgICAgICAgfQogICAgICAgIF0KICAgICAgfSwKICAgICAgImZyYWdtZW50IjogIjxwYXJhZ3JhcGg+UjMgUjIgUjEgTVM2NSBsb2NhbCDml6XmnKzoqp48L3BhcmFncmFwaD4iLAogICAgICAic2VsZWN0aW9uIjogewogICAgICAgICJmcm9tIjogMSwKICAgICAgICAidG8iOiAxLAogICAgICAgICJwYXJlbnQiOiAiUjMgUjIgUjEgTVM2NSBsb2NhbCDml6XmnKzoqp4iLAogICAgICAgICJvZmZzZXQiOiAwLAogICAgICAgICJzaXplIjogMjMKICAgICAgfSwKICAgICAgInBlbmRpbmciOiAwCiAgICB9CiAgXQp9"
+                    },
+                    {
+                      "name": "local-redo",
+                      "contentType": "application/json",
+                      "body": "ewogICJhdCI6ICIyMDI2LTEwLTAzVDAwOjE2OjMxLjQzOFoiLAogICJjbGllbnRzIjogWwogICAgewogICAgICAicGFnZUlkIjogImIzZDU4NzliLTViZWItNDE4NC05ZTkzLTdmZWRmNGQ1YmNlOSIsCiAgICAgICJjbGllbnRJZCI6ICJhNTE5NGE0MS1iNmVkLTQ4NzgtYmI3OS1mMjhmZDdlZGY1OTkiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMywKICAgICAgICAxODYsCiAgICAgICAgMjIzLAogICAgICAgIDE1MSwKICAgICAgICAxMzQsCiAgICAgICAgMTQsCiAgICAgICAgOSwKICAgICAgICAyMzgsCiAgICAgICAgMTMxLAogICAgICAgIDEzNCwKICAgICAgICAxNTksCiAgICAgICAgMSwKICAgICAgICAyNiwKICAgICAgICAxLAogICAgICAgIDEKICAgICAgXSwKICAgICAgImNsb2NrcyI6IFsKICAgICAgICBbCiAgICAgICAgICAxLAogICAgICAgICAgMQogICAgICAgIF0sCiAgICAgICAgWwogICAgICAgICAgMzMzNTQ1OTY2LAogICAgICAgICAgMjYKICAgICAgICBdLAogICAgICAgIFsKICAgICAgICAgIDM3NzEwNjgzNDYsCiAgICAgICAgICA5CiAgICAgICAgXQogICAgICBdLAogICAgICAianNvbiI6IHsKICAgICAgICAidHlwZSI6ICJkb2MiLAogICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgewogICAgICAgICAgICAidHlwZSI6ICJwYXJhZ3JhcGgiLAogICAgICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAidHlwZSI6ICJ0ZXh0IiwKICAgICAgICAgICAgICAgICJ0ZXh0IjogIlIzIFIyIFIxIE1TNjUgbG9jYWwgRURJVCIKICAgICAgICAgICAgICB9CiAgICAgICAgICAgIF0KICAgICAgICAgIH0KICAgICAgICBdCiAgICAgIH0sCiAgICAgICJmcmFnbWVudCI6ICI8cGFyYWdyYXBoPlIzIFIyIFIxIE1TNjUgbG9jYWwgRURJVDwvcGFyYWdyYXBoPiIsCiAgICAgICJzZWxlY3Rpb24iOiB7CiAgICAgICAgImZyb20iOiAyMSwKICAgICAgICAidG8iOiAyMSwKICAgICAgICAicGFyZW50IjogIlIzIFIyIFIxIE1TNjUgbG9jYWwgRURJVCIsCiAgICAgICAgIm9mZnNldCI6IDIwLAogICAgICAgICJzaXplIjogMjQKICAgICAgfSwKICAgICAgInBlbmRpbmciOiAwCiAgICB9LAogICAgewogICAgICAicGFnZUlkIjogImIzZDU4NzliLTViZWItNDE4NC05ZTkzLTdmZWRmNGQ1YmNlOSIsCiAgICAgICJjbGllbnRJZCI6ICJlZmE2ZjM0YS1hMzhkLTQxMzAtOTk5ZC1jMTc2NmNhOTdiMTIiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMywKICAgICAgICAxODYsCiAgICAgICAgMjIzLAogICAgICAgIDE1MSwKICAgICAgICAxMzQsCiAgICAgICAgMTQsCiAgICAgICAgOSwKICAgICAgICAyMzgsCiAgICAgICAgMTMxLAogICAgICAgIDEzNCwKICAgICAgICAxNTksCiAgICAgICAgMSwKICAgICAgICAyNiwKICAgICAgICAxLAogICAgICAgIDEKICAgICAgXSwKICAgICAgImNsb2NrcyI6IFsKICAgICAgICBbCiAgICAgICAgICAxLAogICAgICAgICAgMQogICAgICAgIF0sCiAgICAgICAgWwogICAgICAgICAgMzMzNTQ1OTY2LAogICAgICAgICAgMjYKICAgICAgICBdLAogICAgICAgIFsKICAgICAgICAgIDM3NzEwNjgzNDYsCiAgICAgICAgICA5CiAgICAgICAgXQogICAgICBdLAogICAgICAianNvbiI6IHsKICAgICAgICAidHlwZSI6ICJkb2MiLAogICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgewogICAgICAgICAgICAidHlwZSI6ICJwYXJhZ3JhcGgiLAogICAgICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAidHlwZSI6ICJ0ZXh0IiwKICAgICAgICAgICAgICAgICJ0ZXh0IjogIlIzIFIyIFIxIE1TNjUgbG9jYWwgRURJVCIKICAgICAgICAgICAgICB9CiAgICAgICAgICAgIF0KICAgICAgICAgIH0KICAgICAgICBdCiAgICAgIH0sCiAgICAgICJmcmFnbWVudCI6ICI8cGFyYWdyYXBoPlIzIFIyIFIxIE1TNjUgbG9jYWwgRURJVDwvcGFyYWdyYXBoPiIsCiAgICAgICJzZWxlY3Rpb24iOiB7CiAgICAgICAgImZyb20iOiAxLAogICAgICAgICJ0byI6IDEsCiAgICAgICAgInBhcmVudCI6ICJSMyBSMiBSMSBNUzY1IGxvY2FsIEVESVQiLAogICAgICAgICJvZmZzZXQiOiAwLAogICAgICAgICJzaXplIjogMjQKICAgICAgfSwKICAgICAgInBlbmRpbmciOiAwCiAgICB9CiAgXQp9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1ee54b9dfd74ae1014af-386f6d70b5bbdf6863da",
+          "file": "focus-reconnect.spec.ts",
+          "line": 32,
+          "column": 3
+        },
+        {
+          "title": "STEP8-FOCUS-heading-forward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 11079,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"日本語\"\u001b[39m\nReceived: \u001b[31m\"65 \"\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"日本語\"\u001b[39m\nReceived: \u001b[31m\"65 \"\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n    at /workspace/tests/e2e/focus-reconnect.spec.ts:54:63",
+                    "location": {
+                      "file": "/workspace/tests/e2e/focus-reconnect.spec.ts",
+                      "column": 63,
+                      "line": 54
+                    },
+                    "snippet": "  52 |       for(let i=1;i<=3;i++){await b.keyboard.type(`R${i} `);await b.keyboard.press('Home');await expect(body(a).locator(layout.selector)).toHaveText(`${Array.from({length:i},(_,j)=>`R${i-j} `).join('')}MS65 local 日本語`);}\n  53 |       await a.bringToFront();await body(a).focus();await expect(body(a)).toBeFocused();\n> 54 |       await expect.poll(async()=> (await selection(a))?.text).toBe('日本語');\n     |                                                               ^\n  55 |       const restored=await selection(a);expect(restored!.anchor-before!.anchor).toBe(9);expect(restored!.focus-before!.focus).toBe(9);\n  56 |       expect(restored!.anchor<restored!.focus).toBe(direction==='forward');\n  57 |       const pm=(await snapshot(a)).selection;expect(pm.to-pm.from).toBe(3);"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/tests/e2e/focus-reconnect.spec.ts",
+                        "column": 63,
+                        "line": 54
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"日本語\"\u001b[39m\nReceived: \u001b[31m\"65 \"\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n\n  52 |       for(let i=1;i<=3;i++){await b.keyboard.type(`R${i} `);await b.keyboard.press('Home');await expect(body(a).locator(layout.selector)).toHaveText(`${Array.from({length:i},(_,j)=>`R${i-j} `).join('')}MS65 local 日本語`);}\n  53 |       await a.bringToFront();await body(a).focus();await expect(body(a)).toBeFocused();\n> 54 |       await expect.poll(async()=> (await selection(a))?.text).toBe('日本語');\n     |                                                               ^\n  55 |       const restored=await selection(a);expect(restored!.anchor-before!.anchor).toBe(9);expect(restored!.focus-before!.focus).toBe(9);\n  56 |       expect(restored!.anchor<restored!.focus).toBe(direction==='forward');\n  57 |       const pm=(await snapshot(a)).selection;expect(pm.to-pm.from).toBe(3);\n    at /workspace/tests/e2e/focus-reconnect.spec.ts:54:63"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-03T00:16:32.122Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "seed",
+                      "contentType": "application/json",
+                      "body": "ewogICJhdCI6ICIyMDI2LTEwLTAzVDAwOjE2OjM1LjQyMloiLAogICJjbGllbnRzIjogWwogICAgewogICAgICAicGFnZUlkIjogImNlZWRiYzRiLTAwNzAtNDQ5MC05YzQ1LWJiYWFlM2FiZjFkMCIsCiAgICAgICJjbGllbnRJZCI6ICJlMDBhNzRlOC1hMzMzLTRlYjUtODg3Mi03YjNiZjcyOWQ0ZDYiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMiwKICAgICAgICAyMjksCiAgICAgICAgMTk0LAogICAgICAgIDE1OCwKICAgICAgICAxODksCiAgICAgICAgOSwKICAgICAgICAyMSwKICAgICAgICAxLAogICAgICAgIDEKICAgICAgXSwKICAgICAgImNsb2NrcyI6IFsKICAgICAgICBbCiAgICAgICAgICAxLAogICAgICAgICAgMQogICAgICAgIF0sCiAgICAgICAgWwogICAgICAgICAgMjU0NDM0NTQ0NSwKICAgICAgICAgIDIxCiAgICAgICAgXQogICAgICBdLAogICAgICAianNvbiI6IHsKICAgICAgICAidHlwZSI6ICJkb2MiLAogICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgewogICAgICAgICAgICAidHlwZSI6ICJoZWFkaW5nIiwKICAgICAgICAgICAgImF0dHJzIjogewogICAgICAgICAgICAgICJsZXZlbCI6IDIKICAgICAgICAgICAgfSwKICAgICAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgInR5cGUiOiAidGV4dCIsCiAgICAgICAgICAgICAgICAidGV4dCI6ICJNUzY1IGxvY2FsIOaXpeacrOiqniIKICAgICAgICAgICAgICB9CiAgICAgICAgICAgIF0KICAgICAgICAgIH0sCiAgICAgICAgICB7CiAgICAgICAgICAgICJ0eXBlIjogInBhcmFncmFwaCIKICAgICAgICAgIH0KICAgICAgICBdCiAgICAgIH0sCiAgICAgICJmcmFnbWVudCI6ICI8aGVhZGluZyBsZXZlbD1cIjJcIj5NUzY1IGxvY2FsIOaXpeacrOiqnjwvaGVhZGluZz48cGFyYWdyYXBoPjwvcGFyYWdyYXBoPiIsCiAgICAgICJzZWxlY3Rpb24iOiB7CiAgICAgICAgImZyb20iOiAxNSwKICAgICAgICAidG8iOiAxNSwKICAgICAgICAicGFyZW50IjogIk1TNjUgbG9jYWwg5pel5pys6KqeIiwKICAgICAgICAib2Zmc2V0IjogMTQsCiAgICAgICAgInNpemUiOiAxNAogICAgICB9LAogICAgICAicGVuZGluZyI6IDAKICAgIH0sCiAgICB7CiAgICAgICJwYWdlSWQiOiAiY2VlZGJjNGItMDA3MC00NDkwLTljNDUtYmJhYWUzYWJmMWQwIiwKICAgICAgImNsaWVudElkIjogImQzMjQyMzMwLTg3YTEtNGQ3NC1hNDAxLWI5YTEzZTIwYjM4MCIsCiAgICAgICJzdGF0ZVZlY3RvciI6IFsKICAgICAgICAyLAogICAgICAgIDIyOSwKICAgICAgICAxOTQsCiAgICAgICAgMTU4LAogICAgICAgIDE4OSwKICAgICAgICA5LAogICAgICAgIDIxLAogICAgICAgIDEsCiAgICAgICAgMQogICAgICBdLAogICAgICAiY2xvY2tzIjogWwogICAgICAgIFsKICAgICAgICAgIDEsCiAgICAgICAgICAxCiAgICAgICAgXSwKICAgICAgICBbCiAgICAgICAgICAyNTQ0MzQ1NDQ1LAogICAgICAgICAgMjEKICAgICAgICBdCiAgICAgIF0sCiAgICAgICJqc29uIjogewogICAgICAgICJ0eXBlIjogImRvYyIsCiAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJ0eXBlIjogImhlYWRpbmciLAogICAgICAgICAgICAiYXR0cnMiOiB7CiAgICAgICAgICAgICAgImxldmVsIjogMgogICAgICAgICAgICB9LAogICAgICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAidHlwZSI6ICJ0ZXh0IiwKICAgICAgICAgICAgICAgICJ0ZXh0IjogIk1TNjUgbG9jYWwg5pel5pys6KqeIgogICAgICAgICAgICAgIH0KICAgICAgICAgICAgXQogICAgICAgICAgfSwKICAgICAgICAgIHsKICAgICAgICAgICAgInR5cGUiOiAicGFyYWdyYXBoIgogICAgICAgICAgfQogICAgICAgIF0KICAgICAgfSwKICAgICAgImZyYWdtZW50IjogIjxoZWFkaW5nIGxldmVsPVwiMlwiPk1TNjUgbG9jYWwg5pel5pys6KqePC9oZWFkaW5nPjxwYXJhZ3JhcGg+PC9wYXJhZ3JhcGg+IiwKICAgICAgInNlbGVjdGlvbiI6IHsKICAgICAgICAiZnJvbSI6IDE3LAogICAgICAgICJ0byI6IDE3LAogICAgICAgICJwYXJlbnQiOiAiIiwKICAgICAgICAib2Zmc2V0IjogMCwKICAgICAgICAic2l6ZSI6IDAKICAgICAgfSwKICAgICAgInBlbmRpbmciOiAwCiAgICB9CiAgXQp9"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-62fd6--Undo-excludes-remote-edits-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-62fd6--Undo-excludes-remote-edits-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/tests/e2e/focus-reconnect.spec.ts",
+                    "column": 63,
+                    "line": 54
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1ee54b9dfd74ae1014af-9722cc4b27d471f8c221",
+          "file": "focus-reconnect.spec.ts",
+          "line": 32,
+          "column": 3
+        },
+        {
+          "title": "STEP8-FOCUS-heading-backward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 11260,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"日本語\"\u001b[39m\nReceived: \u001b[31m\"65 \"\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"日本語\"\u001b[39m\nReceived: \u001b[31m\"65 \"\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n    at /workspace/tests/e2e/focus-reconnect.spec.ts:54:63",
+                    "location": {
+                      "file": "/workspace/tests/e2e/focus-reconnect.spec.ts",
+                      "column": 63,
+                      "line": 54
+                    },
+                    "snippet": "  52 |       for(let i=1;i<=3;i++){await b.keyboard.type(`R${i} `);await b.keyboard.press('Home');await expect(body(a).locator(layout.selector)).toHaveText(`${Array.from({length:i},(_,j)=>`R${i-j} `).join('')}MS65 local 日本語`);}\n  53 |       await a.bringToFront();await body(a).focus();await expect(body(a)).toBeFocused();\n> 54 |       await expect.poll(async()=> (await selection(a))?.text).toBe('日本語');\n     |                                                               ^\n  55 |       const restored=await selection(a);expect(restored!.anchor-before!.anchor).toBe(9);expect(restored!.focus-before!.focus).toBe(9);\n  56 |       expect(restored!.anchor<restored!.focus).toBe(direction==='forward');\n  57 |       const pm=(await snapshot(a)).selection;expect(pm.to-pm.from).toBe(3);"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/tests/e2e/focus-reconnect.spec.ts",
+                        "column": 63,
+                        "line": 54
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"日本語\"\u001b[39m\nReceived: \u001b[31m\"65 \"\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n\n  52 |       for(let i=1;i<=3;i++){await b.keyboard.type(`R${i} `);await b.keyboard.press('Home');await expect(body(a).locator(layout.selector)).toHaveText(`${Array.from({length:i},(_,j)=>`R${i-j} `).join('')}MS65 local 日本語`);}\n  53 |       await a.bringToFront();await body(a).focus();await expect(body(a)).toBeFocused();\n> 54 |       await expect.poll(async()=> (await selection(a))?.text).toBe('日本語');\n     |                                                               ^\n  55 |       const restored=await selection(a);expect(restored!.anchor-before!.anchor).toBe(9);expect(restored!.focus-before!.focus).toBe(9);\n  56 |       expect(restored!.anchor<restored!.focus).toBe(direction==='forward');\n  57 |       const pm=(await snapshot(a)).selection;expect(pm.to-pm.from).toBe(3);\n    at /workspace/tests/e2e/focus-reconnect.spec.ts:54:63"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-03T00:16:45.134Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "seed",
+                      "contentType": "application/json",
+                      "body": "ewogICJhdCI6ICIyMDI2LTEwLTAzVDAwOjE2OjQ4LjY0M1oiLAogICJjbGllbnRzIjogWwogICAgewogICAgICAicGFnZUlkIjogIjE5MjAzN2U2LWJmOTctNGY5Mi04MTlkLWFkYjU3NTMxOGY5YiIsCiAgICAgICJjbGllbnRJZCI6ICI5Y2Q4ZDQ0Mi05YjQ4LTRmZjMtYjMzYS04ZWIyY2E4NzY4NTQiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMiwKICAgICAgICAyMTUsCiAgICAgICAgMjA1LAogICAgICAgIDI0OSwKICAgICAgICAxNDgsCiAgICAgICAgNCwKICAgICAgICAyMSwKICAgICAgICAxLAogICAgICAgIDEKICAgICAgXSwKICAgICAgImNsb2NrcyI6IFsKICAgICAgICBbCiAgICAgICAgICAxLAogICAgICAgICAgMQogICAgICAgIF0sCiAgICAgICAgWwogICAgICAgICAgMTExNzY3NzI3MSwKICAgICAgICAgIDIxCiAgICAgICAgXQogICAgICBdLAogICAgICAianNvbiI6IHsKICAgICAgICAidHlwZSI6ICJkb2MiLAogICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgewogICAgICAgICAgICAidHlwZSI6ICJoZWFkaW5nIiwKICAgICAgICAgICAgImF0dHJzIjogewogICAgICAgICAgICAgICJsZXZlbCI6IDIKICAgICAgICAgICAgfSwKICAgICAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgInR5cGUiOiAidGV4dCIsCiAgICAgICAgICAgICAgICAidGV4dCI6ICJNUzY1IGxvY2FsIOaXpeacrOiqniIKICAgICAgICAgICAgICB9CiAgICAgICAgICAgIF0KICAgICAgICAgIH0sCiAgICAgICAgICB7CiAgICAgICAgICAgICJ0eXBlIjogInBhcmFncmFwaCIKICAgICAgICAgIH0KICAgICAgICBdCiAgICAgIH0sCiAgICAgICJmcmFnbWVudCI6ICI8aGVhZGluZyBsZXZlbD1cIjJcIj5NUzY1IGxvY2FsIOaXpeacrOiqnjwvaGVhZGluZz48cGFyYWdyYXBoPjwvcGFyYWdyYXBoPiIsCiAgICAgICJzZWxlY3Rpb24iOiB7CiAgICAgICAgImZyb20iOiAxNSwKICAgICAgICAidG8iOiAxNSwKICAgICAgICAicGFyZW50IjogIk1TNjUgbG9jYWwg5pel5pys6KqeIiwKICAgICAgICAib2Zmc2V0IjogMTQsCiAgICAgICAgInNpemUiOiAxNAogICAgICB9LAogICAgICAicGVuZGluZyI6IDAKICAgIH0sCiAgICB7CiAgICAgICJwYWdlSWQiOiAiMTkyMDM3ZTYtYmY5Ny00ZjkyLTgxOWQtYWRiNTc1MzE4ZjliIiwKICAgICAgImNsaWVudElkIjogImFkZGIxZDI4LTYwMmMtNGU5ZS1iNTQ4LWQ2OWE0MDM5NDdmZiIsCiAgICAgICJzdGF0ZVZlY3RvciI6IFsKICAgICAgICAyLAogICAgICAgIDIxNSwKICAgICAgICAyMDUsCiAgICAgICAgMjQ5LAogICAgICAgIDE0OCwKICAgICAgICA0LAogICAgICAgIDIxLAogICAgICAgIDEsCiAgICAgICAgMQogICAgICBdLAogICAgICAiY2xvY2tzIjogWwogICAgICAgIFsKICAgICAgICAgIDEsCiAgICAgICAgICAxCiAgICAgICAgXSwKICAgICAgICBbCiAgICAgICAgICAxMTE3Njc3MjcxLAogICAgICAgICAgMjEKICAgICAgICBdCiAgICAgIF0sCiAgICAgICJqc29uIjogewogICAgICAgICJ0eXBlIjogImRvYyIsCiAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJ0eXBlIjogImhlYWRpbmciLAogICAgICAgICAgICAiYXR0cnMiOiB7CiAgICAgICAgICAgICAgImxldmVsIjogMgogICAgICAgICAgICB9LAogICAgICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAidHlwZSI6ICJ0ZXh0IiwKICAgICAgICAgICAgICAgICJ0ZXh0IjogIk1TNjUgbG9jYWwg5pel5pys6KqeIgogICAgICAgICAgICAgIH0KICAgICAgICAgICAgXQogICAgICAgICAgfSwKICAgICAgICAgIHsKICAgICAgICAgICAgInR5cGUiOiAicGFyYWdyYXBoIgogICAgICAgICAgfQogICAgICAgIF0KICAgICAgfSwKICAgICAgImZyYWdtZW50IjogIjxoZWFkaW5nIGxldmVsPVwiMlwiPk1TNjUgbG9jYWwg5pel5pys6KqePC9oZWFkaW5nPjxwYXJhZ3JhcGg+PC9wYXJhZ3JhcGg+IiwKICAgICAgInNlbGVjdGlvbiI6IHsKICAgICAgICAiZnJvbSI6IDE3LAogICAgICAgICJ0byI6IDE3LAogICAgICAgICJwYXJlbnQiOiAiIiwKICAgICAgICAib2Zmc2V0IjogMCwKICAgICAgICAic2l6ZSI6IDAKICAgICAgfSwKICAgICAgInBlbmRpbmciOiAwCiAgICB9CiAgXQp9"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-23167--Undo-excludes-remote-edits-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-23167--Undo-excludes-remote-edits-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/tests/e2e/focus-reconnect.spec.ts",
+                    "column": 63,
+                    "line": 54
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1ee54b9dfd74ae1014af-ffbafc0c442d1ca530c3",
+          "file": "focus-reconnect.spec.ts",
+          "line": 32,
+          "column": 3
+        },
+        {
+          "title": "STEP8-FOCUS-todo-forward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 6032,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m9\u001b[39m\nReceived: \u001b[31m18\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m9\u001b[39m\nReceived: \u001b[31m18\u001b[39m\n    at /workspace/tests/e2e/focus-reconnect.spec.ts:55:81",
+                    "location": {
+                      "file": "/workspace/tests/e2e/focus-reconnect.spec.ts",
+                      "column": 81,
+                      "line": 55
+                    },
+                    "snippet": "  53 |       await a.bringToFront();await body(a).focus();await expect(body(a)).toBeFocused();\n  54 |       await expect.poll(async()=> (await selection(a))?.text).toBe('日本語');\n> 55 |       const restored=await selection(a);expect(restored!.anchor-before!.anchor).toBe(9);expect(restored!.focus-before!.focus).toBe(9);\n     |                                                                                 ^\n  56 |       expect(restored!.anchor<restored!.focus).toBe(direction==='forward');\n  57 |       const pm=(await snapshot(a)).selection;expect(pm.to-pm.from).toBe(3);\n  58 |       await info.attach('selection-after-focus-and-remote',{body:JSON.stringify({before,restored,pm},null,2),contentType:'application/json'});"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/tests/e2e/focus-reconnect.spec.ts",
+                        "column": 81,
+                        "line": 55
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m9\u001b[39m\nReceived: \u001b[31m18\u001b[39m\n\n  53 |       await a.bringToFront();await body(a).focus();await expect(body(a)).toBeFocused();\n  54 |       await expect.poll(async()=> (await selection(a))?.text).toBe('日本語');\n> 55 |       const restored=await selection(a);expect(restored!.anchor-before!.anchor).toBe(9);expect(restored!.focus-before!.focus).toBe(9);\n     |                                                                                 ^\n  56 |       expect(restored!.anchor<restored!.focus).toBe(direction==='forward');\n  57 |       const pm=(await snapshot(a)).selection;expect(pm.to-pm.from).toBe(3);\n  58 |       await info.attach('selection-after-focus-and-remote',{body:JSON.stringify({before,restored,pm},null,2),contentType:'application/json'});\n    at /workspace/tests/e2e/focus-reconnect.spec.ts:55:81"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-03T00:16:57.700Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "seed",
+                      "contentType": "application/json",
+                      "body": "ewogICJhdCI6ICIyMDI2LTEwLTAzVDAwOjE3OjAwLjcxMloiLAogICJjbGllbnRzIjogWwogICAgewogICAgICAicGFnZUlkIjogIjI3ZTAyMDQyLTgxYTYtNGEzZS05OWNjLTkwNTYyMzMyMTkzNCIsCiAgICAgICJjbGllbnRJZCI6ICIxYTU4MjFjNS02ZjUwLTQ3YzYtODExYS1mOTlkYWUyYzU3ODMiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMiwKICAgICAgICAxODQsCiAgICAgICAgMTg1LAogICAgICAgIDE1MSwKICAgICAgICAyMjEsCiAgICAgICAgOSwKICAgICAgICAyNSwKICAgICAgICAxLAogICAgICAgIDEKICAgICAgXSwKICAgICAgImNsb2NrcyI6IFsKICAgICAgICBbCiAgICAgICAgICAxLAogICAgICAgICAgMQogICAgICAgIF0sCiAgICAgICAgWwogICAgICAgICAgMjYxMTMzODQyNCwKICAgICAgICAgIDI1CiAgICAgICAgXQogICAgICBdLAogICAgICAianNvbiI6IHsKICAgICAgICAidHlwZSI6ICJkb2MiLAogICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgewogICAgICAgICAgICAidHlwZSI6ICJ0YXNrTGlzdCIsCiAgICAgICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJ0eXBlIjogInRhc2tJdGVtIiwKICAgICAgICAgICAgICAgICJhdHRycyI6IHsKICAgICAgICAgICAgICAgICAgImNoZWNrZWQiOiBmYWxzZQogICAgICAgICAgICAgICAgfSwKICAgICAgICAgICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAgICAgInR5cGUiOiAicGFyYWdyYXBoIiwKICAgICAgICAgICAgICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICAgICAgICAgInR5cGUiOiAidGV4dCIsCiAgICAgICAgICAgICAgICAgICAgICAgICJ0ZXh0IjogIk1TNjUgbG9jYWwg5pel5pys6KqeIgogICAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgICAgIF0KICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgXQogICAgICAgICAgICAgIH0KICAgICAgICAgICAgXQogICAgICAgICAgfSwKICAgICAgICAgIHsKICAgICAgICAgICAgInR5cGUiOiAicGFyYWdyYXBoIgogICAgICAgICAgfQogICAgICAgIF0KICAgICAgfSwKICAgICAgImZyYWdtZW50IjogIjx0YXNrbGlzdD48dGFza2l0ZW0gY2hlY2tlZD1cImZhbHNlXCI+PHBhcmFncmFwaD5NUzY1IGxvY2FsIOaXpeacrOiqnjwvcGFyYWdyYXBoPjwvdGFza2l0ZW0+PC90YXNrbGlzdD48cGFyYWdyYXBoPjwvcGFyYWdyYXBoPiIsCiAgICAgICJzZWxlY3Rpb24iOiB7CiAgICAgICAgImZyb20iOiAxNywKICAgICAgICAidG8iOiAxNywKICAgICAgICAicGFyZW50IjogIk1TNjUgbG9jYWwg5pel5pys6KqeIiwKICAgICAgICAib2Zmc2V0IjogMTQsCiAgICAgICAgInNpemUiOiAxNAogICAgICB9LAogICAgICAicGVuZGluZyI6IDAKICAgIH0sCiAgICB7CiAgICAgICJwYWdlSWQiOiAiMjdlMDIwNDItODFhNi00YTNlLTk5Y2MtOTA1NjIzMzIxOTM0IiwKICAgICAgImNsaWVudElkIjogIjMxOWZkMDgxLWFhNDEtNGU4OS04N2ZmLTk4ZWE0NzYzODg4NyIsCiAgICAgICJzdGF0ZVZlY3RvciI6IFsKICAgICAgICAyLAogICAgICAgIDE4NCwKICAgICAgICAxODUsCiAgICAgICAgMTUxLAogICAgICAgIDIyMSwKICAgICAgICA5LAogICAgICAgIDI1LAogICAgICAgIDEsCiAgICAgICAgMQogICAgICBdLAogICAgICAiY2xvY2tzIjogWwogICAgICAgIFsKICAgICAgICAgIDEsCiAgICAgICAgICAxCiAgICAgICAgXSwKICAgICAgICBbCiAgICAgICAgICAyNjExMzM4NDI0LAogICAgICAgICAgMjUKICAgICAgICBdCiAgICAgIF0sCiAgICAgICJqc29uIjogewogICAgICAgICJ0eXBlIjogImRvYyIsCiAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJ0eXBlIjogInRhc2tMaXN0IiwKICAgICAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgInR5cGUiOiAidGFza0l0ZW0iLAogICAgICAgICAgICAgICAgImF0dHJzIjogewogICAgICAgICAgICAgICAgICAiY2hlY2tlZCI6IGZhbHNlCiAgICAgICAgICAgICAgICB9LAogICAgICAgICAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICAgICAidHlwZSI6ICJwYXJhZ3JhcGgiLAogICAgICAgICAgICAgICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgICAgICAgICAidHlwZSI6ICJ0ZXh0IiwKICAgICAgICAgICAgICAgICAgICAgICAgInRleHQiOiAiTVM2NSBsb2NhbCDml6XmnKzoqp4iCiAgICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAgICAgXQogICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICBdCiAgICAgICAgICAgICAgfQogICAgICAgICAgICBdCiAgICAgICAgICB9LAogICAgICAgICAgewogICAgICAgICAgICAidHlwZSI6ICJwYXJhZ3JhcGgiCiAgICAgICAgICB9CiAgICAgICAgXQogICAgICB9LAogICAgICAiZnJhZ21lbnQiOiAiPHRhc2tsaXN0Pjx0YXNraXRlbSBjaGVja2VkPVwiZmFsc2VcIj48cGFyYWdyYXBoPk1TNjUgbG9jYWwg5pel5pys6KqePC9wYXJhZ3JhcGg+PC90YXNraXRlbT48L3Rhc2tsaXN0PjxwYXJhZ3JhcGg+PC9wYXJhZ3JhcGg+IiwKICAgICAgInNlbGVjdGlvbiI6IHsKICAgICAgICAiZnJvbSI6IDIxLAogICAgICAgICJ0byI6IDIxLAogICAgICAgICJwYXJlbnQiOiAiIiwKICAgICAgICAib2Zmc2V0IjogMCwKICAgICAgICAic2l6ZSI6IDAKICAgICAgfSwKICAgICAgInBlbmRpbmciOiAwCiAgICB9CiAgXQp9"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-b2fec--Undo-excludes-remote-edits-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-b2fec--Undo-excludes-remote-edits-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/tests/e2e/focus-reconnect.spec.ts",
+                    "column": 81,
+                    "line": 55
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1ee54b9dfd74ae1014af-bd269da7c65f0dace1de",
+          "file": "focus-reconnect.spec.ts",
+          "line": 32,
+          "column": 3
+        },
+        {
+          "title": "STEP8-FOCUS-todo-backward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 3,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 6653,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m9\u001b[39m\nReceived: \u001b[31m18\u001b[39m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m9\u001b[39m\nReceived: \u001b[31m18\u001b[39m\n    at /workspace/tests/e2e/focus-reconnect.spec.ts:55:81",
+                    "location": {
+                      "file": "/workspace/tests/e2e/focus-reconnect.spec.ts",
+                      "column": 81,
+                      "line": 55
+                    },
+                    "snippet": "  53 |       await a.bringToFront();await body(a).focus();await expect(body(a)).toBeFocused();\n  54 |       await expect.poll(async()=> (await selection(a))?.text).toBe('日本語');\n> 55 |       const restored=await selection(a);expect(restored!.anchor-before!.anchor).toBe(9);expect(restored!.focus-before!.focus).toBe(9);\n     |                                                                                 ^\n  56 |       expect(restored!.anchor<restored!.focus).toBe(direction==='forward');\n  57 |       const pm=(await snapshot(a)).selection;expect(pm.to-pm.from).toBe(3);\n  58 |       await info.attach('selection-after-focus-and-remote',{body:JSON.stringify({before,restored,pm},null,2),contentType:'application/json'});"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/tests/e2e/focus-reconnect.spec.ts",
+                        "column": 81,
+                        "line": 55
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m9\u001b[39m\nReceived: \u001b[31m18\u001b[39m\n\n  53 |       await a.bringToFront();await body(a).focus();await expect(body(a)).toBeFocused();\n  54 |       await expect.poll(async()=> (await selection(a))?.text).toBe('日本語');\n> 55 |       const restored=await selection(a);expect(restored!.anchor-before!.anchor).toBe(9);expect(restored!.focus-before!.focus).toBe(9);\n     |                                                                                 ^\n  56 |       expect(restored!.anchor<restored!.focus).toBe(direction==='forward');\n  57 |       const pm=(await snapshot(a)).selection;expect(pm.to-pm.from).toBe(3);\n  58 |       await info.attach('selection-after-focus-and-remote',{body:JSON.stringify({before,restored,pm},null,2),contentType:'application/json'});\n    at /workspace/tests/e2e/focus-reconnect.spec.ts:55:81"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-03T00:17:05.007Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "seed",
+                      "contentType": "application/json",
+                      "body": "ewogICJhdCI6ICIyMDI2LTEwLTAzVDAwOjE3OjA4LjIyMloiLAogICJjbGllbnRzIjogWwogICAgewogICAgICAicGFnZUlkIjogImFmNWFiMWZkLWFmMzMtNGJmMS05OTAyLWQ0Mzk1MDNkNDAwMiIsCiAgICAgICJjbGllbnRJZCI6ICIzNTlmYjMzNC00NWVmLTQxYzYtYjE2ZS1jNDI3NDdjOGUxZGIiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMiwKICAgICAgICAxODYsCiAgICAgICAgMjIyLAogICAgICAgIDI1MiwKICAgICAgICAxOTgsCiAgICAgICAgNywKICAgICAgICAyNSwKICAgICAgICAxLAogICAgICAgIDEKICAgICAgXSwKICAgICAgImNsb2NrcyI6IFsKICAgICAgICBbCiAgICAgICAgICAxLAogICAgICAgICAgMQogICAgICAgIF0sCiAgICAgICAgWwogICAgICAgICAgMjAyNzg5MjUzOCwKICAgICAgICAgIDI1CiAgICAgICAgXQogICAgICBdLAogICAgICAianNvbiI6IHsKICAgICAgICAidHlwZSI6ICJkb2MiLAogICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgewogICAgICAgICAgICAidHlwZSI6ICJ0YXNrTGlzdCIsCiAgICAgICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJ0eXBlIjogInRhc2tJdGVtIiwKICAgICAgICAgICAgICAgICJhdHRycyI6IHsKICAgICAgICAgICAgICAgICAgImNoZWNrZWQiOiBmYWxzZQogICAgICAgICAgICAgICAgfSwKICAgICAgICAgICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAgICAgInR5cGUiOiAicGFyYWdyYXBoIiwKICAgICAgICAgICAgICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICAgICAgICAgInR5cGUiOiAidGV4dCIsCiAgICAgICAgICAgICAgICAgICAgICAgICJ0ZXh0IjogIk1TNjUgbG9jYWwg5pel5pys6KqeIgogICAgICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgICAgIF0KICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgXQogICAgICAgICAgICAgIH0KICAgICAgICAgICAgXQogICAgICAgICAgfSwKICAgICAgICAgIHsKICAgICAgICAgICAgInR5cGUiOiAicGFyYWdyYXBoIgogICAgICAgICAgfQogICAgICAgIF0KICAgICAgfSwKICAgICAgImZyYWdtZW50IjogIjx0YXNrbGlzdD48dGFza2l0ZW0gY2hlY2tlZD1cImZhbHNlXCI+PHBhcmFncmFwaD5NUzY1IGxvY2FsIOaXpeacrOiqnjwvcGFyYWdyYXBoPjwvdGFza2l0ZW0+PC90YXNrbGlzdD48cGFyYWdyYXBoPjwvcGFyYWdyYXBoPiIsCiAgICAgICJzZWxlY3Rpb24iOiB7CiAgICAgICAgImZyb20iOiAxNywKICAgICAgICAidG8iOiAxNywKICAgICAgICAicGFyZW50IjogIk1TNjUgbG9jYWwg5pel5pys6KqeIiwKICAgICAgICAib2Zmc2V0IjogMTQsCiAgICAgICAgInNpemUiOiAxNAogICAgICB9LAogICAgICAicGVuZGluZyI6IDAKICAgIH0sCiAgICB7CiAgICAgICJwYWdlSWQiOiAiYWY1YWIxZmQtYWYzMy00YmYxLTk5MDItZDQzOTUwM2Q0MDAyIiwKICAgICAgImNsaWVudElkIjogIjZjNzM4NzdlLTMzNDQtNGIwNC04YzM2LTI4NTkxZDNjYjhiZCIsCiAgICAgICJzdGF0ZVZlY3RvciI6IFsKICAgICAgICAyLAogICAgICAgIDE4NiwKICAgICAgICAyMjIsCiAgICAgICAgMjUyLAogICAgICAgIDE5OCwKICAgICAgICA3LAogICAgICAgIDI1LAogICAgICAgIDEsCiAgICAgICAgMQogICAgICBdLAogICAgICAiY2xvY2tzIjogWwogICAgICAgIFsKICAgICAgICAgIDEsCiAgICAgICAgICAxCiAgICAgICAgXSwKICAgICAgICBbCiAgICAgICAgICAyMDI3ODkyNTM4LAogICAgICAgICAgMjUKICAgICAgICBdCiAgICAgIF0sCiAgICAgICJqc29uIjogewogICAgICAgICJ0eXBlIjogImRvYyIsCiAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJ0eXBlIjogInRhc2tMaXN0IiwKICAgICAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgInR5cGUiOiAidGFza0l0ZW0iLAogICAgICAgICAgICAgICAgImF0dHJzIjogewogICAgICAgICAgICAgICAgICAiY2hlY2tlZCI6IGZhbHNlCiAgICAgICAgICAgICAgICB9LAogICAgICAgICAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICAgICAidHlwZSI6ICJwYXJhZ3JhcGgiLAogICAgICAgICAgICAgICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgICAgICAgICAidHlwZSI6ICJ0ZXh0IiwKICAgICAgICAgICAgICAgICAgICAgICAgInRleHQiOiAiTVM2NSBsb2NhbCDml6XmnKzoqp4iCiAgICAgICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICAgICAgXQogICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICBdCiAgICAgICAgICAgICAgfQogICAgICAgICAgICBdCiAgICAgICAgICB9LAogICAgICAgICAgewogICAgICAgICAgICAidHlwZSI6ICJwYXJhZ3JhcGgiCiAgICAgICAgICB9CiAgICAgICAgXQogICAgICB9LAogICAgICAiZnJhZ21lbnQiOiAiPHRhc2tsaXN0Pjx0YXNraXRlbSBjaGVja2VkPVwiZmFsc2VcIj48cGFyYWdyYXBoPk1TNjUgbG9jYWwg5pel5pys6KqePC9wYXJhZ3JhcGg+PC90YXNraXRlbT48L3Rhc2tsaXN0PjxwYXJhZ3JhcGg+PC9wYXJhZ3JhcGg+IiwKICAgICAgInNlbGVjdGlvbiI6IHsKICAgICAgICAiZnJvbSI6IDIxLAogICAgICAgICJ0byI6IDIxLAogICAgICAgICJwYXJlbnQiOiAiIiwKICAgICAgICAib2Zmc2V0IjogMCwKICAgICAgICAic2l6ZSI6IDAKICAgICAgfSwKICAgICAgInBlbmRpbmciOiAwCiAgICB9CiAgXQp9"
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-c9605--Undo-excludes-remote-edits-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-c9605--Undo-excludes-remote-edits-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/tests/e2e/focus-reconnect.spec.ts",
+                    "column": 81,
+                    "line": 55
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1ee54b9dfd74ae1014af-daac253ac10671e1db19",
+          "file": "focus-reconnect.spec.ts",
+          "line": 32,
+          "column": 3
+        },
+        {
+          "title": "STEP8-FOCUS-toggle-forward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 11349,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"日本語\"\u001b[39m\nReceived: \u001b[31m\"65 \"\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"日本語\"\u001b[39m\nReceived: \u001b[31m\"65 \"\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n    at /workspace/tests/e2e/focus-reconnect.spec.ts:54:63",
+                    "location": {
+                      "file": "/workspace/tests/e2e/focus-reconnect.spec.ts",
+                      "column": 63,
+                      "line": 54
+                    },
+                    "snippet": "  52 |       for(let i=1;i<=3;i++){await b.keyboard.type(`R${i} `);await b.keyboard.press('Home');await expect(body(a).locator(layout.selector)).toHaveText(`${Array.from({length:i},(_,j)=>`R${i-j} `).join('')}MS65 local 日本語`);}\n  53 |       await a.bringToFront();await body(a).focus();await expect(body(a)).toBeFocused();\n> 54 |       await expect.poll(async()=> (await selection(a))?.text).toBe('日本語');\n     |                                                               ^\n  55 |       const restored=await selection(a);expect(restored!.anchor-before!.anchor).toBe(9);expect(restored!.focus-before!.focus).toBe(9);\n  56 |       expect(restored!.anchor<restored!.focus).toBe(direction==='forward');\n  57 |       const pm=(await snapshot(a)).selection;expect(pm.to-pm.from).toBe(3);"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/tests/e2e/focus-reconnect.spec.ts",
+                        "column": 63,
+                        "line": 54
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"日本語\"\u001b[39m\nReceived: \u001b[31m\"65 \"\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n\n  52 |       for(let i=1;i<=3;i++){await b.keyboard.type(`R${i} `);await b.keyboard.press('Home');await expect(body(a).locator(layout.selector)).toHaveText(`${Array.from({length:i},(_,j)=>`R${i-j} `).join('')}MS65 local 日本語`);}\n  53 |       await a.bringToFront();await body(a).focus();await expect(body(a)).toBeFocused();\n> 54 |       await expect.poll(async()=> (await selection(a))?.text).toBe('日本語');\n     |                                                               ^\n  55 |       const restored=await selection(a);expect(restored!.anchor-before!.anchor).toBe(9);expect(restored!.focus-before!.focus).toBe(9);\n  56 |       expect(restored!.anchor<restored!.focus).toBe(direction==='forward');\n  57 |       const pm=(await snapshot(a)).selection;expect(pm.to-pm.from).toBe(3);\n    at /workspace/tests/e2e/focus-reconnect.spec.ts:54:63"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-03T00:17:12.927Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "seed",
+                      "contentType": "application/json",
+                      "body": "ewogICJhdCI6ICIyMDI2LTEwLTAzVDAwOjE3OjE2LjYxOFoiLAogICJjbGllbnRzIjogWwogICAgewogICAgICAicGFnZUlkIjogImU3NzBmZDE1LWZlZjktNGE1My1hNDIzLWQ3M2Y2ZWViNzEwMCIsCiAgICAgICJjbGllbnRJZCI6ICI4ZTcyZThkZi0wYzk2LTQxYjktYTkwYi1mYWU4ZDM0NWFkMmYiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMiwKICAgICAgICAxOTYsCiAgICAgICAgMjI1LAogICAgICAgIDEyOSwKICAgICAgICAxMzUsCiAgICAgICAgMiwKICAgICAgICAyOCwKICAgICAgICAxLAogICAgICAgIDEKICAgICAgXSwKICAgICAgImNsb2NrcyI6IFsKICAgICAgICBbCiAgICAgICAgICAxLAogICAgICAgICAgMQogICAgICAgIF0sCiAgICAgICAgWwogICAgICAgICAgNTUxNTc5ODQ0LAogICAgICAgICAgMjgKICAgICAgICBdCiAgICAgIF0sCiAgICAgICJqc29uIjogewogICAgICAgICJ0eXBlIjogImRvYyIsCiAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJ0eXBlIjogImRldGFpbHMiLAogICAgICAgICAgICAiYXR0cnMiOiB7CiAgICAgICAgICAgICAgIm9wZW4iOiB0cnVlCiAgICAgICAgICAgIH0sCiAgICAgICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJ0eXBlIjogImRldGFpbHNTdW1tYXJ5IiwKICAgICAgICAgICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAgICAgInR5cGUiOiAidGV4dCIsCiAgICAgICAgICAgICAgICAgICAgInRleHQiOiAiTVM2NSBsb2NhbCDml6XmnKzoqp4iCiAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIF0KICAgICAgICAgICAgICB9LAogICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJ0eXBlIjogImRldGFpbHNDb250ZW50IiwKICAgICAgICAgICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAgICAgInR5cGUiOiAicGFyYWdyYXBoIgogICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICBdCiAgICAgICAgICAgICAgfQogICAgICAgICAgICBdCiAgICAgICAgICB9LAogICAgICAgICAgewogICAgICAgICAgICAidHlwZSI6ICJwYXJhZ3JhcGgiCiAgICAgICAgICB9CiAgICAgICAgXQogICAgICB9LAogICAgICAiZnJhZ21lbnQiOiAiPGRldGFpbHMgb3Blbj1cInRydWVcIj48ZGV0YWlsc3N1bW1hcnk+TVM2NSBsb2NhbCDml6XmnKzoqp48L2RldGFpbHNzdW1tYXJ5PjxkZXRhaWxzY29udGVudD48cGFyYWdyYXBoPjwvcGFyYWdyYXBoPjwvZGV0YWlsc2NvbnRlbnQ+PC9kZXRhaWxzPjxwYXJhZ3JhcGg+PC9wYXJhZ3JhcGg+IiwKICAgICAgInNlbGVjdGlvbiI6IHsKICAgICAgICAiZnJvbSI6IDE2LAogICAgICAgICJ0byI6IDE2LAogICAgICAgICJwYXJlbnQiOiAiTVM2NSBsb2NhbCDml6XmnKzoqp4iLAogICAgICAgICJvZmZzZXQiOiAxNCwKICAgICAgICAic2l6ZSI6IDE0CiAgICAgIH0sCiAgICAgICJwZW5kaW5nIjogMAogICAgfSwKICAgIHsKICAgICAgInBhZ2VJZCI6ICJlNzcwZmQxNS1mZWY5LTRhNTMtYTQyMy1kNzNmNmVlYjcxMDAiLAogICAgICAiY2xpZW50SWQiOiAiZTY5NGQ0ZjctZTliNC00NWNmLTk0YjYtN2UxNWQ4MGYzNmQyIiwKICAgICAgInN0YXRlVmVjdG9yIjogWwogICAgICAgIDIsCiAgICAgICAgMTk2LAogICAgICAgIDIyNSwKICAgICAgICAxMjksCiAgICAgICAgMTM1LAogICAgICAgIDIsCiAgICAgICAgMjgsCiAgICAgICAgMSwKICAgICAgICAxCiAgICAgIF0sCiAgICAgICJjbG9ja3MiOiBbCiAgICAgICAgWwogICAgICAgICAgMSwKICAgICAgICAgIDEKICAgICAgICBdLAogICAgICAgIFsKICAgICAgICAgIDU1MTU3OTg0NCwKICAgICAgICAgIDI4CiAgICAgICAgXQogICAgICBdLAogICAgICAianNvbiI6IHsKICAgICAgICAidHlwZSI6ICJkb2MiLAogICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgewogICAgICAgICAgICAidHlwZSI6ICJkZXRhaWxzIiwKICAgICAgICAgICAgImF0dHJzIjogewogICAgICAgICAgICAgICJvcGVuIjogdHJ1ZQogICAgICAgICAgICB9LAogICAgICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAidHlwZSI6ICJkZXRhaWxzU3VtbWFyeSIsCiAgICAgICAgICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgICAgICJ0eXBlIjogInRleHQiLAogICAgICAgICAgICAgICAgICAgICJ0ZXh0IjogIk1TNjUgbG9jYWwg5pel5pys6KqeIgogICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICBdCiAgICAgICAgICAgICAgfSwKICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAidHlwZSI6ICJkZXRhaWxzQ29udGVudCIsCiAgICAgICAgICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgICAgICJ0eXBlIjogInBhcmFncmFwaCIKICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgXQogICAgICAgICAgICAgIH0KICAgICAgICAgICAgXQogICAgICAgICAgfSwKICAgICAgICAgIHsKICAgICAgICAgICAgInR5cGUiOiAicGFyYWdyYXBoIgogICAgICAgICAgfQogICAgICAgIF0KICAgICAgfSwKICAgICAgImZyYWdtZW50IjogIjxkZXRhaWxzIG9wZW49XCJ0cnVlXCI+PGRldGFpbHNzdW1tYXJ5Pk1TNjUgbG9jYWwg5pel5pys6KqePC9kZXRhaWxzc3VtbWFyeT48ZGV0YWlsc2NvbnRlbnQ+PHBhcmFncmFwaD48L3BhcmFncmFwaD48L2RldGFpbHNjb250ZW50PjwvZGV0YWlscz48cGFyYWdyYXBoPjwvcGFyYWdyYXBoPiIsCiAgICAgICJzZWxlY3Rpb24iOiB7CiAgICAgICAgImZyb20iOiAyMywKICAgICAgICAidG8iOiAyMywKICAgICAgICAicGFyZW50IjogIiIsCiAgICAgICAgIm9mZnNldCI6IDAsCiAgICAgICAgInNpemUiOiAwCiAgICAgIH0sCiAgICAgICJwZW5kaW5nIjogMAogICAgfQogIF0KfQ=="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-50f2c--Undo-excludes-remote-edits-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-50f2c--Undo-excludes-remote-edits-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/tests/e2e/focus-reconnect.spec.ts",
+                    "column": 63,
+                    "line": 54
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1ee54b9dfd74ae1014af-6cdc2decc36c63294262",
+          "file": "focus-reconnect.spec.ts",
+          "line": 32,
+          "column": 3
+        },
+        {
+          "title": "STEP8-FOCUS-toggle-backward: peer updates during blur retain selection and local Undo excludes remote edits",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 45000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 10903,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"日本語\"\u001b[39m\nReceived: \u001b[31m\"65 \"\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"日本語\"\u001b[39m\nReceived: \u001b[31m\"65 \"\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n    at /workspace/tests/e2e/focus-reconnect.spec.ts:54:63",
+                    "location": {
+                      "file": "/workspace/tests/e2e/focus-reconnect.spec.ts",
+                      "column": 63,
+                      "line": 54
+                    },
+                    "snippet": "  52 |       for(let i=1;i<=3;i++){await b.keyboard.type(`R${i} `);await b.keyboard.press('Home');await expect(body(a).locator(layout.selector)).toHaveText(`${Array.from({length:i},(_,j)=>`R${i-j} `).join('')}MS65 local 日本語`);}\n  53 |       await a.bringToFront();await body(a).focus();await expect(body(a)).toBeFocused();\n> 54 |       await expect.poll(async()=> (await selection(a))?.text).toBe('日本語');\n     |                                                               ^\n  55 |       const restored=await selection(a);expect(restored!.anchor-before!.anchor).toBe(9);expect(restored!.focus-before!.focus).toBe(9);\n  56 |       expect(restored!.anchor<restored!.focus).toBe(direction==='forward');\n  57 |       const pm=(await snapshot(a)).selection;expect(pm.to-pm.from).toBe(3);"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/tests/e2e/focus-reconnect.spec.ts",
+                        "column": 63,
+                        "line": 54
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoBe\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // Object.is equality\u001b[22m\n\nExpected: \u001b[32m\"日本語\"\u001b[39m\nReceived: \u001b[31m\"65 \"\u001b[39m\n\nCall Log:\n- Timeout 5000ms exceeded while waiting on the predicate\n\n  52 |       for(let i=1;i<=3;i++){await b.keyboard.type(`R${i} `);await b.keyboard.press('Home');await expect(body(a).locator(layout.selector)).toHaveText(`${Array.from({length:i},(_,j)=>`R${i-j} `).join('')}MS65 local 日本語`);}\n  53 |       await a.bringToFront();await body(a).focus();await expect(body(a)).toBeFocused();\n> 54 |       await expect.poll(async()=> (await selection(a))?.text).toBe('日本語');\n     |                                                               ^\n  55 |       const restored=await selection(a);expect(restored!.anchor-before!.anchor).toBe(9);expect(restored!.focus-before!.focus).toBe(9);\n  56 |       expect(restored!.anchor<restored!.focus).toBe(direction==='forward');\n  57 |       const pm=(await snapshot(a)).selection;expect(pm.to-pm.from).toBe(3);\n    at /workspace/tests/e2e/focus-reconnect.spec.ts:54:63"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-03T00:17:25.617Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "seed",
+                      "contentType": "application/json",
+                      "body": "ewogICJhdCI6ICIyMDI2LTEwLTAzVDAwOjE3OjI4LjcyOFoiLAogICJjbGllbnRzIjogWwogICAgewogICAgICAicGFnZUlkIjogIjhhNzEyYTRiLWFmMjYtNGI0Yy04YmE5LTlmMTRlMWVmZjY3NCIsCiAgICAgICJjbGllbnRJZCI6ICI3ZmY1YTcxZC0zNDZiLTRlMzctYmQ1Yy1kZDdlYjRjY2MxYWQiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMiwKICAgICAgICAxNDMsCiAgICAgICAgMTU4LAogICAgICAgIDEzNiwKICAgICAgICAxODUsCiAgICAgICAgMywKICAgICAgICAyOCwKICAgICAgICAxLAogICAgICAgIDEKICAgICAgXSwKICAgICAgImNsb2NrcyI6IFsKICAgICAgICBbCiAgICAgICAgICAxLAogICAgICAgICAgMQogICAgICAgIF0sCiAgICAgICAgWwogICAgICAgICAgOTI0OTc4OTU5LAogICAgICAgICAgMjgKICAgICAgICBdCiAgICAgIF0sCiAgICAgICJqc29uIjogewogICAgICAgICJ0eXBlIjogImRvYyIsCiAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJ0eXBlIjogImRldGFpbHMiLAogICAgICAgICAgICAiYXR0cnMiOiB7CiAgICAgICAgICAgICAgIm9wZW4iOiB0cnVlCiAgICAgICAgICAgIH0sCiAgICAgICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJ0eXBlIjogImRldGFpbHNTdW1tYXJ5IiwKICAgICAgICAgICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAgICAgInR5cGUiOiAidGV4dCIsCiAgICAgICAgICAgICAgICAgICAgInRleHQiOiAiTVM2NSBsb2NhbCDml6XmnKzoqp4iCiAgICAgICAgICAgICAgICAgIH0KICAgICAgICAgICAgICAgIF0KICAgICAgICAgICAgICB9LAogICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJ0eXBlIjogImRldGFpbHNDb250ZW50IiwKICAgICAgICAgICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAgICAgInR5cGUiOiAicGFyYWdyYXBoIgogICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICBdCiAgICAgICAgICAgICAgfQogICAgICAgICAgICBdCiAgICAgICAgICB9LAogICAgICAgICAgewogICAgICAgICAgICAidHlwZSI6ICJwYXJhZ3JhcGgiCiAgICAgICAgICB9CiAgICAgICAgXQogICAgICB9LAogICAgICAiZnJhZ21lbnQiOiAiPGRldGFpbHMgb3Blbj1cInRydWVcIj48ZGV0YWlsc3N1bW1hcnk+TVM2NSBsb2NhbCDml6XmnKzoqp48L2RldGFpbHNzdW1tYXJ5PjxkZXRhaWxzY29udGVudD48cGFyYWdyYXBoPjwvcGFyYWdyYXBoPjwvZGV0YWlsc2NvbnRlbnQ+PC9kZXRhaWxzPjxwYXJhZ3JhcGg+PC9wYXJhZ3JhcGg+IiwKICAgICAgInNlbGVjdGlvbiI6IHsKICAgICAgICAiZnJvbSI6IDE2LAogICAgICAgICJ0byI6IDE2LAogICAgICAgICJwYXJlbnQiOiAiTVM2NSBsb2NhbCDml6XmnKzoqp4iLAogICAgICAgICJvZmZzZXQiOiAxNCwKICAgICAgICAic2l6ZSI6IDE0CiAgICAgIH0sCiAgICAgICJwZW5kaW5nIjogMAogICAgfSwKICAgIHsKICAgICAgInBhZ2VJZCI6ICI4YTcxMmE0Yi1hZjI2LTRiNGMtOGJhOS05ZjE0ZTFlZmY2NzQiLAogICAgICAiY2xpZW50SWQiOiAiNDJiNTVlMmMtYzYxNi00Zjk4LTk4NTQtMGU1NWRhYmM0MGQ2IiwKICAgICAgInN0YXRlVmVjdG9yIjogWwogICAgICAgIDIsCiAgICAgICAgMTQzLAogICAgICAgIDE1OCwKICAgICAgICAxMzYsCiAgICAgICAgMTg1LAogICAgICAgIDMsCiAgICAgICAgMjgsCiAgICAgICAgMSwKICAgICAgICAxCiAgICAgIF0sCiAgICAgICJjbG9ja3MiOiBbCiAgICAgICAgWwogICAgICAgICAgMSwKICAgICAgICAgIDEKICAgICAgICBdLAogICAgICAgIFsKICAgICAgICAgIDkyNDk3ODk1OSwKICAgICAgICAgIDI4CiAgICAgICAgXQogICAgICBdLAogICAgICAianNvbiI6IHsKICAgICAgICAidHlwZSI6ICJkb2MiLAogICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgewogICAgICAgICAgICAidHlwZSI6ICJkZXRhaWxzIiwKICAgICAgICAgICAgImF0dHJzIjogewogICAgICAgICAgICAgICJvcGVuIjogdHJ1ZQogICAgICAgICAgICB9LAogICAgICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAidHlwZSI6ICJkZXRhaWxzU3VtbWFyeSIsCiAgICAgICAgICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgICAgICJ0eXBlIjogInRleHQiLAogICAgICAgICAgICAgICAgICAgICJ0ZXh0IjogIk1TNjUgbG9jYWwg5pel5pys6KqeIgogICAgICAgICAgICAgICAgICB9CiAgICAgICAgICAgICAgICBdCiAgICAgICAgICAgICAgfSwKICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAidHlwZSI6ICJkZXRhaWxzQ29udGVudCIsCiAgICAgICAgICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgICAgICJ0eXBlIjogInBhcmFncmFwaCIKICAgICAgICAgICAgICAgICAgfQogICAgICAgICAgICAgICAgXQogICAgICAgICAgICAgIH0KICAgICAgICAgICAgXQogICAgICAgICAgfSwKICAgICAgICAgIHsKICAgICAgICAgICAgInR5cGUiOiAicGFyYWdyYXBoIgogICAgICAgICAgfQogICAgICAgIF0KICAgICAgfSwKICAgICAgImZyYWdtZW50IjogIjxkZXRhaWxzIG9wZW49XCJ0cnVlXCI+PGRldGFpbHNzdW1tYXJ5Pk1TNjUgbG9jYWwg5pel5pys6KqePC9kZXRhaWxzc3VtbWFyeT48ZGV0YWlsc2NvbnRlbnQ+PHBhcmFncmFwaD48L3BhcmFncmFwaD48L2RldGFpbHNjb250ZW50PjwvZGV0YWlscz48cGFyYWdyYXBoPjwvcGFyYWdyYXBoPiIsCiAgICAgICJzZWxlY3Rpb24iOiB7CiAgICAgICAgImZyb20iOiAyMywKICAgICAgICAidG8iOiAyMywKICAgICAgICAicGFyZW50IjogIiIsCiAgICAgICAgIm9mZnNldCI6IDAsCiAgICAgICAgInNpemUiOiAwCiAgICAgIH0sCiAgICAgICJwZW5kaW5nIjogMAogICAgfQogIF0KfQ=="
+                    },
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-ec1c8--Undo-excludes-remote-edits-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/evidence/step8-unattended-initial/artifacts/focus-reconnect-STEP8-FOCU-ec1c8--Undo-excludes-remote-edits-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/tests/e2e/focus-reconnect.spec.ts",
+                    "column": 63,
+                    "line": 54
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "1ee54b9dfd74ae1014af-b375348475ec2df0c71f",
+          "file": "focus-reconnect.spec.ts",
+          "line": 32,
+          "column": 3
+        },
+        {
+          "title": "STEP8-RECONNECT-CYCLES: repeated offline edits converge once and restore to an independent client",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 6,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 9510,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-03T00:17:37.803Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "seed",
+                      "contentType": "application/json",
+                      "body": "ewogICJhdCI6ICIyMDI2LTEwLTAzVDAwOjE3OjQxLjE0NloiLAogICJjbGllbnRzIjogWwogICAgewogICAgICAicGFnZUlkIjogIjE0ODlhMjU2LWQ3ZjUtNGYzMy05YzFkLTM2MDYzZTA4M2ZjMSIsCiAgICAgICJjbGllbnRJZCI6ICJkOTMzNWY4Ni1kN2VkLTQ2MTktOTQ3Ny05MWMzNDA0NWM2OTYiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMiwKICAgICAgICAxNzQsCiAgICAgICAgMTU4LAogICAgICAgIDE2OCwKICAgICAgICAyMjMsCiAgICAgICAgMSwKICAgICAgICA1LAogICAgICAgIDEsCiAgICAgICAgMQogICAgICBdLAogICAgICAiY2xvY2tzIjogWwogICAgICAgIFsKICAgICAgICAgIDEsCiAgICAgICAgICAxCiAgICAgICAgXSwKICAgICAgICBbCiAgICAgICAgICA0NjgzMjQxNDIsCiAgICAgICAgICA1CiAgICAgICAgXQogICAgICBdLAogICAgICAianNvbiI6IHsKICAgICAgICAidHlwZSI6ICJkb2MiLAogICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgewogICAgICAgICAgICAidHlwZSI6ICJwYXJhZ3JhcGgiLAogICAgICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAidHlwZSI6ICJ0ZXh0IiwKICAgICAgICAgICAgICAgICJ0ZXh0IjogInNlZWQiCiAgICAgICAgICAgICAgfQogICAgICAgICAgICBdCiAgICAgICAgICB9CiAgICAgICAgXQogICAgICB9LAogICAgICAiZnJhZ21lbnQiOiAiPHBhcmFncmFwaD5zZWVkPC9wYXJhZ3JhcGg+IiwKICAgICAgInNlbGVjdGlvbiI6IHsKICAgICAgICAiZnJvbSI6IDUsCiAgICAgICAgInRvIjogNSwKICAgICAgICAicGFyZW50IjogInNlZWQiLAogICAgICAgICJvZmZzZXQiOiA0LAogICAgICAgICJzaXplIjogNAogICAgICB9LAogICAgICAicGVuZGluZyI6IDAKICAgIH0sCiAgICB7CiAgICAgICJwYWdlSWQiOiAiMTQ4OWEyNTYtZDdmNS00ZjMzLTljMWQtMzYwNjNlMDgzZmMxIiwKICAgICAgImNsaWVudElkIjogIjY5OTg2NmVlLTUzZDItNDdmOC1hMGFhLTcwZmJlNTkwOTU0NCIsCiAgICAgICJzdGF0ZVZlY3RvciI6IFsKICAgICAgICAyLAogICAgICAgIDE3NCwKICAgICAgICAxNTgsCiAgICAgICAgMTY4LAogICAgICAgIDIyMywKICAgICAgICAxLAogICAgICAgIDUsCiAgICAgICAgMSwKICAgICAgICAxCiAgICAgIF0sCiAgICAgICJjbG9ja3MiOiBbCiAgICAgICAgWwogICAgICAgICAgMSwKICAgICAgICAgIDEKICAgICAgICBdLAogICAgICAgIFsKICAgICAgICAgIDQ2ODMyNDE0MiwKICAgICAgICAgIDUKICAgICAgICBdCiAgICAgIF0sCiAgICAgICJqc29uIjogewogICAgICAgICJ0eXBlIjogImRvYyIsCiAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJ0eXBlIjogInBhcmFncmFwaCIsCiAgICAgICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJ0eXBlIjogInRleHQiLAogICAgICAgICAgICAgICAgInRleHQiOiAic2VlZCIKICAgICAgICAgICAgICB9CiAgICAgICAgICAgIF0KICAgICAgICAgIH0KICAgICAgICBdCiAgICAgIH0sCiAgICAgICJmcmFnbWVudCI6ICI8cGFyYWdyYXBoPnNlZWQ8L3BhcmFncmFwaD4iLAogICAgICAic2VsZWN0aW9uIjogewogICAgICAgICJmcm9tIjogMiwKICAgICAgICAidG8iOiAyLAogICAgICAgICJwYXJlbnQiOiAic2VlZCIsCiAgICAgICAgIm9mZnNldCI6IDEsCiAgICAgICAgInNpemUiOiA0CiAgICAgIH0sCiAgICAgICJwZW5kaW5nIjogMAogICAgfQogIF0KfQ=="
+                    },
+                    {
+                      "name": "reconnect-1",
+                      "contentType": "application/json",
+                      "body": "ewogICJhdCI6ICIyMDI2LTEwLTAzVDAwOjE3OjQyLjIwM1oiLAogICJjbGllbnRzIjogWwogICAgewogICAgICAicGFnZUlkIjogIjE0ODlhMjU2LWQ3ZjUtNGYzMy05YzFkLTM2MDYzZTA4M2ZjMSIsCiAgICAgICJjbGllbnRJZCI6ICJkOTMzNWY4Ni1kN2VkLTQ2MTktOTQ3Ny05MWMzNDA0NWM2OTYiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMywKICAgICAgICAyMTEsCiAgICAgICAgMjIxLAogICAgICAgIDE4NCwKICAgICAgICAxNjksCiAgICAgICAgOSwKICAgICAgICAzLAogICAgICAgIDE3NCwKICAgICAgICAxNTgsCiAgICAgICAgMTY4LAogICAgICAgIDIyMywKICAgICAgICAxLAogICAgICAgIDgsCiAgICAgICAgMSwKICAgICAgICAxCiAgICAgIF0sCiAgICAgICJjbG9ja3MiOiBbCiAgICAgICAgWwogICAgICAgICAgMSwKICAgICAgICAgIDEKICAgICAgICBdLAogICAgICAgIFsKICAgICAgICAgIDQ2ODMyNDE0MiwKICAgICAgICAgIDgKICAgICAgICBdLAogICAgICAgIFsKICAgICAgICAgIDI1MDI4MzE4MjcsCiAgICAgICAgICAzCiAgICAgICAgXQogICAgICBdLAogICAgICAianNvbiI6IHsKICAgICAgICAidHlwZSI6ICJkb2MiLAogICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgewogICAgICAgICAgICAidHlwZSI6ICJwYXJhZ3JhcGgiLAogICAgICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAidHlwZSI6ICJ0ZXh0IiwKICAgICAgICAgICAgICAgICJ0ZXh0IjogInNlZWQgQTEgQjEiCiAgICAgICAgICAgICAgfQogICAgICAgICAgICBdCiAgICAgICAgICB9CiAgICAgICAgXQogICAgICB9LAogICAgICAiZnJhZ21lbnQiOiAiPHBhcmFncmFwaD5zZWVkIEExIEIxPC9wYXJhZ3JhcGg+IiwKICAgICAgInNlbGVjdGlvbiI6IHsKICAgICAgICAiZnJvbSI6IDgsCiAgICAgICAgInRvIjogOCwKICAgICAgICAicGFyZW50IjogInNlZWQgQTEgQjEiLAogICAgICAgICJvZmZzZXQiOiA3LAogICAgICAgICJzaXplIjogMTAKICAgICAgfSwKICAgICAgInBlbmRpbmciOiAwCiAgICB9LAogICAgewogICAgICAicGFnZUlkIjogIjE0ODlhMjU2LWQ3ZjUtNGYzMy05YzFkLTM2MDYzZTA4M2ZjMSIsCiAgICAgICJjbGllbnRJZCI6ICI2OTk4NjZlZS01M2QyLTQ3ZjgtYTBhYS03MGZiZTU5MDk1NDQiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMywKICAgICAgICAyMTEsCiAgICAgICAgMjIxLAogICAgICAgIDE4NCwKICAgICAgICAxNjksCiAgICAgICAgOSwKICAgICAgICAzLAogICAgICAgIDE3NCwKICAgICAgICAxNTgsCiAgICAgICAgMTY4LAogICAgICAgIDIyMywKICAgICAgICAxLAogICAgICAgIDgsCiAgICAgICAgMSwKICAgICAgICAxCiAgICAgIF0sCiAgICAgICJjbG9ja3MiOiBbCiAgICAgICAgWwogICAgICAgICAgMSwKICAgICAgICAgIDEKICAgICAgICBdLAogICAgICAgIFsKICAgICAgICAgIDQ2ODMyNDE0MiwKICAgICAgICAgIDgKICAgICAgICBdLAogICAgICAgIFsKICAgICAgICAgIDI1MDI4MzE4MjcsCiAgICAgICAgICAzCiAgICAgICAgXQogICAgICBdLAogICAgICAianNvbiI6IHsKICAgICAgICAidHlwZSI6ICJkb2MiLAogICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgewogICAgICAgICAgICAidHlwZSI6ICJwYXJhZ3JhcGgiLAogICAgICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgICAgICB7CiAgICAgICAgICAgICAgICAidHlwZSI6ICJ0ZXh0IiwKICAgICAgICAgICAgICAgICJ0ZXh0IjogInNlZWQgQTEgQjEiCiAgICAgICAgICAgICAgfQogICAgICAgICAgICBdCiAgICAgICAgICB9CiAgICAgICAgXQogICAgICB9LAogICAgICAiZnJhZ21lbnQiOiAiPHBhcmFncmFwaD5zZWVkIEExIEIxPC9wYXJhZ3JhcGg+IiwKICAgICAgInNlbGVjdGlvbiI6IHsKICAgICAgICAiZnJvbSI6IDExLAogICAgICAgICJ0byI6IDExLAogICAgICAgICJwYXJlbnQiOiAic2VlZCBBMSBCMSIsCiAgICAgICAgIm9mZnNldCI6IDEwLAogICAgICAgICJzaXplIjogMTAKICAgICAgfSwKICAgICAgInBlbmRpbmciOiAwCiAgICB9CiAgXQp9"
+                    },
+                    {
+                      "name": "reconnect-2",
+                      "contentType": "application/json",
+                      "body": "ewogICJhdCI6ICIyMDI2LTEwLTAzVDAwOjE3OjQzLjAxMVoiLAogICJjbGllbnRzIjogWwogICAgewogICAgICAicGFnZUlkIjogIjE0ODlhMjU2LWQ3ZjUtNGYzMy05YzFkLTM2MDYzZTA4M2ZjMSIsCiAgICAgICJjbGllbnRJZCI6ICJkOTMzNWY4Ni1kN2VkLTQ2MTktOTQ3Ny05MWMzNDA0NWM2OTYiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMywKICAgICAgICAyMTEsCiAgICAgICAgMjIxLAogICAgICAgIDE4NCwKICAgICAgICAxNjksCiAgICAgICAgOSwKICAgICAgICA2LAogICAgICAgIDE3NCwKICAgICAgICAxNTgsCiAgICAgICAgMTY4LAogICAgICAgIDIyMywKICAgICAgICAxLAogICAgICAgIDExLAogICAgICAgIDEsCiAgICAgICAgMQogICAgICBdLAogICAgICAiY2xvY2tzIjogWwogICAgICAgIFsKICAgICAgICAgIDEsCiAgICAgICAgICAxCiAgICAgICAgXSwKICAgICAgICBbCiAgICAgICAgICA0NjgzMjQxNDIsCiAgICAgICAgICAxMQogICAgICAgIF0sCiAgICAgICAgWwogICAgICAgICAgMjUwMjgzMTgyNywKICAgICAgICAgIDYKICAgICAgICBdCiAgICAgIF0sCiAgICAgICJqc29uIjogewogICAgICAgICJ0eXBlIjogImRvYyIsCiAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJ0eXBlIjogInBhcmFncmFwaCIsCiAgICAgICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJ0eXBlIjogInRleHQiLAogICAgICAgICAgICAgICAgInRleHQiOiAic2VlZCBBMSBCMSBBMiBCMiIKICAgICAgICAgICAgICB9CiAgICAgICAgICAgIF0KICAgICAgICAgIH0KICAgICAgICBdCiAgICAgIH0sCiAgICAgICJmcmFnbWVudCI6ICI8cGFyYWdyYXBoPnNlZWQgQTEgQjEgQTIgQjI8L3BhcmFncmFwaD4iLAogICAgICAic2VsZWN0aW9uIjogewogICAgICAgICJmcm9tIjogMTQsCiAgICAgICAgInRvIjogMTQsCiAgICAgICAgInBhcmVudCI6ICJzZWVkIEExIEIxIEEyIEIyIiwKICAgICAgICAib2Zmc2V0IjogMTMsCiAgICAgICAgInNpemUiOiAxNgogICAgICB9LAogICAgICAicGVuZGluZyI6IDAKICAgIH0sCiAgICB7CiAgICAgICJwYWdlSWQiOiAiMTQ4OWEyNTYtZDdmNS00ZjMzLTljMWQtMzYwNjNlMDgzZmMxIiwKICAgICAgImNsaWVudElkIjogIjY5OTg2NmVlLTUzZDItNDdmOC1hMGFhLTcwZmJlNTkwOTU0NCIsCiAgICAgICJzdGF0ZVZlY3RvciI6IFsKICAgICAgICAzLAogICAgICAgIDIxMSwKICAgICAgICAyMjEsCiAgICAgICAgMTg0LAogICAgICAgIDE2OSwKICAgICAgICA5LAogICAgICAgIDYsCiAgICAgICAgMTc0LAogICAgICAgIDE1OCwKICAgICAgICAxNjgsCiAgICAgICAgMjIzLAogICAgICAgIDEsCiAgICAgICAgMTEsCiAgICAgICAgMSwKICAgICAgICAxCiAgICAgIF0sCiAgICAgICJjbG9ja3MiOiBbCiAgICAgICAgWwogICAgICAgICAgMSwKICAgICAgICAgIDEKICAgICAgICBdLAogICAgICAgIFsKICAgICAgICAgIDQ2ODMyNDE0MiwKICAgICAgICAgIDExCiAgICAgICAgXSwKICAgICAgICBbCiAgICAgICAgICAyNTAyODMxODI3LAogICAgICAgICAgNgogICAgICAgIF0KICAgICAgXSwKICAgICAgImpzb24iOiB7CiAgICAgICAgInR5cGUiOiAiZG9jIiwKICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgIHsKICAgICAgICAgICAgInR5cGUiOiAicGFyYWdyYXBoIiwKICAgICAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgInR5cGUiOiAidGV4dCIsCiAgICAgICAgICAgICAgICAidGV4dCI6ICJzZWVkIEExIEIxIEEyIEIyIgogICAgICAgICAgICAgIH0KICAgICAgICAgICAgXQogICAgICAgICAgfQogICAgICAgIF0KICAgICAgfSwKICAgICAgImZyYWdtZW50IjogIjxwYXJhZ3JhcGg+c2VlZCBBMSBCMSBBMiBCMjwvcGFyYWdyYXBoPiIsCiAgICAgICJzZWxlY3Rpb24iOiB7CiAgICAgICAgImZyb20iOiAxNywKICAgICAgICAidG8iOiAxNywKICAgICAgICAicGFyZW50IjogInNlZWQgQTEgQjEgQTIgQjIiLAogICAgICAgICJvZmZzZXQiOiAxNiwKICAgICAgICAic2l6ZSI6IDE2CiAgICAgIH0sCiAgICAgICJwZW5kaW5nIjogMAogICAgfQogIF0KfQ=="
+                    },
+                    {
+                      "name": "reconnect-3",
+                      "contentType": "application/json",
+                      "body": "ewogICJhdCI6ICIyMDI2LTEwLTAzVDAwOjE3OjQzLjkwNVoiLAogICJjbGllbnRzIjogWwogICAgewogICAgICAicGFnZUlkIjogIjE0ODlhMjU2LWQ3ZjUtNGYzMy05YzFkLTM2MDYzZTA4M2ZjMSIsCiAgICAgICJjbGllbnRJZCI6ICJkOTMzNWY4Ni1kN2VkLTQ2MTktOTQ3Ny05MWMzNDA0NWM2OTYiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMywKICAgICAgICAyMTEsCiAgICAgICAgMjIxLAogICAgICAgIDE4NCwKICAgICAgICAxNjksCiAgICAgICAgOSwKICAgICAgICA5LAogICAgICAgIDE3NCwKICAgICAgICAxNTgsCiAgICAgICAgMTY4LAogICAgICAgIDIyMywKICAgICAgICAxLAogICAgICAgIDE0LAogICAgICAgIDEsCiAgICAgICAgMQogICAgICBdLAogICAgICAiY2xvY2tzIjogWwogICAgICAgIFsKICAgICAgICAgIDEsCiAgICAgICAgICAxCiAgICAgICAgXSwKICAgICAgICBbCiAgICAgICAgICA0NjgzMjQxNDIsCiAgICAgICAgICAxNAogICAgICAgIF0sCiAgICAgICAgWwogICAgICAgICAgMjUwMjgzMTgyNywKICAgICAgICAgIDkKICAgICAgICBdCiAgICAgIF0sCiAgICAgICJqc29uIjogewogICAgICAgICJ0eXBlIjogImRvYyIsCiAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJ0eXBlIjogInBhcmFncmFwaCIsCiAgICAgICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJ0eXBlIjogInRleHQiLAogICAgICAgICAgICAgICAgInRleHQiOiAic2VlZCBBMSBCMSBBMiBCMiBBMyBCMyIKICAgICAgICAgICAgICB9CiAgICAgICAgICAgIF0KICAgICAgICAgIH0KICAgICAgICBdCiAgICAgIH0sCiAgICAgICJmcmFnbWVudCI6ICI8cGFyYWdyYXBoPnNlZWQgQTEgQjEgQTIgQjIgQTMgQjM8L3BhcmFncmFwaD4iLAogICAgICAic2VsZWN0aW9uIjogewogICAgICAgICJmcm9tIjogMjAsCiAgICAgICAgInRvIjogMjAsCiAgICAgICAgInBhcmVudCI6ICJzZWVkIEExIEIxIEEyIEIyIEEzIEIzIiwKICAgICAgICAib2Zmc2V0IjogMTksCiAgICAgICAgInNpemUiOiAyMgogICAgICB9LAogICAgICAicGVuZGluZyI6IDAKICAgIH0sCiAgICB7CiAgICAgICJwYWdlSWQiOiAiMTQ4OWEyNTYtZDdmNS00ZjMzLTljMWQtMzYwNjNlMDgzZmMxIiwKICAgICAgImNsaWVudElkIjogIjY5OTg2NmVlLTUzZDItNDdmOC1hMGFhLTcwZmJlNTkwOTU0NCIsCiAgICAgICJzdGF0ZVZlY3RvciI6IFsKICAgICAgICAzLAogICAgICAgIDIxMSwKICAgICAgICAyMjEsCiAgICAgICAgMTg0LAogICAgICAgIDE2OSwKICAgICAgICA5LAogICAgICAgIDksCiAgICAgICAgMTc0LAogICAgICAgIDE1OCwKICAgICAgICAxNjgsCiAgICAgICAgMjIzLAogICAgICAgIDEsCiAgICAgICAgMTQsCiAgICAgICAgMSwKICAgICAgICAxCiAgICAgIF0sCiAgICAgICJjbG9ja3MiOiBbCiAgICAgICAgWwogICAgICAgICAgMSwKICAgICAgICAgIDEKICAgICAgICBdLAogICAgICAgIFsKICAgICAgICAgIDQ2ODMyNDE0MiwKICAgICAgICAgIDE0CiAgICAgICAgXSwKICAgICAgICBbCiAgICAgICAgICAyNTAyODMxODI3LAogICAgICAgICAgOQogICAgICAgIF0KICAgICAgXSwKICAgICAgImpzb24iOiB7CiAgICAgICAgInR5cGUiOiAiZG9jIiwKICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgIHsKICAgICAgICAgICAgInR5cGUiOiAicGFyYWdyYXBoIiwKICAgICAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgInR5cGUiOiAidGV4dCIsCiAgICAgICAgICAgICAgICAidGV4dCI6ICJzZWVkIEExIEIxIEEyIEIyIEEzIEIzIgogICAgICAgICAgICAgIH0KICAgICAgICAgICAgXQogICAgICAgICAgfQogICAgICAgIF0KICAgICAgfSwKICAgICAgImZyYWdtZW50IjogIjxwYXJhZ3JhcGg+c2VlZCBBMSBCMSBBMiBCMiBBMyBCMzwvcGFyYWdyYXBoPiIsCiAgICAgICJzZWxlY3Rpb24iOiB7CiAgICAgICAgImZyb20iOiAyMywKICAgICAgICAidG8iOiAyMywKICAgICAgICAicGFyZW50IjogInNlZWQgQTEgQjEgQTIgQjIgQTMgQjMiLAogICAgICAgICJvZmZzZXQiOiAyMiwKICAgICAgICAic2l6ZSI6IDIyCiAgICAgIH0sCiAgICAgICJwZW5kaW5nIjogMAogICAgfQogIF0KfQ=="
+                    },
+                    {
+                      "name": "reconnect-4",
+                      "contentType": "application/json",
+                      "body": "ewogICJhdCI6ICIyMDI2LTEwLTAzVDAwOjE3OjQ0LjY1MloiLAogICJjbGllbnRzIjogWwogICAgewogICAgICAicGFnZUlkIjogIjE0ODlhMjU2LWQ3ZjUtNGYzMy05YzFkLTM2MDYzZTA4M2ZjMSIsCiAgICAgICJjbGllbnRJZCI6ICJkOTMzNWY4Ni1kN2VkLTQ2MTktOTQ3Ny05MWMzNDA0NWM2OTYiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMywKICAgICAgICAyMTEsCiAgICAgICAgMjIxLAogICAgICAgIDE4NCwKICAgICAgICAxNjksCiAgICAgICAgOSwKICAgICAgICAxMiwKICAgICAgICAxNzQsCiAgICAgICAgMTU4LAogICAgICAgIDE2OCwKICAgICAgICAyMjMsCiAgICAgICAgMSwKICAgICAgICAxNywKICAgICAgICAxLAogICAgICAgIDEKICAgICAgXSwKICAgICAgImNsb2NrcyI6IFsKICAgICAgICBbCiAgICAgICAgICAxLAogICAgICAgICAgMQogICAgICAgIF0sCiAgICAgICAgWwogICAgICAgICAgNDY4MzI0MTQyLAogICAgICAgICAgMTcKICAgICAgICBdLAogICAgICAgIFsKICAgICAgICAgIDI1MDI4MzE4MjcsCiAgICAgICAgICAxMgogICAgICAgIF0KICAgICAgXSwKICAgICAgImpzb24iOiB7CiAgICAgICAgInR5cGUiOiAiZG9jIiwKICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgIHsKICAgICAgICAgICAgInR5cGUiOiAicGFyYWdyYXBoIiwKICAgICAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgInR5cGUiOiAidGV4dCIsCiAgICAgICAgICAgICAgICAidGV4dCI6ICJzZWVkIEExIEIxIEEyIEIyIEEzIEIzIEE0IEI0IgogICAgICAgICAgICAgIH0KICAgICAgICAgICAgXQogICAgICAgICAgfQogICAgICAgIF0KICAgICAgfSwKICAgICAgImZyYWdtZW50IjogIjxwYXJhZ3JhcGg+c2VlZCBBMSBCMSBBMiBCMiBBMyBCMyBBNCBCNDwvcGFyYWdyYXBoPiIsCiAgICAgICJzZWxlY3Rpb24iOiB7CiAgICAgICAgImZyb20iOiAyNiwKICAgICAgICAidG8iOiAyNiwKICAgICAgICAicGFyZW50IjogInNlZWQgQTEgQjEgQTIgQjIgQTMgQjMgQTQgQjQiLAogICAgICAgICJvZmZzZXQiOiAyNSwKICAgICAgICAic2l6ZSI6IDI4CiAgICAgIH0sCiAgICAgICJwZW5kaW5nIjogMAogICAgfSwKICAgIHsKICAgICAgInBhZ2VJZCI6ICIxNDg5YTI1Ni1kN2Y1LTRmMzMtOWMxZC0zNjA2M2UwODNmYzEiLAogICAgICAiY2xpZW50SWQiOiAiNjk5ODY2ZWUtNTNkMi00N2Y4LWEwYWEtNzBmYmU1OTA5NTQ0IiwKICAgICAgInN0YXRlVmVjdG9yIjogWwogICAgICAgIDMsCiAgICAgICAgMjExLAogICAgICAgIDIyMSwKICAgICAgICAxODQsCiAgICAgICAgMTY5LAogICAgICAgIDksCiAgICAgICAgMTIsCiAgICAgICAgMTc0LAogICAgICAgIDE1OCwKICAgICAgICAxNjgsCiAgICAgICAgMjIzLAogICAgICAgIDEsCiAgICAgICAgMTcsCiAgICAgICAgMSwKICAgICAgICAxCiAgICAgIF0sCiAgICAgICJjbG9ja3MiOiBbCiAgICAgICAgWwogICAgICAgICAgMSwKICAgICAgICAgIDEKICAgICAgICBdLAogICAgICAgIFsKICAgICAgICAgIDQ2ODMyNDE0MiwKICAgICAgICAgIDE3CiAgICAgICAgXSwKICAgICAgICBbCiAgICAgICAgICAyNTAyODMxODI3LAogICAgICAgICAgMTIKICAgICAgICBdCiAgICAgIF0sCiAgICAgICJqc29uIjogewogICAgICAgICJ0eXBlIjogImRvYyIsCiAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJ0eXBlIjogInBhcmFncmFwaCIsCiAgICAgICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJ0eXBlIjogInRleHQiLAogICAgICAgICAgICAgICAgInRleHQiOiAic2VlZCBBMSBCMSBBMiBCMiBBMyBCMyBBNCBCNCIKICAgICAgICAgICAgICB9CiAgICAgICAgICAgIF0KICAgICAgICAgIH0KICAgICAgICBdCiAgICAgIH0sCiAgICAgICJmcmFnbWVudCI6ICI8cGFyYWdyYXBoPnNlZWQgQTEgQjEgQTIgQjIgQTMgQjMgQTQgQjQ8L3BhcmFncmFwaD4iLAogICAgICAic2VsZWN0aW9uIjogewogICAgICAgICJmcm9tIjogMjksCiAgICAgICAgInRvIjogMjksCiAgICAgICAgInBhcmVudCI6ICJzZWVkIEExIEIxIEEyIEIyIEEzIEIzIEE0IEI0IiwKICAgICAgICAib2Zmc2V0IjogMjgsCiAgICAgICAgInNpemUiOiAyOAogICAgICB9LAogICAgICAicGVuZGluZyI6IDAKICAgIH0KICBdCn0="
+                    },
+                    {
+                      "name": "independent-restore",
+                      "contentType": "application/json",
+                      "body": "ewogICJhdCI6ICIyMDI2LTEwLTAzVDAwOjE3OjQ1LjkxMFoiLAogICJjbGllbnRzIjogWwogICAgewogICAgICAicGFnZUlkIjogIjE0ODlhMjU2LWQ3ZjUtNGYzMy05YzFkLTM2MDYzZTA4M2ZjMSIsCiAgICAgICJjbGllbnRJZCI6ICJkOTMzNWY4Ni1kN2VkLTQ2MTktOTQ3Ny05MWMzNDA0NWM2OTYiLAogICAgICAic3RhdGVWZWN0b3IiOiBbCiAgICAgICAgMywKICAgICAgICAyMTEsCiAgICAgICAgMjIxLAogICAgICAgIDE4NCwKICAgICAgICAxNjksCiAgICAgICAgOSwKICAgICAgICAxMiwKICAgICAgICAxNzQsCiAgICAgICAgMTU4LAogICAgICAgIDE2OCwKICAgICAgICAyMjMsCiAgICAgICAgMSwKICAgICAgICAxNywKICAgICAgICAxLAogICAgICAgIDEKICAgICAgXSwKICAgICAgImNsb2NrcyI6IFsKICAgICAgICBbCiAgICAgICAgICAxLAogICAgICAgICAgMQogICAgICAgIF0sCiAgICAgICAgWwogICAgICAgICAgNDY4MzI0MTQyLAogICAgICAgICAgMTcKICAgICAgICBdLAogICAgICAgIFsKICAgICAgICAgIDI1MDI4MzE4MjcsCiAgICAgICAgICAxMgogICAgICAgIF0KICAgICAgXSwKICAgICAgImpzb24iOiB7CiAgICAgICAgInR5cGUiOiAiZG9jIiwKICAgICAgICAiY29udGVudCI6IFsKICAgICAgICAgIHsKICAgICAgICAgICAgInR5cGUiOiAicGFyYWdyYXBoIiwKICAgICAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICAgICAgewogICAgICAgICAgICAgICAgInR5cGUiOiAidGV4dCIsCiAgICAgICAgICAgICAgICAidGV4dCI6ICJzZWVkIEExIEIxIEEyIEIyIEEzIEIzIEE0IEI0IgogICAgICAgICAgICAgIH0KICAgICAgICAgICAgXQogICAgICAgICAgfQogICAgICAgIF0KICAgICAgfSwKICAgICAgImZyYWdtZW50IjogIjxwYXJhZ3JhcGg+c2VlZCBBMSBCMSBBMiBCMiBBMyBCMyBBNCBCNDwvcGFyYWdyYXBoPiIsCiAgICAgICJzZWxlY3Rpb24iOiB7CiAgICAgICAgImZyb20iOiAyNiwKICAgICAgICAidG8iOiAyNiwKICAgICAgICAicGFyZW50IjogInNlZWQgQTEgQjEgQTIgQjIgQTMgQjMgQTQgQjQiLAogICAgICAgICJvZmZzZXQiOiAyNSwKICAgICAgICAic2l6ZSI6IDI4CiAgICAgIH0sCiAgICAgICJwZW5kaW5nIjogMAogICAgfSwKICAgIHsKICAgICAgInBhZ2VJZCI6ICIxNDg5YTI1Ni1kN2Y1LTRmMzMtOWMxZC0zNjA2M2UwODNmYzEiLAogICAgICAiY2xpZW50SWQiOiAiNjdjYjRjNGEtNGQzNS00ODJkLTkxZTctMzJmYjRhZjM3OTdmIiwKICAgICAgInN0YXRlVmVjdG9yIjogWwogICAgICAgIDMsCiAgICAgICAgMjExLAogICAgICAgIDIyMSwKICAgICAgICAxODQsCiAgICAgICAgMTY5LAogICAgICAgIDksCiAgICAgICAgMTIsCiAgICAgICAgMTc0LAogICAgICAgIDE1OCwKICAgICAgICAxNjgsCiAgICAgICAgMjIzLAogICAgICAgIDEsCiAgICAgICAgMTcsCiAgICAgICAgMSwKICAgICAgICAxCiAgICAgIF0sCiAgICAgICJjbG9ja3MiOiBbCiAgICAgICAgWwogICAgICAgICAgMSwKICAgICAgICAgIDEKICAgICAgICBdLAogICAgICAgIFsKICAgICAgICAgIDQ2ODMyNDE0MiwKICAgICAgICAgIDE3CiAgICAgICAgXSwKICAgICAgICBbCiAgICAgICAgICAyNTAyODMxODI3LAogICAgICAgICAgMTIKICAgICAgICBdCiAgICAgIF0sCiAgICAgICJqc29uIjogewogICAgICAgICJ0eXBlIjogImRvYyIsCiAgICAgICAgImNvbnRlbnQiOiBbCiAgICAgICAgICB7CiAgICAgICAgICAgICJ0eXBlIjogInBhcmFncmFwaCIsCiAgICAgICAgICAgICJjb250ZW50IjogWwogICAgICAgICAgICAgIHsKICAgICAgICAgICAgICAgICJ0eXBlIjogInRleHQiLAogICAgICAgICAgICAgICAgInRleHQiOiAic2VlZCBBMSBCMSBBMiBCMiBBMyBCMyBBNCBCNCIKICAgICAgICAgICAgICB9CiAgICAgICAgICAgIF0KICAgICAgICAgIH0KICAgICAgICBdCiAgICAgIH0sCiAgICAgICJmcmFnbWVudCI6ICI8cGFyYWdyYXBoPnNlZWQgQTEgQjEgQTIgQjIgQTMgQjMgQTQgQjQ8L3BhcmFncmFwaD4iLAogICAgICAic2VsZWN0aW9uIjogewogICAgICAgICJmcm9tIjogMSwKICAgICAgICAidG8iOiAxLAogICAgICAgICJwYXJlbnQiOiAic2VlZCBBMSBCMSBBMiBCMiBBMyBCMyBBNCBCNCIsCiAgICAgICAgIm9mZnNldCI6IDAsCiAgICAgICAgInNpemUiOiAyOAogICAgICB9LAogICAgICAicGVuZGluZyI6IDAKICAgIH0KICBdCn0="
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "1ee54b9dfd74ae1014af-bbb6a311a9d55a9155e4",
+          "file": "focus-reconnect.spec.ts",
+          "line": 69,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-03T00:16:16.805Z",
+    "duration": 91359.137,
+    "expected": 3,
+    "skipped": 0,
+    "unexpected": 6,
+    "flaky": 0
+  }
+}

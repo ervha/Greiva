@@ -1,0 +1,107 @@
+{
+  "startup-production-web": {
+    "capturedAt": "2026-10-03T00:37:09.075Z",
+    "dataset": null,
+    "editableMs": {
+      "count": 3,
+      "min": 1113.5177359999998,
+      "p50": 1262.1507920000004,
+      "p95": 1665.201177,
+      "p99": 1665.201177,
+      "max": 1665.201177
+    },
+    "restoreMs": null,
+    "inputToCommitAckMs": null,
+    "keydownToFrameMs": null,
+    "typedMs": null,
+    "savedAfterTypingMs": null,
+    "convergenceMs": null,
+    "queueCreationMs": null,
+    "offlineRestoreMs": null,
+    "ledger": null,
+    "scope": "Empty real SQLite; fresh browser contexts, already-running browser/preview/services. Not Windows executable launch time or a native release startup Pass."
+  },
+  "page-1000-production": {
+    "capturedAt": "2026-10-03T00:37:38.602Z",
+    "dataset": {
+      "blocks": 1000,
+      "initialJournalUpdates": 1001,
+      "seedMs": 18939.740909,
+      "typedCharacters": 104,
+      "keyDelayMs": 5
+    },
+    "editableMs": null,
+    "restoreMs": {
+      "count": 3,
+      "min": 743.6683859999976,
+      "p50": 871.3888000000006,
+      "p95": 1773.3847720000012,
+      "p99": 1773.3847720000012,
+      "max": 1773.3847720000012
+    },
+    "inputToCommitAckMs": {
+      "count": 104,
+      "min": 50.700000000186265,
+      "p50": 172,
+      "p95": 356.69999999995343,
+      "p99": 397.60000000009313,
+      "max": 400.20000000018626
+    },
+    "keydownToFrameMs": {
+      "count": 104,
+      "min": 14.200000000186265,
+      "p50": 27.200000000186265,
+      "p95": 77.69999999995343,
+      "p99": 86.10000000009313,
+      "max": 96.80000000004657
+    },
+    "typedMs": 4673.015876999998,
+    "savedAfterTypingMs": 112.08909299999505,
+    "convergenceMs": null,
+    "queueCreationMs": null,
+    "offlineRestoreMs": null,
+    "ledger": null,
+    "scope": "Actual Chromium keyboard events on 1000 blocks; release Rust SQLite commit ACK via test bridge. rAF measures the next frame opportunity, not a native IME result."
+  },
+  "yjs-100-reconnect": {
+    "capturedAt": "2026-10-03T00:38:01.043Z",
+    "dataset": {
+      "clients": 2,
+      "keyEditsPerClient": 50
+    },
+    "editableMs": null,
+    "restoreMs": null,
+    "inputToCommitAckMs": null,
+    "keydownToFrameMs": null,
+    "typedMs": null,
+    "savedAfterTypingMs": null,
+    "convergenceMs": 1104.6125170000014,
+    "queueCreationMs": null,
+    "offlineRestoreMs": null,
+    "ledger": null,
+    "scope": null
+  },
+  "structured-1000-ui-engine": {
+    "capturedAt": "2026-10-03T00:39:58.094Z",
+    "dataset": {
+      "tasks": 250,
+      "operationsPerTask": 4,
+      "operations": 1000
+    },
+    "editableMs": null,
+    "restoreMs": null,
+    "inputToCommitAckMs": null,
+    "keydownToFrameMs": null,
+    "typedMs": null,
+    "savedAfterTypingMs": null,
+    "convergenceMs": 96515.03963200001,
+    "queueCreationMs": 13018.363378000002,
+    "offlineRestoreMs": 262.1830730000074,
+    "ledger": {
+      "operations": 1000,
+      "distinct_operations": 1000,
+      "head": 1000
+    },
+    "scope": "Actual React TaskPanel sync engine, real HTTP/PostgreSQL and release Rust SQLite; no batch push shortcut. 240s harness bound is not a product SLO."
+  }
+}

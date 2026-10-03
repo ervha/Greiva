@@ -1,0 +1,22 @@
+<testsuites id="" name="" tests="9" failures="0" skipped="0" errors="0" time="70.757962">
+<testsuite name="focus-reconnect.spec.ts" timestamp="2026-10-03T00:26:46.085Z" hostname="chromium" tests="9" failures="0" skipped="0" time="63.639" errors="0">
+<testcase name="STEP8-FOCUS-paragraph-forward: peer updates during blur retain selection and local Undo excludes remote edits" classname="focus-reconnect.spec.ts" time="6.137">
+</testcase>
+<testcase name="STEP8-FOCUS-paragraph-backward: peer updates during blur retain selection and local Undo excludes remote edits" classname="focus-reconnect.spec.ts" time="6.267">
+</testcase>
+<testcase name="STEP8-FOCUS-heading-forward: peer updates during blur retain selection and local Undo excludes remote edits" classname="focus-reconnect.spec.ts" time="6.372">
+</testcase>
+<testcase name="STEP8-FOCUS-heading-backward: peer updates during blur retain selection and local Undo excludes remote edits" classname="focus-reconnect.spec.ts" time="6.243">
+</testcase>
+<testcase name="STEP8-FOCUS-todo-forward: peer updates during blur retain selection and local Undo excludes remote edits" classname="focus-reconnect.spec.ts" time="6.454">
+</testcase>
+<testcase name="STEP8-FOCUS-todo-backward: peer updates during blur retain selection and local Undo excludes remote edits" classname="focus-reconnect.spec.ts" time="6.968">
+</testcase>
+<testcase name="STEP8-FOCUS-toggle-forward: peer updates during blur retain selection and local Undo excludes remote edits" classname="focus-reconnect.spec.ts" time="7.412">
+</testcase>
+<testcase name="STEP8-FOCUS-toggle-backward: peer updates during blur retain selection and local Undo excludes remote edits" classname="focus-reconnect.spec.ts" time="6.88">
+</testcase>
+<testcase name="STEP8-RECONNECT-CYCLES: repeated offline edits converge once and restore to an independent client" classname="focus-reconnect.spec.ts" time="10.906">
+</testcase>
+</testsuite>
+</testsuites>
