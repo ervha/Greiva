@@ -1,0 +1,48 @@
+{
+  "id": 8,
+  "at": "2026-10-03T12:17:25.892Z",
+  "path": "/sync/push",
+  "request": {
+    "operations": [
+      {
+        "operationId": "01a1019b-1887-70ba-aeb9-7d32fa1095b4",
+        "entityType": "relation",
+        "entityId": "01a1019b-1887-70ba-aeb9-78add1de6489",
+        "kind": "create",
+        "baseVersion": null,
+        "payload": {
+          "fromId": "01a10195-edd0-7241-b624-11dfb88a6c2a",
+          "fromType": "page",
+          "toId": "01a1019a-688c-7210-9f75-7ff950c61bb3",
+          "toType": "task"
+        },
+        "clientId": "01a10190-b9c6-721a-9640-0d19e422ed40"
+      }
+    ]
+  },
+  "status": 200,
+  "body": {
+    "results": [
+      {
+        "operationId": "01a1019b-1887-70ba-aeb9-7d32fa1095b4",
+        "clientId": "01a10190-b9c6-721a-9640-0d19e422ed40",
+        "entityType": "relation",
+        "entityId": "01a1019b-1887-70ba-aeb9-78add1de6489",
+        "serverOrder": "2",
+        "conflicts": [],
+        "status": "acknowledged",
+        "entity": {
+          "id": "01a1019b-1887-70ba-aeb9-78add1de6489",
+          "fromType": "page",
+          "fromId": "01a10195-edd0-7241-b624-11dfb88a6c2a",
+          "toType": "task",
+          "toId": "01a1019a-688c-7210-9f75-7ff950c61bb3",
+          "version": 1,
+          "createdAt": "2026-10-03T12:17:25.883Z",
+          "updatedAt": "2026-10-03T12:17:25.883Z",
+          "deletedAt": null
+        }
+      }
+    ]
+  }
+}

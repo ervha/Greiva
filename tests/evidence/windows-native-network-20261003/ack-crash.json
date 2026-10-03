@@ -1,0 +1,10 @@
+{
+  "boundary": "Server committed Relation create at order 2; ACK held before native local receipt; Task order 1 had already recovered via pull after ACK timeout",
+  "finishedAt": "2026-10-03T12:17:32.1846656Z",
+  "action": "Stop-Process -Force",
+  "processAbsent": true,
+  "pid": 18676,
+  "startedAt": "2026-10-03T12:17:32.1759952Z",
+  "version": "0.6.11",
+  "plannedBoundary": "Server committed first Task create; proxy holds ACK before native local receipt"
+}

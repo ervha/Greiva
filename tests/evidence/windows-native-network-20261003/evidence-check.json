@@ -1,0 +1,8 @@
+{
+  "at": "2026-10-03T12:34:26.973Z",
+  "execution": "Docker",
+  "result": "Pass",
+  "linksChecked": 242,
+  "evidenceConsistent": true,
+  "scope": "Selected native evidence and document audit; no new product suite or Gate verdict."
+}

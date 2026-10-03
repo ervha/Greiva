@@ -1,0 +1,37 @@
+{
+  "originalFixtureUnchanged": true,
+  "originalFiles": [
+    {
+      "name": "greiva.sqlite",
+      "initialSha256": "1fe8f6113488865c546d2faa55b21482662ce4be19d4f505eeefa09bc3131489",
+      "currentSha256": "1fe8f6113488865c546d2faa55b21482662ce4be19d4f505eeefa09bc3131489"
+    },
+    {
+      "name": "greiva.sqlite-shm",
+      "initialSha256": "db3911134333f5315f7c16b2a58be4f488911e5838ab0b406788cacfc9607f3f",
+      "currentSha256": "db3911134333f5315f7c16b2a58be4f488911e5838ab0b406788cacfc9607f3f"
+    },
+    {
+      "name": "greiva.sqlite-wal",
+      "initialSha256": "0e14123c2ee05f334c0c4c928a255896eb591b921ecd7cfaa2080841d6cde0b4",
+      "currentSha256": "0e14123c2ee05f334c0c4c928a255896eb591b921ecd7cfaa2080841d6cde0b4"
+    }
+  ],
+  "archivedCrashCopy": [
+    {
+      "name": "greiva.sqlite",
+      "bytes": 4096,
+      "sha256": "1fe8f6113488865c546d2faa55b21482662ce4be19d4f505eeefa09bc3131489"
+    },
+    {
+      "name": "greiva.sqlite-shm",
+      "bytes": 32768,
+      "sha256": "547568a18acaab57db5859f4803065df781a66087e182c139dcaee7edbc7d68f"
+    },
+    {
+      "name": "greiva.sqlite-wal",
+      "bytes": 2558552,
+      "sha256": "227cfbb8b9ae7afabf3a562986d9c564ddbacff74c7e96122725489f2836dc9e"
+    }
+  ]
+}

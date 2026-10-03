@@ -1,5 +1,7 @@
 # 手操作待ちの検証と解決案
 
+2026-10-03、v0.6.13更新: Codexが通常0.6.11のACK到着前強制終了、offline再起動、再接続・独立peer収束を実施。[native通信証拠](../../tests/evidence/windows-native-network-20261003/SUMMARY.md)。Relation pending1件からpullでACK／receipt／cursorを復旧し、本文・clockとTask／Relationが一致。NT-01の一部を補完したが、SQLite transaction途中の全境界・native Conflict UI・全操作・release性能は残る。UI操作後にComputer Useを解除済み。以下の保留・手操作待ち表現は過去判断で、自動化可能な残試験はCodexが実施する。
+
 2026-10-03、v0.6.12更新: Windows UI代行環境が利用可能。利用者の「そっちでテストできる分は全部そっちで」指示を採用し、NI-02の代行可能なUI確認を手操作待ちから外す。[native block／Task／Relation／offline保存完了後crashの証拠](../../tests/evidence/windows-native-ops-20261003/SUMMARY.md)。保存・再起動確認もCodexが実施した。通信途中／ACK／peer収束と残る最新native全操作は自動化対象として継続し、実端末接続や代行できない実キー条件だけを手操作待ちにする。NI-01の受入例外は継続する。
 
 2026-10-03、v0.6.11更新: 利用者は手動操作可能と回答し、通常0.6.9と素のtextareaで再変換A/B・C/Dを実施した。[照合結果](../../tests/evidence/windows-ime-reconfirm-20261003/SUMMARY.md)。さらに他アプリ複数でも同じ症状との報告と「無視してよさそう」との指示を受け、NI-01を[この環境の受入例外](../decisions/step-8-ms-ime-exception.md)として修正待ちから外す。下記の原因診断案は将来の参考として保持するが、再変換対策を他の検証の前提にしない。通常0.6.11候補はbuild済み、最新Windowsの他の操作・保存／復旧とAndroid実OSは引き続き未実施。

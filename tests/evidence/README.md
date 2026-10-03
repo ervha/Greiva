@@ -1,5 +1,9 @@
 # 試験証拠の索引
 
+## Step 8: Windows ACK途中終了・再接続・peer照合（2026-10-03、記録v0.6.13／製品0.6.11）
+
+[通常Tauriの通信境界・停止DB・独立peer・台帳](windows-native-network-20261003/SUMMARY.md)。Relationのserver commit後・ACK保留中に強制終了し、offline再起動とpullによるACK／cursor回復を確認。Page2件のXML／clock、Task／Relation、receipt2件・台帳2件、新規Rust／Hocuspocus peerが一致。元DB一式不変。transaction途中の全境界、native duplicate POST・Conflict UI・性能・Androidと最終Gateを含めない。
+
 ## Step 8: 最新Windows操作とoffline native crash（2026-10-03、記録v0.6.12／製品0.6.11）
 
 [利用者の通常IME・Codexのnative UI・実保存層照合](windows-native-ops-20261003/SUMMARY.md)。利用者の問題なし回答と108更新を照合。Codexが他のblock・Mention／移動／Undo/Redo・Task／Relationを操作し、保存完了後offlineの強制終了で本文・pending2件を復元。通信途中・ACK・peer収束のnative境界や全操作・性能・Androidの未実施は別記する。代行可能な試験は今後もCodexが実施する。

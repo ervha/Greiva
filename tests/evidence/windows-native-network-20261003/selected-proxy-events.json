@@ -1,0 +1,275 @@
+[
+  {
+    "at": "2026-10-03T12:12:59.017Z",
+    "event": "proxy-listening",
+    "schema": "greiva_native_20261003_0611",
+    "version": "0.6.11"
+  },
+  {
+    "at": "2026-10-03T12:16:53.482Z",
+    "event": "proxy-listening",
+    "schema": "greiva_native_20261003_0611",
+    "version": "0.6.11"
+  },
+  {
+    "at": "2026-10-03T12:17:00.813Z",
+    "id": 4,
+    "event": "upstream-response",
+    "path": "/sync/push",
+    "request": {
+      "operations": [
+        {
+          "operationId": "01a1019a-688c-7210-9f75-81d1a24a3956",
+          "entityType": "task",
+          "entityId": "01a1019a-688c-7210-9f75-7ff950c61bb3",
+          "kind": "create",
+          "baseVersion": null,
+          "payload": {
+            "due": null,
+            "status": "todo",
+            "title": "AUTO611-TASK"
+          },
+          "clientId": "01a10190-b9c6-721a-9640-0d19e422ed40"
+        }
+      ]
+    },
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "operationId": "01a1019a-688c-7210-9f75-81d1a24a3956",
+          "clientId": "01a10190-b9c6-721a-9640-0d19e422ed40",
+          "entityType": "task",
+          "entityId": "01a1019a-688c-7210-9f75-7ff950c61bb3",
+          "serverOrder": "1",
+          "conflicts": [],
+          "status": "acknowledged",
+          "entity": {
+            "id": "01a1019a-688c-7210-9f75-7ff950c61bb3",
+            "title": "AUTO611-TASK",
+            "status": "todo",
+            "due": null,
+            "version": 1,
+            "createdAt": "2026-10-03T12:17:00.803Z",
+            "updatedAt": "2026-10-03T12:17:00.803Z",
+            "deletedAt": null
+          }
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T12:17:00.814Z",
+    "id": 4,
+    "event": "holding-response",
+    "path": "/sync/push"
+  },
+  {
+    "at": "2026-10-03T12:17:15.878Z",
+    "id": 4,
+    "event": "client-disconnected",
+    "path": "/sync/push"
+  },
+  {
+    "at": "2026-10-03T12:17:25.841Z",
+    "id": 6,
+    "event": "upstream-response",
+    "path": "/sync/pull",
+    "request": {
+      "cursor": "g1.01a101ae-922e-7687-92e7-ea9f7d65ad29.0.FUBKK7qstCzu7IopyhzsB0_4tsEBPuKc1G8eE9BnDEE",
+      "limit": 100
+    },
+    "status": 200,
+    "body": {
+      "operations": [
+        {
+          "operationId": "01a1019a-688c-7210-9f75-81d1a24a3956",
+          "clientId": "01a10190-b9c6-721a-9640-0d19e422ed40",
+          "entityType": "task",
+          "entityId": "01a1019a-688c-7210-9f75-7ff950c61bb3",
+          "serverOrder": "1",
+          "conflicts": [],
+          "status": "acknowledged",
+          "entity": {
+            "id": "01a1019a-688c-7210-9f75-7ff950c61bb3",
+            "title": "AUTO611-TASK",
+            "status": "todo",
+            "due": null,
+            "version": 1,
+            "createdAt": "2026-10-03T12:17:00.803Z",
+            "updatedAt": "2026-10-03T12:17:00.803Z",
+            "deletedAt": null
+          }
+        }
+      ],
+      "cursor": "g1.01a101ae-922e-7687-92e7-ea9f7d65ad29.1.87SZxlUpqCSawBg32W6cvtxcbHYLlmmGtX7dLRP8FC8",
+      "headCursor": "g1.01a101ae-922e-7687-92e7-ea9f7d65ad29.1.87SZxlUpqCSawBg32W6cvtxcbHYLlmmGtX7dLRP8FC8",
+      "hasMore": false,
+      "serverTime": "2026-10-03T12:17:25.84Z"
+    }
+  },
+  {
+    "at": "2026-10-03T12:17:25.892Z",
+    "id": 8,
+    "event": "upstream-response",
+    "path": "/sync/push",
+    "request": {
+      "operations": [
+        {
+          "operationId": "01a1019b-1887-70ba-aeb9-7d32fa1095b4",
+          "entityType": "relation",
+          "entityId": "01a1019b-1887-70ba-aeb9-78add1de6489",
+          "kind": "create",
+          "baseVersion": null,
+          "payload": {
+            "fromId": "01a10195-edd0-7241-b624-11dfb88a6c2a",
+            "fromType": "page",
+            "toId": "01a1019a-688c-7210-9f75-7ff950c61bb3",
+            "toType": "task"
+          },
+          "clientId": "01a10190-b9c6-721a-9640-0d19e422ed40"
+        }
+      ]
+    },
+    "status": 200,
+    "body": {
+      "results": [
+        {
+          "operationId": "01a1019b-1887-70ba-aeb9-7d32fa1095b4",
+          "clientId": "01a10190-b9c6-721a-9640-0d19e422ed40",
+          "entityType": "relation",
+          "entityId": "01a1019b-1887-70ba-aeb9-78add1de6489",
+          "serverOrder": "2",
+          "conflicts": [],
+          "status": "acknowledged",
+          "entity": {
+            "id": "01a1019b-1887-70ba-aeb9-78add1de6489",
+            "fromType": "page",
+            "fromId": "01a10195-edd0-7241-b624-11dfb88a6c2a",
+            "toType": "task",
+            "toId": "01a1019a-688c-7210-9f75-7ff950c61bb3",
+            "version": 1,
+            "createdAt": "2026-10-03T12:17:25.883Z",
+            "updatedAt": "2026-10-03T12:17:25.883Z",
+            "deletedAt": null
+          }
+        }
+      ]
+    }
+  },
+  {
+    "at": "2026-10-03T12:17:25.892Z",
+    "id": 8,
+    "event": "holding-response",
+    "path": "/sync/push"
+  },
+  {
+    "at": "2026-10-03T12:17:32.319Z",
+    "id": 8,
+    "event": "client-disconnected",
+    "path": "/sync/push"
+  },
+  {
+    "at": "2026-10-03T12:20:39.452Z",
+    "event": "proxy-listening",
+    "schema": "greiva_native_20261003_0611",
+    "version": "0.6.11"
+  },
+  {
+    "at": "2026-10-03T12:21:10.391Z",
+    "id": 2,
+    "event": "upstream-response",
+    "path": "/sync/pull",
+    "request": {
+      "cursor": "g1.01a101ae-922e-7687-92e7-ea9f7d65ad29.1.87SZxlUpqCSawBg32W6cvtxcbHYLlmmGtX7dLRP8FC8",
+      "limit": 100
+    },
+    "status": 200,
+    "body": {
+      "operations": [
+        {
+          "operationId": "01a1019b-1887-70ba-aeb9-7d32fa1095b4",
+          "clientId": "01a10190-b9c6-721a-9640-0d19e422ed40",
+          "entityType": "relation",
+          "entityId": "01a1019b-1887-70ba-aeb9-78add1de6489",
+          "serverOrder": "2",
+          "conflicts": [],
+          "status": "acknowledged",
+          "entity": {
+            "id": "01a1019b-1887-70ba-aeb9-78add1de6489",
+            "fromType": "page",
+            "fromId": "01a10195-edd0-7241-b624-11dfb88a6c2a",
+            "toType": "task",
+            "toId": "01a1019a-688c-7210-9f75-7ff950c61bb3",
+            "version": 1,
+            "createdAt": "2026-10-03T12:17:25.883Z",
+            "updatedAt": "2026-10-03T12:17:25.883Z",
+            "deletedAt": null
+          }
+        }
+      ],
+      "cursor": "g1.01a101ae-922e-7687-92e7-ea9f7d65ad29.2.y8BmbKybr25_ilmgFevFS2X4BeG-D0ftbYQ5Bc9JG-c",
+      "headCursor": "g1.01a101ae-922e-7687-92e7-ea9f7d65ad29.2.y8BmbKybr25_ilmgFevFS2X4BeG-D0ftbYQ5Bc9JG-c",
+      "hasMore": false,
+      "serverTime": "2026-10-03T12:21:10.383Z"
+    }
+  },
+  {
+    "at": "2026-10-03T12:28:56.217Z",
+    "id": 363,
+    "event": "upstream-response",
+    "path": "/sync/pull",
+    "request": {
+      "cursor": null,
+      "limit": 100
+    },
+    "status": 200,
+    "body": {
+      "operations": [
+        {
+          "operationId": "01a1019a-688c-7210-9f75-81d1a24a3956",
+          "clientId": "01a10190-b9c6-721a-9640-0d19e422ed40",
+          "entityType": "task",
+          "entityId": "01a1019a-688c-7210-9f75-7ff950c61bb3",
+          "serverOrder": "1",
+          "conflicts": [],
+          "status": "acknowledged",
+          "entity": {
+            "id": "01a1019a-688c-7210-9f75-7ff950c61bb3",
+            "title": "AUTO611-TASK",
+            "status": "todo",
+            "due": null,
+            "version": 1,
+            "createdAt": "2026-10-03T12:17:00.803Z",
+            "updatedAt": "2026-10-03T12:17:00.803Z",
+            "deletedAt": null
+          }
+        },
+        {
+          "operationId": "01a1019b-1887-70ba-aeb9-7d32fa1095b4",
+          "clientId": "01a10190-b9c6-721a-9640-0d19e422ed40",
+          "entityType": "relation",
+          "entityId": "01a1019b-1887-70ba-aeb9-78add1de6489",
+          "serverOrder": "2",
+          "conflicts": [],
+          "status": "acknowledged",
+          "entity": {
+            "id": "01a1019b-1887-70ba-aeb9-78add1de6489",
+            "fromType": "page",
+            "fromId": "01a10195-edd0-7241-b624-11dfb88a6c2a",
+            "toType": "task",
+            "toId": "01a1019a-688c-7210-9f75-7ff950c61bb3",
+            "version": 1,
+            "createdAt": "2026-10-03T12:17:25.883Z",
+            "updatedAt": "2026-10-03T12:17:25.883Z",
+            "deletedAt": null
+          }
+        }
+      ],
+      "cursor": "g1.01a101ae-922e-7687-92e7-ea9f7d65ad29.2.y8BmbKybr25_ilmgFevFS2X4BeG-D0ftbYQ5Bc9JG-c",
+      "headCursor": "g1.01a101ae-922e-7687-92e7-ea9f7d65ad29.2.y8BmbKybr25_ilmgFevFS2X4BeG-D0ftbYQ5Bc9JG-c",
+      "hasMore": false,
+      "serverTime": "2026-10-03T12:28:56.215Z"
+    }
+  }
+]

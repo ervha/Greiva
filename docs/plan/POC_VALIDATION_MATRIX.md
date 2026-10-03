@@ -1,5 +1,7 @@
 # PoC受入条件・証拠・再開順序
 
+2026-10-03、v0.6.13追記: 通常0.6.11 WindowsでRelationのserver commit後・ACK到着前の強制終了、offline再起動、再接続のpullによるreceipt／cursor復旧を確認。[通信境界・独立peer／台帳の一致](../../tests/evidence/windows-native-network-20261003/SUMMARY.md)。§14-3/4/5/6のnative証拠を補完。Page2件のXML／clock、Task／Relation、台帳2件と独立peerが一致し、元DB一式はhash不変。native duplicate POST・SQLite transaction途中の全境界・Conflict UI・性能・Androidの証拠にはしない。最終Gateは未判定。以下の各版は履歴で、対応表は0.6.10監査baselineを保持する。
+
 2026-10-03、v0.6.12追記: 製品0.6.11の[最新Windows証拠](../../tests/evidence/windows-native-ops-20261003/SUMMARY.md)を追加。§14-1/2に通常IME・選択置換／Undo/Redo・block操作の限定native証拠、§14-4/5にPage／Task／Relationのoffline保存完了後の強制終了・再起動とpending保持の1境界を補った。全操作・通信途中／ACK境界・peer収束・実OS性能／Androidと最終Gateを全Passにはしない。代行可能な試験はCodexが実施し、UI操作そのものを手操作待ちにしない。
 
 2026-10-03、v0.6.11追記: structured同期snapshot改善と[新しいDocker回帰](../../tests/evidence/step-8-structured-progress-20261003/SUMMARY.md)を確認し、通常Windows候補0.6.11を作成。native操作・性能はNot run。通常0.6.9と旧診断0.6.5の[再変換比較](../../tests/evidence/windows-ime-reconfirm-20261003/SUMMARY.md)では移動ありだけで欠落を再現した。利用者は他アプリ複数でも同症状と報告し、無視して先へ進むよう指示。この条件は[受入例外](../decisions/step-8-ms-ime-exception.md)として扱い、下記の「未解決のままPass/Conditionalにしない」は従来判断として保持する。再変換対策を最終判断の前提から外すが、原FailをPassへ変更せず、Gate最終資料に例外を明記する。他の条件・native不足は免除しない。以下は0.6.10時点の監査baseline。

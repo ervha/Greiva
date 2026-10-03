@@ -1,0 +1,9 @@
+{
+  "pid": 18676,
+  "version": "0.6.11",
+  "sha256": "cc806e646f8093fe3ee387d0524c68dd4ec3c6808fa794be33e84d0fd74ecf36",
+  "checkpoint": "5dc420e1339c9414401fa30f483612ee3615dce9",
+  "startedAt": "2026-10-03T12:13:45.0615213Z",
+  "dataDirectory": "C:\\Users\\danun\\.t3\\worktrees\\Greiva\\t3code-be7eb24c\\.data\\host-ime\\native-network-0611\\2026-10-03T12-13-44Z",
+  "scope": "Clone of stopped actual native DB; original manual fixtures preserved; isolated API schema and collaboration journal; initial test HTTP network rejected"
+}

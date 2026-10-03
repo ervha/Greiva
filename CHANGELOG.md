@@ -2,6 +2,12 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.13 — 2026-10-03
+
+- Windows nativeの通信途中終了・復旧証拠を追加（PATCH）。製品・候補は0.6.11を維持。通常APIでRelationをcommit後、ACK応答を試験proxyで保留し、通常Tauriを強制終了。サービス停止中の再起動で本文・pending1件を保持し、再接続後のpullでACKとcursorを回復。[実際の境界・証拠](tests/evidence/windows-native-network-20261003/SUMMARY.md)。
+- 停止SQLiteをread-onlyで監査し、実Rust load・新規structured peer・Pageごとの独立Hocuspocus peer・PostgreSQL台帳を照合。WIN611-OPSの108更新、AUTO611-BLOCKSの22更新、XML・clock不変、Task／Relation2件acknowledged・receipt2件・cursor=head、台帳2件を確認。元DB一式のhash不変。native duplicate POSTやtransaction途中停止を主張しない。
+- Computer UseはUI検証後に解除。Conflict UI・残る全操作・release性能・Android実OSと最終Gateは未完了。製品変更がないため既存Docker回帰の再実行・新しいアプリbuildは行わない。
+
 ## 0.6.12 — 2026-10-03
 
 - Windows native検証記録の更新（PATCH）。製品・候補は0.6.11を維持。利用者の実Microsoft IME通常変換、選択置換／Undo/Redo、見出し1・Todo・入れ子Toggleの問題なし回答と停止後保存データを照合。

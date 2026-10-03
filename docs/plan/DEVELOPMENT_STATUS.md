@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+2026-10-03、最新記録checkpoint **v0.6.13**、製品・候補は **0.6.11**。Windows通常TauriのRelation ACK応答保留中に強制終了し、サービス停止中の再起動・pending保持、再接続のpullによるACK／cursor復旧を確認。[native通信境界・独立peer照合](../../tests/evidence/windows-native-network-20261003/SUMMARY.md)。Page2件の本文・clock、Task／Relation、実Rust load、新規peerとサーバー台帳2件が一致。元DB一式のhash不変。Computer UseはUI検証後に解除。次はnative Conflict UI・残る全操作とrelease性能。native transaction途中の全境界・Android実OS・最終Gateは未完了。以下は過去checkpointの履歴。
+
 2026-10-03、最新記録checkpoint **v0.6.12**、製品・候補は **0.6.11**。利用者の通常IME／選択置換／Undo/Redo、見出し1・Todo・入れ子Toggleの問題なし回答と保存履歴を照合。Windows UIの代行環境を確認し、Codexが他のblock・Mention・移動／Undo/Redo・Task／Relation保存を実施した。通常Tauriの保存完了後offline強制終了と再起動で、本文・structured pending2件をnative画面と実Rust loadで確認。[今回の証拠](../../tests/evidence/windows-native-ops-20261003/SUMMARY.md)。WIN611-OPSの108更新は不変。利用者指示に従い、代行可能な試験を手動依頼せずこちらで実施する。通信途中・ACK・peer収束のnative境界、残る全操作、release性能・Android実OSと最終Gateは未完了。
 
 2026-10-03、最新checkpointは **v0.6.11**、製品・Windows候補も **0.6.11**。structured同期の通常ACK後snapshotを100ms間隔に抑え、1,000操作のsnapshot回数・応答量削減と保存順序・収束を確認した。[Docker回帰・型再検査・候補build](../../tests/evidence/step-8-structured-progress-20261003/SUMMARY.md)。新候補のnative操作・性能はNot run。利用者の手操作が可能になり、通常0.6.9 A/Bと旧診断0.6.5 textarea C/Dを再確認。window移動ありだけで直前の文字が欠落し、停止後SQLiteとnative eventを照合した。[実機証拠](../../tests/evidence/windows-ime-reconfirm-20261003/SUMMARY.md)。他アプリ複数でも同症状との利用者報告を受け、この環境のMicrosoft再変換は[受入例外](../decisions/step-8-ms-ime-exception.md)としてGreiva修正待ちから外す。原Failは保持する。次は最新Windowsの他の必須操作・保存／復旧、Android実OSの検証。Gate最終未判定。
