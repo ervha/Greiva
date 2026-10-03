@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-03T14:28:42.786Z",
+  "error": "failed to activate captured window",
+  "recovery": "Fresh window selection and activation retried once; both failed. Read-only capture, no subsequent app input.",
+  "window": {
+    "app": "process:C:\\Users\\danun\\.t3\\worktrees\\Greiva\\t3code-be7eb24c\\.data\\host-ime\\builds\\0.6.17-drag-release\\greiva-poc.exe",
+    "id": 81333538,
+    "title": "Greiva PoC"
+  },
+  "accessibility": {
+    "tree": "Window: \"Greiva PoC\", App: greiva-poc.exe.\n\t0 ウィンドウ Greiva PoC Secondary Actions: Raise\n\t\t1 ウィンドウ\n\t\t\t2 ウィンドウ Greiva PoC\n\t\t\t\t3 ウィンドウ (disabled)\n\t\t\t\t4 領域 Greiva PoC - Web コンテンツ\n\t\t\t\t\t5 領域\n\t\t\t\t\t\t6 領域\n\t\t\t\t\t\t\t7 領域\n\t\t\t\t\t\t\t\t8 領域\n\t\t\t\t\t\t\t\t9 領域\n\t\t\t\t\t\t\t\t\t10 領域\n\t\t\t\t\t\t\t\t\t\t11 領域\n\t\t\t\t\t\t\t\t\t\t\t12 領域\n\t\t\t\t\t\t\t\t\t\t\t\t13 領域\n\t\t\t\t\t\t\t\t14 領域\n\t\t\t\t\t\t15 領域\n\t\t\t\t\t\t16 領域\n\t\t17 タイトル バー (settable, string) Value: Greiva PoC\n\t\t\t18 メニュー バー システム ID: MenuBar\n\t\t\t\t19 メニュー項目 システム\n\t\t\t20 ボタン 最小化\n\t\t\t21 ボタン 最大化\n\t\t\t22 ボタン 閉じる"
+  }
+}

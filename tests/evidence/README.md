@@ -1,5 +1,11 @@
 # 試験証拠の索引
 
+- 2026-10-04 / [スキップ再確認](../../docs/plan/SKIPPED_VALIDATION_REVIEW.md): 通常skip20件と旧・新PostgreSQL別実行のテスト名照合、現在20 Pass／skip 0。[再実行・原ログ・JSON](windows-native-editor-20261003/skipped-recheck/run.json)・[監査](windows-native-editor-20261003/skipped-recheck/audit.json)。native／Android／性能の残条件も同表へ統合。
+
+## Step 8: Windows 0.6.17全block・保存照合・drag配送診断（2026-10-04）
+
+[同一Pageの全11種類・59更新・独立peer一致](windows-native-editor-20261003/SUMMARY.md)。Markdown4条件、Slash、入れ子／解除、Todo、Toggle keyboard／pointer開閉、全block削除とUndo/Redo、Mention keyboard移動。元2 Page不変。通常／診断artifactを分け、HTML5対照もdrop未配送のnative dragと、最新Microsoft IMEの未確認を保持。Gate Passやdrag修正完了を主張しない。
+
 ## Step 8: Windows通常release大量データ・native性能観測（2026-10-03、記録v0.6.16／製品0.6.11）
 
 [1,000 block／111文字・1,000 native ACK・250 Task・独立照合](windows-native-release-20261003/SUMMARY.md)。空SQLite2.663秒・復元3.567秒の観測上限、server応答間75.973秒。helper／UIA込みの一回と正確なpaint／per-key／実IMEを区別し、復元目安未達と内訳未測定を残す。

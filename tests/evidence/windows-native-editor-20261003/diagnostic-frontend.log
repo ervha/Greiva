@@ -1,0 +1,47 @@
+
+> greiva-poc@0.6.17 build
+> npm run build:packages && npm run build --workspace=@greiva/api && npm run build --workspace=@greiva/collaboration && npm run build --workspace=@greiva/client
+
+
+> greiva-poc@0.6.17 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync
+
+
+> @greiva/shared@0.6.17 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.6.17 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.6.17 build
+> tsc -p tsconfig.json
+
+
+> @greiva/api@0.6.17 build
+> tsc -p tsconfig.json
+
+
+> @greiva/collaboration@0.6.17 build
+> tsc -p tsconfig.json
+
+
+> @greiva/client@0.6.17 build
+> tsc --noEmit && vite build
+
+vite v8.3.1 building client environment for production...
+transforming...
+✓ 256 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                   0.35 kB │ gzip:   0.26 kB
+dist/assets/index-Bm_wJd53.css    8.04 kB │ gzip:   2.40 kB
+dist/assets/index-CsOBlSLN.js   922.55 kB │ gzip: 287.15 kB
+
+✓ built in 635ms
+[plugin builtin:vite-reporter] 
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.

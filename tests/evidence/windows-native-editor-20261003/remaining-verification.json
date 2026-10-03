@@ -1,0 +1,184 @@
+{
+  "at": "2026-10-03T15:41:48.845Z",
+  "result": "Pass",
+  "product": "0.6.17 normal candidate",
+  "pageId": "01a10266-6277-728d-9e30-63ebe38a7c05",
+  "integrity": "ok",
+  "allUpdateDigestsVerified": true,
+  "priorTwoPagesXmlAndClocksUnchanged": true,
+  "shortcutH1BulletOrderedTodo": true,
+  "bulletIndentUnindent": true,
+  "checkedTodoPreserved": true,
+  "deleteUndoRedoUndoExactBodies": true,
+  "independentPeerXmlAndClocksMatch": true,
+  "pages": [
+    {
+      "id": "01a1021e-b82a-7528-aa1f-064c12de483e",
+      "title": "WIN611-ALL-OPS",
+      "bodyHash": "ce2deb7e699889ef047f6cc326009e4191513c3c795be5f5f797f4c2e29938c2",
+      "clocks": [
+        [
+          1,
+          1
+        ],
+        [
+          2095248255,
+          44
+        ]
+      ]
+    },
+    {
+      "id": "01a10230-0000-7000-8000-000000000001",
+      "title": "",
+      "bodyHash": "ca87fb83d59dc9e56215a52d742a84e0336504d7e473b2b0422a2dd4c43b46d5",
+      "clocks": [
+        [
+          1,
+          1
+        ],
+        [
+          1635077917,
+          111
+        ],
+        [
+          3051417548,
+          31890
+        ]
+      ]
+    },
+    {
+      "id": "01a10266-6277-728d-9e30-63ebe38a7c05",
+      "title": "WIN617-NATIVE-MARKDOWN",
+      "bodyHash": "56e2543d7bf7c57d712bc2b577e7a792382a23a1b1083f3b19fdde0bfae5d612",
+      "clocks": [
+        [
+          1,
+          1
+        ],
+        [
+          519464481,
+          386
+        ]
+      ],
+      "body": "<heading level=\"1\">H1 native shortcut</heading><bulletlist><listitem><paragraph>Bullet native shortcut</paragraph></listitem><listitem><paragraph>Bullet child</paragraph></listitem></bulletlist><orderedlist start=\"1\"><listitem><paragraph>Ordered native shortcut</paragraph></listitem></orderedlist><tasklist><taskitem checked=\"true\"><paragraph>Todo native shortcut</paragraph></taskitem></tasklist><paragraph></paragraph>",
+      "history": [
+        {
+          "seq": 11,
+          "sha256": "a5c7e0fc50f0613c2a899c4a242dc4da6ab17226de4d4e847dd258d5975de74e",
+          "body": "<paragraph></paragraph>"
+        },
+        {
+          "seq": 12,
+          "sha256": "f9b02c83efcde81ca2b55dc052bf4da52ee39cc3e18c36edd3a6dd718f8f24e1",
+          "body": "<paragraph>#</paragraph>"
+        },
+        {
+          "seq": 13,
+          "sha256": "b2490f817b21eb59ad0ef03357c9637d4f625ffa593c378adf70cb663dc6c5e6",
+          "body": "<heading level=\"1\"></heading><paragraph></paragraph>"
+        },
+        {
+          "seq": 14,
+          "sha256": "8493a68679b1db7cb186c4ce0a3783364f64873abc3fa54a95f28f6a90098580",
+          "body": "<heading level=\"1\">H1 native shortcut</heading><paragraph></paragraph>"
+        },
+        {
+          "seq": 15,
+          "sha256": "ae06206c4c358bb8f5eea00cc7e0710cd644835af5eb5f596b81d5da5d370bb9",
+          "body": "<heading level=\"1\">H1 native shortcut</heading><paragraph></paragraph><paragraph></paragraph>"
+        },
+        {
+          "seq": 16,
+          "sha256": "f19f04c710d58db0933651fb017247bea89fc59ad448cc8f7edb95463dd729c6",
+          "body": "<heading level=\"1\">H1 native shortcut</heading><paragraph>-</paragraph><paragraph></paragraph>"
+        },
+        {
+          "seq": 17,
+          "sha256": "5860dca4a4ef5ff161cc1c3318c882d70fd4b5e2abfada54b8c879bbd576fafd",
+          "body": "<heading level=\"1\">H1 native shortcut</heading><bulletlist><listitem><paragraph></paragraph></listitem></bulletlist><paragraph></paragraph>"
+        },
+        {
+          "seq": 18,
+          "sha256": "338f4ebe97b70e40e27ae631a78e9cc22c843e193211b54118b427cf60d9b67c",
+          "body": "<heading level=\"1\">H1 native shortcut</heading><bulletlist><listitem><paragraph>Bullet native shortcut</paragraph></listitem></bulletlist><paragraph></paragraph>"
+        },
+        {
+          "seq": 19,
+          "sha256": "333db3f9e6f7333a5f8ef821fceb3290030b716d5ec1069ffb0d22d99e473052",
+          "body": "<heading level=\"1\">H1 native shortcut</heading><bulletlist><listitem><paragraph>Bullet native shortcut</paragraph></listitem><listitem><paragraph></paragraph></listitem></bulletlist><paragraph></paragraph>"
+        },
+        {
+          "seq": 20,
+          "sha256": "de9b86c6af6cb3510bd5afde26fc9de9812e13220ee2d13a91ec287e62719d6c",
+          "body": "<heading level=\"1\">H1 native shortcut</heading><bulletlist><listitem><paragraph>Bullet native shortcut</paragraph></listitem><listitem><paragraph>Bullet child</paragraph></listitem></bulletlist><paragraph></paragraph>"
+        },
+        {
+          "seq": 21,
+          "sha256": "db8676cb1aeea42f7df41cf6802949a32e9e284a3d21a4f9dd847ed4b3c19dcc",
+          "body": "<heading level=\"1\">H1 native shortcut</heading><bulletlist><listitem><paragraph>Bullet native shortcut</paragraph><bulletlist><listitem><paragraph>Bullet child</paragraph></listitem></bulletlist></listitem></bulletlist><paragraph></paragraph>"
+        },
+        {
+          "seq": 22,
+          "sha256": "30a8a692ee4e73ba3b69e38ff59d14b71af9b92e471d1c8b470956f109e264a6",
+          "body": "<heading level=\"1\">H1 native shortcut</heading><bulletlist><listitem><paragraph>Bullet native shortcut</paragraph></listitem><listitem><paragraph>Bullet child</paragraph></listitem></bulletlist><paragraph></paragraph>"
+        },
+        {
+          "seq": 23,
+          "sha256": "f4b0b9a2286b8d8b2c5e90d1b47aa98a504ff4dbb196f2af4adb7b2c6df06f71",
+          "body": "<heading level=\"1\">H1 native shortcut</heading><bulletlist><listitem><paragraph>Bullet native shortcut</paragraph></listitem><listitem><paragraph>Bullet child</paragraph></listitem></bulletlist><paragraph>1.</paragraph>"
+        },
+        {
+          "seq": 24,
+          "sha256": "9694c396963f1f4f79473e854aafa2c1f95e47fa1a3d4d71a7ed907b41a9ad92",
+          "body": "<heading level=\"1\">H1 native shortcut</heading><bulletlist><listitem><paragraph>Bullet native shortcut</paragraph></listitem><listitem><paragraph>Bullet child</paragraph></listitem></bulletlist><orderedlist start=\"1\"><listitem><paragraph></paragraph></listitem></orderedlist><paragraph></paragraph>"
+        },
+        {
+          "seq": 25,
+          "sha256": "be9076b413ecb8713304a64c6fcec476f2de5fa8dd2c256f2c685f373b695e87",
+          "body": "<heading level=\"1\">H1 native shortcut</heading><bulletlist><listitem><paragraph>Bullet native shortcut</paragraph></listitem><listitem><paragraph>Bullet child</paragraph></listitem></bulletlist><orderedlist start=\"1\"><listitem><paragraph>Ordered native shortcut</paragraph></listitem></orderedlist><paragraph></paragraph>"
+        },
+        {
+          "seq": 26,
+          "sha256": "001a0a0aa2bcffa17b1e5a965c353306924aa47b5a47f0dccb4a07a69256f8a3",
+          "body": "<heading level=\"1\">H1 native shortcut</heading><bulletlist><listitem><paragraph>Bullet native shortcut</paragraph></listitem><listitem><paragraph>Bullet child</paragraph></listitem></bulletlist><orderedlist start=\"1\"><listitem><paragraph>Ordered native shortcut</paragraph></listitem></orderedlist><paragraph>[]</paragraph>"
+        },
+        {
+          "seq": 27,
+          "sha256": "ce4bb3c59c088b4b5cb0cfe786324da7bb7be5333a4c45e6b752efff6ff03c0d",
+          "body": "<heading level=\"1\">H1 native shortcut</heading><bulletlist><listitem><paragraph>Bullet native shortcut</paragraph></listitem><listitem><paragraph>Bullet child</paragraph></listitem></bulletlist><orderedlist start=\"1\"><listitem><paragraph>Ordered native shortcut</paragraph></listitem></orderedlist><tasklist><taskitem checked=\"false\"><paragraph></paragraph></taskitem></tasklist><paragraph></paragraph>"
+        },
+        {
+          "seq": 28,
+          "sha256": "909590effb3d40c4213b252c3aa79fd054c4183243f6217b2dc89c7467df3b75",
+          "body": "<heading level=\"1\">H1 native shortcut</heading><bulletlist><listitem><paragraph>Bullet native shortcut</paragraph></listitem><listitem><paragraph>Bullet child</paragraph></listitem></bulletlist><orderedlist start=\"1\"><listitem><paragraph>Ordered native shortcut</paragraph></listitem></orderedlist><tasklist><taskitem checked=\"false\"><paragraph>Todo native shortcut</paragraph></taskitem></tasklist><paragraph></paragraph>"
+        },
+        {
+          "seq": 29,
+          "sha256": "6719eee9d39e8711b220a998ac9fda3c39be920006122e4ed6103c1ac965f0d9",
+          "body": "<heading level=\"1\">H1 native shortcut</heading><bulletlist><listitem><paragraph>Bullet native shortcut</paragraph></listitem><listitem><paragraph>Bullet child</paragraph></listitem></bulletlist><orderedlist start=\"1\"><listitem><paragraph>Ordered native shortcut</paragraph></listitem></orderedlist><tasklist><taskitem checked=\"true\"><paragraph>Todo native shortcut</paragraph></taskitem></tasklist><paragraph></paragraph>"
+        },
+        {
+          "seq": 30,
+          "sha256": "3a292fd15326f5d8e4d261ad0bdeae663de3f9a3f7f21a0be44ca2e57345b1af",
+          "body": "<paragraph></paragraph>"
+        },
+        {
+          "seq": 31,
+          "sha256": "ee59e637a6d6c45f0fdba356fcd8ccee1efd1c3901c88a21fa8a8f25f768558b",
+          "body": "<heading level=\"1\">H1 native shortcut</heading><bulletlist><listitem><paragraph>Bullet native shortcut</paragraph></listitem><listitem><paragraph>Bullet child</paragraph></listitem></bulletlist><orderedlist start=\"1\"><listitem><paragraph>Ordered native shortcut</paragraph></listitem></orderedlist><tasklist><taskitem checked=\"true\"><paragraph>Todo native shortcut</paragraph></taskitem></tasklist><paragraph></paragraph>"
+        },
+        {
+          "seq": 32,
+          "sha256": "60856e2ca3dd69fa0a9057774583f2ab554fafd90522bd24f4a7b4750f588ab9",
+          "body": "<paragraph></paragraph>"
+        },
+        {
+          "seq": 33,
+          "sha256": "86d39bf8a17234a15025fb2722e0a3f2acb81433956c20cec227016a63505bab",
+          "body": "<heading level=\"1\">H1 native shortcut</heading><bulletlist><listitem><paragraph>Bullet native shortcut</paragraph></listitem><listitem><paragraph>Bullet child</paragraph></listitem></bulletlist><orderedlist start=\"1\"><listitem><paragraph>Ordered native shortcut</paragraph></listitem></orderedlist><tasklist><taskitem checked=\"true\"><paragraph>Todo native shortcut</paragraph></taskitem></tasklist><paragraph></paragraph>"
+        }
+      ]
+    }
+  ],
+  "scope": "Stopped normal Windows SQLite and actual peer. Literal input and real shortcut/control keys; not real Japanese IME or native drag Pass."
+}

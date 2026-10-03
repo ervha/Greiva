@@ -2,6 +2,13 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.17 — 2026-10-04
+
+- 過去のスキップ・未実施を[現在の対応表](docs/plan/SKIPPED_VALIDATION_REVIEW.md)へ整理。通常runのPostgreSQL skip20件を別実行の成功とテスト名で照合し、現在のDockerでも20件すべて再Pass、skip／Fail 0。Pixel 7のADB未接続、native全crash中間点・性能内訳・実OS不足を残す。
+- WindowsのHTML5 drag用にmain windowのnative file-drop handlerを無効化（PATCH）。app所有manifest／lockfileを0.6.17へ整合し、外部npm314 entry／Cargo依存不変、通常frontendとWindows release build、関連8 E2Eを確認。frontend／Yjs／composition処理は変更しない。[設定・診断・範囲](tests/evidence/windows-native-editor-20261003/SUMMARY.md)。
+- 通常Windows 0.6.17の同じPageで必須11種類のblock、Markdown4条件、Slash、リストの入れ子／解除、Todoチェック、入れ子Toggleのkeyboard／pointer開閉、全block削除とUndo/Redo、Mentionのkeyboard移動を確認。停止SQLiteの59更新、全文・構造・clockと独立peerが一致し、元2 Pageは不変。最初の4種類の保存・再起動復元も確認。
+- native dragは自動操作でdropが届かず未確認。独立した単純HTML5対照でもdropが届かないため、製品原因を断定せず物理mouse確認を残す。実IME操作可否の試行はASCII入力に留まり、最新Microsoft IMEをPassへ昇格しない。通常artifactと隔離診断artifactを区別し、Gate資料は承認前の案。利用者が応答不能なため、代行作業を終えた後の手操作・判断待ちを記録する。
+
 ## 0.6.16 — 2026-10-03
 
 - Windows通常release 0.6.11の性能・大量データ証拠を追加（PATCH）。1,000 block上の111文字保存、1,000 structured operationのnative ACK、250 Taskの最終状態、1009件の台帳／receipt、独立Rust／Y.Doc peerとの一致を確認。[原観測・監査](tests/evidence/windows-native-release-20261003/SUMMARY.md)。製品／manifestは0.6.11のまま。

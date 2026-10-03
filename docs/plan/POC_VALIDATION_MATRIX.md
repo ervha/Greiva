@@ -1,5 +1,9 @@
 # PoC受入条件・証拠・再開順序
 
+現在のスキップ／未実施／受入例外の対応は[2026-10-04再確認表](SKIPPED_VALIDATION_REVIEW.md)を参照。PostgreSQL20件の再実行は全Pass。以下の各版は原時点の履歴として保持する。
+
+2026-10-04、0.6.17追記: [通常Windows全blockと59更新／peer照合](../../tests/evidence/windows-native-editor-20261003/SUMMARY.md)。§14-1/3/5を補完し、同一Pageの必須11種類、Markdown4条件、Slash、入れ子／解除、Todo、Toggle開閉、全block削除とUndo/Redo、Mention keyboard移動を確認。旧2 PageのXML／clock不変。native pointer dragは独立HTML5対照もdrop未配送で未確認。最新実IMEはprovider／候補を確認できず未実施のまま。これらをDockerのPassや0.6.17の限定native Passで置き換えない。[Gate資料案](GATE_REVIEW_DRAFT.md)に操作・判断をまとめる。
+
 2026-10-03、v0.6.16追記: [Windows通常release大量データ・native同期](../../tests/evidence/windows-native-release-20261003/SUMMARY.md)を§13および§14-5/6の補完証拠として追加。1,000 block／111文字、native1,000 ACK・250 Task、台帳／receipt1009件と独立peer一致。空SQLite2.663秒・復元3.567秒はhelper／起動／UIA込みの一回の観測上限。復元2秒目安を超えるが内訳未測定。cold paint、per-key frame、1,000 block実IME、Gate判定へ読み替えない。
 
 2026-10-03、v0.6.15追記: [Android P2実機証拠](../../tests/evidence/android-pixel7-20261003/SUMMARY.md)。Pixel 7 / Android 17 / Chrome 154で26自動操作＋4接続／復元操作、実Gboardのlocal変換と同一段落遠隔3更新中の変換を確認。全文／clock一致、文字欠落・二重入力・候補異常なしの利用者報告を記録。§12のAndroid browser互換性を補完し、SQLite／offline終了復旧・composition中reconnect・macOS／iOS・Windows性能・最終Gateへ読み替えない。

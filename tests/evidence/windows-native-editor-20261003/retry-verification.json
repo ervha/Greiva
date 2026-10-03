@@ -1,0 +1,89 @@
+{
+  "at": "2026-10-03T15:27:45.933Z",
+  "result": "Pass",
+  "scope": "Read-only stopped Windows SQLite copies; verifies no changes during unsuccessful native drag retries, not successful drag acceptance.",
+  "integrity": "ok",
+  "allUpdateDigestsVerified": true,
+  "allPagesUnchanged": true,
+  "pages": [
+    {
+      "id": "01a1021e-b82a-7528-aa1f-064c12de483e",
+      "title": "WIN611-ALL-OPS",
+      "updates": 8,
+      "bodyHash": "ce2deb7e699889ef047f6cc326009e4191513c3c795be5f5f797f4c2e29938c2",
+      "clocks": [
+        [
+          1,
+          1
+        ],
+        [
+          2095248255,
+          44
+        ]
+      ],
+      "body": "<heading level=\"2\">H2 native markdown</heading><heading level=\"3\">H3 native slash</heading><paragraph></paragraph>",
+      "history": [
+        {
+          "seq": 3,
+          "sha256": "a5c7e0fc50f0613c2a899c4a242dc4da6ab17226de4d4e847dd258d5975de74e",
+          "body": "<paragraph></paragraph>"
+        },
+        {
+          "seq": 4,
+          "sha256": "fc73b98218da8e77449060c2af96f7f4cbc55d1d3ddf24690c2ff1bae9aeb18c",
+          "body": "<paragraph>##</paragraph>"
+        },
+        {
+          "seq": 5,
+          "sha256": "8c031cfcf7ec46da14aec5b2b44346fae716285443a455352adaa93d8e9380e9",
+          "body": "<heading level=\"2\"></heading><paragraph></paragraph>"
+        },
+        {
+          "seq": 6,
+          "sha256": "926877fd1040ca5c575e7e9c2d81b16fe1925456d2b634b2513d77b60c788760",
+          "body": "<heading level=\"2\">H2 native markdown</heading><paragraph></paragraph>"
+        },
+        {
+          "seq": 7,
+          "sha256": "0850a8191a16109fda1596b2aa3e2937b50a205bc3a2f81c2627a57ff6c52e8e",
+          "body": "<heading level=\"2\">H2 native markdown</heading><paragraph></paragraph><paragraph></paragraph>"
+        },
+        {
+          "seq": 8,
+          "sha256": "5d9d60e21fcf3fe850f6fd704f60854b7c677bee4868d20736a7105b7aad8f66",
+          "body": "<heading level=\"2\">H2 native markdown</heading><paragraph>/</paragraph><paragraph></paragraph>"
+        },
+        {
+          "seq": 9,
+          "sha256": "9481ff66894c931617e6e0a44fd6eded1f02a2476855971c0fa4a06d57bee3a4",
+          "body": "<heading level=\"2\">H2 native markdown</heading><heading level=\"3\"></heading><paragraph></paragraph>"
+        },
+        {
+          "seq": 10,
+          "sha256": "17545d15fe60bfce4dc7421ee089b6710cf9f49297bba8d9fd9440465ca5d8e8",
+          "body": "<heading level=\"2\">H2 native markdown</heading><heading level=\"3\">H3 native slash</heading><paragraph></paragraph>"
+        }
+      ]
+    },
+    {
+      "id": "01a10230-0000-7000-8000-000000000001",
+      "title": "",
+      "updates": 2,
+      "bodyHash": "ca87fb83d59dc9e56215a52d742a84e0336504d7e473b2b0422a2dd4c43b46d5",
+      "clocks": [
+        [
+          1,
+          1
+        ],
+        [
+          1635077917,
+          111
+        ],
+        [
+          3051417548,
+          31890
+        ]
+      ]
+    }
+  ]
+}

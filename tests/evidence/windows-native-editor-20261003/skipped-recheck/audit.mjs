@@ -1,0 +1,23 @@
+import assert from 'node:assert/strict';
+import {readFileSync,writeFileSync} from 'node:fs';
+import {createHash} from 'node:crypto';
+const read=p=>JSON.parse(readFileSync(p,'utf8').replace(/^\uFEFF/,''));
+const normal=read('/tmp/prior-normal-vitest.json'),prior=read('/tmp/prior-postgres-vitest.json'),fresh=read('/tmp/greiva-skips-0617/vitest.json');
+const cases=r=>r.testResults.flatMap(t=>t.assertionResults);
+// Vitest summary uses numPendingTests, while assertion status is "skipped".
+const pending=cases(normal).filter(t=>t.status==='skipped'||t.status==='pending');
+const oldPass=new Set(cases(prior).filter(t=>t.status==='passed').map(t=>t.fullName));
+const newPass=new Set(cases(fresh).filter(t=>t.status==='passed').map(t=>t.fullName));
+assert.equal(pending.length,20);assert.equal(fresh.numPassedTests,20);assert.equal(fresh.numFailedTests,0);assert.equal(fresh.numPendingTests,0);
+const mapping=pending.map(t=>({name:t.fullName,previousSeparatePass:oldPass.has(t.fullName),currentSeparatePass:newPass.has(t.fullName)}));
+assert(mapping.every(t=>t.previousSeparatePass&&t.currentSeparatePass));
+const host=read('/tmp/current-source-audit.json');
+const excluded=p=>p.startsWith('docs/')||p.startsWith('tests/evidence/')||p==='CHANGELOG.md';
+assert(host.filter(f=>!excluded(f.path)).every(f=>f.same));
+const relevant=host.filter(f=>!excluded(f.path)&&f.path!=='README.md');
+assert.equal(relevant.length,135);
+const dockerMismatch=relevant.filter(f=>createHash('sha256').update(readFileSync(f.path)).digest('hex')!==f.sha256);
+assert.deepEqual(dockerMismatch,[]);
+const hostState=read('/tmp/skip-host-state.json');assert(hostState.normalArtifact.sha256==='c96b702c2cac920ef639c140f83b5be3d5f55c3277062d3d6455ffa80a1e70a7');
+const result={at:new Date().toISOString(),result:'Pass',product:'0.6.17',baselineCommit:'7c40e9657d1b8f60247b9950bdb4022a4a0f10df',normalHistorical:{passed:48,pending:20},freshPostgres:{passed:20,pending:0,failed:0},mapping,sourceAudit:{buildInventoryFiles:host.length,currentHostProgramConfigFiles:relevant.length,allProgramConfigSameAsBuilt:true,testContainerProgramConfigMatchesHost:true,changedDocumentation:host.filter(f=>!f.same).map(f=>f.path)},hostState,scope:'PostgreSQL skip closure and source/artifact verification only; remaining native input and platform gates are not passed.'};
+writeFileSync('/tmp/greiva-skips-0617/audit.json',JSON.stringify(result,null,2));console.log(JSON.stringify({result:result.result,mapped:20,freshPassed:20,sourceFiles:135}));

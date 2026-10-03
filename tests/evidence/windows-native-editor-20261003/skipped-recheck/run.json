@@ -1,0 +1,52 @@
+{
+  "startedAt": "2026-10-03T16:16:39.526Z",
+  "product": "0.6.17",
+  "execution": "Docker greiva-step7-crash-work; isolated test schemas",
+  "databaseConfigured": true,
+  "results": [
+    {
+      "id": "packages",
+      "command": [
+        "npm",
+        "run",
+        "build:packages"
+      ],
+      "startedAt": "2026-10-03T16:16:39.531Z",
+      "finishedAt": "2026-10-03T16:16:40.953Z",
+      "exitCode": 0
+    },
+    {
+      "id": "servers",
+      "command": [
+        "npm",
+        "run",
+        "build:servers"
+      ],
+      "startedAt": "2026-10-03T16:16:40.955Z",
+      "finishedAt": "2026-10-03T16:16:42.605Z",
+      "exitCode": 0
+    },
+    {
+      "id": "postgres",
+      "command": [
+        "npm",
+        "exec",
+        "--",
+        "vitest",
+        "run",
+        "tests/integration/postgres.test.ts",
+        "tests/integration/structured-postgres.test.ts",
+        "tests/integration/structured-sync-server.test.ts",
+        "tests/integration/structured-sync-client.test.ts",
+        "tests/integration/structured-process-crash.test.ts",
+        "--reporter=default",
+        "--reporter=json",
+        "--outputFile.json=/tmp/greiva-skips-0617/vitest.json"
+      ],
+      "startedAt": "2026-10-03T16:16:42.605Z",
+      "finishedAt": "2026-10-03T16:17:02.978Z",
+      "exitCode": 0
+    }
+  ],
+  "finishedAt": "2026-10-03T16:17:02.978Z"
+}

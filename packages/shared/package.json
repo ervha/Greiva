@@ -1,6 +1,6 @@
 {
   "name": "@greiva/shared",
-  "version": "0.6.11",
+  "version": "0.6.17",
   "private": true,
   "type": "module",
   "exports": {

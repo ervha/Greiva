@@ -1,0 +1,144 @@
+{
+  "at": "2026-10-03T16:19:24.361Z",
+  "result": "Pass",
+  "product": "0.6.17",
+  "baselineCommit": "7c40e9657d1b8f60247b9950bdb4022a4a0f10df",
+  "normalHistorical": {
+    "passed": 48,
+    "pending": 20
+  },
+  "freshPostgres": {
+    "passed": 20,
+    "pending": 0,
+    "failed": 0
+  },
+  "mapping": [
+    {
+      "name": "STEP1-POSTGRES: connects to the real development PostgreSQL",
+      "previousSeparatePass": true,
+      "currentSeparatePass": true
+    },
+    {
+      "name": "STEP6-POSTGRES: real models survive reopen; version guards serialize competing edits; Nest exposes durable reads",
+      "previousSeparatePass": true,
+      "currentSeparatePass": true
+    },
+    {
+      "name": "STEP7-API-SIGKILL-before-commit: an actual API process crash preserves immutable wire, cursor and exactly one final operation",
+      "previousSeparatePass": true,
+      "currentSeparatePass": true
+    },
+    {
+      "name": "STEP7-API-SIGKILL-after-commit: an actual API process crash preserves immutable wire, cursor and exactly one final operation",
+      "previousSeparatePass": true,
+      "currentSeparatePass": true
+    },
+    {
+      "name": "STEP7-CLIENT-HTTP: offline Task/Relation chains survive SIGKILL and converge through restore/pull/push/pull in creation order",
+      "previousSeparatePass": true,
+      "currentSeparatePass": true
+    },
+    {
+      "name": "STEP7-CLIENT-ACK-LOSS: commit followed by dropped HTTP ACK and API/store restart is recovered once through durable pull",
+      "previousSeparatePass": true,
+      "currentSeparatePass": true
+    },
+    {
+      "name": "STEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution",
+      "previousSeparatePass": true,
+      "currentSeparatePass": true
+    },
+    {
+      "name": "STEP7-CLIENT-PULL-FAILURE: cursor commit failure stops network progress; restart and explicit retry keep the original cursor and restore all records",
+      "previousSeparatePass": true,
+      "currentSeparatePass": true
+    },
+    {
+      "name": "STEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent",
+      "previousSeparatePass": true,
+      "currentSeparatePass": true
+    },
+    {
+      "name": "STEP7-CLIENT-REJECTED: create collision stops the affected causal chain, retains both original payloads and never displays synced",
+      "previousSeparatePass": true,
+      "currentSeparatePass": true
+    },
+    {
+      "name": "STEP7-SERVER-IDEMPOTENCY: concurrent replays, ID collisions, malformed payloads and API recreation retain immutable results",
+      "previousSeparatePass": true,
+      "currentSeparatePass": true
+    },
+    {
+      "name": "STEP7-SERVER-MERGE: field merge keeps peer edits and same-field conflicts retain base/local/remote through explicit resolution",
+      "previousSeparatePass": true,
+      "currentSeparatePass": true
+    },
+    {
+      "name": "STEP7-SERVER-RELATION: disjoint endpoint edits merge and same endpoint conflicts resolve as a new operation",
+      "previousSeparatePass": true,
+      "currentSeparatePass": true
+    },
+    {
+      "name": "STEP7-SERVER-DELETE: deletes dominate stale Task/Relation updates and close existing conflicts without resurrecting entities",
+      "previousSeparatePass": true,
+      "currentSeparatePass": true
+    },
+    {
+      "name": "STEP7-SERVER-ORDER: concurrent writers cannot leave lower committed operations behind a pull cursor",
+      "previousSeparatePass": true,
+      "currentSeparatePass": true
+    },
+    {
+      "name": "STEP7-SERVER-ATOMIC: ledger failure rolls back entity/history/counter and retry finalizes exactly once",
+      "previousSeparatePass": true,
+      "currentSeparatePass": true
+    },
+    {
+      "name": "STEP7-SERVER-MIGRATION: Step 6 rows and tombstones enter the new stream atomically without fabricating missing history",
+      "previousSeparatePass": true,
+      "currentSeparatePass": true
+    },
+    {
+      "name": "STEP7-SERVER-CAUSAL: sequential offline intent keeps competing peer values and merges its own accepted fields",
+      "previousSeparatePass": true,
+      "currentSeparatePass": true
+    },
+    {
+      "name": "STEP7-SERVER-CAUSAL-VALIDATION: aliases preserve original intent, invalid dependencies reject durably and chained deletes remain acknowledged",
+      "previousSeparatePass": true,
+      "currentSeparatePass": true
+    },
+    {
+      "name": "STEP7-SERVER-CAUSAL-MIGRATION: existing version 2 ledger frames are reconstructed without changing immutable ACKs or cursors",
+      "previousSeparatePass": true,
+      "currentSeparatePass": true
+    }
+  ],
+  "sourceAudit": {
+    "buildInventoryFiles": 1372,
+    "currentHostProgramConfigFiles": 135,
+    "allProgramConfigSameAsBuilt": true,
+    "testContainerProgramConfigMatchesHost": true,
+    "changedDocumentation": [
+      "CHANGELOG.md",
+      "docs/plan/DEFERRED_VALIDATION.md",
+      "docs/plan/DEVELOPMENT_STATUS.md",
+      "docs/plan/POC_VALIDATION_MATRIX.md",
+      "tests/evidence/README.md"
+    ]
+  },
+  "hostState": {
+    "at": "2026-10-03T16:19:03.2016671Z",
+    "normalArtifact": {
+      "bytes": 13092864,
+      "sha256": "c96b702c2cac920ef639c140f83b5be3d5f55c3277062d3d6455ffa80a1e70a7"
+    },
+    "greivaProcessCount": 0,
+    "androidReadOnlyCheck": {
+      "adbExit": 0,
+      "pixel7Connected": false,
+      "operation": "adb devices -l only; serial/address omitted; no connection or foreground request"
+    }
+  },
+  "scope": "PostgreSQL skip closure and source/artifact verification only; remaining native input and platform gates are not passed."
+}

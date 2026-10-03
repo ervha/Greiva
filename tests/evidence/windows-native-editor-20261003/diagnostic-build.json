@@ -1,0 +1,37 @@
+{
+  "at": "2026-10-03T15:27:36.509Z",
+  "version": "0.6.17 diagnosis only",
+  "override": {
+    "identifier": "dev.greiva.poc.dragprobe617",
+    "app": {
+      "windows": [
+        {
+          "label": "main",
+          "title": "Greiva Drag Diagnosis",
+          "width": 1000,
+          "height": 700,
+          "dragDropEnabled": false,
+          "url": "index.html?page=01a10250-0000-7000-8000-000000000001"
+        }
+      ]
+    }
+  },
+  "logger": "\n// DIAGNOSTIC COPY ONLY: observe real native input without synthesizing events.\nimport {invoke as dragProbeInvoke} from '@tauri-apps/api/core';\nconst dragProbeLines:string[]=[];let dragProbeQueue=Promise.resolve();\nconst dragProbeOutput=document.createElement('pre');\ndragProbeOutput.setAttribute('aria-label','Drag event diagnosis');\ndragProbeOutput.style.cssText='position:fixed;right:16px;bottom:16px;width:400px;height:180px;overflow:hidden;background:#fff;border:1px solid #777;font:11px monospace;z-index:200;pointer-events:none';\ndocument.body.append(dragProbeOutput);\nfor(const type of ['pointerdown','mousedown','pointerup','mouseup','dragstart','dragenter','dragover','drop','dragend'])document.addEventListener(type,event=>{\n const mouse=event as MouseEvent,drag=event as DragEvent,target=event.target as HTMLElement;\n const record={at:new Date().toISOString(),type,trust:event.isTrusted,x:mouse.clientX,y:mouse.clientY,buttons:mouse.buttons,target:target.tagName,class:target.className,aria:target.getAttribute('aria-label'),types:Array.from(drag.dataTransfer?.types??[]),handles:type==='pointerdown'?Array.from(document.querySelectorAll('.block-handle')).map(e=>({label:e.getAttribute('aria-label'),rect:e.getBoundingClientRect().toJSON()})):undefined};\n setTimeout(()=>{const line=JSON.stringify({...record,prevented:event.defaultPrevented});dragProbeLines.push(line);dragProbeOutput.textContent=dragProbeLines.slice(-8).join('\\n');dragProbeQueue=dragProbeQueue.then(()=>dragProbeInvoke<void>('drag_probe_record',{record:line})).catch(e=>{dragProbeOutput.textContent+='\\nLOG ERROR '+String(e);});},0);\n},true);\nconst control=document.createElement('div');control.style.cssText='position:fixed;right:24px;top:470px;width:220px;background:#ecf6ee;padding:12px;z-index:100';\nconst source=document.createElement('div');source.textContent='HTML5 control: drag this';source.draggable=true;source.id='probe-source';source.style.cssText='border:1px solid #467;padding:8px';source.addEventListener('dragstart',e=>{e.dataTransfer!.setData('text/plain','probe');});\nconst target=document.createElement('div');target.textContent='Drop control here';target.id='probe-target';target.style.cssText='margin-top:12px;padding:12px;border:1px dashed #467';target.addEventListener('dragover',e=>e.preventDefault());target.addEventListener('drop',e=>{e.preventDefault();target.textContent='CONTROL DROP OK';});control.append(source,target);document.body.append(control);\n",
+  "command": "\n// DIAGNOSTIC COPY ONLY: separate append-only event file, no SQLite mutation.\n#[tauri::command]\nfn drag_probe_record(record: String, state: tauri::State<'_, LocalStore>) -> Result<(), String> {\n use std::io::Write;\n let path=state.path.parent().ok_or(\"Missing diagnosis directory\")?.join(\"drag-probe.jsonl\");\n let mut file=std::fs::OpenOptions::new().create(true).append(true).open(path).map_err(|e|e.to_string())?;\n writeln!(file,\"{}\",record).map_err(|e|e.to_string())\n}\n",
+  "artifact": {
+    "path": ".data/windows-target/x86_64-pc-windows-msvc/release/greiva-poc.exe",
+    "bytes": 13090304,
+    "sha256": "9d6f3d919813ff39ee3338e92ee0a954499b901cf3ffc40c4a5d90b4286d764c"
+  },
+  "checks": [
+    {
+      "id": "frontend",
+      "exit": 0
+    },
+    {
+      "id": "cross",
+      "exit": 0
+    }
+  ],
+  "scope": "Instrumented isolated diagnostic artifact. Not product acceptance. Frontend source and Rust lib restored after build."
+}

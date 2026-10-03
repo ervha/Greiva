@@ -1,5 +1,9 @@
 # 手操作待ちの検証と解決案
 
+現在の状態は[スキップ・未実施事項の再確認表](SKIPPED_VALIDATION_REVIEW.md)へ統合。PostgreSQL20件の再実行を完了し、過去のnative／Android不足を後続証拠へ対応付けた。以下は元時点の候補・履歴で、最新の未確認項目は同表を参照。
+
+2026-10-04、0.6.17更新: 通常Windowsの同一Pageで全11種類、Markdown4条件、Slash、Bullet入れ子／解除、Todoチェック、入れ子Toggleのkeyboard／pointer開閉、全block削除とUndo/Redo、Mention keyboard移動をCodexが代行し、59更新・peerの全文／clock一致を確認。[実機証拠](../../tests/evidence/windows-native-editor-20261003/SUMMARY.md)。残るnative dragは独立HTML5対照でもdrop未配送、最新Microsoft IMEはprovider／候補を確認できない。物理mouse・実IME操作を必要項目として残す。[Gate資料のA/B/C](GATE_REVIEW_DRAFT.md)に再開順序を記録。通常／診断Greivaは保存後に終了、Computer Use解除済み。利用者応答不能の間は独立したスキップ監査などを先に済ませ、必要な操作・判断を勝手に免除しない。
+
 2026-10-03、v0.6.16更新: [通常Windows release](../../tests/evidence/windows-native-release-20261003/SUMMARY.md)の1,000 block入力保存・1,000 structured operation ACK・独立peer照合をCodexが実施。性能観測も追加したが、cold profileの正確な時間、層別restore、per-key／実IME遅延は未測定。残るWindows必須操作・最新実IME、macOS P1／iOS P2・最終Gate資料を続ける。代行可能なUIを手操作待ちにしない。
 
 2026-10-03、v0.6.15更新: [Android実機](../../tests/evidence/android-pixel7-20261003/SUMMARY.md)の自動26項目・接続停止／再接続4項目はCodexが代行。実Gboard E/Fは利用者が問題なしと回答し、原イベント・遠隔3更新・独立peerを照合した。Android browserはP2でSQLite保存なし。macOS P1／iOS P2は利用可能な実機未確認、Windows release性能・残る必須操作・最終Gate資料を続ける。

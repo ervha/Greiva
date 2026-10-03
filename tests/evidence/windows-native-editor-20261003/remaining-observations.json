@@ -1,0 +1,128 @@
+[
+  {
+    "name": "native-shortcut-h1",
+    "at": "2026-10-03T15:34:47.724Z",
+    "window": {
+      "app": "process:C:\\Users\\danun\\.t3\\worktrees\\Greiva\\t3code-be7eb24c\\.data\\host-ime\\builds\\0.6.17-drag-release\\greiva-poc.exe",
+      "id": 6424922,
+      "title": "Greiva PoC"
+    }
+  },
+  {
+    "name": "native-h1-content",
+    "at": "2026-10-03T15:34:57.537Z",
+    "window": {
+      "app": "process:C:\\Users\\danun\\.t3\\worktrees\\Greiva\\t3code-be7eb24c\\.data\\host-ime\\builds\\0.6.17-drag-release\\greiva-poc.exe",
+      "id": 6424922,
+      "title": "Greiva PoC"
+    }
+  },
+  {
+    "name": "native-bullet-content",
+    "at": "2026-10-03T15:35:26.534Z",
+    "window": {
+      "app": "process:C:\\Users\\danun\\.t3\\worktrees\\Greiva\\t3code-be7eb24c\\.data\\host-ime\\builds\\0.6.17-drag-release\\greiva-poc.exe",
+      "id": 6424922,
+      "title": "Greiva PoC"
+    }
+  },
+  {
+    "name": "native-bullet-indent",
+    "at": "2026-10-03T15:36:04.168Z",
+    "window": {
+      "app": "process:C:\\Users\\danun\\.t3\\worktrees\\Greiva\\t3code-be7eb24c\\.data\\host-ime\\builds\\0.6.17-drag-release\\greiva-poc.exe",
+      "id": 6424922,
+      "title": "Greiva PoC"
+    }
+  },
+  {
+    "name": "native-bullet-unindent",
+    "at": "2026-10-03T15:36:12.562Z",
+    "window": {
+      "app": "process:C:\\Users\\danun\\.t3\\worktrees\\Greiva\\t3code-be7eb24c\\.data\\host-ime\\builds\\0.6.17-drag-release\\greiva-poc.exe",
+      "id": 6424922,
+      "title": "Greiva PoC"
+    }
+  },
+  {
+    "name": "native-ordered-content",
+    "at": "2026-10-03T15:36:47.175Z",
+    "window": {
+      "app": "process:C:\\Users\\danun\\.t3\\worktrees\\Greiva\\t3code-be7eb24c\\.data\\host-ime\\builds\\0.6.17-drag-release\\greiva-poc.exe",
+      "id": 6424922,
+      "title": "Greiva PoC"
+    }
+  },
+  {
+    "name": "native-todo-content",
+    "at": "2026-10-03T15:37:18.614Z",
+    "window": {
+      "app": "process:C:\\Users\\danun\\.t3\\worktrees\\Greiva\\t3code-be7eb24c\\.data\\host-ime\\builds\\0.6.17-drag-release\\greiva-poc.exe",
+      "id": 6424922,
+      "title": "Greiva PoC"
+    }
+  },
+  {
+    "name": "native-todo-checked",
+    "at": "2026-10-03T15:37:28.434Z",
+    "window": {
+      "app": "process:C:\\Users\\danun\\.t3\\worktrees\\Greiva\\t3code-be7eb24c\\.data\\host-ime\\builds\\0.6.17-drag-release\\greiva-poc.exe",
+      "id": 6424922,
+      "title": "Greiva PoC"
+    }
+  },
+  {
+    "name": "native-delete-selection",
+    "at": "2026-10-03T15:38:40.880Z",
+    "window": {
+      "app": "process:C:\\Users\\danun\\.t3\\worktrees\\Greiva\\t3code-be7eb24c\\.data\\host-ime\\builds\\0.6.17-drag-release\\greiva-poc.exe",
+      "id": 6424922,
+      "title": "Greiva PoC"
+    }
+  },
+  {
+    "name": "native-delete-empty",
+    "at": "2026-10-03T15:38:49.935Z",
+    "window": {
+      "app": "process:C:\\Users\\danun\\.t3\\worktrees\\Greiva\\t3code-be7eb24c\\.data\\host-ime\\builds\\0.6.17-drag-release\\greiva-poc.exe",
+      "id": 6424922,
+      "title": "Greiva PoC"
+    }
+  },
+  {
+    "name": "native-delete-undo",
+    "at": "2026-10-03T15:38:59.726Z",
+    "window": {
+      "app": "process:C:\\Users\\danun\\.t3\\worktrees\\Greiva\\t3code-be7eb24c\\.data\\host-ime\\builds\\0.6.17-drag-release\\greiva-poc.exe",
+      "id": 6424922,
+      "title": "Greiva PoC"
+    }
+  },
+  {
+    "name": "native-delete-redo",
+    "at": "2026-10-03T15:39:07.422Z",
+    "window": {
+      "app": "process:C:\\Users\\danun\\.t3\\worktrees\\Greiva\\t3code-be7eb24c\\.data\\host-ime\\builds\\0.6.17-drag-release\\greiva-poc.exe",
+      "id": 6424922,
+      "title": "Greiva PoC"
+    }
+  },
+  {
+    "name": "native-delete-final-restore",
+    "at": "2026-10-03T15:39:15.256Z",
+    "window": {
+      "app": "process:C:\\Users\\danun\\.t3\\worktrees\\Greiva\\t3code-be7eb24c\\.data\\host-ime\\builds\\0.6.17-drag-release\\greiva-poc.exe",
+      "id": 6424922,
+      "title": "Greiva PoC"
+    }
+  },
+  {
+    "name": "native-remaining-final-saved",
+    "at": "2026-10-03T15:40:22.154Z",
+    "window": {
+      "app": "process:C:\\Users\\danun\\.t3\\worktrees\\Greiva\\t3code-be7eb24c\\.data\\host-ime\\builds\\0.6.17-drag-release\\greiva-poc.exe",
+      "id": 6424922,
+      "title": "Greiva PoC"
+    }
+  }
+]

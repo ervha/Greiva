@@ -1,5 +1,9 @@
 # Greiva 開発計画・状況・セットアップ
 
+2026-10-04、v0.6.17の区切りで[過去のスキップ・未実施の現在対応](SKIPPED_VALIDATION_REVIEW.md)を整理。Dockerの実PostgreSQL20件を再実行して全Pass、旧skip20件と名前で照合。通常exe・program/config135ファイルのhash一致、Pixel 7のADB未接続を確認。残る物理drag／実Microsoft IME・Gate判断を記録し、利用者が応答可能になるまで待つ。
+
+2026-10-04、checkpoint／製品 **0.6.17**。main windowのHTML5 drag設定を追加し、通常Windowsの同一Pageで全11種類のblock、Markdown4条件、Slash、Bullet indent/unindent、Todo check、入れ子Toggleのkeyboard／pointer開閉、全block削除とUndo/Redo、Mention keyboard移動を確認。[59更新・peer照合と配送診断](../../tests/evidence/windows-native-editor-20261003/SUMMARY.md)。元2 Pageの全文／clock不変、最初の4種類のconnected再起動復元も確認。native dragは単純HTML5対照でもdrop未配送で物理mouse確認待ち、最新Microsoft IMEは自動キー試行がASCIIに留まり未確認。設定のcheckpointはdrag修正完了やGate Passを意味しない。通常／診断Greivaを保存後終了、Computer Use解除済み。[Gate資料案と必要なA/B/C](GATE_REVIEW_DRAFT.md)に引継ぎを記録。利用者応答不能時は独立作業を先に終え、必要な操作・判断だけを待つ。過去の未実施項目は下記履歴として保持し、現在の対応は最新資料で確認する。
+
 2026-10-03、最新記録checkpoint **v0.6.16**、製品 **0.6.11**。[Windows通常release](../../tests/evidence/windows-native-release-20261003/SUMMARY.md)で1,000 block／111文字の保存、native1,000操作ACK・250 Task、台帳／receipt1009件、独立peer一致を確認。空SQLiteの観測上限2.663秒、1,000 block復元3.567秒（起動・UIAを含む）、server応答間75.973秒。復元目安の未達観測と内訳未測定を明示する。Computer Useは区切りで解除。残るnative必須操作・最新実IMEと最終Gate資料を続ける。
 
 2026-10-03、最新記録checkpoint **v0.6.15**、製品は **0.6.11**。[Pixel 7 / Android 17実機](../../tests/evidence/android-pixel7-20261003/SUMMARY.md)で自動26項目、接続停止／再接続など4項目、実Gboard E/Fを確認。Fの同一段落composition中の遠隔3更新を保持し、全文／clockが独立peerと一致。AndroidはP2 browserでSQLite復旧を含まない。試験用CDP・ADB転送は使用後に解除し、Windows release性能・残るP0操作と最終Gateへ続ける。以下は過去checkpointの履歴。
