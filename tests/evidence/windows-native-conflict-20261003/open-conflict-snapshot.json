@@ -1,0 +1,170 @@
+{
+  "clientId": "01a10190-b9c6-721a-9640-0d19e422ed40",
+  "conflicts": [
+    {
+      "base": "WIN611-CONFLICT",
+      "createdAt": "2026-10-03T12:49:09.932Z",
+      "entityId": "01a101c9-0c32-75aa-a047-4154052e2e84",
+      "entityType": "task",
+      "field": "title",
+      "id": "01a101cf-ad30-74ee-9f75-8d6e205d65b1",
+      "local": "local contender",
+      "operationId": "01a101cd-9849-7703-9de0-973f53237bf0",
+      "remote": "remote contender",
+      "resolvedBy": "01a101d3-44a9-7334-8e8d-5886692da3d3",
+      "status": "resolved"
+    },
+    {
+      "base": "local contender",
+      "createdAt": "2026-10-03T12:59:32.471Z",
+      "entityId": "01a101c9-0c32-75aa-a047-4154052e2e84",
+      "entityType": "task",
+      "field": "title",
+      "id": "01a101d9-2cf8-76b0-b669-5339eeb6cfad",
+      "local": "local second",
+      "operationId": "01a101d8-5e42-75db-b558-7eac0c5c8588",
+      "remote": "remote second",
+      "resolvedBy": null,
+      "status": "open"
+    }
+  ],
+  "errors": [],
+  "operations": [
+    {
+      "baseVersion": null,
+      "clientId": "01a10190-b9c6-721a-9640-0d19e422ed40",
+      "createdAt": "2026-10-03T11:50:58.962Z",
+      "entityId": "01a1019a-688c-7210-9f75-7ff950c61bb3",
+      "entityType": "task",
+      "kind": "create",
+      "operationId": "01a1019a-688c-7210-9f75-81d1a24a3956",
+      "payload": {
+        "due": null,
+        "status": "todo",
+        "title": "AUTO611-TASK"
+      },
+      "status": "acknowledged"
+    },
+    {
+      "baseVersion": null,
+      "clientId": "01a10190-b9c6-721a-9640-0d19e422ed40",
+      "createdAt": "2026-10-03T11:51:44.012Z",
+      "entityId": "01a1019b-1887-70ba-aeb9-78add1de6489",
+      "entityType": "relation",
+      "kind": "create",
+      "operationId": "01a1019b-1887-70ba-aeb9-7d32fa1095b4",
+      "payload": {
+        "fromId": "01a10195-edd0-7241-b624-11dfb88a6c2a",
+        "fromType": "page",
+        "toId": "01a1019a-688c-7210-9f75-7ff950c61bb3",
+        "toType": "task"
+      },
+      "status": "acknowledged"
+    },
+    {
+      "baseVersion": null,
+      "clientId": "01a10190-b9c6-721a-9640-0d19e422ed40",
+      "createdAt": "2026-10-03T12:41:55.519Z",
+      "entityId": "01a101c9-0c32-75aa-a047-4154052e2e84",
+      "entityType": "task",
+      "kind": "create",
+      "operationId": "01a101c9-0c32-75aa-a047-4787c9fdbe1c",
+      "payload": {
+        "due": null,
+        "status": "todo",
+        "title": "WIN611-CONFLICT"
+      },
+      "status": "acknowledged"
+    },
+    {
+      "baseVersion": 1,
+      "clientId": "01a10190-b9c6-721a-9640-0d19e422ed40",
+      "createdAt": "2026-10-03T12:46:53.530Z",
+      "entityId": "01a101c9-0c32-75aa-a047-4154052e2e84",
+      "entityType": "task",
+      "kind": "update",
+      "operationId": "01a101cd-9849-7703-9de0-973f53237bf0",
+      "payload": {
+        "due": null,
+        "status": "todo",
+        "title": "local contender"
+      },
+      "status": "acknowledged"
+    },
+    {
+      "baseVersion": 2,
+      "clientId": "01a10190-b9c6-721a-9640-0d19e422ed40",
+      "createdAt": "2026-10-03T12:53:05.343Z",
+      "entityId": "01a101c9-0c32-75aa-a047-4154052e2e84",
+      "entityType": "task",
+      "kind": "update",
+      "operationId": "01a101d3-44a9-7334-8e8d-5886692da3d3",
+      "payload": {
+        "title": "local contender"
+      },
+      "resolution": {
+        "choice": "local",
+        "conflictIds": [
+          "01a101cf-ad30-74ee-9f75-8d6e205d65b1"
+        ]
+      },
+      "status": "acknowledged"
+    },
+    {
+      "baseVersion": 3,
+      "clientId": "01a10190-b9c6-721a-9640-0d19e422ed40",
+      "createdAt": "2026-10-03T12:58:39.559Z",
+      "entityId": "01a101c9-0c32-75aa-a047-4154052e2e84",
+      "entityType": "task",
+      "kind": "update",
+      "operationId": "01a101d8-5e42-75db-b558-7eac0c5c8588",
+      "payload": {
+        "due": null,
+        "status": "done",
+        "title": "local second"
+      },
+      "status": "acknowledged"
+    }
+  ],
+  "relations": [
+    {
+      "createdAt": "2026-10-03T12:17:25.883Z",
+      "deletedAt": null,
+      "fromId": "01a10195-edd0-7241-b624-11dfb88a6c2a",
+      "fromType": "page",
+      "id": "01a1019b-1887-70ba-aeb9-78add1de6489",
+      "toId": "01a1019a-688c-7210-9f75-7ff950c61bb3",
+      "toType": "task",
+      "updatedAt": "2026-10-03T12:17:25.883Z",
+      "version": 1
+    }
+  ],
+  "state": {
+    "cursor": "g1.01a101ae-922e-7687-92e7-ea9f7d65ad29.8.l-FpfmN3QQKYMp3SEF42o00ygReKDDxUox88ZHLul98",
+    "headCursor": "g1.01a101ae-922e-7687-92e7-ea9f7d65ad29.8.l-FpfmN3QQKYMp3SEF42o00ygReKDDxUox88ZHLul98",
+    "lastSuccessfulSyncAt": "2026-10-03T12:54:52.289Z",
+    "stream": "structured"
+  },
+  "tasks": [
+    {
+      "createdAt": "2026-10-03T12:17:00.803Z",
+      "deletedAt": null,
+      "due": null,
+      "id": "01a1019a-688c-7210-9f75-7ff950c61bb3",
+      "status": "todo",
+      "title": "AUTO611-TASK",
+      "updatedAt": "2026-10-03T12:17:00.803Z",
+      "version": 1
+    },
+    {
+      "createdAt": "2026-10-03T12:41:55.647Z",
+      "deletedAt": null,
+      "due": "2026-12-24",
+      "id": "01a101c9-0c32-75aa-a047-4154052e2e84",
+      "status": "done",
+      "title": "remote second",
+      "updatedAt": "2026-10-03T12:58:41.077Z",
+      "version": 4
+    }
+  ]
+}

@@ -2,6 +2,12 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.14 — 2026-10-03
+
+- Windows native Conflict検証の記録（PATCH）。通常0.6.11で同fieldのbase/local/remote保持、別fieldの状態／期限merge、未保存draft保持、local pointer採用とremote Tab／Enter採用を確認。未解決Conflictを保持した強制終了・connected再起動も検証。[実操作と独立照合](tests/evidence/windows-native-conflict-20261003/SUMMARY.md)。
+- native7操作／receipt9件、台帳9件、resolved Conflict2件、独立Rust peerのTask／Relation／Conflict／cursor一致を確認。元Page2件の全更新・XML・clockと前回DB一式を保持。製品・manifest・候補は0.6.11のまま。実IME・offline再起動・release性能・Androidの合格へ流用しない。
+- 利用者指定により、停止指示・完了・回答が必要な問題での待機まで開発を継続。区切りのcommit後も残る実機検証へ進む。
+
 ## 0.6.13 — 2026-10-03
 
 - Windows nativeの通信途中終了・復旧証拠を追加（PATCH）。製品・候補は0.6.11を維持。通常APIでRelationをcommit後、ACK応答を試験proxyで保留し、通常Tauriを強制終了。サービス停止中の再起動で本文・pending1件を保持し、再接続後のpullでACKとcursorを回復。[実際の境界・証拠](tests/evidence/windows-native-network-20261003/SUMMARY.md)。

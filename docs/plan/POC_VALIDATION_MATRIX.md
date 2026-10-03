@@ -1,5 +1,7 @@
 # PoC受入条件・証拠・再開順序
 
+2026-10-03、v0.6.14追記: §14-7の[通常Windows Conflict UI・実保存層照合](../../tests/evidence/windows-native-conflict-20261003/SUMMARY.md)を補完。3値保持・別field merge・draft保持、local／remoteの新operationによる明示解決、open Conflictの強制終了・connected再起動保持を確認。native7操作・receipt9件と台帳・独立peerが一致。実IME／offline再起動／性能／Androidの合格へ読み替えない。最終Gateは未判定。
+
 2026-10-03、v0.6.13追記: 通常0.6.11 WindowsでRelationのserver commit後・ACK到着前の強制終了、offline再起動、再接続のpullによるreceipt／cursor復旧を確認。[通信境界・独立peer／台帳の一致](../../tests/evidence/windows-native-network-20261003/SUMMARY.md)。§14-3/4/5/6のnative証拠を補完。Page2件のXML／clock、Task／Relation、台帳2件と独立peerが一致し、元DB一式はhash不変。native duplicate POST・SQLite transaction途中の全境界・Conflict UI・性能・Androidの証拠にはしない。最終Gateは未判定。以下の各版は履歴で、対応表は0.6.10監査baselineを保持する。
 
 2026-10-03、v0.6.12追記: 製品0.6.11の[最新Windows証拠](../../tests/evidence/windows-native-ops-20261003/SUMMARY.md)を追加。§14-1/2に通常IME・選択置換／Undo/Redo・block操作の限定native証拠、§14-4/5にPage／Task／Relationのoffline保存完了後の強制終了・再起動とpending保持の1境界を補った。全操作・通信途中／ACK境界・peer収束・実OS性能／Androidと最終Gateを全Passにはしない。代行可能な試験はCodexが実施し、UI操作そのものを手操作待ちにしない。

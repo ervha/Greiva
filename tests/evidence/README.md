@@ -1,5 +1,9 @@
 # 試験証拠の索引
 
+## Step 8: Windows Conflict UI・保持・明示解決（2026-10-03、記録v0.6.14／製品0.6.11）
+
+[native実操作・強制終了復元・独立peer／台帳照合](windows-native-conflict-20261003/SUMMARY.md)。base/local/remote保持、状態／期限merge、draft保持、local pointer採用とremote Tab／Enter採用を検証。open Conflictを保持したconnected再起動、native7操作・receipt9件、台帳9件とpeerの一致。全操作・実IME・offline再起動・性能・Androidをこのrunの結果へ混ぜない。
+
 ## Step 8: Windows ACK途中終了・再接続・peer照合（2026-10-03、記録v0.6.13／製品0.6.11）
 
 [通常Tauriの通信境界・停止DB・独立peer・台帳](windows-native-network-20261003/SUMMARY.md)。Relationのserver commit後・ACK保留中に強制終了し、offline再起動とpullによるACK／cursor回復を確認。Page2件のXML／clock、Task／Relation、receipt2件・台帳2件、新規Rust／Hocuspocus peerが一致。元DB一式不変。transaction途中の全境界、native duplicate POST・Conflict UI・性能・Androidと最終Gateを含めない。

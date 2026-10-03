@@ -1,0 +1,182 @@
+{
+  "at": "2026-10-03T12:58:41.181Z",
+  "before": {
+    "tasks": [
+      {
+        "id": "01a1019a-688c-7210-9f75-7ff950c61bb3",
+        "title": "AUTO611-TASK",
+        "status": "todo",
+        "due": null,
+        "version": 1,
+        "createdAt": "2026-10-03T12:17:00.803Z",
+        "updatedAt": "2026-10-03T12:17:00.803Z",
+        "deletedAt": null
+      },
+      {
+        "id": "01a101c9-0c32-75aa-a047-4154052e2e84",
+        "title": "local contender",
+        "status": "done",
+        "due": null,
+        "version": 3,
+        "createdAt": "2026-10-03T12:41:55.647Z",
+        "updatedAt": "2026-10-03T12:53:05.437Z",
+        "deletedAt": null
+      }
+    ],
+    "relations": [
+      {
+        "id": "01a1019b-1887-70ba-aeb9-78add1de6489",
+        "fromType": "page",
+        "fromId": "01a10195-edd0-7241-b624-11dfb88a6c2a",
+        "toType": "task",
+        "toId": "01a1019a-688c-7210-9f75-7ff950c61bb3",
+        "version": 1,
+        "createdAt": "2026-10-03T12:17:25.883Z",
+        "updatedAt": "2026-10-03T12:17:25.883Z",
+        "deletedAt": null
+      }
+    ],
+    "operations": [
+      {
+        "operationId": "01a101ce-ce6a-70ac-917a-a82ca418fc54",
+        "entityType": "task",
+        "entityId": "01a101c9-0c32-75aa-a047-4154052e2e84",
+        "kind": "update",
+        "baseVersion": 1,
+        "payload": {
+          "status": "done",
+          "title": "remote contender"
+        },
+        "clientId": "01a101ce-cbaf-71ca-a9e1-7928d6d8d34e",
+        "createdAt": "2026-10-03T12:48:12.908Z",
+        "status": "acknowledged"
+      }
+    ],
+    "state": {
+      "stream": "structured",
+      "cursor": "g1.01a101ae-922e-7687-92e7-ea9f7d65ad29.6.Ov4dZ2ymRslCKZiKkiVDvK1WPUgTrLmmtSJsqdwZq60",
+      "headCursor": "g1.01a101ae-922e-7687-92e7-ea9f7d65ad29.6.Ov4dZ2ymRslCKZiKkiVDvK1WPUgTrLmmtSJsqdwZq60",
+      "lastSuccessfulSyncAt": "2026-10-03T12:58:40.982Z"
+    },
+    "clientId": "01a101ce-cbaf-71ca-a9e1-7928d6d8d34e",
+    "conflicts": [
+      {
+        "id": "01a101cf-ad30-74ee-9f75-8d6e205d65b1",
+        "operationId": "01a101cd-9849-7703-9de0-973f53237bf0",
+        "entityType": "task",
+        "entityId": "01a101c9-0c32-75aa-a047-4154052e2e84",
+        "field": "title",
+        "base": "WIN611-CONFLICT",
+        "local": "local contender",
+        "remote": "remote contender",
+        "createdAt": "2026-10-03T12:49:09.932Z",
+        "status": "resolved",
+        "resolvedBy": "01a101d3-44a9-7334-8e8d-5886692da3d3"
+      }
+    ],
+    "errors": []
+  },
+  "operation": {
+    "operationId": "01a101d8-63f7-77ed-93c4-64b089aea6dc",
+    "clientId": "01a101ce-cbaf-71ca-a9e1-7928d6d8d34e",
+    "entityId": "01a101c9-0c32-75aa-a047-4154052e2e84",
+    "entityType": "task",
+    "kind": "update",
+    "baseVersion": 3,
+    "payload": {
+      "title": "remote second",
+      "due": "2026-12-24"
+    }
+  },
+  "after": {
+    "tasks": [
+      {
+        "id": "01a1019a-688c-7210-9f75-7ff950c61bb3",
+        "title": "AUTO611-TASK",
+        "status": "todo",
+        "due": null,
+        "version": 1,
+        "createdAt": "2026-10-03T12:17:00.803Z",
+        "updatedAt": "2026-10-03T12:17:00.803Z",
+        "deletedAt": null
+      },
+      {
+        "id": "01a101c9-0c32-75aa-a047-4154052e2e84",
+        "title": "remote second",
+        "status": "done",
+        "due": "2026-12-24",
+        "version": 4,
+        "createdAt": "2026-10-03T12:41:55.647Z",
+        "updatedAt": "2026-10-03T12:58:41.077Z",
+        "deletedAt": null
+      }
+    ],
+    "relations": [
+      {
+        "id": "01a1019b-1887-70ba-aeb9-78add1de6489",
+        "fromType": "page",
+        "fromId": "01a10195-edd0-7241-b624-11dfb88a6c2a",
+        "toType": "task",
+        "toId": "01a1019a-688c-7210-9f75-7ff950c61bb3",
+        "version": 1,
+        "createdAt": "2026-10-03T12:17:25.883Z",
+        "updatedAt": "2026-10-03T12:17:25.883Z",
+        "deletedAt": null
+      }
+    ],
+    "operations": [
+      {
+        "operationId": "01a101ce-ce6a-70ac-917a-a82ca418fc54",
+        "entityType": "task",
+        "entityId": "01a101c9-0c32-75aa-a047-4154052e2e84",
+        "kind": "update",
+        "baseVersion": 1,
+        "payload": {
+          "status": "done",
+          "title": "remote contender"
+        },
+        "clientId": "01a101ce-cbaf-71ca-a9e1-7928d6d8d34e",
+        "createdAt": "2026-10-03T12:48:12.908Z",
+        "status": "acknowledged"
+      },
+      {
+        "operationId": "01a101d8-63f7-77ed-93c4-64b089aea6dc",
+        "entityType": "task",
+        "entityId": "01a101c9-0c32-75aa-a047-4154052e2e84",
+        "kind": "update",
+        "baseVersion": 3,
+        "payload": {
+          "due": "2026-12-24",
+          "title": "remote second"
+        },
+        "clientId": "01a101ce-cbaf-71ca-a9e1-7928d6d8d34e",
+        "createdAt": "2026-10-03T12:58:41.017Z",
+        "status": "acknowledged"
+      }
+    ],
+    "state": {
+      "stream": "structured",
+      "cursor": "g1.01a101ae-922e-7687-92e7-ea9f7d65ad29.7.y2sLaIk2hQAcZFk35akB-Jt8noi7tPUQnQfxRnuvUfE",
+      "headCursor": "g1.01a101ae-922e-7687-92e7-ea9f7d65ad29.7.y2sLaIk2hQAcZFk35akB-Jt8noi7tPUQnQfxRnuvUfE",
+      "lastSuccessfulSyncAt": "2026-10-03T12:58:41.119Z"
+    },
+    "clientId": "01a101ce-cbaf-71ca-a9e1-7928d6d8d34e",
+    "conflicts": [
+      {
+        "id": "01a101cf-ad30-74ee-9f75-8d6e205d65b1",
+        "operationId": "01a101cd-9849-7703-9de0-973f53237bf0",
+        "entityType": "task",
+        "entityId": "01a101c9-0c32-75aa-a047-4154052e2e84",
+        "field": "title",
+        "base": "WIN611-CONFLICT",
+        "local": "local contender",
+        "remote": "remote contender",
+        "createdAt": "2026-10-03T12:49:09.932Z",
+        "status": "resolved",
+        "resolvedBy": "01a101d3-44a9-7334-8e8d-5886692da3d3"
+      }
+    ],
+    "errors": []
+  },
+  "phase": "synced"
+}

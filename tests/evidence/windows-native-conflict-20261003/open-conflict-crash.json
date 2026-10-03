@@ -1,0 +1,7 @@
+{
+  "startedAt": "2026-10-03T13:01:42.8518159Z",
+  "finishedAt": "2026-10-03T13:01:42.9427889Z",
+  "pid": 16544,
+  "processAbsent": true,
+  "boundary": "Open second conflict with pause requested; verify local durable state from stopped copy"
+}
