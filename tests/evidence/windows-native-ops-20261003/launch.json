@@ -1,0 +1,11 @@
+{
+  "dataDirectory": ".data/host-ime/validation-611/2026-10-03T11-40-22Z",
+  "rendering": "Not verified",
+  "checkpoint": "bf25b2b8ebfc71d233a9cec5a71906e517fc77dd",
+  "hostToolchainInstalled": false,
+  "sha256": "cc806e646f8093fe3ee387d0524c68dd4ec3c6808fa794be33e84d0fd74ecf36",
+  "version": "0.6.11",
+  "startedAt": "2026-10-03T11:40:22.9593183Z",
+  "pid": 20016,
+  "scope": "Fresh isolated native validation session; no IME reconversion requested; existing A/B DB preserved"
+}

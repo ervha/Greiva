@@ -1,0 +1,7 @@
+{
+  "scope": "Restart after offline local-commit native force stop",
+  "pid": 5924,
+  "startedAt": "2026-10-03T11:55:34.1868816Z",
+  "sameDatabase": true,
+  "version": "0.6.11"
+}

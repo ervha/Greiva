@@ -1,0 +1,9 @@
+{
+  "startedAt": "2026-10-03T11:53:59.4011803Z",
+  "processAbsent": true,
+  "action": "Windows Stop-Process -Force",
+  "processId": 19420,
+  "boundary": "After observed local save completed, offline Page plus Task/Relation pending",
+  "nativeVersion": "0.6.11",
+  "finishedAt": "2026-10-03T11:53:59.4109971Z"
+}

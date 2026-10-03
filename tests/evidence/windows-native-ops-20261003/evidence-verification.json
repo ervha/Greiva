@@ -1,0 +1,8 @@
+{
+  "verifiedAt": "2026-10-03T12:00:53.592Z",
+  "execution": "Docker",
+  "checkedLinks": 230,
+  "observations": 42,
+  "savedFixtureAndCrashEvidenceConsistent": true,
+  "scope": "Selected evidence and documentation audit only; no new product tests, IME or Gate verdict."
+}

@@ -2,6 +2,12 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.12 — 2026-10-03
+
+- Windows native検証記録の更新（PATCH）。製品・候補は0.6.11を維持。利用者の実Microsoft IME通常変換、選択置換／Undo/Redo、見出し1・Todo・入れ子Toggleの問題なし回答と停止後保存データを照合。
+- CodexがWindows UIでSlash／箇条書き／番号付きリスト／引用／Code／Divider／Mention、ブロック移動とUndo/Redo、Task／Page→Task Relation保存を確認。保存完了後に通常Tauriを強制終了し、本文・structured pending2件の復元をnative画面と実Rust repositoryで確認。[証拠と範囲](tests/evidence/windows-native-ops-20261003/SUMMARY.md)。元Pageの108更新・XML・clock不変、IME69-A/Bも保持。
+- 利用者の「代行可能な試験は全部そちらで」指示を採用。今後の自動化可能なUI／保存／復旧試験はCodexが実施する。今回のnative crashはoffline保存完了後の1境界であり、通信途中・ACK・peer収束・release性能・Androidと最終Gateは未完了。
+
 ## 0.6.11 — 2026-10-03
 
 - 既存structured同期の性能改善（PATCH）: 通常ACK後の表示snapshotを100ms間隔へ抑制。ACKのdurable保存順序、local変更・pull・Conflict/rejected・最終確認の即時反映を維持。1,000操作のsnapshotは1,024→300回、応答は約375→110MB。観測同期時間71.78→44.94秒は長いpullとhost負荷の影響も含むため、全差を改善の効果とはしない。

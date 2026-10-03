@@ -1,5 +1,9 @@
 # 試験証拠の索引
 
+## Step 8: 最新Windows操作とoffline native crash（2026-10-03、記録v0.6.12／製品0.6.11）
+
+[利用者の通常IME・Codexのnative UI・実保存層照合](windows-native-ops-20261003/SUMMARY.md)。利用者の問題なし回答と108更新を照合。Codexが他のblock・Mention／移動／Undo/Redo・Task／Relationを操作し、保存完了後offlineの強制終了で本文・pending2件を復元。通信途中・ACK・peer収束のnative境界や全操作・性能・Androidの未実施は別記する。代行可能な試験は今後もCodexが実施する。
+
 ## Step 8: structured同期進捗改善・実機再変換再確認（2026-10-03、v0.6.11）
 
 [同期改善とDocker回帰](step-8-structured-progress-20261003/SUMMARY.md)。通常ACKのdurable保存を維持して表示snapshotを100ms間隔へ抑制。通常48件／別PostgreSQL20件、全54 E2E、Conflict UI2、統合crash4、性能4を確認。原型検査Failと試験fixture修正後の再検査Passを別記し、通常0.6.11 Windows候補をbuild。新候補のnative操作・性能はNot run。
