@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-04 / v0.6.20 / [1,000 blockのdrag表示更新](block-drag-large-20261004/SUMMARY.md): 移動する行だけにtransformを生成。全行のdrag／Undo・独立peer全文／clock一致、全59 E2E・型・48 unit/integration・通常Windows build。Docker単回診断のLong Task5→0と、実Windows性能／IMEとの区別を記録。
+
 - 2026-10-04 / v0.6.19 / [列に沿うdragプレビュー・丸いUI](block-drag-preview-20261004/SUMMARY.md): 元の列・幅と同じハンドル列でのdrop、周囲が場所を空ける表示。全58 E2E、型・48 unit/integration・Windows通常release build。利用者の修正版操作／見た目確認とonline backup4→13更新で全4 block保持。実際の最終順序・試験直前との差、実IME／Gateの残条件を明記。
 
 - 2026-10-04 / v0.6.18 / [Windows層別性能診断と物理drag監査](windows-native-profile-20261004/SUMMARY.md): 1,000 blockで4起動、SQLite／IPC／Yjs／Editor／Task区間、実ASCII3キー、保存・2回再起動復元。[物理drag→Undoの8→12更新](windows-native-profile-20261004/manual-drag-verification.json)も照合。最初の空段落増加・診断と通常releaseの差・実OS未実施を残す。

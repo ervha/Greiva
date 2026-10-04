@@ -1,0 +1,136 @@
+{
+  "config": {
+    "argv": [
+      "/usr/local/bin/node",
+      "/workspace/node_modules/.bin/playwright",
+      "test",
+      "tests/e2e/block-drag-large.spec.ts",
+      "--workers=1"
+    ],
+    "configFile": "/workspace/playwright.config.ts",
+    "rootDir": "/workspace/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/tmp/block-drag-1000-baseline-fixed/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/workspace/tests/e2e",
+        "testIgnore": [
+          "structured-sync.spec.ts",
+          "structured-crash.spec.ts"
+        ],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/tmp/block-drag-1000-baseline-fixed/playwright.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "/tmp/block-drag-1000-baseline-fixed/playwright.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 1,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "block-drag-large.spec.ts",
+      "file": "block-drag-large.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "STEP8-DRAG-1000: real gutter drag retains every block and reports browser frame timing",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 60000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3961,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T13:03:48.794Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "drag-1000-browser-timing",
+                      "contentType": "application/json",
+                      "body": "ewogICJyZXBvcnQiOiB7CiAgICAic2FtcGxlcyI6IFsKICAgICAgewogICAgICAgICJ0eXBlIjogImRyYWdzdGFydCIsCiAgICAgICAgInN0YXJ0IjogMTI5Mi4zOTk5OTk5OTk0NDEyLAogICAgICAgICJkaXNwYXRjaCI6IDAuMjAwMDAwMDAwMTg2MjY0NTEsCiAgICAgICAgInR3b0ZyYW1lcyI6IDUxOC4yMDAwMDAwMDAxODYzCiAgICAgIH0sCiAgICAgIHsKICAgICAgICAidHlwZSI6ICJkcmFnb3ZlciIsCiAgICAgICAgInN0YXJ0IjogMTYxMC4zOTk5OTk5OTk0NDEyLAogICAgICAgICJkaXNwYXRjaCI6IDAsCiAgICAgICAgInR3b0ZyYW1lcyI6IDIzNS44MDAwMDAwMDA3NDUwNgogICAgICB9LAogICAgICB7CiAgICAgICAgInR5cGUiOiAiZHJhZ292ZXIiLAogICAgICAgICJzdGFydCI6IDE4MzQuODk5OTk5OTk5NDQxMiwKICAgICAgICAiZGlzcGF0Y2giOiAwLAogICAgICAgICJ0d29GcmFtZXMiOiA0NS4yMDAwMDAwMDAxODYyNjUKICAgICAgfSwKICAgICAgewogICAgICAgICJ0eXBlIjogImRyYWdvdmVyIiwKICAgICAgICAic3RhcnQiOiAxODk4LAogICAgICAgICJkaXNwYXRjaCI6IDAuMDk5OTk5OTk5NjI3NDcwOTcsCiAgICAgICAgInR3b0ZyYW1lcyI6IDE1LjM5OTk5OTk5OTQ0MTIwNgogICAgICB9LAogICAgICB7CiAgICAgICAgInR5cGUiOiAiZHJhZ292ZXIiLAogICAgICAgICJzdGFydCI6IDE5MDQuNzk5OTk5OTk5ODEzNywKICAgICAgICAiZGlzcGF0Y2giOiAwLAogICAgICAgICJ0d29GcmFtZXMiOiAyODguNzk5OTk5OTk5ODEzNzQKICAgICAgfSwKICAgICAgewogICAgICAgICJ0eXBlIjogImRyYWdvdmVyIiwKICAgICAgICAic3RhcnQiOiAxOTA3Ljc5OTk5OTk5OTgxMzcsCiAgICAgICAgImRpc3BhdGNoIjogMCwKICAgICAgICAidHdvRnJhbWVzIjogMjg1Ljc5OTk5OTk5OTgxMzc0CiAgICAgIH0sCiAgICAgIHsKICAgICAgICAidHlwZSI6ICJkcmFnb3ZlciIsCiAgICAgICAgInN0YXJ0IjogMjE5My4yOTk5OTk5OTk4MTM3LAogICAgICAgICJkaXNwYXRjaCI6IDAsCiAgICAgICAgInR3b0ZyYW1lcyI6IDQ0LjA5OTk5OTk5OTYyNzQ3CiAgICAgIH0sCiAgICAgIHsKICAgICAgICAidHlwZSI6ICJkcmFnb3ZlciIsCiAgICAgICAgInN0YXJ0IjogMjIzNywKICAgICAgICAiZGlzcGF0Y2giOiAwLAogICAgICAgICJ0d29GcmFtZXMiOiA0Ny41OTk5OTk5OTk2Mjc0NwogICAgICB9LAogICAgICB7CiAgICAgICAgInR5cGUiOiAiZHJhZ292ZXIiLAogICAgICAgICJzdGFydCI6IDIyODkuMDk5OTk5OTk5NjI3NSwKICAgICAgICAiZGlzcGF0Y2giOiAwLAogICAgICAgICJ0d29GcmFtZXMiOiA0OC40MDAwMDAwMDAzNzI1MwogICAgICB9LAogICAgICB7CiAgICAgICAgInR5cGUiOiAiZHJhZ292ZXIiLAogICAgICAgICJzdGFydCI6IDIzMzMuNzAwMDAwMDAwMTg2MywKICAgICAgICAiZGlzcGF0Y2giOiAwLAogICAgICAgICJ0d29GcmFtZXMiOiAyODQuMzk5OTk5OTk5NDQxMgogICAgICB9LAogICAgICB7CiAgICAgICAgInR5cGUiOiAiZHJhZ292ZXIiLAogICAgICAgICJzdGFydCI6IDI2MTcuNzAwMDAwMDAwMTg2MywKICAgICAgICAiZGlzcGF0Y2giOiAwLAogICAgICAgICJ0d29GcmFtZXMiOiA1Mi43OTk5OTk5OTk4MTM3MzUKICAgICAgfSwKICAgICAgewogICAgICAgICJ0eXBlIjogImRyYWdvdmVyIiwKICAgICAgICAic3RhcnQiOiAyNjYxLjc5OTk5OTk5OTgxMzcsCiAgICAgICAgImRpc3BhdGNoIjogMCwKICAgICAgICAidHdvRnJhbWVzIjogNTkuMjAwMDAwMDAwMTg2MjY1CiAgICAgIH0sCiAgICAgIHsKICAgICAgICAidHlwZSI6ICJkcmFnb3ZlciIsCiAgICAgICAgInN0YXJ0IjogMjcyMC4wOTk5OTk5OTk2Mjc1LAogICAgICAgICJkaXNwYXRjaCI6IDAuMTAwMDAwMDAwNTU4NzkzNTQsCiAgICAgICAgInR3b0ZyYW1lcyI6IDUwLjUKICAgICAgfSwKICAgICAgewogICAgICAgICJ0eXBlIjogImRyYWdvdmVyIiwKICAgICAgICAic3RhcnQiOiAyNzcwLjIwMDAwMDAwMDE4NjMsCiAgICAgICAgImRpc3BhdGNoIjogMC4wOTk5OTk5OTk2Mjc0NzA5NywKICAgICAgICAidHdvRnJhbWVzIjogNTAuNzk5OTk5OTk5ODEzNzM1CiAgICAgIH0sCiAgICAgIHsKICAgICAgICAidHlwZSI6ICJkcmFnb3ZlciIsCiAgICAgICAgInN0YXJ0IjogMjgxMy44OTk5OTk5OTk0NDEsCiAgICAgICAgImRpc3BhdGNoIjogMCwKICAgICAgICAidHdvRnJhbWVzIjogMjk1LjIwMDAwMDAwMDE4NjI2CiAgICAgIH0sCiAgICAgIHsKICAgICAgICAidHlwZSI6ICJkcmFnb3ZlciIsCiAgICAgICAgInN0YXJ0IjogMzEwOC41OTk5OTk5OTk2Mjc1LAogICAgICAgICJkaXNwYXRjaCI6IDAsCiAgICAgICAgInR3b0ZyYW1lcyI6IDQ0LjEwMDAwMDAwMDU1ODc5CiAgICAgIH0sCiAgICAgIHsKICAgICAgICAidHlwZSI6ICJkcmFnb3ZlciIsCiAgICAgICAgInN0YXJ0IjogMzE1Ny41LAogICAgICAgICJkaXNwYXRjaCI6IDAsCiAgICAgICAgInR3b0ZyYW1lcyI6IDUzLjUKICAgICAgfSwKICAgICAgewogICAgICAgICJ0eXBlIjogImRyYWdvdmVyIiwKICAgICAgICAic3RhcnQiOiAzMjczLjc5OTk5OTk5OTgxMzcsCiAgICAgICAgImRpc3BhdGNoIjogMCwKICAgICAgICAidHdvRnJhbWVzIjogNDkuMjAwMDAwMDAwMTg2MjY1CiAgICAgIH0sCiAgICAgIHsKICAgICAgICAidHlwZSI6ICJkcmFnb3ZlciIsCiAgICAgICAgInN0YXJ0IjogMzM2MC43MDAwMDAwMDAxODYzLAogICAgICAgICJkaXNwYXRjaCI6IDAsCiAgICAgICAgInR3b0ZyYW1lcyI6IDYxLjI5OTk5OTk5OTgxMzczNQogICAgICB9CiAgICBdLAogICAgImxvbmdUYXNrcyI6IFsKICAgICAgewogICAgICAgICJzdGFydCI6IDEyOTAuNzAwMDAwMDAwMTg2MywKICAgICAgICAiZHVyYXRpb24iOiAzMTEKICAgICAgfSwKICAgICAgewogICAgICAgICJzdGFydCI6IDE2MTMuMDk5OTk5OTk5NjI3NSwKICAgICAgICAiZHVyYXRpb24iOiAxOTYKICAgICAgfSwKICAgICAgewogICAgICAgICJzdGFydCI6IDE5MTMuMjk5OTk5OTk5ODEzNywKICAgICAgICAiZHVyYXRpb24iOiAyNzYKICAgICAgfSwKICAgICAgewogICAgICAgICJzdGFydCI6IDIzMzcuMzk5OTk5OTk5NDQxLAogICAgICAgICJkdXJhdGlvbiI6IDI3NQogICAgICB9LAogICAgICB7CiAgICAgICAgInN0YXJ0IjogMjgyMC41OTk5OTk5OTk2Mjc1LAogICAgICAgICJkdXJhdGlvbiI6IDI4MAogICAgICB9CiAgICBdLAogICAgImdlc3R1cmVTdGFydCI6IDEyOTIuMzk5OTk5OTk5NDQxMiwKICAgICJnZXN0dXJlRW5kIjogMzQwMi41OTk5OTk5OTk2Mjc1CiAgfSwKICAiYmxvY2tzIjogMTAwMCwKICAic2NvcGUiOiAiRG9ja2VyIENocm9taXVtIGRldiBmcm9udGVuZCBhbmQgdGVzdCBTUUxpdGUgYnJpZGdlLiBFdmVudC10by10d28tckFGIGFuZCBkaXNwYXRjaCB0aW1pbmcgYXJlIGRpYWdub3N0aWMsIG5vdCBuYXRpdmUgRlBTLCBhY3R1YWwgcGFpbnQgb3IgcmVsZWFzZSBTTE8uIgp9"
+                    }
+                  ]
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "e48327dabfa6f6883e91-6ef9dac99c893ee8ee6b",
+          "file": "block-drag-large.spec.ts",
+          "line": 5,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-04T13:03:45.220Z",
+    "duration": 7867.6449999999995,
+    "expected": 1,
+    "skipped": 0,
+    "unexpected": 0,
+    "flaky": 0
+  }
+}

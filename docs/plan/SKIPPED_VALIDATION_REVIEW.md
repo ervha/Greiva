@@ -1,5 +1,7 @@
 # スキップ・未実施事項の再確認
 
+v0.6.20追記: [0.6.19の利用者による新drag確認と保存監査](../../tests/evidence/block-drag-preview-20261004/SUMMARY.md)で物理移動／Undo・新表示を補完。旧0.6.17の空段落増加の原因は未確定。さらに[Dockerの1,000 block drag／Undo・全行保持・peer全文／clock一致](../../tests/evidence/block-drag-large-20261004/SUMMARY.md)、全59 E2Eと通常Windows buildを補完。最新実Microsoft IME・1,000 blockでの日本語連続入力・正式Gate、実OS不足は残す。以下の表は0.6.17時点の原履歴。
+
 2026-10-04、v0.6.17の区切り。過去のNot run／skip／失敗を現在の証拠へ対応付ける。過去の原結果は書き換えず、補完済みの範囲と残る条件を分ける。[PoC仕様](POC_SPEC.md) §12–18、[受入条件の履歴](POC_VALIDATION_MATRIX.md)、[Gate資料案](GATE_REVIEW_DRAFT.md)。
 
 v0.6.18追記: 利用者が手操作可能へ復帰。物理drag→Undo成功を報告し、停止DBで移動・元本文復元を確認した。最初の移動の空段落1つ増加は原因未確認、後の移動は正しい構造。[履歴と照合](../../tests/evidence/windows-native-profile-20261004/manual-drag-verification.json)。[Windows層別診断](../../tests/evidence/windows-native-profile-20261004/SUMMARY.md)で4起動の保存層／Yjs／描画区間、実ASCII3キーの保存・2回再起動復元を補完。iOS Simulator不可、Pixel_10 emulator起動失敗、Pixel 7のADB未接続も再確認。以下のv0.6.17時点の未確認・待機は原履歴として保持し、現在の残確認はGate資料案を参照。

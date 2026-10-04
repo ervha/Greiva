@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.20 — 2026-10-04
+
+- 1,000 blockでdragの移動先を変えるたびに全行へtransformを生成していた処理を、移動する行だけへ変更（PATCH）。元の位置へ戻る動き、選択／Undo、ハンドル列drop、reduced motionは維持。[原比較と回帰](tests/evidence/block-drag-large-20261004/SUMMARY.md)。Dockerの単回比較で50ms超のLong Taskは5回から0回へ。Windows FPSや実IMEの結果には換算しない。
+- 全1,000行のdrag／Undo保持・独立peer全文／state vector一致のE2Eを追加。全59 E2E、型、通常48 unit/integration、通常frontend／Windows release buildがPass。app所有版を整合し、外部依存不変。既存のWindows試験Pageは編集せず保持、native実IME・正式Gateは残す。
+
 ## 0.6.19 — 2026-10-04
 
 - Block dragを線中心から、持った行の内容・ハンドル・軽い影と、周りが場所を空ける表示へ改善（PATCH）。追加指定に合わせ横位置・幅を固定し、上下に動く行へ改訂。表示用変更を本文・Undo・保存へ混ぜず、遠隔変更やcomposition開始で安全に中断する。[動き・範囲・原結果](tests/evidence/block-drag-preview-20261004/SUMMARY.md)。

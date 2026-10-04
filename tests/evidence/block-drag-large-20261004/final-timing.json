@@ -1,0 +1,127 @@
+{
+  "report": {
+    "samples": [
+      {
+        "type": "dragstart",
+        "start": 3708.7000000001863,
+        "twoFrames": 80.09999999962747
+      },
+      {
+        "type": "dragover",
+        "start": 3795.7999999998137,
+        "twoFrames": 89.40000000037253
+      },
+      {
+        "type": "dragover",
+        "start": 3805.399999999441,
+        "twoFrames": 79.80000000074506
+      },
+      {
+        "type": "dragover",
+        "start": 3986.7999999998137,
+        "twoFrames": 22.799999999813735
+      },
+      {
+        "type": "dragover",
+        "start": 3995.2999999998137,
+        "twoFrames": 84.20000000018626
+      },
+      {
+        "type": "dragover",
+        "start": 3998.0999999996275,
+        "twoFrames": 81.40000000037253
+      },
+      {
+        "type": "dragover",
+        "start": 4009.2999999998137,
+        "twoFrames": 70.20000000018626
+      },
+      {
+        "type": "dragover",
+        "start": 4079.2999999998137,
+        "twoFrames": 13.200000000186265
+      },
+      {
+        "type": "dragover",
+        "start": 4092,
+        "twoFrames": 17.700000000186265
+      },
+      {
+        "type": "dragover",
+        "start": 4096.899999999441,
+        "twoFrames": 81.6000000005588
+      },
+      {
+        "type": "dragover",
+        "start": 4109.299999999814,
+        "twoFrames": 69.20000000018626
+      },
+      {
+        "type": "dragover",
+        "start": 4178.299999999814,
+        "twoFrames": 9.5
+      },
+      {
+        "type": "dragover",
+        "start": 4191.5,
+        "twoFrames": 86.8999999994412
+      },
+      {
+        "type": "dragover",
+        "start": 4194.899999999441,
+        "twoFrames": 83.5
+      },
+      {
+        "type": "dragover",
+        "start": 4197.399999999441,
+        "twoFrames": 81
+      },
+      {
+        "type": "dragover",
+        "start": 4207.799999999814,
+        "twoFrames": 70.59999999962747
+      },
+      {
+        "type": "dragover",
+        "start": 4278,
+        "twoFrames": 14.700000000186265
+      },
+      {
+        "type": "dragover",
+        "start": 4305.399999999441,
+        "twoFrames": 86.5
+      },
+      {
+        "type": "dragover",
+        "start": 4491.5999999996275,
+        "twoFrames": 86.90000000037253
+      }
+    ],
+    "longTasks": [
+      {
+        "start": 3704.399999999441,
+        "duration": 82
+      },
+      {
+        "start": 4009.5,
+        "duration": 67
+      },
+      {
+        "start": 4109.5,
+        "duration": 67
+      },
+      {
+        "start": 4978.5999999996275,
+        "duration": 101
+      },
+      {
+        "start": 5205.0999999996275,
+        "duration": 73
+      }
+    ],
+    "gestureStart": 3708.7000000001863,
+    "gestureEnd": 4575.399999999441
+  },
+  "blocks": 1000,
+  "scope": "Docker Chromium dev frontend and test SQLite bridge. Event-to-two-rAF timing is diagnostic, not native FPS, actual paint or release SLO."
+}

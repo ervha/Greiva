@@ -1,5 +1,7 @@
 # 手操作待ちの検証と解決案
 
+2026-10-04、v0.6.20更新: [1,000 block dragの表示更新](../../tests/evidence/block-drag-large-20261004/SUMMARY.md)を利用者操作なしで検証。全行の移動／Undo・peer全文／clock一致、全59 E2Eと通常Windows buildがPass。Docker診断でLong Task5→0。通常0.6.20の実IME・native性能は別の残条件。WIN619-DRAGは未編集で開いたまま、Computer Use解除を維持する。
+
 2026-10-04、v0.6.19更新: [行のdrag表示・同じハンドル列のdrop・丸いUI](../../tests/evidence/block-drag-preview-20261004/SUMMARY.md)を実装し全58 E2E／通常Windows buildがPass。利用者が修正版の操作・見た目を確認。online backupの4→13更新は元4 blockの順序変更のみ、内容と旧履歴保持。最終H2→H3と試験直前のH3→H2の差を明記する。旧0.6.17の空段落の原因を解消済みとはしない。最新実日本語IME・1,000 block連続入力・正式Gateは残る。
 
 2026-10-04、v0.6.18更新: 利用者は手操作可能となり、物理drag→Undo成功を報告。[停止DB監査](../../tests/evidence/windows-native-profile-20261004/manual-drag-verification.json)で移動／復元を確認したが、最初の移動の空段落増加は原因未確認として保持。Windows復元の[層別診断](../../tests/evidence/windows-native-profile-20261004/SUMMARY.md)を補完。最新実Microsoft IME・初期化／入力性能の残範囲・実OS不足・Gate判断は続く。次のdrag表示改善へ進む。

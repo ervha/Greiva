@@ -10,7 +10,7 @@
 
 | Gate | 現時点の案 | 完了前に必要な内容 |
 | --- | --- | --- |
-| A: Tiptap＋Yjs Editor | 判定保留。通常0.6.17の全block・削除・keyboard移動・物理drag／Undoは補完済み | 最初のdragの空段落増加を新しい表示の回帰でも確認。最新Microsoft IMEの同一段落遠隔composition・1,000 block入力体験。旧自動dragは単純HTML5対照もdrop未配送 |
+| A: Tiptap＋Yjs Editor | 判定保留。通常0.6.17の全block等と0.6.19の物理drag／Undo・新表示は補完済み | 新dragの保存履歴に余分な段落なし、旧異常の原因は未確定。0.6.20のDockerで1,000 block drag／Undo・全行保持を補完。最新Microsoft IMEの同一段落遠隔composition・1,000 block入力体験は残る |
 | B: offline保存・Yjs収束 | Conditional案 | P0保存済み復旧・収束証拠を統合。macOS P1／iOS P2未実施とWindows復元目安未達観測を承認対象として明示 |
 | C: structured同期 | Pass案、正式判定はA/Bの扱い決定後 | 全operation／cursor／Conflict evidenceの対応を最終レビュー。1,000操作約76秒のserver応答間とnative ACK commit時間の未分離を記録 |
 

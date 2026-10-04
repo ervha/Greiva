@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+2026-10-04、checkpoint／製品 **0.6.20**。1,000 blockでdragの全行スタイル生成を省き、移動する行だけを更新。[単回比較・全59 E2E・型・48 unit/integration・通常Windows build](../../tests/evidence/block-drag-large-20261004/SUMMARY.md)。Docker診断のLong Task5→0、全1,000行の移動／Undo・独立peer全文／clock一致。Windows性能・実日本語IMEの合格には換算しない。利用者操作なしでこの更新を検証し、既存WIN619-DRAGは編集せず開いたまま保持。残る実IME／正式Gateの準備を続ける。
+
 2026-10-04、checkpoint／製品 **0.6.19**。ドラッグを、元の列・幅を保って上下へ持つ行と、周囲が場所を空ける表示に改善。ハンドル列のdropを修正し、丸いblock・共通control・短い動き・小さいmenuの透明感を追加。[全58 E2E・型・48 unit/integration・Windows release build](../../tests/evidence/block-drag-preview-20261004/SUMMARY.md)。利用者が最終修正版を確認し、online backupの4→13更新で純粋な順序変更・全4 block保持を照合。最終H2→H3と試験直前H3→H2の差も記録。Computer Useは解除済み、Pageは開いたまま。[共通品質基準](../development/ui-quality.md)を反映。次は新しい表示の大量block性能と残るPoC検証を進める。最新実IME／1,000 block連続入力・正式Gateは残る。利用者指定により、操作依頼を最小限にして停止・完了・必要な回答待ちまで継続する。
 
 2026-10-04、記録checkpoint **v0.6.18**／製品 **0.6.17**。[層別性能診断・実キー3文字保存／復元](../../tests/evidence/windows-native-profile-20261004/SUMMARY.md)と利用者の物理drag→Undoを停止DBで照合。元の本文・別Pageは保持。最初の移動履歴に空段落の増加があり原因未確認、後の移動は正しい構造。実日本語IME・正式Gateは未完了。利用者は手操作可能へ復帰し、ドラッグ中のblockを持ち上げ周囲が場所を空ける表示を依頼。確認済み区切りをcommit後、表示改善へ進む。

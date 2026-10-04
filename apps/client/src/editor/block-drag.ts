@@ -44,15 +44,15 @@ export const BlockDrag = Extension.create({
     const showDestination = (current: Drag, before: number) => {
       if (current.before === before) return;
       current.before = before;
-      const rules = [];
+      const rules = ['.is-block-dragging > * { transition: transform var(--motion-normal, 160ms) var(--motion-ease, ease); }'];
       for (const row of current.rows) {
         const shift = before < current.from && row.pos >= before && row.pos < current.from ? current.space :
           before > current.from && row.pos > current.from && row.pos < before ? -current.space : 0;
-        rules.push(`${row.selector} { transform: translateY(${shift}px); transition: transform var(--motion-normal, 160ms) var(--motion-ease, ease); }`);
+        if (shift) rules.push(`${row.selector} { transform: translateY(${shift}px); }`);
       }
       const source = current.rows.find(row => row.pos === current.from)!;
       rules.push(`${source.selector} { opacity: 0; }`);
-      rules.push(`@media (prefers-reduced-motion: reduce) { ${current.rows.map(row => row.selector).join(', ')} { transition: none; } }`);
+      rules.push('@media (prefers-reduced-motion: reduce) { .is-block-dragging > * { transition: none; } }');
       current.styles.textContent = rules.join('\n');
     };
     const insideRows = (view: EditorView, event: DragEvent) => {

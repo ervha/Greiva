@@ -1,0 +1,77 @@
+
+> greiva-poc@0.6.20 test
+> npm run build:packages && npm run build:servers && vitest run
+
+
+> greiva-poc@0.6.20 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync
+
+
+> @greiva/shared@0.6.20 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.6.20 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.6.20 build
+> tsc -p tsconfig.json
+
+
+> greiva-poc@0.6.20 build:servers
+> npm run build -w @greiva/api && npm run build -w @greiva/collaboration
+
+
+> @greiva/api@0.6.20 build
+> tsc -p tsconfig.json
+
+
+> @greiva/collaboration@0.6.20 build
+> tsc -p tsconfig.json
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/structured-sync-store.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 1332[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP7-MIGRATION: schema 3 queue/client/Page survive schema 4 upgrade; incompatible destination rolls back columns and version[33m 566[2mms[22m[39m
+ [32m✓[39m tests/integration/structured-progress.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 1147[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP8-PROGRESS: coalesces ordinary ACK snapshots while retaining durable order and final state[33m 714[2mms[22m[39m
+ [32m✓[39m tests/integration/structured-store.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 670[2mms[22m[39m
+ [32m✓[39m tests/integration/collaboration-restart.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 558[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP4-RESTART: ACKed binary updates survive SIGKILL; disconnected edits converge after restart[33m 542[2mms[22m[39m
+ [32m✓[39m tests/integration/sqlite-bridge-stream.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 567[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP8-BRIDGE: killing a real Rust store during concurrent requests never terminates the HTTP server[33m 566[2mms[22m[39m
+ [32m✓[39m tests/integration/page-store.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 124[2mms[22m[39m
+ [32m✓[39m tests/integration/api.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 88[2mms[22m[39m
+ [32m✓[39m tests/integration/sqlite.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 41[2mms[22m[39m
+ [32m✓[39m tests/unit/structured-transport.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 34[2mms[22m[39m
+ [32m✓[39m tests/unit/page-writes.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+[90mstdout[2m | tests/integration/collaboration.test.ts
+[22m[39m
+  Hocuspocus v4.7.0 running at:
+
+  > HTTP: http://127.0.0.1:41695
+  > WebSocket: ws://127.0.0.1:41695
+
+ [32m✓[39m tests/integration/collaboration.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 29[2mms[22m[39m
+ [32m✓[39m tests/unit/protocol.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 15[2mms[22m[39m
+ [32m✓[39m tests/unit/durability-boundary.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m tests/unit/block-move.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m tests/unit/shared.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 5[2mms[22m[39m
+ [2m[90m↓[39m[22m tests/integration/postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m tests/integration/structured-postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m tests/integration/structured-process-crash.test.ts [2m([22m[2m2 tests[22m[2m | [22m[33m2 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m tests/integration/structured-sync-client.test.ts [2m([22m[2m6 tests[22m[2m | [22m[33m6 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m tests/integration/structured-sync-server.test.ts [2m([22m[2m10 tests[22m[2m | [22m[33m10 skipped[39m[2m)[22m
+
+[2m Test Files [22m [1m[32m15 passed[39m[22m[2m | [22m[33m5 skipped[39m[90m (20)[39m
+[2m      Tests [22m [1m[32m48 passed[39m[22m[2m | [22m[33m20 skipped[39m[90m (68)[39m
+[2m   Start at [22m 13:06:37
+[2m   Duration [22m 10.97s[2m (tests 51%, import 45%, transform 4%, worker 1%)[22m
+
+[2m    Isolate [22m [33m20 workers spawned[39m[2m · ~81ms startup each (spawn + environment, per file)[22m
+[2m            [22m [2mat least ~1.54s faster with [22m[33misolate: false[39m[2m — reuses workers across files instead of one per file[22m
+
+JSON report written to /tmp/block-drag-0620-large-verified/vitest.json
+JUNIT report written to /tmp/block-drag-0620-large-verified/vitest.xml
