@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-04T15:39:25.018Z",
+  "productSource": "0.6.24",
+  "bytes": 4283904,
+  "sha256": "f8d0ec40263e5ec393ffbd2a4c4a675f25a6b26edabf01c5747a1006f7f955ee",
+  "features": [
+    "crash-test-hooks"
+  ],
+  "scope": "Diagnostic Rust repository driver for Windows native OS transaction barriers. Not normal Tauri UI and not a distributed product artifact."
+}

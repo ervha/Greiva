@@ -2,6 +2,13 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.25 — 2026-10-05
+
+- Page保存/通信報告でEditorとTask一覧の不要な再描画を省き、内部状態/タイトル/接続変更の反映を維持。大量fixtureの対照診断を再実行可能にした。
+- 回帰で再現した移動キー後の選択反映待ちと、ハンドル列のdrag target受入を修正。composition guardを含む55 unit/integration、全59 E2E、実同期/Conflict2を確認。
+- Windows実Rustの4停止境界と通常releaseの1,000段落/250 Task、選択置換/Undo/Redo、保存/再起動、7更新/独立peer照合を記録。初回失敗とWAL seed訂正を保持し、最新版実IME/物理drag/性能/実OS不足と分けた。
+- 今後の開発計画と全自律判断を記録。v0.6.24のACK起点表記を原input event測定へ訂正。外部依存/保存方式/同期契約は不変。
+
 ## 0.6.24 — 2026-10-05
 
 - 入力・選択更新時の移動ボタン判定から、使わない2個の移動transactionと全文offset走査を除去（PATCH）。実際のmove／Undo／composition guardは維持。[判断全件・試験](docs/decisions/step-8-toolbar-availability.md)。

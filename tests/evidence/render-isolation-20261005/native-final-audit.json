@@ -1,0 +1,82 @@
+{
+  "result": "Pass",
+  "at": "2026-10-04T18:12:50.059Z",
+  "product": "0.6.25",
+  "artifactSha256": "e09ac644d9b7c1b3971e223fa0d46a52afbd2235f978d4f76b72ec2d519dbbad",
+  "pageUpdates": 7,
+  "blocks": 1000,
+  "unchangedOtherParagraphs": 998,
+  "tasks": 250,
+  "pending": 250,
+  "structuredTablesUnchanged": true,
+  "reopenStoredTablesUnchanged": true,
+  "title": "WIN625-RENDERx",
+  "history": [
+    {
+      "sequence": 1,
+      "blocks": 1000,
+      "first": "<paragraph>WIN625 local </paragraph>",
+      "last": "<paragraph>Block 0999</paragraph>"
+    },
+    {
+      "sequence": 2,
+      "blocks": 1000,
+      "first": "<paragraph>WIN625 local x</paragraph>",
+      "last": "<paragraph>Block 0999</paragraph>"
+    },
+    {
+      "sequence": 3,
+      "blocks": 1000,
+      "first": "<paragraph>WIN625 local x</paragraph>",
+      "last": "<paragraph>Block 0999x</paragraph>"
+    },
+    {
+      "sequence": 4,
+      "blocks": 1000,
+      "first": "<paragraph>z</paragraph>",
+      "last": "<paragraph>Block 0999x</paragraph>"
+    },
+    {
+      "sequence": 5,
+      "blocks": 1000,
+      "first": "<paragraph>WIN625 local x</paragraph>",
+      "last": "<paragraph>Block 0999x</paragraph>"
+    },
+    {
+      "sequence": 6,
+      "blocks": 1000,
+      "first": "<paragraph>z</paragraph>",
+      "last": "<paragraph>Block 0999x</paragraph>"
+    },
+    {
+      "sequence": 7,
+      "blocks": 1000,
+      "first": "<paragraph>WIN625 local x</paragraph>",
+      "last": "<paragraph>Block 0999x</paragraph>"
+    }
+  ],
+  "xmlSha256": "7855108a32d2f1880cf88c584a0beae40ac97c96a02779cc00edfa4bd2b71700",
+  "clocks": [
+    [
+      1,
+      1
+    ],
+    [
+      1202029550,
+      1
+    ],
+    [
+      1236665123,
+      12007
+    ],
+    [
+      3628094849,
+      1
+    ],
+    [
+      3857191174,
+      30
+    ]
+  ],
+  "scope": "Final normal Windows release. Home/Shift+End/z/Undo/Redo/Undo and second restart, read-only online SQLite backups, all Page digests and exact structured tables. Independent peer audit separately matches XML and clocks. No actual Japanese/provider, physical drag or native latency measurement."
+}

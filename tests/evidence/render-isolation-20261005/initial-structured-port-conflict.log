@@ -1,0 +1,40 @@
+
+> greiva-poc@0.6.25 test:structured-e2e
+> node scripts/test-structured-e2e.mjs
+
+{"event":"structured-e2e-isolation","schema":"greiva_test_01a107f8135e7137a2c9031a80c57a40"}
+
+> greiva-poc@0.6.25 test:e2e
+> npm run build:packages && npm run build:servers && playwright test
+
+
+> greiva-poc@0.6.25 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync
+
+
+> @greiva/shared@0.6.25 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.6.25 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.6.25 build
+> tsc -p tsconfig.json
+
+
+> greiva-poc@0.6.25 build:servers
+> npm run build -w @greiva/api && npm run build -w @greiva/collaboration
+
+
+> @greiva/api@0.6.25 build
+> tsc -p tsconfig.json
+
+
+> @greiva/collaboration@0.6.25 build
+> tsc -p tsconfig.json
+
+Error: http://127.0.0.1:1420 is already used, make sure that nothing is running on the port/url or set reuseExistingServer:true in config.webServer.
+
+{"event":"structured-e2e-cleanup","schema":"greiva_test_01a107f8135e7137a2c9031a80c57a40","remaining":0}

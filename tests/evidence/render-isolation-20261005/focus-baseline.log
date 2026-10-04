@@ -1,0 +1,46 @@
+
+Running 6 tests using 1 worker
+
+  ✘  1 [chromium] › tests/e2e/focus-reconnect.spec.ts:36:3 › STEP8-FOCUS-heading-backward: peer updates during blur retain selection and local Undo excludes remote edits (8.6s)
+  ✓  2 [chromium] › tests/e2e/focus-reconnect.spec.ts:36:3 › STEP8-FOCUS-heading-backward: peer updates during blur retain selection and local Undo excludes remote edits (4.7s)
+  ✓  3 [chromium] › tests/e2e/focus-reconnect.spec.ts:36:3 › STEP8-FOCUS-heading-backward: peer updates during blur retain selection and local Undo excludes remote edits (4.6s)
+  ✓  4 [chromium] › tests/e2e/focus-reconnect.spec.ts:36:3 › STEP8-FOCUS-heading-backward: peer updates during blur retain selection and local Undo excludes remote edits (4.6s)
+  ✓  5 [chromium] › tests/e2e/focus-reconnect.spec.ts:36:3 › STEP8-FOCUS-heading-backward: peer updates during blur retain selection and local Undo excludes remote edits (4.9s)
+  ✓  6 [chromium] › tests/e2e/focus-reconnect.spec.ts:36:3 › STEP8-FOCUS-heading-backward: peer updates during blur retain selection and local Undo excludes remote edits (4.6s)
+
+
+  1) [chromium] › tests/e2e/focus-reconnect.spec.ts:36:3 › STEP8-FOCUS-heading-backward: peer updates during blur retain selection and local Undo excludes remote edits 
+
+    Error: expect(received).toBe(expected) // Object.is equality
+
+    Expected: 0
+    Received: 3
+
+    Call Log:
+    - Timeout 5000ms exceeded while waiting on the predicate
+
+       7 | async function home(page:Page){
+       8 |   await page.keyboard.press('Home');
+    >  9 |   await expect.poll(async()=> (await snapshot(page)).selection.offset).toBe(0);
+         |                                                                        ^
+      10 | }
+      11 | async function selection(page:Page,selector:string){
+      12 |   return page.evaluate(selector=>{
+        at home (/workspace/tests/e2e/focus-reconnect.spec.ts:9:72)
+        at /workspace/tests/e2e/focus-reconnect.spec.ts:63:61
+
+    Error Context: ../tmp/render625-focus-compare/legacy/artifacts/focus-reconnect-STEP8-FOCU-23167--Undo-excludes-remote-edits-chromium/error-context.md
+
+    attachment #5: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../tmp/render625-focus-compare/legacy/artifacts/focus-reconnect-STEP8-FOCU-23167--Undo-excludes-remote-edits-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../tmp/render625-focus-compare/legacy/artifacts/focus-reconnect-STEP8-FOCU-23167--Undo-excludes-remote-edits-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests/e2e/focus-reconnect.spec.ts:36:3 › STEP8-FOCUS-heading-backward: peer updates during blur retain selection and local Undo excludes remote edits 
+  5 passed (36.7s)
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.

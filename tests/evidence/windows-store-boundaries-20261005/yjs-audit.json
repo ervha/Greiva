@@ -1,0 +1,74 @@
+{
+  "at": "2026-10-04T17:33:55.366Z",
+  "scope": "Independent Docker Yjs reconstruction of update bytes recovered by the actual Windows repository driver; synthetic text only.",
+  "results": [
+    {
+      "name": "page-precommit",
+      "result": "Pass",
+      "blocks": 3,
+      "xml": "<paragraph>first unsaved</paragraph><paragraph>second</paragraph><paragraph>third</paragraph>",
+      "xmlSha256": "d5fe3197e2d379b038239785e9afd45e991c8b9d56bd7de65ddba207d8dd4e80",
+      "clocks": [
+        [
+          1,
+          1
+        ],
+        [
+          4085082596,
+          30
+        ]
+      ]
+    },
+    {
+      "name": "pull-before-cursor",
+      "result": "Pass",
+      "blocks": 3,
+      "xml": "<paragraph>first</paragraph><paragraph>second</paragraph><paragraph>third</paragraph>",
+      "xmlSha256": "8de66f1f56703f616f18bed586bb822f4dacfd71fe7af3d2c484eb8cc900b5e5",
+      "clocks": [
+        [
+          1,
+          1
+        ],
+        [
+          4085082596,
+          22
+        ]
+      ]
+    },
+    {
+      "name": "local-committed-stop",
+      "result": "Pass",
+      "blocks": 3,
+      "xml": "<paragraph>first</paragraph><paragraph>second</paragraph><paragraph>third</paragraph>",
+      "xmlSha256": "8de66f1f56703f616f18bed586bb822f4dacfd71fe7af3d2c484eb8cc900b5e5",
+      "clocks": [
+        [
+          1,
+          1
+        ],
+        [
+          4085082596,
+          22
+        ]
+      ]
+    },
+    {
+      "name": "prepared-wire-stop",
+      "result": "Pass",
+      "blocks": 3,
+      "xml": "<paragraph>first</paragraph><paragraph>second</paragraph><paragraph>third</paragraph>",
+      "xmlSha256": "8de66f1f56703f616f18bed586bb822f4dacfd71fe7af3d2c484eb8cc900b5e5",
+      "clocks": [
+        [
+          1,
+          1
+        ],
+        [
+          4085082596,
+          22
+        ]
+      ]
+    }
+  ]
+}

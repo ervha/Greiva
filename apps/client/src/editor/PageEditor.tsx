@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { memo, useEffect, useMemo } from 'react';
 import { EditorContent, useEditor, useEditorState } from '@tiptap/react';
 import { adjacentBlockMove, canMoveAdjacentBlock } from './blocks';
 import { blockCommands, editorExtensions } from './extensions';
@@ -11,7 +11,9 @@ const pageEditorProps: EditorProps = {
   handleDOMEvents: { keydown: (view, event) => event.isComposing || view.composing || event.keyCode === 229 },
 };
 
-export function PageEditor({ session, title, storageError }: { session: PageSession; title: string; storageError: string | null }) {
+// Save/network reports do not change these props. Internal editor state still
+// updates the toolbar, and title/storage-error changes still render normally.
+export const PageEditor = memo(function PageEditor({ session, title, storageError }: { session: PageSession; title: string; storageError: string | null }) {
   // Save/ACK indicators rerender the parent frequently. Stable extension and
   // NodeView identities keep those status changes from disturbing DOM selection.
   const extensions = useMemo(() => editorExtensions(session.document), [session.document]);
@@ -68,4 +70,4 @@ export function PageEditor({ session, title, storageError }: { session: PageSess
     <p className="editor-hint">行頭の <kbd>/</kbd> でブロック追加、<kbd>@</kbd> でMention。トグルは <kbd>Enter</kbd> で本文へ、<kbd>Ctrl+Enter</kbd> で開閉。</p>
     <EditorContent editor={editor} />
   </section>;
-}
+});

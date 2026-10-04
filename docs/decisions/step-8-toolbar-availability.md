@@ -12,7 +12,7 @@ PageEditorのtoolbar selectorは各transactionで上／下へ移動できるか�
 
 型、50 unit/integration（実DB専用20 skip）、全59 E2E（skip／Fail／flaky 0）、通常frontendとWindows release buildがPass。API／同期／保存層source変更なしで、過去の別PostgreSQL20 Passを保持し再実行とは呼ばない。
 
-production bundle＋release Rust試験bridgeの1,000 block／1,001履歴復元と実キー104文字の保存照合がPass。復元3 sample 372.2–381.1ms、keydown→frame機会p95 17.0ms、keydown→commit ACK p95 291.5ms。以前の別runよりACKが悪い観測も隠さず、入力全体の改善やWindows復元2秒の達成を主張しない。
+production bundle＋release Rust試験bridgeの1,000 block／1,001履歴復元と実キー104文字の保存照合がPass。復元3 sample 372.2–381.1ms、keydown→frame機会p95 17.0ms、input event→commit ACK p95 291.5ms。以前の別runよりACKが悪い観測も隠さず、入力全体の改善やWindows復元2秒の達成を主張しない。v0.6.25の再監査でACKの起点表記を原測定の`inputToCommitAckMs`へ訂正。数値や当時のrunは変更しない。
 
 通常Windowsの別保存先で1,000 blockを復元し、2行目の「上へ移動」→Ctrl+Z、実キーxを代行。「端末に保存済み」を観測後Alt+F4、process不在を確認。SQLite backupの1→4更新で移動・元の全文復元・2行目末尾xを履歴順に照合。他998段落とTask／Relation／queue／receipt／cursor不変。初回structured client ID生成だけを明示して許容する。実日本語IMEやnative性能の追加合格ではない。
 

@@ -1,0 +1,13 @@
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.
+
+Running 6 tests using 1 worker
+
+  ✓  1 [chromium] › tests/e2e/block-drag.spec.ts:107:1 › STEP8-DRAG-GUTTER: vertical movement in the handle column drops without entering the text (1.6s)
+  ✓  2 [chromium] › tests/e2e/block-drag.spec.ts:107:1 › STEP8-DRAG-GUTTER: vertical movement in the handle column drops without entering the text (1.5s)
+  ✓  3 [chromium] › tests/e2e/block-drag.spec.ts:107:1 › STEP8-DRAG-GUTTER: vertical movement in the handle column drops without entering the text (1.6s)
+  ✓  4 [chromium] › tests/e2e/block-drag.spec.ts:107:1 › STEP8-DRAG-GUTTER: vertical movement in the handle column drops without entering the text (1.5s)
+  ✓  5 [chromium] › tests/e2e/block-drag.spec.ts:107:1 › STEP8-DRAG-GUTTER: vertical movement in the handle column drops without entering the text (1.6s)
+  ✓  6 [chromium] › tests/e2e/block-drag.spec.ts:107:1 › STEP8-DRAG-GUTTER: vertical movement in the handle column drops without entering the text (1.8s)
+
+  6 passed (14.1s)

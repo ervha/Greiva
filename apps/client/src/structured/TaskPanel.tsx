@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from 'react';
+import { memo, useEffect, useMemo, useRef, useState } from 'react';
 import { newId } from '@greiva/shared';
 import type { PushOperation, StructuredSnapshot, Task, Relation, Conflict } from '@greiva/protocol';
 import { StructuredSyncEngine, httpStructuredTransport, type StructuredReport, type StructuredPhase } from '@greiva/sync';
@@ -7,7 +7,9 @@ import type { PageMetadata } from '../editor/local-page-store';
 const labels = { todo: '未着手', in_progress: '進行中', done: '完了' } as const;
 const syncLabels: Record<StructuredPhase,string> = {loading:'読み込み中…',syncing:'同期中…',synced:'サーバーと同期済み',offline:'オフライン',retrying:'再試行待ち', 'storage-error':'保存・受信のエラー', 'protocol-error':'同期データのエラー', 'permission-error':'同期の権限エラー',conflict:'競合の解決待ち',rejected:'送信できない変更があります'};
 const fieldLabels = {title:'名前',status:'状態',due:'期限',fromType:'関連元の種類',fromId:'関連元',toType:'関連先の種類',toId:'関連先'};
-export function TaskPanel({ pageId, pages, paused }: { pageId: string; pages: PageMetadata[]; paused: boolean }) {
+// Page save/ACK reports should not redraw the entire structured list. Local
+// form/sync state and changed Page metadata/connection props remain reactive.
+export const TaskPanel = memo(function TaskPanel({ pageId, pages, paused }: { pageId: string; pages: PageMetadata[]; paused: boolean }) {
   const store = useMemo(localStructuredStore, []);
   const [snapshot, setSnapshot] = useState<StructuredSnapshot | null>(null);
   const [sync, setSync] = useState<StructuredReport>({phase:'loading',snapshot:null,error:null});
@@ -121,4 +123,4 @@ export function TaskPanel({ pageId, pages, paused }: { pageId: string; pages: Pa
     </section>
     {(snapshot?.errors.length ?? 0)>0 && <section className="structured-errors" aria-label="送信できない変更"><h3>送信できない変更</h3><p>元の操作と入力を端末に保持しています。原因を確認してから修正してください。</p>{snapshot?.errors.map(failure=> <div key={failure.operationId}><strong>{failure.error}</strong><pre>{JSON.stringify(snapshot.operations.find(operation=>operation.operationId===failure.operationId)?.payload,null,2)}</pre></div>)}</section>}
   </section>;
-}
+});

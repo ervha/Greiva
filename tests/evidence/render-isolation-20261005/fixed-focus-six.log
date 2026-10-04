@@ -1,0 +1,45 @@
+
+> greiva-poc@0.6.25 test:e2e
+> npm run build:packages && npm run build:servers && playwright test --grep STEP8-FOCUS-heading-backward --repeat-each 6 --workers 1
+
+
+> greiva-poc@0.6.25 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync
+
+
+> @greiva/shared@0.6.25 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.6.25 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.6.25 build
+> tsc -p tsconfig.json
+
+
+> greiva-poc@0.6.25 build:servers
+> npm run build -w @greiva/api && npm run build -w @greiva/collaboration
+
+
+> @greiva/api@0.6.25 build
+> tsc -p tsconfig.json
+
+
+> @greiva/collaboration@0.6.25 build
+> tsc -p tsconfig.json
+
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.
+
+Running 6 tests using 1 worker
+
+  ✓  1 [chromium] › tests/e2e/focus-reconnect.spec.ts:36:3 › STEP8-FOCUS-heading-backward: peer updates during blur retain selection and local Undo excludes remote edits (4.4s)
+  ✓  2 [chromium] › tests/e2e/focus-reconnect.spec.ts:36:3 › STEP8-FOCUS-heading-backward: peer updates during blur retain selection and local Undo excludes remote edits (4.4s)
+  ✓  3 [chromium] › tests/e2e/focus-reconnect.spec.ts:36:3 › STEP8-FOCUS-heading-backward: peer updates during blur retain selection and local Undo excludes remote edits (4.6s)
+  ✓  4 [chromium] › tests/e2e/focus-reconnect.spec.ts:36:3 › STEP8-FOCUS-heading-backward: peer updates during blur retain selection and local Undo excludes remote edits (4.4s)
+  ✓  5 [chromium] › tests/e2e/focus-reconnect.spec.ts:36:3 › STEP8-FOCUS-heading-backward: peer updates during blur retain selection and local Undo excludes remote edits (4.4s)
+  ✓  6 [chromium] › tests/e2e/focus-reconnect.spec.ts:36:3 › STEP8-FOCUS-heading-backward: peer updates during blur retain selection and local Undo excludes remote edits (4.5s)
+
+  6 passed (31.2s)

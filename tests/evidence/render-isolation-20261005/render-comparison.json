@@ -1,0 +1,48 @@
+{
+  "memo": {
+    "isolated": true,
+    "blocks": 1000,
+    "tasks": 250,
+    "inputCharacters": 21,
+    "before": {
+      "PageEditor": 6,
+      "TaskPanel": 8
+    },
+    "after": {
+      "PageEditor": 6,
+      "TaskPanel": 8
+    },
+    "metadataChanged": {
+      "PageEditor": 8,
+      "TaskPanel": 10
+    },
+    "draftChanged": {
+      "PageEditor": 8,
+      "TaskPanel": 12
+    },
+    "scope": "Temporary render counters inserted into Docker diagnostic sources; not normal production code, native IME or frame timing."
+  },
+  "legacy": {
+    "isolated": false,
+    "blocks": 1000,
+    "tasks": 250,
+    "inputCharacters": 21,
+    "before": {
+      "PageEditor": 8,
+      "TaskPanel": 12
+    },
+    "after": {
+      "PageEditor": 86,
+      "TaskPanel": 90
+    },
+    "metadataChanged": {
+      "PageEditor": 90,
+      "TaskPanel": 94
+    },
+    "draftChanged": {
+      "PageEditor": 90,
+      "TaskPanel": 96
+    },
+    "scope": "Temporary render counters inserted into Docker diagnostic sources; not normal production code, native IME or frame timing."
+  }
+}

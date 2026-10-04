@@ -14,7 +14,7 @@
 
 [環境](performance/environment.json)はDocker／WSL2 Linux 6.18.40.1、i7-12700H、Node24.19.0、npm11.9、Playwright Chromium。[Page原metrics gzip](performance-metrics.json.gz)と[原report gzip](performance/playwright.json.gz)／[XML](performance/playwright.xml)。`npm run test:performance -- --grep STEP8-PAGE-1000` が1 Pass、skip／Fail 0、所有PostgreSQL schema削除後0件。release実Rust storeを現在manifestでbuildし、外部依存は変えずignored nested lockの自crate版だけ合わせた。
 
-1,000 block、1,001初期journal、復元3 sample 372.2／379.1／381.1ms、実キー104文字（delay5ms）、入力全体2,033.5ms、入力終了後保存待ち22.8ms。全内容／構造／clock／journal再構成と1,000 handle保持が一致。keydown→frame機会p95 17.0ms／max62.4ms、keydown→commit ACK p95 291.5ms／max357.5ms。値は試験bridge経由で、Windows Tauri IPC／MS IME／実paint／native復元SLOとは別。対照のpaired browser runはなく、過去の別runに対する入力全体の改善を主張しない。
+1,000 block、1,001初期journal、復元3 sample 372.2／379.1／381.1ms、実キー104文字（delay5ms）、入力全体2,033.5ms、入力終了後保存待ち22.8ms。全内容／構造／clock／journal再構成と1,000 handle保持が一致。keydown→frame機会p95 17.0ms／max62.4ms、input event→commit ACK p95 291.5ms／max357.5ms。値は試験bridge経由で、Windows Tauri IPC／MS IME／実paint／native復元SLOとは別。対照のpaired browser runはなく、過去の別runに対する入力全体の改善を主張しない。v0.6.25で原測定`inputToCommitAckMs`に合わせACKの起点表記だけを訂正した。
 
 ## buildとWindows基本操作
 

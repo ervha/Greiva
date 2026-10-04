@@ -1,0 +1,8 @@
+{
+  "result": "Pass",
+  "sourceFiles": 126,
+  "artifactSha256": "e09ac644d9b7c1b3971e223fa0d46a52afbd2235f978d4f76b72ec2d519dbbad",
+  "jsonCount": 25,
+  "markdownLinks": 320,
+  "dockerSource": "Docker final build source inventory matches"
+}

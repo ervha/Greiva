@@ -186,10 +186,12 @@ export const BlockDrag = Extension.create({
           else { clear(); ownsDrag = false; }
         };
         const end = () => { const current = drag; clear(); ownsDrag = false; if (current && owner.hasFocus()) view.focus(); };
-        owner.addEventListener('dragover', over, true); owner.addEventListener('drop', release, true); owner.addEventListener('dragend', end, true);
+        // Accept a newly entered row/handle before dragover. Animated siblings
+        // can change the native target just before release in the gutter.
+        owner.addEventListener('dragenter', over, true); owner.addEventListener('dragover', over, true); owner.addEventListener('drop', release, true); owner.addEventListener('dragend', end, true);
         return {
           update: () => { if (drag && (view.composing || !view.state.doc.eq(drag.doc))) clear(); },
-          destroy: () => { clear(); ownsDrag = false; owner.removeEventListener('dragover', over, true); owner.removeEventListener('drop', release, true); owner.removeEventListener('dragend', end, true); },
+          destroy: () => { clear(); ownsDrag = false; owner.removeEventListener('dragenter', over, true); owner.removeEventListener('dragover', over, true); owner.removeEventListener('drop', release, true); owner.removeEventListener('dragend', end, true); },
         };
       },
     })];

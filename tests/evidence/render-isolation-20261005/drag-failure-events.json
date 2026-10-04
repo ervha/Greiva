@@ -1,0 +1,422 @@
+[
+  [
+    {
+      "kind": "start",
+      "at": 2340.10000000149,
+      "rows": [
+        {
+          "pos": 0,
+          "top": 470.9375,
+          "height": 37.59375
+        },
+        {
+          "pos": 7,
+          "top": 516.53125,
+          "height": 37.59375
+        },
+        {
+          "pos": 15,
+          "top": 562.125,
+          "height": 37.59375
+        }
+      ],
+      "scrollY": 65,
+      "clientY": 518
+    },
+    {
+      "kind": "bounds",
+      "at": 2348.199999999255,
+      "x": 144,
+      "y": 501,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2361.60000000149,
+      "x": 144,
+      "y": 477,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2364,
+      "x": 144,
+      "y": 469,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2365.699999999255,
+      "x": 144,
+      "y": 461,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2367.60000000149,
+      "x": 144,
+      "y": 446,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2368.400000002235,
+      "x": 143,
+      "y": 438,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2372.5,
+      "x": 143,
+      "y": 423,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2374.5,
+      "x": 143,
+      "y": 415,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2375.900000002235,
+      "x": 143,
+      "y": 407,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2388.699999999255,
+      "x": 143,
+      "y": 408,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "clear",
+      "at": 2415,
+      "stack": "Error\n    at clear (http://127.0.0.1:1420/src/editor/block-drag.ts:35:26)\n    at HTMLDocument.end (http://127.0.0.1:1420/src/editor/block-drag.ts:277:6)"
+    }
+  ],
+  [
+    {
+      "kind": "start",
+      "at": 2250,
+      "rows": [
+        {
+          "pos": 0,
+          "top": 470.9375,
+          "height": 37.59375
+        },
+        {
+          "pos": 7,
+          "top": 516.53125,
+          "height": 37.59375
+        },
+        {
+          "pos": 15,
+          "top": 562.125,
+          "height": 37.59375
+        }
+      ],
+      "scrollY": 65,
+      "clientY": 518
+    },
+    {
+      "kind": "bounds",
+      "at": 2256.599999997765,
+      "x": 144,
+      "y": 501,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2268.599999997765,
+      "x": 144,
+      "y": 477,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2269.699999999255,
+      "x": 144,
+      "y": 469,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2271.599999997765,
+      "x": 144,
+      "y": 461,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2290.2999999970198,
+      "x": 144,
+      "y": 446,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2292.5,
+      "x": 143,
+      "y": 438,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2296.89999999851,
+      "x": 143,
+      "y": 423,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2298.7999999970198,
+      "x": 143,
+      "y": 415,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2302.39999999851,
+      "x": 143,
+      "y": 407,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2314.7999999970198,
+      "x": 143,
+      "y": 408,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "clear",
+      "at": 2338.199999999255,
+      "stack": "Error\n    at clear (http://127.0.0.1:1420/src/editor/block-drag.ts:35:26)\n    at HTMLDocument.end (http://127.0.0.1:1420/src/editor/block-drag.ts:277:6)"
+    }
+  ],
+  [
+    {
+      "kind": "start",
+      "at": 2688.199999999255,
+      "rows": [
+        {
+          "pos": 0,
+          "top": 470.9375,
+          "height": 37.59375
+        },
+        {
+          "pos": 7,
+          "top": 516.53125,
+          "height": 37.59375
+        },
+        {
+          "pos": 15,
+          "top": 562.125,
+          "height": 37.59375
+        }
+      ],
+      "scrollY": 65,
+      "clientY": 518
+    },
+    {
+      "kind": "bounds",
+      "at": 2695.5,
+      "x": 144,
+      "y": 501,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2709.300000000745,
+      "x": 144,
+      "y": 477,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2710.699999999255,
+      "x": 144,
+      "y": 469,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2715,
+      "x": 144,
+      "y": 461,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2717.5,
+      "x": 144,
+      "y": 446,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2719.60000000149,
+      "x": 143,
+      "y": 438,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2721.10000000149,
+      "x": 143,
+      "y": 423,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2722.300000000745,
+      "x": 143,
+      "y": 415,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2722.89999999851,
+      "x": 143,
+      "y": 407,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "bounds",
+      "at": 2730.5,
+      "x": 143,
+      "y": 408,
+      "left": 163,
+      "right": 1117,
+      "top": 389.9375,
+      "bottom": 719.9375,
+      "inside": true
+    },
+    {
+      "kind": "clear",
+      "at": 2779.300000000745,
+      "stack": "Error\n    at clear (http://127.0.0.1:1420/src/editor/block-drag.ts:35:26)\n    at HTMLDocument.end (http://127.0.0.1:1420/src/editor/block-drag.ts:277:6)"
+    }
+  ]
+]

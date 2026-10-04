@@ -1,0 +1,21 @@
+{
+  "results": [
+    {
+      "beforeTasks": 131,
+      "added": 119,
+      "afterTasks": 250,
+      "pending": 250,
+      "pageUpdates": 1,
+      "pageUnchanged": true
+    },
+    {
+      "beforeTasks": 131,
+      "added": 119,
+      "afterTasks": 250,
+      "pending": 250,
+      "pageUpdates": 2,
+      "pageUnchanged": true
+    }
+  ],
+  "scope": "Fixture preparation repair using existing cross-built diagnostic Rust driver while the normal app is closed. Restores 119 synthetic Tasks omitted by the initial main-file-only seed copy. Not a product mutation or recovery test."
+}

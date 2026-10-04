@@ -1,0 +1,23 @@
+{
+  "results": [
+    {
+      "variant": "legacy",
+      "exit": 0
+    },
+    {
+      "variant": "memo",
+      "exit": 0
+    }
+  ],
+  "hashes": [
+    {
+      "file": "apps/client/src/editor/PageEditor.tsx",
+      "sha256": "fd878fa71547bf3938c5a0abbddd1da532965448624b31cb77739a9319dac300"
+    },
+    {
+      "file": "apps/client/src/structured/TaskPanel.tsx",
+      "sha256": "52e9ff3317b43d1955ee5b8f92792866a083d57a4fc3ed453ece1e9f6e5da128"
+    }
+  ],
+  "diagnosticSourcesRestored": true
+}

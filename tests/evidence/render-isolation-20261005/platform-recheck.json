@@ -1,0 +1,8 @@
+{
+  "dateJst": "2026-10-05",
+  "source": "T3 device_list and device_open",
+  "ios": { "available": false, "reason": "iOS Simulators need macOS with Xcode." },
+  "android": { "hostAvailable": true, "emulator": "Pixel_10", "initiallyBooted": false, "openResult": "Fail", "error": "Device Pixel_10 failed to boot: The simulator or emulator could not start. Check its configuration on the environment server." },
+  "adb": { "connectedDevices": 0, "offlineOrUnauthorizedDevices": 0, "physicalPixel7Connected": false },
+  "scope": "Current emulator/environment availability only. No emulator test completed; not a recheck of physical Pixel 7/Gboard results. No SDK/toolchain or OS settings installed/changed."
+}

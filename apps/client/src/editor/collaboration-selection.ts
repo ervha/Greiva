@@ -3,6 +3,7 @@ import { Plugin, TextSelection } from '@tiptap/pm/state';
 import type { Node } from '@tiptap/pm/model';
 import type { EditorView } from '@tiptap/pm/view';
 import { getRelativeSelection, relativePositionToAbsolutePosition, ySyncPluginKey } from '@tiptap/y-tiptap';
+import { commitNativeNavigationSelection } from './native-navigation';
 
 function topology(node: Node): unknown {
   return [node.type.name, node.attrs,
@@ -24,6 +25,7 @@ export const CollaborationSelection = Extension.create({
         ? getRelativeSelection(binding, current.state) : null;
     };
     return [new Plugin({
+      props: { handleDOMEvents: { keyup: commitNativeNavigationSelection } },
       appendTransaction: (transactions, oldState, newState) => {
         if (!view || view.composing || !bookmark || bookmark.type !== 'text' ||
           bookmark.absAnchor !== oldState.selection.anchor || bookmark.absHead !== oldState.selection.head ||

@@ -1,0 +1,99 @@
+
+Running 6 tests using 1 worker
+
+  ✓  1 [chromium] › tests/e2e/block-drag.spec.ts:107:1 › STEP8-DRAG-GUTTER: vertical movement in the handle column drops without entering the text (1.8s)
+  ✘  2 [chromium] › tests/e2e/block-drag.spec.ts:107:1 › STEP8-DRAG-GUTTER: vertical movement in the handle column drops without entering the text (6.6s)
+  ✓  3 [chromium] › tests/e2e/block-drag.spec.ts:107:1 › STEP8-DRAG-GUTTER: vertical movement in the handle column drops without entering the text (1.7s)
+  ✓  4 [chromium] › tests/e2e/block-drag.spec.ts:107:1 › STEP8-DRAG-GUTTER: vertical movement in the handle column drops without entering the text (1.6s)
+  ✓  5 [chromium] › tests/e2e/block-drag.spec.ts:107:1 › STEP8-DRAG-GUTTER: vertical movement in the handle column drops without entering the text (1.9s)
+  ✘  6 [chromium] › tests/e2e/block-drag.spec.ts:107:1 › STEP8-DRAG-GUTTER: vertical movement in the handle column drops without entering the text (6.6s)
+
+
+  1) [chromium] › tests/e2e/block-drag.spec.ts:107:1 › STEP8-DRAG-GUTTER: vertical movement in the handle column drops without entering the text 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByRole('textbox', { name: 'Page本文' }).locator(':scope > p')
+    Timeout: 5000ms
+    - Expected  - 1
+    + Received  + 1
+
+      Array [
+    -   "third",
+        "first",
+        "second",
+    +   "third",
+      ]
+
+    Call log:
+      - Expect "toHaveText" getByRole('textbox', { name: 'Page本文' }).locator(':scope > p') with timeout 5000ms
+      - waiting for getByRole('textbox', { name: 'Page本文' }).locator(':scope > p')
+        14 × locator resolved to 3 elements
+
+
+      117 |   await expect(page.locator('.block-drag-preview')).toBeVisible();
+      118 |   await page.mouse.up();
+    > 119 |   await expect(paragraphs).toHaveText(['third', 'first', 'second']); await clean(page, editor);
+          |                            ^
+      120 |   await page.keyboard.press('ControlOrMeta+z'); await expect(paragraphs).toHaveText(['first', 'second', 'third']);
+      121 |   const title = page.getByRole('textbox', { name: 'Pageタイトル', exact: true }), titleBox = await title.boundingBox();
+      122 |   if (!titleBox) throw new Error('Missing title geometry');
+        at /workspace/tests/e2e/block-drag.spec.ts:119:28
+
+    Error Context: ../tmp/render625-drag-compare/memo/artifacts/block-drag-STEP8-DRAG-GUTT-8412d-s-without-entering-the-text-chromium-repeat1/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../tmp/render625-drag-compare/memo/artifacts/block-drag-STEP8-DRAG-GUTT-8412d-s-without-entering-the-text-chromium-repeat1/trace.zip
+    Usage:
+
+        npx playwright show-trace ../tmp/render625-drag-compare/memo/artifacts/block-drag-STEP8-DRAG-GUTT-8412d-s-without-entering-the-text-chromium-repeat1/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests/e2e/block-drag.spec.ts:107:1 › STEP8-DRAG-GUTTER: vertical movement in the handle column drops without entering the text 
+
+    Error: expect(locator).toHaveText(expected) failed
+
+    Locator: getByRole('textbox', { name: 'Page本文' }).locator(':scope > p')
+    Timeout: 5000ms
+    - Expected  - 1
+    + Received  + 1
+
+      Array [
+    -   "third",
+        "first",
+        "second",
+    +   "third",
+      ]
+
+    Call log:
+      - Expect "toHaveText" getByRole('textbox', { name: 'Page本文' }).locator(':scope > p') with timeout 5000ms
+      - waiting for getByRole('textbox', { name: 'Page本文' }).locator(':scope > p')
+        14 × locator resolved to 3 elements
+
+
+      117 |   await expect(page.locator('.block-drag-preview')).toBeVisible();
+      118 |   await page.mouse.up();
+    > 119 |   await expect(paragraphs).toHaveText(['third', 'first', 'second']); await clean(page, editor);
+          |                            ^
+      120 |   await page.keyboard.press('ControlOrMeta+z'); await expect(paragraphs).toHaveText(['first', 'second', 'third']);
+      121 |   const title = page.getByRole('textbox', { name: 'Pageタイトル', exact: true }), titleBox = await title.boundingBox();
+      122 |   if (!titleBox) throw new Error('Missing title geometry');
+        at /workspace/tests/e2e/block-drag.spec.ts:119:28
+
+    Error Context: ../tmp/render625-drag-compare/memo/artifacts/block-drag-STEP8-DRAG-GUTT-8412d-s-without-entering-the-text-chromium-repeat5/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../tmp/render625-drag-compare/memo/artifacts/block-drag-STEP8-DRAG-GUTT-8412d-s-without-entering-the-text-chromium-repeat5/trace.zip
+    Usage:
+
+        npx playwright show-trace ../tmp/render625-drag-compare/memo/artifacts/block-drag-STEP8-DRAG-GUTT-8412d-s-without-entering-the-text-chromium-repeat5/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [chromium] › tests/e2e/block-drag.spec.ts:107:1 › STEP8-DRAG-GUTTER: vertical movement in the handle column drops without entering the text 
+    [chromium] › tests/e2e/block-drag.spec.ts:107:1 › STEP8-DRAG-GUTTER: vertical movement in the handle column drops without entering the text 
+  4 passed (28.0s)
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.

@@ -1,0 +1,21 @@
+{
+  "product": "0.6.25",
+  "artifactSha256": "e09ac644d9b7c1b3971e223fa0d46a52afbd2235f978d4f76b72ec2d519dbbad",
+  "at": "2026-10-04T18:07:40.955Z",
+  "observedBodyHandles": 1000,
+  "first": "WIN625 local x",
+  "last": "Block 0999x",
+  "title": "WIN625-RENDERx",
+  "pendingTasks": 250,
+  "selectionBeforeReplacement": "WIN625 local x",
+  "nativeSteps": [
+    "Home",
+    "Shift+End",
+    "z",
+    "Ctrl+Z",
+    "Ctrl+Y",
+    "Ctrl+Z"
+  ],
+  "savedLabelObserved": true,
+  "scope": "Normal final release with isolated configuration. Actual ASCII controls/input and restore; Japanese input/provider and physical drag not reverified."
+}

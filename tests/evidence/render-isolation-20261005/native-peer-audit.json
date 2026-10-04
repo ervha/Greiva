@@ -1,0 +1,29 @@
+{
+  "result": "Pass",
+  "at": "2026-10-04T18:10:08.070Z",
+  "blocks": 1000,
+  "xmlSha256": "7855108a32d2f1880cf88c584a0beae40ac97c96a02779cc00edfa4bd2b71700",
+  "clocks": [
+    [
+      1,
+      1
+    ],
+    [
+      1202029550,
+      1
+    ],
+    [
+      1236665123,
+      12007
+    ],
+    [
+      3628094849,
+      1
+    ],
+    [
+      3857191174,
+      30
+    ]
+  ],
+  "scope": "Independent peer of the existing isolated Page collaboration service after final normal Windows restart. Exact XML and state vector equal the seven-update closed SQLite backup. No structured API or native IME SLO claim."
+}

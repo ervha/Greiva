@@ -1,0 +1,764 @@
+[
+  {
+    "events": [
+      {
+        "at": 2114.099999997765,
+        "type": "focusin",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 0,
+        "focus": 0
+      },
+      {
+        "at": 2121.89999999851,
+        "type": "keydown",
+        "key": "/",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 0,
+        "focus": 0
+      },
+      {
+        "at": 2146.5,
+        "type": "keyup",
+        "key": "/",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 1,
+        "focus": 1
+      },
+      {
+        "at": 2150.599999997765,
+        "type": "keydown",
+        "key": "h",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 1,
+        "focus": 1
+      },
+      {
+        "at": 2162,
+        "type": "keyup",
+        "key": "h",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 2,
+        "focus": 2
+      },
+      {
+        "at": 2167.599999997765,
+        "type": "keydown",
+        "key": "2",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 2,
+        "focus": 2
+      },
+      {
+        "at": 2176.800000000745,
+        "type": "keyup",
+        "key": "2",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 3,
+        "focus": 3
+      },
+      {
+        "at": 2189.699999999255,
+        "type": "selectionchange",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 3,
+        "focus": 3
+      },
+      {
+        "at": 2275.800000000745,
+        "type": "selectionchange",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 0,
+        "focus": 0
+      },
+      {
+        "at": 2297.599999997765,
+        "type": "selectionchange",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 14,
+        "focus": 14
+      },
+      {
+        "at": 3067.599999997765,
+        "type": "keydown",
+        "key": "Home",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 14,
+        "focus": 14
+      },
+      {
+        "at": 3068.300000000745,
+        "type": "keyup",
+        "key": "Home",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 0,
+        "focus": 0
+      },
+      {
+        "at": 3073,
+        "type": "selectionchange",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 0,
+        "focus": 0
+      },
+      {
+        "at": 3184.599999997765,
+        "type": "keydown",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 0,
+        "focus": 0
+      },
+      {
+        "at": 3185.300000000745,
+        "type": "keyup",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 1,
+        "focus": 1
+      },
+      {
+        "at": 3188.699999999255,
+        "type": "keydown",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 1,
+        "focus": 1
+      },
+      {
+        "at": 3189.699999999255,
+        "type": "keyup",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 2,
+        "focus": 2
+      },
+      {
+        "at": 3194.699999999255,
+        "type": "keydown",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 2,
+        "focus": 2
+      },
+      {
+        "at": 3195.300000000745,
+        "type": "keyup",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 3,
+        "focus": 3
+      },
+      {
+        "at": 3198.800000000745,
+        "type": "keydown",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 3,
+        "focus": 3
+      },
+      {
+        "at": 3199.39999999851,
+        "type": "keyup",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 4,
+        "focus": 4
+      },
+      {
+        "at": 3202.5,
+        "type": "keydown",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 4,
+        "focus": 4
+      },
+      {
+        "at": 3203.099999997765,
+        "type": "keyup",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 5,
+        "focus": 5
+      },
+      {
+        "at": 3205.800000000745,
+        "type": "keydown",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 5,
+        "focus": 5
+      },
+      {
+        "at": 3206.5,
+        "type": "keyup",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 6,
+        "focus": 6
+      },
+      {
+        "at": 3208.89999999851,
+        "type": "keydown",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 6,
+        "focus": 6
+      },
+      {
+        "at": 3209.39999999851,
+        "type": "keyup",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 7,
+        "focus": 7
+      },
+      {
+        "at": 3212.5,
+        "type": "keydown",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 7,
+        "focus": 7
+      },
+      {
+        "at": 3213.099999997765,
+        "type": "keyup",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 8,
+        "focus": 8
+      },
+      {
+        "at": 3218.5,
+        "type": "keydown",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 8,
+        "focus": 8
+      },
+      {
+        "at": 3219,
+        "type": "keyup",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 9,
+        "focus": 9
+      },
+      {
+        "at": 3222.699999999255,
+        "type": "keydown",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 9,
+        "focus": 9
+      },
+      {
+        "at": 3223.5,
+        "type": "keyup",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 10,
+        "focus": 10
+      },
+      {
+        "at": 3228.199999999255,
+        "type": "keydown",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 10,
+        "focus": 10
+      },
+      {
+        "at": 3228.800000000745,
+        "type": "keyup",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 11,
+        "focus": 11
+      },
+      {
+        "at": 3232.5,
+        "type": "keydown",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 11,
+        "focus": 11
+      },
+      {
+        "at": 3233,
+        "type": "keyup",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 12,
+        "focus": 12
+      },
+      {
+        "at": 3236.300000000745,
+        "type": "keydown",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 12,
+        "focus": 12
+      },
+      {
+        "at": 3236.800000000745,
+        "type": "keyup",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 13,
+        "focus": 13
+      },
+      {
+        "at": 3239.699999999255,
+        "type": "keydown",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 13,
+        "focus": 13
+      },
+      {
+        "at": 3240.699999999255,
+        "type": "keyup",
+        "key": "ArrowRight",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 14,
+        "focus": 14
+      },
+      {
+        "at": 3243.5,
+        "type": "keydown",
+        "key": "Shift",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 14,
+        "focus": 14
+      },
+      {
+        "at": 3244.099999997765,
+        "type": "keydown",
+        "key": "ArrowLeft",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 14,
+        "focus": 14
+      },
+      {
+        "at": 3244.599999997765,
+        "type": "keyup",
+        "key": "ArrowLeft",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 14,
+        "focus": 13
+      },
+      {
+        "at": 3245,
+        "type": "keyup",
+        "key": "Shift",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 14,
+        "focus": 13
+      },
+      {
+        "at": 3247.89999999851,
+        "type": "keydown",
+        "key": "Shift",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 14,
+        "focus": 13
+      },
+      {
+        "at": 3248.39999999851,
+        "type": "keydown",
+        "key": "ArrowLeft",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 14,
+        "focus": 13
+      },
+      {
+        "at": 3249,
+        "type": "keyup",
+        "key": "ArrowLeft",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 14,
+        "focus": 12
+      },
+      {
+        "at": 3249.89999999851,
+        "type": "keyup",
+        "key": "Shift",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 14,
+        "focus": 12
+      },
+      {
+        "at": 3253.5,
+        "type": "keydown",
+        "key": "Shift",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 14,
+        "focus": 12
+      },
+      {
+        "at": 3254,
+        "type": "keydown",
+        "key": "ArrowLeft",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 14,
+        "focus": 12
+      },
+      {
+        "at": 3254.699999999255,
+        "type": "keyup",
+        "key": "ArrowLeft",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 14,
+        "focus": 11
+      },
+      {
+        "at": 3255.099999997765,
+        "type": "keyup",
+        "key": "Shift",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 14,
+        "focus": 11
+      },
+      {
+        "at": 3256.39999999851,
+        "type": "selectionchange",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 14,
+        "focus": 11
+      },
+      {
+        "at": 3286.5,
+        "type": "focusout",
+        "active": null,
+        "documentFocused": true,
+        "anchor": 14,
+        "focus": 11
+      },
+      {
+        "at": 3286.699999999255,
+        "type": "focusin",
+        "active": "Pageタイトル",
+        "documentFocused": true,
+        "anchor": 0,
+        "focus": 0
+      },
+      {
+        "at": 3286.89999999851,
+        "type": "selectionchange",
+        "active": "Pageタイトル",
+        "documentFocused": true,
+        "anchor": 0,
+        "focus": 0
+      }
+    ],
+    "snapshot": {
+      "pageId": "523b8d97-4e83-49b4-805a-ba555fdb6776",
+      "clientId": "627edd6f-818f-4f70-85bf-745a8322b4d6",
+      "stateVector": [
+        3,
+        170,
+        203,
+        251,
+        173,
+        15,
+        3,
+        177,
+        179,
+        141,
+        203,
+        2,
+        21,
+        1,
+        1
+      ],
+      "clocks": [
+        [
+          1,
+          1
+        ],
+        [
+          694376881,
+          21
+        ],
+        [
+          4122928554,
+          3
+        ]
+      ],
+      "json": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "R1 MS65 local 日本語"
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          }
+        ]
+      },
+      "fragment": "<heading level=\"2\">R1 MS65 local 日本語</heading><paragraph></paragraph>",
+      "selection": {
+        "from": 15,
+        "to": 18,
+        "parent": "R1 MS65 local 日本語",
+        "offset": 14,
+        "size": 17
+      },
+      "pending": 0
+    }
+  },
+  {
+    "events": [
+      {
+        "at": 3330.300000000745,
+        "type": "focusin",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 0,
+        "focus": 0
+      },
+      {
+        "at": 3336,
+        "type": "keydown",
+        "key": "Home",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 14,
+        "focus": 14
+      },
+      {
+        "at": 3336.699999999255,
+        "type": "keyup",
+        "key": "Home",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 0,
+        "focus": 0
+      },
+      {
+        "at": 3338.599999997765,
+        "type": "selectionchange",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 0,
+        "focus": 0
+      },
+      {
+        "at": 3349.5,
+        "type": "keydown",
+        "key": "R",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 0,
+        "focus": 0
+      },
+      {
+        "at": 3359.699999999255,
+        "type": "keyup",
+        "key": "R",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 1,
+        "focus": 1
+      },
+      {
+        "at": 3360.800000000745,
+        "type": "selectionchange",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 1,
+        "focus": 1
+      },
+      {
+        "at": 3361.099999997765,
+        "type": "keydown",
+        "key": "1",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 1,
+        "focus": 1
+      },
+      {
+        "at": 3368.199999999255,
+        "type": "keyup",
+        "key": "1",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 2,
+        "focus": 2
+      },
+      {
+        "at": 3368.800000000745,
+        "type": "keydown",
+        "key": " ",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 2,
+        "focus": 2
+      },
+      {
+        "at": 3375.800000000745,
+        "type": "keyup",
+        "key": " ",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 3,
+        "focus": 3
+      },
+      {
+        "at": 3379.5,
+        "type": "keydown",
+        "key": "Home",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 3,
+        "focus": 3
+      },
+      {
+        "at": 3380,
+        "type": "keyup",
+        "key": "Home",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 0,
+        "focus": 0
+      },
+      {
+        "at": 3389.300000000745,
+        "type": "selectionchange",
+        "active": "Page本文",
+        "documentFocused": true,
+        "anchor": 3,
+        "focus": 3
+      }
+    ],
+    "snapshot": {
+      "pageId": "523b8d97-4e83-49b4-805a-ba555fdb6776",
+      "clientId": "6441b75b-165d-4e2f-a698-75900fd4788d",
+      "stateVector": [
+        3,
+        170,
+        203,
+        251,
+        173,
+        15,
+        3,
+        177,
+        179,
+        141,
+        203,
+        2,
+        21,
+        1,
+        1
+      ],
+      "clocks": [
+        [
+          1,
+          1
+        ],
+        [
+          694376881,
+          21
+        ],
+        [
+          4122928554,
+          3
+        ]
+      ],
+      "json": {
+        "type": "doc",
+        "content": [
+          {
+            "type": "heading",
+            "attrs": {
+              "level": 2
+            },
+            "content": [
+              {
+                "type": "text",
+                "text": "R1 MS65 local 日本語"
+              }
+            ]
+          },
+          {
+            "type": "paragraph"
+          }
+        ]
+      },
+      "fragment": "<heading level=\"2\">R1 MS65 local 日本語</heading><paragraph></paragraph>",
+      "selection": {
+        "from": 4,
+        "to": 4,
+        "parent": "R1 MS65 local 日本語",
+        "offset": 3,
+        "size": 17
+      },
+      "pending": 0
+    }
+  }
+]
