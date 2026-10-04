@@ -1,5 +1,9 @@
 # Step 9の判定資料案
 
+2026-10-04、v0.6.23: この案をもとに正式な[Gate A](../decisions/gate-a.md)／[B](../decisions/gate-b.md)／[C](../decisions/gate-c.md)と[条件付き技術採用](../decisions/poc-technology-selection.md)を確定。利用者の自律判断委任に基づく[判断全件](../decisions/poc-autonomous-review.md)。以下は判定前の資料履歴で、現在の回答待ちを示さない。
+
+## 過去の記録（当時の判定）
+
 2026-10-04、v0.6.22追記: 利用者のMicrosoft IME切替確認後、[通常Windows 0.6.20の実キー通常変換・同一段落遠隔composition](../../tests/evidence/windows-ms-ime-20261004/SUMMARY.md)をCodexが代行。全1,000段落・SQLite30更新・独立peer全文／clock一致。最新Microsoftの同一段落遠隔compositionは補完済み。1,000 block連続入力の体感・正式判断は残る。0.6.20自動dragの追加試行は移動なし、0.6.19の実物理受入は別の証拠。
 
 2026-10-04、v0.6.21追記: [通常Windows 0.6.20の実キー日本語1変換・1,000段落保持](../../tests/evidence/windows-ime-preparation-20261004/SUMMARY.md)をCodexが代行。Microsoft providerの同定は未完了なのでGate Aへ昇格せず、入力方式確認だけを利用者へ依頼。確認後の変換／遠隔更新はCodexが行う。最新連続入力・遠隔compositionと正式判断は残条件のまま。

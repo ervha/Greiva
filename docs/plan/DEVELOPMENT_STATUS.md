@@ -1,5 +1,9 @@
 # Greiva 開発計画・状況・セットアップ
 
+2026-10-04、checkpoint **v0.6.23**／製品 **0.6.20**。利用者の連続入力報告と[保存監査](../../tests/evidence/poc-gate-review-20261004/SUMMARY.md)で30→76更新・1,000段落・他999段落不変・peer一致を確認。判断委任に基づき、Gate Aは受入例外ありPass、Gate BはConditional、Gate CはPass、技術選定は条件付き採用と確定。PoC Step 9を完了し、全Gate無条件Pass・本番提供とは区別。[全自律判断と後続事項](../decisions/poc-autonomous-review.md)。現在の回答／手操作待ちはなし。Computer Use解除、既存Pageは保持。
+
+## 過去の記録（当時の判定）
+
 2026-10-04、checkpoint **v0.6.22**／製品 **0.6.20**。利用者がMicrosoft IMEへ切替済みと回答。Codexが[通常変換・同一段落遠隔3更新中の変換](../../tests/evidence/windows-ms-ime-20261004/SUMMARY.md)を実キーで代行し、SQLite30更新・全1,000段落・peer全文／clock一致を確認。残る998段落不変。自動native dragの追加試行は移動なし、0.6.19の物理受入結果と区別する。連続入力体感だけを最小手操作依頼、保存照合はCodexが行う。両Greivaは開いたまま、Computer Use解除。正式Gateと環境／性能の残条件は維持する。
 
 2026-10-04、checkpoint **v0.6.21**／製品 **0.6.20**。[Windows実キー日本語1変換・1,000段落保存照合](../../tests/evidence/windows-ime-preparation-20261004/SUMMARY.md)をCodexが代行。SQLite9更新・独立peer全文／clock一致、他999段落・旧WIN619-DRAG全13更新不変。Microsoft provider未同定のため、利用者に入力方式の確認だけを依頼。再開用fixture／peer・監査準備まで終え、回答待ちで停止。新旧Greivaは保存済みで開いたまま、Computer Use解除。製品・manifest・exeを0.6.21とは呼ばない。実IME連続入力・同一段落遠隔composition、正式Gateは残る。

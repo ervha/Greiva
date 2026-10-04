@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.23 — 2026-10-04
+
+- 利用者の連続Microsoft IME入力の問題なし報告を保存監査で照合。SQLite30→76更新、全1,000段落・他999段落不変、独立peer全文／clock一致。24 UTF-16単位の短い確認で、native性能SLOへ一般化しない。[証拠](tests/evidence/poc-gate-review-20261004/SUMMARY.md)。
+- 利用者の自律判断委任に基づきGate A Pass（受入例外あり）／B Conditional／C Pass、技術基盤の条件付き採用を確定。PoC Step 9の判定成果物を完成し、未検証OS・性能等を[全判断と後続事項](docs/decisions/poc-autonomous-review.md)へ集約。文書／検証PATCH、製品・manifest・exeは0.6.20。新しい手操作待ちなし、Computer Use解除、Page保持。
+
 ## 0.6.22 — 2026-10-04
 
 - 利用者のMicrosoft IME切替確認後、Codexが通常Windows 0.6.20／1,000 blockの通常変換と同一段落への遠隔3更新中の変換を実キーで代行。欠落・二重入力・composition中断を観測せず、SQLite30更新・全1,000段落・独立peer全文／clock一致、他998段落不変。[原画面・ACK・監査](tests/evidence/windows-ms-ime-20261004/SUMMARY.md)。

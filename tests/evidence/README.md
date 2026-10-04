@@ -1,5 +1,9 @@
 # 試験証拠の索引
 
+- 2026-10-04 / v0.6.23 / [PoC最終レビュー・連続入力保存監査](poc-gate-review-20261004/SUMMARY.md): 利用者の問題なし報告、SQLite30→76更新、1,000段落・他999段落保持、peer全文／clock一致。自由入力はhash／長さのみ公開。明示判断委任に基づくGate A Pass（例外あり）／B Conditional／C Passと条件付き技術採用、全判断・後続検証を記録。製品0.6.20。
+
+## 過去の記録（当時の判定）
+
 - 2026-10-04 / v0.6.22 / [通常Windows Microsoft IME・遠隔composition](windows-ms-ime-20261004/SUMMARY.md): 利用者がIMEを切替、以後Codexが実キーの通常変換・遠隔3更新中の変換を代行。SQLite30更新・全1,000段落・peer全文／clock一致。自動dragの移動なし、連続入力体感・正式Gateの残条件を明記。
 
 - 2026-10-04 / v0.6.21 / [Windows実キー日本語入力・1,000段落保存照合](windows-ime-preparation-20261004/SUMMARY.md): 製品0.6.20の1変換をCodexが代行、9更新・他999段落・独立peer全文／clock一致、旧WIN619-DRAG全13更新不変。Microsoft provider未同定、入力方式確認だけ回答待ち。実IMEのGate、連続入力／遠隔同時性は未判定。

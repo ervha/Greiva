@@ -1,0 +1,7 @@
+{
+  "result": "Pass",
+  "files": 12,
+  "localLinks": 354,
+  "audit": "30→76 updates / 1000 paragraphs / 24 UTF-16 units",
+  "scope": "Documentation/evidence review only; no new application regression run"
+}

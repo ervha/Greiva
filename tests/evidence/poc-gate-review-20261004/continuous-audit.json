@@ -1,0 +1,41 @@
+{
+  "result": "Pass within stated scope",
+  "at": "2026-10-04T14:15:48.440Z",
+  "product": "0.6.20",
+  "pageId": "01a10400-0000-7000-8000-000000000001",
+  "title": "WIN620-IME1000",
+  "operatorReport": "User reported continuous Microsoft IME input completed without problems",
+  "baselineUpdates": 30,
+  "finalUpdates": 76,
+  "blocks": 1000,
+  "baseline30UpdateBytesRetained": true,
+  "originalFirstParagraphPrefixRetained": true,
+  "other999ParagraphsUnchanged": true,
+  "additionalTextUtf16Length": 24,
+  "additionalTextSha256": "c7f20a09a28c80e47dd6acc0d6fd52c8167567551fe25714a5f6665b0b413c92",
+  "bodyXmlSha256": "926fa25aa470ad9cc629a43c7ebf401b7bf30c4839b074fa68d66c12b13c801d",
+  "peerXmlAndClocksEqual": true,
+  "clocks": [
+    [
+      1,
+      1
+    ],
+    [
+      1608928998,
+      15
+    ],
+    [
+      2211081430,
+      12007
+    ],
+    [
+      2929217852,
+      81
+    ]
+  ],
+  "limits": [
+    "Operator qualitative continuous-input report, not native per-key/frame SLO",
+    "Save/sync accessibility text read returned empty; durability established directly from SQLite online backup and peer convergence",
+    "Operator-entered free text retained privately; public evidence records hashes and lengths"
+  ]
+}

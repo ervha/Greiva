@@ -1,5 +1,9 @@
 # 手操作待ちの検証と解決案
 
+2026-10-04、v0.6.23: 連続入力の報告と保存照合を完了。現在の回答／手操作待ちはなし。利用者の明示判断委任によりGate BのConditionalを受け入れ、Gate判定と条件付き技術採用を確定。[判断全件・提供前の残検証](../decisions/poc-autonomous-review.md)。下記の待機記述は過去時点の履歴。未検証OSと性能課題を消去していない。
+
+## 過去の記録（当時の判定）
+
 2026-10-04、v0.6.22更新: 利用者がMicrosoft IMEへ切替、[通常Windows 0.6.20の実キー通常変換・同一段落遠隔3更新](../../tests/evidence/windows-ms-ime-20261004/SUMMARY.md)をCodexが代行。SQLite30更新、全1,000段落・peer全文／clock一致を確認。provider確認待ちは解消。残る人的な連続入力の体感のみ、1行目末尾へ2〜3文を入力する最小依頼を出した。自動native dragは移動なしを記録し、既存の物理drag確認を取り消さない。Computer Use解除、両Greivaは開いたまま。正式Gateの未確定を維持する。
 
 2026-10-04、v0.6.21更新: [通常Windows 0.6.20で実キー日本語1変換を代行](../../tests/evidence/windows-ime-preparation-20261004/SUMMARY.md)。1,000段落／他999段落保持、SQLite9更新とpeer全文／clock一致、旧0.6.19の全metadata／13更新不変。Microsoft provider未同定で、入力方式の確認・切替だけの回答待ち。変換や遠隔3更新はCodexが操作する準備済み。回答なしで時間経過を開始扱いにせず、独立作業を終えて待機。両Greivaは開いたまま、Computer Use解除。最新Gateの残条件は維持する。

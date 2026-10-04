@@ -1,5 +1,9 @@
 # PoC受入条件・証拠・再開順序
 
+2026-10-04、v0.6.23現在: [Gate A](../decisions/gate-a.md) Pass（再変換の受入例外あり）、[Gate B](../decisions/gate-b.md) Conditional、[Gate C](../decisions/gate-c.md) Pass。[技術選定](../decisions/poc-technology-selection.md)は条件付き採用。利用者の判断委任と全判断は[一覧](../decisions/poc-autonomous-review.md)。§14-1/2を最新の物理drag・通常／遠隔Microsoft IMEで補完。§13の短い連続入力は問題なし報告と1,000段落保存監査済み、復元2秒・native frame SLOは未確認。その他の§14正確性は各GateのDocker／native証拠へ対応付け。macOS／iOSとnative内部全境界の証拠差はGate Bへ残す。以下の旧表は当時の結果。
+
+## 過去の記録（当時の判定）
+
 2026-10-04、v0.6.18追記: [物理mouse移動／Undoの保存履歴と復元](../../tests/evidence/windows-native-profile-20261004/manual-drag-verification.json)で§14-1を補完。最初の移動の余分な空段落は原因未確認として保持。後の移動と最終復元は正しい構造。§13の[診断内訳・実ASCII3キー](../../tests/evidence/windows-native-profile-20261004/SUMMARY.md)は通常releaseのcold／連続入力／日本語IMEや2秒目安の合格ではない。
 
 現在のスキップ／未実施／受入例外の対応は[2026-10-04再確認表](SKIPPED_VALIDATION_REVIEW.md)を参照。PostgreSQL20件の再実行は全Pass。以下の各版は原時点の履歴として保持する。
