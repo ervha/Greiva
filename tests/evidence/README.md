@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-04 / v0.6.18 / [Windows層別性能診断と物理drag監査](windows-native-profile-20261004/SUMMARY.md): 1,000 blockで4起動、SQLite／IPC／Yjs／Editor／Task区間、実ASCII3キー、保存・2回再起動復元。[物理drag→Undoの8→12更新](windows-native-profile-20261004/manual-drag-verification.json)も照合。最初の空段落増加・診断と通常releaseの差・実OS未実施を残す。
+
 - 2026-10-04 / [スキップ再確認](../../docs/plan/SKIPPED_VALIDATION_REVIEW.md): 通常skip20件と旧・新PostgreSQL別実行のテスト名照合、現在20 Pass／skip 0。[再実行・原ログ・JSON](windows-native-editor-20261003/skipped-recheck/run.json)・[監査](windows-native-editor-20261003/skipped-recheck/audit.json)。native／Android／性能の残条件も同表へ統合。
 
 ## Step 8: Windows 0.6.17全block・保存照合・drag配送診断（2026-10-04）

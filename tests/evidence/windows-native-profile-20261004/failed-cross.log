@@ -1,0 +1,44 @@
+   Compiling greiva-poc v0.6.17 (/workspace/apps/client/src-tauri)
+warning: greiva-poc@0.6.17: Compiler family detection failed due to error: ToolExecError: command did not execute successfully (status code exit status: 1): env -u CC_SHIM_OUT_DIR -u CC_SHIM_OUT_FILES "clang-cl" "-E" "/workspace/.data/windows-target/x86_64-pc-windows-msvc/release/build/greiva-poc-d7bf56d4e2612dcb/out/5735416563202357443detect_compiler_family.c"
+warning: greiva-poc@0.6.17: Compiler family detection failed due to error: ToolExecError: command did not execute successfully (status code exit status: 1): env -u CC_SHIM_OUT_DIR -u CC_SHIM_OUT_FILES "clang-cl" "-E" "/workspace/.data/windows-target/x86_64-pc-windows-msvc/release/build/greiva-poc-d7bf56d4e2612dcb/out/16187748190031378027detect_compiler_family.c"
+warning: variable does not need to be mutable
+  --> src/lib.rs:71:17
+   |
+71 |             let mut directory = app.path().app_config_dir()?;
+   |                 ----^^^^^^^^^
+   |                 |
+   |                 help: remove this `mut`
+   |
+   = note: `#[warn(unused_mut)]` (part of `#[warn(unused)]`) on by default
+
+error[E0373]: closure may outlive the current function, but it borrows `profile_started`, which is owned by the current function
+  --> src/lib.rs:68:16
+   |
+68 |         .setup(|app| {
+   |                ^^^^^ may outlive borrowed value `profile_started`
+...
+76 |             app.manage(PerfProbe{started:profile_started,spans:std::sync::Mutex::new(Vec::new())});
+   |                                          --------------- `profile_started` is borrowed here
+   |
+note: function requires argument type to outlive `'static`
+  --> src/lib.rs:66:23
+   |
+66 |       let application = tauri::Builder::default()
+   |  _______________________^
+67 | |         .plugin(tauri_plugin_sql::Builder::default().build())
+68 | |         .setup(|app| {
+69 | |             #[cfg(debug_assertions)]
+...  |
+80 | |             Ok(())
+81 | |         })
+   | |__________^
+help: to force the closure to take ownership of `profile_started` (and any other referenced variables), use the `move` keyword
+   |
+68 |         .setup(move |app| {
+   |                ++++
+
+For more information about this error, try `rustc --explain E0373`.
+warning: `greiva-poc` (lib) generated 1 warning
+warning: greiva-poc@0.6.17: Compiler family detection failed due to error: ToolExecError: command did not execute successfully (status code exit status: 1): env -u CC_SHIM_OUT_DIR -u CC_SHIM_OUT_FILES "clang-cl" "-E" "/workspace/.data/windows-target/x86_64-pc-windows-msvc/release/build/greiva-poc-d7bf56d4e2612dcb/out/5735416563202357443detect_compiler_family.c"
+warning: greiva-poc@0.6.17: Compiler family detection failed due to error: ToolExecError: command did not execute successfully (status code exit status: 1): env -u CC_SHIM_OUT_DIR -u CC_SHIM_OUT_FILES "clang-cl" "-E" "/workspace/.data/windows-target/x86_64-pc-windows-msvc/release/build/greiva-poc-d7bf56d4e2612dcb/out/16187748190031378027detect_compiler_family.c"
+error: could not compile `greiva-poc` (lib) due to 1 previous error; 1 warning emitted

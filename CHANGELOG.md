@@ -2,6 +2,12 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.18 — 2026-10-04
+
+- 通常0.6.17の物理mouse drag／Ctrl+Z成功を利用者が報告し、保存済み画面・停止SQLiteで移動と復元を確認。8→12更新、最後の本文は元と一致、別Page不変。最初の移動履歴には余分な空段落があり、後の移動は正しい構造。原因未確認を残し、単純に全操作合格とはしない。[監査](tests/evidence/windows-native-profile-20261004/manual-drag-verification.json)。
+- Windows0.6.17由来の隔離診断で1,000 block復元の4起動を層別測定。Page query2.7–3.7ms、Yjs22.8–24.5ms、初回Editor render→effect165.7–190msを記録。実ASCIIキー3文字の保存・2回再起動復元、999段落とstructured table不変を照合。[診断範囲と原記録](tests/evidence/windows-native-profile-20261004/SUMMARY.md)。通常releaseのSLO・実日本語IME・連続入力の合格にはしない。
+- 実機可用性を再確認し、iOS Simulator不可、Pixel_10 emulator起動失敗、Pixel 7のADB未接続を記録。Computer Useは確認後に解除。文書・検証checkpoint（PATCH）で、製品manifestと通常実行物は0.6.17のまま。次のdrag表示改善は別checkpointで扱う。
+
 ## 0.6.17 — 2026-10-04
 
 - 過去のスキップ・未実施を[現在の対応表](docs/plan/SKIPPED_VALIDATION_REVIEW.md)へ整理。通常runのPostgreSQL skip20件を別実行の成功とテスト名で照合し、現在のDockerでも20件すべて再Pass、skip／Fail 0。Pixel 7のADB未接続、native全crash中間点・性能内訳・実OS不足を残す。

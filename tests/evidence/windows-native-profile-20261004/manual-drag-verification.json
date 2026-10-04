@@ -1,0 +1,61 @@
+{
+  "at": "2026-10-04T11:37:10.818Z",
+  "result": "Pass",
+  "product": "0.6.17 normal release",
+  "pageId": "01a1021e-b82a-7528-aa1f-064c12de483e",
+  "operator": "User physical mouse and Ctrl+Z; Codex saved-screen and stopped-SQLite audit",
+  "beforeUpdates": 8,
+  "afterUpdates": 12,
+  "title": "WIN611-ALL-OPS",
+  "finalBody": "<heading level=\"2\">H2 native markdown</heading><heading level=\"3\">H3 native slash</heading><paragraph></paragraph>",
+  "bodyHash": "ce2deb7e699889ef047f6cc326009e4191513c3c795be5f5f797f4c2e29938c2",
+  "beforeClocks": [
+    [
+      1,
+      1
+    ],
+    [
+      2095248255,
+      44
+    ]
+  ],
+  "afterClocks": [
+    [
+      1,
+      1
+    ],
+    [
+      2095248255,
+      44
+    ],
+    [
+      2506851515,
+      85
+    ]
+  ],
+  "newHistory": [
+    {
+      "seq": 73,
+      "sha256": "b69c0697c18837c7202709d9397f7c4566abdfd3be823dae90510edb7e77d17f",
+      "body": "<heading level=\"3\">H3 native slash</heading><paragraph></paragraph><heading level=\"2\">H2 native markdown</heading><paragraph></paragraph>"
+    },
+    {
+      "seq": 74,
+      "sha256": "a877f9c45b96a8b4e06ff5da8d010925f88fe77f3ff5065056f1821ed6ab8455",
+      "body": "<heading level=\"2\">H2 native markdown</heading><heading level=\"3\">H3 native slash</heading><paragraph></paragraph>"
+    },
+    {
+      "seq": 75,
+      "sha256": "c53531db25c0b9ac00af36ff1a782412373c656b72397c84029204a62e905a3c",
+      "body": "<heading level=\"3\">H3 native slash</heading><heading level=\"2\">H2 native markdown</heading><paragraph></paragraph>"
+    },
+    {
+      "seq": 76,
+      "sha256": "9eff7c25f6da806a8ad348b52cda3277f99d7db58d70bb2fa430e26b37ba9b8a",
+      "body": "<heading level=\"2\">H2 native markdown</heading><heading level=\"3\">H3 native slash</heading><paragraph></paragraph>"
+    }
+  ],
+  "otherPagesUnchanged": true,
+  "allUpdateDigestsVerified": true,
+  "scope": "Physical drag and Undo restored body with persisted movement history. Prior automated no-drop records remain unchanged. No latest Japanese IME or full Gate verdict."
+}

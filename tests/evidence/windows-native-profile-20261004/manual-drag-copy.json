@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-04T11:36:36.1826109Z",
+  "product": "0.6.17 normal release",
+  "userReport": "できました",
+  "requestedOperation": "Physical mouse H3 above H2, Ctrl+Z restore H2 then H3, wait saved, no further edits",
+  "processAbsent": true,
+  "files": [
+    {
+      "name": "greiva.sqlite",
+      "sourceSha256": "a44881bf05e1333ae8e65e2be7dc4c053963d5259b2030fe6542fcf462eedbe8",
+      "copySha256": "a44881bf05e1333ae8e65e2be7dc4c053963d5259b2030fe6542fcf462eedbe8"
+    },
+    {
+      "name": "greiva.sqlite-shm",
+      "sourceSha256": "4619e82c727610995cfd40929e5ca96a54be6824d2bebd853c941856c75d6f92",
+      "copySha256": "4619e82c727610995cfd40929e5ca96a54be6824d2bebd853c941856c75d6f92"
+    },
+    {
+      "name": "greiva.sqlite-wal",
+      "sourceSha256": "47468eb289552cced36eb097a1375c1c644b3324278af7cb4afb452c1f25d4b1",
+      "copySha256": "47468eb289552cced36eb097a1375c1c644b3324278af7cb4afb452c1f25d4b1"
+    }
+  ]
+}

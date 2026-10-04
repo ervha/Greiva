@@ -1,0 +1,47 @@
+{
+  "at": "2026-10-04T11:16:16.1767870Z",
+  "processAbsent": true,
+  "source": ".data/native-release-0611/final-stopped-copy",
+  "targets": [
+    "C:\\Users\\danun\\AppData\\Roaming\\dev.greiva.poc.profile617",
+    "C:\\Users\\danun\\AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\LocalCache\\Roaming\\dev.greiva.poc.profile617"
+  ],
+  "files": [
+    {
+      "target": "C:\\Users\\danun\\AppData\\Roaming\\dev.greiva.poc.profile617",
+      "name": "greiva.sqlite",
+      "sourceSha256": "7a7843e68608436a0115a33596f0b9281663d4b4034c363c647b0df4c197b580",
+      "installedSha256": "7a7843e68608436a0115a33596f0b9281663d4b4034c363c647b0df4c197b580"
+    },
+    {
+      "target": "C:\\Users\\danun\\AppData\\Roaming\\dev.greiva.poc.profile617",
+      "name": "greiva.sqlite-shm",
+      "sourceSha256": "09960c1e96e0be7ca576e519c8a0e12f3bf202af6a8367d34a4817b2848b7ff3",
+      "installedSha256": "09960c1e96e0be7ca576e519c8a0e12f3bf202af6a8367d34a4817b2848b7ff3"
+    },
+    {
+      "target": "C:\\Users\\danun\\AppData\\Roaming\\dev.greiva.poc.profile617",
+      "name": "greiva.sqlite-wal",
+      "sourceSha256": "cef0beb11f3382757d050a064aa0b4d57a677e0a120faf31e2be75009a8e1b9f",
+      "installedSha256": "cef0beb11f3382757d050a064aa0b4d57a677e0a120faf31e2be75009a8e1b9f"
+    },
+    {
+      "target": "C:\\Users\\danun\\AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\LocalCache\\Roaming\\dev.greiva.poc.profile617",
+      "name": "greiva.sqlite",
+      "sourceSha256": "7a7843e68608436a0115a33596f0b9281663d4b4034c363c647b0df4c197b580",
+      "installedSha256": "7a7843e68608436a0115a33596f0b9281663d4b4034c363c647b0df4c197b580"
+    },
+    {
+      "target": "C:\\Users\\danun\\AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\LocalCache\\Roaming\\dev.greiva.poc.profile617",
+      "name": "greiva.sqlite-shm",
+      "sourceSha256": "09960c1e96e0be7ca576e519c8a0e12f3bf202af6a8367d34a4817b2848b7ff3",
+      "installedSha256": "09960c1e96e0be7ca576e519c8a0e12f3bf202af6a8367d34a4817b2848b7ff3"
+    },
+    {
+      "target": "C:\\Users\\danun\\AppData\\Local\\Packages\\OpenAI.Codex_2p2nqsd0c76g0\\LocalCache\\Roaming\\dev.greiva.poc.profile617",
+      "name": "greiva.sqlite-wal",
+      "sourceSha256": "cef0beb11f3382757d050a064aa0b4d57a677e0a120faf31e2be75009a8e1b9f",
+      "installedSha256": "cef0beb11f3382757d050a064aa0b4d57a677e0a120faf31e2be75009a8e1b9f"
+    }
+  ]
+}

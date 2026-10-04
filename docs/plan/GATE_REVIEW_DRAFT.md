@@ -1,12 +1,14 @@
 # Step 9の判定資料案
 
+2026-10-04、v0.6.18追記: 利用者の物理mouse drag／Undoと停止DBを照合し移動・最終復元を補完。ただし最初の移動に空段落1つの増加があり、後の移動は正しい構造。次のdrag表示改善で再確認する。[原履歴](../../tests/evidence/windows-native-profile-20261004/manual-drag-verification.json)。[層別診断](../../tests/evidence/windows-native-profile-20261004/SUMMARY.md)でYjs復元22.8–24.5ms等を測定したが、通常版のcold起動・連続入力・実IMEや性能目安の合格ではない。利用者は応答・手操作可能に復帰した。以下の応答不能時の記述は履歴。
+
 2026-10-04、0.6.17の通常Windows block操作・停止DB監査とdrag配送診断を追加。これは[POC_SPEC](POC_SPEC.md) §15/18に従う提出準備で、正式なGate判定・採用決定ではない。Conditional／Failを承認なしに成功扱いで進めない。
 
 ## 判定候補と残る根拠
 
 | Gate | 現時点の案 | 完了前に必要な内容 |
 | --- | --- | --- |
-| A: Tiptap＋Yjs Editor | 判定保留。通常0.6.17の全block・削除・keyboard移動は補完済み | [native drag](../failures/step-8-windows-native-drag.md)の物理mouse移動／Undo、最新Microsoft IMEの同一段落遠隔composition・1,000 block入力体験。自動dragは単純HTML5対照もdrop未配送で未確認 |
+| A: Tiptap＋Yjs Editor | 判定保留。通常0.6.17の全block・削除・keyboard移動・物理drag／Undoは補完済み | 最初のdragの空段落増加を新しい表示の回帰でも確認。最新Microsoft IMEの同一段落遠隔composition・1,000 block入力体験。旧自動dragは単純HTML5対照もdrop未配送 |
 | B: offline保存・Yjs収束 | Conditional案 | P0保存済み復旧・収束証拠を統合。macOS P1／iOS P2未実施とWindows復元目安未達観測を承認対象として明示 |
 | C: structured同期 | Pass案、正式判定はA/Bの扱い決定後 | 全operation／cursor／Conflict evidenceの対応を最終レビュー。1,000操作約76秒のserver応答間とnative ACK commit時間の未分離を記録 |
 

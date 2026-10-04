@@ -1,5 +1,7 @@
 # Step 8: Windows native block dragが移動しない
 
+2026-10-04、v0.6.18の最新結果: 利用者が通常0.6.17で物理mouse移動／Ctrl+Zを「できました」と報告。[停止SQLiteの追加4更新](../../tests/evidence/windows-native-profile-20261004/manual-drag-verification.json)で移動・復元を確認した。最初の移動はH3／空paragraph／H2／空paragraphで空段落が1つ増え、後の移動はH3／H2／空paragraphで正しい構造。最終本文と別Pageは元のまま。入力の詳細・追加空段落の発生層は未確認として残し、新しいdrag表示の実装と回帰後にも確認する。以前の自動no-drop観測は書き換えない。通常／診断app終了・Computer Use解除済み。
+
 2026-10-03。通常Windows release 0.6.11でWIN611-ALL-OPS（01a1021e-b82a-7528-aa1f-064c12de483e）のH3行をhandleからH2行の前へドラッグしたが、2回とも順序がH2→H3のままだった。[原観測](../../tests/evidence/windows-native-editor-20261003/observations.json)・[画面](../../tests/evidence/windows-native-editor-20261003/before-drag-fix.jpg)。Computer UseのSendInputによるpointer操作であり、人の物理mouse操作ではない。元のIME失敗fixtureは変更していない。
 
 Docker Chromiumでは同じHTML5 drag実装の既存MOVE／HANDLE試験がPass。Tauriのmain windowで `dragDropEnabled` を指定していなかったため、WebView2のnative file-drop handlerが既定で有効だった。[Tauri公式設定資料](https://v2.tauri.app/reference/config/#windowconfig)はWindowsでfrontend HTML5 drag/dropを使うにはこのhandlerを無効にする必要があると説明している。

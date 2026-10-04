@@ -1,0 +1,6 @@
+{
+  "at": "2026-10-04T11:30:56.4646323Z",
+  "exitCode": 0,
+  "pixel7Connected": false,
+  "operation": "Read-only adb devices -l; addresses and serials omitted; no connection or foreground request"
+}

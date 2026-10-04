@@ -1,5 +1,7 @@
 # PoC受入条件・証拠・再開順序
 
+2026-10-04、v0.6.18追記: [物理mouse移動／Undoの保存履歴と復元](../../tests/evidence/windows-native-profile-20261004/manual-drag-verification.json)で§14-1を補完。最初の移動の余分な空段落は原因未確認として保持。後の移動と最終復元は正しい構造。§13の[診断内訳・実ASCII3キー](../../tests/evidence/windows-native-profile-20261004/SUMMARY.md)は通常releaseのcold／連続入力／日本語IMEや2秒目安の合格ではない。
+
 現在のスキップ／未実施／受入例外の対応は[2026-10-04再確認表](SKIPPED_VALIDATION_REVIEW.md)を参照。PostgreSQL20件の再実行は全Pass。以下の各版は原時点の履歴として保持する。
 
 2026-10-04、0.6.17追記: [通常Windows全blockと59更新／peer照合](../../tests/evidence/windows-native-editor-20261003/SUMMARY.md)。§14-1/3/5を補完し、同一Pageの必須11種類、Markdown4条件、Slash、入れ子／解除、Todo、Toggle開閉、全block削除とUndo/Redo、Mention keyboard移動を確認。旧2 PageのXML／clock不変。native pointer dragは独立HTML5対照もdrop未配送で未確認。最新実IMEはprovider／候補を確認できず未実施のまま。これらをDockerのPassや0.6.17の限定native Passで置き換えない。[Gate資料案](GATE_REVIEW_DRAFT.md)に操作・判断をまとめる。

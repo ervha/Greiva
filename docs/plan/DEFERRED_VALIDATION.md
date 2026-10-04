@@ -1,5 +1,7 @@
 # 手操作待ちの検証と解決案
 
+2026-10-04、v0.6.18更新: 利用者は手操作可能となり、物理drag→Undo成功を報告。[停止DB監査](../../tests/evidence/windows-native-profile-20261004/manual-drag-verification.json)で移動／復元を確認したが、最初の移動の空段落増加は原因未確認として保持。Windows復元の[層別診断](../../tests/evidence/windows-native-profile-20261004/SUMMARY.md)を補完。最新実Microsoft IME・初期化／入力性能の残範囲・実OS不足・Gate判断は続く。次のdrag表示改善へ進む。
+
 現在の状態は[スキップ・未実施事項の再確認表](SKIPPED_VALIDATION_REVIEW.md)へ統合。PostgreSQL20件の再実行を完了し、過去のnative／Android不足を後続証拠へ対応付けた。以下は元時点の候補・履歴で、最新の未確認項目は同表を参照。
 
 2026-10-04、0.6.17更新: 通常Windowsの同一Pageで全11種類、Markdown4条件、Slash、Bullet入れ子／解除、Todoチェック、入れ子Toggleのkeyboard／pointer開閉、全block削除とUndo/Redo、Mention keyboard移動をCodexが代行し、59更新・peerの全文／clock一致を確認。[実機証拠](../../tests/evidence/windows-native-editor-20261003/SUMMARY.md)。残るnative dragは独立HTML5対照でもdrop未配送、最新Microsoft IMEはprovider／候補を確認できない。物理mouse・実IME操作を必要項目として残す。[Gate資料のA/B/C](GATE_REVIEW_DRAFT.md)に再開順序を記録。通常／診断Greivaは保存後に終了、Computer Use解除済み。利用者応答不能の間は独立したスキップ監査などを先に済ませ、必要な操作・判断を勝手に免除しない。

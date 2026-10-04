@@ -1,0 +1,10 @@
+{
+  "at": "2026-10-04T11:28:38.5283838Z",
+  "baselineCommit": "5ff6c2efc6715b748f77bf3c352d75ad26de116f",
+  "product": "0.6.17",
+  "sourceHashesMatchHostAndRestoredDocker": true,
+  "originalStoppedFixtureHashesUnchanged": true,
+  "normalArtifactUnchanged": true,
+  "greivaProcessCount": 0,
+  "computerUseReset": true
+}

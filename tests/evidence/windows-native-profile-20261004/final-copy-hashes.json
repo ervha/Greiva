@@ -1,0 +1,24 @@
+{
+  "at": "2026-10-04T11:26:20.4277252Z",
+  "processAbsent": true,
+  "files": [
+    {
+      "name": "greiva.sqlite",
+      "bytes": 2564096,
+      "sourceSha256": "7a7843e68608436a0115a33596f0b9281663d4b4034c363c647b0df4c197b580",
+      "copySha256": "7a7843e68608436a0115a33596f0b9281663d4b4034c363c647b0df4c197b580"
+    },
+    {
+      "name": "greiva.sqlite-shm",
+      "bytes": 32768,
+      "sourceSha256": "796c08b667f5ab8708e9437777d38be27667f982ee3603f60625e309fdebe915",
+      "copySha256": "796c08b667f5ab8708e9437777d38be27667f982ee3603f60625e309fdebe915"
+    },
+    {
+      "name": "greiva.sqlite-wal",
+      "bytes": 4148872,
+      "sourceSha256": "431946fd57d5f8e75d1e72b2290ec4362cc527f7f6e70d9fe369f91854bee774",
+      "copySha256": "431946fd57d5f8e75d1e72b2290ec4362cc527f7f6e70d9fe369f91854bee774"
+    }
+  ]
+}

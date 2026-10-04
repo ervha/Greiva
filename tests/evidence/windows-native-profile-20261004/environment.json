@@ -1,0 +1,21 @@
+{
+  "at": "2026-10-04T11:25:46.3735768Z",
+  "execution": "Windows host; isolated diagnostic release; offline session",
+  "os": "Microsoft Windows 11 Home",
+  "osVersion": "10.0.26300",
+  "build": "26300",
+  "cpu": "12th Gen Intel(R) Core(TM) i7-12700H",
+  "cores": 14,
+  "logicalProcessors": 20,
+  "physicalMemoryBytes": 16731652096,
+  "webviewRuntime": "154.0.4258.53",
+  "normalProduct": "0.6.17",
+  "normalArtifactSha256": "c96b702c2cac920ef639c140f83b5be3d5f55c3277062d3d6455ffa80a1e70a7",
+  "workload": "1000 paragraphs / 1004 initial updates / 250 benchmark tasks plus 2 earlier fixture tasks",
+  "cpuIsolation": "No exclusive host CPU reservation; other desktop apps were running",
+  "mobile": {
+    "ios": "Unavailable: iOS Simulators need macOS with Xcode",
+    "androidEmulator": "Pixel_10 found but device_open failed to boot; no device CLI target was returned",
+    "physicalPixel7": "Not substituted by emulator"
+  }
+}

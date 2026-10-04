@@ -1,0 +1,250 @@
+{
+  "at": "2026-10-04T11:27:50.821Z",
+  "result": "Pass",
+  "execution": "Actual Windows WebView2 and Tauri IPC diagnostic derived from normal 0.6.17; Docker build and stopped SQLite audit",
+  "pageId": "01a10230-0000-7000-8000-000000000001",
+  "runs": [
+    {
+      "timeOrigin": 1791112596905.4,
+      "lastReason": "startup-v1",
+      "pageUpdates": 1004,
+      "pageBytes": 82963,
+      "sqliteOpen": 18.2454,
+      "pageQuery": 3.6524,
+      "pageIpc": 12.699999999953434,
+      "yjs": {
+        "apply": 14.600000000267755,
+        "arrays": 0.9000000000814907,
+        "at": 253.09999999997672,
+        "blocks": 1000,
+        "bytes": 82963,
+        "decode": 7.099999999743886,
+        "duration": 22.80000000004657,
+        "id": "yjs-restore",
+        "start": 230.09999999997672,
+        "updates": 1004
+      },
+      "editorCreation": 181.2000000000117,
+      "editorTwoRaf": 260.79999999998836,
+      "editorTwoRafNavigation": 516.7999999999884,
+      "tasksTwoRafNavigation": 676.5999999999767,
+      "tasks": 252,
+      "taskQuery": 6.2965,
+      "longTasks": [
+        {
+          "duration": 184,
+          "start": 254
+        },
+        {
+          "duration": 72,
+          "start": 439
+        },
+        {
+          "duration": 69,
+          "start": 606.9000000000233
+        }
+      ],
+      "save": "UI screenshot confirmed; v1 selector typo"
+    },
+    {
+      "timeOrigin": 1791112831348.7,
+      "lastReason": "input",
+      "pageUpdates": 1004,
+      "pageBytes": 82963,
+      "sqliteOpen": 114.23809999999999,
+      "pageQuery": 2.8062,
+      "pageIpc": 12.099999999976715,
+      "yjs": {
+        "apply": 16.499999999883585,
+        "arrays": 2.0000000001164153,
+        "at": 355,
+        "blocks": 1000,
+        "bytes": 82963,
+        "decode": 5.400000000023283,
+        "duration": 24.5,
+        "id": "yjs-restore",
+        "start": 330.30000000004657,
+        "updates": 1004
+      },
+      "editorCreation": 165.69999999995343,
+      "editorTwoRaf": 295.5,
+      "editorTwoRafNavigation": 652.6000000000931,
+      "tasksTwoRafNavigation": 875.2000000000698,
+      "tasks": 252,
+      "taskQuery": 8.9291,
+      "longTasks": [
+        {
+          "duration": 167,
+          "start": 355.9000000000233
+        },
+        {
+          "duration": 123,
+          "start": 523.9000000000233
+        }
+      ],
+      "save": "端末に保存済み"
+    },
+    {
+      "timeOrigin": 1791113029411.1,
+      "lastReason": "startup",
+      "pageUpdates": 1007,
+      "pageBytes": 83035,
+      "sqliteOpen": 18.5661,
+      "pageQuery": 2.7065,
+      "pageIpc": 10.699999999953434,
+      "yjs": {
+        "apply": 15.099999999860302,
+        "arrays": 1.5,
+        "at": 274.9000000000233,
+        "blocks": 1000,
+        "bytes": 83035,
+        "decode": 5.900000000139698,
+        "duration": 23.100000000093132,
+        "id": "yjs-restore",
+        "start": 251.59999999997672,
+        "updates": 1007
+      },
+      "editorCreation": 190,
+      "editorTwoRaf": 388.5,
+      "editorTwoRafNavigation": 665.8000000000466,
+      "tasksTwoRafNavigation": 1005.5999999999768,
+      "tasks": 252,
+      "taskQuery": 9.8198,
+      "longTasks": [
+        {
+          "duration": 193,
+          "start": 276.0999999999767
+        },
+        {
+          "duration": 189,
+          "start": 469.20000000006985
+        }
+      ],
+      "save": "端末に保存済み"
+    },
+    {
+      "timeOrigin": 1791113100980.6,
+      "lastReason": "startup",
+      "pageUpdates": 1007,
+      "pageBytes": 83035,
+      "sqliteOpen": 25.566200000000002,
+      "pageQuery": 3.225,
+      "pageIpc": 13.099999999976715,
+      "yjs": {
+        "apply": 16.099999999045394,
+        "arrays": 1.1000000000931325,
+        "at": 273.0999999999767,
+        "blocks": 1000,
+        "bytes": 83035,
+        "decode": 6.400000000954606,
+        "duration": 23.900000000023283,
+        "id": "yjs-restore",
+        "start": 249,
+        "updates": 1007
+      },
+      "editorCreation": 170.90000000002328,
+      "editorTwoRaf": 275,
+      "editorTwoRafNavigation": 550.1999999999534,
+      "tasksTwoRafNavigation": 741.5,
+      "tasks": 252,
+      "taskQuery": 6.144,
+      "longTasks": [
+        {
+          "duration": 173,
+          "start": 274.0999999999767
+        },
+        {
+          "duration": 99,
+          "start": 447.5
+        }
+      ],
+      "save": "端末に保存済み"
+    }
+  ],
+  "inputTimings": [
+    {
+      "key": "a",
+      "trusted": true,
+      "composing": false,
+      "keydownToTwoRaf": 55.300000000046566,
+      "appendIpc": 187.59999999997672,
+      "keydownToAppendResolved": 227.69999999995343
+    },
+    {
+      "key": "b",
+      "trusted": true,
+      "composing": false,
+      "keydownToTwoRaf": 25.19999999995343,
+      "appendIpc": 9.800000000046566,
+      "keydownToAppendResolved": 26
+    },
+    {
+      "key": "c",
+      "trusted": true,
+      "composing": false,
+      "keydownToTwoRaf": 25.70000000006985,
+      "appendIpc": 12.600000000093132,
+      "keydownToAppendResolved": 26.70000000006985
+    }
+  ],
+  "database": {
+    "beforeUpdates": 1004,
+    "afterUpdates": 1007,
+    "paragraphs": 1000,
+    "insertion": {
+      "index": 39,
+      "text": "abc"
+    },
+    "other999ParagraphsUnchanged": true,
+    "otherPagesUnchanged": true,
+    "structuredTablesUnchanged": true,
+    "unchangedAfterTwoRestarts": true,
+    "structuredTableHashes": {
+      "client_page_state": "35fd2ce369c7165b746aa7e6cc6287521da9532149bb88255dcb6705c6d14eac",
+      "relations": "17b28befdafcea9b7ebc45479f640aaf8eddad61ecee0883224d519103dbbdbd",
+      "structured_client": "46422290933894895cba10302f1cdf896b42731b875c2543b46f5ab6cafd7912",
+      "structured_conflicts": "fe2d1ab7c63895b9837c132a9a21660f919b04168d0b1a3026d8d90f4eddcd95",
+      "structured_received": "94f74d28d7f25d01ef668bebb55548b7758a9a080be14d97c8cc445e9c77228c",
+      "structured_server_entities": "2348327994197d0133244d14ee73e2a8b66710de9ba1f908634da62513cc637a",
+      "sync_operations": "bd51fa6189b9b8578ba039519a7c8db68731da9387dd8b422e3f1429ec7e384e",
+      "sync_state": "2b0e2d2e5699d3c2a8b9c9d228ba94b8f3849cd65da6158c537c78d90e3f6051",
+      "tasks": "898cd74c53d7aab5729cd27e8193af234121fa0cd03592903d8119a92b6c52bf"
+    },
+    "allDigestsVerified": true,
+    "beforeBodySha256": "ca87fb83d59dc9e56215a52d742a84e0336504d7e473b2b0422a2dd4c43b46d5",
+    "afterBodySha256": "548dca1c543174953e16181111264ba6342afc9b8f50458c25f658594349ab9a",
+    "beforeClocks": [
+      [
+        1,
+        1
+      ],
+      [
+        1635077917,
+        111
+      ],
+      [
+        3051417548,
+        31890
+      ]
+    ],
+    "afterClocks": [
+      [
+        1,
+        1
+      ],
+      [
+        1635077917,
+        111
+      ],
+      [
+        2178467533,
+        3
+      ],
+      [
+        3051417548,
+        31890
+      ]
+    ]
+  },
+  "scope": "Diagnostic intervals and three spaced ASCII keys, not normal-product SLO, continuous typing, real Japanese IME, p95, cold OS boot, or Gate verdict."
+}
