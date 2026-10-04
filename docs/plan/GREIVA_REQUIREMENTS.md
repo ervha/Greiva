@@ -1,4 +1,4 @@
-# Greiva 統合要件・アーキテクチャ仕様 v0.7
+# Greiva 統合要件・アーキテクチャ仕様 v0.8
 
 ## 1. 文書の目的と位置付け
 
@@ -19,6 +19,8 @@
 2026-10-01 v0.7改訂: Notionのデータベースビュー・プロパティを基本すべて対象とする製品要求を追加。提示された時間割は利用例とし、任意の分類軸・カード表示・関連データ作成・ボタン/オートメーションを汎用機能として設計する。公式Helpを確認した対応目標は[DATABASE_SPEC.md](DATABASE_SPEC.md)、ボタン押下と変更/定期triggerの詳細案は[BUTTON_AUTOMATION_SPEC.md](BUTTON_AUTOMATION_SPEC.md)。未実装で、PoCの範囲・順序・Gateを変更しない。
 
 ## 2. 製品原則
+
+2026-10-05 v0.8改訂: 利用者は初期利用形態を個人利用/自分の端末間同期、機能優先をCodexへ委任した。初期はWindows/AndroidのPage/Task/Relationと基本DB Table/Listを先行し、他view・Calendar・Automationを後続にする。[実装順](IMPLEMENTATION_PLAN.md)。技術判断として検証済Rust/sqlx Repository＋Tauri IPCをnative保存の基準にし、初期はnpm workspaceを継続。offline冪等操作IDはclient生成、serverはserverOrder/entity version/cursor採番へ責務を明確化する。[判断全件](../decisions/production-foundation-plan.md)。本番接続/配布や未実装機能の完成を意味しない。
 
 1. **Local-first**: ユーザーの確定した変更は、ネットワークがなくても端末に保存され、後から同期できる。
 2. **Correctness over realtime**: Realtimeは体験改善であり、正確性の基盤ではない。WebSocketが停止してもcursor同期で回復できる。
@@ -50,7 +52,7 @@ Apple実機の可否により、Domain、Editor、CRDT、Sync Protocolの再設�
 | Editor | Tiptap / ProseMirror |
 | CRDT | Yjs |
 | Collaboration | Hocuspocus |
-| Native local DB | SQLite（Tauri SQL経由） |
+| Native local DB | SQLite（Rust/sqlx Repository＋Tauri IPCを基準。SQL plugin依存の整理は別検証） |
 | Web local DB | SQLite WASM + OPFS（Web Worker内）、fallbackはIndexedDB |
 | Web CRDT persistence | y-indexeddb |
 | API | Node.js + NestJS、Fastify adapter |
@@ -62,7 +64,7 @@ Apple実機の可否により、Domain、Editor、CRDT、Sync Protocolの再設�
 | Realtime | WebSocket notification。正確性はpull同期で保証 |
 | External sync | Provider Adapter |
 | Calendar | 内蔵Calendar・汎用定期予定/時間割モデル、外部連携はGoogle Calendar API / Provider Adapter |
-| Monorepo | pnpm workspace + Turborepo |
+| Monorepo | 初期は検証済npm workspace。pnpm/Turborepoへの移行は独立評価 |
 | Web E2E | Playwright（Chromium / Firefox / WebKit） |
 
 ### 4.2 リポジトリ構造（本番）
@@ -119,7 +121,7 @@ greiva/
 
 - クライアント生成IDはUUID v7または同等の一意IDとする。
 - 端末時計は操作の正規順序・競合解決の根拠に使わない。
-- サーバーが操作ID、entity version、cursorを採番する。
+- offline操作の安定operationIdはクライアントが生成し、再送で保持する。サーバーはserverOrder、entity version、cursorを採番する。clientId/operationIdを認証の証明には使わない。
 
 ## 6. ドメインの最小モデル
 

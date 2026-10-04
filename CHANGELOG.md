@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.27 — 2026-10-05
+
+- 利用者の機能優先委任と個人利用/自端末同期先行の回答を反映。Windows/AndroidのPage/Task/Relation＋基本DB Table/Listから進める実装順を記録。
+- architecture、技術の現状、データ、sync、CRDT、Editor、認可の本番設計候補とPoCとの差を整理。native Rust Repository/npm継続/操作ID責務を判断記録付きで要件v0.8へ反映。アプリ・wire・schema変更や本番接続は未実施。
+
 ## 0.6.26 — 2026-10-05
 
 - 通常0.6.25 sourceから隔離Windows層別診断を再現できるbuild/seed/audit toolを整備。4起動、1,001→1,005更新、1,000段落/250 pending Task、104文字貼り付け＋実キーabcと全保存/再起動を照合。
