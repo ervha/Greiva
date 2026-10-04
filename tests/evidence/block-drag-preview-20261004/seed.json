@@ -1,0 +1,7 @@
+{
+  "product": "0.6.19",
+  "pageId": "01a10300-0000-7000-8000-000000000001",
+  "title": "WIN619-DRAG",
+  "body": "<heading level=\"2\">H2 drag preview</heading><heading level=\"3\">H3 drag preview</heading><paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph><paragraph></paragraph>",
+  "scope": "New isolated fixture through actual Rust store; no native input or drag claim."
+}

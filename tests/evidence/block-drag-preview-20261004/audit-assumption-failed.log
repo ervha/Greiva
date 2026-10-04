@@ -1,0 +1,23 @@
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ '<heading level="2">H2 drag preview</heading><heading level="3">H3 drag preview</heading><paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph><paragraph></paragraph>'
+- '<heading level="3">H3 drag preview</heading><heading level="2">H2 drag preview</heading><paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph><paragraph></paragraph>'
+
+    at file:///tmp/drag619-audit-native-final.mjs:27:8
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5) {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '<heading level="2">H2 drag preview</heading><heading level="3">H3 drag preview</heading><paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph><paragraph></paragraph>',
+  expected: '<heading level="3">H3 drag preview</heading><heading level="2">H2 drag preview</heading><paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph><paragraph></paragraph>',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.19.0

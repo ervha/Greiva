@@ -1,6 +1,6 @@
 [package]
 name = "greiva-page-store"
-version = "0.6.17"
+version = "0.6.19"
 edition = "2021"
 
 [features]

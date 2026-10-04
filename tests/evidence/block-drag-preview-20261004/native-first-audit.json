@@ -1,0 +1,25 @@
+{
+  "result": "Pass",
+  "candidate": "0.6.19 first free-floating preview revision; superseded by the requested column-aligned revision",
+  "pageId": "01a10300-0000-7000-8000-000000000001",
+  "operator": "User physical mouse and Ctrl+Z",
+  "copyMethod": "node:sqlite online backup through existing Windows runtime, read-only source; 28 pages copied; Greiva left open",
+  "updates": 3,
+  "history": [
+    {
+      "seq": 1,
+      "body": "<heading level=\"2\">H2 drag preview</heading><heading level=\"3\">H3 drag preview</heading><paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph><paragraph></paragraph>"
+    },
+    {
+      "seq": 2,
+      "body": "<heading level=\"3\">H3 drag preview</heading><heading level=\"2\">H2 drag preview</heading><paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph><paragraph></paragraph>"
+    },
+    {
+      "seq": 3,
+      "body": "<heading level=\"2\">H2 drag preview</heading><heading level=\"3\">H3 drag preview</heading><paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph><paragraph></paragraph>"
+    }
+  ],
+  "noExtraParagraphs": true,
+  "allUpdateDigestsVerified": true,
+  "scope": "First candidate only. Native final-revision display and Japanese IME remain separate."
+}

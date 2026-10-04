@@ -1,0 +1,121 @@
+{
+  "result": "Pass",
+  "product": "0.6.19 final rounded UI and gutter-drop correction",
+  "artifactSha256": "d70e2dbad93d36bf147cc1eb4edfbdedbab6b388848173583fe41b5413079a48",
+  "pageId": "01a10300-0000-7000-8000-000000000001",
+  "operator": "User physical mouse, straight handle-column movement and Ctrl+Z; user reported the appearance and operation look good",
+  "copyMethod": "Existing Windows node:sqlite online backup, read-only source; Greiva left open",
+  "beforeUpdates": 4,
+  "afterUpdates": 13,
+  "newHistory": [
+    {
+      "seq": 5,
+      "sha256": "20c97e1306825290246d03ce32a64190d2723407362fbb4778bc92eae3990605",
+      "body": "<heading level=\"2\">H2 drag preview</heading><heading level=\"3\">H3 drag preview</heading><paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph><paragraph></paragraph>",
+      "blocks": [
+        "<heading level=\"2\">H2 drag preview</heading>",
+        "<heading level=\"3\">H3 drag preview</heading>",
+        "<paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph>",
+        "<paragraph></paragraph>"
+      ]
+    },
+    {
+      "seq": 6,
+      "sha256": "d99f1d882d45922c4a3a00b44bdf4938a0e626432f437cee3697da7fe410046a",
+      "body": "<heading level=\"3\">H3 drag preview</heading><heading level=\"2\">H2 drag preview</heading><paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph><paragraph></paragraph>",
+      "blocks": [
+        "<heading level=\"3\">H3 drag preview</heading>",
+        "<heading level=\"2\">H2 drag preview</heading>",
+        "<paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph>",
+        "<paragraph></paragraph>"
+      ]
+    },
+    {
+      "seq": 7,
+      "sha256": "22fa8c4b5866de3df691275f9382665cf265afe8497bd9b4ab0733cdc724508d",
+      "body": "<heading level=\"2\">H2 drag preview</heading><heading level=\"3\">H3 drag preview</heading><paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph><paragraph></paragraph>",
+      "blocks": [
+        "<heading level=\"2\">H2 drag preview</heading>",
+        "<heading level=\"3\">H3 drag preview</heading>",
+        "<paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph>",
+        "<paragraph></paragraph>"
+      ]
+    },
+    {
+      "seq": 8,
+      "sha256": "27ba4da8a76171f915122d16600583cda257488ee915207f77a45176750e7b1f",
+      "body": "<heading level=\"2\">H2 drag preview</heading><heading level=\"3\">H3 drag preview</heading><paragraph></paragraph><paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph>",
+      "blocks": [
+        "<heading level=\"2\">H2 drag preview</heading>",
+        "<heading level=\"3\">H3 drag preview</heading>",
+        "<paragraph></paragraph>",
+        "<paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph>"
+      ]
+    },
+    {
+      "seq": 9,
+      "sha256": "82a6762601bc06be21e40f388c64226e1388bd5d98258abd5f46c3435edc9b46",
+      "body": "<heading level=\"2\">H2 drag preview</heading><heading level=\"3\">H3 drag preview</heading><paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph><paragraph></paragraph>",
+      "blocks": [
+        "<heading level=\"2\">H2 drag preview</heading>",
+        "<heading level=\"3\">H3 drag preview</heading>",
+        "<paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph>",
+        "<paragraph></paragraph>"
+      ]
+    },
+    {
+      "seq": 10,
+      "sha256": "353edb22446c8eb95ae048197f083c23e976f96d2879df17a4a6928e53241aae",
+      "body": "<heading level=\"3\">H3 drag preview</heading><heading level=\"2\">H2 drag preview</heading><paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph><paragraph></paragraph>",
+      "blocks": [
+        "<heading level=\"3\">H3 drag preview</heading>",
+        "<heading level=\"2\">H2 drag preview</heading>",
+        "<paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph>",
+        "<paragraph></paragraph>"
+      ]
+    },
+    {
+      "seq": 11,
+      "sha256": "b05a6e4e0db48ed08420ebeba14d4ee9479644239c7519fa32932be965759a36",
+      "body": "<heading level=\"2\">H2 drag preview</heading><heading level=\"3\">H3 drag preview</heading><paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph><paragraph></paragraph>",
+      "blocks": [
+        "<heading level=\"2\">H2 drag preview</heading>",
+        "<heading level=\"3\">H3 drag preview</heading>",
+        "<paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph>",
+        "<paragraph></paragraph>"
+      ]
+    },
+    {
+      "seq": 12,
+      "sha256": "c2f58c521f70afe4d4c2158c9d5f4a53150e7ad129f7dd278846d6fd07da96e2",
+      "body": "<heading level=\"3\">H3 drag preview</heading><heading level=\"2\">H2 drag preview</heading><paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph><paragraph></paragraph>",
+      "blocks": [
+        "<heading level=\"3\">H3 drag preview</heading>",
+        "<heading level=\"2\">H2 drag preview</heading>",
+        "<paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph>",
+        "<paragraph></paragraph>"
+      ]
+    },
+    {
+      "seq": 13,
+      "sha256": "316a1c1f08cc26c19e2d880f3b91e2a3da7d03c9172cce827641e6c902816368",
+      "body": "<heading level=\"2\">H2 drag preview</heading><heading level=\"3\">H3 drag preview</heading><paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph><paragraph></paragraph>",
+      "blocks": [
+        "<heading level=\"2\">H2 drag preview</heading>",
+        "<heading level=\"3\">H3 drag preview</heading>",
+        "<paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph>",
+        "<paragraph></paragraph>"
+      ]
+    }
+  ],
+  "beforeBody": "<heading level=\"3\">H3 drag preview</heading><heading level=\"2\">H2 drag preview</heading><paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph><paragraph></paragraph>",
+  "finalBody": "<heading level=\"2\">H2 drag preview</heading><heading level=\"3\">H3 drag preview</heading><paragraph>Multiple lines<hardbreak></hardbreak>Move this block as a card</paragraph><paragraph></paragraph>",
+  "finalMatchesFirstSeed": true,
+  "finalMatchesPreTrial": false,
+  "observation": "Nine additional pure block-order updates include an empty-paragraph move and return. A single final Ctrl+Z cannot be inferred from stored Yjs origin; operator reported the requested interaction looks good. Final order is H2 then H3, matching the first seed, rather than the pre-trial H3 then H2.",
+  "allUpdateDigestsVerified": true,
+  "oldHistoryUnchanged": true,
+  "noExtraParagraphs": true,
+  "titleUnchanged": true,
+  "scope": "Native physical gutter drag and Undo plus user visual acceptance. No Japanese IME, native performance or complete Gate verdict."
+}

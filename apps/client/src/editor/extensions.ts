@@ -48,7 +48,7 @@ export const dummyEntities: MenuItem[] = [
 
 export function editorExtensions(yDocument?: Doc) {
   return [
-    StarterKit.configure({ heading: { levels: [1, 2, 3] }, ...(yDocument ? { undoRedo: false } : {}) }),
+    StarterKit.configure({ heading: { levels: [1, 2, 3] }, dropcursor: { class: 'greiva-dropcursor' }, ...(yDocument ? { undoRedo: false } : {}) }),
     ...(yDocument ? [Collaboration.configure({ document: yDocument, field: 'body' }), CollaborationHistory, CollaborationSelection] : []),
     TaskList,
     TaskItem.configure({ nested: true, a11y: { checkboxLabel: node => `Todo: ${node.textBetween(0, node.content.size, ' ') || '未入力'}` } }),

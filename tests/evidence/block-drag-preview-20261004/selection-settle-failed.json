@@ -1,0 +1,311 @@
+{
+  "config": {
+    "argv": [
+      "/usr/local/bin/node",
+      "/workspace/node_modules/.bin/playwright",
+      "test",
+      "tests/e2e/block-drag.spec.ts",
+      "tests/e2e/editor.spec.ts",
+      "--grep",
+      "DRAG|MOVE|HANDLES"
+    ],
+    "configFile": "/workspace/playwright.config.ts",
+    "rootDir": "/workspace/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/tmp/block-drag-0619/playlist-focused/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 2
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/workspace/tests/e2e",
+        "testIgnore": [
+          "structured-sync.spec.ts",
+          "structured-crash.spec.ts"
+        ],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/tmp/block-drag-0619/playlist-focused/playwright.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "/tmp/block-drag-0619/playlist-focused/playwright.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 2,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "block-drag.spec.ts",
+      "file": "block-drag.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "STEP8-DRAG-PREVIEW: held block floats, siblings make space, drop and cancellation retain the document",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 4204,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 2\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[32m-   \"from\": 21,\u001b[39m\n\u001b[32m-   \"offset\": 5,\u001b[39m\n\u001b[31m+   \"from\": 20,\u001b[39m\n\u001b[31m+   \"offset\": 4,\u001b[39m\n\u001b[2m    \"parent\": \"third\",\u001b[22m\n\u001b[2m    \"size\": 5,\u001b[22m\n\u001b[2m    \"to\": 21,\u001b[22m\n\u001b[2m  }\u001b[22m",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 2\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[32m-   \"from\": 21,\u001b[39m\n\u001b[32m-   \"offset\": 5,\u001b[39m\n\u001b[31m+   \"from\": 20,\u001b[39m\n\u001b[31m+   \"offset\": 4,\u001b[39m\n\u001b[2m    \"parent\": \"third\",\u001b[22m\n\u001b[2m    \"size\": 5,\u001b[22m\n\u001b[2m    \"to\": 21,\u001b[22m\n\u001b[2m  }\u001b[22m\n    at /workspace/tests/e2e/block-drag.spec.ts:45:152",
+                    "location": {
+                      "file": "/workspace/tests/e2e/block-drag.spec.ts",
+                      "column": 152,
+                      "line": 45
+                    },
+                    "snippet": "  43 |   await expect(card).toHaveAttribute('inert', ''); await expect(card).toHaveAttribute('aria-hidden', 'true');\n  44 |   await expect(paragraphs).toHaveText(['first', 'second', 'third']);\n> 45 |   expect(await page.evaluate(() => (window as unknown as { greivaTest: { snapshot: () => { selection: unknown } } }).greivaTest.snapshot().selection)).toEqual(selection);\n     |                                                                                                                                                        ^\n  46 |   await expect.poll(async () => paragraphs.first().evaluate(element => Number(getComputedStyle(element).transform.match(/matrix\\([^,]+,[^,]+,[^,]+,[^,]+,[^,]+,\\s*([^\\)]+)/)?.[1] ?? '0'))).toBeGreaterThan(0);\n  47 |   expect(await paragraphs.last().evaluate(element => getComputedStyle(element).opacity)).toBe('0');\n  48 |   await info.attach('held-block-preview', { body: await page.screenshot(), contentType: 'image/png' });"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/tests/e2e/block-drag.spec.ts",
+                        "column": 152,
+                        "line": 45
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mreceived\u001b[39m\u001b[2m).\u001b[22mtoEqual\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m) // deep equality\u001b[22m\n\n\u001b[32m- Expected  - 2\u001b[39m\n\u001b[31m+ Received  + 2\u001b[39m\n\n\u001b[2m  Object {\u001b[22m\n\u001b[32m-   \"from\": 21,\u001b[39m\n\u001b[32m-   \"offset\": 5,\u001b[39m\n\u001b[31m+   \"from\": 20,\u001b[39m\n\u001b[31m+   \"offset\": 4,\u001b[39m\n\u001b[2m    \"parent\": \"third\",\u001b[22m\n\u001b[2m    \"size\": 5,\u001b[22m\n\u001b[2m    \"to\": 21,\u001b[22m\n\u001b[2m  }\u001b[22m\n\n  43 |   await expect(card).toHaveAttribute('inert', ''); await expect(card).toHaveAttribute('aria-hidden', 'true');\n  44 |   await expect(paragraphs).toHaveText(['first', 'second', 'third']);\n> 45 |   expect(await page.evaluate(() => (window as unknown as { greivaTest: { snapshot: () => { selection: unknown } } }).greivaTest.snapshot().selection)).toEqual(selection);\n     |                                                                                                                                                        ^\n  46 |   await expect.poll(async () => paragraphs.first().evaluate(element => Number(getComputedStyle(element).transform.match(/matrix\\([^,]+,[^,]+,[^,]+,[^,]+,[^,]+,\\s*([^\\)]+)/)?.[1] ?? '0'))).toBeGreaterThan(0);\n  47 |   expect(await paragraphs.last().evaluate(element => getComputedStyle(element).opacity)).toBe('0');\n  48 |   await info.attach('held-block-preview', { body: await page.screenshot(), contentType: 'image/png' });\n    at /workspace/tests/e2e/block-drag.spec.ts:45:152"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T12:17:30.280Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/tmp/block-drag-0619/playlist-focused/artifacts/block-drag-STEP8-DRAG-PREV-6b770-llation-retain-the-document-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/tmp/block-drag-0619/playlist-focused/artifacts/block-drag-STEP8-DRAG-PREV-6b770-llation-retain-the-document-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/tests/e2e/block-drag.spec.ts",
+                    "column": 152,
+                    "line": 45
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "266019e4082e87988854-6ec72d6b365b5ac14f6e",
+          "file": "block-drag.spec.ts",
+          "line": 29,
+          "column": 1
+        },
+        {
+          "title": "STEP8-DRAG-REMOTE: a real peer edit cancels the stale drag without inserting its text",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 3294,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T12:17:35.692Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "266019e4082e87988854-43e4da89e145831b4d78",
+          "file": "block-drag.spec.ts",
+          "line": 61,
+          "column": 1
+        },
+        {
+          "title": "STEP8-DRAG-DOWN: a multiline block opens a full-height gap, reduced motion and outside drop preserve content",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 2,
+                  "parallelIndex": 0,
+                  "status": "passed",
+                  "duration": 1869,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T12:17:39.092Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "266019e4082e87988854-2bf908d872e134444886",
+          "file": "block-drag.spec.ts",
+          "line": 78,
+          "column": 1
+        }
+      ]
+    },
+    {
+      "title": "editor.spec.ts",
+      "file": "editor.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "STEP2-MOVE: drag changes order, undo restores it, keyboard moves the block",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 4305,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T12:17:30.193Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d2f56d7d370f0ba02e91-effef3ac0f8b82417156",
+          "file": "editor.spec.ts",
+          "line": 136,
+          "column": 1
+        },
+        {
+          "title": "STEP8-HANDLES: typing retains handle DOM and dragging uses current offsets and text",
+          "ok": true,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "parallelIndex": 1,
+                  "status": "passed",
+                  "duration": 4095,
+                  "errors": [],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T12:17:34.766Z",
+                  "annotations": [],
+                  "attachments": []
+                }
+              ],
+              "status": "expected"
+            }
+          ],
+          "id": "d2f56d7d370f0ba02e91-c7945db937b1159fcf84",
+          "file": "editor.spec.ts",
+          "line": 156,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-04T12:17:26.443Z",
+    "duration": 14619.929999999998,
+    "expected": 4,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

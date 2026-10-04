@@ -1,5 +1,7 @@
 # Step 9の判定資料案
 
+2026-10-04、v0.6.19追記: [列に沿うdrag表示・同じ列のdrop修正・丸いUI・全58 E2E・Windows build](../../tests/evidence/block-drag-preview-20261004/SUMMARY.md)。利用者が修正版の操作／見た目を確認。online backup4→13更新は元4 blockの純粋な順序変更のみで余分な段落なし、最終H2→H3と試験直前H3→H2の差も記録。旧異常の原因、最新実Microsoft IME／1,000 block連続入力、Gate判断を別条件として保持する。
+
 2026-10-04、v0.6.18追記: 利用者の物理mouse drag／Undoと停止DBを照合し移動・最終復元を補完。ただし最初の移動に空段落1つの増加があり、後の移動は正しい構造。次のdrag表示改善で再確認する。[原履歴](../../tests/evidence/windows-native-profile-20261004/manual-drag-verification.json)。[層別診断](../../tests/evidence/windows-native-profile-20261004/SUMMARY.md)でYjs復元22.8–24.5ms等を測定したが、通常版のcold起動・連続入力・実IMEや性能目安の合格ではない。利用者は応答・手操作可能に復帰した。以下の応答不能時の記述は履歴。
 
 2026-10-04、0.6.17の通常Windows block操作・停止DB監査とdrag配送診断を追加。これは[POC_SPEC](POC_SPEC.md) §15/18に従う提出準備で、正式なGate判定・採用決定ではない。Conditional／Failを承認なしに成功扱いで進めない。

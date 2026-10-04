@@ -1,0 +1,166 @@
+{
+  "config": {
+    "argv": [
+      "/usr/local/bin/node",
+      "/workspace/node_modules/.bin/playwright",
+      "test",
+      "tests/e2e/block-drag.spec.ts",
+      "--grep",
+      "DRAG-GUTTER"
+    ],
+    "configFile": "/workspace/playwright.config.ts",
+    "rootDir": "/workspace/tests/e2e",
+    "failOnFlakyTests": false,
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 1
+    },
+    "preserveOutput": "always",
+    "projects": [
+      {
+        "outputDir": "/tmp/block-drag-0619/gutter-before/artifacts",
+        "repeatEach": 1,
+        "retries": 0,
+        "metadata": {
+          "actualWorkers": 1
+        },
+        "id": "chromium",
+        "name": "chromium",
+        "testDir": "/workspace/tests/e2e",
+        "testIgnore": [
+          "structured-sync.spec.ts",
+          "structured-crash.spec.ts"
+        ],
+        "testMatch": [
+          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
+        ],
+        "timeout": 30000
+      }
+    ],
+    "quiet": false,
+    "reporter": [
+      [
+        "list",
+        null
+      ],
+      [
+        "json",
+        {
+          "outputFile": "/tmp/block-drag-0619/gutter-before/playwright.json"
+        }
+      ],
+      [
+        "junit",
+        {
+          "outputFile": "/tmp/block-drag-0619/gutter-before/playwright.xml"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 300000
+    },
+    "shard": null,
+    "tags": [],
+    "updateSnapshots": "missing",
+    "updateSourceMethod": "patch",
+    "version": "1.63.0",
+    "workers": 2,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "block-drag.spec.ts",
+      "file": "block-drag.spec.ts",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "STEP8-DRAG-GUTTER: vertical movement in the handle column drops without entering the text",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "chromium",
+              "projectName": "chromium",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "parallelIndex": 0,
+                  "status": "failed",
+                  "duration": 6771,
+                  "error": {
+                    "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('textbox', { name: 'Page本文' }).locator(':scope > p')\nTimeout: 5000ms\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"third\",\u001b[39m\n\u001b[2m    \"first\",\u001b[22m\n\u001b[2m    \"second\",\u001b[22m\n\u001b[31m+   \"third\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n\nCall log:\n\u001b[2m  - Expect \"toHaveText\" getByRole('textbox', { name: 'Page本文' }).locator(':scope > p') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Page本文' }).locator(':scope > p')\u001b[22m\n\u001b[2m    14 × locator resolved to 3 elements\u001b[22m\n",
+                    "stack": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('textbox', { name: 'Page本文' }).locator(':scope > p')\nTimeout: 5000ms\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"third\",\u001b[39m\n\u001b[2m    \"first\",\u001b[22m\n\u001b[2m    \"second\",\u001b[22m\n\u001b[31m+   \"third\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n\nCall log:\n\u001b[2m  - Expect \"toHaveText\" getByRole('textbox', { name: 'Page本文' }).locator(':scope > p') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Page本文' }).locator(':scope > p')\u001b[22m\n\u001b[2m    14 × locator resolved to 3 elements\u001b[22m\n\n    at /workspace/tests/e2e/block-drag.spec.ts:118:28",
+                    "location": {
+                      "file": "/workspace/tests/e2e/block-drag.spec.ts",
+                      "column": 28,
+                      "line": 118
+                    },
+                    "snippet": "  116 |   await expect(page.locator('.block-drag-preview')).toBeVisible();\n  117 |   await page.mouse.up();\n> 118 |   await expect(paragraphs).toHaveText(['third', 'first', 'second']); await clean(page, editor);\n      |                            ^\n  119 |   await page.keyboard.press('ControlOrMeta+z'); await expect(paragraphs).toHaveText(['first', 'second', 'third']);\n  120 | });\n  121 |"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/workspace/tests/e2e/block-drag.spec.ts",
+                        "column": 28,
+                        "line": 118
+                      },
+                      "message": "Error: \u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveText\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m failed\n\nLocator: getByRole('textbox', { name: 'Page本文' }).locator(':scope > p')\nTimeout: 5000ms\n\u001b[32m- Expected  - 1\u001b[39m\n\u001b[31m+ Received  + 1\u001b[39m\n\n\u001b[2m  Array [\u001b[22m\n\u001b[32m-   \"third\",\u001b[39m\n\u001b[2m    \"first\",\u001b[22m\n\u001b[2m    \"second\",\u001b[22m\n\u001b[31m+   \"third\",\u001b[39m\n\u001b[2m  ]\u001b[22m\n\nCall log:\n\u001b[2m  - Expect \"toHaveText\" getByRole('textbox', { name: 'Page本文' }).locator(':scope > p') with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for getByRole('textbox', { name: 'Page本文' }).locator(':scope > p')\u001b[22m\n\u001b[2m    14 × locator resolved to 3 elements\u001b[22m\n\n\n  116 |   await expect(page.locator('.block-drag-preview')).toBeVisible();\n  117 |   await page.mouse.up();\n> 118 |   await expect(paragraphs).toHaveText(['third', 'first', 'second']); await clean(page, editor);\n      |                            ^\n  119 |   await page.keyboard.press('ControlOrMeta+z'); await expect(paragraphs).toHaveText(['first', 'second', 'third']);\n  120 | });\n  121 |\n    at /workspace/tests/e2e/block-drag.spec.ts:118:28"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2026-10-04T12:28:06.779Z",
+                  "annotations": [],
+                  "attachments": [
+                    {
+                      "name": "error-context",
+                      "contentType": "text/markdown",
+                      "path": "/tmp/block-drag-0619/gutter-before/artifacts/block-drag-STEP8-DRAG-GUTT-8412d-s-without-entering-the-text-chromium/error-context.md"
+                    },
+                    {
+                      "name": "trace",
+                      "contentType": "application/zip",
+                      "path": "/tmp/block-drag-0619/gutter-before/artifacts/block-drag-STEP8-DRAG-GUTT-8412d-s-without-entering-the-text-chromium/trace.zip"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/workspace/tests/e2e/block-drag.spec.ts",
+                    "column": 28,
+                    "line": 118
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "266019e4082e87988854-578ceee10fb704cf09f2",
+          "file": "block-drag.spec.ts",
+          "line": 106,
+          "column": 1
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2026-10-04T12:28:01.617Z",
+    "duration": 12440.876999999999,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 1,
+    "flaky": 0
+  }
+}

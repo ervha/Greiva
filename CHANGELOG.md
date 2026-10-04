@@ -2,6 +2,13 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.19 — 2026-10-04
+
+- Block dragを線中心から、持った行の内容・ハンドル・軽い影と、周りが場所を空ける表示へ改善（PATCH）。追加指定に合わせ横位置・幅を固定し、上下に動く行へ改訂。表示用変更を本文・Undo・保存へ混ぜず、遠隔変更やcomposition開始で安全に中断する。[動き・範囲・原結果](tests/evidence/block-drag-preview-20261004/SUMMARY.md)。
+- ハンドル列だけでまっすぐ移動できない問題を再現して修正。本文側への横移動を要求せず、行の外へのdropは取消。列／幅・選択保持、複数行、Undo/Redo、実peer変更、reduced motion、ハンドル列の4 E2Eを追加。全58 E2E、通常48 unit/integration、型、通常frontend／Windows release buildがPass。実DB専用20件は今回skip。app所有版を整合、外部依存不変。
+- 最初のカード候補の物理drag／Undoを利用者が確認し、online backupで3更新を照合。最終修正版も利用者が同じ列での操作・見た目を確認。4→13更新は空段落を含む元4 blockの順序変更のみで、全内容と旧履歴保持、余分な段落なし。最終H2→H3は最初のseedと一致し、試験直前H3→H2とは異なることを記録。Pageは開いたまま、Computer Use解除。最新実IME・正式Gateは残す。
+- Material You／Liquid Glassを参考に、blockの丸みと淡い背景、共通controlの角・色、短いhover／開閉と小さいmenuの透明感を実装。[共通品質基準](docs/development/ui-quality.md)・横断設計v0.8にも反映。本文は不透明、reduced motion／transparency・blur非対応のfallbackあり。OS固有materialやPoC範囲の拡大は含めない。
+
 ## 0.6.18 — 2026-10-04
 
 - 通常0.6.17の物理mouse drag／Ctrl+Z成功を利用者が報告し、保存済み画面・停止SQLiteで移動と復元を確認。8→12更新、最後の本文は元と一致、別Page不変。最初の移動履歴には余分な空段落があり、後の移動は正しい構造。原因未確認を残し、単純に全操作合格とはしない。[監査](tests/evidence/windows-native-profile-20261004/manual-drag-verification.json)。
