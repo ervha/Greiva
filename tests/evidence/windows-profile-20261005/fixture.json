@@ -1,0 +1,20 @@
+{
+  "pageId": "01a10530-0000-7000-8000-000000000001",
+  "blocks": 1000,
+  "updates": 1001,
+  "tasks": 250,
+  "pending": 250,
+  "xmlSha256": "85cc92600baddcb2eb45744060c8c7341a1520e862c7461b8f956cd14628e06c",
+  "clocks": [
+    [
+      1,
+      1
+    ],
+    [
+      2088485418,
+      41890
+    ]
+  ],
+  "completeSqliteSha256": "6abe6e752f10918f35026107ec1241fe671809d3ba5ce44b905ec901c2ebe7cf",
+  "scope": "Synthetic fixture, online SQLite backup including all WAL updates; no user data"
+}

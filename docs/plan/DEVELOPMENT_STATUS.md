@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+2026-10-05、checkpoint **v0.6.26**/製品source **0.6.25**。[Windows診断4起動・104文字貼り付け・実キーabc・1,005更新/全保存/再起動照合](../../tests/evidence/windows-profile-20261005/SUMMARY.md)を利用者操作なしで追加。診断の内部時間と通常native2秒/連続IME性能を区別し、通常source/manifest/lock/exeは不変。全8判断と残事項は[判断記録](../decisions/windows-profile-followup.md)。診断app終了、Computer Use解除。次は既存要件の本番architecture候補と未決定契約を整理し、新機能の恒久実装へは広げない。
+
 2026-10-05、checkpoint/製品 **v0.6.25**。保存/通信報告によるPageEditor/TaskPanelの不要描画を標準memoで省き、回帰で再現したnative選択反映待ちとgutterのdragenter受入を修正。[55 unit/integration・型・全59 E2E・実同期/Conflict2・描画比較・production bundle104文字・通常Windows build/選択置換Undo/Redo/再起動/全7更新/peer](../../tests/evidence/render-isolation-20261005/SUMMARY.md)。[Windows実Rust/SQLiteの4停止条件](../../tests/evidence/windows-store-boundaries-20261005/SUMMARY.md)も補完し、通常Tauri内部全条件とは区別。初回Fail、seed WAL copy訂正、速度保証できない測定を保持。利用者操作なし、試験app終了、Computer Use解除。最新版実IME/物理drag/native性能と実OS環境は残す。[全13判断・必要事項](../decisions/step-8-render-isolation.md)、[今後の実施範囲と製品化案](NEXT_DEVELOPMENT_PLAN.md)。新機能の恒久実装は未開始、既存Gate結論は実行版0.6.20の歴史的判定を維持。
 
 2026-10-05、checkpoint／製品 **v0.6.24**。再開指示に従い、1,000 block入力時のtoolbar移動可否判定から不要なtransaction生成・全文走査を除去。[全59 E2E・50 unit/integration・型・Windows build・production-bundle104文字／保存・native move／Undo／x入力／SQLite4更新](../../tests/evidence/toolbar-availability-20261005/SUMMARY.md)。外部依存不変。既存Gate結論とWindows性能／未実施OSのConditionalは維持。[今回の全自律判断](../decisions/step-8-toolbar-availability.md)。利用者操作なし、Computer Use解除、新試験app終了。

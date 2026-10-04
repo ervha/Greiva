@@ -1,0 +1,16 @@
+{
+  "result": "Pass",
+  "normalProduct": "0.6.25",
+  "checkpoint": "0.6.26",
+  "normalSourceFilesUnchanged": 125,
+  "excludedCheckpointFile": "VERSION",
+  "normalExecutableUnchanged": true,
+  "normalExecutableSha256": "e09ac644d9b7c1b3971e223fa0d46a52afbd2235f978d4f76b72ec2d519dbbad",
+  "diagnosticSourceFilesRestored": 6,
+  "diagnosticArtifact": {
+    "bytes": 13106688,
+    "sha256": "0ec7b85c83dbfe4d60cffc1b3bb7591d93983b630ebbd7345d5721d26ea28452"
+  },
+  "normalFrontendRebuiltWithoutProbes": true,
+  "scope": "Source/artifact isolation checks only; VERSION alone intentionally changes checkpoint. Normal native executable was not relaunched or performance-measured"
+}

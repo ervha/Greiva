@@ -1,0 +1,13 @@
+{
+  "os": "Microsoft Windows 11 Home",
+  "version": "10.0.26300",
+  "build": "26300",
+  "cpu": "12th Gen Intel(R) Core(TM) i7-12700H",
+  "ramBytes": 16731652096,
+  "hostNode": "v26.1.0",
+  "product": "0.6.25 diagnostic",
+  "webViewLoadedVersion": "Not recorded",
+  "cache": "First new isolated app/WebView profile, then three restarts; OS disk/GPU cache not controlled",
+  "load": "Existing Docker services and other desktop applications running; no exclusive CPU",
+  "execution": "Existing Windows host and Node; Docker cross build; no host toolchain install"
+}

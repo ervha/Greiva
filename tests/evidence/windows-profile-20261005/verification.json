@@ -1,0 +1,206 @@
+{
+  "result": "Pass",
+  "product": "0.6.25 diagnostic",
+  "runs": [
+    {
+      "timeOrigin": 1791156731045.9,
+      "pageUpdates": 1001,
+      "sqliteOpen": 25.2374,
+      "pageQuery": 2.6013,
+      "pageIpc": 14,
+      "yjs": {
+        "apply": 23.299999959766865,
+        "arrays": 3.100000023841858,
+        "at": 275,
+        "blocks": 1000,
+        "bytes": 95311,
+        "decode": 8.80000001937151,
+        "duration": 36.20000000298023,
+        "id": "yjs-restore",
+        "start": 238.60000000149012,
+        "updates": 1001
+      },
+      "editorRenderToEffect": 226.30000000447035,
+      "editorRenderToTwoRaf": 341.20000000298023,
+      "navigationToEditorTwoRaf": 621.2000000029802,
+      "navigationToTasksTwoRaf": 1180.5,
+      "taskQuery": 5.625,
+      "longTasks": [
+        {
+          "duration": 230,
+          "start": 277
+        },
+        {
+          "duration": 108,
+          "start": 507.6000000014901
+        },
+        {
+          "duration": 77,
+          "start": 1103.3000000044703
+        }
+      ]
+    },
+    {
+      "timeOrigin": 1791156767583.1,
+      "pageUpdates": 1001,
+      "sqliteOpen": 15.6071,
+      "pageQuery": 3.2475,
+      "pageIpc": 18.399999998509884,
+      "yjs": {
+        "apply": 15.600000016391276,
+        "arrays": 1.8000000044703484,
+        "at": 296.5,
+        "blocks": 1000,
+        "bytes": 95311,
+        "decode": 6.999999970197678,
+        "duration": 25.200000002980232,
+        "id": "yjs-restore",
+        "start": 270.8999999985099,
+        "updates": 1001
+      },
+      "editorRenderToEffect": 187.70000000298023,
+      "editorRenderToTwoRaf": 307.80000000447035,
+      "navigationToEditorTwoRaf": 608,
+      "navigationToTasksTwoRaf": 798.1000000014901,
+      "taskQuery": 3.5657,
+      "longTasks": [
+        {
+          "duration": 190,
+          "start": 298.3999999985099
+        },
+        {
+          "duration": 114,
+          "start": 489.29999999701977
+        }
+      ]
+    },
+    {
+      "timeOrigin": 1791156798279.7,
+      "pageUpdates": 1001,
+      "sqliteOpen": 19.5243,
+      "pageQuery": 3.3669,
+      "pageIpc": 20.100000001490116,
+      "yjs": {
+        "apply": 18.09999994188547,
+        "arrays": 1.5000000074505806,
+        "at": 328.6000000014901,
+        "blocks": 1000,
+        "bytes": 95311,
+        "decode": 6.800000041723251,
+        "duration": 27.30000000447035,
+        "id": "yjs-restore",
+        "start": 301.1000000014901,
+        "updates": 1001
+      },
+      "editorRenderToEffect": 194.20000000298023,
+      "editorRenderToTwoRaf": 313.1000000014901,
+      "navigationToEditorTwoRaf": 644.7000000029802,
+      "navigationToTasksTwoRaf": 846.3000000044703,
+      "taskQuery": 2.8432,
+      "longTasks": [
+        {
+          "duration": 198,
+          "start": 330
+        },
+        {
+          "duration": 113,
+          "start": 528.2000000029802
+        }
+      ]
+    },
+    {
+      "timeOrigin": 1791156975319.3,
+      "pageUpdates": 1005,
+      "sqliteOpen": 18.0885,
+      "pageQuery": 3.3129,
+      "pageIpc": 12.699999995529652,
+      "yjs": {
+        "apply": 18.299999967217445,
+        "arrays": 2.5000000298023224,
+        "at": 286.40000000596046,
+        "blocks": 1000,
+        "bytes": 95486,
+        "decode": 6.400000013411045,
+        "duration": 27.600000001490116,
+        "id": "yjs-restore",
+        "start": 258.6000000014901,
+        "updates": 1005
+      },
+      "editorRenderToEffect": 168.89999999850988,
+      "editorRenderToTwoRaf": 269.70000000298023,
+      "navigationToEditorTwoRaf": 559.3000000044703,
+      "navigationToTasksTwoRaf": 764.5,
+      "taskQuery": 3.0063,
+      "longTasks": [
+        {
+          "duration": 172,
+          "start": 287.90000000596046
+        },
+        {
+          "duration": 94,
+          "start": 460.1000000014901
+        }
+      ]
+    }
+  ],
+  "paste": {
+    "characters": 104,
+    "observedShortcut": "Control+v",
+    "inputEvents": 0,
+    "appendIpc": 68,
+    "shortcutToAppendResolved": 115.80000000447035
+  },
+  "keyTimings": [
+    {
+      "key": "a",
+      "trusted": true,
+      "keydownToTwoRaf": 46.30000000447035,
+      "appendIpc": 16.200000002980232,
+      "keydownToAppendResolved": 47.100000001490116,
+      "inputToAppendResolved": 34.20000000298023
+    },
+    {
+      "key": "b",
+      "trusted": true,
+      "keydownToTwoRaf": 35.80000000447035,
+      "appendIpc": 18.30000000447035,
+      "keydownToAppendResolved": 37.3000000044849,
+      "inputToAppendResolved": 28.8000000044849
+    },
+    {
+      "key": "c",
+      "trusted": true,
+      "keydownToTwoRaf": 25.900000005960464,
+      "appendIpc": 12,
+      "keydownToAppendResolved": 26.5,
+      "inputToAppendResolved": 20.299999997019768
+    }
+  ],
+  "database": {
+    "beforeUpdates": 1001,
+    "afterUpdates": 1005,
+    "blocks": 1000,
+    "other999ParagraphsUnchanged": true,
+    "originalUpdatesByteExact": true,
+    "structuredTablesUnchanged": true,
+    "allTablesUnchangedAfterRestart": true,
+    "allDigestsVerified": true,
+    "pending": 250,
+    "xmlSha256": "fd78bb293f8da05f5bd61c14d8146a93470941d15deb5063386a194f825f5fa9",
+    "clocks": [
+      [
+        1,
+        1
+      ],
+      [
+        2088485418,
+        41890
+      ],
+      [
+        3930230168,
+        107
+      ]
+    ]
+  },
+  "scope": "Windows instrumented Tauri/WebView2, four starts, one clipboard paste and three spaced actual ASCII keys. Internal clocks/rAF are not OS-to-presentation latency, continuous input, IME or normal executable SLO evidence."
+}

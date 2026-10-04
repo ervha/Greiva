@@ -1,0 +1,68 @@
+{
+  "at": "2026-10-04T23:31:10.619Z",
+  "product": "0.6.25",
+  "diagnostic": true,
+  "override": {
+    "identifier": "dev.greiva.poc.profile625",
+    "app": {
+      "windows": [
+        {
+          "label": "main",
+          "title": "Greiva Performance Diagnostic",
+          "width": 1000,
+          "height": 700,
+          "dragDropEnabled": false,
+          "url": "index.html?page=01a10530-0000-7000-8000-000000000001"
+        }
+      ]
+    }
+  },
+  "pageId": "01a10530-0000-7000-8000-000000000001",
+  "results": [
+    {
+      "id": "frontend",
+      "exit": 0,
+      "start": "2026-10-04T23:30:18.096Z",
+      "finished": "2026-10-04T23:30:21.859Z"
+    },
+    {
+      "id": "cross",
+      "exit": 0,
+      "start": "2026-10-04T23:30:21.860Z",
+      "finished": "2026-10-04T23:31:10.601Z"
+    }
+  ],
+  "artifact": {
+    "bytes": 13106688,
+    "sha256": "0ec7b85c83dbfe4d60cffc1b3bb7591d93983b630ebbd7345d5721d26ea28452"
+  },
+  "restored": [
+    {
+      "file": "apps/client/src/main.tsx",
+      "sha256": "0c0fdb560733b50a1b0a803a52e6e57997656140e729a2ef6beba7a550e02bac"
+    },
+    {
+      "file": "apps/client/src/editor/page-session.ts",
+      "sha256": "14c7ed68301a58201cf2496e8e895cd7b63b3e5760e258d80d80356da51d849c"
+    },
+    {
+      "file": "apps/client/src/editor/PageEditor.tsx",
+      "sha256": "fd878fa71547bf3938c5a0abbddd1da532965448624b31cb77739a9319dac300"
+    },
+    {
+      "file": "apps/client/src/structured/TaskPanel.tsx",
+      "sha256": "52e9ff3317b43d1955ee5b8f92792866a083d57a4fc3ed453ece1e9f6e5da128"
+    },
+    {
+      "file": "apps/client/src/editor/local-page-store.ts",
+      "sha256": "c20310008fbfaf4da1c1efc8e146bdb50ef03090e76ffc8c92f085d11feec1fb"
+    },
+    {
+      "file": "apps/client/src-tauri/src/lib.rs",
+      "sha256": "8dbd2d86136d8572861174b87030813861657c5f702b8424a8973e3ba03ee14e"
+    }
+  ],
+  "module": "import {invoke} from '@tauri-apps/api/core';\nsessionStorage.setItem('greiva-connection-paused','1');\nconst records:unknown[]=[],longTasks:unknown[]=[];\nexport function probeMark(id:string,data:object={}){records.push({id,at:performance.now(),...data});}\nexport function probePaint(id:string,data:object={}){probeMark(id+'-effect',data);requestAnimationFrame(()=>requestAnimationFrame(()=>probeMark(id+'-two-raf',data)));}\nexport async function probeInvoke<T>(command:string,fields?:Record<string,unknown>):Promise<T>{const start=performance.now();try{return await invoke<T>(command,fields);}finally{probeMark('ipc',{command,start,duration:performance.now()-start});}}\nprobeMark('module-ready');\ntry{new PerformanceObserver(list=>{for(const e of list.getEntries())longTasks.push({start:e.startTime,duration:e.duration});}).observe({type:'longtask',buffered:true});}catch{}\nfunction flush(reason:string){const editor=document.querySelector('[aria-label=\"Page本文\"]');const report={reason,at:new Date().toISOString(),timeOrigin:performance.timeOrigin,reportedAt:performance.now(),records,longTasks,navigation:performance.getEntriesByType('navigation').map(e=>e.toJSON()),paints:performance.getEntriesByType('paint').map(e=>e.toJSON()),dom:{paragraphs:editor?.querySelectorAll(':scope > p').length,handles:document.querySelectorAll('.block-handle').length,editable:editor?.getAttribute('contenteditable'),save:document.querySelector('[aria-label=\"端末の保存状態\"]')?.textContent}};void invoke('profile_record',{record:JSON.stringify(report)});}\nsetTimeout(()=>flush('startup'),5000);\nlet inputTimer:ReturnType<typeof setTimeout>|undefined;\nfor(const type of ['keydown','beforeinput','input','compositionstart','compositionend'])document.addEventListener(type,event=>{if(!(event.target as HTMLElement)?.closest('[aria-label=\"Page本文\"]'))return;const start=performance.now(),key=event as KeyboardEvent,input=event as InputEvent;probeMark(type,{start,key:key.key,inputType:input.inputType,dataLength:input.data?.length??null,composing:key.isComposing??input.isComposing,trusted:event.isTrusted});requestAnimationFrame(()=>requestAnimationFrame(()=>probeMark(type+'-two-raf',{start,duration:performance.now()-start})));clearTimeout(inputTimer);inputTimer=setTimeout(()=>flush('input'),1000);},true);\n",
+  "rust": "\nstruct PerfProbe { started: std::time::Instant, spans: std::sync::Mutex<Vec<serde_json::Value>> }\nfn profile_span(probe: &PerfProbe,id: &str,start: std::time::Instant){probe.spans.lock().unwrap().push(serde_json::json!({\"id\":id,\"start\":start.duration_since(probe.started).as_secs_f64()*1000.0,\"duration\":start.elapsed().as_secs_f64()*1000.0}));}\n#[tauri::command]\nfn profile_record(record:String,state:tauri::State<'_,LocalStore>,probe:tauri::State<'_,PerfProbe>)->Result<(),String>{use std::io::Write;let frontend:serde_json::Value=serde_json::from_str(&record).map_err(|e|e.to_string())?;let report=serde_json::json!({\"frontend\":frontend,\"nativeElapsed\":probe.started.elapsed().as_secs_f64()*1000.0,\"nativeSpans\":*probe.spans.lock().unwrap()});let file=state.path.parent().ok_or(\"Missing diagnostic directory\")?.join(\"profile.jsonl\");let mut writer=std::fs::OpenOptions::new().create(true).append(true).open(file).map_err(|e|e.to_string())?;writeln!(writer,\"{}\",report).map_err(|e|e.to_string())}\n",
+  "scope": "Read-only timing instrumented Windows Tauri; paused synthetic fixture. Not a normal executable, physical input, actual IME, paint presentation or SLO proof."
+}

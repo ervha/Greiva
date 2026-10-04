@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-05 / checkpoint v0.6.26 / [Windows層別診断](windows-profile-20261005/SUMMARY.md): 実source0.6.25の診断release、4起動/1,001 journal/1,000段落/250 pending。104文字貼り付けと実キーabc、全digest/他999段落/再起動全tableを照合。通常source/既存exe不変、Computer Use解除。通常性能SLO/最新実IMEとは区別。
+
 - 2026-10-05 / v0.6.25 / [描画の分離・native選択反映・dragenter受入・Windows復元](render-isolation-20261005/SUMMARY.md): 初回失敗とbaseline対照を保持し修正、型/55 unit/integration/全59 E2E/実同期Conflict2/通常Windows build。1,000段落・250 Taskのmemo比較、104文字のproduction-bundle測定、native選択置換/Undo/Redo/再起動と7更新/peer全文clockを照合。描画呼出削減を性能保証へ換算しない。[Windows保存層4条件](windows-store-boundaries-20261005/SUMMARY.md)は診断CLIとして別証拠。残る実IME/物理drag/OS環境を明記。
 
 - 2026-10-05 / v0.6.24 / [移動ボタン可否判定の軽量化](toolbar-availability-20261005/SUMMARY.md): transaction生成・全文走査を省く。全59 E2E・50 unit/integration・型・通常Windows build、production-bundle1,000 block／104文字保存照合。Windows native移動／Undo／実キーxとSQLite4更新を代行、Computer Use解除。限定microbenchmarkとnative性能／IMEを区別。
