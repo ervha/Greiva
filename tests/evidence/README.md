@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-05 / v0.6.24 / [移動ボタン可否判定の軽量化](toolbar-availability-20261005/SUMMARY.md): transaction生成・全文走査を省く。全59 E2E・50 unit/integration・型・通常Windows build、production-bundle1,000 block／104文字保存照合。Windows native移動／Undo／実キーxとSQLite4更新を代行、Computer Use解除。限定microbenchmarkとnative性能／IMEを区別。
+
 - 2026-10-04 / v0.6.23 / [PoC最終レビュー・連続入力保存監査](poc-gate-review-20261004/SUMMARY.md): 利用者の問題なし報告、SQLite30→76更新、1,000段落・他999段落保持、peer全文／clock一致。自由入力はhash／長さのみ公開。明示判断委任に基づくGate A Pass（例外あり）／B Conditional／C Passと条件付き技術採用、全判断・後続検証を記録。製品0.6.20。
 
 ## 過去の記録（当時の判定）

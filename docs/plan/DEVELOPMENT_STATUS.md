@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+2026-10-05、checkpoint／製品 **v0.6.24**。再開指示に従い、1,000 block入力時のtoolbar移動可否判定から不要なtransaction生成・全文走査を除去。[全59 E2E・50 unit/integration・型・Windows build・production-bundle104文字／保存・native move／Undo／x入力／SQLite4更新](../../tests/evidence/toolbar-availability-20261005/SUMMARY.md)。外部依存不変。既存Gate結論とWindows性能／未実施OSのConditionalは維持。[今回の全自律判断](../decisions/step-8-toolbar-availability.md)。利用者操作なし、Computer Use解除、新試験app終了。
+
 2026-10-04、checkpoint **v0.6.23**／製品 **0.6.20**。利用者の連続入力報告と[保存監査](../../tests/evidence/poc-gate-review-20261004/SUMMARY.md)で30→76更新・1,000段落・他999段落不変・peer一致を確認。判断委任に基づき、Gate Aは受入例外ありPass、Gate BはConditional、Gate CはPass、技術選定は条件付き採用と確定。PoC Step 9を完了し、全Gate無条件Pass・本番提供とは区別。[全自律判断と後続事項](../decisions/poc-autonomous-review.md)。現在の回答／手操作待ちはなし。Computer Use解除、既存Pageは保持。
 
 ## 過去の記録（当時の判定）

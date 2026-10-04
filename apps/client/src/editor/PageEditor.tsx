@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react';
 import { EditorContent, useEditor, useEditorState } from '@tiptap/react';
-import { adjacentBlockMove } from './blocks';
+import { adjacentBlockMove, canMoveAdjacentBlock } from './blocks';
 import { blockCommands, editorExtensions } from './extensions';
 import * as Y from 'yjs';
 import type { PageSession } from './page-session';
@@ -39,8 +39,8 @@ export function PageEditor({ session, title, storageError }: { session: PageSess
     undo: e?.can().undo() ?? false, redo: e?.can().redo() ?? false,
     details: e?.isActive('details') ?? false,
     listItem: e?.isActive('taskItem') ? 'taskItem' : e?.isActive('listItem') ? 'listItem' : null,
-    up: e ? Boolean(adjacentBlockMove(e.state, -1)) : false,
-    down: e ? Boolean(adjacentBlockMove(e.state, 1)) : false,
+    up: e ? canMoveAdjacentBlock(e.state, -1) : false,
+    down: e ? canMoveAdjacentBlock(e.state, 1) : false,
   }) });
   if (!editor) return <p>Editorを準備しています…</p>;
   const move = (direction: -1 | 1) => {

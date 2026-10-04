@@ -1,5 +1,7 @@
 # PoC受入条件・証拠・再開順序
 
+2026-10-05、v0.6.24: §13入力負荷の[可否判定改善とproduction-bundle性能／保存監査](../../tests/evidence/toolbar-availability-20261005/SUMMARY.md)、§14-1/4の限定Windows move／Undo／実キーx／保存を補完。native日本語IME・全crash中間点・復元2秒の追加達成にはしない。Gate A/B/Cのv0.6.23判定を維持。
+
 2026-10-04、v0.6.23現在: [Gate A](../decisions/gate-a.md) Pass（再変換の受入例外あり）、[Gate B](../decisions/gate-b.md) Conditional、[Gate C](../decisions/gate-c.md) Pass。[技術選定](../decisions/poc-technology-selection.md)は条件付き採用。利用者の判断委任と全判断は[一覧](../decisions/poc-autonomous-review.md)。§14-1/2を最新の物理drag・通常／遠隔Microsoft IMEで補完。§13の短い連続入力は問題なし報告と1,000段落保存監査済み、復元2秒・native frame SLOは未確認。その他の§14正確性は各GateのDocker／native証拠へ対応付け。macOS／iOSとnative内部全境界の証拠差はGate Bへ残す。以下の旧表は当時の結果。
 
 ## 過去の記録（当時の判定）

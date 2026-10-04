@@ -1,0 +1,39 @@
+{
+  "at": "2026-10-04T15:03:19.424Z",
+  "blocks": 1000,
+  "checksPerSample": 1000,
+  "runs": [
+    {
+      "run": 0,
+      "legacy": 1292.5820439999998,
+      "boundary": 1.0026950000001307
+    },
+    {
+      "run": 1,
+      "boundary": 0.12788300000011077,
+      "legacy": 1982.454064
+    },
+    {
+      "run": 2,
+      "legacy": 1088.72062,
+      "boundary": 0.09286699999938719
+    },
+    {
+      "run": 3,
+      "boundary": 0.06627200000002631,
+      "legacy": 900.9430259999999
+    },
+    {
+      "run": 4,
+      "legacy": 1003.3693199999998,
+      "boundary": 0.06734099999994214
+    },
+    {
+      "run": 5,
+      "boundary": 0.1235660000002099,
+      "legacy": 1098.6727119999996
+    }
+  ],
+  "documentUnchanged": true,
+  "scope": "Docker Node microbenchmark of two toolbar availability checks. Alternating order, 50 warmups. Not browser input latency, native IME, paint or startup SLO."
+}

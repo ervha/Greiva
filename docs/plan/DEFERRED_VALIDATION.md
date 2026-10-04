@@ -1,5 +1,7 @@
 # 手操作待ちの検証と解決案
 
+2026-10-05、v0.6.24: [入力時の可否判定負荷削減と全検証](../../tests/evidence/toolbar-availability-20261005/SUMMARY.md)。通常Windowsのmove／Undo／実キーxと保存4更新も代行。今回の日本語IME／native性能の新合格にはしない。回答／手操作待ちなし。未検証OS・Windows性能・本番範囲の選定は引き続き[全判断・残条件](../decisions/step-8-toolbar-availability.md)へ集約。
+
 2026-10-04、v0.6.23: 連続入力の報告と保存照合を完了。現在の回答／手操作待ちはなし。利用者の明示判断委任によりGate BのConditionalを受け入れ、Gate判定と条件付き技術採用を確定。[判断全件・提供前の残検証](../decisions/poc-autonomous-review.md)。下記の待機記述は過去時点の履歴。未検証OSと性能課題を消去していない。
 
 ## 過去の記録（当時の判定）

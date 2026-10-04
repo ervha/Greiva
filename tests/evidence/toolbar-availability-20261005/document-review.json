@@ -1,0 +1,9 @@
+{
+  "result": "Pass",
+  "files": 8,
+  "localLinks": 346,
+  "unitPassed": 50,
+  "unitSkipped": 20,
+  "nativeUpdates": 4,
+  "scope": "Documentation links checked against current host file inventory; test result consistency"
+}

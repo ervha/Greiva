@@ -1,0 +1,72 @@
+{
+  "result": "Pass within stated scope",
+  "at": "2026-10-04T15:16:07.195Z",
+  "product": "0.6.24",
+  "activeCopy": "packaged",
+  "page": {
+    "id": "01a10500-0000-7000-8000-000000000001",
+    "title": "WIN624-IME1000",
+    "y_doc_id": "page:01a10500-0000-7000-8000-000000000001"
+  },
+  "baselineUpdates": 1,
+  "finalUpdates": 4,
+  "blocks": 1000,
+  "history": [
+    {
+      "seq": 1,
+      "firstTwo": [
+        "WIN624 local ",
+        "WIN624 remote "
+      ],
+      "xmlSha256": "f2a9ffe7ad2fa1aaf1243e367b7b694e163de6c9c2e6d9fe1b92b9ead5c41bab"
+    },
+    {
+      "seq": 2,
+      "firstTwo": [
+        "WIN624 remote ",
+        "WIN624 local "
+      ],
+      "xmlSha256": "23d4696e16420aeb3f5de96d2cdd55a197a3800e5309f89061e1dab2f15cdc99"
+    },
+    {
+      "seq": 3,
+      "firstTwo": [
+        "WIN624 local ",
+        "WIN624 remote "
+      ],
+      "xmlSha256": "f2a9ffe7ad2fa1aaf1243e367b7b694e163de6c9c2e6d9fe1b92b9ead5c41bab"
+    },
+    {
+      "seq": 4,
+      "firstTwo": [
+        "WIN624 local ",
+        "WIN624 remote x"
+      ],
+      "xmlSha256": "657ca9cb3cc1feb7426496eb35a529ae9853a1dc0c9d2090996fac54f1748023"
+    }
+  ],
+  "baselineUpdateRetained": true,
+  "all998OtherParagraphsUnchanged": true,
+  "structuredEntityQueueReceiptStateUnchanged": true,
+  "newStructuredClientInitialized": {
+    "singleton": 1,
+    "client_id": "01a10777-7f52-7167-9252-112ceca8804b"
+  },
+  "digestsValid": true,
+  "integrityCheck": "ok",
+  "clocks": [
+    [
+      1,
+      1
+    ],
+    [
+      2363217812,
+      31
+    ],
+    [
+      2824902721,
+      12007
+    ]
+  ],
+  "scope": "Normal Windows toolbar move and Ctrl+Z, actual ASCII x key, save label observed, Alt+F4 and process absence verified. Not physical drag, Japanese IME, native latency or peer convergence evidence."
+}

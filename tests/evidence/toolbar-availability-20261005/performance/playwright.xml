@@ -1,0 +1,6 @@
+<testsuites id="" name="" tests="1" failures="0" skipped="0" errors="0" time="16.497657">
+<testsuite name="workloads.spec.ts" timestamp="2026-10-04T15:06:29.075Z" hostname="chromium" tests="1" failures="0" skipped="0" time="12.642" errors="0">
+<testcase name="STEP8-PAGE-1000: restore every journal update and measure actual key input and durable-save wait" classname="workloads.spec.ts" time="12.642">
+</testcase>
+</testsuite>
+</testsuites>

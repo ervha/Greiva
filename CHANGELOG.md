@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.24 — 2026-10-05
+
+- 入力・選択更新時の移動ボタン判定から、使わない2個の移動transactionと全文offset走査を除去（PATCH）。実際のmove／Undo／composition guardは維持。[判断全件・試験](docs/decisions/step-8-toolbar-availability.md)。
+- 型、50 unit/integration（実DB20 skip）、全59 E2E、通常frontend／Windows release buildがPass。production-bundle1,000 block復元・104文字実入力の全文／clock／保存履歴一致、Windows native move／Undo／実キーxと保存4更新を代行確認。[原証拠](tests/evidence/toolbar-availability-20261005/SUMMARY.md)。app所有版0.6.24へ整合、外部依存不変。native日本語IME・性能SLOの新合格にはしない。Computer Use解除、既存試験データを操作せず、新試験app終了。
+
 ## 0.6.23 — 2026-10-04
 
 - 利用者の連続Microsoft IME入力の問題なし報告を保存監査で照合。SQLite30→76更新、全1,000段落・他999段落不変、独立peer全文／clock一致。24 UTF-16単位の短い確認で、native性能SLOへ一般化しない。[証拠](tests/evidence/poc-gate-review-20261004/SUMMARY.md)。

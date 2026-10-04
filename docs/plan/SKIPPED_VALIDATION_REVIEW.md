@@ -1,5 +1,7 @@
 # スキップ・未実施事項の再確認
 
+2026-10-05追記: v0.6.24の通常unitは50 Pass／実DB20 skip、全59 E2Eはskip 0。API／保存／sync sourceは無変更で、実PostgreSQL20 Passの別証拠を保持。Windowsでmove／Undo／実キーxと保存を追加確認したが、最新日本語IME全条件やnative内部crash全点を補完したとはしない。[最新証拠と残条件](../../tests/evidence/toolbar-availability-20261005/SUMMARY.md)。以下は以前の再確認記録。
+
 v0.6.20追記: [0.6.19の利用者による新drag確認と保存監査](../../tests/evidence/block-drag-preview-20261004/SUMMARY.md)で物理移動／Undo・新表示を補完。旧0.6.17の空段落増加の原因は未確定。さらに[Dockerの1,000 block drag／Undo・全行保持・peer全文／clock一致](../../tests/evidence/block-drag-large-20261004/SUMMARY.md)、全59 E2Eと通常Windows buildを補完。最新実Microsoft IME・1,000 blockでの日本語連続入力・正式Gate、実OS不足は残す。以下の表は0.6.17時点の原履歴。
 
 2026-10-04、v0.6.17の区切り。過去のNot run／skip／失敗を現在の証拠へ対応付ける。過去の原結果は書き換えず、補完済みの範囲と残る条件を分ける。[PoC仕様](POC_SPEC.md) §12–18、[受入条件の履歴](POC_VALIDATION_MATRIX.md)、[Gate資料案](GATE_REVIEW_DRAFT.md)。

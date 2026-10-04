@@ -15,6 +15,19 @@ export function moveTopLevelBlock(state: EditorState, from: number, before: numb
   return tr.setSelection(Selection.near(tr.doc.resolve(destination + 1))).scrollIntoView();
 }
 
+// Toolbar availability must not build a move transaction on every input/selection.
+export function canMoveAdjacentBlock(state: EditorState, direction: -1 | 1): boolean {
+  const { $from } = state.selection;
+  for (let depth = $from.depth - 1; depth > 0; depth--) {
+    const parent = $from.node(depth);
+    if (parent.type.name !== 'detailsContent') continue;
+    const index = $from.index(depth);
+    return index < parent.childCount && index + direction >= 0 && index + direction < parent.childCount;
+  }
+  const index = $from.index(0);
+  return index < state.doc.childCount && index + direction >= 0 && index + direction < state.doc.childCount;
+}
+
 export function adjacentBlockMove(state: EditorState, direction: -1 | 1): Transaction | null {
   const { $from } = state.selection;
   // Move siblings inside the nearest Toggle body without moving its parent Toggle.
