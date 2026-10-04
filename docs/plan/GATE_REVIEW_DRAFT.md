@@ -1,5 +1,7 @@
 # Step 9の判定資料案
 
+2026-10-04、v0.6.22追記: 利用者のMicrosoft IME切替確認後、[通常Windows 0.6.20の実キー通常変換・同一段落遠隔composition](../../tests/evidence/windows-ms-ime-20261004/SUMMARY.md)をCodexが代行。全1,000段落・SQLite30更新・独立peer全文／clock一致。最新Microsoftの同一段落遠隔compositionは補完済み。1,000 block連続入力の体感・正式判断は残る。0.6.20自動dragの追加試行は移動なし、0.6.19の実物理受入は別の証拠。
+
 2026-10-04、v0.6.21追記: [通常Windows 0.6.20の実キー日本語1変換・1,000段落保持](../../tests/evidence/windows-ime-preparation-20261004/SUMMARY.md)をCodexが代行。Microsoft providerの同定は未完了なのでGate Aへ昇格せず、入力方式確認だけを利用者へ依頼。確認後の変換／遠隔更新はCodexが行う。最新連続入力・遠隔compositionと正式判断は残条件のまま。
 
 2026-10-04、v0.6.19追記: [列に沿うdrag表示・同じ列のdrop修正・丸いUI・全58 E2E・Windows build](../../tests/evidence/block-drag-preview-20261004/SUMMARY.md)。利用者が修正版の操作／見た目を確認。online backup4→13更新は元4 blockの純粋な順序変更のみで余分な段落なし、最終H2→H3と試験直前H3→H2の差も記録。旧異常の原因、最新実Microsoft IME／1,000 block連続入力、Gate判断を別条件として保持する。
@@ -12,7 +14,7 @@
 
 | Gate | 現時点の案 | 完了前に必要な内容 |
 | --- | --- | --- |
-| A: Tiptap＋Yjs Editor | 判定保留。通常0.6.17の全block等と0.6.19の物理drag／Undo・新表示は補完済み | 新dragの保存履歴に余分な段落なし、旧異常の原因は未確定。0.6.20のDockerで1,000 block drag／Undo・全行保持を補完。最新Microsoft IMEの同一段落遠隔composition・1,000 block入力体験は残る |
+| A: Tiptap＋Yjs Editor | 判定保留。全block等、0.6.19物理drag、0.6.20 Microsoft通常変換／同一段落遠隔compositionを補完 | 1,000 block連続入力の体感。旧drag異常の原因は未確定、0.6.20自動drag追加試行は移動なし。Dockerの1,000 block drag／UndoはPass。正式判断とMicrosoft再変換の受入例外を対応付ける |
 | B: offline保存・Yjs収束 | Conditional案 | P0保存済み復旧・収束証拠を統合。macOS P1／iOS P2未実施とWindows復元目安未達観測を承認対象として明示 |
 | C: structured同期 | Pass案、正式判定はA/Bの扱い決定後 | 全operation／cursor／Conflict evidenceの対応を最終レビュー。1,000操作約76秒のserver応答間とnative ACK commit時間の未分離を記録 |
 

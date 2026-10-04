@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+2026-10-04、checkpoint **v0.6.22**／製品 **0.6.20**。利用者がMicrosoft IMEへ切替済みと回答。Codexが[通常変換・同一段落遠隔3更新中の変換](../../tests/evidence/windows-ms-ime-20261004/SUMMARY.md)を実キーで代行し、SQLite30更新・全1,000段落・peer全文／clock一致を確認。残る998段落不変。自動native dragの追加試行は移動なし、0.6.19の物理受入結果と区別する。連続入力体感だけを最小手操作依頼、保存照合はCodexが行う。両Greivaは開いたまま、Computer Use解除。正式Gateと環境／性能の残条件は維持する。
+
 2026-10-04、checkpoint **v0.6.21**／製品 **0.6.20**。[Windows実キー日本語1変換・1,000段落保存照合](../../tests/evidence/windows-ime-preparation-20261004/SUMMARY.md)をCodexが代行。SQLite9更新・独立peer全文／clock一致、他999段落・旧WIN619-DRAG全13更新不変。Microsoft provider未同定のため、利用者に入力方式の確認だけを依頼。再開用fixture／peer・監査準備まで終え、回答待ちで停止。新旧Greivaは保存済みで開いたまま、Computer Use解除。製品・manifest・exeを0.6.21とは呼ばない。実IME連続入力・同一段落遠隔composition、正式Gateは残る。
 
 2026-10-04、checkpoint／製品 **0.6.20**。1,000 blockでdragの全行スタイル生成を省き、移動する行だけを更新。[単回比較・全59 E2E・型・48 unit/integration・通常Windows build](../../tests/evidence/block-drag-large-20261004/SUMMARY.md)。Docker診断のLong Task5→0、全1,000行の移動／Undo・独立peer全文／clock一致。Windows性能・実日本語IMEの合格には換算しない。利用者操作なしでこの更新を検証し、既存WIN619-DRAGは編集せず開いたまま保持。残る実IME／正式Gateの準備を続ける。

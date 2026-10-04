@@ -1,0 +1,34 @@
+{
+  "scope": "Tracked source equality only. Does not rerun native tests or upgrade their original versions.",
+  "unchangedTrackedGitBlobs": 16,
+  "result": "Pass",
+  "sourceDirectories": [
+    "apps/api/src",
+    "apps/collaboration/src",
+    "packages/sync/src",
+    "packages/protocol/src",
+    "apps/client/src-tauri/src",
+    "apps/client/src-tauri/crates/page-store/src"
+  ],
+  "entries": [
+    "100644 blob 36da33984b4412b4a994eae7a918181eccedd087\tapps/api/src/app.ts",
+    "100644 blob 2d6ae40f293ae3df20ebefd62ed1265f78a8455a\tapps/api/src/main.ts",
+    "100644 blob 2fb39207c29cf24aa9f2cd7a121b27f03af6b49e\tapps/api/src/structured-repository.ts",
+    "100644 blob e0f2d981eb622637b19a4e14a963c77097a5b5a6\tapps/api/src/sync-schema.ts",
+    "100644 blob 90e5000a87abeea650af4638d35adee20f5609ee\tapps/client/src-tauri/crates/page-store/src/lib.rs",
+    "100644 blob a9247509fafd2fd1245e91850147729f4a648edd\tapps/client/src-tauri/crates/page-store/src/structured.rs",
+    "100644 blob 0091a94b26b66f7ec10d4f11d2a002a5d724de58\tapps/client/src-tauri/crates/page-store/src/structured_sync.rs",
+    "100644 blob 71c69db33fe9ffac524365e6c24eea1894ae4c9e\tapps/client/src-tauri/src/lib.rs",
+    "100644 blob af4a467827007bcb94e62b82b2222f58b2363afa\tapps/client/src-tauri/src/main.rs",
+    "100644 blob bdecd5f84cb160f6554a97eee68c2c8d3bf8a9cc\tapps/collaboration/src/main.ts",
+    "100644 blob bd9a58f1ca402ac9d16835020965e56e79fda1ea\tapps/collaboration/src/server.ts",
+    "100644 blob 1a4055fc721c7c7a041de7d293b1263f6663d9eb\tapps/collaboration/src/update-store.ts",
+    "100644 blob f08a078d28d62c605525cbcdbfe74bcc30e0d3f0\tpackages/protocol/src/index.ts",
+    "100644 blob b8c1801c972a9a3f91a499f376021c04c59677ac\tpackages/sync/src/index.ts",
+    "100644 blob 13d64a552cd115be8940d7a7242eaacfa60a09af\tpackages/sync/src/page-bootstrap.ts",
+    "100644 blob 99da95c1ccfa307552190c960ac608ff21df6e11\tpackages/sync/src/structured-engine.ts"
+  ],
+  "product": "v0.6.20",
+  "at": "2026-10-04T14:09:40.4304643Z",
+  "baseline": "v0.6.11"
+}

@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.22 — 2026-10-04
+
+- 利用者のMicrosoft IME切替確認後、Codexが通常Windows 0.6.20／1,000 blockの通常変換と同一段落への遠隔3更新中の変換を実キーで代行。欠落・二重入力・composition中断を観測せず、SQLite30更新・全1,000段落・独立peer全文／clock一致、他998段落不変。[原画面・ACK・監査](tests/evidence/windows-ms-ime-20261004/SUMMARY.md)。
+- 自動native dragの追加1試行は移動なし、保存更新数30のまま。0.6.19の実物理drag受入証拠と区別。文書／検証PATCHで製品版は0.6.20、Computer Use解除。連続入力の体感だけを最小手操作依頼として残し、正式Gateは未確定。
+
 ## 0.6.21 — 2026-10-04
 
 - 通常Windows 0.6.20の隔離1,000段落で、Codexが実キー `n,i,h,o,n,g,o`→Space→Enterによる日本語変換を代行。SQLite9更新・全1,000段落・独立peer全文／clock一致、他999段落と旧WIN619-DRAG全13更新の不変を照合。[原証拠・準備修正・再開手順](tests/evidence/windows-ime-preparation-20261004/SUMMARY.md)。

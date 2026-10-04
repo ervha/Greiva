@@ -1,0 +1,30 @@
+{
+  "clientId": "6e66de87-b4c7-45ed-a2b5-93fc30143b29",
+  "pageId": "01a10400-0000-7000-8000-000000000001",
+  "records": [
+    {
+      "at": "2026-10-04T14:00:21.466Z",
+      "type": "ready",
+      "trigger": "Waiting for explicit start marker. No update inferred from elapsed time."
+    },
+    {
+      "at": "2026-10-04T14:00:21.473Z",
+      "type": "operator-started"
+    },
+    {
+      "at": "2026-10-04T14:00:21.527Z",
+      "type": "remote-acknowledged",
+      "index": 1
+    },
+    {
+      "at": "2026-10-04T14:00:22.581Z",
+      "type": "remote-acknowledged",
+      "index": 2
+    },
+    {
+      "at": "2026-10-04T14:00:23.634Z",
+      "type": "remote-acknowledged",
+      "index": 3
+    }
+  ]
+}

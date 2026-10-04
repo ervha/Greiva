@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-04 / v0.6.22 / [通常Windows Microsoft IME・遠隔composition](windows-ms-ime-20261004/SUMMARY.md): 利用者がIMEを切替、以後Codexが実キーの通常変換・遠隔3更新中の変換を代行。SQLite30更新・全1,000段落・peer全文／clock一致。自動dragの移動なし、連続入力体感・正式Gateの残条件を明記。
+
 - 2026-10-04 / v0.6.21 / [Windows実キー日本語入力・1,000段落保存照合](windows-ime-preparation-20261004/SUMMARY.md): 製品0.6.20の1変換をCodexが代行、9更新・他999段落・独立peer全文／clock一致、旧WIN619-DRAG全13更新不変。Microsoft provider未同定、入力方式確認だけ回答待ち。実IMEのGate、連続入力／遠隔同時性は未判定。
 
 - 2026-10-04 / v0.6.20 / [1,000 blockのdrag表示更新](block-drag-large-20261004/SUMMARY.md): 移動する行だけにtransformを生成。全行のdrag／Undo・独立peer全文／clock一致、全59 E2E・型・48 unit/integration・通常Windows build。Docker単回診断のLong Task5→0と、実Windows性能／IMEとの区別を記録。

@@ -1,0 +1,40 @@
+{
+  "result": "Pass",
+  "at": "2026-10-04T14:02:23.783Z",
+  "product": "0.6.20",
+  "pageId": "01a10400-0000-7000-8000-000000000001",
+  "title": "WIN620-IME1000",
+  "provider": "Microsoft IME, user confirmed selection; actual native conversion visually observed",
+  "updates": 30,
+  "blocks": 1000,
+  "paragraphs": [
+    "<paragraph>WIN620 local 日本語日本語</paragraph>",
+    "<paragraph>［遠隔3］［遠隔2］［遠隔1］WIN620 remote 日本語</paragraph>"
+  ],
+  "other998ParagraphsUnchanged": true,
+  "digestsValid": true,
+  "peerXmlAndClocksEqual": true,
+  "clocks": [
+    [
+      1,
+      1
+    ],
+    [
+      1608928998,
+      15
+    ],
+    [
+      2211081430,
+      12007
+    ],
+    [
+      2929217852,
+      34
+    ]
+  ],
+  "limits": [
+    "One new local conversion plus one conversion with three remote updates; first existing 日本語 is from the preceding provider-unidentified preparation",
+    "No trusted-event instrumentation or native per-key/continuous-typing SLO measurements",
+    "Page-only experiment; structured API unavailable"
+  ]
+}
