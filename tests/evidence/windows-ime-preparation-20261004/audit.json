@@ -1,0 +1,34 @@
+{
+  "result": "Pass within stated scope",
+  "at": "2026-10-04T13:23:57.824Z",
+  "product": "0.6.20",
+  "pageId": "01a10400-0000-7000-8000-000000000001",
+  "title": "WIN620-IME1000",
+  "updates": 9,
+  "blocks": 1000,
+  "firstParagraph": "<paragraph>WIN620 local 日本語</paragraph>",
+  "other999ParagraphsUnchanged": true,
+  "updateDigestsValid": true,
+  "peerXmlAndClocksEqual": true,
+  "clocks": [
+    [
+      1,
+      1
+    ],
+    [
+      2211081430,
+      12007
+    ],
+    [
+      2929217852,
+      11
+    ]
+  ],
+  "input": "Computer Use press_key n,i,h,o,n,g,o,space,Return; actual Japanese composition/conversion observed on Windows, not literal Unicode insertion",
+  "limitations": [
+    "Active IME provider not independently identified; not Microsoft IME gate evidence",
+    "One conversion only; not continuous typing or native per-key SLO",
+    "No remote updates during composition in this preparation trial",
+    "Structured API deliberately unavailable; not structured-sync evidence"
+  ]
+}

@@ -1,0 +1,25 @@
+import { DatabaseSync } from 'node:sqlite';
+import fs from 'node:fs';
+import { createHash } from 'node:crypto';
+import assert from 'node:assert/strict';
+import * as Y from '/workspace/node_modules/yjs/dist/yjs.mjs';
+const seed = JSON.parse(fs.readFileSync('/tmp/ime620-seed.json'));
+const peer = JSON.parse(fs.readFileSync('/tmp/ime620-peer/final.json'));
+const db = new DatabaseSync('/tmp/native620-packaged.sqlite', { readOnly: true });
+assert.equal(db.prepare('PRAGMA integrity_check').get().integrity_check, 'ok');
+const metadata = db.prepare('SELECT id,title FROM pages').all();
+assert.deepEqual(metadata.map(entry => ({ ...entry })), [{ id: seed.pageId, title: seed.title }]);
+const document = new Y.Doc();
+const updates = db.prepare('SELECT seq,update_bytes,digest FROM page_updates ORDER BY seq').all();
+for (const update of updates) { assert.equal(createHash('sha256').update(update.update_bytes).digest('hex'), Buffer.from(update.digest).toString('hex')); Y.applyUpdate(document, update.update_bytes); }
+const body = document.getXmlFragment('body'), xml = body.toString();
+assert.equal(body.length, 1000);
+assert.equal(body.get(0).toString(), '<paragraph>WIN620 local 日本語</paragraph>');
+const seedDocument = new Y.Doc(); Y.applyUpdate(seedDocument, fs.readFileSync('/tmp/ime620-seed-update.bin'));
+assert.deepEqual(body.toArray().slice(1).map(node => node.toString()), seedDocument.getXmlFragment('body').toArray().slice(1).map(node => node.toString()));
+assert.equal(xml, peer.bodyXml);
+const clocks = Array.from(Y.decodeStateVector(Y.encodeStateVector(document))).sort(([a], [b]) => a - b);
+assert.deepEqual(clocks, peer.clocks);
+const report = { result: 'Pass within stated scope', at: new Date().toISOString(), product: '0.6.20', pageId: seed.pageId, title: seed.title, updates: updates.length, blocks: body.length, firstParagraph: body.get(0).toString(), other999ParagraphsUnchanged: true, updateDigestsValid: true, peerXmlAndClocksEqual: true, clocks, input: 'Computer Use press_key n,i,h,o,n,g,o,space,Return; actual Japanese composition/conversion observed on Windows, not literal Unicode insertion', limitations: ['Active IME provider not independently identified; not Microsoft IME gate evidence', 'One conversion only; not continuous typing or native per-key SLO', 'No remote updates during composition in this preparation trial', 'Structured API deliberately unavailable; not structured-sync evidence'] };
+fs.writeFileSync('/tmp/ime620-preparation-audit.json', JSON.stringify(report, null, 2)+'\n');
+console.log(JSON.stringify(report)); db.close(); document.destroy(); seedDocument.destroy();

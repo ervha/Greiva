@@ -1,0 +1,10 @@
+{
+  "result": "Pass",
+  "at": "2026-10-04T13:25:26.330Z",
+  "baseline": ".data/block-drag-0619/native-final.sqlite",
+  "liveIdentifier": "dev.greiva.poc.drag619",
+  "pageCount": 1,
+  "updateCount": 13,
+  "allPageMetadataAndEveryUpdateByteUnchanged": true,
+  "scope": "Read-only comparison. The original open Greiva 0.6.19 Page was not edited."
+}

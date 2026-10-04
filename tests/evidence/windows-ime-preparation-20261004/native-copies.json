@@ -1,0 +1,24 @@
+[
+  {
+    "source": "C:/Users/danun/AppData/Roaming/dev.greiva.poc.validation620/greiva.sqlite",
+    "destination": "C:\\Users\\danun\\.t3\\worktrees\\Greiva\\t3code-be7eb24c/.data/drag-large/native620-roaming.sqlite",
+    "pages": [
+      {
+        "id": "01a10400-0000-7000-8000-000000000001",
+        "title": "WIN620-IME1000"
+      }
+    ],
+    "updates": 1
+  },
+  {
+    "source": "C:/Users/danun/AppData/Local/Packages/OpenAI.Codex_2p2nqsd0c76g0/LocalCache/Roaming/dev.greiva.poc.validation620/greiva.sqlite",
+    "destination": "C:\\Users\\danun\\.t3\\worktrees\\Greiva\\t3code-be7eb24c/.data/drag-large/native620-packaged.sqlite",
+    "pages": [
+      {
+        "id": "01a10400-0000-7000-8000-000000000001",
+        "title": "WIN620-IME1000"
+      }
+    ],
+    "updates": 9
+  }
+]

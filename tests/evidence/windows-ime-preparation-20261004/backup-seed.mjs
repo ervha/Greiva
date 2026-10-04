@@ -1,0 +1,11 @@
+import { DatabaseSync, backup } from 'node:sqlite';
+import fs from 'node:fs';
+const source = '/tmp/ime620-seed/greiva.sqlite', destination = '/tmp/ime620-seed-safe.sqlite';
+if (fs.existsSync(destination)) throw Error('Refusing to overwrite the safe seed');
+const db = new DatabaseSync(source, { readOnly: true });
+const pages = db.prepare('SELECT id,title FROM pages').all();
+if (pages.length !== 1 || pages[0].title !== 'WIN620-IME1000') throw Error('Unexpected seed metadata');
+await backup(db, destination); db.close();
+const copy = new DatabaseSync(destination, { readOnly: true });
+console.log(JSON.stringify({ result: 'Pass', integrity: copy.prepare('PRAGMA integrity_check').get(), pages: copy.prepare('SELECT id,title FROM pages').all(), updates: copy.prepare('SELECT count(*) AS count FROM page_updates').get() }));
+copy.close();

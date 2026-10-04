@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.6.21 — 2026-10-04
+
+- 通常Windows 0.6.20の隔離1,000段落で、Codexが実キー `n,i,h,o,n,g,o`→Space→Enterによる日本語変換を代行。SQLite9更新・全1,000段落・独立peer全文／clock一致、他999段落と旧WIN619-DRAG全13更新の不変を照合。[原証拠・準備修正・再開手順](tests/evidence/windows-ime-preparation-20261004/SUMMARY.md)。
+- 文書／検証checkpoint（PATCH）で製品manifest／exeは0.6.20。providerがMicrosoft IMEかは未同定のため、入力方式だけの確認待ち。連続入力・遠隔composition・正式Gateの合格にはしない。試験fixtureとpeerを準備し、両Greivaを開いたまま、Computer Useは解除。
+
 ## 0.6.20 — 2026-10-04
 
 - 1,000 blockでdragの移動先を変えるたびに全行へtransformを生成していた処理を、移動する行だけへ変更（PATCH）。元の位置へ戻る動き、選択／Undo、ハンドル列drop、reduced motionは維持。[原比較と回帰](tests/evidence/block-drag-large-20261004/SUMMARY.md)。Dockerの単回比較で50ms超のLong Taskは5回から0回へ。Windows FPSや実IMEの結果には換算しない。

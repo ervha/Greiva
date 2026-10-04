@@ -1,5 +1,7 @@
 # 手操作待ちの検証と解決案
 
+2026-10-04、v0.6.21更新: [通常Windows 0.6.20で実キー日本語1変換を代行](../../tests/evidence/windows-ime-preparation-20261004/SUMMARY.md)。1,000段落／他999段落保持、SQLite9更新とpeer全文／clock一致、旧0.6.19の全metadata／13更新不変。Microsoft provider未同定で、入力方式の確認・切替だけの回答待ち。変換や遠隔3更新はCodexが操作する準備済み。回答なしで時間経過を開始扱いにせず、独立作業を終えて待機。両Greivaは開いたまま、Computer Use解除。最新Gateの残条件は維持する。
+
 2026-10-04、v0.6.20更新: [1,000 block dragの表示更新](../../tests/evidence/block-drag-large-20261004/SUMMARY.md)を利用者操作なしで検証。全行の移動／Undo・peer全文／clock一致、全59 E2Eと通常Windows buildがPass。Docker診断でLong Task5→0。通常0.6.20の実IME・native性能は別の残条件。WIN619-DRAGは未編集で開いたまま、Computer Use解除を維持する。
 
 2026-10-04、v0.6.19更新: [行のdrag表示・同じハンドル列のdrop・丸いUI](../../tests/evidence/block-drag-preview-20261004/SUMMARY.md)を実装し全58 E2E／通常Windows buildがPass。利用者が修正版の操作・見た目を確認。online backupの4→13更新は元4 blockの順序変更のみ、内容と旧履歴保持。最終H2→H3と試験直前のH3→H2の差を明記する。旧0.6.17の空段落の原因を解消済みとはしない。最新実日本語IME・1,000 block連続入力・正式Gateは残る。
