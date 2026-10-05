@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+2026-10-05、checkpoint/所有版 **v0.10.0**。[署名session＋issuer別owner](../../tests/evidence/signed-session-20261005/SUMMARY.md)を追加。固定jose6.2.12、HTTPS JWKS/署名/issuer/audience/期限/主体、不通category、同sub別issuer拒否を検証。通常105＋専用PG22/型/通常Windows buildがPass、外部変更はjose1件だけ。[全16判断](../decisions/signed-session-verification.md)。HTTPSはfixture transport、実Supabase/login/refresh/失効/移行/全routerは未完成。次は独立HTTP経路をlocalで検証する。利用者操作不要、旧Page/DB保持、Computer Use解除。
+
 2026-10-05、checkpoint/所有版 **v0.9.0**。P1の[version付きworkspace wire/cursor境界](../../tests/evidence/workspace-sync-boundary-20261005/SUMMARY.md)を部分実装。workspace/epoch/ACK identity、署名/形式/未来位置/Number精度超の16条件、通常90/型/通常Windows buildがPass。旧routes/DBは保持、外部依存不変。[全12判断](../decisions/workspace-sync-boundary.md)。Supabase未作成・local先行の回答に従い、次は署名JWTのlocal検証adapterへ進む。実DB21/画面59は前checkpointの結果で、今回の新実機/新provider合格とはしない。
 
 2026-10-05、checkpoint/所有版 **v0.8.0**。P1の[個人workspace読取認可](../../tests/evidence/private-access-20261005/SUMMARY.md)を部分実装。owner/workspace/typed resourceと正規Page文書名の境界、不変targets、実PG1snapshotを検証。通常74＋専用PG21、型/通常Windows buildがPass、外部依存不変。[全12判断](../decisions/private-workspace-access.md)。実JWT/provider・正本view/移行・HTTP/CRDTへの接続は未完成。Supabaseは未作成・local実装/自動試験先行と利用者回答、[必要事項](PENDING_PRODUCTION_CONFIGURATION.md)を記録。独立するwire/cursor契約へ続行する。新しい画面/実IME合格ではない。

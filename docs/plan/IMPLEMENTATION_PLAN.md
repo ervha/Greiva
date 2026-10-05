@@ -19,4 +19,6 @@ P1はv0.8.0でowner/resource読取policy、正規Page文書名、PG1snapshot ada
 
 v0.9.0で新workspace wire/response contextと署名cursorの16条件を実装・検証。旧routes/SQLへ未接続で、live key/epoch、prepared/ACK/cursor原子性、migration/bootstrapは未完了。Supabase未作成・local自動試験先行の回答により、署名JWT fixtureから実Auth adapterの検証へ進む。
 
+v0.10.0で署名JWTとissuer別owner、共通session→PG読取adapterを実装。通常105＋実PG22、型/通常Windows buildがPass。provider HTTPSはfixture transportで、実login/refresh/失効、全HTTP/CRDT、production view/migration/write transactionは未完了。次は独立HTTP入口で拒否/不通/owner境界をlocal検証する。
+
 初期Windows/Androidを完成扱いにするには両OSの通常アプリが必要。Android実機不在ではDockerでbuildとadapter試験を進めても実Gboard/lifecycleをPassへしない。外部provider/署名/実機を要する時は必要事項をまとめ、残る独立作業へ進む。

@@ -4,22 +4,22 @@ import { privateWorkspaceAccess, PrivateWorkspaceAccessDenied, type PrivateWorks
 import type { PrivateAccessSnapshot, ResourceReference } from '@greiva/domain';
 
 function fixture() {
-  const workspace = { id: newId(), ownerSubjectId: 'provider-subject-A' };
+  const workspace = { id: newId(), ownerSubjectId: 'provider-subject-A', ownerIssuer: 'https://auth.fixture.invalid/auth/v1' };
   const resource = { type: 'page' as const, id: newId(), workspaceId: workspace.id, deleted: false };
   const read = vi.fn(async (_id: string, targets: readonly ResourceReference[]): Promise<PrivateAccessSnapshot | null> => ({ workspace, resources: targets.length ? [resource] : [] }));
-  return { workspace, resource, read, access: privateWorkspaceAccess(workspace.ownerSubjectId, { read }) };
+  return { workspace, resource, read, access: privateWorkspaceAccess(workspace.ownerSubjectId, { read }, workspace.ownerIssuer) };
 }
 describe('private workspace ownership and resource access', () => {
   it('allows only the captured verified subject to read its workspace scope', async () => {
-    const f = fixture(); await expect(f.access.workspace(f.workspace.id)).resolves.toEqual({ subjectId: f.workspace.ownerSubjectId, workspaceId: f.workspace.id, resources: [] });
+    const f = fixture(); await expect(f.access.workspace(f.workspace.id)).resolves.toEqual({ subjectId: f.workspace.ownerSubjectId, issuer: f.workspace.ownerIssuer, workspaceId: f.workspace.id, resources: [] });
     expect(f.read).toHaveBeenCalledWith(f.workspace.id, []);
-    const other = privateWorkspaceAccess('provider-subject-B', { read: f.read });
+    const other = privateWorkspaceAccess('provider-subject-B', { read: f.read }, f.workspace.ownerIssuer);
     await expect(other.workspace(f.workspace.id)).rejects.toBeInstanceOf(PrivateWorkspaceAccessDenied);
   });
   it('authorizes an exact typed Page/document and treats client ID as no identity proof', async () => {
     const f = fixture(); await expect(f.access.resources(f.workspace.id, [{ type: 'page', id: f.resource.id }])).resolves.toMatchObject({ workspaceId: f.workspace.id });
     await expect(f.access.pageDocument(f.workspace.id, `page:${f.resource.id}`)).resolves.toMatchObject({ workspaceId: f.workspace.id });
-    const other = privateWorkspaceAccess(newId(), { read: f.read });
+    const other = privateWorkspaceAccess(newId(), { read: f.read }, f.workspace.ownerIssuer);
     await expect(other.pageDocument(f.workspace.id, `page:${f.resource.id}`)).rejects.toBeInstanceOf(PrivateWorkspaceAccessDenied);
   });
   it('rejects missing or mismatched workspace metadata', async () => {
@@ -75,7 +75,12 @@ describe('private workspace ownership and resource access', () => {
     const f = fixture(), failure = Error('Metadata unavailable'); f.read.mockRejectedValueOnce(failure);
     await expect(f.access.workspace(f.workspace.id)).rejects.toBe(failure);
     const invalid: PrivateWorkspaceAccessStore = { read: async () => ({ workspace: { ...f.workspace, ownerSubjectId: '' }, resources: [] }) };
-    await expect(privateWorkspaceAccess(f.workspace.ownerSubjectId, invalid).workspace(f.workspace.id)).rejects.toBeInstanceOf(PrivateWorkspaceAccessDenied);
-    expect(() => privateWorkspaceAccess('  ', { read: f.read })).toThrow();
+    await expect(privateWorkspaceAccess(f.workspace.ownerSubjectId, invalid, f.workspace.ownerIssuer).workspace(f.workspace.id)).rejects.toBeInstanceOf(PrivateWorkspaceAccessDenied);
+    expect(() => privateWorkspaceAccess('  ', { read: f.read }, f.workspace.ownerIssuer)).toThrow();
+  });
+  it('rejects the same subject under a different identity issuer', async () => {
+    const f = fixture(), other = privateWorkspaceAccess(f.workspace.ownerSubjectId, { read: f.read }, 'https://other.fixture.invalid/auth/v1');
+    await expect(other.workspace(f.workspace.id)).rejects.toBeInstanceOf(PrivateWorkspaceAccessDenied);
+    await expect(other.pageDocument(f.workspace.id, `page:${f.resource.id}`)).rejects.toBeInstanceOf(PrivateWorkspaceAccessDenied);
   });
 });

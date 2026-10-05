@@ -13,11 +13,12 @@ it.skipIf(process.env.GREIVA_TEST_POSTGRES !== '1')('PRIVATE-ACCESS-PG: one real
     await pool.query(`CREATE SCHEMA "${schema}"`);
     created = true;
     // Fixture read-model tables only. No production migration/view is implied.
-    await pool.query(`CREATE TABLE "${schema}".workspace_access(id uuid PRIMARY KEY,owner_subject_id text NOT NULL)`);
+    await pool.query(`CREATE TABLE "${schema}".workspace_access(id uuid PRIMARY KEY,owner_subject_id text NOT NULL,owner_issuer text NOT NULL)`);
     await pool.query(`CREATE TABLE "${schema}".resource_access(type text NOT NULL,id uuid NOT NULL,workspace_id uuid NOT NULL,deleted boolean NOT NULL,PRIMARY KEY(type,id))`);
-    await pool.query(`INSERT INTO "${schema}".workspace_access VALUES($1,'subject-A'),($2,'subject-B')`, [workspaceA, workspaceB]);
+    const issuer = 'https://auth.fixture.invalid/auth/v1';
+    await pool.query(`INSERT INTO "${schema}".workspace_access VALUES($1,'subject-A',$3),($2,'subject-B',$3)`, [workspaceA, workspaceB, issuer]);
     await pool.query(`INSERT INTO "${schema}".resource_access VALUES('page',$1,$4,false),('task',$1,$4,false),('page',$2,$5,false),('page',$3,$4,true)`, [page, foreign, deleted, workspaceA, workspaceB]);
-    const store = new PostgresPrivateAccessStore(pool, schema), owner = privateWorkspaceAccess('subject-A', store), other = privateWorkspaceAccess('subject-B', store);
+    const store = new PostgresPrivateAccessStore(pool, schema), owner = privateWorkspaceAccess('subject-A', store, issuer), other = privateWorkspaceAccess('subject-B', store, issuer);
     await expect(owner.workspace(workspaceA)).resolves.toMatchObject({ workspaceId: workspaceA });
     await expect(owner.resources(workspaceA, [{ type: 'page', id: page }, { type: 'task', id: page }])).resolves.toMatchObject({ workspaceId: workspaceA });
     await expect(owner.pageDocument(workspaceA, `page:${page}`)).resolves.toMatchObject({ workspaceId: workspaceA });

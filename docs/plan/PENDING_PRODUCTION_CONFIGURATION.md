@@ -1,6 +1,6 @@
 # 応答・外部環境が必要な事項
 
-2026-10-05。利用者の「応答が必要なら他の作業を先行し、必要事項/全判断を記録」に従う。現在の初期範囲は機能優先委任と個人/自端末同期先行で決定済み。[判断9件](../decisions/production-foundation-plan.md)、[基盤13件](../decisions/production-command-foundation.md)、[認可12件](../decisions/private-workspace-access.md)。
+2026-10-05。利用者の「応答が必要なら他の作業を先行し、必要事項/全判断を記録」に従う。現在の初期範囲は機能優先委任と個人/自端末同期先行で決定済み。[判断9件](../decisions/production-foundation-plan.md)、[基盤13件](../decisions/production-command-foundation.md)、[認可12件](../decisions/private-workspace-access.md)、[wire/cursor12件](../decisions/workspace-sync-boundary.md)、[署名session16件](../decisions/signed-session-verification.md)。
 
 | 事項 | 必要な情報/環境 | 状態と先行できる作業 |
 | --- | --- | --- |

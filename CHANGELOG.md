@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.10.0 — 2026-10-05
+
+- APIへ固定jose6.2.12のJWT署名/issuer/audience/期限/主体検証を追加。configured HTTPS JWKSだけを用い、不正sessionと検証不通を区別。workspace ownerをissuer＋subjectで照合し、異なる発行元の同subを拒否。
+- Auth14/owner11を含む通常105＋専用PG22/型/通常Windows buildを確認。jose追加以外の外部lock不変。[証拠](tests/evidence/signed-session-20261005/SUMMARY.md)と[全判断](docs/decisions/signed-session-verification.md)。実Supabase login/refresh・production移行・旧router接続は未完成。
+
 ## 0.9.0 — 2026-10-05
 
 - protocol/workspaceにversion付きscope/epochとACK identity検査を追加。server専用cursorをworkspace/stream/epoch/orderのHMACへ束縛し、改変・別scope・未来位置を拒否。

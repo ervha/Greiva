@@ -1,0 +1,28 @@
+{
+  "result": "Pass",
+  "version": "0.10.0",
+  "unit": {
+    "pass": 105,
+    "skip": 22,
+    "sessionTests": 14,
+    "privateOwnerTests": 11
+  },
+  "postgres": {
+    "pass": 22,
+    "skip": 0,
+    "newJwtPlusOwnership": 1
+  },
+  "typecheck": "Pass",
+  "normalWindowsBuild": "Pass",
+  "buildSourcesMatch": 82,
+  "newDependency": "jose@6.2.12",
+  "otherExternalNpm314Unchanged": true,
+  "externalCargoUnchanged": true,
+  "reportCredentialScan": "No compact JWT/private-key material in selected raw JSON",
+  "limits": [
+    "JWKS HTTPS transport uses fixture fetch; no real Supabase/login/refresh/revocation",
+    "Old HTTP/CRDT routes not rewired",
+    "Views/migration/write authorization still pending",
+    "No new browser/native IME/Android proof"
+  ]
+}
