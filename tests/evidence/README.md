@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-05 / v0.14.0 / [Workspace耐久保存](workspace-store-20261005/SUMMARY.md): 実Rust/SQLite12（SIGKILL6）、通常132/PG26/画面59/実同期2/型/通常Windows build。新規bindingとprepared/ACK/pull原子保存、Supabase公開HTTPS確認。通常UI/新HTTP stream/実ログインは未接続。
+
 - 2026-10-05 / v0.13.0 / [Workspace同期session](workspace-session-20261005/SUMMARY.md): 非同期race9、通常120/PG26回帰/型/通常Windows build。遅着/ABA復帰/保存先捕捉/不正scopeとcursor進行を検査。native durable/新HTTP stream/UIへの接続は未実装。
 
 - 2026-10-05 / v0.12.0 / [正本metadata・workspace初期登録](private-bootstrap-20261005/SUMMARY.md): 通常3＋実PG3、通常111/PG26/型/通常Windows build。並行6要求/再送/端末・issuer隔離/rollback/unknown版と正本viewを検査。旧DB取り込み/本文・同期/native queue/live Authは未完成。

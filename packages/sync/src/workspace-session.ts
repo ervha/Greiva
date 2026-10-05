@@ -12,7 +12,7 @@ export interface WorkspaceSessionStore {
   // Implementations bind to this exact account/workspace/epoch store. Commit
   // receipt/pending or pull/cursor atomically. Never resolve a current UI store
   // after an await. Native durable implementations remain a separate gate.
-  acknowledge(context: WorkspaceSyncContext, prepared: WorkspacePushRequest, response: PushResponse): Promise<void>;
+  acknowledge(context: WorkspaceSyncContext, prepared: WorkspacePushRequest, response: PushResponse, preparedWire: string): Promise<void>;
   applyPull(context: WorkspaceSyncContext, request: PullRequest, response: WorkspacePullResponse): Promise<void>;
 }
 export class WorkspaceSessionError extends Error {
@@ -72,7 +72,7 @@ export class WorkspaceSyncSession {
       });
       const candidate = await this.transport(() => this.pushTransport(preparedWire, this.controller.signal));
       const response = protocol(() => freeze(verifyWorkspacePushResponse(request, this.context.streamEpoch, JSON.parse(JSON.stringify(candidate)))));
-      await this.stored(() => this.acknowledge(this.context, request, response));
+      await this.stored(() => this.acknowledge(this.context, request, response, preparedWire));
     });
   }
   async pull(candidateRequest: unknown) {

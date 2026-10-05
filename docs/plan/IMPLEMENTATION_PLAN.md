@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.14.0：新規workspace専用Rust/SQLite storeを実装。immutable binding、durable prepared wire、ACK receipt/pending、pull receipt/cursorをtransactionで保存する。追加12条件（実プロセスSIGKILL6を含む）＋既存回帰と通常Windows buildを検証。[全14判断](../decisions/workspace-durable-store.md)。通常Tauri IPC/active UI、実ログイン/refresh、新HTTP stream/CRDTは未接続。Supabase公開設定は受領し、実HTTPSでJWKS/Email設定を確認した。[接続手順](../development/SUPABASE_SETUP.md)。次は実Authの起動設定とclient session/credential境界、新streamのowner/device照合へ進む。
+
 最新v0.13.0：新workspace wireのportable同期session境界を部分実装し、非同期race9を含む通常120＋実PG26/型/通常Windows buildがPass。native durable prepared/receipt/cursor adapterとactive UI/実Auth/全HTTP・CRDTは未接続。保存先を生成時に捕捉し、account切替で旧instanceを閉じる契約を先に検証した。[全判断のまとめ](AUTONOMOUS_DECISIONS.md)。以下の各版は当時の進行記録。
 
 最新v0.12.0：新規namespaceの正本owner/device/resource metadata・read viewと初期workspace登録を部分実装。通常111＋実PG26/型/通常Windows buildを確認。旧DB取り込み、本文/structured stream、native workspace store、実Authは未完成。次はaccount/workspace切替中の古い応答を除外するclient同期境界へ進む。[全12判断](../decisions/private-workspace-bootstrap.md)。

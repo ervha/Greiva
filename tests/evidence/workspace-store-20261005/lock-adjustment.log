@@ -1,0 +1,5 @@
+warning: selected package `yoke-derive@0.8.3` was yanked by the author
+  |
+  = help: if possible, try a compatible non-yanked version
+    Updating greiva-page-store v0.6.11 (/workspace/apps/client/src-tauri/crates/page-store) -> v0.14.0
+ Downgrading yoke-derive v0.8.4 -> v0.8.3

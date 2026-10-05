@@ -51,7 +51,7 @@ fn validate_entity(entity:&Value,kind:&str,client:&str) -> StoreResult<()> {
     validate(&operation)?;
     Ok(())
 }
-fn validate_result(value:&Value) -> StoreResult<i64> {
+pub(super) fn validate_result(value:&Value) -> StoreResult<i64> {
     let status=text(value,"status")?;
     let mut keys=vec!["operationId","clientId","entityType","entityId","serverOrder","conflicts","status","entity"];
     if status=="rejected" {keys.push("error");}
@@ -123,7 +123,7 @@ async fn project(tx:&mut Transaction<'_,Sqlite>,kind:&str,id:&str) -> StoreResul
     }
     Ok(())
 }
-async fn receive(tx:&mut Transaction<'_,Sqlite>,result:&Value) -> StoreResult<()> {
+pub(super) async fn receive(tx:&mut Transaction<'_,Sqlite>,result:&Value) -> StoreResult<()> {
     let order=validate_result(result)?; let id=text(result,"operationId")?;
     let existing:Option<String>=sqlx::query_scalar("SELECT result FROM structured_received WHERE operation_id=?").bind(id).fetch_optional(&mut **tx).await.map_err(|e|e.to_string())?;
     if let Some(raw)=existing {
@@ -149,34 +149,63 @@ async fn receive(tx:&mut Transaction<'_,Sqlite>,result:&Value) -> StoreResult<()
     }
     project(tx,text(result,"entityType")?,text(result,"entityId")?).await
 }
-impl PageStore {
-    pub async fn structured_prepare(&self) -> StoreResult<Option<Value>> {
-        let mut tx=self.pool.begin().await.map_err(|e|e.to_string())?;
+pub(super) async fn prepare_in_transaction(tx:&mut Transaction<'_,Sqlite>) -> StoreResult<Option<Value>> {
+
         loop {
-            let Some(row)=sqlx::query("SELECT * FROM sync_operations WHERE status='pending' ORDER BY seq LIMIT 1").fetch_optional(&mut *tx).await.map_err(|e|e.to_string())? else {tx.commit().await.map_err(|e|e.to_string())?; return Ok(None);};
-            if let Some(raw)=row.get::<Option<String>,_>("prepared_wire") {let value=decode(raw)?; tx.commit().await.map_err(|e|e.to_string())?; return Ok(Some(value));}
+            let Some(row)=sqlx::query("SELECT * FROM sync_operations WHERE status='pending' ORDER BY seq LIMIT 1").fetch_optional(&mut **tx).await.map_err(|e|e.to_string())? else { return Ok(None);};
+            if let Some(raw)=row.get::<Option<String>,_>("prepared_wire") {let value=decode(raw)?;  return Ok(Some(value));}
             let id:String=row.get("operation_id");
             let mut wire=json!({"operationId":id,"entityType":row.get::<String,_>("entity_type"),"entityId":row.get::<String,_>("entity_id"),"kind":row.get::<String,_>("kind"),"baseVersion":row.get::<Option<i64>,_>("base_version"),"payload":decode(row.get("payload"))?,"clientId":row.get::<String,_>("client_id")});
             if let Some(raw)=row.get::<Option<String>,_>("resolution") {wire["resolution"]=decode(raw)?;}
             if let Some(dependency)=row.get::<Option<String>,_>("dependency_operation_id") {
-                let previous=sqlx::query("SELECT status,local_result FROM sync_operations WHERE operation_id=?").bind(&dependency).fetch_one(&mut *tx).await.map_err(|e|e.to_string())?;
+                let previous=sqlx::query("SELECT status,local_result FROM sync_operations WHERE operation_id=?").bind(&dependency).fetch_one(&mut **tx).await.map_err(|e|e.to_string())?;
                 let status:String=previous.get("status");
                 if status=="pending" {return Err("Predecessor is still pending".into());}
                 if status=="rejected" {
-                    sqlx::query("UPDATE sync_operations SET status='rejected',local_error='predecessor_rejected' WHERE operation_id=?").bind(&id).execute(&mut *tx).await.map_err(|e|e.to_string())?;
+                    sqlx::query("UPDATE sync_operations SET status='rejected',local_error='predecessor_rejected' WHERE operation_id=?").bind(&id).execute(&mut **tx).await.map_err(|e|e.to_string())?;
                     // Remove this rejected overlay in the same transaction, while
                     // keeping its original payload and base for explicit repair.
-                    project(&mut tx,&row.get::<String,_>("entity_type"),&row.get::<String,_>("entity_id")).await?;
+                    project(tx,&row.get::<String,_>("entity_type"),&row.get::<String,_>("entity_id")).await?;
                     continue;
                 }
                 let result=decode(previous.get::<Option<String>,_>("local_result").ok_or("Predecessor result is missing")?)?;
                 wire["baseVersion"]=result["entity"]["version"].clone(); wire["predecessorOperationId"]=json!(dependency);
             }
             // Persist the exact wire BEFORE any network send; ACK loss must not rebase a retry.
-            sqlx::query("UPDATE sync_operations SET prepared_wire=? WHERE operation_id=?").bind(wire.to_string()).bind(&id).execute(&mut *tx).await.map_err(|e|e.to_string())?;
-            tx.commit().await.map_err(|e|e.to_string())?;
+            sqlx::query("UPDATE sync_operations SET prepared_wire=? WHERE operation_id=?").bind(wire.to_string()).bind(&id).execute(&mut **tx).await.map_err(|e|e.to_string())?;
             return Ok(Some(wire));
         }
+    }
+pub(super) async fn pull_in_transaction(tx:&mut Transaction<'_,Sqlite>,base_cursor:Option<String>,batch:PullBatch) -> StoreResult<()> {
+        if batch.cursor.is_empty() || batch.head_cursor.is_empty() || !timestamp(&batch.server_time) || batch.operations.len()>500 ||
+            (batch.has_more && batch.operations.is_empty()) || (!batch.has_more && batch.cursor!=batch.head_cursor) {return Err("Invalid pull page".into());}
+        for result in &batch.operations {validate_result(result)?;}
+
+        let state=sqlx::query("SELECT cursor,last_server_order FROM sync_state WHERE stream='structured'").fetch_one(&mut **tx).await.map_err(|e|e.to_string())?;
+        let cursor:Option<String>=state.get("cursor");
+        if cursor!=base_cursor {
+            if cursor.as_deref()==Some(&batch.cursor) {return Ok(());} // A repeated committed page.
+            return Err("Pull cursor changed before application".into());
+        }
+        let mut order:i64=state.get("last_server_order");
+        for result in &batch.operations {
+            let next=validate_result(result)?;
+            if next!=order.checked_add(1).ok_or("Server order exhausted")? {return Err("Pull page skipped or reordered an operation".into());}
+            receive(tx,result).await?; order=next;
+        }
+        #[cfg(feature="crash-test-hooks")]
+        if !batch.operations.is_empty() { crash_barrier("structured-pull-before-cursor")?; }
+        let pending:i64=sqlx::query_scalar("SELECT count(*) FROM sync_operations WHERE status IN ('pending','rejected')").fetch_one(&mut **tx).await.map_err(|e|e.to_string())?;
+        let open:i64=sqlx::query_scalar("SELECT count(*) FROM structured_conflicts WHERE json_extract(record,'$.status')='open'").fetch_one(&mut **tx).await.map_err(|e|e.to_string())?;
+        sqlx::query("UPDATE sync_state SET cursor=?,head_cursor=?,last_server_order=?,last_successful_sync_at=CASE WHEN ? THEN ? ELSE last_successful_sync_at END WHERE stream='structured'")
+            .bind(&batch.cursor).bind(&batch.head_cursor).bind(order).bind(!batch.has_more && pending==0 && open==0).bind(&batch.server_time).execute(&mut **tx).await.map_err(|e|e.to_string())?;
+        Ok(())
+    }
+impl PageStore {
+    pub async fn structured_prepare(&self) -> StoreResult<Option<Value>> {
+        let mut tx=self.pool.begin().await.map_err(|e|e.to_string())?;
+        let value=prepare_in_transaction(&mut tx).await?;
+        tx.commit().await.map_err(|e|e.to_string())?; Ok(value)
     }
     pub async fn structured_ack(&self,result:Value) -> StoreResult<()> {
         validate_result(&result)?;
@@ -187,28 +216,8 @@ impl PageStore {
         tx.commit().await.map_err(|e|e.to_string())
     }
     pub async fn structured_pull(&self,base_cursor:Option<String>,batch:PullBatch) -> StoreResult<()> {
-        if batch.cursor.is_empty() || batch.head_cursor.is_empty() || !timestamp(&batch.server_time) || batch.operations.len()>500 ||
-            (batch.has_more && batch.operations.is_empty()) || (!batch.has_more && batch.cursor!=batch.head_cursor) {return Err("Invalid pull page".into());}
-        for result in &batch.operations {validate_result(result)?;}
         let mut tx=self.pool.begin().await.map_err(|e|e.to_string())?;
-        let state=sqlx::query("SELECT cursor,last_server_order FROM sync_state WHERE stream='structured'").fetch_one(&mut *tx).await.map_err(|e|e.to_string())?;
-        let cursor:Option<String>=state.get("cursor");
-        if cursor!=base_cursor {
-            if cursor.as_deref()==Some(&batch.cursor) {return Ok(());} // A repeated committed page.
-            return Err("Pull cursor changed before application".into());
-        }
-        let mut order:i64=state.get("last_server_order");
-        for result in &batch.operations {
-            let next=validate_result(result)?;
-            if next!=order.checked_add(1).ok_or("Server order exhausted")? {return Err("Pull page skipped or reordered an operation".into());}
-            receive(&mut tx,result).await?; order=next;
-        }
-        #[cfg(feature="crash-test-hooks")]
-        if !batch.operations.is_empty() { crash_barrier("structured-pull-before-cursor")?; }
-        let pending:i64=sqlx::query_scalar("SELECT count(*) FROM sync_operations WHERE status IN ('pending','rejected')").fetch_one(&mut *tx).await.map_err(|e|e.to_string())?;
-        let open:i64=sqlx::query_scalar("SELECT count(*) FROM structured_conflicts WHERE json_extract(record,'$.status')='open'").fetch_one(&mut *tx).await.map_err(|e|e.to_string())?;
-        sqlx::query("UPDATE sync_state SET cursor=?,head_cursor=?,last_server_order=?,last_successful_sync_at=CASE WHEN ? THEN ? ELSE last_successful_sync_at END WHERE stream='structured'")
-            .bind(&batch.cursor).bind(&batch.head_cursor).bind(order).bind(!batch.has_more && pending==0 && open==0).bind(&batch.server_time).execute(&mut *tx).await.map_err(|e|e.to_string())?;
+        pull_in_transaction(&mut tx,base_cursor,batch).await?;
         tx.commit().await.map_err(|e|e.to_string())
     }
 }

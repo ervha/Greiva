@@ -4,6 +4,8 @@ use sqlx::{sqlite::{SqliteConnectOptions, SqliteJournalMode, SqlitePoolOptions, 
 use std::{path::Path, time::Duration};
 mod structured;
 mod structured_sync;
+mod workspace_store;
+pub use workspace_store::{WorkspaceContext, WorkspaceStore};
 pub use structured::{LocalOperation, StructuredSnapshot};
 pub use structured_sync::PullBatch;
 
@@ -22,12 +24,19 @@ fn page_id(id: &str) -> StoreResult<()> {
 }
 impl PageStore {
     pub async fn open(path: &Path) -> StoreResult<Self> {
+        Self::open_bound(path, None).await
+    }
+    async fn open_bound(path: &Path, workspace: Option<&WorkspaceContext>) -> StoreResult<Self> {
         let options = SqliteConnectOptions::new().filename(path).create_if_missing(true)
             .journal_mode(SqliteJournalMode::Wal).synchronous(SqliteSynchronous::Full)
             .foreign_keys(true).busy_timeout(Duration::from_secs(5));
         let pool = SqlitePoolOptions::new().max_connections(1).connect_with(options).await.map_err(|e| e.to_string())?;
         let version: i64 = sqlx::query_scalar("PRAGMA user_version").fetch_one(&pool).await.map_err(|e| e.to_string())?;
-        if ![0, 1, 2, 3, 4].contains(&version) { return Err(format!("Unsupported local schema version: {version}")); }
+        if !(if workspace.is_some() { [0,5].contains(&version) } else { [0,1,2,3,4].contains(&version) }) { return Err(format!("Unsupported local schema version: {version}")); }
+        if workspace.is_some() && version==0 {
+            let count:i64=sqlx::query_scalar("SELECT count(*) FROM sqlite_master WHERE name NOT LIKE 'sqlite_%'").fetch_one(&pool).await.map_err(|e|e.to_string())?;
+            if count!=0 {return Err("Private workspace requires an empty database".into());}
+        }
         let integrity: String = sqlx::query_scalar("PRAGMA quick_check").fetch_one(&pool).await.map_err(|e| e.to_string())?;
         if integrity != "ok" { return Err(format!("SQLite integrity check failed: {integrity}")); }
         let mut tx = pool.begin().await.map_err(|e| e.to_string())?;
@@ -56,6 +65,7 @@ impl PageStore {
         sqlx::query("SELECT singleton,page_id FROM client_page_state LIMIT 0").execute(&mut *tx).await.map_err(|e| e.to_string())?;
         structured::validate_schema(&mut tx).await?;
         structured_sync::validate_schema(&mut tx).await?;
+        if let Some(context) = workspace { workspace_store::initialize(&mut tx, context, version).await?; }
         tx.commit().await.map_err(|e| e.to_string())?;
         Ok(Self { pool })
     }

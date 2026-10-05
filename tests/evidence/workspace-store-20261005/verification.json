@@ -1,0 +1,41 @@
+{
+  "result": "Pass",
+  "version": "0.14.0",
+  "unit": {
+    "pass": 132,
+    "skip": 26,
+    "newActualRustSqlite": 12,
+    "actualWorkspaceSigkillBoundaries": 6
+  },
+  "postgres": {
+    "pass": 26,
+    "skip": 0,
+    "scope": "Existing HTTP/JWT/PG regression"
+  },
+  "browser": {
+    "pass": 59,
+    "structuredPass": 2,
+    "scope": "Existing PoC UI and actual sync regression; new workspace UI/HTTP not connected"
+  },
+  "typecheck": "Pass",
+  "normalWindowsBuild": "Pass",
+  "buildSourcesMatch": 88,
+  "externalNpm315Unchanged": true,
+  "externalCargoUnchanged": true,
+  "standaloneDriverDependencies": "Every name/version/checksum belongs to authoritative parent Cargo.lock; final builds locked",
+  "publicSupabase": "Actual HTTPS JWKS/settings status 200, ES256 and Email enabled; no login",
+  "reportCredentialScan": "No compact JWT/private-key/publishable-key material in selected raw JSON",
+  "initialFailures": [
+    "Standalone lock/app version and optional derive dependency aligned before final locked build",
+    "Test bridge type imports and stale copied source corrected before final typecheck",
+    "Windows copied package-lock ownership corrected before fresh verified build",
+    "Browser launch path corrected to existing /opt/playwright before final suites"
+  ],
+  "limits": [
+    "Native library and Docker test bridge only; normal Tauri IPC/active workspace UI not connected",
+    "No real Supabase user login/refresh/revocation or secure credential persistence",
+    "No new workspace structured HTTP/Page CRDT stream or legacy DB migration",
+    "No new Windows IME/physical interaction or Android native proof",
+    "Telemetry not implemented and no collection started"
+  ]
+}

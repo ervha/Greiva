@@ -1,0 +1,100 @@
+
+> greiva-poc@0.14.0 test
+> npm run build:packages && npm run build:servers && vitest run
+
+
+> greiva-poc@0.14.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application
+
+
+> @greiva/shared@0.14.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/domain@0.14.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.14.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.14.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.14.0 build
+> tsc -p tsconfig.json
+
+
+> greiva-poc@0.14.0 build:servers
+> npm run build -w @greiva/api && npm run build -w @greiva/collaboration
+
+
+> @greiva/api@0.14.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/collaboration@0.14.0 build
+> tsc -p tsconfig.json
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [2m[90m↓[39m[22m tests/integration/structured-sync-client.test.ts [2m([22m[2m6 tests[22m[2m | [22m[33m6 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m tests/integration/structured-process-crash.test.ts [2m([22m[2m2 tests[22m[2m | [22m[33m2 skipped[39m[2m)[22m
+ [32m✓[39m tests/integration/structured-sync-store.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 1357[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP7-MIGRATION: schema 3 queue/client/Page survive schema 4 upgrade; incompatible destination rolls back columns and version[33m 563[2mms[22m[39m
+ [32m✓[39m tests/integration/workspace-store.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 1332[2mms[22m[39m
+ [2m[90m↓[39m[22m tests/integration/structured-sync-server.test.ts [2m([22m[2m10 tests[22m[2m | [22m[33m10 skipped[39m[2m)[22m
+ [32m✓[39m tests/integration/structured-progress.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 1274[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP8-PROGRESS: coalesces ordinary ACK snapshots while retaining durable order and final state[33m 781[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP8-PROGRESS: exposes conflicts and rejections before the next push even inside the display interval[33m 322[2mms[22m[39m
+ [32m✓[39m tests/integration/structured-store.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 768[2mms[22m[39m
+ [32m✓[39m tests/integration/collaboration-restart.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 645[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP4-RESTART: ACKed binary updates survive SIGKILL; disconnected edits converge after restart[33m 629[2mms[22m[39m
+ [32m✓[39m tests/integration/sqlite-bridge-stream.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 595[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP8-BRIDGE: killing a real Rust store during concurrent requests never terminates the HTTP server[33m 593[2mms[22m[39m
+ [2m[90m↓[39m[22m tests/integration/private-bootstrap-postgres.test.ts [2m([22m[2m3 tests[22m[2m | [22m[33m3 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m tests/integration/structured-postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m tests/integration/private-http-postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [32m✓[39m tests/integration/private-bootstrap.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 144[2mms[22m[39m
+ [32m✓[39m tests/integration/page-store.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 134[2mms[22m[39m
+ [2m[90m↓[39m[22m tests/integration/authenticated-access-postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [32m✓[39m tests/integration/api.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 88[2mms[22m[39m
+ [2m[90m↓[39m[22m tests/integration/private-access-postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [32m✓[39m tests/unit/session-verifier.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 122[2mms[22m[39m
+ [32m✓[39m tests/integration/private-http.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 106[2mms[22m[39m
+ [32m✓[39m tests/unit/structured-commands.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 72[2mms[22m[39m
+ [32m✓[39m tests/integration/sqlite.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 42[2mms[22m[39m
+ [32m✓[39m tests/unit/structured-transport.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 47[2mms[22m[39m
+ [32m✓[39m tests/unit/page-writes.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 33[2mms[22m[39m
+ [32m✓[39m tests/unit/workspace-session.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+ [2m[90m↓[39m[22m tests/integration/postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+[90mstdout[2m | tests/integration/collaboration.test.ts
+[22m[39m
+  Hocuspocus v4.7.0 running at:
+
+  > HTTP: http://127.0.0.1:42789
+  > WebSocket: ws://127.0.0.1:42789
+
+ [32m✓[39m tests/integration/collaboration.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 32[2mms[22m[39m
+ [32m✓[39m tests/unit/workspace-sync.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 26[2mms[22m[39m
+ [32m✓[39m tests/unit/private-access.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+ [32m✓[39m tests/unit/protocol.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 11[2mms[22m[39m
+ [32m✓[39m tests/unit/durability-boundary.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 12[2mms[22m[39m
+ [32m✓[39m tests/unit/block-move.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m tests/unit/block-move-availability.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 8[2mms[22m[39m
+ [32m✓[39m tests/unit/native-navigation.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 6[2mms[22m[39m
+ [32m✓[39m tests/unit/shared.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 5[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m25 passed[39m[22m[2m | [22m[33m9 skipped[39m[90m (34)[39m
+[2m      Tests [22m [1m[32m132 passed[39m[22m[2m | [22m[33m26 skipped[39m[90m (158)[39m
+[2m   Start at [22m 02:16:05
+[2m   Duration [22m 17.34s[2m (tests 49%, import 47%, transform 4%, worker 1%)[22m
+
+[2m    Isolate [22m [33m34 workers spawned[39m[2m · ~84ms startup each (spawn + environment, per file)[22m
+[2m            [22m [2mat least ~2.79s faster with [22m[33misolate: false[39m[2m — reuses workers across files instead of one per file[22m
+
+JSON report written to /workspace/tests/evidence/runs/latest/vitest.json
+JUNIT report written to /workspace/tests/evidence/runs/latest/vitest.xml

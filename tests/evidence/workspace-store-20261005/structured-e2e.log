@@ -1,0 +1,55 @@
+
+> greiva-poc@0.14.0 test:structured-e2e
+> node scripts/test-structured-e2e.mjs
+
+{"event":"structured-e2e-isolation","schema":"greiva_test_01a109deb78775a58dff7f9da50588fa"}
+
+> greiva-poc@0.14.0 test:e2e
+> npm run build:packages && npm run build:servers && playwright test
+
+
+> greiva-poc@0.14.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application
+
+
+> @greiva/shared@0.14.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/domain@0.14.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.14.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.14.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.14.0 build
+> tsc -p tsconfig.json
+
+
+> greiva-poc@0.14.0 build:servers
+> npm run build -w @greiva/api && npm run build -w @greiva/collaboration
+
+
+> @greiva/api@0.14.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/collaboration@0.14.0 build
+> tsc -p tsconfig.json
+
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.
+
+Running 2 tests using 1 worker
+
+  ✓  1 [chromium] › tests/e2e/structured-sync.spec.ts:11:1 › STEP7-E2E: offline creation/reload, peer field merge, keyboard conflict resolution and focus preservation use real HTTP and Rust SQLite (10.9s)
+  ✓  2 [chromium] › tests/e2e/structured-sync.spec.ts:43:1 › STEP7-E2E-DRAFT: peer updates do not overwrite an active draft; stale save retains user input; remote conflict choice is explicit (7.0s)
+
+  2 passed (20.3s)
+{"event":"structured-e2e-cleanup","schema":"greiva_test_01a109deb78775a58dff7f9da50588fa","remaining":0}

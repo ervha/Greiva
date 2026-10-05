@@ -1,5 +1,7 @@
 # 応答・外部環境が必要な事項
 
+v0.14.0ではnative workspace storeを実装し、prepared/ACK/pullの耐久性を実SQLite/SIGKILLで検証。[全132判断のまとめ](AUTONOMOUS_DECISIONS.md)。通常UI/IPC/実Authは未接続。利用者からSupabase URL、ES256、Publishable keyを受領し、公開JWKS/Auth settingsを実HTTPSで確認した。[設定手順](../development/SUPABASE_SETUP.md)。以下の過去版記録は当時の状態。
+
 v0.13.0までの[継続開発118判断のまとめ](AUTONOMOUS_DECISIONS.md)を追加。[同期session12判断](../decisions/workspace-sync-session.md)はaccount/workspace/epochと元storeの捕捉、close/遅着応答の検証範囲を記録する。native prepared/receipt/cursor、offline/logout/失効契約、実Authは未完成。
 
 2026-10-05の追加判断は[規約/改善送信12件](../decisions/privacy-telemetry-plan.md)、[独立HTTP12件](../decisions/private-http-boundary.md)、[正本metadata/bootstrap12件](../decisions/private-workspace-bootstrap.md)に全件記録。新規schemaを先行し、旧DB帰属/取り込みを推定しない。現在追加の利用者操作は不要。
@@ -8,7 +10,7 @@ v0.13.0までの[継続開発118判断のまとめ](AUTONOMOUS_DECISIONS.md)を�
 
 | 事項 | 必要な情報/環境 | 状態と先行できる作業 |
 | --- | --- | --- |
-| 実Auth検証 | Supabase検証projectのproject URL、issuer/audience等の公開設定 | 利用者は未作成・local実装/自動試験先行と回答。今は回答待ちなし。秘密鍵/tokenは求めず、policy、wire/cursor、fixture試験を進める |
+| 実Auth検証 | clientログイン/refresh、credential保存と検証用ユーザーによる接続 | URL/ES256/Publishable keyは受領済み。公開HTTPSは確認済み、実ログイン/失効/端末間同期は未確認。現在追加回答待ちなし。まずclient/起動adapterを実装し、password/tokenはチャットへ求めない |
 | 本番接続/配布 | API/collaboration/Auth endpoint、署名/配布先/credential管理 | 未設定。public deploy/課金/ホストglobal toolchain追加をしない |
 | offline/logout/失効 | 端末保存データへのoffline権限、logout/device失効時の保持/消去/再ログイン | 未決定。期限や自動削除を仮定せず、保存済みpendingを保持する |
 | 旧PoC取り込み | 初期提供の有無、workspace帰属、旧pending/ACK/cursor/titleの扱い | 未決定。旧DBを移行・消去せず新contract/fixtureを先行 |
@@ -18,4 +20,4 @@ v0.13.0までの[継続開発118判断のまとめ](AUTONOMOUS_DECISIONS.md)を�
 
 現在の実装はproduction adapterへ未接続の段階。旧PoCの未認可HTTP/CRDT経路を公開してよい状態ではない。Computer Useは解除済み、旧試験Page/DBを保持。
 
-追加操作はまとめて必要な時点で依頼し、各区切りを停止理由にしない。Supabase未作成の間も、上表で独立する作業を続ける。credentialをgit/chat/evidenceへ記録しない。
+追加操作はまとめて必要な時点で依頼し、各区切りを停止理由にしない。Supabase公開設定確認後も、上表で独立する作業を続ける。秘密credentialをgit/chat/evidenceへ記録しない。

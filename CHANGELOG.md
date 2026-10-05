@@ -2,6 +2,12 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.14.0 — 2026-10-05
+
+- 新規workspace専用Rust/SQLite storeを追加。account/workspace/client/epochを固定し、prepared wire、ACK receipt/pending、pull receipt/cursorを原子的に耐久保存する。旧PoC DBを自動移行・採用しない。
+- 実SQLiteの12条件（commit前後のSIGKILL6を含む）、通常132＋専用PG26/型/通常Windows buildを確認。外部依存不変と全14判断を記録。通常UI/IPC、新workspace HTTP/CRDT、実ログイン/refreshは未接続。
+- 提供済みSupabase公開設定で実HTTPSのJWKS/Auth settingsを確認し、設定手順を追加。ユーザーのログインやデータ送信はまだ行っていない。
+
 ## 0.13.0 — 2026-10-05
 
 - 新wire用WorkspaceSyncSessionを追加。account/workspace/epoch/保存先を生成時に固定し、close後の遅着ACK/pull、誤所属、不正cursor進行を保存前に拒否。prepared wireの文字列を保ち、同時要求を防ぐ。

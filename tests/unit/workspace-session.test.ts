@@ -17,7 +17,7 @@ function fixture() {
 }
 it('WORKSPACE-SESSION: preserves prepared bytes, captures immutable account scope and commits only after response validation',async()=>{
   const f=fixture(),original={...f.context};f.context.subjectId='mutated';f.context.issuer='mutated';
-  await f.session.push(f.wire);expect(f.transport.push.mock.calls[0]?.[0]).toBe(f.wire);expect(f.store.acknowledge).toHaveBeenCalledWith(original,f.request,f.push);
+  await f.session.push(f.wire);expect(f.transport.push.mock.calls[0]?.[0]).toBe(f.wire);expect(f.store.acknowledge).toHaveBeenCalledWith(original,f.request,f.push,f.wire);
   const call=f.store.acknowledge.mock.calls[0]!;expect(Object.isFrozen(call[0])).toBe(true);expect(Object.isFrozen(call[1])).toBe(true);expect(Object.isFrozen(call[2])).toBe(true);expect(Object.isFrozen(f.push)).toBe(false);
 });
 it('WORKSPACE-SESSION: caller port replacement while network is waiting never rebinds the captured old store',async()=>{
