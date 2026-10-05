@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+2026-10-05、checkpoint/所有版 **v0.9.0**。P1の[version付きworkspace wire/cursor境界](../../tests/evidence/workspace-sync-boundary-20261005/SUMMARY.md)を部分実装。workspace/epoch/ACK identity、署名/形式/未来位置/Number精度超の16条件、通常90/型/通常Windows buildがPass。旧routes/DBは保持、外部依存不変。[全12判断](../decisions/workspace-sync-boundary.md)。Supabase未作成・local先行の回答に従い、次は署名JWTのlocal検証adapterへ進む。実DB21/画面59は前checkpointの結果で、今回の新実機/新provider合格とはしない。
+
 2026-10-05、checkpoint/所有版 **v0.8.0**。P1の[個人workspace読取認可](../../tests/evidence/private-access-20261005/SUMMARY.md)を部分実装。owner/workspace/typed resourceと正規Page文書名の境界、不変targets、実PG1snapshotを検証。通常74＋専用PG21、型/通常Windows buildがPass、外部依存不変。[全12判断](../decisions/private-workspace-access.md)。実JWT/provider・正本view/移行・HTTP/CRDTへの接続は未完成。Supabaseは未作成・local実装/自動試験先行と利用者回答、[必要事項](PENDING_PRODUCTION_CONFIGURATION.md)を記録。独立するwire/cursor契約へ続行する。新しい画面/実IME合格ではない。
 
 2026-10-05、checkpoint/所有製品版 **v0.7.0**。[Domain/Application基盤](../../tests/evidence/production-foundation-20261005/SUMMARY.md)を追加し、Task/Relation intentの旧wireを保持。認可拒否/不通、context/store固定、durable待機、結果不明commitの安定IDを検査。型/64 unit＋専用PG20/画面59/実同期Conflict2/通常Windows buildがPass、外部依存不変。[全13判断](../decisions/production-command-foundation.md)。新Applicationは本番adapter/UI未接続で、既存PoCにAuth/workspaceを追加したとしない。次は個人workspace認可契約の実装。旧DB/試験Pageは保持、Computer Use解除、利用者操作なし。

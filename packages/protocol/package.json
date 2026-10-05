@@ -1,12 +1,16 @@
 {
   "name": "@greiva/protocol",
-  "version": "0.8.0",
+  "version": "0.9.0",
   "private": true,
   "type": "module",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
+    },
+    "./workspace": {
+      "types": "./dist/workspace.d.ts",
+      "import": "./dist/workspace.js"
     }
   },
   "scripts": {
@@ -14,8 +18,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@greiva/domain": "0.8.0",
+    "@greiva/domain": "0.9.0",
     "zod": "4.6.5",
-    "@greiva/shared": "0.8.0"
+    "@greiva/shared": "0.9.0"
   }
 }

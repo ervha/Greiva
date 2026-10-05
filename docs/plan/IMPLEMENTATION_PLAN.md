@@ -17,4 +17,6 @@ P0の9境界条件、型/通常64＋専用PG20/画面59/実同期2/通常Windows
 
 P1はv0.8.0でowner/resource読取policy、正規Page文書名、PG1snapshot adapterを部分実装。10境界条件/実PG1を含む通常74＋専用PG21とbuildがPass。実session/JWT、正本view、version付きwire/cursor、migration、write/全HTTP/CRDT経路は未完了。
 
+v0.9.0で新workspace wire/response contextと署名cursorの16条件を実装・検証。旧routes/SQLへ未接続で、live key/epoch、prepared/ACK/cursor原子性、migration/bootstrapは未完了。Supabase未作成・local自動試験先行の回答により、署名JWT fixtureから実Auth adapterの検証へ進む。
+
 初期Windows/Androidを完成扱いにするには両OSの通常アプリが必要。Android実機不在ではDockerでbuildとadapter試験を進めても実Gboard/lifecycleをPassへしない。外部provider/署名/実機を要する時は必要事項をまとめ、残る独立作業へ進む。

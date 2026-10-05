@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-05 / v0.9.0 / [Workspace wire/cursor境界](workspace-sync-boundary-20261005/SUMMARY.md): 新wire8/cursor8、通常90/型/通常Windows build。scope/epoch/ACK identity/HMAC/bigint exactを検証。旧routes/SQL/認証への配線は未完成。
+
 - 2026-10-05 / v0.8.0 / [個人workspace読取認可](private-access-20261005/SUMMARY.md): 新policy10/実PG1snapshot、通常74＋専用PG21/型/通常Windows build。旧経路未接続、実JWT/正本view/移行とは区別。
 
 - 2026-10-05 / v0.7.0 / [Domain/Application基盤](production-foundation-20261005/SUMMARY.md): 新境界9/通常64＋専用PG20/全画面59/実同期2/型/通常Windows build。旧wire/DB保持、外部依存不変。portのcontract doubleと本番adapter/認証の未実装を区別。

@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.9.0 — 2026-10-05
+
+- protocol/workspaceにversion付きscope/epochとACK identity検査を追加。server専用cursorをworkspace/stream/epoch/orderのHMACへ束縛し、改変・別scope・未来位置を拒否。
+- 新wire8/cursor8、通常90/型/通常Windows buildを確認。bigint最大値をexactに検査し、旧wire/routes/DB/外部依存を保持。[証拠](tests/evidence/workspace-sync-boundary-20261005/SUMMARY.md)と[全判断](docs/decisions/workspace-sync-boundary.md)。production配線/移行/実Authは未完成。
+
 ## 0.8.0 — 2026-10-05
 
 - 個人workspace所有者とtyped resource/Page文書名の読取認可を追加。不明・別workspace・削除・型違い・aliasを拒否し、非同期照合の検証済targetsを不変で返す。

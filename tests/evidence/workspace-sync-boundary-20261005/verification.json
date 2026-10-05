@@ -1,0 +1,21 @@
+{
+  "result": "Pass",
+  "version": "0.9.0",
+  "unit": {
+    "pass": 90,
+    "skip": 21,
+    "newWireTests": 8,
+    "newCursorTests": 8
+  },
+  "typecheck": "Pass",
+  "normalWindowsBuild": "Pass",
+  "buildSourcesMatch": 80,
+  "externalNpmRecordsUnchanged": 314,
+  "externalCargoUnchanged": true,
+  "limits": [
+    "New wire/cursor not wired to old routes/store",
+    "No new PostgreSQL/browser/native IME/Android run",
+    "Stable live cursor key/epoch and bootstrap/migration pending",
+    "No provider/session/JWT auth implemented by cursor"
+  ]
+}

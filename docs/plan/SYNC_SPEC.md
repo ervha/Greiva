@@ -2,6 +2,8 @@
 
 2026-10-05、設計案。[architecture](ARCHITECTURE.md)、[データ](DATA_MODEL.md)、[PoC検証](../decisions/gate-c.md)を基準にする。初期版は個人workspace/自分の端末間。wire変更は未実装で、現protocolのTask/Relationと本番案を分ける。
 
+v0.9.0でprotocol/workspace subpathへprotocolVersion1/workspace/client/response streamEpoch、ACK/pull scope検査を追加し、server専用gw1 cursorを実装した。[証拠](../../tests/evidence/workspace-sync-boundary-20261005/SUMMARY.md)。新経路/queue/SQLへは未接続で、旧PoC wireを変えない。cursorはuser認証ではなく、owner認可を別に通す。
+
 ## 入出力と不変条件
 
 commandはworkspace/対象/intentを受け、認可・domain validation後にentityとoperationを同一local transactionで保存する。IDはofflineで安定生成し、時刻を順序へ使わない。commit後のoperationを受信しただけで外部actionを再実行しない。
@@ -32,6 +34,8 @@ cursorはworkspace/stream/epochに所属するopaque token。適用するentity/
 現PoCにはworkspace/protocol version/authがなく単一structured cursorを使う。本番案を現schemaへ足すだけでは旧operation/旧server resultの所属が確定しない。取り込みは明示的なmigration/import契約で行い、旧cursorを流用しない。unknown version/epoch、期限切れcursor、履歴compaction後のbootstrapはserver snapshotとpending再投影を含む別契約として確定する。
 
 retry backoff/同時送信数/batch上限、cursor保持期間、offline端末の再bootstrap期限は運用契約で決める。PoC timeoutをそのまま製品SLOにしない。
+
+新wireの初期境界上限は既存batch100/pull500を継続し、production性能SLOにしない。batch内のoperationId重複/client混在を拒否し、request間retryでは同じoperation ID/内容を使う。orderはPG bigint範囲のdecimal string。gw1はworkspace/structured/epoch/orderをHMAC-SHA256へ束縛し、head超過/別scope/悪署名/非canonical tokenを拒否する。live keyはCSPRNG32bytes以上とepochを耐久保存する必要があり、起動ごとに作り直さない。
 
 ## 受入
 
