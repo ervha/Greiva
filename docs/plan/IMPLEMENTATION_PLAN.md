@@ -22,3 +22,5 @@ v0.9.0で新workspace wire/response contextと署名cursorの16条件を実装�
 v0.10.0で署名JWTとissuer別owner、共通session→PG読取adapterを実装。通常105＋実PG22、型/通常Windows buildがPass。provider HTTPSはfixture transportで、実login/refresh/失効、全HTTP/CRDT、production view/migration/write transactionは未完了。次は独立HTTP入口で拒否/不通/owner境界をlocal検証する。
 
 初期Windows/Androidを完成扱いにするには両OSの通常アプリが必要。Android実機不在ではDockerでbuildとadapter試験を進めても実Gboard/lifecycleをPassへしない。外部provider/署名/実機を要する時は必要事項をまとめ、残る独立作業へ進む。
+
+2026-10-05追加：日本先行の[規約/プライバシーポリシー品質ゲート](TERMS_PRIVACY_POLICY_PLAN.md)を初期提供のP4へ追加する。[エラー/性能だけの任意改善送信](PRIVACY_TELEMETRY_SPEC.md)はP1の認証/端末境界とP2の設定基盤に依存し、schema/保持/送信先確定→同意port→設定UI→受信検証→限定計測→受入の順。初期OFF、端末ごとの明示同意。機能利用analyticsは対象外。未完了なら送信機能は未提供/OFFとし、設計だけで実装済みにしない。設計追加後は既存P1 HTTP開発へ戻る。

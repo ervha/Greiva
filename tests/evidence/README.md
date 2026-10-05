@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-05 / v0.10.1 / [日本向け規約・任意改善データ設計](privacy-plan-20261005/SUMMARY.md): 日本先行、エラー/性能のみ、初期OFF/撤回/server照合。文書確認だけ、収集/法的適合の合格ではない。製品0.10.0不変。
+
 - 2026-10-05 / v0.10.0 / [署名JWT＋issuer別owner](signed-session-20261005/SUMMARY.md): Auth14/owner11、通常105＋実PG22/型/通常Windows build。fixed jose追加のみ。fixture JWKS/SQLと実Supabase/login/refresh/移行/routerを区別。
 
 - 2026-10-05 / v0.9.0 / [Workspace wire/cursor境界](workspace-sync-boundary-20261005/SUMMARY.md): 新wire8/cursor8、通常90/型/通常Windows build。scope/epoch/ACK identity/HMAC/bigint exactを検証。旧routes/SQL/認証への配線は未完成。

@@ -294,11 +294,15 @@ Other device: Cancelled
 - PostgreSQL/Supabase Row Level Securityだけに依存せず、API/application層でも認可を検証する。
 - audit対象、保持期間、削除要求、backupの扱いを`AUTHZ_SPEC.md`および運用仕様で確定する。
 
+### 11.3 規約・任意改善送信
+
+日本先行。設定のプライバシー画面に利用規約/ポリシーの版・施行日とoffline参照を設ける。エラー・性能のみの改善送信は初期OFF、端末ごとの明示同意と撤回に対応する。機能利用analytics、本文/入力、任意stack/添付を含めない。規約同意・同期・AI送信許可と分離し、同意台帳のserver確認前は収集しない。状態/撤回待ち/目的変更を正しく表示する。詳細は[改善データ仕様](PRIVACY_TELEMETRY_SPEC.md)、[文書品質と公開ゲート](TERMS_PRIVACY_POLICY_PLAN.md)。未実装の製品設計。
+
 ## 12. 運用・可観測性設計
 
 ### 12.1 構造化ログ
 
-少なくとも以下の相関IDを持つ構造化ログを出す。
+以下はサービス運用ログの設計候補で、目的・必要性・閲覧/保持を確定して採用する。任意の端末改善データpayloadの許可項目ではない。
 
 - request ID、operation ID、client ID、workspace ID、entity ID、Y.Doc ID
 - API/Hocuspocus instance ID、cursor、retry回数、エラー種別

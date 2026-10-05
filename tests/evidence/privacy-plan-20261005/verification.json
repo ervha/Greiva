@@ -1,0 +1,23 @@
+{
+  "result": "Pass",
+  "checkpoint": "0.10.1",
+  "product": "0.10.0",
+  "reviewedDocuments": [
+    "docs/plan/PRIVACY_TELEMETRY_SPEC.md",
+    "docs/plan/TERMS_PRIVACY_POLICY_PLAN.md",
+    "docs/decisions/privacy-telemetry-plan.md",
+    "docs/plan/GREIVA_REQUIREMENTS.md",
+    "docs/plan/GREIVA_DESIGN_SPEC.md",
+    "docs/plan/IMPLEMENTATION_PLAN.md",
+    "docs/plan/PENDING_PRODUCTION_CONFIGURATION.md"
+  ],
+  "relativeLinks": 34,
+  "userDecisions": {
+    "initialRegion": "Japan",
+    "optionalData": "Errors and performance only"
+  },
+  "autonomousAndUserDecisions": 12,
+  "trackedApplicationAndDependenciesUnchanged": true,
+  "existingPrivateHttpWork": "Three untracked source/test files excluded from this documentation checkpoint",
+  "scope": "Document consistency and links only; no telemetry implementation, data collection or legal approval"
+}

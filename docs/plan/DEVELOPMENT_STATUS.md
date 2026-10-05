@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+2026-10-05、checkpoint **v0.10.1**/所有製品版 **0.10.0**。[日本向け規約/プライバシーとエラー・性能のみの任意改善送信](../../tests/evidence/privacy-plan-20261005/SUMMARY.md)を設計に追加。初期OFF・端末別明示同意・撤回・server照合を定義。[全12判断](../decisions/privacy-telemetry-plan.md)。文書/リンク確認のみで収集未実装、公開文面未完成。利用者指示に従い次は進行中のP1 HTTP入口の開発/試験へ戻る。
+
 2026-10-05、checkpoint/所有版 **v0.10.0**。[署名session＋issuer別owner](../../tests/evidence/signed-session-20261005/SUMMARY.md)を追加。固定jose6.2.12、HTTPS JWKS/署名/issuer/audience/期限/主体、不通category、同sub別issuer拒否を検証。通常105＋専用PG22/型/通常Windows buildがPass、外部変更はjose1件だけ。[全16判断](../decisions/signed-session-verification.md)。HTTPSはfixture transport、実Supabase/login/refresh/失効/移行/全routerは未完成。次は独立HTTP経路をlocalで検証する。利用者操作不要、旧Page/DB保持、Computer Use解除。
 
 2026-10-05、checkpoint/所有版 **v0.9.0**。P1の[version付きworkspace wire/cursor境界](../../tests/evidence/workspace-sync-boundary-20261005/SUMMARY.md)を部分実装。workspace/epoch/ACK identity、署名/形式/未来位置/Number精度超の16条件、通常90/型/通常Windows buildがPass。旧routes/DBは保持、外部依存不変。[全12判断](../decisions/workspace-sync-boundary.md)。Supabase未作成・local先行の回答に従い、次は署名JWTのlocal検証adapterへ進む。実DB21/画面59は前checkpointの結果で、今回の新実機/新provider合格とはしない。

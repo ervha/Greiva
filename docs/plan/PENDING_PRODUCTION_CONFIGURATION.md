@@ -9,6 +9,8 @@
 | offline/logout/失効 | 端末保存データへのoffline権限、logout/device失効時の保持/消去/再ログイン | 未決定。期限や自動削除を仮定せず、保存済みpendingを保持する |
 | 旧PoC取り込み | 初期提供の有無、workspace帰属、旧pending/ACK/cursor/titleの扱い | 未決定。旧DBを移行・消去せず新contract/fixtureを先行 |
 | Android通常アプリ/最終native | build環境・実SQLite/lifecycle、必要時のPixel 7接続 | browserの旧試験をNative合格へ転用しない。今は追加手操作を依頼しない |
+| 規約/ポリシーの公開条件 | 運営者/窓口、年齢/料金/適用時点、責任/紛争、Provider/取扱国、保持/削除/backup | 日本先行は回答済み。[公開計画](TERMS_PRIVACY_POLICY_PLAN.md)で未確定値を明示し、実装と文言を公開前に照合 |
+| 任意改善データ | 送信先・schema/目的版、各保持期間/queue上限、同意台帳/削除運用 | エラー・性能のみは回答済み。初期OFF・端末ごと同意の[設計](PRIVACY_TELEMETRY_SPEC.md)。未実装/未収集。現在追加回答待ちなし |
 
 現在の実装はproduction adapterへ未接続の段階。旧PoCの未認可HTTP/CRDT経路を公開してよい状態ではない。Computer Useは解除済み、旧試験Page/DBを保持。
 
