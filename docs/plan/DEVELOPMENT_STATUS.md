@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+最新v0.22.0：workspace別Rust SQLiteへPage binary/送信待ち/正確なwire/ACK receipt/remote diffの原子保存を追加。private local schema6はbinding確認後に5からupgradeし、structured dataを保持。[全16判断](../decisions/private-page-durable-store.md)、[証拠](../../tests/evidence/private-page-store-20261005/SUMMARY.md)。通常193/実PG66、型/frontend/Windows build、8条件SIGKILL/実HTTP＋2つのSQLiteを検証。専用APIはv0.21/schema3を保持。captured client session/通常UI・IPC/Hocuspocus/実Auth/nativeは未完成で、追加操作を求めず続ける。
+
 最新v0.21.0：認証付きPage本文のbinary保存基盤を実装。明示schema3、初期title、append-only journal/digest/再送、state-vector diff、破損拒否/失効/期限rollback/COMMIT前後SIGKILLを検証。[全22判断](../decisions/private-page-binary.md)、[証拠](../../tests/evidence/private-page-20261005/SUMMARY.md)。通常180/実PG65、型/frontend/Windows cross-buildを確認。通常UI/IPC/端末Page queue、metadata rename/delete/Conflict、Hocuspocus継続認可・実Auth/nativeは未完成。追加操作を求めず端末耐久化/client sessionへ進む。
 
 2026-10-05、checkpoint **v0.20.0**。[個人workspace structured同期](../../tests/evidence/private-stream-20261005/SUMMARY.md)を実装し、通常177/実PG54/型/Windows build、DB COMMIT前後のSIGKILL、実HTTP/2つのRust SQLiteを検証。専用API/previewはschema2/版0.20へ更新済み。[全234判断](AUTONOMOUS_DECISIONS.md)。実Auth正常系/通常UI・IPC/Page metadata/CRDTは未完成。次はPage同期の保護契約へ進む。

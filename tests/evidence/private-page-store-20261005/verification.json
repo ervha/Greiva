@@ -1,0 +1,38 @@
+{
+  "result": "Pass",
+  "version": "0.22.0",
+  "unit": {
+    "pass": 193,
+    "skip": 66,
+    "newNative": 13
+  },
+  "postgres": {
+    "pass": 66,
+    "skip": 0,
+    "new": 1
+  },
+  "typecheck": "Pass",
+  "frontend": "Pass",
+  "normalWindowsBuild": "Pass",
+  "buildSourcesMatch": 109,
+  "externalNpm315Unchanged": true,
+  "externalCargoBothLocksUnchanged": true,
+  "schema": "Private local6 after validated binding; existing structured rows preserved; schema5 orphan/partial/foreign denied; ordinary PoC cannot open6",
+  "durability": "Exact binary/prepared wire; Page queue order; scoped digest/receipt/head; corrupt/missing fail; remote import/diff not echoed; combined600k; late diff no metadata/head regression",
+  "nativeCrash": "Actual Rust/SQLite driver SIGKILL at create/append/ack/receive before and after COMMIT:8; atomic recovery and duplicate retry",
+  "http": "Signed fixture JWT; actual private HTTP and two Rust SQLite stores: bootstrap/append lost ACK, offline restart, concurrent edits converge, revoked pending preserved",
+  "backend": "Dedicated API/preview unchanged v0.21/schema3; current checkpoint changes native repository/driver only",
+  "reportCredentialScan": "No compact JWT/private key/publishable key material in selected reports",
+  "initialFailures": [],
+  "developmentNotes": [
+    "Optional rustfmt unavailable in existing Docker toolchain; no host toolchain installed; compilation/typecheck passed"
+  ],
+  "limits": [
+    "Native repository checks binary bytes/checksum/binding, not semantic Yjs grammar; server checks syntax and next client adapter must validate before submit/apply",
+    "No captured Page client session/normal UI/Tauri IPC/Hocuspocus continuous authorization",
+    "No real Supabase normal login or new native IME/Android proof",
+    "Existing v0.18 UI and v0.21 dedicated API evidence retained; no UI/backend change",
+    "Initial title only; no rename/delete/metadata Conflict/compaction/retention/guessed offline permission",
+    "Telemetry not implemented or collected"
+  ]
+}

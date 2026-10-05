@@ -1,0 +1,75 @@
+import {it,expect} from 'vitest';
+import {DatabaseSync} from 'node:sqlite';
+import {mkdtempSync,rmSync,writeFileSync,existsSync,unlinkSync} from 'node:fs';
+import {join} from 'node:path';import {tmpdir} from 'node:os';import {createHash} from 'node:crypto';
+import * as Y from 'yjs';import {newId} from '@greiva/shared';import {emptyPageUpdate} from '@greiva/sync';
+import {WorkspaceDevice} from '../support/workspace-device.js';
+const hash=(bytes:Uint8Array)=>createHash('sha256').update(bytes).digest('hex'),encoded=(bytes:Uint8Array)=>Buffer.from(bytes).toString('base64url');
+const time='2026-10-05T08:00:00.000Z';
+function fixture(){
+  const directory=mkdtempSync(join(tmpdir(),'greiva-private-page-store-')),context={issuer:'https://auth.fixture.invalid/auth/v1',subjectId:'owner',workspaceId:newId(),clientId:newId(),streamEpoch:newId()},device=new WorkspaceDevice(join(directory,'one.sqlite'),context),devices=[device],id=newId(),doc=new Y.Doc({gc:false});
+  Y.applyUpdate(doc,emptyPageUpdate());const text=new Y.XmlText('日本語');(doc.getXmlFragment('body').get(0) as Y.XmlElement).insert(0,[text]);const initial=Y.encodeStateAsUpdate(doc),title='Page 日本語';
+  const scope={protocolVersion:1,workspaceId:context.workspaceId,pageId:id,documentName:`page:${id}`,editorSchemaVersion:1},metadata={id,title,yDocId:`page:${id}`,createdAt:time,updatedAt:time};
+  const create={pageId:id,title,update:Array.from(initial)},bootstrap={...scope,metadata,initialDigest:hash(initial)};
+  const read=(update=Y.encodeStateAsUpdate(doc),headOrder='2')=>({...scope,metadata,headOrder,update:encoded(update),digest:hash(update),stateVector:encoded(Y.encodeStateVector(doc))});
+  const ack=(update:Uint8Array,headOrder='2')=>({...scope,serverOrder:'2',headOrder,digest:hash(update),stateVector:encoded(Y.encodeStateVector(doc))});
+  const sql=(query:string)=>{const db=new DatabaseSync(device.path);try{return db.prepare(query).get();}finally{db.close();}};
+  const execute=(query:string)=>{const db=new DatabaseSync(device.path);try{db.exec(query);}finally{db.close();}};
+  const restore=async()=>{const stored=await device.request('page_load',{pageId:id}),peer=new Y.Doc({gc:false});try{for(const update of stored.page.updates)Y.applyUpdate(peer,Uint8Array.from(update));return{stored,body:peer.getXmlFragment('body').toString(),vector:encoded(Y.encodeStateVector(peer))};}finally{peer.destroy();}};
+  return{directory,context,device,devices,id,doc,text,initial,title,scope,metadata,create,bootstrap,read,ack,sql,execute,restore,async cleanup(){doc.destroy();for(const device of devices)await device.close();rmSync(directory,{recursive:true,force:true});}};
+}
+it('PRIVATE-PAGE-STORE: offline binary and exact prepared bootstrap/append survive restart; receipts never erase edits and remote frames are not requeued',async()=>{
+  const f=fixture();try{
+    await f.device.request('page_create',f.create);const first=await f.device.request('page_prepare',{pageId:f.id});let update:Uint8Array|undefined;f.doc.on('update',value=>{update=value;});f.text.insert(f.text.length,' offline');await f.device.request('page_append',{pageId:f.id,update:Array.from(update!)});
+    await f.device.close('SIGKILL');expect(await f.device.request('page_prepare',{pageId:f.id})).toEqual(first);await f.device.request('page_create',f.create);expect((await f.restore()).body).toBe(f.doc.getXmlFragment('body').toString());
+    await f.device.request('page_ack',{...first,response:f.bootstrap});const next=await f.device.request('page_prepare',{pageId:f.id});expect(next.kind).toBe('append');const receipt=f.ack(update!);await f.device.request('page_ack',{...next,response:receipt});await f.device.request('page_ack',{...next,response:{...receipt,headOrder:'3'}});expect(await f.device.request('page_prepare',{pageId:f.id})).toBeNull();
+    await expect(f.device.request('page_ack',{...next,response:{...receipt,serverOrder:'3',headOrder:'3'}})).rejects.toThrow();
+    f.text.insert(0,'remote ');const remote=update!;await f.device.request('page_receive',{pageId:f.id,response:f.read(remote,'3')});await f.device.request('page_append',{pageId:f.id,update:Array.from(remote)});expect(await f.device.request('page_prepare',{pageId:f.id})).toBeNull();await f.device.close('SIGKILL');const restored=await f.restore();expect(restored.body).toBe(f.doc.getXmlFragment('body').toString());expect(restored.vector).toBe(encoded(Y.encodeStateVector(f.doc)));expect(restored.stored).toMatchObject({pending:0,serverHead:'3'});expect(f.sql('SELECT count(*) AS n FROM workspace_page_receipts')?.n).toBe(2);
+  }finally{await f.cleanup();}
+});
+it('PRIVATE-PAGE-STORE: foreign scope/schema/digest/title/wire and skipped ACK reject without clearing pending; failed receipt commit rolls back',async()=>{
+  const f=fixture();try{
+    await f.device.request('page_create',f.create);const first=await f.device.request('page_prepare',{pageId:f.id}),before=await f.device.request('page_load',{pageId:f.id});
+    for(const response of [{...f.bootstrap,workspaceId:newId()},{...f.bootstrap,pageId:newId()},{...f.bootstrap,documentName:'page:foreign'},{...f.bootstrap,editorSchemaVersion:2},{...f.bootstrap,initialDigest:'0'.repeat(64)},{...f.bootstrap,metadata:{...f.metadata,title:'changed'}}])await expect(f.device.request('page_ack',{...first,response})).rejects.toThrow();
+    await expect(f.device.request('page_ack',{...first,wire:JSON.stringify(JSON.parse(first.wire),null,2),response:f.bootstrap})).rejects.toThrow();expect(await f.device.request('page_load',{pageId:f.id})).toEqual(before);
+    let update:Uint8Array|undefined;f.doc.on('update',value=>{update=value;});f.text.insert(0,'pending');await f.device.request('page_append',{pageId:f.id,update:Array.from(update!)});const db=new DatabaseSync(f.device.path);const next=db.prepare("SELECT seq,wire FROM workspace_page_pending WHERE kind='append'").get()!;db.close();await expect(f.device.request('page_ack',{pageId:f.id,sequence:String(next.seq),wire:next.wire,response:f.ack(update!)})).rejects.toThrow();
+    f.execute("CREATE TRIGGER reject_page_receipt BEFORE INSERT ON workspace_page_receipts BEGIN SELECT RAISE(ABORT,'fixture failure'); END");await expect(f.device.request('page_ack',{...first,response:f.bootstrap})).rejects.toThrow();expect(await f.device.request('page_prepare',{pageId:f.id})).toEqual(first);expect(f.sql('SELECT count(*) AS n FROM workspace_page_receipts')?.n).toBe(0);f.execute('DROP TRIGGER reject_page_receipt');await f.device.request('page_ack',{...first,response:f.bootstrap});
+  }finally{await f.cleanup();}
+});
+it('PRIVATE-PAGE-STORE: remote import commits metadata/binary/head together; late diff retains pending and corrupt/missing binary never becomes an empty page',async()=>{
+  const f=fixture();try{
+    await f.device.request('snapshot');for(const response of [{...f.read(),workspaceId:newId()},{...f.read(),digest:'0'.repeat(64)},{...f.read(),stateVector:'AA='},{...f.read(),metadata:{...f.metadata,createdAt:'invalid'}}])await expect(f.device.request('page_receive',{pageId:f.id,response})).rejects.toThrow();expect(f.sql('SELECT count(*) AS n FROM pages')?.n).toBe(0);
+    f.execute("CREATE TRIGGER reject_page_bytes BEFORE INSERT ON page_updates BEGIN SELECT RAISE(ABORT,'fixture failure'); END");await expect(f.device.request('page_receive',{pageId:f.id,response:f.read()})).rejects.toThrow();expect(f.sql('SELECT count(*) AS n FROM pages')?.n).toBe(0);expect(f.sql('SELECT count(*) AS n FROM workspace_page_documents')?.n).toBe(0);f.execute('DROP TRIGGER reject_page_bytes');await f.device.request('page_receive',{pageId:f.id,response:f.read()});
+    let update:Uint8Array|undefined;f.doc.on('update',value=>{update=value;});f.text.insert(0,'local ');await f.device.request('page_append',{pageId:f.id,update:Array.from(update!)});const prepared=await f.device.request('page_prepare',{pageId:f.id});await f.device.request('page_receive',{pageId:f.id,response:{...f.read(f.initial,'1'),metadata:{...f.metadata,title:'stale'}}});expect(await f.device.request('page_prepare',{pageId:f.id})).toEqual(prepared);expect((await f.restore()).stored).toMatchObject({pending:1,serverHead:'2',page:{metadata:{title:f.title}}});
+    f.execute("UPDATE page_updates SET update_bytes=x'ffff' WHERE seq=(SELECT min(seq) FROM page_updates)");await expect(f.device.request('page_load',{pageId:f.id})).rejects.toThrow();f.execute('DELETE FROM page_updates');await expect(f.device.request('page_load',{pageId:f.id})).rejects.toThrow();await expect(f.device.request('page_prepare',{pageId:f.id})).rejects.toThrow();expect(f.sql('SELECT count(*) AS n FROM workspace_page_documents')?.n).toBe(1);
+  }finally{await f.cleanup();}
+});
+it('PRIVATE-PAGE-STORE: bound schema5 upgrade preserves structured data and rejects orphan/partial/foreign binding without mutation',async()=>{
+  const f=fixture();try{
+    const operation={operationId:newId(),clientId:f.context.clientId,entityType:'task',entityId:newId(),kind:'create',baseVersion:null,payload:{title:'retained',status:'todo',due:null}};await f.device.request('mutate',{operation});const before=await f.device.request('snapshot');await f.device.close();f.execute('DROP TABLE workspace_page_receipts;DROP TABLE workspace_page_pending;DROP TABLE workspace_page_documents;PRAGMA user_version=5');
+    const wrong=new WorkspaceDevice(f.device.path,{...f.context,subjectId:'foreign'});f.devices.push(wrong);await expect(wrong.request('snapshot')).rejects.toThrow();await wrong.close();expect(f.sql('PRAGMA user_version')?.user_version).toBe(5);
+    expect(await f.device.request('snapshot')).toEqual(before);expect(f.sql('PRAGMA user_version')?.user_version).toBe(6);await f.device.close();f.execute('DROP TABLE workspace_page_receipts;DROP TABLE workspace_page_pending;DROP TABLE workspace_page_documents;PRAGMA user_version=5');f.execute(`INSERT INTO pages VALUES('${f.id}','orphan','page:${f.id}','${time}','${time}')`);await expect(f.device.request('snapshot')).rejects.toThrow();await f.device.close();expect(f.sql('PRAGMA user_version')?.user_version).toBe(5);expect(f.sql("SELECT count(*) AS n FROM sqlite_master WHERE name='workspace_page_documents'")?.n).toBe(0);expect(f.sql('SELECT title FROM tasks')?.title).toBe('retained');
+    f.execute('DELETE FROM pages;CREATE TABLE workspace_page_pending(unexpected TEXT)');await expect(f.device.request('snapshot')).rejects.toThrow();await f.device.close();expect(f.sql('PRAGMA user_version')?.user_version).toBe(5);expect(f.sql("SELECT count(*) AS n FROM sqlite_master WHERE name='workspace_page_documents'")?.n).toBe(0);
+  }finally{await f.cleanup();}
+});
+it('PRIVATE-PAGE-STORE: input bounds and prepared corruption reject; combined large remote binary survives restart without an input-frame cap',async()=>{
+  const f=fixture();try{
+    await f.device.request('snapshot');await expect(f.device.request('page_create',{...f.create,update:Array.from(new Uint8Array(512*1024+1))})).rejects.toThrow();await expect(f.device.request('page_create',{...f.create,pageId:'foreign'})).rejects.toThrow();await expect(f.device.request('page_create',{...f.create,title:'😀'.repeat(32769)})).rejects.toThrow();await f.device.request('page_create',f.create);
+    const prepared=await f.device.request('page_prepare',{pageId:f.id});f.execute(`UPDATE workspace_page_pending SET wire=json_set(wire,'$.clientId','${newId()}')`);await expect(f.device.request('page_prepare',{pageId:f.id})).rejects.toThrow();f.execute(`UPDATE workspace_page_pending SET wire='${prepared.wire.replaceAll("'","''")}'`);expect(await f.device.request('page_prepare',{pageId:f.id})).toEqual(prepared);
+    const other=newId(),large=new Y.Doc({gc:false});try{Y.applyUpdate(large,emptyPageUpdate());(large.getXmlFragment('body').get(0) as Y.XmlElement).insert(0,[new Y.XmlText('x'.repeat(600000))]);const bytes=Y.encodeStateAsUpdate(large),response={...f.read(bytes),pageId:other,documentName:`page:${other}`,metadata:{...f.metadata,id:other,yDocId:`page:${other}`},stateVector:encoded(Y.encodeStateVector(large))};await f.device.request('page_receive',{pageId:other,response});await f.device.close('SIGKILL');const loaded=await f.device.request('page_load',{pageId:other});expect(loaded.page.updates[0]).toEqual(Array.from(bytes));expect(await f.device.request('page_prepare',{pageId:other})).toBeNull();}finally{large.destroy();}
+  }finally{await f.cleanup();}
+});
+for(const stage of ['create','append','ack','receive'] as const)for(const boundary of ['before','after'] as const){
+  it(`PRIVATE-PAGE-STORE-SIGKILL: ${stage} ${boundary} commit restores atomic binary/queue/receipt/head`,async()=>{
+    const f=fixture(),root=join(f.directory,'barrier'),crash=new WorkspaceDevice(f.device.path,f.context,{crashRoot:root});f.devices.push(crash);
+    try{
+      await f.device.request('snapshot');let fields:any=stage==='create'?f.create:{pageId:f.id,response:f.read()};if(stage==='append'||stage==='ack'){await f.device.request('page_create',f.create);if(stage==='append'){let update:Uint8Array|undefined;f.doc.on('update',value=>{update=value;});f.text.insert(0,'saved');fields={pageId:f.id,update:Array.from(update!)};}else fields={...await f.device.request('page_prepare',{pageId:f.id}),response:f.bootstrap};}
+      await f.device.close();writeFileSync(root+'.armed',`workspace-page-${stage}-${boundary}-commit`);const interrupted=crash.request('page_'+stage,fields).catch(error=>error);await expect.poll(()=>existsSync(root+'.reached'),{timeout:8000}).toBe(true);await crash.close('SIGKILL');expect(await interrupted).toBeInstanceOf(Error);unlinkSync(root+'.armed');await f.device.request('snapshot');const committed=boundary==='after';
+      if(stage==='create'||stage==='receive')expect(f.sql('SELECT count(*) AS n FROM pages')?.n).toBe(committed?1:0);
+      if(stage==='append')expect(f.sql('SELECT count(*) AS n FROM page_updates')?.n).toBe(committed?2:1);
+      if(stage==='ack')expect(f.sql('SELECT count(*) AS n FROM workspace_page_receipts')?.n).toBe(committed?1:0);
+      if(stage==='receive')expect(f.sql('SELECT server_head FROM workspace_page_documents')?.server_head).toBe(committed?'2':undefined);
+      await f.device.request('page_'+stage,fields);await f.device.request('page_'+stage,fields);expect((await f.restore()).body).toBe(f.doc.getXmlFragment('body').toString());expect(f.sql('PRAGMA quick_check')?.quick_check).toBe('ok');if(stage==='ack')expect(f.sql('SELECT count(*) AS n FROM workspace_page_receipts')?.n).toBe(1);if(stage==='append')expect(f.sql('SELECT count(*) AS n FROM workspace_page_pending')?.n).toBe(2);
+    }finally{await f.cleanup();}
+  });
+}

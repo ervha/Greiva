@@ -26,7 +26,7 @@ pub(super) async fn validate_schema(tx: &mut Transaction<'_,Sqlite>) -> StoreRes
 fn text<'a>(value: &'a Value,key: &str) -> StoreResult<&'a str> {
     value[key].as_str().ok_or_else(||format!("Missing string field: {key}"))
 }
-fn timestamp(value: &str) -> bool {
+pub(super) fn timestamp(value: &str) -> bool {
     if value.len()!=24 || !value.is_ascii() || !date_only(&value[..10]) { return false; }
     let b=value.as_bytes();
     b[10]==b'T' && b[13]==b':' && b[16]==b':' && b[19]==b'.' && b[23]==b'Z' &&

@@ -12,6 +12,12 @@ async fn main() {
         let result=match &store {
             Err(error)=>Err(error.clone()),
             Ok(store)=>match request["command"].as_str().unwrap_or("") {
+
+                "page_create"|"page_append"=>match serde_json::from_value::<Vec<u8>>(request["update"].clone()) {Ok(bytes)=>if request["command"]=="page_create" {store.page_create(request["pageId"].as_str().unwrap_or(""),request["title"].as_str().unwrap_or(""),&bytes).await.map(|_|Value::Null)}else{store.page_append(request["pageId"].as_str().unwrap_or(""),&bytes).await.map(|_|Value::Null)},Err(_)=>Err("Invalid Page update".into())},
+                "page_load"=>store.page_load(request["pageId"].as_str().unwrap_or("")).await,
+                "page_prepare"=>store.page_prepare(request["pageId"].as_str().unwrap_or("")).await,
+                "page_ack"=>store.page_ack(request["pageId"].as_str().unwrap_or(""),request["sequence"].as_str().unwrap_or(""),request["wire"].as_str().unwrap_or(""),request["response"].clone()).await.map(|_|Value::Null),
+                "page_receive"=>store.page_receive(request["pageId"].as_str().unwrap_or(""),request["response"].clone()).await.map(|_|Value::Null),
                 "snapshot"=>store.snapshot().await,
                 "mutate"=>match serde_json::from_value::<LocalOperation>(request["operation"].clone()) {Ok(value)=>store.mutate(value).await,Err(_)=>Err("Invalid workspace request".into())},
                 "prepare"=>store.prepare().await.map(|value|value.map(Value::String).unwrap_or(Value::Null)),

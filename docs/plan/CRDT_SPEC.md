@@ -1,5 +1,7 @@
 # Page CRDT本番契約候補
 
+v0.22.0：workspace別Rust SQLiteのPage binary/queue/receipt/remote保存を追加。[耐久化と未接続範囲](../development/PRIVATE_PAGE_DURABILITY.md)。意味的Yjs検査/captured client session/通常Editor・IPCは次工程。
+
 v0.21.0の実装：認証付きHTTP binary保存基盤/初期metadata/明示schema3を追加。[手順と未完成範囲](../development/PRIVATE_PAGE_DOCUMENTS.md)。Hocuspocus/WebSocket・端末耐久化・Editor/通常UI接続、snapshot/compactionはこの実装に含めない。
 
 2026-10-05、設計案。中核はYjs/Hocuspocus、EditorはTiptap/ProseMirror。[採用条件](../decisions/poc-technology-selection.md)を維持する。

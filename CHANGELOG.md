@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.22.0 — 2026-10-05
+
+- Workspace別Rust SQLiteへPage binary/正確な送信待ちwire/ACK receipt/remote diffの原子保存を追加。private local schema6へのbinding確認済みupgrade、queue順序/再送、corrupt拒否とpending保持に対応。旧PoC DBは保持。
+- 新native13＋実PG1、通常193/PG66/型/frontend/Windows build、8条件SIGKILL、実HTTP＋2つのRust SQLiteのACK喪失/並行収束/失効pendingを確認。全16判断を記録。通常UI/IPC/captured Page session/Hocuspocus/実Auth/nativeは未完成、専用APIはv0.21/schema3を継続。
+
 ## 0.21.0 — 2026-10-05
 
 - 個人workspace Page本文の保護HTTP保存基盤を実装。明示schema3、初期title、append-only V1 binary/digest/順序/再送、state-vector diff、未知XML保持と破損拒否に対応。認可と本文保存は同一transaction。
