@@ -1,5 +1,7 @@
 import { it, expect, vi } from 'vitest';
 import { newId } from '@greiva/shared';
+import {createHash} from 'node:crypto';
+import {emptyPageUpdate} from '@greiva/sync';
 import { AuthSession, PrivateWorkspaceConnection, type WorkspaceSessionStore } from '@greiva/sync';
 function deferred<T>(){let resolve!:(value:T)=>void;const promise=new Promise<T>(yes=>{resolve=yes;});return {promise,resolve};}
 function fixture(){
@@ -68,4 +70,22 @@ it('PRIVATE-CONNECTION: registration is serial; HTTP/JSON errors and expiry are 
 it('PRIVATE-CONNECTION: replacing the active sync or closing a connection cancels it while shared auth stays verified',async()=>{
   const f=fixture();await f.login();await f.connection.bootstrap();const first=f.connection.openSync(f.store),second=f.connection.openSync(f.store);await expect(first.push(f.wire)).rejects.toMatchObject({stage:'closed'});f.connection.close();await expect(second.push(f.wire)).rejects.toMatchObject({stage:'closed'});expect(f.auth.identity).toMatchObject({subjectId:'owner-A'});
   for(const config of [{apiUrl:'http://foreign.invalid',clientId:f.clientId},{apiUrl:'https://api.invalid/path',clientId:f.clientId},{apiUrl:'https://api.invalid',clientId:'invalid'}])expect(()=>new PrivateWorkspaceConnection(f.auth,config)).toThrow('Private workspace connection configuration');
+});
+
+function pageFixture(f:ReturnType<typeof fixture>,pageId=newId()){
+  const bytes=emptyPageUpdate(),response={protocolVersion:1,workspaceId:f.workspaceId,pageId,documentName:'page:'+pageId,editorSchemaVersion:1,metadata:{id:pageId,title:'fixture',yDocId:'page:'+pageId,createdAt:'2026-10-05T00:00:00.000Z',updatedAt:'2026-10-05T00:00:00.000Z'},headOrder:'1',update:Buffer.from(bytes).toString('base64url'),digest:createHash('sha256').update(bytes).digest('hex'),stateVector:'AA'},request={protocolVersion:1,clientId:f.clientId,editorSchemaVersion:1,stateVector:'AA'},store={acknowledge:vi.fn(async()=>{}),receive:vi.fn(async()=>{})};
+  return{pageId,response,request,store};
+}
+it('PRIVATE-CONNECTION-PAGE: same Page replacement closes old session, other Pages remain active; close leaves shared Auth verified',async()=>{
+  const f=fixture();await f.login();const context=await f.connection.bootstrap(),a=pageFixture(f),b=pageFixture(f);const first=f.connection.openPage(a.pageId,a.store),other=f.connection.openPage(b.pageId,b.store),replaced=f.connection.openPage(a.pageId,a.store);
+  await expect(first.pull(a.request)).rejects.toMatchObject({stage:'closed'});f.fetchPort.mockResolvedValueOnce(new Response(JSON.stringify(b.response)));await other.pull(b.request);f.fetchPort.mockResolvedValueOnce(new Response(JSON.stringify(a.response)));await replaced.pull(a.request);
+  expect(b.store.receive).toHaveBeenCalledWith({...context,pageId:b.pageId,documentName:'page:'+b.pageId,editorSchemaVersion:1},b.request,b.response,expect.any(Uint8Array));expect(String(f.fetchPort.mock.calls.at(-1)?.[0])).toBe(f.config.apiUrl+'/v1/workspaces/'+f.workspaceId+'/pages/'+a.pageId+'/document/read');
+  f.connection.close();await expect(other.pull(b.request)).rejects.toMatchObject({stage:'closed'});await expect(replaced.pull(a.request)).rejects.toMatchObject({stage:'closed'});expect(f.auth.identity?.subjectId).toBe('owner-A');
+});
+it('PRIVATE-CONNECTION-PAGE: refresh aborts old in-flight read, fresh bootstrap can reopen same bound store without ABA revival',async()=>{
+  const f=fixture();await f.login();await f.connection.bootstrap();const p=pageFixture(f),old=f.connection.openPage(p.pageId,p.store),wait=deferred<Response>();f.fetchPort.mockImplementationOnce(()=>wait.promise);const work=old.pull(p.request);await expect.poll(()=>f.fetchPort.mock.calls.length).toBe(2);await f.auth.refresh();wait.resolve(new Response(JSON.stringify(p.response)));await expect(work).rejects.toMatchObject({stage:'closed'});expect(p.store.receive).not.toHaveBeenCalled();await f.connection.bootstrap();const fresh=f.connection.openPage(p.pageId,p.store);f.fetchPort.mockResolvedValueOnce(new Response(JSON.stringify(p.response)));await fresh.pull(p.request);expect(p.store.receive).toHaveBeenCalledOnce();await expect(old.pull(p.request)).rejects.toMatchObject({stage:'closed'});
+});
+it('PRIVATE-CONNECTION-PAGE: invalid IDs/expiry/403 cannot open or commit a Page; forbidden closes every captured session',async()=>{
+  const f=fixture(),p=pageFixture(f);expect(()=>f.connection.openPage(p.pageId,p.store)).toThrow('authentication');await f.login();await f.connection.bootstrap();expect(()=>f.connection.openPage('invalid',p.store)).toThrow('configuration');const session=f.connection.openPage(p.pageId,p.store),other=f.connection.openPage(newId(),p.store);f.fetchPort.mockResolvedValueOnce(new Response('private body',{status:403}));await expect(session.pull(p.request)).rejects.toMatchObject({stage:'closed'});expect(f.connection.context).toBeNull();expect(p.store.receive).not.toHaveBeenCalled();await expect(other.pull(p.request)).rejects.toMatchObject({stage:'closed'});
+  const expired=fixture();await expired.login();await expired.connection.bootstrap();const q=pageFixture(expired),active=expired.connection.openPage(q.pageId,q.store);expired.clock.now=200;expect(()=>expired.connection.openPage(q.pageId,q.store)).toThrow('authentication');await expect(active.pull(q.request)).rejects.toMatchObject({stage:'transport'});expect(q.store.receive).not.toHaveBeenCalled();
 });

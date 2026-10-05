@@ -1,0 +1,8 @@
+
+Running 1 test using 1 worker
+
+  ✓  1 [chromium] › tests/e2e/private-page-runtime.spec.ts:4:1 › PAGE-BROWSER-RUNTIME: real secure-context WebCrypto/base64 and portable session validate and commit binary without Node APIs (890ms)
+
+  1 passed (4.8s)
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.

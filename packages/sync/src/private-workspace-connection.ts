@@ -1,4 +1,5 @@
 import { idSchema, privateApiOrigin } from '@greiva/shared';
+import {PageSyncSession,type PageSessionStore} from './page-session.js';
 import { privateBootstrapResponseSchema } from '@greiva/protocol/workspace';
 import { AuthSession, AuthSessionError, type AuthIdentity } from './auth-session.js';
 import { WorkspaceSyncSession, type WorkspaceSyncContext, type WorkspaceSessionStore } from './workspace-session.js';
@@ -25,6 +26,7 @@ export class PrivateWorkspaceConnection {
   #closed = false;
   #controller = new AbortController();
   #session: WorkspaceSyncSession | null = null;
+  #pages = new Map<string,{session:PageSyncSession;detach:()=>void}>();
   #detach: (() => void) | null = null;
   constructor(auth: AuthSession, configuration: Readonly<{ apiUrl: string; clientId: string }>, fetchPort: typeof fetch = globalThis.fetch) {
     try { this.#api = privateApiOrigin(configuration.apiUrl); this.#clientId = idSchema.parse(configuration.clientId); }
@@ -34,7 +36,7 @@ export class PrivateWorkspaceConnection {
   get context(): WorkspaceSyncContext | null {
     return !this.#closed && this.#lease && !this.#lease.aborted && this.#context && sameOwner(this.#auth.identity, this.#context) ? this.#context : null;
   }
-  close() { this.#closed = true; this.#controller.abort(); this.#session?.close(); this.#detach?.(); this.#session = null; this.#detach = null; }
+  close() { for(const page of this.#pages.values()){page.session.close();page.detach();}this.#pages.clear();this.#closed = true; this.#controller.abort(); this.#session?.close(); this.#detach?.(); this.#session = null; this.#detach = null; }
   #active(context: WorkspaceSyncContext, lease: AbortSignal) {
     if (this.#closed || lease.aborted || lease !== this.#lease) throw new PrivateConnectionError('closed');
     if (!sameOwner(this.#auth.identity, context)) throw new PrivateConnectionError('authentication');
@@ -103,4 +105,17 @@ export class PrivateWorkspaceConnection {
     this.#detach = () => lease.removeEventListener('abort', invalidated);
     return session;
   }
+  openPage(candidateId:string,store:PageSessionStore):PageSyncSession {
+    const context=this.context,lease=this.#lease;if(!context || !lease)throw new PrivateConnectionError(this.#closed?'closed':'authentication');
+    let pageId:string;try{pageId=idSchema.parse(candidateId);}catch{throw new PrivateConnectionError('configuration');}
+    const previous=this.#pages.get(pageId);previous?.session.close();previous?.detach();
+    const acknowledge=store.acknowledge.bind(store),receive=store.receive.bind(store),path='/v1/workspaces/'+context.workspaceId+'/pages/'+pageId+'/document/';
+    const session=new PageSyncSession({...context,pageId,documentName:'page:'+pageId,editorSchemaVersion:1},{
+      transport:{push:async(kind,wire,signal)=>(await this.#call(path+kind,wire,signal,{context,lease})).value,read:async(request,signal)=>(await this.#call(path+'read',request,signal,{context,lease})).value},
+      store:{acknowledge:async(...args)=>{this.#active(context,lease);await acknowledge(...args);this.#active(context,lease);},receive:async(...args)=>{this.#active(context,lease);await receive(...args);this.#active(context,lease);}},
+    });
+    const invalidated=()=>{session.close();if(this.#pages.get(pageId)?.session===session)this.#pages.delete(pageId);};lease.addEventListener('abort',invalidated,{once:true});
+    this.#pages.set(pageId,{session,detach:()=>lease.removeEventListener('abort',invalidated)});return session;
+  }
+
 }

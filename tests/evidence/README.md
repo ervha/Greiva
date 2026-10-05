@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-05 / v0.23.0 / [Page client session](private-page-session-20261005/SUMMARY.md): 新15 unit、通常208/PG66/型/Windows build/実browser1。Yjs/digest/固定store/close/遅着、Auth lease、実HTTP/SQLite。通常IPC/UI/Hocuspocus/native Authは未完成。
+
 - 2026-10-05 / v0.22.0 / [Page端末耐久保存](private-page-store-20261005/SUMMARY.md): 新native13＋実PG1、通常193/PG66/型/Windows build。SQLite6/binding/既存structured保持、binary/queue/ACK/remote原子保存、SIGKILL8/実HTTP2peer。captured Page session/通常UI/実Auth/nativeは未完成。
 
 - 2026-10-05 / v0.21.0 / [Page本文保存](private-page-20261005/SUMMARY.md): 新3＋実PG11、通常180/PG65/型/Windows build。明示schema3、binary/diff/未知XML/再送/破損拒否、期限/失効、実HTTP/SIGKILL、専用Compose。端末Page queue/Hocuspocus/通常UI/実Auth/nativeは未完成。

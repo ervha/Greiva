@@ -12,3 +12,6 @@ export type { WorkspaceSyncContext, WorkspaceSessionTransport, WorkspaceSessionS
 export interface TransactionBoundary<TTransaction> {
   transaction<T>(work: (transaction: TTransaction) => Promise<T>): Promise<T>;
 }
+
+export {PageSyncSession,PageSessionError} from './page-session.js';
+export type {PageSyncContext,PageReceipt,PageSessionTransport,PageSessionStore} from './page-session.js';

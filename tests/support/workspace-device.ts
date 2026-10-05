@@ -23,3 +23,8 @@ export class WorkspaceDevice implements WorkspaceSessionStore {
   async applyPull(context:WorkspaceSyncContext,request:unknown,response:WorkspacePullResponse) {this.check(context);await this.request('pull',{request,response});}
   async close(signal:NodeJS.Signals='SIGTERM') {const child=this.child;if(!child)return;await new Promise<void>(done=>{child.once('exit',()=>done());child.kill(signal);});}
 }
+
+export function workspacePagePort(device:WorkspaceDevice,pageId:string):import('@greiva/sync').PageSessionStore {
+  const check=(context:import('@greiva/sync').PageSyncContext)=>{if(context.pageId!==pageId || context.documentName!=='page:'+pageId || Object.entries(device.context).some(([key,value])=>context[key as keyof typeof device.context]!==value))throw Error('Page port binding mismatch');};
+  return{acknowledge:async(context,prepared,response)=>{check(context);await device.request('page_ack',{...prepared,response});},receive:async(context,_request,response,_update)=>{check(context);await device.request('page_receive',{pageId,response});}};
+}

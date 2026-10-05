@@ -22,4 +22,11 @@ export const privatePageAppendResponseSchema = z.strictObject({ ...scope, server
 // A diff can combine many committed frames; do not apply the input frame bound
 // to it and strand a larger previously acknowledged document.
 export const privatePageReadResponseSchema = z.strictObject({ ...scope, metadata: pageSchema, headOrder: structuredOrderSchema, update: z.string().min(1).regex(/^[A-Za-z0-9_-]+$/), digest, stateVector: responseVector })
-  .refine(value => value.documentName === `page:${value.pageId}` && value.metadata.id === value.pageId && value.metadata.yDocId === value.documentName, 'Page binding mismatch');
+  .refine(value => value.documentName === `page:${value.pageId}` && value.metadata.id === value.pageId && value.metadata.yDocId === value.documentName && BigInt(value.headOrder)>0n, 'Page binding mismatch');
+
+export const privatePagePreparedSchema=z.strictObject({sequence:structuredOrderSchema.refine(value=>BigInt(value)>0n),pageId:idSchema,kind:z.enum(['bootstrap','append']),digest,wire:z.string().min(1)});
+export type PrivatePagePrepared=z.infer<typeof privatePagePreparedSchema>;
+export type PrivatePageReadRequest=z.infer<typeof privatePageReadRequestSchema>;
+export type PrivatePageBootstrapResponse=z.infer<typeof privatePageBootstrapResponseSchema>;
+export type PrivatePageAppendResponse=z.infer<typeof privatePageAppendResponseSchema>;
+export type PrivatePageReadResponse=z.infer<typeof privatePageReadResponseSchema>;

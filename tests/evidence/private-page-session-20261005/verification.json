@@ -1,0 +1,39 @@
+{
+  "result": "Pass",
+  "version": "0.23.0",
+  "unit": {
+    "pass": 208,
+    "skip": 66,
+    "new": 15
+  },
+  "postgres": {
+    "pass": 66,
+    "skip": 0,
+    "extendedPageClient": 1
+  },
+  "browser": {
+    "pass": 1,
+    "skip": 0,
+    "scope": "Real Docker Chromium secure-context WebCrypto/base64/portable Page session; no Node Buffer/crypto in client codec"
+  },
+  "typecheck": "Pass",
+  "frontend": "Pass",
+  "normalWindowsBuild": "Pass",
+  "buildSourcesMatch": 111,
+  "externalNpm315Unchanged": true,
+  "externalCargoBothLocksUnchanged": true,
+  "pageSession": "Strict prepared/bytes/digest/ACK/read binding; unknown/large XML; async hash/close; captured immutable context/ports; same-ID ABA; serialization; safe failures",
+  "connection": "Auth refresh/close/403 expires old sessions; same Page replacement preserves other Pages; actual signed HTTP and Rust SQLite commit/remote receive/refresh/reopen/revoked pending",
+  "backend": "Dedicated API/preview unchanged v0.21/schema3; local schema6 and wire1 retained",
+  "reportCredentialScan": "Selected unit/PG reports lack compact JWT/private key/publishable key; Playwright config env stripped",
+  "initialFailures": [],
+  "limits": [
+    "No normal UI/Tauri IPC/native Auth/OS credential or Hocuspocus continuous room authorization",
+    "Docker Browser crypto is not actual Tauri WebView2/Android proof",
+    "No real Supabase normal login or new native IME/Android proof",
+    "Old store commit already begun can finish after close; no cross-store redirect or session success; native Editor apply guard still required",
+    "Epoch reset/metadata rename/delete/Conflict/retention/snapshot/Web durable store unfinished",
+    "Existing UI/dedicated API evidence retained; no UI/backend implementation change",
+    "Telemetry not implemented or collected"
+  ]
+}

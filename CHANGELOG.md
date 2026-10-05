@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.23.0 — 2026-10-05
+
+- captured Auth/workspace/Pageのportable HTTP sync sessionを追加。正確なprepared wire/Yjs構文/digest/応答bindingを照合し、保存先固定、refresh/close/同Page置換/遅着応答をguard。Browser標準WebCrypto/base64を使用。
+- 新15 unit、通常208/PG66/型/frontend/Windows build、実Docker Chromium1、実HTTP＋Rust SQLiteの保存/remote/refresh/失効pendingを確認。全16判断を記録。通常UI/IPC/Hocuspocus/native Auth/実ユーザーAuth・実WebView2/Androidは未完成。
+
 ## 0.22.0 — 2026-10-05
 
 - Workspace別Rust SQLiteへPage binary/正確な送信待ちwire/ACK receipt/remote diffの原子保存を追加。private local schema6へのbinding確認済みupgrade、queue順序/再送、corrupt拒否とpending保持に対応。旧PoC DBは保持。
