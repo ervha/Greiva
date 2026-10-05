@@ -1,0 +1,12 @@
+{
+  "result": "Pass",
+  "version": "0.18.0",
+  "imageId": "sha256:1296c9ab4df452512a1b41ce1dfe9205ffea2c74c9f512860c40e1cbb46a75aa",
+  "publicBinding": "127.0.0.1:1421",
+  "innerApi": "127.0.0.1:3002",
+  "authHtml": 200,
+  "unauthenticatedProtectedSession": 401,
+  "provider": "Provided Supabase URL/ES256/Publishable key in ignored local env; no real user login",
+  "data": "Existing dedicated private development PostgreSQL volume retained; ordinary PoC/SQLite untouched",
+  "preview": "Docker Compose preview profile running; temporary earlier preview container stopped"
+}

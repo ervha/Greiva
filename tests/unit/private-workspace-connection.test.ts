@@ -21,6 +21,15 @@ it('PRIVATE-CONNECTION: bootstrap captures verified owner and strict registratio
   expect(JSON.parse(String(f.fetchPort.mock.calls[0]?.[1]?.body))).toEqual({clientId:f.clientId});
   const session=f.connection.openSync(f.store);await session.push(f.wire);await session.pull(f.pullRequest);expect(f.store.acknowledge).toHaveBeenCalledWith(context,JSON.parse(f.wire),f.push,f.wire);expect(f.store.applyPull).toHaveBeenCalledWith(context,f.pullRequest,f.pull);
 });
+it('PRIVATE-CONNECTION: fetch port is called without a connection receiver, as required by native browser fetch', async () => {
+  const f = fixture(); await f.login();
+  const fetchPort: typeof fetch = async function (this: unknown, input, init) {
+    expect(this).toBeUndefined(); return f.fetchPort(input, init);
+  };
+  const connection = new PrivateWorkspaceConnection(f.auth, f.config, fetchPort);
+  try { await connection.bootstrap(); const sync = connection.openSync(f.store); await sync.push(f.wire); await sync.pull(f.pullRequest); }
+  finally { connection.close(); f.auth.close(); }
+});
 it('PRIVATE-CONNECTION: malformed/foreign-client bootstrap never binds a store',async()=>{
   const f=fixture();await f.login();for(const response of [{...f.bootstrap,clientId:newId()},{...f.bootstrap,protocolVersion:2},{...f.bootstrap,epoch:'invalid'},{...f.bootstrap,token:'unexpected'},{...f.bootstrap,workspaceId:'invalid'}]){
     f.fetchPort.mockResolvedValueOnce(new Response(JSON.stringify(response)));await expect(f.connection.bootstrap()).rejects.toMatchObject({stage:'protocol'});expect(f.connection.context).toBeNull();expect(()=>f.connection.openSync(f.store)).toThrow();}

@@ -1,0 +1,55 @@
+
+> greiva-poc@0.18.0 test:structured-e2e
+> node scripts/test-structured-e2e.mjs
+
+{"event":"structured-e2e-isolation","schema":"greiva_test_01a10a4043c970d1ab6316137bcc4911"}
+
+> greiva-poc@0.18.0 test:e2e
+> npm run build:packages && npm run build:servers && playwright test
+
+
+> greiva-poc@0.18.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application
+
+
+> @greiva/shared@0.18.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/domain@0.18.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.18.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.18.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.18.0 build
+> tsc -p tsconfig.json
+
+
+> greiva-poc@0.18.0 build:servers
+> npm run build -w @greiva/api && npm run build -w @greiva/collaboration
+
+
+> @greiva/api@0.18.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/collaboration@0.18.0 build
+> tsc -p tsconfig.json
+
+
+Running 2 tests using 1 worker
+
+  ✓  1 [chromium] › tests/e2e/structured-sync.spec.ts:11:1 › STEP7-E2E: offline creation/reload, peer field merge, keyboard conflict resolution and focus preservation use real HTTP and Rust SQLite (10.7s)
+  ✓  2 [chromium] › tests/e2e/structured-sync.spec.ts:43:1 › STEP7-E2E-DRAFT: peer updates do not overwrite an active draft; stale save retains user input; remote conflict choice is explicit (6.9s)
+
+  2 passed (21.5s)
+{"event":"structured-e2e-cleanup","schema":"greiva_test_01a10a4043c970d1ab6316137bcc4911","remaining":0}
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.

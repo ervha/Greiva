@@ -42,12 +42,15 @@ export class PrivateWorkspaceConnection {
   async #call(path: string, body: unknown, external: AbortSignal | undefined, expected?: { context: WorkspaceSyncContext; lease: AbortSignal }) {
     if (this.#closed) throw new PrivateConnectionError('closed');
     if (!this.#auth.identity) throw new PrivateConnectionError('authentication');
+    // Browser fetch must be invoked as a function, not as a method with this
+    // connection as its native receiver (which browsers reject).
+    const fetchPort = this.#fetch;
     let result: { status: number; value: unknown; validJson: boolean; identity: AuthIdentity; lease: AbortSignal };
     try {
       result = await this.#auth.authorized(async (authorization, lease, identity) => {
         if (expected) this.#active(expected.context, expected.lease);
         const signal = AbortSignal.any([lease, this.#controller.signal, AbortSignal.timeout(15_000), ...(external ? [external] : [])]);
-        const response = await this.#fetch(this.#api + path, { method: 'POST', headers: { authorization, 'content-type': 'application/json' },
+        const response = await fetchPort(this.#api + path, { method: 'POST', headers: { authorization, 'content-type': 'application/json' },
           body: typeof body === 'string' ? body : JSON.stringify(body), credentials: 'omit', redirect: 'error', cache: 'no-store', signal });
         let value: unknown, validJson = true; try { value = await response.json(); } catch { validJson = false; }
         return { status: response.status, value, validJson, identity, lease };

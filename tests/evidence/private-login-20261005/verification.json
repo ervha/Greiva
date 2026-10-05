@@ -1,0 +1,48 @@
+{
+  "result": "Pass",
+  "version": "0.18.0",
+  "unit": {
+    "pass": 171,
+    "skip": 30,
+    "newController": 7,
+    "newConfiguration": 2,
+    "newBrowserFetchReceiver": 1
+  },
+  "postgres": {
+    "pass": 30,
+    "skip": 0
+  },
+  "browser": {
+    "privateLogin": 8,
+    "ordinaryUi": 59,
+    "actualStructuredSyncConflict": 2,
+    "headingBackwardRecheck": 3,
+    "automaticRetries": 0
+  },
+  "typecheck": "Pass",
+  "normalWindowsBuild": "Pass",
+  "buildSourcesMatch": 100,
+  "externalNpm315Unchanged": true,
+  "externalCargoBothLocksUnchanged": true,
+  "dedicatedDockerBuild": "Pass",
+  "composePreview": "Pass; auth.html 200 / protected proxy unauthenticated 401",
+  "t3Preview": "Actual URL PC/mobile display inspected; no real credentials entered",
+  "reportCredentialScan": "No compact JWT/private-key/publishable-key material in selected JSON",
+  "initialFailures": [
+    "Initial auth browser 4/8 failed because native fetch was invoked with connection receiver; fixed and receiver regression added",
+    "Initial ordinary UI 58/59; peer Home offset 14 instead of 0 before remote edits; focus precondition strengthened, repeated3 and full59 rechecked; initial cause unconfirmed",
+    "Vite config static import in Node test emit caused TS5097; runtime config load retains both project typechecks",
+    "Temporary preview readiness checked before API listen gave502, then correct401 after wait; final Compose waits for401",
+    "Ignored helper prefix generation corrected before final audits/builds; prior tracked evidence unchanged"
+  ],
+  "limits": [
+    "Controller tokens are memory-only; no OS credential or native workspace IPC",
+    "Provider/session/bootstrap browser responses are fixtures, not real Supabase login proof",
+    "No new workspace server stream/CRDT, public deployment or Windows/Android native auth/IME proof",
+    "Synthetic composition event does not prove physical Microsoft IME",
+    "Single ordinary Home failure root cause unconfirmed; retained for recurrence investigation",
+    "Normal Tauri CSP unchanged; auth preview is browser only",
+    "Telemetry not implemented or collected"
+  ],
+  "reportSanitization": "Only config.webServer.env omitted from selected browser reports; original reports kept ignored; test results unchanged"
+}

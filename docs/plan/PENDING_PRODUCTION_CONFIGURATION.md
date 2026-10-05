@@ -1,5 +1,7 @@
 # 応答・外部環境が必要な事項
 
+v0.18.0：browserの[ログイン確認画面](../development/PRIVATE_LOGIN_PREVIEW.md)を用意。専用Compose previewの`http://127.0.0.1:1421/auth.html`で、自分の検証ユーザーによるlogin→workspace登録→refresh→再登録→logoutが後で必要。password/tokenをチャットへ求めず、今は操作依頼を出さない。[全199判断](AUTONOMOUS_DECISIONS.md)と単発Home試験の未確定原因を記録し、server同期等の独立作業を続ける。
+
 v0.17.0：保護APIの明示設定/起動と初期化を実装。[全178判断](AUTONOMOUS_DECISIONS.md)。専用local ComposeのDB/volumeを新規に作り、認証なし401を確認。実ユーザーloginは未確認で、password/tokenをチャットに求めない。追加回答なしでログイン確認画面などの独立作業を進める。
 
 v0.16.0：認証→strict bootstrap→固定した同期session/storeの接続を実装。[全164判断](AUTONOMOUS_DECISIONS.md)。新server streamが未接続のHTTP404でもpending保持を実PG/native SQLiteで確認した。実ユーザー認証/通常UI/IPCは未完成。追加回答を求めず、保護API起動/configへ進める。
@@ -16,7 +18,7 @@ v0.13.0までの[継続開発118判断のまとめ](AUTONOMOUS_DECISIONS.md)を�
 
 | 事項 | 必要な情報/環境 | 状態と先行できる作業 |
 | --- | --- | --- |
-| 実Auth検証 | 通常UI、OS credential保存、検証用ユーザーによる接続 | URL/ES256/Publishable keyは受領済み。memory-only client認証/保護factoryを実装、公開HTTPS/不正署名拒否は確認済み。正常実ログイン/失効/端末間同期は未確認。現在追加回答待ちなし。password/tokenはチャットへ求めない |
+| 実Auth検証 | 検証ユーザーのbrowser入力、後続native UI/OS credential保存 | 専用auth.htmlと保護proxyを実装。公開設定/不正署名拒否は確認済み、正常実login/失効/端末間同期は未確認。後で操作をまとめる。今は操作依頼なし、password/tokenをチャットへ求めない |
 | 本番接続/配布 | API/collaboration/Auth endpoint、署名/配布先/credential管理 | 未設定。public deploy/課金/ホストglobal toolchain追加をしない |
 | offline/logout/失効 | 端末保存データへのoffline権限、logout/device失効時の保持/消去/再ログイン | 未決定。期限や自動削除を仮定せず、保存済みpendingを保持する |
 | 旧PoC取り込み | 初期提供の有無、workspace帰属、旧pending/ACK/cursor/titleの扱い | 未決定。旧DBを移行・消去せず新contract/fixtureを先行 |

@@ -42,3 +42,5 @@ retry backoff/同時送信数/batch上限、cursor保持期間、offline端末�
 ## 受入
 
 同ID/同wire duplicate、同ID/違うwire拒否、server commit後ACK loss、local ACK保存中kill、pull適用/cursor間kill、複数page、pending上へのremote、same-field Conflict解決、account切替中response、他workspace read/write/CRDT拒否を検査する。実DB transactionと実OS保存復旧の証拠を分ける。外部action成功の保証はこのsync ACKに含めない。
+
+v0.18.0時点：native WorkspaceStore（v0.14.0）のprepared/ACK/pull durability、認証済PrivateWorkspaceConnection（v0.16.0）、browser確認画面を実装済み。上記v0.13.0段落のnative未実装は当時の状態。新server stream/CRDT・通常Tauri IPCへの接続はまだない。HTTP404でも保存済みpendingを維持し、画面のworkspace登録確認を同期済みへしない。次はowner/deviceを同じDB transactionで照合するserver同期を進める。

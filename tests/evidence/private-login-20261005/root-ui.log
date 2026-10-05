@@ -1,0 +1,106 @@
+
+> greiva-poc@0.18.0 test:e2e
+> npm run build:packages && npm run build:servers && playwright test
+
+
+> greiva-poc@0.18.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application
+
+
+> @greiva/shared@0.18.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/domain@0.18.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.18.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.18.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.18.0 build
+> tsc -p tsconfig.json
+
+
+> greiva-poc@0.18.0 build:servers
+> npm run build -w @greiva/api && npm run build -w @greiva/collaboration
+
+
+> @greiva/api@0.18.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/collaboration@0.18.0 build
+> tsc -p tsconfig.json
+
+
+Running 59 tests using 2 workers
+
+  ✓   1 [chromium] › tests/e2e/block-drag.spec.ts:29:1 › STEP8-DRAG-PREVIEW: held block floats, siblings make space, drop and cancellation retain the document (4.4s)
+  ✓   2 [chromium] › tests/e2e/block-drag-large.spec.ts:5:1 › STEP8-DRAG-1000: real gutter drag retains every block and reports browser frame timing (6.0s)
+  ✓   3 [chromium] › tests/e2e/block-drag.spec.ts:66:1 › STEP8-DRAG-REMOTE: a real peer edit cancels the stale drag without inserting its text (5.1s)
+  ✓   4 [chromium] › tests/e2e/collaboration.spec.ts:66:1 › STEP4-PARAGRAPH: simultaneous edits retain both changes and remote update keeps the caret (5.4s)
+  ✓   5 [chromium] › tests/e2e/block-drag.spec.ts:83:1 › STEP8-DRAG-DOWN: a multiline block opens a full-height gap, reduced motion and outside drop preserve content (5.9s)
+  ✓   6 [chromium] › tests/e2e/collaboration.spec.ts:82:1 › STEP4-BLOCKS: different blocks, local undo does not undo the other client (6.7s)
+  ✓   7 [chromium] › tests/e2e/block-drag.spec.ts:107:1 › STEP8-DRAG-GUTTER: vertical movement in the handle column drops without entering the text (3.9s)
+  ✓   9 [chromium] › tests/e2e/editor-ux.spec.ts:17:1 › STEP2-UX-SLASH: pointer and keyboard share one selection and retain editor focus (4.2s)
+  ✓  10 [chromium] › tests/e2e/editor-ux.spec.ts:35:1 › STEP2-UX-SLASH: wrap, Home/End, Tab, search aliases and empty dismissal (4.0s)
+  ✓   8 [chromium] › tests/e2e/collaboration.spec.ts:100:1 › STEP4-OFFLINE: each client adds and deletes blocks, reconnect and fresh client restore the result (10.1s)
+  ✓  11 [chromium] › tests/e2e/editor-ux.spec.ts:63:1 › STEP2-UX-SLASH: outside dismissal preserves query, narrow popup stays on screen (3.6s)
+  ✓  12 [chromium] › tests/e2e/collaboration.spec.ts:139:1 › STEP4-MOVE: both clients move blocks while offline (6.4s)
+  ✓  13 [chromium] › tests/e2e/editor-ux.spec.ts:80:1 › STEP2-UX-TOGGLE: Enter reuses existing body and collapse moves caret to visible heading (4.9s)
+  ✓  15 [chromium] › tests/e2e/editor-ux.spec.ts:100:1 › STEP2-UX-TOGGLE: pointer retains caret, keyboard button activation retains focus (5.0s)
+  ✓  14 [chromium] › tests/e2e/collaboration.spec.ts:153:1 › STEP4-NESTED: edit and move within a nested Toggle, then reconnect (8.3s)
+  ✓  16 [chromium] › tests/e2e/editor-ux.spec.ts:120:1 › STEP2-UX-TOGGLE: folding is excluded from content undo and nested shortcut uses nearest toggle (5.5s)
+  ✓  17 [chromium] › tests/e2e/collaboration.spec.ts:178:1 › STEP4-TODO: concurrent checked change and nested list edits retain valid nodes (6.9s)
+  ✓  18 [chromium] › tests/e2e/editor-ux.spec.ts:140:1 › STEP2-UX-VISUAL: capture polished slash menu and toggle at a desktop viewport (6.1s)
+  ✓  19 [chromium] › tests/e2e/collaboration.spec.ts:201:1 › STEP4-ISOLATION: another Page never receives this Page body (4.7s)
+  ✓  20 [chromium] › tests/e2e/editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts 本文, edit and delete (4.2s)
+  ✓  22 [chromium] › tests/e2e/editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts 見出し1, edit and delete (3.6s)
+  ✓  21 [chromium] › tests/e2e/focus-reconnect.spec.ts:37:3 › STEP8-FOCUS-paragraph-forward: peer updates during blur retain selection and local Undo excludes remote edits (9.8s)
+  ✓  23 [chromium] › tests/e2e/editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts 見出し2, edit and delete (5.0s)
+  ✓  25 [chromium] › tests/e2e/editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts 見出し3, edit and delete (3.8s)
+  ✓  24 [chromium] › tests/e2e/focus-reconnect.spec.ts:37:3 › STEP8-FOCUS-paragraph-backward: peer updates during blur retain selection and local Undo excludes remote edits (8.4s)
+  ✓  26 [chromium] › tests/e2e/editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts 箇条書き, edit and delete (3.5s)
+  ✓  28 [chromium] › tests/e2e/editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts 番号付きリスト, edit and delete (4.9s)
+  ✓  27 [chromium] › tests/e2e/focus-reconnect.spec.ts:37:3 › STEP8-FOCUS-heading-forward: peer updates during blur retain selection and local Undo excludes remote edits (8.6s)
+  ✓  29 [chromium] › tests/e2e/editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts Todo, edit and delete (3.4s)
+  ✓  31 [chromium] › tests/e2e/editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts 引用, edit and delete (4.2s)
+  ✓  32 [chromium] › tests/e2e/editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts コード, edit and delete (2.8s)
+  ✓  30 [chromium] › tests/e2e/focus-reconnect.spec.ts:37:3 › STEP8-FOCUS-heading-backward: peer updates during blur retain selection and local Undo excludes remote edits (9.0s)
+  ✓  33 [chromium] › tests/e2e/editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts 区切り線, edit and delete (3.7s)
+  ✓  35 [chromium] › tests/e2e/editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts Toggle, edit and delete (3.5s)
+  ✓  34 [chromium] › tests/e2e/focus-reconnect.spec.ts:37:3 › STEP8-FOCUS-todo-forward: peer updates during blur retain selection and local Undo excludes remote edits (8.6s)
+  ✓  36 [chromium] › tests/e2e/editor.spec.ts:41:1 › STEP2-TODO: checkbox and nested list survive undo/redo (4.2s)
+  ✓  38 [chromium] › tests/e2e/editor.spec.ts:60:1 › STEP8-TODO: each checkbox aligns with its editable text and pointer editing keeps the item (5.0s)
+  ✓  37 [chromium] › tests/e2e/focus-reconnect.spec.ts:37:3 › STEP8-FOCUS-todo-backward: peer updates during blur retain selection and local Undo excludes remote edits (8.8s)
+  ✓  39 [chromium] › tests/e2e/editor.spec.ts:89:1 › STEP2-TOGGLE: nested content folds without losing text and unwraps (5.3s)
+  ✓  41 [chromium] › tests/e2e/editor.spec.ts:112:1 › STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text (2.4s)
+  ✓  42 [chromium] › tests/e2e/editor.spec.ts:127:3 › STEP2-MARKDOWN: #  shortcut (2.8s)
+  ✓  40 [chromium] › tests/e2e/focus-reconnect.spec.ts:37:3 › STEP8-FOCUS-toggle-forward: peer updates during blur retain selection and local Undo excludes remote edits (8.2s)
+  ✓  43 [chromium] › tests/e2e/editor.spec.ts:127:3 › STEP2-MARKDOWN: ##  shortcut (3.7s)
+  ✓  45 [chromium] › tests/e2e/editor.spec.ts:127:3 › STEP2-MARKDOWN: ###  shortcut (2.0s)
+  ✓  46 [chromium] › tests/e2e/editor.spec.ts:127:3 › STEP2-MARKDOWN: -  shortcut (2.7s)
+  ✓  44 [chromium] › tests/e2e/focus-reconnect.spec.ts:37:3 › STEP8-FOCUS-toggle-backward: peer updates during blur retain selection and local Undo excludes remote edits (8.7s)
+  ✓  47 [chromium] › tests/e2e/editor.spec.ts:127:3 › STEP2-MARKDOWN: 1.  shortcut (3.4s)
+  ✓  49 [chromium] › tests/e2e/editor.spec.ts:127:3 › STEP2-MARKDOWN: []  shortcut (3.4s)
+  ✓  50 [chromium] › tests/e2e/editor.spec.ts:136:1 › STEP2-MOVE: drag changes order, undo restores it, keyboard moves the block (4.0s)
+  ✓  48 [chromium] › tests/e2e/focus-reconnect.spec.ts:85:1 › STEP8-RECONNECT-CYCLES: repeated offline edits converge once and restore to an independent client (12.9s)
+  ✓  51 [chromium] › tests/e2e/editor.spec.ts:156:1 › STEP8-HANDLES: typing retains handle DOM and dragging uses current offsets and text (4.5s)
+  ✓  52 [chromium] › tests/e2e/foundation.spec.ts:2:1 › STEP1-E2E: React client starts alongside API and collaboration services (2.4s)
+  ✓  53 [chromium] › tests/e2e/editor.spec.ts:188:1 › STEP2-COMPOSITION: slash menu does not consume composition Enter (2.4s)
+  ✓  55 [chromium] › tests/e2e/structured-local.spec.ts:3:1 › STEP6-E2E: Task and Relation pointer/keyboard CRUD persist with pending operations after renderer/store restart (4.6s)
+  ✓  56 [chromium] › tests/e2e/structured-local.spec.ts:45:1 › STEP6-WRITE-ERROR: failed queue commit retains the draft and permits a safe retry without duplicate Task (3.8s)
+  ✓  54 [chromium] › tests/e2e/persistence.spec.ts:35:1 › STEP5-CRASH: new offline Page metadata and block edits survive renderer/store SIGKILL, reopen offline and converge (11.4s)
+  ✓  57 [chromium] › tests/e2e/persistence.spec.ts:90:1 › STEP5-WRITE-ERROR: failed SQLite commit never sends the unsafe update or reports saved/synced (2.8s)
+  ✓  58 [chromium] › tests/e2e/persistence.spec.ts:107:3 › STEP5-RESTORE-corrupt: incompatible or corrupted SQLite fails closed (1.5s)
+  ✓  59 [chromium] › tests/e2e/persistence.spec.ts:107:3 › STEP5-RESTORE-schema: incompatible or corrupted SQLite fails closed (1.4s)
+
+  59 passed (2.7m)
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.

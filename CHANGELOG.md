@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.18.0 — 2026-10-05
+
+- 独立browserログイン確認画面を追加。memory-only認証、明示workspace登録/refresh/local logout、password欄消去、期限/キャンセル/安全な状態表示、PC/mobile/dark/reduced motion、固定proxy/Compose previewに対応。通常PoC/CSP/旧DBは維持。
+- browser native fetchのreceiver不備を修正。controller7/配置2/receiver1、通常171/PG30/専用画面8/通常画面59/実同期2/型/Windows buildがPass。単発Home試験は再確認3/全59 Passと未確定原因を併記。全21判断を記録。実ユーザー認証/OS credential/native IPC/new server stream/公開運用は未完成。
+
 ## 0.17.0 — 2026-10-05
 
 - 保護APIの明示config/read-only schema readiness、専用起動/初期化コマンド、独立Docker構成を追加。設定/schema不備でlistenせず、失敗/終了時にlistenerとpoolを片付ける。旧PoC経路や既存DBは維持。

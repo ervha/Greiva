@@ -29,3 +29,5 @@ v0.17.0の[専用起動手順](PRIVATE_API_STARTUP.md)で明示設定から保�
 v0.15.0で`supabaseConfiguration`、`supabaseAuthSession`、`createSupabasePrivateApp`を追加した。project URL/algorithmと、client側のPublishable key/Greiva API originを明示的に渡す。通常PoC起動に自動適用するenv名・ログインUIはまだない。client tokenはメモリのみで、refreshとlocal logoutを実装し、署名検証後のidentityだけを公開する。正常login/refreshはprovider fixture＋実保護HTTP/PG/SQLiteで検証した。実Supabaseでは公開HTTPSと実JWKSによる不正署名拒否を確認し、実ユーザーの正常ログインは未確認。[全判断と制約](../decisions/supabase-auth-session.md)。
 
  v0.16.0でPrivateWorkspaceConnectionを追加。認証済AuthSessionと明示API origin/client IDからbootstrapし、同じbindingのworkspace storeへ同期sessionを作る。refresh後は新bootstrapが必要。serverの新同期streamはまだなく、HTTP404でpendingを保持する。通常PoC main/UIにはまだ自動接続しない。[全判断](../decisions/private-workspace-connection.md)。
+
+v0.18.0で[browserログイン確認画面](PRIVATE_LOGIN_PREVIEW.md)を追加した。受領した公開設定をignored環境へ渡し、専用Compose previewの1421/auth.htmlを起動している。自分の検証用ユーザーのpasswordは画面だけへ入力する。developerへ送らない。provider/認証responseのbrowser自動試験はfixtureで、実ユーザー正常系/端末間同期は未確認。normal Tauri UI/OS credentialは未接続。

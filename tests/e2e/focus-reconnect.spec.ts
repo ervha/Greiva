@@ -5,6 +5,7 @@ const sync=(page:Page)=>page.getByLabel('同期状態',{exact:true});
 type Snapshot={pageId:string;clientId:string;clocks:number[][];json:unknown;fragment:string;pending:number;selection:{from:number;to:number;offset:number}};
 const snapshot=(page:Page)=>page.evaluate(()=> (window as unknown as {greivaTest:{snapshot:()=>Snapshot}}).greivaTest.snapshot());
 async function home(page:Page){
+  await expect(body(page)).toBeFocused();
   await page.keyboard.press('Home');
   await expect.poll(async()=> (await snapshot(page)).selection.offset).toBe(0);
 }

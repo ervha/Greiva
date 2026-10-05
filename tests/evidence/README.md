@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-05 / v0.18.0 / [ログイン接続確認](private-login-20261005/SUMMARY.md): controller7/配置2/browser fetch1、通常171/PG30/専用画面8/通常画面59/実同期2/型/Windows build。Compose preview/T3 PC/mobile、password欄消去/期限/close/refresh/保存不使用。初回fetch不備を修正、単発Home未確定原因と再確認3を保持。実Auth正常系/native credential/server同期は未完成。
+
 - 2026-10-05 / v0.17.0 / [保護API起動](private-runtime-20261005/SUMMARY.md): 通常3＋実PG3を追加、通常161/PG30/型/通常Windows build。fresh Docker build/専用Compose、read-only readiness/明示初期化/失敗とSIGTERM cleanup。実ユーザー認証/画面/新同期streamは未完成。
 
 - 2026-10-05 / v0.16.0 / [認証済workspace接続](private-connection-20261005/SUMMARY.md): 新10＋既存非同期9、通常158/実PG27/型/通常Windows build。strict bootstrap、auth leaseと保存先固定、refresh/close/遅着、HTTP404時pending保持。通常UI/新server stream/実ユーザー認証は未完成。

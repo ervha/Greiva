@@ -18,8 +18,9 @@
 | v0.15.0 認証session | [Supabase session](../decisions/supabase-auth-session.md) | 16 | memory-only token、server検証後identity、rotation/close/期限、local logout、両Rust lock整合 |
 | v0.16.0 workspace接続 | [Private connection](../decisions/private-workspace-connection.md) | 16 | strict bootstrap、auth lease、保存先捕捉、refresh/遅着処理、旧経路fallbackなし |
 | v0.17.0 保護API起動 | [Private startup](../decisions/private-api-startup.md) | 14 | 明示設定/read-only readiness、fresh初期化、独立Docker、終了cleanup |
+| v0.18.0 ログイン確認画面 | [Private login](../decisions/private-login-preview.md) | 21 | memory-only/明示登録/更新、browser fetch修正、safe public config、独立preview、未確定失敗保持 |
 
-合計178件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
+合計199件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
 
 共通：同じcodex/poc-editor、確認後の版/tag/push、外部依存を監査、元Page/DBを保持。Computer UseはWindows診断後に解除し、今回の基盤開発では使わない。cloud/project/配布・課金・新global toolchainを作成せず、端末保持/旧DB帰属/保持期限を未決定のまま創作しない。初期OFFの改善送信は設計で、実際の収集は始めていない。
 

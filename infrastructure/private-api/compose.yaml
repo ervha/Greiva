@@ -30,6 +30,22 @@ services:
     <<: *api
     profiles: ["setup"]
     command: ["node", "apps/api/dist/init-private.js"]
+  preview:
+    <<: *api
+    profiles: ["preview"]
+    command: ["npm", "run", "dev:auth:container"]
+    ports: ["127.0.0.1:1421:1421"]
+    environment:
+      <<: *config
+      GREIVA_PRIVATE_HOST: 127.0.0.1
+      GREIVA_PRIVATE_PORT: "3002"
+      GREIVA_PRIVATE_PROXY_TARGET: http://127.0.0.1:3002
+      VITE_GREIVA_SUPABASE_URL: ${GREIVA_SUPABASE_URL}
+      VITE_GREIVA_SUPABASE_ALGORITHM: ${GREIVA_SUPABASE_ALGORITHM}
+      VITE_GREIVA_SUPABASE_PUBLISHABLE_KEY: ${GREIVA_SUPABASE_PUBLISHABLE_KEY:-}
+      VITE_GREIVA_PRIVATE_API_ORIGIN: http://127.0.0.1:1421
+      VITE_GREIVA_TEST_HOOKS: "0"
+      VITE_GREIVA_TEST_SQLITE: "0"
   postgres:
     image: postgres:18.4-bookworm
     environment:

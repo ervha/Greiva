@@ -1,0 +1,41 @@
+
+> greiva-poc@0.18.0 test:auth-e2e
+> npm run build:packages && playwright test -c playwright.private-login.config.ts
+
+
+> greiva-poc@0.18.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application
+
+
+> @greiva/shared@0.18.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/domain@0.18.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.18.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.18.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.18.0 build
+> tsc -p tsconfig.json
+
+
+Running 8 tests using 2 workers
+
+  ✓  2 [mobile-dark-reduced-motion] › tests/e2e/private-login.spec.ts:26:1 › PRIVATE-LOGIN-UI: keyboard login, explicit bootstrap, refresh/re-register/local logout; no implicit sync or token storage (2.4s)
+  ✓  1 [desktop] › tests/e2e/private-login.spec.ts:26:1 › PRIVATE-LOGIN-UI: keyboard login, explicit bootstrap, refresh/re-register/local logout; no implicit sync or token storage (3.2s)
+  ✓  3 [mobile-dark-reduced-motion] › tests/e2e/private-login.spec.ts:42:1 › PRIVATE-LOGIN-UI: failed provider/refresh/registration show fixed messages and clear revoked authentication (2.5s)
+  ✓  4 [desktop] › tests/e2e/private-login.spec.ts:42:1 › PRIVATE-LOGIN-UI: failed provider/refresh/registration show fixed messages and clear revoked authentication (3.0s)
+  ✓  5 [mobile-dark-reduced-motion] › tests/e2e/private-login.spec.ts:51:1 › PRIVATE-LOGIN-UI: pending password is cleared at submission, cancellation and reload never revive late login (3.3s)
+  ✓  6 [desktop] › tests/e2e/private-login.spec.ts:51:1 › PRIVATE-LOGIN-UI: pending password is cleared at submission, cancellation and reload never revive late login (3.5s)
+  ✓  7 [mobile-dark-reduced-motion] › tests/e2e/private-login.spec.ts:59:1 › PRIVATE-LOGIN-UI: composition does not submit, responsive keyboard controls and reduced motion preserve form (2.1s)
+  ✓  8 [desktop] › tests/e2e/private-login.spec.ts:59:1 › PRIVATE-LOGIN-UI: composition does not submit, responsive keyboard controls and reduced motion preserve form (1.1s)
+
+  8 passed (12.8s)

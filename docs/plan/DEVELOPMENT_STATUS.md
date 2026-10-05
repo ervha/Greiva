@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+2026-10-05、checkpoint **v0.18.0**。[browserログイン接続確認](../../tests/evidence/private-login-20261005/SUMMARY.md)を実装し、通常171/実PG30/専用画面8/通常画面59/実同期2/型/Windows buildを検証。専用Compose previewはloopback1421で起動済み。[全199判断](AUTONOMOUS_DECISIONS.md)。実ユーザーcredentialを入力せず、正常実Auth/OS credential/native IPC/server同期/CRDTは未完成。次はserver同期経路へ進む。
+
 2026-10-05、checkpoint **v0.17.0**。認証済workspace接続（v0.16.0）と[保護APIの明示起動](../../tests/evidence/private-runtime-20261005/SUMMARY.md)を実装。通常161/実PG30/型/Windows build、独立Docker build/Compose起動を確認。[全178判断](AUTONOMOUS_DECISIONS.md)。実ユーザー認証、login UI/OS credential/native workspace IPC、新server stream/CRDTは未完成。以下は過去の各checkpoint時点の記録。
 
 2026-10-05、checkpoint/所有版 **v0.13.0**。[workspace同期sessionの遅着応答/保存先固定](../../tests/evidence/workspace-session-20261005/SUMMARY.md)で通常120＋実PG26/型/通常Windows buildがPass。非同期race9条件はportable port doubleで、新しいnative永続化/HTTP stream/画面の証拠ではない。[全12判断](../decisions/workspace-sync-session.md)、[継続開発118判断のまとめ](AUTONOMOUS_DECISIONS.md)。規約/改善送信は設計に追加済み、収集未実装。残るP1/P2作業はworkspace別durable prepared/receipt/cursorとactive UIの接続、実Auth/失効/端末保持契約。旧DB/実行物を保持。
