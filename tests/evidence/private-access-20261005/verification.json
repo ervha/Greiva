@@ -1,0 +1,26 @@
+{
+  "result": "Pass",
+  "version": "0.8.0",
+  "unit": {
+    "pass": 74,
+    "skip": 21,
+    "newPrivateAccessTests": 10
+  },
+  "postgres": {
+    "pass": 21,
+    "skip": 0,
+    "newAccessSnapshot": 1
+  },
+  "typecheck": "Pass",
+  "normalWindowsBuild": "Pass",
+  "buildSourcesMatch": 78,
+  "externalNpmRecordsUnchanged": 314,
+  "externalCargoUnchanged": true,
+  "limits": [
+    "Production JWT/session/provider not configured",
+    "Existing HTTP/CRDT routes have not been connected to this policy",
+    "SQL uses isolated fixture read-model tables, not production migration/views",
+    "No production write transaction/connection revocation lease/retention policy",
+    "No new browser/native IME/Android pass; prior 0.7.0 UI regression remains historical"
+  ]
+}

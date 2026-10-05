@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.8.0 — 2026-10-05
+
+- 個人workspace所有者とtyped resource/Page文書名の読取認可を追加。不明・別workspace・削除・型違い・aliasを拒否し、非同期照合の検証済targetsを不変で返す。
+- PostgreSQLのread-only snapshot adapterを追加。10境界条件/通常74＋専用PG21/型/通常Windows buildを確認、外部依存不変。[証拠](tests/evidence/private-access-20261005/SUMMARY.md)と[全判断](docs/decisions/private-workspace-access.md)。実JWT/provider・正本view/migration・HTTP/CRDTへの配線は未完成。
+
 ## 0.7.0 — 2026-10-05
 
 - Task/Relationのintent規則をDomainへ分離し、既存protocol export/wireを保持。Applicationへ認可、入力/context/storeの固定、durable保存待機と結果不明commitの同一ID復旧契約を追加。

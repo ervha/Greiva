@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-05 / v0.8.0 / [個人workspace読取認可](private-access-20261005/SUMMARY.md): 新policy10/実PG1snapshot、通常74＋専用PG21/型/通常Windows build。旧経路未接続、実JWT/正本view/移行とは区別。
+
 - 2026-10-05 / v0.7.0 / [Domain/Application基盤](production-foundation-20261005/SUMMARY.md): 新境界9/通常64＋専用PG20/全画面59/実同期2/型/通常Windows build。旧wire/DB保持、外部依存不変。portのcontract doubleと本番adapter/認証の未実装を区別。
 
 - 2026-10-05 / v0.6.27 / [個人版の基盤設計・文書確認](production-plan-20261005/SUMMARY.md): 利用者の優先委任/個人同期先行を反映した設計9文書、38リンク/技術manifest/製品source不変の確認。実装・実機・認証の新しい合格ではない。

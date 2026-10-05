@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+2026-10-05、checkpoint/所有版 **v0.8.0**。P1の[個人workspace読取認可](../../tests/evidence/private-access-20261005/SUMMARY.md)を部分実装。owner/workspace/typed resourceと正規Page文書名の境界、不変targets、実PG1snapshotを検証。通常74＋専用PG21、型/通常Windows buildがPass、外部依存不変。[全12判断](../decisions/private-workspace-access.md)。実JWT/provider・正本view/移行・HTTP/CRDTへの接続は未完成。Supabaseは未作成・local実装/自動試験先行と利用者回答、[必要事項](PENDING_PRODUCTION_CONFIGURATION.md)を記録。独立するwire/cursor契約へ続行する。新しい画面/実IME合格ではない。
+
 2026-10-05、checkpoint/所有製品版 **v0.7.0**。[Domain/Application基盤](../../tests/evidence/production-foundation-20261005/SUMMARY.md)を追加し、Task/Relation intentの旧wireを保持。認可拒否/不通、context/store固定、durable待機、結果不明commitの安定IDを検査。型/64 unit＋専用PG20/画面59/実同期Conflict2/通常Windows buildがPass、外部依存不変。[全13判断](../decisions/production-command-foundation.md)。新Applicationは本番adapter/UI未接続で、既存PoCにAuth/workspaceを追加したとしない。次は個人workspace認可契約の実装。旧DB/試験Pageは保持、Computer Use解除、利用者操作なし。
 
 2026-10-05、checkpoint **v0.6.27**/製品 **0.6.25**。利用者の「優先はおまかせ」「個人利用と自分の端末間同期を先行」を受け、[Windows/Android・Page/Task/Relation・基本DB Table/Listの実装順](IMPLEMENTATION_PLAN.md)を選定。本番architecture/技術/データ/sync/CRDT/Editor/認可の設計候補、[PoCとの差/残契約](PRODUCTION_READINESS.md)、[全9判断](../decisions/production-foundation-plan.md)を記録。native Rust Repository/npm workspaceの継続とoperation ID責務を要件v0.8へ明記。アプリ/DB/wire/外部接続は変更なし。次はP0のdomain/application portと型付きcommandを独立して実装する。

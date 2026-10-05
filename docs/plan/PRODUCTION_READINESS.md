@@ -9,7 +9,7 @@
 | 項目 | 現PoC | 初期版へ進む前の仕事 |
 | --- | --- | --- |
 | Domain/Application | v0.7.0: Domain intent＋portable認可/durable command。既存UIは近接コード | production adapter接続/依存方向/実workspace原子性 |
-| 個人workspace/認可 | なし | user/workspace/device分離、HTTP/CRDT認可、cross-user拒否 |
+| 個人workspace/認可 | v0.8.0のowner/resource読取policy＋PG snapshot adapter。旧PoC経路未接続 | 実session/user/device分離、正本view/migration、全HTTP/CRDT認可、write内再検査 |
 | Page metadata | 端末title、本文だけ同期 | metadataのstructured契約、offline作成/削除と本文整合 |
 | Native store | Rust/sqlx独自IPC、SQL plugin依存あり | verified atomicityを維持する本番adapterの選定 |
 | Web local store | 非永続preview、test-only bridge | 製品Webを提供する時点でOPFS/fallback/CRDT正本を決定 |

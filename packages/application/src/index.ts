@@ -1,4 +1,5 @@
 import { idSchema } from '@greiva/shared';
+export * from './private-access.js';
 import { parseOperationPayload, pushOperationSchema, type PushOperation } from '@greiva/protocol';
 export type { TaskCreate, TaskUpdate, RelationCreate, RelationUpdate } from '@greiva/domain';
 
