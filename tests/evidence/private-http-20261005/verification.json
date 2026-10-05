@@ -1,0 +1,30 @@
+{
+  "result": "Pass",
+  "version": "0.11.0",
+  "unit": {
+    "pass": 108,
+    "skip": 23,
+    "newHttpWithVerifierDouble": 3
+  },
+  "postgres": {
+    "pass": 23,
+    "skip": 0,
+    "newLoopbackHttpSignedJwtAndSql": 1
+  },
+  "typecheck": "Pass",
+  "normalWindowsBuild": "Pass",
+  "buildSourcesMatch": 83,
+  "externalNpm315Unchanged": true,
+  "externalCargoUnchanged": true,
+  "reportCredentialScan": "No compact JWT/private-key material in selected raw JSON",
+  "initialFailures": [
+    "Type-only imports corrected before final typecheck",
+    "Test used listen result as URL; corrected to app.getUrl before final PG suite"
+  ],
+  "limits": [
+    "JWKS uses fixture transport; no real Supabase/login/refresh/revocation",
+    "Factory exposes session/access only; no content/write/sync/CRDT/bootstrap",
+    "Old HTTP/CRDT routes not rewired; canonical views/migration pending",
+    "No new browser/native IME/Android proof"
+  ]
+}

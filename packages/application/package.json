@@ -1,6 +1,6 @@
 {
   "name": "@greiva/application",
-  "version": "0.10.0",
+  "version": "0.11.0",
   "private": true,
   "type": "module",
   "exports": {
@@ -14,8 +14,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@greiva/domain": "0.10.0",
-    "@greiva/protocol": "0.10.0",
-    "@greiva/shared": "0.10.0"
+    "@greiva/domain": "0.11.0",
+    "@greiva/protocol": "0.11.0",
+    "@greiva/shared": "0.11.0"
   }
 }

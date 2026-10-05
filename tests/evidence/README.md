@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-05 / v0.11.0 / [認証付き独立HTTP入口](private-http-20261005/SUMMARY.md): HTTP3 double＋実HTTP/署名JWT/PG1、通常108/実PG23/型/通常Windows build。session/access限定、旧main/DB保持。source83・外部依存不変。実provider/正本schema/bootstrap/全routerは未完成。
+
 - 2026-10-05 / v0.10.1 / [日本向け規約・任意改善データ設計](privacy-plan-20261005/SUMMARY.md): 日本先行、エラー/性能のみ、初期OFF/撤回/server照合。文書確認だけ、収集/法的適合の合格ではない。製品0.10.0不変。
 
 - 2026-10-05 / v0.10.0 / [署名JWT＋issuer別owner](signed-session-20261005/SUMMARY.md): Auth14/owner11、通常105＋実PG22/型/通常Windows build。fixed jose追加のみ。fixture JWKS/SQLと実Supabase/login/refresh/移行/routerを区別。

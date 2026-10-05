@@ -26,7 +26,9 @@
 - Pageはmetadata＋binary journal/snapshot。digest、順序、document identityを検査し、破損を空Pageへ置き換えて続行しない。
 - account/workspace切替ではstoreの参照先を明示し、前workspaceのqueue/draftを新workspaceへ送らない。単一streamのPoC cursorを新workspaceへ流用しない。
 
-現native SQLite user_versionは2、server schema_versionは3。これは別schemaの番号で、同期wire/Editor schema/app versionとの一致を要求しない。将来のprotocol/storage/editor版は各責務で互換判定する。
+現native SQLite user_versionは4、server schema_versionは3。これは別schemaの番号で、同期wire/Editor schema/app versionとの一致を要求しない。将来のprotocol/storage/editor版は各責務で互換判定する。
+
+v0.10.0以降のprivate ownerはAuth issuer＋opaque subjectの組で識別する。同じsubの別issuerへ所有権を渡さず、read viewはowner_issuerを必須とする。v0.11.0の独立HTTP試験でもこの境界を使う。本番metadata tables/viewsとbootstrap/migrationは次の段階で実装する。
 
 ## サーバー保存案
 

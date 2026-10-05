@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.11.0 — 2026-10-05
+
+- 独立した認証付きNest/Fastify HTTP factoryを追加。session/workspace/Page accessを共通JWT/owner policyへ接続し、401/403/503と秘密を出さない応答を検証。旧PoC aliasesはmountしない。
+- 通常108＋専用PG23/型/通常Windows buildがPass。HTTP3 doubleと実HTTP＋署名JWT＋PG1を分離、source83/外部npm315・Cargo不変を確認。全12判断を記録。実Auth/正本schema/bootstrap/write/同期/UI接続は未完了。
+
 ## 0.10.1 — 2026-10-05
 
 - 日本向け利用規約/プライバシーポリシーの品質・公開ゲートと、エラー/性能だけの任意改善データ送信の製品設計を追加。初期OFF、端末ごとの明示同意・撤回、受信時の同意検証、禁止項目を定義。

@@ -8,6 +8,8 @@ v0.10.0で[固定joseによる署名JWT→owner読取の共通adapter](../../tes
 
 ## 主体とworkspace
 
+v0.11.0で[独立HTTP factory](../../tests/evidence/private-http-20261005/SUMMARY.md)を追加。GET v1/session、workspaces/:id/access、workspaces/:id/pages/:id/accessを共通session/owner adapterに接続し、401/403/503と安全codeを検証した。旧main/PoC aliasesはmountしない。本文/同期/CRDT/write、実loginや本番viewは未実装で、自動listen/既定identityはない。
+
 認証済userと所有workspace、device/client identityを区別する。初期のprivate workspaceへ他userを書き込ませない。role名称/将来のresource sharingは拡張案として残し、未提供のinvite画面を作らない。workspaceのIDやdoc名を知るだけではアクセスを許可しない。
 
 APIはtokenのissuer/audience/署名/有効性を検査し、操作対象の所属をserverで照合する。pull/list/history/Conflict/CRDT/projection/exportの全経路で同じworkspace境界を通す。client bodyのactor/clientIdをAuth主体と誤認しない。
