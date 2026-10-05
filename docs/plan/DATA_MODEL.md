@@ -21,6 +21,8 @@
 
 ## ローカル保存案
 
+v0.12.0で新規namespace用のprivate schema1と正本metadata/read view/bootstrapを実装。private_workspacesのowner pair（issuer＋subject）はunique（初期ownerごと1workspace）、epochはserver採番して耐久化。private_devicesはworkspace所属とrevoked、private_resourcesはtyped ID/所属/tombstoneを保持する。resource payload、Page metadata title/本文、structured streamは別の未実装契約。既存namespaceはinstallせず、旧PoC移行/upgradeは未提供。[受入/制約](../../tests/evidence/private-bootstrap-20261005/SUMMARY.md)。以下のnative workspace保存案へは未接続。
+
 - entity replica、pending operation/prepared wire、ACK receipt、Conflict、workspace単位のcursorを持つ。端末物理schemaとPostgreSQLの完全一致は要求しない。
 - entityの即時表示用projectionと、ACK済み基底・pending intentを区別する。pullで未送信intentを消したり、Conflict候補を現在値だけへ縮約しない。
 - Pageはmetadata＋binary journal/snapshot。digest、順序、document identityを検査し、破損を空Pageへ置き換えて続行しない。
@@ -28,7 +30,7 @@
 
 現native SQLite user_versionは4、server schema_versionは3。これは別schemaの番号で、同期wire/Editor schema/app versionとの一致を要求しない。将来のprotocol/storage/editor版は各責務で互換判定する。
 
-v0.10.0以降のprivate ownerはAuth issuer＋opaque subjectの組で識別する。同じsubの別issuerへ所有権を渡さず、read viewはowner_issuerを必須とする。v0.11.0の独立HTTP試験でもこの境界を使う。本番metadata tables/viewsとbootstrap/migrationは次の段階で実装する。
+v0.10.0以降のprivate ownerはAuth issuer＋opaque subjectの組で識別する。同じsubの別issuerへ所有権を渡さず、read viewはowner_issuerを必須とする。v0.11.0の独立HTTP試験でもこの境界を使い、v0.12.0で上記のfresh metadata schema/bootstrapへ進んだ。旧DBからのmigrationは未実装。
 
 ## サーバー保存案
 

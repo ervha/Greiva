@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+2026-10-05、checkpoint/所有版 **v0.12.0**。[正本metadata schemaと初期workspace登録](../../tests/evidence/private-bootstrap-20261005/SUMMARY.md)で通常111＋実PG26/型/通常Windows buildがPass。並行/再送、issuer/端末境界、rollback、削除/失効、unknown版を検証。[全12判断](../decisions/private-workspace-bootstrap.md)。fresh namespaceに限定、旧PoC移行/本文/同期/native queue/実Authは未完成。次はaccount/workspace切替の遅着応答guardを実装する。
+
 2026-10-05、checkpoint/所有版 **v0.11.0**。[認証付き独立HTTP入口](../../tests/evidence/private-http-20261005/SUMMARY.md)で通常108＋実PG23/型/通常Windows buildがPass。session/access限定で、JWT/owner policyと安全な401/403/503を検証。[全12判断](../decisions/private-http-boundary.md)。旧main/DBを保持、実provider/全router/正本view/移行は未完成。次は正本metadata schema/bootstrapを独立実装する。
 
 2026-10-05、checkpoint **v0.10.1**/所有製品版 **0.10.0**。[日本向け規約/プライバシーとエラー・性能のみの任意改善送信](../../tests/evidence/privacy-plan-20261005/SUMMARY.md)を設計に追加。初期OFF・端末別明示同意・撤回・server照合を定義。[全12判断](../decisions/privacy-telemetry-plan.md)。文書/リンク確認のみで収集未実装、公開文面未完成。利用者指示に従い次は進行中のP1 HTTP入口の開発/試験へ戻る。

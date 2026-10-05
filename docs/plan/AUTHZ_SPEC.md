@@ -20,11 +20,13 @@ clientのDB直通を提供する場合はRLS/権限契約が必要。API経由�
 
 初期版のaccess policyは「所有者だけ」。RLSの具体SQL、JWKS更新/失効、device失効、account/workspace初期作成の冪等性は実装時の詳細契約へ落とす。test tokenを本番の認証実装として提供しない。
 
-読取adapterはworkspace_access(id, owner_subject_id, owner_issuer)とresource_access(type, id, workspace_id, deleted)の正本由来viewを一つのstatementで照合する。現段階のPG試験はfixture tableで、本番viewを作成しない。存在しないview/不通/不正metadataでPoCや既定workspaceへfallbackしない。handlerは不変結果のworkspace/targetsにqueryを束縛する。writeは同一commit transaction内で再照合し、CRDT接続の長時間認可/失効を別受入にする。
+読取adapterはworkspace_access(id, owner_subject_id, owner_issuer)とresource_access(type, id, workspace_id, deleted)の正本由来viewを一つのstatementで照合する。v0.8–0.11のPG試験はfixture table、v0.12の追加試験はfresh installerで作る正本viewを使う。存在しないview/不通/不正metadataでPoCや既定workspaceへfallbackしない。handlerは不変結果のworkspace/targetsにqueryを束縛する。writeは同一commit transaction内で再照合し、CRDT接続の長時間認可/失効を別受入にする。
 
 JWT adapterは明示HTTPS issuer/JWKS URLとaudience、ES256/RS256 allowlistを要求する。Bearer compact token最大8KiB、sub/exp必須、issuer/audience/署名/期限とnbfを検査、tolerance0。tokenに含むjku/jwkを鍵取得先として使わない。失敗はinvalid_sessionまたはverification_unavailableとしてgrantせず、token/claimsをerror causeやlogへ出さない。[jose一次資料](https://github.com/panva/jose/tree/v6.2.12)、[Supabase JWT資料](https://supabase.com/docs/guides/auth/jwts)。live key rotation/cache/session失効は別検証。
 
 ## 端末とoffline
+
+v0.12.0で[正本owner/device/resource metadataとbootstrap](../../tests/evidence/private-bootstrap-20261005/SUMMARY.md)を実装。明示注入時のPOST v1/workspaces/bootstrapはverified issuer/subjectとstrict clientIdから初期workspace/epochを返す。初期はownerごと1workspace、再送/並行で同じID、他ownerの端末IDやrevoked/deletedを拒否。device IDは物理identityの証明ではなく、全HTTP/CRDTのdevice失効適用は未完成。fresh schema以外へ自動移行せず、旧fixture tablesの試験も歴史証拠として残す。
 
 tokenをCRDT、sync operation、本文projection、logへ入れない。native token保管とWeb session保管はplatformごとに設計し、平文local settingsへrefresh tokenを保存しない。account切替後に前accountのpending/draftを新accountへ送らない。
 

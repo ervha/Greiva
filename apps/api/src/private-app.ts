@@ -1,13 +1,15 @@
 import 'reflect-metadata';
-import { type ArgumentsHost, Catch, Controller, type ExceptionFilter, Get, Headers, HttpException, Inject, Module, Param } from '@nestjs/common';
+import { type ArgumentsHost, Body, Catch, Controller, type ExceptionFilter, Get, Headers, HttpCode, HttpException, Inject, Module, Param, Post } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { FastifyAdapter, type NestFastifyApplication } from '@nestjs/platform-fastify';
 import type { FastifyReply } from 'fastify';
 import { PrivateWorkspaceAccessDenied, type PrivateWorkspaceAccessStore } from '@greiva/application';
 import { authenticatedPrivateAccess } from './authenticated-private-access.js';
 import { SessionVerificationError, type SessionVerifier } from './session-verifier.js';
+import { PrivateBootstrapInvalidRequest, PrivateBootstrapUnavailable, type PrivateWorkspaceBootstrap } from './private-bootstrap-store.js';
 
 const SESSION = Symbol('private-session'), ACCESS = Symbol('private-access');
+const BOOTSTRAP = Symbol('private-bootstrap');
 @Controller('v1')
 class PrivateAccessController {
   constructor(@Inject(SESSION) private readonly verifier: SessionVerifier, @Inject(ACCESS) private readonly access: ReturnType<typeof authenticatedPrivateAccess>) {}
@@ -19,12 +21,23 @@ class PrivateAccessController {
     return this.access.pageDocument(authorization, workspaceId, `page:${pageId}`);
   }
 }
+@Controller('v1/workspaces')
+class PrivateBootstrapController {
+  constructor(@Inject(SESSION) private readonly verifier: SessionVerifier, @Inject(BOOTSTRAP) private readonly bootstrap: PrivateWorkspaceBootstrap) {}
+  @Post('bootstrap') @HttpCode(200)
+  async create(@Headers('authorization') authorization: unknown, @Body() body: unknown) {
+    const session = await this.verifier.verify(authorization);
+    return this.bootstrap.bootstrap(session, body);
+  }
+}
 @Catch()
 class PrivateAccessErrors implements ExceptionFilter {
   catch(error: unknown, host: ArgumentsHost) {
     const response = host.switchToHttp().getResponse<FastifyReply>();
     if (error instanceof SessionVerificationError) return response.status(error.code === 'invalid_session' ? 401 : 503).send({ error: error.code });
     if (error instanceof PrivateWorkspaceAccessDenied) return response.status(403).send({ error: 'access_denied' });
+    if (error instanceof PrivateBootstrapInvalidRequest) return response.status(400).send({ error: 'invalid_request' });
+    if (error instanceof PrivateBootstrapUnavailable) return response.status(503).send({ error: 'bootstrap_unavailable' });
     if (error instanceof HttpException) return response.status(error.getStatus()).send({ error: error.getStatus() === 404 ? 'not_found' : 'invalid_request' });
     // Do not expose SQL, token/JWKS causes, private object IDs or request content.
     return response.status(503).send({ error: 'access_unavailable' });
@@ -32,9 +45,10 @@ class PrivateAccessErrors implements ExceptionFilter {
 }
 // Independent protected API factory. Does not mount or expose old PoC routes,
 // listen automatically, create a test identity, or migrate a caller's database.
-export async function createPrivateApp(verifier: SessionVerifier, store: PrivateWorkspaceAccessStore) {
-  @Module({ controllers: [PrivateAccessController], providers: [
+export async function createPrivateApp(verifier: SessionVerifier, store: PrivateWorkspaceAccessStore, bootstrap?: PrivateWorkspaceBootstrap) {
+  @Module({ controllers: [PrivateAccessController, ...(bootstrap ? [PrivateBootstrapController] : [])], providers: [
     { provide: SESSION, useValue: verifier }, { provide: ACCESS, useValue: authenticatedPrivateAccess(verifier, store) },
+    ...(bootstrap ? [{ provide: BOOTSTRAP, useValue: bootstrap }] : []),
   ] })
   class PrivateAppModule {}
   const app = await NestFactory.create<NestFastifyApplication>(PrivateAppModule, new FastifyAdapter({ logger: false }), { logger: false });

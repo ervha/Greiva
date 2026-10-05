@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.12.0 — 2026-10-05
+
+- 新規namespaceのprivate workspace/device/resource正本tables/viewsと、認証主体ごとの初期workspace登録を追加。owner uniqueとtransactionで並行/再試行を安定化し、端末IDの他account利用・削除/失効・不正schemaを拒否。
+- 明示port注入時だけ認証付きHTTP bootstrapを提供。通常111＋専用PG26/型/通常Windows build、source85/外部npm315・Cargo不変を確認。全12判断を記録。旧PoC取り込み、本文/同期/CRDT、実Auth、native workspace storeは未完成。
+
 ## 0.11.0 — 2026-10-05
 
 - 独立した認証付きNest/Fastify HTTP factoryを追加。session/workspace/Page accessを共通JWT/owner policyへ接続し、401/403/503と秘密を出さない応答を検証。旧PoC aliasesはmountしない。

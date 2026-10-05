@@ -1,0 +1,26 @@
+{
+  "result": "Pass",
+  "version": "0.12.0",
+  "unit": {
+    "pass": 111,
+    "skip": 26,
+    "newBoundaryAndHttpDouble": 3
+  },
+  "postgres": {
+    "pass": 26,
+    "skip": 0,
+    "newCanonicalSchemaBootstrapAndHttp": 3
+  },
+  "typecheck": "Pass",
+  "normalWindowsBuild": "Pass",
+  "buildSourcesMatch": 85,
+  "externalNpm315Unchanged": true,
+  "externalCargoUnchanged": true,
+  "reportCredentialScan": "No compact JWT/private-key material in selected raw JSON",
+  "limits": [
+    "Fresh metadata namespace only; no PoC import/upgrade or content/structured/CRDT storage",
+    "JWKS fixture transport; no real Supabase/login/refresh/revocation",
+    "Device reference is not physical identity; revocation not applied across all routers",
+    "No native workspace queue/ACK or new browser/native IME/Android proof"
+  ]
+}

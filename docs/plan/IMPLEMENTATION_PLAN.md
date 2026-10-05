@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.12.0：新規namespaceの正本owner/device/resource metadata・read viewと初期workspace登録を部分実装。通常111＋実PG26/型/通常Windows buildを確認。旧DB取り込み、本文/structured stream、native workspace store、実Authは未完成。次はaccount/workspace切替中の古い応答を除外するclient同期境界へ進む。[全12判断](../decisions/private-workspace-bootstrap.md)。
+
 2026-10-05、初期提供順の委任と個人利用先行の回答に基づく計画。[範囲/残契約](PRODUCTION_READINESS.md)、[architecture](ARCHITECTURE.md)、[技術](TECH_STACK.md)、[データ](DATA_MODEL.md)、[同期](SYNC_SPEC.md)、[CRDT](CRDT_SPEC.md)、[Editor](EDITOR_SPEC.md)、[認可](AUTHZ_SPEC.md)を参照。v0.7.0で[P0のDomain/portable Application](../../tests/evidence/production-foundation-20261005/SUMMARY.md)を実装。本番adapter/UI接続とworkspace導入は未完了。
 
 | 段階 | 具体的な変更 | 受入と進行条件 |
