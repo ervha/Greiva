@@ -1,0 +1,233 @@
+
+> greiva-poc@0.25.1 test:e2e
+> npm run build:packages && npm run build:servers && playwright test
+
+
+> greiva-poc@0.25.1 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application
+
+
+> @greiva/shared@0.25.1 build
+> tsc -p tsconfig.json
+
+
+> @greiva/domain@0.25.1 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.25.1 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.25.1 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.25.1 build
+> tsc -p tsconfig.json
+
+
+> greiva-poc@0.25.1 build:servers
+> npm run build -w @greiva/api && npm run build -w @greiva/collaboration
+
+
+> @greiva/api@0.25.1 build
+> tsc -p tsconfig.json
+
+
+> @greiva/collaboration@0.25.1 build
+> tsc -p tsconfig.json
+
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.
+
+Running 61 tests using 2 workers
+
+  ✓   2 [chromium] › tests/e2e/block-drag.spec.ts:29:1 › STEP8-DRAG-PREVIEW: held block floats, siblings make space, drop and cancellation retain the document (11.2s)
+  ✓   1 [chromium] › tests/e2e/block-drag-large.spec.ts:5:1 › STEP8-DRAG-1000: real gutter drag retains every block and reports browser frame timing (12.4s)
+  ✓   3 [chromium] › tests/e2e/block-drag.spec.ts:66:1 › STEP8-DRAG-REMOTE: a real peer edit cancels the stale drag without inserting its text (6.7s)
+  ✓   4 [chromium] › tests/e2e/collaboration.spec.ts:66:1 › STEP4-PARAGRAPH: simultaneous edits retain both changes and remote update keeps the caret (8.0s)
+  ✘   6 [chromium] › tests/e2e/collaboration.spec.ts:82:1 › STEP4-BLOCKS: different blocks, local undo does not undo the other client (14.1s)
+  ✘   5 [chromium] › tests/e2e/block-drag.spec.ts:83:1 › STEP8-DRAG-DOWN: a multiline block opens a full-height gap, reduced motion and outside drop preserve content (26.0s)
+  ✓   8 [chromium] › tests/e2e/block-drag.spec.ts:107:1 › STEP8-DRAG-GUTTER: vertical movement in the handle column drops without entering the text (28.3s)
+  ✘   7 [chromium] › tests/e2e/collaboration.spec.ts:100:1 › STEP4-OFFLINE: each client adds and deletes blocks, reconnect and fresh client restore the result (39.5s)
+  ✓   9 [chromium] › tests/e2e/editor-ux.spec.ts:17:1 › STEP2-UX-SLASH: pointer and keyboard share one selection and retain editor focus (29.3s)
+  ✘  10 [chromium] › tests/e2e/collaboration.spec.ts:139:1 › STEP4-MOVE: both clients move blocks while offline (31.5s)
+  ✘  12 [chromium] › tests/e2e/collaboration.spec.ts:153:1 › STEP4-NESTED: edit and move within a nested Toggle, then reconnect (4.3s)
+  ✘  11 [chromium] › tests/e2e/editor-ux.spec.ts:35:1 › STEP2-UX-SLASH: wrap, Home/End, Tab, search aliases and empty dismissal (21.4s)
+
+
+  1) [chromium] › tests/e2e/block-drag.spec.ts:83:1 › STEP8-DRAG-DOWN: a multiline block opens a full-height gap, reduced motion and outside drop preserve content
+
+    Error: expect(locator).toBeFocused() failed
+
+    Locator:  getByRole('textbox', { name: 'Page本文' })
+    Expected: focused
+    Received: inactive
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toBeFocused" getByRole('textbox', { name: 'Page本文' }) with timeout 5000ms
+      - waiting for getByRole('textbox', { name: 'Page本文' })
+        13 × locator resolved to <div tabindex="0" role="textbox" translate="no" spellcheck="false" aria-label="Page本文" aria-multiline="true" contenteditable="true" class="tiptap ProseMirror">…</div>
+           - unexpected value "inactive"
+
+
+      102 |   await page.mouse.move(5, 5); await page.mouse.up();
+      103 |   await clean(page, editor); await expect(paragraphs).toHaveText(before);
+    > 104 |   await expect(editor).toBeFocused();
+          |                        ^
+      105 | });
+      106 |
+      107 | test('STEP8-DRAG-GUTTER: vertical movement in the handle column drops without entering the text', async ({ page }) => {
+        at /workspace/tests/e2e/block-drag.spec.ts:104:24
+
+    Error Context: ../tmp/neutral-palette-root-ui/artifacts/block-drag-STEP8-DRAG-DOWN-6dcb0-tside-drop-preserve-content-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../tmp/neutral-palette-root-ui/artifacts/block-drag-STEP8-DRAG-DOWN-6dcb0-tside-drop-preserve-content-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../tmp/neutral-palette-root-ui/artifacts/block-drag-STEP8-DRAG-DOWN-6dcb0-tside-drop-preserve-content-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests/e2e/collaboration.spec.ts:82:1 › STEP4-BLOCKS: different blocks, local undo does not undo the other client
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('textbox', { name: 'Page本文' })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('textbox', { name: 'Page本文' }) with timeout 5000ms
+      - waiting for getByRole('textbox', { name: 'Page本文' })
+        - waiting for "http://127.0.0.1:1420/?page=9ffb4698-6325-45b4-9b81-7830c3b3679e" navigation to finish...
+        - navigated to "http://127.0.0.1:1420/?page=9ffb4698-6325-45b4-9b81-7830c3b3679e"
+
+
+      29 |   await Promise.all([a.goto(`/?page=${pageId}`), b.goto(`/?page=${pageId}`)]);
+      30 |   for (const page of [a, b]) {
+    > 31 |     await expect(body(page)).toBeVisible();
+         |                              ^
+      32 |     await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('サーバーと同期済み', { timeout: 15000 });
+      33 |   }
+      34 | }
+        at pair (/workspace/tests/e2e/collaboration.spec.ts:31:30)
+        at /workspace/tests/e2e/collaboration.spec.ts:83:3
+
+    Error Context: ../tmp/neutral-palette-root-ui/artifacts/collaboration-STEP4-BLOCKS-2f232-s-not-undo-the-other-client-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../tmp/neutral-palette-root-ui/artifacts/collaboration-STEP4-BLOCKS-2f232-s-not-undo-the-other-client-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../tmp/neutral-palette-root-ui/artifacts/collaboration-STEP4-BLOCKS-2f232-s-not-undo-the-other-client-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [chromium] › tests/e2e/collaboration.spec.ts:100:1 › STEP4-OFFLINE: each client adds and deletes blocks, reconnect and fresh client restore the result
+
+    Test timeout of 30000ms exceeded.
+
+    Error: page.evaluate: Test timeout of 30000ms exceeded.
+
+      11 | const body = (page: Page) => page.getByRole('textbox', { name: 'Page本文' });
+      12 | async function snapshot(page: Page): Promise<Snapshot> {
+    > 13 |   return page.evaluate(() => (window as unknown as { greivaTest: { snapshot: () => Snapshot } }).greivaTest.snapshot());
+         |               ^
+      14 | }
+      15 | async function converged(a: Page, b: Page, info: TestInfo, label = 'final') {
+      16 |   await expect.poll(async () => {
+        at snapshot (/workspace/tests/e2e/collaboration.spec.ts:13:15)
+        at expect.poll.timeout (/workspace/tests/e2e/collaboration.spec.ts:17:59)
+        at converged (/workspace/tests/e2e/collaboration.spec.ts:16:3)
+        at /workspace/tests/e2e/collaboration.spec.ts:136:3
+
+    Error Context: ../tmp/neutral-palette-root-ui/artifacts/collaboration-STEP4-OFFLIN-d2c9e-h-client-restore-the-result-chromium/error-context.md
+
+    attachment #11: trace (application/zip) ────────────────────────────────────────────────────────
+    ../tmp/neutral-palette-root-ui/artifacts/collaboration-STEP4-OFFLIN-d2c9e-h-client-restore-the-result-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../tmp/neutral-palette-root-ui/artifacts/collaboration-STEP4-OFFLIN-d2c9e-h-client-restore-the-result-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [chromium] › tests/e2e/collaboration.spec.ts:139:1 › STEP4-MOVE: both clients move blocks while offline
+
+    Test timeout of 30000ms exceeded.
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('textbox', { name: 'Page本文' })
+    Expected: visible
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('textbox', { name: 'Page本文' }) with timeout 5000ms
+      - waiting for getByRole('textbox', { name: 'Page本文' })
+      - Protocol error (Runtime.callFunctionOn): Internal server error, session closed.
+
+
+      29 |   await Promise.all([a.goto(`/?page=${pageId}`), b.goto(`/?page=${pageId}`)]);
+      30 |   for (const page of [a, b]) {
+    > 31 |     await expect(body(page)).toBeVisible();
+         |                              ^
+      32 |     await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('サーバーと同期済み', { timeout: 15000 });
+      33 |   }
+      34 | }
+        at pair (/workspace/tests/e2e/collaboration.spec.ts:31:30)
+        at /workspace/tests/e2e/collaboration.spec.ts:140:3
+
+    Error Context: ../tmp/neutral-palette-root-ui/artifacts/collaboration-STEP4-MOVE-b-b6329-s-move-blocks-while-offline-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../tmp/neutral-palette-root-ui/artifacts/collaboration-STEP4-MOVE-b-b6329-s-move-blocks-while-offline-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../tmp/neutral-palette-root-ui/artifacts/collaboration-STEP4-MOVE-b-b6329-s-move-blocks-while-offline-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [chromium] › tests/e2e/collaboration.spec.ts:153:1 › STEP4-NESTED: edit and move within a nested Toggle, then reconnect
+
+    Test was interrupted.
+
+    Error: page.goto: Target page, context or browser has been closed
+    Call log:
+      - navigating to "http://127.0.0.1:1420/?page=25c99781-b8e8-4f8d-83e4-059ad13b32fc", waiting until "load"
+
+
+      27 | async function pair(a: Page, b: Page) {
+      28 |   const pageId = crypto.randomUUID();
+    > 29 |   await Promise.all([a.goto(`/?page=${pageId}`), b.goto(`/?page=${pageId}`)]);
+         |                                                    ^
+      30 |   for (const page of [a, b]) {
+      31 |     await expect(body(page)).toBeVisible();
+      32 |     await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('サーバーと同期済み', { timeout: 15000 });
+        at pair (/workspace/tests/e2e/collaboration.spec.ts:29:52)
+        at /workspace/tests/e2e/collaboration.spec.ts:154:9
+
+    Error Context: ../tmp/neutral-palette-root-ui/artifacts/collaboration-STEP4-NESTED-c7628-ested-Toggle-then-reconnect-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../tmp/neutral-palette-root-ui/artifacts/collaboration-STEP4-NESTED-c7628-ested-Toggle-then-reconnect-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace ../tmp/neutral-palette-root-ui/artifacts/collaboration-STEP4-NESTED-c7628-ested-Toggle-then-reconnect-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4 failed
+    [chromium] › tests/e2e/block-drag.spec.ts:83:1 › STEP8-DRAG-DOWN: a multiline block opens a full-height gap, reduced motion and outside drop preserve content
+    [chromium] › tests/e2e/collaboration.spec.ts:82:1 › STEP4-BLOCKS: different blocks, local undo does not undo the other client
+    [chromium] › tests/e2e/collaboration.spec.ts:100:1 › STEP4-OFFLINE: each client adds and deletes blocks, reconnect and fresh client restore the result
+    [chromium] › tests/e2e/collaboration.spec.ts:139:1 › STEP4-MOVE: both clients move blocks while offline
+  2 interrupted
+    [chromium] › tests/e2e/collaboration.spec.ts:153:1 › STEP4-NESTED: edit and move within a nested Toggle, then reconnect
+    [chromium] › tests/e2e/editor-ux.spec.ts:35:1 › STEP2-UX-SLASH: wrap, Home/End, Tab, search aliases and empty dismissal
+  49 did not run
+  6 passed (2.3m)

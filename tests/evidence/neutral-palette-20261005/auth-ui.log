@@ -1,0 +1,109 @@
+
+> greiva-poc@0.25.1 test:auth-e2e
+> npm run build:packages && playwright test -c playwright.private-login.config.ts
+
+
+> greiva-poc@0.25.1 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application
+
+
+> @greiva/shared@0.25.1 build
+> tsc -p tsconfig.json
+
+
+> @greiva/domain@0.25.1 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.25.1 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.25.1 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.25.1 build
+> tsc -p tsconfig.json
+
+
+Running 8 tests using 2 workers
+
+  ✓  1 [mobile-dark-reduced-motion] › tests/e2e/private-login.spec.ts:26:1 › PRIVATE-LOGIN-UI: keyboard login, explicit bootstrap, refresh/re-register/local logout; no implicit sync or token storage (23.2s)
+  ✓  2 [desktop] › tests/e2e/private-login.spec.ts:26:1 › PRIVATE-LOGIN-UI: keyboard login, explicit bootstrap, refresh/re-register/local logout; no implicit sync or token storage (25.1s)
+  ✓  3 [mobile-dark-reduced-motion] › tests/e2e/private-login.spec.ts:42:1 › PRIVATE-LOGIN-UI: failed provider/refresh/registration show fixed messages and clear revoked authentication (12.4s)
+  ✓  4 [desktop] › tests/e2e/private-login.spec.ts:42:1 › PRIVATE-LOGIN-UI: failed provider/refresh/registration show fixed messages and clear revoked authentication (15.3s)
+  ✘  5 [mobile-dark-reduced-motion] › tests/e2e/private-login.spec.ts:51:1 › PRIVATE-LOGIN-UI: pending password is cleared at submission, cancellation and reload never revive late login (33.5s)
+  ✘  6 [desktop] › tests/e2e/private-login.spec.ts:51:1 › PRIVATE-LOGIN-UI: pending password is cleared at submission, cancellation and reload never revive late login (34.4s)
+  ✓  7 [mobile-dark-reduced-motion] › tests/e2e/private-login.spec.ts:59:1 › PRIVATE-LOGIN-UI: composition does not submit, responsive keyboard controls and reduced motion preserve form (5.9s)
+  ✓  8 [desktop] › tests/e2e/private-login.spec.ts:59:1 › PRIVATE-LOGIN-UI: composition does not submit, responsive keyboard controls and reduced motion preserve form (4.4s)
+
+
+  1) [desktop] › tests/e2e/private-login.spec.ts:51:1 › PRIVATE-LOGIN-UI: pending password is cleared at submission, cancellation and reload never revive late login
+
+    Test timeout of 30000ms exceeded.
+
+    Error: page.reload: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for navigation until "load"
+        - navigated to "http://127.0.0.1:1421/auth.html"
+
+
+      54 |   await expect(page.getByLabel('パスワード', { exact: true })).toHaveValue(''); await expect(page.getByRole('button', { name: 'ログインを確認', exact: true })).toBeDisabled();
+      55 |   await page.getByRole('button', { name: '接続を閉じる', exact: true }).click(); release(); f.hold(undefined); await expect(status(page)).toHaveText('ログインしていません');
+    > 56 |   await login(page); await expect(status(page)).toHaveText('認証を確認しました'); await page.reload(); await expect(status(page)).toHaveText('ログインしていません');
+         |                                                                                     ^
+      57 |   await expect(page.getByLabel('パスワード', { exact: true })).toHaveValue('');
+      58 | });
+      59 | test('PRIVATE-LOGIN-UI: composition does not submit, responsive keyboard controls and reduced motion preserve form', async ({ page }, info) => {
+        at /workspace/tests/e2e/private-login.spec.ts:56:85
+
+    Error Context: ../tmp/neutral-palette-auth-ui/artifacts/private-login-PRIVATE-LOGI-be6f5-oad-never-revive-late-login-desktop/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../tmp/neutral-palette-auth-ui/artifacts/private-login-PRIVATE-LOGI-be6f5-oad-never-revive-late-login-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace ../tmp/neutral-palette-auth-ui/artifacts/private-login-PRIVATE-LOGI-be6f5-oad-never-revive-late-login-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [mobile-dark-reduced-motion] › tests/e2e/private-login.spec.ts:51:1 › PRIVATE-LOGIN-UI: pending password is cleared at submission, cancellation and reload never revive late login
+
+    Test timeout of 30000ms exceeded.
+
+    Error: expect(locator).toHaveValue(expected) failed
+
+    Locator:  getByLabel('パスワード', { exact: true })
+    Expected: ""
+    Received: serializes to the same string
+
+    Call log:
+      - Expect "toHaveValue" getByLabel('パスワード', { exact: true }) with timeout 5000ms
+      - waiting for getByLabel('パスワード', { exact: true })
+      - Protocol error (Runtime.callFunctionOn): Internal server error, session closed.
+
+
+      55 |   await page.getByRole('button', { name: '接続を閉じる', exact: true }).click(); release(); f.hold(undefined); await expect(status(page)).toHaveText('ログインしていません');
+      56 |   await login(page); await expect(status(page)).toHaveText('認証を確認しました'); await page.reload(); await expect(status(page)).toHaveText('ログインしていません');
+    > 57 |   await expect(page.getByLabel('パスワード', { exact: true })).toHaveValue('');
+         |                                                           ^
+      58 | });
+      59 | test('PRIVATE-LOGIN-UI: composition does not submit, responsive keyboard controls and reduced motion preserve form', async ({ page }, info) => {
+      60 |   const f = await fixture(page); await page.goto('/auth.html'); await page.getByRole('textbox', { name: 'メールアドレス' }).fill('fixture@example.invalid');
+        at /workspace/tests/e2e/private-login.spec.ts:57:59
+
+    Error Context: ../tmp/neutral-palette-auth-ui/artifacts/private-login-PRIVATE-LOGI-be6f5-oad-never-revive-late-login-mobile-dark-reduced-motion/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    ../tmp/neutral-palette-auth-ui/artifacts/private-login-PRIVATE-LOGI-be6f5-oad-never-revive-late-login-mobile-dark-reduced-motion/trace.zip
+    Usage:
+
+        npx playwright show-trace ../tmp/neutral-palette-auth-ui/artifacts/private-login-PRIVATE-LOGI-be6f5-oad-never-revive-late-login-mobile-dark-reduced-motion/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [desktop] › tests/e2e/private-login.spec.ts:51:1 › PRIVATE-LOGIN-UI: pending password is cleared at submission, cancellation and reload never revive late login
+    [mobile-dark-reduced-motion] › tests/e2e/private-login.spec.ts:51:1 › PRIVATE-LOGIN-UI: pending password is cleared at submission, cancellation and reload never revive late login
+  6 passed (1.6m)

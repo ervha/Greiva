@@ -1,0 +1,61 @@
+{
+  "version": "0.25.1",
+  "result": "Pass",
+  "counts": {
+    "vitest": {
+      "pass": 224,
+      "failed": 0,
+      "skip": 69,
+      "success": true
+    },
+    "root-ui": {
+      "startTime": "2026-10-05T09:18:18.146Z",
+      "duration": 239448.743,
+      "expected": 61,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "auth-ui": {
+      "startTime": "2026-10-05T09:22:48.045Z",
+      "duration": 19529.277,
+      "expected": 8,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "initial-root-ui": {
+      "startTime": "2026-10-05T09:15:30.796Z",
+      "duration": 140913.658,
+      "expected": 6,
+      "skipped": 51,
+      "unexpected": 4,
+      "flaky": 0
+    },
+    "initial-auth-ui": {
+      "startTime": "2026-10-05T09:16:14.905Z",
+      "duration": 98668.45499999999,
+      "expected": 6,
+      "skipped": 0,
+      "unexpected": 2,
+      "flaky": 0
+    }
+  },
+  "typecheck": "Pass",
+  "frontend": "Pass",
+  "windowsCrossBuild": "Pass",
+  "sourceFilesMatched": 117,
+  "externalDependenciesUnchanged": true,
+  "automatedRetry": 0,
+  "finalWorkers": 1,
+  "initialSuiteConcurrency": true,
+  "initialRootInterrupted": true,
+  "rootInitialCause": "Unconfirmed; shared workspace rebuild and concurrent load present",
+  "preview": {
+    "version": "0.25.1",
+    "apiVersion": "0.25.0",
+    "schemaUpgrade": false,
+    "userCredentialsEntered": false
+  },
+  "scope": "CSS palette; Docker interactions and layout. No new native IME/actual Supabase login evidence. Stop at this checkpoint per user."
+}

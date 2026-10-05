@@ -1,0 +1,60 @@
+
+> greiva-poc@0.25.1 build
+> npm run build:packages && npm run build --workspace=@greiva/api && npm run build --workspace=@greiva/collaboration && npm run build --workspace=@greiva/client
+
+
+> greiva-poc@0.25.1 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application
+
+
+> @greiva/shared@0.25.1 build
+> tsc -p tsconfig.json
+
+
+> @greiva/domain@0.25.1 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.25.1 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.25.1 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.25.1 build
+> tsc -p tsconfig.json
+
+
+> @greiva/api@0.25.1 build
+> tsc -p tsconfig.json
+
+
+> @greiva/collaboration@0.25.1 build
+> tsc -p tsconfig.json
+
+
+> @greiva/client@0.25.1 build
+> tsc --noEmit && vite build
+
+vite v8.3.1 building client environment for production...
+transforming...
+✓ 273 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                             0.51 kB │ gzip:   0.31 kB
+dist/auth.html                              0.52 kB │ gzip:   0.33 kB
+dist/assets/auth-BOcUK2r9.css               4.49 kB │ gzip:   1.59 kB
+dist/assets/main-CKrFgwK8.css              11.82 kB │ gzip:   3.04 kB
+dist/assets/rolldown-runtime-CbXtAM7H.js    0.58 kB │ gzip:   0.36 kB
+dist/assets/auth-DMYeIWua.js                7.91 kB │ gzip:   2.92 kB
+dist/assets/dist-DSGQ9wWV.js              422.71 kB │ gzip: 127.37 kB
+dist/assets/main-pfqysKB6.js              523.07 kB │ gzip: 166.56 kB
+
+✓ built in 4.07s
+[plugin builtin:vite-reporter]
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.

@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+最新v0.25.1：利用者要望のシンプルな配色へ変更。編集・接続確認画面を白/ニュートラルグレー/控えめな緑で統一し、接続確認のdark表示はチャコールへ整理。[判断記録](../decisions/neutral-palette.md)、[証拠・初回失敗](../../tests/evidence/neutral-palette-20261005/SUMMARY.md)。型/通常224/frontend/通常Windows cross-build、source117と外部依存不変、Docker画面操作・360pxの表示を確認。専用preview0.25.1、既存API0.25.0を継続。実IME/実Supabase Authの追加検証ではない。**「切りのいいところで止めて」に従い、このcheckpointで停止。次回はPage編集接続から再開し、metadata変更/通常UI/native Auth/offline保持契約の残事項を確認する。**
+
 最新v0.25.0：認証付きPage一覧query、bounded keyset/HMAC workspace・epoch/metadata照合、connection.closeでnative cleanup開始を追加。[全14判断](../decisions/private-page-catalog.md)、[証拠](../../tests/evidence/page-catalog-20261005/SUMMARY.md)。通常224/PG69/browser2/型/frontend/Windows source116、専用API/preview v0.25/schema3を確認。一覧はsnapshot/delta同期ではなくnormal UI/metadata変更/native Authは未完成。次は利用者要望のシンプルな配色を独立して改善する。
 
 最新v0.24.0：app-owned workspace DB root/世代handleとTauri commandを追加し、captured Auth generationのNativeWorkspaceStoreをPage/structured portへ接続。[全16判断](../decisions/native-workspace-ipc.md)、[証拠](../../tests/evidence/workspace-ipc-20261005/SUMMARY.md)。新11、通常219/PG66/型/frontend/Windows build/Browser2を検証。local handleはAuth grantではなく、通常UI/実Tauri invoke/native Auth/offline保持契約は未完成。専用APIはv0.21/schema3を保持、追加操作を求めずPage metadata/一覧へ進む。

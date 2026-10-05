@@ -1,0 +1,33 @@
+:root {
+  --canvas: #f6f7f8;
+  --surface: #ffffff;
+  --surface-soft: #f4f5f6;
+  --surface-hover: #edf0f2;
+  --surface-pressed: #e5e9ec;
+  --glass-surface: #ffffff;
+  --text: #202427;
+  --muted: #5f6870;
+  --border: #dce1e5;
+  --border-control: #818b94;
+  --accent: #326158;
+  --accent-hover: #264b44;
+  --accent-soft: #edf4f1;
+  --on-accent: #ffffff;
+  --warning-surface: #fff5e6;
+  --warning-border: #c09d60;
+  --warning-text: #705022;
+  --shadow-panel: 0 4px 20px #161b2208;
+  --shadow-menu: 0 12px 32px #161b221a;
+  --shadow-drag: 0 8px 24px #161b2220, 0 2px 5px #161b2212;
+  --radius-control: 12px;
+  --radius-block: 14px;
+  --radius-panel: 24px;
+  --motion-fast: 120ms;
+  --motion-normal: 180ms;
+  --motion-ease: cubic-bezier(.2, .8, .2, 1);
+  accent-color: var(--accent);
+  font-family: "Segoe UI", "Yu Gothic UI", sans-serif;
+  font-synthesis: none;
+  color: var(--text);
+  background: var(--canvas);
+}

@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.25.1 — 2026-10-05
+
+- 編集画面・接続確認画面の配色を共通化。白・ニュートラルグレーと控えめな緑へ整理し、強い背景グラデーションを除去。接続確認画面のdark表示はチャコールへ変更。
+- Dockerの画面操作・狭い画面の表示、型・通常試験・frontend・通常Windows cross-buildを検証。初回の画面試験失敗と単独再確認を記録し、実IME・実ユーザーAuthの証拠と区別する。[証拠](tests/evidence/neutral-palette-20261005/SUMMARY.md)。利用者の停止指示に従い、このcheckpointで停止。
+
 ## 0.25.0 — 2026-10-05
 
 - 認証付きPage一覧queryとUUID順keyset/HMAC cursor、live metadata照合を追加。接続closeもnative handle cleanupを開始するよう修正。
