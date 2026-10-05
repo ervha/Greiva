@@ -1,5 +1,7 @@
 # 保護APIの開発用起動
 
+v0.20.0更新：明示metadata1→structured2のupgradeとschema2のみの新sync経路を追加。[導入/maintenance手順](PRIVATE_STRUCTURED_SYNC.md)。以下のv0.17は初期起動手順として保持。通常startupに自動DDL/鍵再生成はなく、schema1は従来のsession/access/bootstrap/device確認だけを提供する。
+
 v0.17.0。通常PoCと別コマンド・別schemaで起動する。日本向け個人版P1の接続検証用で、公開配布用の設定ではない。
 
 Docker内の`@greiva/api`には`dev:private`/`start:private`/`init:private`を用意した。前二者は既存schemaのread-only readiness検査後に起動する。初期化・旧DB移行・自動修復は行わない。`init:private`は明示的にfresh schemaを作る専用コマンドで、既存schemaなら失敗し、そのまま保持する。

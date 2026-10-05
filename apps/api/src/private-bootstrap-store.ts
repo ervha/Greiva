@@ -33,8 +33,8 @@ export class PostgresPrivateBootstrapStore implements PrivateWorkspaceBootstrap 
     let client: pg.PoolClient | undefined;
     try {
       client = await this.pool.connect(); assertSession(); await client.query('BEGIN ISOLATION LEVEL READ COMMITTED');
-      const version = await client.query(`SELECT version FROM "${schema}".private_schema_version WHERE singleton=true`);
-      if (version.rowCount !== 1 || version.rows[0].version !== 1) throw new PrivateBootstrapUnavailable();
+      const version = await client.query(`SELECT version FROM "${schema}".private_schema_version WHERE singleton=true FOR SHARE`);
+      if (version.rowCount !== 1 || ![1,2].includes(version.rows[0].version)) throw new PrivateBootstrapUnavailable();
       await client.query(`INSERT INTO "${schema}".private_workspaces(id,owner_issuer,owner_subject_id,epoch)
         VALUES($1,$2,$3,$4) ON CONFLICT(owner_issuer,owner_subject_id) DO NOTHING`, [newId(),ownerIssuer,subjectId,newId()]);
       // Separate statement after the unique-index wait observes the committed

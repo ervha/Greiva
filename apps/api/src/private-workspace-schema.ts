@@ -1,9 +1,7 @@
 import type pg from 'pg';
-
-export function privateSchemaName(schema: string) {
-  if (!/^greiva_private_[a-z0-9_]{1,40}$/.test(schema)) throw new Error('Explicit private schema name required');
-  return schema;
-}
+import { verifyPrivateStructuredSchema } from './private-structured-schema.js';
+import { privateSchemaName } from './private-schema-name.js';
+export { privateSchemaName } from './private-schema-name.js';
 
 // Readiness check only: no DDL, auto repair, bootstrap or ownership mutation.
 export async function verifyPrivateWorkspaceSchema(pool: pg.Pool, candidate: string) {
@@ -11,7 +9,7 @@ export async function verifyPrivateWorkspaceSchema(pool: pg.Pool, candidate: str
   try {
     await client.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
     const version = await client.query(`SELECT version FROM "${schema}".private_schema_version WHERE singleton=true`);
-    if (version.rowCount !== 1 || version.rows[0].version !== 1) throw new Error('Unsupported private schema');
+    if (version.rowCount !== 1 || ![1,2].includes(version.rows[0].version)) throw new Error('Unsupported private schema');
     for (const query of [
       `SELECT id,owner_issuer,owner_subject_id,epoch,deleted FROM "${schema}".private_workspaces LIMIT 0`,
       `SELECT id,workspace_id,revoked FROM "${schema}".private_devices LIMIT 0`,
@@ -19,7 +17,9 @@ export async function verifyPrivateWorkspaceSchema(pool: pg.Pool, candidate: str
       `SELECT id,owner_subject_id,owner_issuer FROM "${schema}".workspace_access LIMIT 0`,
       `SELECT type,id,workspace_id,deleted FROM "${schema}".resource_access LIMIT 0`,
     ]) await client.query(query);
+    if(version.rows[0].version===2)await verifyPrivateStructuredSchema(client,schema);
     await client.query('COMMIT');
+    return version.rows[0].version as 1 | 2;
   } catch {
     try { await client.query('ROLLBACK'); } catch { /* fixed error only */ }
     throw new Error('Private workspace schema unavailable');

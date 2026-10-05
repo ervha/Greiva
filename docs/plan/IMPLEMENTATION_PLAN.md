@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.20.0：個人workspace専用Task/Relation streamを実装。immutable ledger/再送、三値Conflict/causal frame、typed Relation参照、signed cursor/commit順序、明示schema2 upgradeを追加。通常177/実PG54/型/frontend/Windows build、専用API/preview更新がPass。[全20判断](../decisions/private-structured-stream.md)。Page metadata/CRDT・通常UI/IPC・実Auth/nativeは未完成で、追加操作を求めずPage同期の保護契約へ進む。
+
 最新v0.19.0：owner/device/typed resourceの認可と業務queryを同一DB transactionへ固定。期限/失効/削除競合/返却後query/rollbackを追加4＋実PG11で確認し、通常175/PG41/型/frontend/Windows buildがPass。[全15判断](../decisions/private-sync-transactions.md)。device access入口を追加し、bootstrapの待機中期限切れもrollback。新sync server ledger/CRDT/native UIは別工程、次はworkspace別structured保存/再送/順序へ進む。
 
 最新v0.18.0：独立browserログイン確認画面とmemory-only controller、明示login/登録/refresh/local logout、固定proxy/Compose previewを追加。通常171/PG30/専用画面8/通常画面59/実同期2/型/Windows buildがPass。[全21判断](../decisions/private-login-preview.md)。browser native fetchのreceiver不備を修正。単発Home試験の原因は未確定で再確認3/全59を通し記録へ保持。実ユーザー正常認証/OS credential/Tauri workspace IPC/new server streamは未完成。次は認証・端末所属を照合するserver同期transactionへ進む。

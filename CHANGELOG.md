@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.20.0 — 2026-10-05
+
+- 個人workspace専用Task/Relation push/pullを実装。明示schema2 upgrade、immutable ledger/再送、三値Conflict/causal frame、typed Relation参照、workspace別commit順序、耐久署名鍵/cursorとwhole batch transactionに対応。
+- 新2 unit＋実PG13、通常177/PG54/型/frontend/Windows buildを確認。実HTTP/2つのRust SQLite、COMMIT前後SIGKILL、専用API/preview更新とmetadata/鍵保持を検証。全20判断を記録。Page metadata/CRDT・通常UI/IPC・実Auth正常系/nativeは未完成。
+
 ## 0.19.0 — 2026-10-05
 
 - 個人workspaceの認可と業務queryを同一PostgreSQL transactionへ固定。owner/device/resource lock、認証期限、active query/unfinished/rollback、device/access入口を追加し、bootstrapも待機後の期限切れを拒否。

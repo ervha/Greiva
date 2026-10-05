@@ -1,5 +1,7 @@
 # Supabase Authの検証用設定
 
+v0.20.0更新：[専用structured同期](PRIVATE_STRUCTURED_SYNC.md)をlocal APIへ追加。実HTTP/JWTはfixture正常系を検証済みで、実ユーザーSupabaseの正常login/端末間同期は未確認。以下のserver stream未実装は過去版の記録。
+
 2026-10-05。個人利用・自端末同期の認証検証用。Supabase Authを使用し、Greivaの本文保存や同期サーバーをSupabaseへ移したとはしない。
 
 1. Supabase Dashboardで検証用projectを作成する。DB passwordは手元のcredential管理へ保存する。

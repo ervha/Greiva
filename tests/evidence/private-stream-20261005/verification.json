@@ -1,0 +1,37 @@
+{
+  "result": "Pass",
+  "version": "0.20.0",
+  "unit": {
+    "pass": 177,
+    "skip": 54,
+    "new": 2
+  },
+  "postgres": {
+    "pass": 54,
+    "skip": 0,
+    "new": 13
+  },
+  "typecheck": "Pass",
+  "frontend": "Pass",
+  "normalWindowsBuild": "Pass",
+  "buildSourcesMatch": 104,
+  "externalNpm315Unchanged": true,
+  "externalCargoBothLocksUnchanged": true,
+  "dedicatedDockerBuild": "Pass",
+  "compose": "Version0.20/schema2; metadata unchanged and cursor key retained; API/proxy sync401, auth.html200",
+  "nativeStores": "Two actual Docker Rust/SQLite stores with signed fixture HTTP; lostACK/restart/pagination/refresh/revoked pending",
+  "serverCrash": "Actual worker SIGKILL before and after COMMIT; operation/order/history1 after same-wire retry",
+  "reportCredentialScan": "No compact JWT/private key/publishable key material in selected reports",
+  "initialFailures": [
+    "Initial TS2532: driver rows are possibly undefined; row-count-guarded references made explicit; compiler flags unchanged",
+    "Ignored document helper backtick escaping corrected before any document edits"
+  ],
+  "limits": [
+    "Real Supabase user login and Windows/Android native Auth/IME not verified",
+    "No Page metadata/CRDT or normal UI/Tauri workspace IPC integration",
+    "Fixture Auth responses are not real provider normal-flow evidence",
+    "Existing v0.18 UI regression retained; no new UI change",
+    "No public deployment, epoch reset, compaction, key rotation or guessed retention periods",
+    "Telemetry not implemented or collected"
+  ]
+}

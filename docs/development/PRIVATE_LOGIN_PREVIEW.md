@@ -1,5 +1,7 @@
 # ログイン接続確認画面
 
+v0.20.0更新：専用Compose API/previewはschema2/版0.20へ更新し、[保護structured同期](PRIVATE_STRUCTURED_SYNC.md)を提供する。auth.htmlの動作は登録確認までで、本文/Taskを自動同期しない。
+
 v0.18.0。browserの`/auth.html`でEmail/passwordのログイン、Greivaの署名確認、個人workspace登録、明示refresh、local logoutを確認する。通常PoC画面と別entryで、本文同期や端末保存を提供する画面ではない。
 
 ## Dockerで開く

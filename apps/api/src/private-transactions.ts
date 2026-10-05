@@ -27,7 +27,8 @@ export class PrivateTransactionUnavailable extends Error {
 // Trusted server business code only; SQL is never accepted from an HTTP body.
 // This is a transaction/permission lease, not a SQL sandbox or a sync server.
 // Business queries must still scope their data to context.workspaceId, and
-// must not issue transaction control, change owner metadata, or retain ports.
+// must not issue transaction control, change workspace/device/schema
+// authorization, or retain ports. Resource writes need scoped repository logic.
 export class PostgresPrivateTransactions implements PrivateDeviceAccess {
   private readonly schema: string;
   constructor(private readonly pool: pg.Pool, schema: string, private readonly now: () => number = Date.now) {
@@ -57,8 +58,8 @@ export class PostgresPrivateTransactions implements PrivateDeviceAccess {
     try {
       client = await this.pool.connect(); assertSession();
       await client.query('BEGIN ISOLATION LEVEL READ COMMITTED');
-      const version = await client.query(`SELECT version FROM "${schema}".private_schema_version WHERE singleton=true`);
-      if (version.rowCount !== 1 || version.rows[0].version !== 1) throw new PrivateTransactionUnavailable();
+      const version = await client.query(`SELECT version FROM "${schema}".private_schema_version WHERE singleton=true FOR SHARE`);
+      if (version.rowCount !== 1 || ![1,2].includes(version.rows[0].version)) throw new PrivateTransactionUnavailable();
       // SHARE blocks non-key updates (deleted/revoked) too. KEY SHARE would
       // permit them. The lock order is workspace, device, sorted resources.
       const rows = await client.query(`SELECT owner_issuer,owner_subject_id,epoch,deleted FROM "${schema}".private_workspaces WHERE id=$1 FOR SHARE`, [workspace.data]);

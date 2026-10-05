@@ -1,0 +1,10 @@
+{
+  "result": "Pass",
+  "version": "0.20.0",
+  "externalNpmRecords": 315,
+  "externalCargoUnchanged": true,
+  "ownerManifestsAligned": true,
+  "driverOwnerAligned": true,
+  "driverExternalUnchanged": true,
+  "driverDependenciesMatchRoot": true
+}

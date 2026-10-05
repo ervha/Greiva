@@ -1,5 +1,7 @@
 # 個人版の認証・認可契約候補
 
+v0.20.0でschema2のstructured push/pullを同じ認可transactionへ接続。新scoped repositoryのresource作成/tombstoneだけを、typed所属/lock検査後に行う。owner/device/schema認可の任意変更は禁止を継続。Relation両endpointとConflict/ledger/historyのworkspaceを照合する。[実装/未完成範囲](../development/PRIVATE_STRUCTURED_SYNC.md)。Page CRDT/routerは別工程。
+
 v0.19.0では[private transaction](../development/PRIVATE_SYNC_TRANSACTIONS.md)でowner/device/typed resourceを業務queryと同一transactionへ固定した。新device/accessは登録確認のみで、200後の認可leaseは返さない。失効は進行中の認可済処理のcommit後に確定し、次の要求を拒否する。新全sync/CRDT routerの完成は別工程。
 
 2026-10-05、個人版の設計と部分実装記録。利用者の回答により、初期版は個人利用/自分の端末間同期を先行する。共有・招待・public linkは初期提供へ含めない。Supabase Authは[統合要件](GREIVA_REQUIREMENTS.md)の候補で、初期設計時点ではinstance/鍵/認証UIは未設定・未実装だった。

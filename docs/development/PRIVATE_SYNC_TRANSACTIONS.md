@@ -1,5 +1,7 @@
 # 保護された同期transactionの境界
 
+v0.20.0更新：schema1/2の版行も最初にFOR SHAREでlockする。schema upgradeは同じ行をFOR UPDATEでlockして待機する。resource作成/tombstoneは[新scoped repository](PRIVATE_STRUCTURED_SYNC.md)内でのみ行い、任意callbackからworkspace/device/schema認可を変更しない。以下v0.19は境界の初期説明。
+
 v0.19.0。PostgresPrivateTransactions.runは、署名検証済みsessionとworkspace/client ID、既存typed resource参照を受けるtrusted server portである。新しいstructured push/pullは未実装。
 
 同一transactionでversion1、owner issuer/subject、登録deviceの所属/失効、resourceのtype/id/所属/tombstoneを確認する。workspace→device→sorted resourcesのFOR SHARE lockをcommit/rollbackまで保持する。resourceなしはworkspace/device単位の処理用で、resource作成を許可する全業務validationではない。現時点の参照上限100は内部境界で、将来のsync SLOではない。
