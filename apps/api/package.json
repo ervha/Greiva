@@ -1,19 +1,22 @@
 {
   "name": "@greiva/api",
   "private": true,
-  "version": "0.16.0",
+  "version": "0.17.0",
   "type": "module",
   "scripts": {
     "dev": "node --env-file-if-exists=../../.env --import tsx src/main.ts",
     "build": "tsc -p tsconfig.json",
     "start": "node --env-file-if-exists=../../.env dist/main.js",
+    "dev:private": "node --env-file-if-exists=../../.env --import tsx src/private-main.ts",
+    "start:private": "node --env-file-if-exists=../../.env dist/private-main.js",
+    "init:private": "node --env-file-if-exists=../../.env --import tsx src/init-private.ts",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@greiva/application": "0.16.0",
-    "@greiva/domain": "0.16.0",
-    "@greiva/protocol": "0.16.0",
-    "@greiva/shared": "0.16.0",
+    "@greiva/application": "0.17.0",
+    "@greiva/domain": "0.17.0",
+    "@greiva/protocol": "0.17.0",
+    "@greiva/shared": "0.17.0",
     "@nestjs/common": "12.1.1",
     "@nestjs/core": "12.1.1",
     "@nestjs/platform-fastify": "12.1.1",

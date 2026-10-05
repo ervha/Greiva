@@ -1,0 +1,29 @@
+{
+  "result": "Pass",
+  "version": "0.17.0",
+  "unit": {
+    "pass": 161,
+    "skip": 30,
+    "newRuntime": 3
+  },
+  "postgres": {
+    "pass": 30,
+    "skip": 0,
+    "newStartupCliShutdown": 3
+  },
+  "typecheck": "Pass",
+  "normalWindowsBuild": "Pass",
+  "buildSourcesMatch": 96,
+  "externalNpm315Unchanged": true,
+  "externalCargoBothLocksUnchanged": true,
+  "dedicatedDockerBuild": "Pass",
+  "composeStartup": "Pass; new local PostgreSQL/schema; unauthenticated 401/legacy routes 404",
+  "reportCredentialScan": "No compact JWT/private-key/publishable-key material in selected raw JSON",
+  "limits": [
+    "Readiness validates schema version/required columns, not all integrity/privilege/operations conditions",
+    "No login UI/OS credential/new server stream/CRDT or public deployment",
+    "Actual signed session tests use fixture JWKS; real Supabase URL used for local startup but no real user login",
+    "No new native IME/Android proof; unchanged UI E2E evidence retained from v0.14",
+    "Telemetry not implemented or collected"
+  ]
+}

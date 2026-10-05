@@ -1,0 +1,33 @@
+{
+  "version": "0.17.0",
+  "diagnostic": false,
+  "results": [
+    {
+      "id": "install",
+      "start": "2026-10-05T03:37:44.819Z",
+      "finished": "2026-10-05T03:37:45.596Z",
+      "exit": 0
+    },
+    {
+      "id": "frontend",
+      "start": "2026-10-05T03:37:45.597Z",
+      "finished": "2026-10-05T03:37:51.057Z",
+      "exit": 0
+    },
+    {
+      "id": "cross",
+      "start": "2026-10-05T03:37:51.057Z",
+      "finished": "2026-10-05T03:38:53.618Z",
+      "exit": 0
+    }
+  ],
+  "frontendTestFlags": 0,
+  "storeFeatures": [
+    "default"
+  ],
+  "artifact": {
+    "bytes": 13155840,
+    "sha256": "a3af1de7408d7b865a681b32bdb405edc409c50f9f1c044c0ed7398ec38ed596"
+  },
+  "scope": "Normal Windows cross-build. No new native IME/interaction proof."
+}

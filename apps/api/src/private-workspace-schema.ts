@@ -5,6 +5,27 @@ export function privateSchemaName(schema: string) {
   return schema;
 }
 
+// Readiness check only: no DDL, auto repair, bootstrap or ownership mutation.
+export async function verifyPrivateWorkspaceSchema(pool: pg.Pool, candidate: string) {
+  const schema = privateSchemaName(candidate), client = await pool.connect();
+  try {
+    await client.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
+    const version = await client.query(`SELECT version FROM "${schema}".private_schema_version WHERE singleton=true`);
+    if (version.rowCount !== 1 || version.rows[0].version !== 1) throw new Error('Unsupported private schema');
+    for (const query of [
+      `SELECT id,owner_issuer,owner_subject_id,epoch,deleted FROM "${schema}".private_workspaces LIMIT 0`,
+      `SELECT id,workspace_id,revoked FROM "${schema}".private_devices LIMIT 0`,
+      `SELECT type,id,workspace_id,deleted FROM "${schema}".private_resources LIMIT 0`,
+      `SELECT id,owner_subject_id,owner_issuer FROM "${schema}".workspace_access LIMIT 0`,
+      `SELECT type,id,workspace_id,deleted FROM "${schema}".resource_access LIMIT 0`,
+    ]) await client.query(query);
+    await client.query('COMMIT');
+  } catch {
+    try { await client.query('ROLLBACK'); } catch { /* fixed error only */ }
+    throw new Error('Private workspace schema unavailable');
+  } finally { client.release(); }
+}
+
 // Explicit fresh namespace installer only. No IF NOT EXISTS, old DB import,
 // destructive repair, auto-start migration or guessed workspace ownership.
 export async function installPrivateWorkspaceSchema(pool: pg.Pool, candidate: string) {

@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-05 / v0.17.0 / [保護API起動](private-runtime-20261005/SUMMARY.md): 通常3＋実PG3を追加、通常161/PG30/型/通常Windows build。fresh Docker build/専用Compose、read-only readiness/明示初期化/失敗とSIGTERM cleanup。実ユーザー認証/画面/新同期streamは未完成。
+
 - 2026-10-05 / v0.16.0 / [認証済workspace接続](private-connection-20261005/SUMMARY.md): 新10＋既存非同期9、通常158/実PG27/型/通常Windows build。strict bootstrap、auth leaseと保存先固定、refresh/close/遅着、HTTP404時pending保持。通常UI/新server stream/実ユーザー認証は未完成。
 
 - 2026-10-05 / v0.15.0 / [Supabase認証session](auth-session-20261005/SUMMARY.md): client14＋実署名HTTP2＋実PG/native SQLite1、通常148/PG27/型/通常Windows build。memory-only/rotation/close/owner/期限と実公開JWKSの不正署名拒否。通常UI/OS credential/実ユーザー正常login/新同期HTTPは未接続。

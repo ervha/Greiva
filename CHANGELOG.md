@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.17.0 — 2026-10-05
+
+- 保護APIの明示config/read-only schema readiness、専用起動/初期化コマンド、独立Docker構成を追加。設定/schema不備でlistenせず、失敗/終了時にlistenerとpoolを片付ける。旧PoC経路や既存DBは維持。
+- 通常3＋実PG3を追加、通常161/PG30/型/Windows build、fresh Docker build/専用Compose起動を確認。全14判断を記録。実ユーザー認証/画面/native credential、新server stream/CRDT、公開運用は未完成。
+
 ## 0.16.0 — 2026-10-05
 
 - strict bootstrapと認証済workspace接続を追加。auth generation/storeを固定し、refresh/close後の旧session復帰と遅着応答の適用を防ぐ。prepared wireを保持し、旧PoC経路へfallbackしない。

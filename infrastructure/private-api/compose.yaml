@@ -1,0 +1,48 @@
+name: greiva-private-development
+
+x-config: &config
+  DATABASE_URL: postgresql://greiva:greiva_dev_only@postgres:5432/greiva_private
+  GREIVA_PRIVATE_SCHEMA: greiva_private_local
+  GREIVA_SUPABASE_URL: ${GREIVA_SUPABASE_URL:?Set an explicit Supabase project URL}
+  GREIVA_SUPABASE_ALGORITHM: ${GREIVA_SUPABASE_ALGORITHM:?Set ES256 or RS256}
+  GREIVA_PRIVATE_HOST: 0.0.0.0
+  GREIVA_PRIVATE_PORT: "3001"
+
+x-api: &api
+  image: greiva-private-development:local
+  build:
+    context: ../..
+    dockerfile: infrastructure/private-api/Dockerfile
+  init: true
+  working_dir: /workspace
+  security_opt: ["no-new-privileges:true"]
+  environment: *config
+  depends_on:
+    postgres:
+      condition: service_healthy
+
+services:
+  api:
+    <<: *api
+    command: ["npm", "run", "start:private", "-w", "@greiva/api"]
+    ports: ["127.0.0.1:3001:3001"]
+  schema:
+    <<: *api
+    profiles: ["setup"]
+    command: ["node", "apps/api/dist/init-private.js"]
+  postgres:
+    image: postgres:18.4-bookworm
+    environment:
+      POSTGRES_DB: greiva_private
+      POSTGRES_USER: greiva
+      POSTGRES_PASSWORD: greiva_dev_only
+      TZ: UTC
+    volumes: ["private-postgres:/var/lib/postgresql"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U greiva -d greiva_private"]
+      interval: 2s
+      timeout: 3s
+      retries: 20
+
+volumes:
+  private-postgres:

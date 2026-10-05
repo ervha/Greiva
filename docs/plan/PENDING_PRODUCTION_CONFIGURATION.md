@@ -1,5 +1,7 @@
 # 応答・外部環境が必要な事項
 
+v0.17.0：保護APIの明示設定/起動と初期化を実装。[全178判断](AUTONOMOUS_DECISIONS.md)。専用local ComposeのDB/volumeを新規に作り、認証なし401を確認。実ユーザーloginは未確認で、password/tokenをチャットに求めない。追加回答なしでログイン確認画面などの独立作業を進める。
+
 v0.16.0：認証→strict bootstrap→固定した同期session/storeの接続を実装。[全164判断](AUTONOMOUS_DECISIONS.md)。新server streamが未接続のHTTP404でもpending保持を実PG/native SQLiteで確認した。実ユーザー認証/通常UI/IPCは未完成。追加回答を求めず、保護API起動/configへ進める。
 
 v0.15.0：配置設定とmemory-only認証session、保護HTTPの署名検証へ接続するadapterを実装。[全148判断](AUTONOMOUS_DECISIONS.md)。provider login/refreshはfixture、実Supabaseは公開JWKS/不正署名拒否まで。正常な実ログインはUI/OS credential接続後にまとめて確認する。今は追加回答・password/tokenを求めず、新workspace同期/起動adapter等の独立作業を進められる。

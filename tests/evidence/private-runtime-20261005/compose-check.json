@@ -1,0 +1,14 @@
+{
+  "result": "Pass",
+  "version": "0.17.0",
+  "imageId": "sha256:5d2c7158a67dcdee7bbab7aac762ff1303d3a91cb078c531f2a9712558c3490f",
+  "binding": "127.0.0.1:3001",
+  "database": "New dedicated local PostgreSQL volume; ordinary PoC DB untouched",
+  "schema": "Explicit fresh install, no automatic startup DDL",
+  "provider": "Provided real project URL/ES256; no real user login or Publishable key/token in API configuration",
+  "http": {
+    "noAuth": 401,
+    "oldRoutes": 404
+  },
+  "retained": "API running for subsequent login UI development; volume retained"
+}

@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+2026-10-05、checkpoint **v0.17.0**。認証済workspace接続（v0.16.0）と[保護APIの明示起動](../../tests/evidence/private-runtime-20261005/SUMMARY.md)を実装。通常161/実PG30/型/Windows build、独立Docker build/Compose起動を確認。[全178判断](AUTONOMOUS_DECISIONS.md)。実ユーザー認証、login UI/OS credential/native workspace IPC、新server stream/CRDTは未完成。以下は過去の各checkpoint時点の記録。
+
 2026-10-05、checkpoint/所有版 **v0.13.0**。[workspace同期sessionの遅着応答/保存先固定](../../tests/evidence/workspace-session-20261005/SUMMARY.md)で通常120＋実PG26/型/通常Windows buildがPass。非同期race9条件はportable port doubleで、新しいnative永続化/HTTP stream/画面の証拠ではない。[全12判断](../decisions/workspace-sync-session.md)、[継続開発118判断のまとめ](AUTONOMOUS_DECISIONS.md)。規約/改善送信は設計に追加済み、収集未実装。残るP1/P2作業はworkspace別durable prepared/receipt/cursorとactive UIの接続、実Auth/失効/端末保持契約。旧DB/実行物を保持。
 
 2026-10-05、checkpoint/所有版 **v0.12.0**。[正本metadata schemaと初期workspace登録](../../tests/evidence/private-bootstrap-20261005/SUMMARY.md)で通常111＋実PG26/型/通常Windows buildがPass。並行/再送、issuer/端末境界、rollback、削除/失効、unknown版を検証。[全12判断](../decisions/private-workspace-bootstrap.md)。fresh namespaceに限定、旧PoC移行/本文/同期/native queue/実Authは未完成。次はaccount/workspace切替の遅着応答guardを実装する。

@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.17.0：明示config/read-only schema readiness、保護API専用mainとfresh初期化、独立Docker構成を追加。通常161＋実PG30/型/通常Windows build、fresh Docker build/専用Compose起動がPass。[全14判断](../decisions/private-api-startup.md)。通常PoC mainは維持し、新workspace stream/CRDT・実ユーザー認証は未完成。次はログイン検証画面とclient設定、native credential/IPC接続を進める。
+
 最新v0.16.0：strict bootstrapとPrivateWorkspaceConnectionを追加し、認証generationのleaseで同期session/保存先を固定した。refresh/close/遅着処理を検証し、通常158＋実PG27/型/通常Windows buildがPass。[全16判断](../decisions/private-workspace-connection.md)。新同期HTTPのserver stream、通常UI/IPCと実ユーザーログインは未完成。次は明示的な保護API起動/configとログイン検証の入口へ進む。
 
 最新v0.15.0：Supabaseの明示配置設定とmemory-only認証session、password/refresh/local logoutのREST adapter、server署名検証との接続を実装。通常148＋実PG27/型/通常Windows buildを検証。追加client14＋実HTTP2＋実PG/native SQLite1、実Supabaseの公開JWKS/不正署名拒否を分離した。[全16判断](../decisions/supabase-auth-session.md)。通常ログインUI/OS credential/新workspace同期HTTP・CRDTは未接続で、実ユーザーの正常login/refreshは未確認。次は認証済sessionから使うbootstrap/同期HTTP adapterと起動/設定UI、native bindingを接続する。
