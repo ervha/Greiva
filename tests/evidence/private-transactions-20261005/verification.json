@@ -1,0 +1,30 @@
+{
+  "result": "Pass",
+  "version": "0.19.0",
+  "unit": {
+    "pass": 175,
+    "skip": 41,
+    "new": 4
+  },
+  "postgres": {
+    "pass": 41,
+    "skip": 0,
+    "new": 11
+  },
+  "typecheck": "Pass",
+  "frontend": "Pass",
+  "normalWindowsBuild": "Pass",
+  "buildSourcesMatch": 101,
+  "externalNpm315Unchanged": true,
+  "externalCargoBothLocksUnchanged": true,
+  "reportCredentialScan": "Pass; compact JWT/private key/publishable key absent",
+  "limits": [
+    "Trusted server SQL port; business queries must scope workspace and must not control transactions or alter authorization metadata",
+    "No new structured stream/CRDT/schema migration or real Supabase user login",
+    "Existing v0.18 browser regression retained; no UI change or new native IME/Android proof",
+    "Already admitted transaction precedes a concurrent revocation; revocation then denies next transaction",
+    "Schema version readiness is not an online migration coordination contract",
+    "Existing running private API/preview containers retain their actual previous image version",
+    "Telemetry not implemented or collected"
+  ]
+}

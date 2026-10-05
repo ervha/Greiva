@@ -1,5 +1,7 @@
 # Structured sync本番契約候補
 
+v0.19.0では[同一transactionの認可境界](../development/PRIVATE_SYNC_TRANSACTIONS.md)を実装。owner/device/既存typed resourceをFOR SHAREでlockし、業務callbackのquery/期限/終了を管理する。新push/pullやmetadata作成validation/ledgerを実装した状態ではない。schema移行中の稼働/排他とworkspace stream順序を後続で定義する。
+
 2026-10-05、設計案。[architecture](ARCHITECTURE.md)、[データ](DATA_MODEL.md)、[PoC検証](../decisions/gate-c.md)を基準にする。初期版は個人workspace/自分の端末間。新wireの独立型/境界を部分実装し、旧PoCのTask/Relation経路と本番案を分ける。
 
 v0.9.0でprotocol/workspace subpathへprotocolVersion1/workspace/client/response streamEpoch、ACK/pull scope検査を追加し、server専用gw1 cursorを実装した。[証拠](../../tests/evidence/workspace-sync-boundary-20261005/SUMMARY.md)。新経路/queue/SQLへは未接続で、旧PoC wireを変えない。cursorはuser認証ではなく、owner認可を別に通す。

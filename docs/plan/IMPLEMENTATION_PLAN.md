@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.19.0：owner/device/typed resourceの認可と業務queryを同一DB transactionへ固定。期限/失効/削除競合/返却後query/rollbackを追加4＋実PG11で確認し、通常175/PG41/型/frontend/Windows buildがPass。[全15判断](../decisions/private-sync-transactions.md)。device access入口を追加し、bootstrapの待機中期限切れもrollback。新sync server ledger/CRDT/native UIは別工程、次はworkspace別structured保存/再送/順序へ進む。
+
 最新v0.18.0：独立browserログイン確認画面とmemory-only controller、明示login/登録/refresh/local logout、固定proxy/Compose previewを追加。通常171/PG30/専用画面8/通常画面59/実同期2/型/Windows buildがPass。[全21判断](../decisions/private-login-preview.md)。browser native fetchのreceiver不備を修正。単発Home試験の原因は未確定で再確認3/全59を通し記録へ保持。実ユーザー正常認証/OS credential/Tauri workspace IPC/new server streamは未完成。次は認証・端末所属を照合するserver同期transactionへ進む。
 
 最新v0.17.0：明示config/read-only schema readiness、保護API専用mainとfresh初期化、独立Docker構成を追加。通常161＋実PG30/型/通常Windows build、fresh Docker build/専用Compose起動がPass。[全14判断](../decisions/private-api-startup.md)。通常PoC mainは維持し、新workspace stream/CRDT・実ユーザー認証は未完成。次はログイン検証画面とclient設定、native credential/IPC接続を進める。

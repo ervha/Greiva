@@ -7,9 +7,19 @@ import { PrivateWorkspaceAccessDenied, type PrivateWorkspaceAccessStore } from '
 import { authenticatedPrivateAccess } from './authenticated-private-access.js';
 import { SessionVerificationError, type SessionVerifier } from './session-verifier.js';
 import { PrivateBootstrapInvalidRequest, PrivateBootstrapUnavailable, type PrivateWorkspaceBootstrap } from './private-bootstrap-store.js';
+import { PrivateTransactionInvalidRequest, PrivateTransactionUnavailable, type PrivateDeviceAccess } from './private-transactions.js';
 
 const SESSION = Symbol('private-session'), ACCESS = Symbol('private-access');
 const BOOTSTRAP = Symbol('private-bootstrap');
+const DEVICE = Symbol('private-device');
+@Controller('v1/workspaces')
+class PrivateDeviceController {
+  constructor(@Inject(SESSION) private readonly verifier: SessionVerifier, @Inject(DEVICE) private readonly device: PrivateDeviceAccess) {}
+  @Get(':workspaceId/devices/:clientId/access')
+  async access(@Headers('authorization') authorization: unknown, @Param('workspaceId') workspaceId: string, @Param('clientId') clientId: string) {
+    return this.device.access(await this.verifier.verify(authorization), workspaceId, clientId);
+  }
+}
 @Controller('v1')
 class PrivateAccessController {
   constructor(@Inject(SESSION) private readonly verifier: SessionVerifier, @Inject(ACCESS) private readonly access: ReturnType<typeof authenticatedPrivateAccess>) {}
@@ -38,6 +48,8 @@ class PrivateAccessErrors implements ExceptionFilter {
     if (error instanceof PrivateWorkspaceAccessDenied) return response.status(403).send({ error: 'access_denied' });
     if (error instanceof PrivateBootstrapInvalidRequest) return response.status(400).send({ error: 'invalid_request' });
     if (error instanceof PrivateBootstrapUnavailable) return response.status(503).send({ error: 'bootstrap_unavailable' });
+    if (error instanceof PrivateTransactionInvalidRequest) return response.status(400).send({ error: 'invalid_request' });
+    if (error instanceof PrivateTransactionUnavailable) return response.status(503).send({ error: 'transaction_unavailable' });
     if (error instanceof HttpException) return response.status(error.getStatus()).send({ error: error.getStatus() === 404 ? 'not_found' : 'invalid_request' });
     // Do not expose SQL, token/JWKS causes, private object IDs or request content.
     return response.status(503).send({ error: 'access_unavailable' });
@@ -45,10 +57,11 @@ class PrivateAccessErrors implements ExceptionFilter {
 }
 // Independent protected API factory. Does not mount or expose old PoC routes,
 // listen automatically, create a test identity, or migrate a caller's database.
-export async function createPrivateApp(verifier: SessionVerifier, store: PrivateWorkspaceAccessStore, bootstrap?: PrivateWorkspaceBootstrap) {
-  @Module({ controllers: [PrivateAccessController, ...(bootstrap ? [PrivateBootstrapController] : [])], providers: [
+export async function createPrivateApp(verifier: SessionVerifier, store: PrivateWorkspaceAccessStore, bootstrap?: PrivateWorkspaceBootstrap, device?: PrivateDeviceAccess) {
+  @Module({ controllers: [PrivateAccessController, ...(bootstrap ? [PrivateBootstrapController] : []), ...(device ? [PrivateDeviceController] : [])], providers: [
     { provide: SESSION, useValue: verifier }, { provide: ACCESS, useValue: authenticatedPrivateAccess(verifier, store) },
     ...(bootstrap ? [{ provide: BOOTSTRAP, useValue: bootstrap }] : []),
+    ...(device ? [{ provide: DEVICE, useValue: device }] : []),
   ] })
   class PrivateAppModule {}
   const app = await NestFactory.create<NestFastifyApplication>(PrivateAppModule, new FastifyAdapter({ logger: false }), { logger: false });

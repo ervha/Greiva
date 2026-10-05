@@ -25,11 +25,14 @@ export class PostgresPrivateBootstrapStore implements PrivateWorkspaceBootstrap 
     const request = requestSchema.safeParse(candidate);
     if (!request.success) throw new PrivateBootstrapInvalidRequest();
     const clientId = request.data.clientId, subject = subjectIdSchema.safeParse(session.subjectId), issuer = subjectIdSchema.safeParse(session.issuer);
-    if (!subject.success || !issuer.success || !Number.isSafeInteger(session.expiresAt) || session.expiresAt <= Math.floor(Date.now()/1000)) throw new SessionVerificationError('invalid_session');
+    const expiresAt = session.expiresAt;
+    if (!subject.success || !issuer.success || !Number.isSafeInteger(expiresAt)) throw new SessionVerificationError('invalid_session');
+    const assertSession = () => { if (expiresAt <= Math.floor(Date.now()/1000)) throw new SessionVerificationError('invalid_session'); };
+    assertSession();
     const subjectId = subject.data, ownerIssuer = issuer.data, schema = this.schema;
     let client: pg.PoolClient | undefined;
     try {
-      client = await this.pool.connect(); await client.query('BEGIN ISOLATION LEVEL READ COMMITTED');
+      client = await this.pool.connect(); assertSession(); await client.query('BEGIN ISOLATION LEVEL READ COMMITTED');
       const version = await client.query(`SELECT version FROM "${schema}".private_schema_version WHERE singleton=true`);
       if (version.rowCount !== 1 || version.rows[0].version !== 1) throw new PrivateBootstrapUnavailable();
       await client.query(`INSERT INTO "${schema}".private_workspaces(id,owner_issuer,owner_subject_id,epoch)
@@ -43,11 +46,12 @@ export class PostgresPrivateBootstrapStore implements PrivateWorkspaceBootstrap 
       await client.query(`INSERT INTO "${schema}".private_devices(id,workspace_id) VALUES($1,$2) ON CONFLICT(id) DO NOTHING`, [clientId,workspaceId]);
       const devices = await client.query(`SELECT workspace_id,revoked FROM "${schema}".private_devices WHERE id=$1 FOR UPDATE`, [clientId]);
       if (devices.rowCount !== 1 || devices.rows[0].workspace_id !== workspaceId || devices.rows[0].revoked) throw new PrivateWorkspaceAccessDenied();
+      assertSession();
       await client.query('COMMIT');
       return Object.freeze({ protocolVersion: 1, workspaceId, clientId, epoch });
     } catch (error) {
       try { await client?.query('ROLLBACK'); } catch { /* no SQL or credential cause exposed */ }
-      if (error instanceof PrivateWorkspaceAccessDenied) throw error;
+      if (error instanceof PrivateWorkspaceAccessDenied || error instanceof SessionVerificationError) throw error;
       // Even COMMIT response loss is not a durable failure proof. Natural owner
       // uniqueness + same client ID make retry safe without a new workspace.
       throw new PrivateBootstrapUnavailable();

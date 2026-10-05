@@ -4,6 +4,7 @@ import { PostgresPrivateAccessStore } from './private-access-store.js';
 import { PostgresPrivateBootstrapStore } from './private-bootstrap-store.js';
 import { privateSchemaName, verifyPrivateWorkspaceSchema } from './private-workspace-schema.js';
 import { createSupabasePrivateApp } from './supabase-private-app.js';
+import { PostgresPrivateTransactions } from './private-transactions.js';
 
 export class PrivateRuntimeError extends Error {
   constructor(readonly stage: 'configuration' | 'schema' | 'listen' | 'shutdown') {
@@ -46,7 +47,7 @@ export async function startPrivateApi(configuration: PrivateRuntimeConfiguration
     await verifyPrivateWorkspaceSchema(pool, config.schema);
     stage = 'listen';
     app = await createSupabasePrivateApp({ projectUrl: config.projectUrl, algorithm: config.algorithm },
-      new PostgresPrivateAccessStore(pool, config.schema), new PostgresPrivateBootstrapStore(pool, config.schema), fetchJwks);
+      new PostgresPrivateAccessStore(pool, config.schema), new PostgresPrivateBootstrapStore(pool, config.schema), fetchJwks, new PostgresPrivateTransactions(pool, config.schema));
     await app.listen(config.port, config.host);
     const address = await app.getUrl(), capturedApp = app, capturedPool = pool;
     let closing: Promise<void> | undefined;

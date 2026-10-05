@@ -1,0 +1,112 @@
+
+> greiva-poc@0.19.0 test
+> npm run build:packages && npm run build:servers && vitest run
+
+
+> greiva-poc@0.19.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application
+
+
+> @greiva/shared@0.19.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/domain@0.19.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.19.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.19.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.19.0 build
+> tsc -p tsconfig.json
+
+
+> greiva-poc@0.19.0 build:servers
+> npm run build -w @greiva/api && npm run build -w @greiva/collaboration
+
+
+> @greiva/api@0.19.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/collaboration@0.19.0 build
+> tsc -p tsconfig.json
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/workspace-store.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 1507[2mms[22m[39m
+ [32m✓[39m tests/integration/structured-progress.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 1256[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP8-PROGRESS: coalesces ordinary ACK snapshots while retaining durable order and final state[33m 758[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP8-PROGRESS: exposes conflicts and rejections before the next push even inside the display interval[33m 326[2mms[22m[39m
+ [32m✓[39m tests/integration/structured-sync-store.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 1264[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP7-MIGRATION: schema 3 queue/client/Page survive schema 4 upgrade; incompatible destination rolls back columns and version[33m 494[2mms[22m[39m
+ [2m[90m↓[39m[22m tests/integration/private-transactions-postgres.test.ts [2m([22m[2m11 tests[22m[2m | [22m[33m11 skipped[39m[2m)[22m
+ [32m✓[39m tests/integration/structured-store.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 970[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP6-MIGRATION: an incompatible existing table rolls back the whole upgrade and preserves Page data[33m 302[2mms[22m[39m
+ [32m✓[39m tests/integration/sqlite-bridge-stream.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 862[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP8-BRIDGE: killing a real Rust store during concurrent requests never terminates the HTTP server[33m 861[2mms[22m[39m
+ [32m✓[39m tests/integration/collaboration-restart.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 663[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP4-RESTART: ACKed binary updates survive SIGKILL; disconnected edits converge after restart[33m 644[2mms[22m[39m
+ [32m✓[39m tests/integration/supabase-auth-session.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 182[2mms[22m[39m
+ [32m✓[39m tests/integration/api.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 90[2mms[22m[39m
+ [32m✓[39m tests/unit/session-verifier.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 120[2mms[22m[39m
+ [32m✓[39m tests/integration/page-store.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 137[2mms[22m[39m
+ [32m✓[39m tests/integration/private-http.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 245[2mms[22m[39m
+ [32m✓[39m tests/integration/private-bootstrap.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 96[2mms[22m[39m
+ [32m✓[39m tests/unit/structured-commands.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 113[2mms[22m[39m
+ [32m✓[39m tests/unit/private-workspace-connection.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 68[2mms[22m[39m
+ [32m✓[39m tests/integration/sqlite.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 36[2mms[22m[39m
+ [32m✓[39m tests/unit/auth-session.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 57[2mms[22m[39m
+ [32m✓[39m tests/unit/structured-transport.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 37[2mms[22m[39m
+ [32m✓[39m tests/unit/private-login.test.ts [2m([22m[2m7 tests[22m[2m)[22m[32m 91[2mms[22m[39m
+ [32m✓[39m tests/unit/page-writes.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 93[2mms[22m[39m
+ [32m✓[39m tests/unit/workspace-sync.test.ts [2m([22m[2m16 tests[22m[2m)[22m[32m 33[2mms[22m[39m
+[90mstdout[2m | tests/integration/collaboration.test.ts
+[22m[39m
+  Hocuspocus v4.7.0 running at:
+
+  > HTTP: http://127.0.0.1:36999
+  > WebSocket: ws://127.0.0.1:36999
+
+ [32m✓[39m tests/integration/collaboration.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 28[2mms[22m[39m
+ [32m✓[39m tests/unit/workspace-session.test.ts [2m([22m[2m9 tests[22m[2m)[22m[32m 31[2mms[22m[39m
+ [32m✓[39m tests/unit/private-access.test.ts [2m([22m[2m11 tests[22m[2m)[22m[32m 23[2mms[22m[39m
+ [32m✓[39m tests/unit/block-move.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m tests/unit/private-transactions.test.ts [2m([22m[2m4 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m tests/unit/protocol.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 16[2mms[22m[39m
+ [32m✓[39m tests/unit/durability-boundary.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 14[2mms[22m[39m
+ [32m✓[39m tests/unit/private-login-configuration.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m tests/unit/native-navigation.test.ts [2m([22m[2m5 tests[22m[2m)[22m[32m 7[2mms[22m[39m
+ [32m✓[39m tests/unit/block-move-availability.test.ts [2m([22m[2m2 tests[22m[2m)[22m[32m 9[2mms[22m[39m
+ [32m✓[39m tests/unit/private-runtime.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 10[2mms[22m[39m
+ [32m✓[39m tests/unit/shared.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 5[2mms[22m[39m
+ [2m[90m↓[39m[22m tests/integration/authenticated-access-postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m tests/integration/postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m tests/integration/private-access-postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m tests/integration/private-bootstrap-postgres.test.ts [2m([22m[2m3 tests[22m[2m | [22m[33m3 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m tests/integration/private-http-postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m tests/integration/private-runtime-postgres.test.ts [2m([22m[2m3 tests[22m[2m | [22m[33m3 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m tests/integration/structured-postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m tests/integration/structured-process-crash.test.ts [2m([22m[2m2 tests[22m[2m | [22m[33m2 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m tests/integration/structured-sync-client.test.ts [2m([22m[2m6 tests[22m[2m | [22m[33m6 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m tests/integration/structured-sync-server.test.ts [2m([22m[2m10 tests[22m[2m | [22m[33m10 skipped[39m[2m)[22m
+ [2m[90m↓[39m[22m tests/integration/supabase-auth-bootstrap-postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[33m1 skipped[39m[2m)[22m
+
+[2m Test Files [22m [1m[32m32 passed[39m[22m[2m | [22m[33m12 skipped[39m[90m (44)[39m
+[2m      Tests [22m [1m[32m175 passed[39m[22m[2m | [22m[33m41 skipped[39m[90m (216)[39m
+[2m   Start at [22m 04:27:56
+[2m   Duration [22m 26.10s[2m (import 58%, tests 37%, transform 4%, worker 1%)[22m
+
+[2m     Import [22m [33m106 modules were evaluated 172 times[39m[2m · 12.65s total, 58% of tracked time[22m
+[2m            [22m [2m~4.85s faster with [22m[33misolate: false[39m[2m — shared modules are evaluated once per worker instead of once per file[22m
+[2m            [22m [2mlearn more: https://vitest.dev/guide/improving-performance#test-isolation[22m
+
+JSON report written to /workspace/tests/evidence/runs/latest/vitest.json
+JUNIT report written to /workspace/tests/evidence/runs/latest/vitest.xml

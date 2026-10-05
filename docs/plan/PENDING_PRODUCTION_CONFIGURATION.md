@@ -1,5 +1,7 @@
 # 応答・外部環境が必要な事項
 
+v0.19.0：同一transactionでowner/device/resourceをlockする境界とdevice/access入口を実装。通常175/実PG41/型/Windows buildを確認。[全214判断](AUTONOMOUS_DECISIONS.md)。実ユーザーloginの追加手操作を求めず、新server ledger等を進める。旧Page/DBは保持、実Auth正常系やnativeの未完了をDB競合試験で代用しない。
+
 v0.18.0：browserの[ログイン確認画面](../development/PRIVATE_LOGIN_PREVIEW.md)を用意。専用Compose previewの`http://127.0.0.1:1421/auth.html`で、自分の検証ユーザーによるlogin→workspace登録→refresh→再登録→logoutが後で必要。password/tokenをチャットへ求めず、今は操作依頼を出さない。[全199判断](AUTONOMOUS_DECISIONS.md)と単発Home試験の未確定原因を記録し、server同期等の独立作業を続ける。
 
 v0.17.0：保護APIの明示設定/起動と初期化を実装。[全178判断](AUTONOMOUS_DECISIONS.md)。専用local ComposeのDB/volumeを新規に作り、認証なし401を確認。実ユーザーloginは未確認で、password/tokenをチャットに求めない。追加回答なしでログイン確認画面などの独立作業を進める。

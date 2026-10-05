@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.19.0 — 2026-10-05
+
+- 個人workspaceの認可と業務queryを同一PostgreSQL transactionへ固定。owner/device/resource lock、認証期限、active query/unfinished/rollback、device/access入口を追加し、bootstrapも待機後の期限切れを拒否。
+- 新4 unit＋実PG11、通常175/専用PG41/型/frontend/通常Windows buildを確認。失効/削除の両順序、署名fixture HTTP、外部依存/source101と全15判断を記録。新structured stream/CRDT・実Auth/native IPCは未完成。
+
 ## 0.18.0 — 2026-10-05
 
 - 独立browserログイン確認画面を追加。memory-only認証、明示workspace登録/refresh/local logout、password欄消去、期限/キャンセル/安全な状態表示、PC/mobile/dark/reduced motion、固定proxy/Compose previewに対応。通常PoC/CSP/旧DBは維持。

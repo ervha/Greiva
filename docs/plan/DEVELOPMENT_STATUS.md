@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+2026-10-05、checkpoint **v0.19.0**。[個人workspaceの認可と保存transaction](../../tests/evidence/private-transactions-20261005/SUMMARY.md)を実装。owner/device/resourceを同じtransactionでlockし、失効/削除の両順序と期限切れを実PGで確認。通常175/専用PG41/型/Windows buildがPass。[全214判断](AUTONOMOUS_DECISIONS.md)。新structured stream/CRDTと実Auth/native IPCは未完成。追加手操作を求めず、workspace別のserver ledgerへ進む。
+
 2026-10-05、checkpoint **v0.18.0**。[browserログイン接続確認](../../tests/evidence/private-login-20261005/SUMMARY.md)を実装し、通常171/実PG30/専用画面8/通常画面59/実同期2/型/Windows buildを検証。専用Compose previewはloopback1421で起動済み。[全199判断](AUTONOMOUS_DECISIONS.md)。実ユーザーcredentialを入力せず、正常実Auth/OS credential/native IPC/server同期/CRDTは未完成。次はserver同期経路へ進む。
 
 2026-10-05、checkpoint **v0.17.0**。認証済workspace接続（v0.16.0）と[保護APIの明示起動](../../tests/evidence/private-runtime-20261005/SUMMARY.md)を実装。通常161/実PG30/型/Windows build、独立Docker build/Compose起動を確認。[全178判断](AUTONOMOUS_DECISIONS.md)。実ユーザー認証、login UI/OS credential/native workspace IPC、新server stream/CRDTは未完成。以下は過去の各checkpoint時点の記録。
