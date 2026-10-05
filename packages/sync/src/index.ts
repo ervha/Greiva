@@ -2,6 +2,7 @@
 export { AuthSession, AuthSessionError } from './auth-session.js';
 export type { AuthIdentity, AuthSessionPorts } from './auth-session.js';
 export { supabaseAuthSession } from './supabase-auth.js';
+export { PrivateWorkspaceConnection, PrivateConnectionError } from './private-workspace-connection.js';
 export type { SyncOperation, SyncState } from '@greiva/protocol';
 export { emptyPageUpdate } from './page-bootstrap.js';
 export { StructuredSyncEngine, StructuredTransportError, httpStructuredTransport } from './structured-engine.js';

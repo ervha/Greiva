@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.16.0 — 2026-10-05
+
+- strict bootstrapと認証済workspace接続を追加。auth generation/storeを固定し、refresh/close後の旧session復帰と遅着応答の適用を防ぐ。prepared wireを保持し、旧PoC経路へfallbackしない。
+- 新10条件、通常158＋実PG27/型/通常Windows buildがPass。既存SQLite移行試験の有限lock待機を修正、両lock外部依存不変と全16判断を記録。通常UI/IPC、新server stream、実ユーザー認証は未完成。
+
 ## 0.15.0 — 2026-10-05
 
 - Supabaseの明示配置設定とmemory-only client認証を追加。password/refresh/local logoutをRESTへ接続し、Greiva側の署名・issuer/subject/expiry検証後にidentityを公開する。account切替/遅着応答、token rotation、期限、秘密を含めないerrorを検証。

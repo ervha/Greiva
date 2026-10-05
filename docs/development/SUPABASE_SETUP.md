@@ -27,3 +27,5 @@ Dockerから実HTTPSでJWKSと`/auth/v1/settings`を取得し、両方HTTP 200�
 次は公開設定を受ける起動adapter、ログイン/refreshと端末credential保存、検証済みsessionからのworkspace登録、所属/失効を照合する同期経路を順に接続する。実ユーザーのpassword/tokenを開発者へ送る手順にはしない。
 
 v0.15.0で`supabaseConfiguration`、`supabaseAuthSession`、`createSupabasePrivateApp`を追加した。project URL/algorithmと、client側のPublishable key/Greiva API originを明示的に渡す。通常PoC起動に自動適用するenv名・ログインUIはまだない。client tokenはメモリのみで、refreshとlocal logoutを実装し、署名検証後のidentityだけを公開する。正常login/refreshはprovider fixture＋実保護HTTP/PG/SQLiteで検証した。実Supabaseでは公開HTTPSと実JWKSによる不正署名拒否を確認し、実ユーザーの正常ログインは未確認。[全判断と制約](../decisions/supabase-auth-session.md)。
+
+ v0.16.0でPrivateWorkspaceConnectionを追加。認証済AuthSessionと明示API origin/client IDからbootstrapし、同じbindingのworkspace storeへ同期sessionを作る。refresh後は新bootstrapが必要。serverの新同期streamはまだなく、HTTP404でpendingを保持する。通常PoC main/UIにはまだ自動接続しない。[全判断](../decisions/private-workspace-connection.md)。

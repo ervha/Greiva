@@ -148,6 +148,9 @@ it('STEP7-MIGRATION: schema 3 queue/client/Page survive schema 4 upgrade; incomp
     const f = fixture(); const pageId = newId(); const id = newId(); const operation = f.op(id,'create',{title:'original',status:'todo',due:null});
     try {
       const db = new DatabaseSync(f.device.path);
+      // SQLx releases a failed migration asynchronously. Wait for its lock to
+      // release before inspecting rollback, using the repository's same bound.
+      db.exec('PRAGMA busy_timeout=5000');
       db.exec(readFileSync('apps/client/src-tauri/crates/page-store/schema.sql','utf8'));
       db.exec(readFileSync('apps/client/src-tauri/crates/page-store/structured.sql','utf8'));
       db.prepare('INSERT INTO pages VALUES (?,?,?,?,?)').run(pageId,'existing',`page:${pageId}`,time,time);

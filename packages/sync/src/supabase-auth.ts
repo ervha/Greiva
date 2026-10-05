@@ -1,4 +1,4 @@
-import { supabaseConfiguration } from '@greiva/shared';
+import { supabaseConfiguration, privateApiOrigin } from '@greiva/shared';
 import { AuthSession, AuthSessionError, type AuthSessionPorts } from './auth-session.js';
 
 // Provider and Greiva origins are explicit trusted deployment configuration.
@@ -6,11 +6,8 @@ import { AuthSession, AuthSessionError, type AuthSessionPorts } from './auth-ses
 export function supabaseAuthSession(configuration: Readonly<{ projectUrl: string; publishableKey: string; algorithm: 'ES256' | 'RS256'; apiUrl: string }>, fetchPort: typeof fetch = globalThis.fetch) {
   const provider = supabaseConfiguration(configuration.projectUrl, configuration.algorithm);
   const key = configuration.publishableKey;
-  let api: URL; try { api = new URL(configuration.apiUrl); } catch { throw new AuthSessionError('identity'); }
-  if (typeof key !== 'string' || !/^sb_publishable_[A-Za-z0-9_-]+$/.test(key)
-    || configuration.apiUrl !== api.origin || api.username || api.password
-    || !(api.protocol === 'https:' || api.protocol === 'http:' && ['127.0.0.1', 'localhost', '[::1]'].includes(api.hostname))) throw new AuthSessionError('identity');
-  const apiUrl = api.origin;
+  let apiUrl: string; try { apiUrl = privateApiOrigin(configuration.apiUrl); } catch { throw new AuthSessionError('identity'); }
+  if (typeof key !== 'string' || !/^sb_publishable_[A-Za-z0-9_-]+$/.test(key)) throw new AuthSessionError('identity');
   async function call(url: string, signal: AbortSignal, headers: Record<string, string>, body?: unknown) {
     const response = await fetchPort(url, { method: body === undefined ? 'GET' : 'POST',
       headers: { ...headers, ...(body === undefined ? {} : { 'content-type': 'application/json' }) },

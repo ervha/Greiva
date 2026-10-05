@@ -3,6 +3,8 @@ import { idSchema } from '@greiva/shared';
 import { pushRequestSchema, pushResponseSchema, pullRequestSchema, pullResponseSchema } from './index.js';
 
 const scope = { protocolVersion: z.literal(1), workspaceId: idSchema };
+export const privateBootstrapRequestSchema = z.strictObject({ clientId: idSchema });
+export const privateBootstrapResponseSchema = z.strictObject({ ...scope, clientId: idSchema, epoch: idSchema });
 export const workspacePushRequestSchema = pushRequestSchema.extend({ ...scope, clientId: idSchema })
   .refine(request => request.operations.every(operation => operation.clientId === request.clientId), 'Mixed client batch')
   .refine(request => new Set(request.operations.map(operation => operation.operationId)).size === request.operations.length, 'Duplicate operation ID in batch');

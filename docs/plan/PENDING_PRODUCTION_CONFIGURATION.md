@@ -1,5 +1,7 @@
 # 応答・外部環境が必要な事項
 
+v0.16.0：認証→strict bootstrap→固定した同期session/storeの接続を実装。[全164判断](AUTONOMOUS_DECISIONS.md)。新server streamが未接続のHTTP404でもpending保持を実PG/native SQLiteで確認した。実ユーザー認証/通常UI/IPCは未完成。追加回答を求めず、保護API起動/configへ進める。
+
 v0.15.0：配置設定とmemory-only認証session、保護HTTPの署名検証へ接続するadapterを実装。[全148判断](AUTONOMOUS_DECISIONS.md)。provider login/refreshはfixture、実Supabaseは公開JWKS/不正署名拒否まで。正常な実ログインはUI/OS credential接続後にまとめて確認する。今は追加回答・password/tokenを求めず、新workspace同期/起動adapter等の独立作業を進められる。
 
 v0.14.0ではnative workspace storeを実装し、prepared/ACK/pullの耐久性を実SQLite/SIGKILLで検証。[全132判断のまとめ](AUTONOMOUS_DECISIONS.md)。通常UI/IPC/実Authは未接続。利用者からSupabase URL、ES256、Publishable keyを受領し、公開JWKS/Auth settingsを実HTTPSで確認した。[設定手順](../development/SUPABASE_SETUP.md)。以下の過去版記録は当時の状態。

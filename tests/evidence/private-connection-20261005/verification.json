@@ -1,0 +1,33 @@
+{
+  "result": "Pass",
+  "version": "0.16.0",
+  "unit": {
+    "pass": 158,
+    "skip": 27,
+    "newConnection": 10
+  },
+  "postgres": {
+    "pass": 27,
+    "skip": 0,
+    "updatedActualAuthBootstrapNativeSqlite": 1
+  },
+  "typecheck": "Pass",
+  "normalWindowsBuild": "Pass",
+  "buildSourcesMatch": 93,
+  "externalNpm315Unchanged": true,
+  "externalCargoBothLocksUnchanged": true,
+  "reportCredentialScan": "No compact JWT/private-key/publishable-key material in selected raw JSON",
+  "initialFailures": [
+    "Missing backend idSchema import corrected before typecheck",
+    "No-auth/closed-store error classification corrected before focused 19 pass",
+    "Existing rollback-read fixture raced asynchronous SQLite lock release; finite busy timeout added and full suites passed"
+  ],
+  "limits": [
+    "Client sync HTTP path exists but server stream absent; actual 404 preserves pending wire",
+    "Normal PoC main/UI/IPC not rewired; no OS credential or restart restoration",
+    "Provider login/refresh fixture; no real user login or cloud synchronization",
+    "No new native IME/Android interaction proof or UI changes",
+    "Existing UI E2E evidence retained from v0.14; no unmounted UI regression rerun",
+    "Telemetry not implemented or collected"
+  ]
+}

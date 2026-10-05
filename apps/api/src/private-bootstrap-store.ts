@@ -1,6 +1,6 @@
 import type pg from 'pg';
-import { z } from 'zod';
 import { idSchema, newId } from '@greiva/shared';
+import { privateBootstrapRequestSchema } from '@greiva/protocol/workspace';
 import { subjectIdSchema } from '@greiva/domain';
 import { PrivateWorkspaceAccessDenied } from '@greiva/application';
 import { type VerifiedSession, SessionVerificationError } from './session-verifier.js';
@@ -13,7 +13,7 @@ export class PrivateBootstrapUnavailable extends Error {
   readonly outcome = 'unknown';
   constructor() { super('Private bootstrap unavailable; retry the same authenticated account and client ID'); }
 }
-const requestSchema = z.strictObject({ clientId: idSchema });
+const requestSchema = privateBootstrapRequestSchema;
 
 // Receives a verified server session, never an actor from a request body.
 // One initial private workspace per issuer/subject; client ID is a registration

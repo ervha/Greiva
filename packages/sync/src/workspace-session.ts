@@ -60,7 +60,7 @@ export class WorkspaceSyncSession {
   private async stored(work: () => Promise<void>) {
     // Synchronous check + invocation; a store commit already begun can finish
     // after close only in the captured old store. No rollback claim is made.
-    this.check(); try { await work(); } catch { throw new WorkspaceSessionError('storage'); }
+    this.check(); try { await work(); } catch { this.check(); throw new WorkspaceSessionError('storage'); }
   }
   async push(preparedWire: string) {
     await this.run(async () => {
