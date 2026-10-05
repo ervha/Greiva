@@ -6,6 +6,8 @@ mod structured;
 mod structured_sync;
 mod workspace_store;
 mod private_page;
+mod workspace_registry;
+pub use workspace_registry::{WorkspaceRegistry,WorkspaceHandle};
 pub use workspace_store::{WorkspaceContext, WorkspaceStore};
 pub use structured::{LocalOperation, StructuredSnapshot};
 pub use structured_sync::PullBatch;

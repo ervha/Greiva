@@ -1,6 +1,7 @@
 use greiva_page_store::{PageStore, StoredPage, PageMetadata, LocalOperation, StructuredSnapshot, PullBatch};
 use std::path::PathBuf;
 use tauri::Manager;
+use greiva_page_store::{WorkspaceRegistry,WorkspaceHandle,WorkspaceContext};
 use tokio::sync::OnceCell;
 
 struct LocalStore { path: PathBuf, store: OnceCell<PageStore> }
@@ -49,6 +50,13 @@ async fn structured_ack(result: serde_json::Value, state: tauri::State<'_, Local
 async fn structured_pull(base_cursor: Option<String>, batch: PullBatch, state: tauri::State<'_, LocalStore>) -> Result<(), String> {
     state.get().await?.structured_pull(base_cursor,batch).await
 }
+
+#[tauri::command]
+async fn workspace_open(context:WorkspaceContext,state:tauri::State<'_,WorkspaceRegistry>)->Result<WorkspaceHandle,String> {state.open(context).await}
+#[tauri::command]
+async fn workspace_close(handle:String,state:tauri::State<'_,WorkspaceRegistry>)->Result<(),String> {state.close(&handle).await}
+#[tauri::command]
+async fn workspace_execute(handle:String,request:serde_json::Value,state:tauri::State<'_,WorkspaceRegistry>)->Result<serde_json::Value,String> {state.execute(&handle,request).await}
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
     #[cfg(debug_assertions)]
@@ -63,12 +71,13 @@ pub fn run() {
             #[cfg(debug_assertions)]
             if let Some(path) = std::env::var_os("GREIVA_TEST_DATA_DIR") { directory = PathBuf::from(path); }
             std::fs::create_dir_all(&directory)?;
+            app.manage(WorkspaceRegistry::new(directory.join("private-workspaces")));
             app.manage(LocalStore { path: directory.join("greiva.sqlite"), store: OnceCell::new() });
             #[cfg(debug_assertions)]
             eprintln!("Greiva native startup: local store configured");
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![page_list, page_load, page_append, page_set_title, structured_snapshot, structured_mutate, structured_client_id, structured_prepare, structured_ack, structured_pull])
+        .invoke_handler(tauri::generate_handler![page_list, page_load, page_append, page_set_title, structured_snapshot, structured_mutate, structured_client_id, structured_prepare, structured_ack, structured_pull, workspace_open, workspace_close, workspace_execute])
         .build(tauri::generate_context!())
         .expect("Greiva PoC failed to start");
     #[cfg(debug_assertions)]

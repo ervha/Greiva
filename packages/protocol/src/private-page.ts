@@ -30,3 +30,5 @@ export type PrivatePageReadRequest=z.infer<typeof privatePageReadRequestSchema>;
 export type PrivatePageBootstrapResponse=z.infer<typeof privatePageBootstrapResponseSchema>;
 export type PrivatePageAppendResponse=z.infer<typeof privatePageAppendResponseSchema>;
 export type PrivatePageReadResponse=z.infer<typeof privatePageReadResponseSchema>;
+
+export const privatePageLocalLoadSchema=z.strictObject({page:z.strictObject({metadata:pageSchema,updates:z.array(z.array(z.number().int().min(0).max(255)).min(1)).min(1)}),serverHead:structuredOrderSchema.refine(value=>BigInt(value)>0n).nullable(),pending:z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER)});

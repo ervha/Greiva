@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.24.0 — 2026-10-05
+
+- Native workspaceのfixed app-owned root/世代handle/commit gate、Tauri workspace_open/close/executeとstrict whitelistを追加。captured Auth generationのNativeWorkspaceStoreをPage/structured portへ接続し、旧DBと任意path/SQLを分離。
+- 新native5＋port6、通常219/PG66/型/frontend/Windows build/Browser2、実registry/Rust SQLite＋signed HTTPを確認。全16判断を記録。local handleはAuth grantではなく、実Tauri invoke/通常UI/native Auth/offline保持契約/実ユーザーAuthは未完成。
+
 ## 0.23.0 — 2026-10-05
 
 - captured Auth/workspace/Pageのportable HTTP sync sessionを追加。正確なprepared wire/Yjs構文/digest/応答bindingを照合し、保存先固定、refresh/close/同Page置換/遅着応答をguard。Browser標準WebCrypto/base64を使用。

@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.24.0：app-owned workspace DB root/世代handleとTauri commandを追加し、captured Auth generationのNativeWorkspaceStoreをPage/structured portへ接続。[全16判断](../decisions/native-workspace-ipc.md)、[証拠](../../tests/evidence/workspace-ipc-20261005/SUMMARY.md)。新11、通常219/PG66/型/frontend/Windows build/Browser2を検証。local handleはAuth grantではなく、通常UI/実Tauri invoke/native Auth/offline保持契約は未完成。専用APIはv0.21/schema3を保持、追加操作を求めずPage metadata/一覧へ進む。
+
 最新v0.23.0：captured Auth/workspace/Pageのportable sessionを追加。prepared wire/Yjs構文/digest/応答bindingを検査し、保存先固定、refresh/close/同Page置換/遅着応答をguardする。[全16判断](../decisions/private-page-session.md)、[証拠](../../tests/evidence/private-page-session-20261005/SUMMARY.md)。追加15 unit、通常208/実PG66、型/frontend/Windows build、実browser WebCrypto/base64と実HTTP＋Rust SQLiteを検証。通常UI/IPC/Hocuspocus/実Auth/nativeは未完成、追加操作を求めずnative IPC接続へ進む。
 
 最新v0.22.0：workspace別Rust SQLiteへPage binary/送信待ち/正確なwire/ACK receipt/remote diffの原子保存を追加。private local schema6はbinding確認後に5からupgradeし、structured dataを保持。[全16判断](../decisions/private-page-durable-store.md)、[証拠](../../tests/evidence/private-page-store-20261005/SUMMARY.md)。通常193/実PG66、型/frontend/Windows build、8条件SIGKILL/実HTTP＋2つのSQLiteを検証。専用APIはv0.21/schema3を保持。captured client session/通常UI・IPC/Hocuspocus/実Auth/nativeは未完成で、追加操作を求めず続ける。

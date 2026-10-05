@@ -43,3 +43,7 @@ export function verifyWorkspacePushResponse(candidateRequest: unknown, streamEpo
 }
 export type WorkspacePushRequest = z.infer<typeof workspacePushRequestSchema>;
 export type WorkspacePullResponse = z.infer<typeof workspacePullResponseSchema>;
+
+// Local binding only, never a native authentication/authorization grant.
+export const workspaceLocalContextSchema=z.strictObject({issuer:z.string().min(1),subjectId:z.string().min(1),workspaceId:idSchema,clientId:idSchema,streamEpoch:idSchema});
+export const workspaceLocalHandleSchema=z.strictObject({handle:z.string().min(1).max(256).regex(/^[0-9a-f-]+$/),context:workspaceLocalContextSchema});

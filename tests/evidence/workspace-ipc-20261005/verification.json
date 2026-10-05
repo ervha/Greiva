@@ -1,0 +1,41 @@
+{
+  "result": "Pass",
+  "version": "0.24.0",
+  "unit": {
+    "pass": 219,
+    "skip": 66,
+    "new": 11
+  },
+  "postgres": {
+    "pass": 66,
+    "skip": 0,
+    "extendedPageClient": 1
+  },
+  "browser": {
+    "pass": 2,
+    "skip": 0,
+    "scope": "Real Docker Chromium Page codec/session plus native adapter with invoke port double; default Web native fallback rejects"
+  },
+  "typecheck": "Pass",
+  "frontend": "Pass",
+  "normalWindowsBuild": "Pass",
+  "buildSourcesMatch": 114,
+  "externalNpm315Unchanged": true,
+  "externalCargoBothLocksUnchanged": true,
+  "nativeRegistry": "Fixed app-owned root/context hash; immutable binding; generation handle; account switch/failed open invalidates old handle; unknown/path/SQL rejects; mutex through actual SQLite commit; close waits and never redirects",
+  "connection": "Captured native handle/Auth generation; runtime unknown validation; exact request copy; safe cleanup failure; actual registry/SQLite plus signed HTTP Page save/receive/refresh/reopen and revoked pending",
+  "backend": "Dedicated API/preview unchanged v0.21/schema3; local schema6 and wire1 retained; default PoC commands/DB/capabilities kept",
+  "reportCredentialScan": "Selected unit/PG reports lack compact JWT/private key/publishable key; Playwright config env stripped",
+  "initialFailures": [
+    "TS2345: generic mock could not preserve arbitrary invoke<T> result; IPC contract narrowed to unknown plus runtime validation; test protocolVersion made literal1; compiler settings unchanged"
+  ],
+  "limits": [
+    "Tauri workspace commands registered and cross-compiled; actual Windows invoke/normal UI/native Auth/OS credential/Hocuspocus continuous authorization not verified",
+    "Docker Browser crypto is not actual Tauri WebView2/Android proof",
+    "No real Supabase normal login or new native IME/Android proof",
+    "Old store commit already begun can finish after close; no cross-store redirect or session success; native Editor apply guard still required",
+    "Epoch reset/metadata rename/delete/Conflict/retention/snapshot/Web durable store unfinished",
+    "Existing UI/dedicated API evidence retained; no UI/backend implementation change",
+    "Telemetry not implemented or collected"
+  ]
+}

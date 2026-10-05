@@ -36,6 +36,7 @@ export class PrivateWorkspaceConnection {
   get context(): WorkspaceSyncContext | null {
     return !this.#closed && this.#lease && !this.#lease.aborted && this.#context && sameOwner(this.#auth.identity, this.#context) ? this.#context : null;
   }
+  get generationSignal():AbortSignal|null {return this.context?this.#lease:null;}
   close() { for(const page of this.#pages.values()){page.session.close();page.detach();}this.#pages.clear();this.#closed = true; this.#controller.abort(); this.#session?.close(); this.#detach?.(); this.#session = null; this.#detach = null; }
   #active(context: WorkspaceSyncContext, lease: AbortSignal) {
     if (this.#closed || lease.aborted || lease !== this.#lease) throw new PrivateConnectionError('closed');

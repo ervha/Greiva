@@ -15,3 +15,5 @@ export interface TransactionBoundary<TTransaction> {
 
 export {PageSyncSession,PageSessionError} from './page-session.js';
 export type {PageSyncContext,PageReceipt,PageSessionTransport,PageSessionStore} from './page-session.js';
+
+export {pageBase64,pageBytes,pageDigest,pageUpdateBytes,pageVectorBytes} from './page-binary.js';
