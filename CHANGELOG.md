@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.7.0 — 2026-10-05
+
+- Task/Relationのintent規則をDomainへ分離し、既存protocol export/wireを保持。Applicationへ認可、入力/context/storeの固定、durable保存待機と結果不明commitの同一ID復旧契約を追加。
+- 新境界9条件を含む64 unit/integration、専用PG20、全59 E2E、実同期/Conflict2、型、通常Windows buildを確認。所有版0.7.0整合、外部npm/Cargo依存不変。[証拠](tests/evidence/production-foundation-20261005/SUMMARY.md)と[全判断](docs/decisions/production-command-foundation.md)。本番Auth/SQLite adapter接続、旧DB移行、初期製品全体は未完成。
+
 ## 0.6.27 — 2026-10-05
 
 - 利用者の機能優先委任と個人利用/自端末同期先行の回答を反映。Windows/AndroidのPage/Task/Relation＋基本DB Table/Listから進める実装順を記録。

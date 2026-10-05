@@ -1,0 +1,31 @@
+{
+  "result": "Pass",
+  "version": "0.7.0",
+  "unit": {
+    "pass": 64,
+    "skip": 20,
+    "fail": 0,
+    "newBoundaryTests": 9
+  },
+  "postgres": {
+    "pass": 20,
+    "skip": 0
+  },
+  "webE2E": {
+    "pass": 59,
+    "skip": 0
+  },
+  "realStructuredE2E": {
+    "pass": 2,
+    "isolatedSchemaRemoved": true
+  },
+  "typecheck": "Pass",
+  "normalWindowsBuild": "Pass",
+  "normalBuildSourcesMatch": 75,
+  "limits": [
+    "New application boundary uses contract doubles; no production SQLite/JWT adapter wired",
+    "Existing real SQL/HTTP regression does not prove the new port adapter",
+    "No new native IME/drag/performance/Android proof",
+    "Old user databases and wire remain unchanged"
+  ]
+}

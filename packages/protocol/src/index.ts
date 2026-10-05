@@ -1,5 +1,7 @@
 import { z } from 'zod';
 import { idSchema, utcTimestampSchema, dateOnlySchema } from '@greiva/shared';
+import { taskStatusSchema, taskCreateSchema, taskUpdateSchema, relationCreateSchema, relationUpdateSchema } from '@greiva/domain';
+export { taskStatusSchema, taskCreateSchema, taskUpdateSchema, relationCreateSchema, relationUpdateSchema } from '@greiva/domain';
 
 // POC_SPEC Sections 4 / 8. Only this package defines wire data.
 export const versionSchema = z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER);
@@ -11,7 +13,6 @@ export const pageSchema = z.strictObject({
 }).refine(page => page.yDocId === `page:${page.id}`, {
   path: ['yDocId'], message: 'yDocId must equal page:{pageId}',
 });
-export const taskStatusSchema = z.enum(['todo', 'in_progress', 'done']);
 export const taskSchema = z.strictObject({
   id: idSchema, title: z.string(), status: taskStatusSchema,
   due: dateOnlySchema.nullable(), version: versionSchema,
@@ -23,12 +24,6 @@ export const relationSchema = z.strictObject({
   toType: entityTypeSchema, toId: idSchema, version: versionSchema,
   ...timestamps, deletedAt: utcTimestampSchema.nullable(),
 });
-export const taskCreateSchema = taskSchema.pick({ title: true, status: true, due: true }).extend({
-  due: dateOnlySchema.refine(value => !value.startsWith('0000-'), 'Calendar year must be at least 1').nullable(),
-});
-export const taskUpdateSchema = taskCreateSchema.partial().refine(value => Object.keys(value).length > 0, 'Empty update');
-export const relationCreateSchema = relationSchema.pick({ fromType: true, fromId: true, toType: true, toId: true });
-export const relationUpdateSchema = relationCreateSchema.partial().refine(value => Object.keys(value).length > 0, 'Empty update');
 export const deletePayloadSchema = z.strictObject({});
 export const pushOperationSchema = z.strictObject({
   operationId: idSchema, entityType: z.enum(['task', 'relation']), entityId: idSchema,

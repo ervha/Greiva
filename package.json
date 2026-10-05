@@ -1,7 +1,7 @@
 {
   "name": "greiva-poc",
   "private": true,
-  "version": "0.6.25",
+  "version": "0.7.0",
   "type": "module",
   "workspaces": [
     "packages/*",
@@ -13,7 +13,7 @@
     "npm": "11.9.0"
   },
   "scripts": {
-    "build:packages": "npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync",
+    "build:packages": "npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application",
     "build": "npm run build:packages && npm run build --workspace=@greiva/api && npm run build --workspace=@greiva/collaboration && npm run build --workspace=@greiva/client",
     "typecheck": "npm run build:packages && npm run typecheck --workspaces --if-present && tsc -p tsconfig.tests.json",
     "dev": "npm run build:packages && concurrently -k -n client,api,collaboration \"npm run dev -w @greiva/client\" \"npm run dev -w @greiva/api\" \"npm run dev -w @greiva/collaboration\"",

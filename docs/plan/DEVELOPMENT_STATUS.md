@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+2026-10-05、checkpoint/所有製品版 **v0.7.0**。[Domain/Application基盤](../../tests/evidence/production-foundation-20261005/SUMMARY.md)を追加し、Task/Relation intentの旧wireを保持。認可拒否/不通、context/store固定、durable待機、結果不明commitの安定IDを検査。型/64 unit＋専用PG20/画面59/実同期Conflict2/通常Windows buildがPass、外部依存不変。[全13判断](../decisions/production-command-foundation.md)。新Applicationは本番adapter/UI未接続で、既存PoCにAuth/workspaceを追加したとしない。次は個人workspace認可契約の実装。旧DB/試験Pageは保持、Computer Use解除、利用者操作なし。
+
 2026-10-05、checkpoint **v0.6.27**/製品 **0.6.25**。利用者の「優先はおまかせ」「個人利用と自分の端末間同期を先行」を受け、[Windows/Android・Page/Task/Relation・基本DB Table/Listの実装順](IMPLEMENTATION_PLAN.md)を選定。本番architecture/技術/データ/sync/CRDT/Editor/認可の設計候補、[PoCとの差/残契約](PRODUCTION_READINESS.md)、[全9判断](../decisions/production-foundation-plan.md)を記録。native Rust Repository/npm workspaceの継続とoperation ID責務を要件v0.8へ明記。アプリ/DB/wire/外部接続は変更なし。次はP0のdomain/application portと型付きcommandを独立して実装する。
 
 2026-10-05、checkpoint **v0.6.26**/製品source **0.6.25**。[Windows診断4起動・104文字貼り付け・実キーabc・1,005更新/全保存/再起動照合](../../tests/evidence/windows-profile-20261005/SUMMARY.md)を利用者操作なしで追加。診断の内部時間と通常native2秒/連続IME性能を区別し、通常source/manifest/lock/exeは不変。全8判断と残事項は[判断記録](../decisions/windows-profile-followup.md)。診断app終了、Computer Use解除。次は既存要件の本番architecture候補と未決定契約を整理し、新機能の恒久実装へは広げない。

@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-05 / v0.7.0 / [Domain/Application基盤](production-foundation-20261005/SUMMARY.md): 新境界9/通常64＋専用PG20/全画面59/実同期2/型/通常Windows build。旧wire/DB保持、外部依存不変。portのcontract doubleと本番adapter/認証の未実装を区別。
+
 - 2026-10-05 / v0.6.27 / [個人版の基盤設計・文書確認](production-plan-20261005/SUMMARY.md): 利用者の優先委任/個人同期先行を反映した設計9文書、38リンク/技術manifest/製品source不変の確認。実装・実機・認証の新しい合格ではない。
 
 - 2026-10-05 / checkpoint v0.6.26 / [Windows層別診断](windows-profile-20261005/SUMMARY.md): 実source0.6.25の診断release、4起動/1,001 journal/1,000段落/250 pending。104文字貼り付けと実キーabc、全digest/他999段落/再起動全tableを照合。通常source/既存exe不変、Computer Use解除。通常性能SLO/最新実IMEとは区別。

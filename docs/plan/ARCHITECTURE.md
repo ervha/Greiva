@@ -25,7 +25,7 @@ flowchart LR
 | infrastructure | SQLite/PostgreSQL、Tauri IPC、HTTP、Auth、Object Storage | 上記portの実装 |
 | ui | state表示、form draft、pointer/keyboard、motion、navigation | query snapshotとcommand結果 |
 
-domainにReact/Tauri/DB/HTTP/Yjsをimportしない。Editor固有のDOM/ProseMirror処理をdomainへ押し込めない。UIはSQL・Provider API・同期queueを書き換えず、applicationの操作を呼ぶ。現在のPoCではclient component/同期/保存コードが近接しており、このpackage分離は未実装。
+domainにReact/Tauri/DB/HTTP/Yjsをimportしない。Editor固有のDOM/ProseMirror処理をdomainへ押し込めない。UIはSQL・Provider API・同期queueを書き換えず、applicationの操作を呼ぶ。v0.7.0でTask/Relationのdomain intentとportable application portを分離した。現在のPoC UI/同期/保存コードは近接したままで、本番adapterへ接続していない。
 
 要件§4.2のpackages分割を目標にするが、先に公開portと依存制約を決める。folder移動だけで分離完了と呼ばない。PoC全体の一括移動、npm→pnpm変換はこの設計checkpointでは行わない。[技術の実状](TECH_STACK.md)。
 
