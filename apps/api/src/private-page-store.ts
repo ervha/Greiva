@@ -8,9 +8,11 @@ import { PrivateWorkspaceAccessDenied } from '@greiva/application';
 import { privateSchemaName } from './private-schema-name.js';
 import { PostgresPrivateTransactions,PrivateTransactionUnavailable,type PrivateTransaction } from './private-transactions.js';
 import { PrivatePageInvalidRequest,privatePageUpdate,privatePageVector,pageUpdateDigest } from './private-page-codec.js';
+import {pageCatalogRequest,queryPageCatalog} from './private-page-catalog.js';
 import type { VerifiedSession } from './session-verifier.js';
 
 export interface PrivatePageDocuments {
+  query(session:VerifiedSession,workspaceId:string,body:unknown):Promise<unknown>;
   bootstrap(session:VerifiedSession,workspaceId:string,pageId:string,body:unknown):Promise<unknown>;
   append(session:VerifiedSession,workspaceId:string,pageId:string,body:unknown):Promise<unknown>;
   read(session:VerifiedSession,workspaceId:string,pageId:string,body:unknown):Promise<unknown>;
@@ -27,6 +29,7 @@ export class PostgresPrivatePageStore implements PrivatePageDocuments {
   private readonly transactions:PostgresPrivateTransactions;
   constructor(pool:pg.Pool,schema:string) {this.schema=privateSchemaName(schema);this.transactions=new PostgresPrivateTransactions(pool,this.schema);}
 
+  async query(session:VerifiedSession,workspaceId:string,body:unknown){const request=pageCatalogRequest(body);return this.transactions.run(session,workspaceId,request.clientId,[],async tx=>{await this.version(tx);return queryPageCatalog(tx,this.schema,request);});}
   async bootstrap(session:VerifiedSession,workspaceId:string,candidateId:string,body:unknown) {
     const id=pageId(candidateId),parsed=privatePageBootstrapRequestSchema.safeParse(body);if(!parsed.success)throw new PrivatePageInvalidRequest();
     const request=parsed.data;supported(request.editorSchemaVersion);

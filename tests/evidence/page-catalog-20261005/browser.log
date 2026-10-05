@@ -1,0 +1,9 @@
+
+Running 2 tests using 1 worker
+
+  ✓  1 [chromium] › tests/e2e/private-page-runtime.spec.ts:4:1 › PAGE-BROWSER-RUNTIME: real secure-context WebCrypto/base64 and portable session validate and commit binary without Node APIs (1.9s)
+  ✓  2 [chromium] › tests/e2e/private-page-runtime.spec.ts:19:1 › NATIVE-WORKSPACE-BROWSER: adapter imports with browser Tauri module, sends fixed-handle bytes and closes Auth generation without Web fallback (817ms)
+
+  2 passed (12.9s)
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.

@@ -1,4 +1,5 @@
 import { idSchema, privateApiOrigin } from '@greiva/shared';
+import {privatePageCatalogRequestSchema,privatePageCatalogResponseSchema,type PrivatePageCatalogResponse} from '@greiva/protocol/private-page-catalog';
 import {PageSyncSession,type PageSessionStore} from './page-session.js';
 import { privateBootstrapResponseSchema } from '@greiva/protocol/workspace';
 import { AuthSession, AuthSessionError, type AuthIdentity } from './auth-session.js';
@@ -22,6 +23,7 @@ export class PrivateWorkspaceConnection {
   readonly #fetch: typeof fetch;
   #context: WorkspaceSyncContext | null = null;
   #lease: AbortSignal | null = null;
+  #storeLease:AbortSignal|null=null;
   #busy = false;
   #closed = false;
   #controller = new AbortController();
@@ -36,7 +38,7 @@ export class PrivateWorkspaceConnection {
   get context(): WorkspaceSyncContext | null {
     return !this.#closed && this.#lease && !this.#lease.aborted && this.#context && sameOwner(this.#auth.identity, this.#context) ? this.#context : null;
   }
-  get generationSignal():AbortSignal|null {return this.context?this.#lease:null;}
+  get generationSignal():AbortSignal|null {return this.context?this.#storeLease:null;}
   close() { for(const page of this.#pages.values()){page.session.close();page.detach();}this.#pages.clear();this.#closed = true; this.#controller.abort(); this.#session?.close(); this.#detach?.(); this.#session = null; this.#detach = null; }
   #active(context: WorkspaceSyncContext, lease: AbortSignal) {
     if (this.#closed || lease.aborted || lease !== this.#lease) throw new PrivateConnectionError('closed');
@@ -81,6 +83,7 @@ export class PrivateWorkspaceConnection {
       const context = Object.freeze({ issuer: result.identity.issuer, subjectId: result.identity.subjectId, workspaceId: parsed.data.workspaceId,
         clientId: parsed.data.clientId, streamEpoch: parsed.data.epoch });
       if (this.#context && Object.entries(context).some(([key, value]) => this.#context![key as keyof WorkspaceSyncContext] !== value)) { this.close(); throw new PrivateConnectionError('binding'); }
+      if(this.#lease!==result.lease || !this.#storeLease)this.#storeLease=AbortSignal.any([result.lease,this.#controller.signal]);
       this.#context = context; this.#lease = result.lease;
       return context;
     } finally { this.#busy = false; }
@@ -117,6 +120,13 @@ export class PrivateWorkspaceConnection {
     });
     const invalidated=()=>{session.close();if(this.#pages.get(pageId)?.session===session)this.#pages.delete(pageId);};lease.addEventListener('abort',invalidated,{once:true});
     this.#pages.set(pageId,{session,detach:()=>lease.removeEventListener('abort',invalidated)});return session;
+  }
+
+  async queryPages(candidate:unknown):Promise<PrivatePageCatalogResponse>{
+    const context=this.context,lease=this.#lease;if(!context||!lease)throw new PrivateConnectionError(this.#closed?'closed':'authentication');
+    const parsed=privatePageCatalogRequestSchema.safeParse(candidate);if(!parsed.success || parsed.data.clientId!==context.clientId)throw new PrivateConnectionError('protocol');const request=Object.freeze(parsed.data);
+    const result=await this.#call('/v1/workspaces/'+context.workspaceId+'/pages/query',request,undefined,{context,lease});this.#active(context,lease);
+    try{const response=privatePageCatalogResponseSchema.parse(JSON.parse(JSON.stringify(result.value)));if(response.workspaceId!==context.workspaceId || response.workspaceEpoch!==context.streamEpoch || response.pages.length>request.limit || (response.hasMore && response.nextCursor===request.cursor))throw Error();for(const page of response.pages)Object.freeze(page);Object.freeze(response.pages);return Object.freeze(response);}catch{throw new PrivateConnectionError('protocol');}
   }
 
 }

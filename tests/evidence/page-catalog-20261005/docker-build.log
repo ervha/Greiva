@@ -1,0 +1,119 @@
+#0 building with "desktop-linux" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 935B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:24.19.0-bookworm-slim
+#2 ...
+
+#3 [auth] library/node:pull token for registry-1.docker.io
+#3 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/node:24.19.0-bookworm-slim
+#2 DONE 1.6s
+
+#4 [internal] load .dockerignore
+#4 transferring context: 343B done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 DONE 0.0s
+
+#6 [ 1/15] FROM docker.io/library/node:24.19.0-bookworm-slim@sha256:a9f5f7c91a432850b2a8a7797adf5eadb6c733ceed61167806cee7ea7fbc29df
+#6 resolve docker.io/library/node:24.19.0-bookworm-slim@sha256:a9f5f7c91a432850b2a8a7797adf5eadb6c733ceed61167806cee7ea7fbc29df 0.0s done
+#6 DONE 0.1s
+
+#5 [internal] load build context
+#5 transferring context: 808.25kB 0.1s done
+#5 DONE 0.1s
+
+#7 [ 2/15] RUN npm install --global npm@11.9.0 --ignore-scripts --no-audit --no-fund
+#7 CACHED
+
+#8 [ 3/15] WORKDIR /workspace
+#8 CACHED
+
+#9 [ 4/15] COPY package.json package-lock.json .npmrc ./
+#9 DONE 0.1s
+
+#10 [ 5/15] COPY apps/api/package.json ./apps/api/package.json
+#10 DONE 0.1s
+
+#11 [ 6/15] COPY apps/client/package.json ./apps/client/package.json
+#11 DONE 0.1s
+
+#12 [ 7/15] COPY apps/collaboration/package.json ./apps/collaboration/package.json
+#12 DONE 0.1s
+
+#13 [ 8/15] COPY packages/shared/package.json ./packages/shared/package.json
+#13 DONE 0.1s
+
+#14 [ 9/15] COPY packages/domain/package.json ./packages/domain/package.json
+#14 DONE 0.1s
+
+#15 [10/15] COPY packages/application/package.json ./packages/application/package.json
+#15 DONE 0.1s
+
+#16 [11/15] COPY packages/protocol/package.json ./packages/protocol/package.json
+#16 DONE 0.1s
+
+#17 [12/15] COPY packages/sync/package.json ./packages/sync/package.json
+#17 DONE 0.1s
+
+#18 [13/15] RUN npm ci --ignore-scripts --no-audit --no-fund
+#18 27.70
+#18 27.70 added 247 packages in 26s
+#18 27.71 npm notice
+#18 27.71 npm notice New major version of npm available! 11.9.0 -> 12.2.0
+#18 27.71 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+#18 27.71 npm notice To update run: npm install -g npm@12.2.0
+#18 27.71 npm notice
+#18 DONE 27.8s
+
+#19 [14/15] COPY --chown=node:node . .
+#19 DONE 0.4s
+
+#20 [15/15] RUN npm run build:packages && npm run build --workspace=@greiva/api
+#20 0.409
+#20 0.409 > greiva-poc@0.25.0 build:packages
+#20 0.409 > npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application
+#20 0.409
+#20 0.547
+#20 0.547 > @greiva/shared@0.25.0 build
+#20 0.547 > tsc -p tsconfig.json
+#20 0.547
+#20 0.777
+#20 0.777 > @greiva/domain@0.25.0 build
+#20 0.777 > tsc -p tsconfig.json
+#20 0.777
+#20 0.996
+#20 0.996 > @greiva/protocol@0.25.0 build
+#20 0.996 > tsc -p tsconfig.json
+#20 0.996
+#20 1.240
+#20 1.240 > @greiva/sync@0.25.0 build
+#20 1.240 > tsc -p tsconfig.json
+#20 1.240
+#20 1.491
+#20 1.491 > @greiva/application@0.25.0 build
+#20 1.491 > tsc -p tsconfig.json
+#20 1.491
+#20 1.692
+#20 1.692 > @greiva/api@0.25.0 build
+#20 1.692 > tsc -p tsconfig.json
+#20 1.692
+#20 DONE 2.3s
+
+#21 exporting to image
+#21 exporting layers
+#21 exporting layers 10.6s done
+#21 exporting manifest sha256:f52d20cd7e2c82bcf5a400433f5b6de5433a9020846ce603aa5b2d0b6dc3d619 0.0s done
+#21 exporting config sha256:1c9ebb6f69935decb0afe9583789035264fb71c897610e34998ea3349617aae0 0.0s done
+#21 exporting attestation manifest sha256:897cd9fe9635bbc2ac8b3cc8deacd319001a517aaa80d6d3513ee861fd462afb
+#21 exporting attestation manifest sha256:897cd9fe9635bbc2ac8b3cc8deacd319001a517aaa80d6d3513ee861fd462afb 0.1s done
+#21 exporting manifest list sha256:3864cbfc3b7f2a1012cbafbb6687fccc5a4ce3e47654e764f4dd8d6b332584b5 0.0s done
+#21 naming to docker.io/library/greiva-private-development:local 0.0s done
+#21 unpacking to docker.io/library/greiva-private-development:local
+#21 unpacking to docker.io/library/greiva-private-development:local 5.1s done
+#21 DONE 15.9s

@@ -1,0 +1,39 @@
+{
+  "result": "Pass",
+  "version": "0.25.0",
+  "unit": {
+    "pass": 224,
+    "skip": 69,
+    "added": 5
+  },
+  "postgres": {
+    "pass": 69,
+    "skip": 0,
+    "added": 3,
+    "extendedSignedHttpCase": 1
+  },
+  "browser": {
+    "pass": 2,
+    "scope": "Existing real Chromium portable Page/native-adapter regression; invoke port double"
+  },
+  "typecheck": "Pass",
+  "frontend": "Pass",
+  "normalWindowsBuild": "Pass",
+  "buildSourcesMatch": 116,
+  "externalNpm315Unchanged": true,
+  "externalCargoBothLocksUnchanged": true,
+  "catalog": "JWT-first POST query; owner/device lease; live resource locks; bounded keyset; HMAC gq1 workspace/epoch; strict metadata including lookahead; no body projection/no mutation",
+  "cleanup": "connection.close aborts native generation without closing shared Auth; repeated bootstrap preserves signal; initial regression 6 pass/1 fail corrected",
+  "runtime": "Dedicated API/preview v0.25.0 schema3; metadata/key preserved; query401 direct/proxy",
+  "initialFailures": [
+    "Native cleanup not requested on connection.close: targeted regression 6 pass/1 fail before fix; combined Auth/connection signal corrected",
+    "Prior v0.24 commit had trailing blank EOF warning because shell continued; trim in new commit; dependent commands now explicitly stop on nonzero"
+  ],
+  "limits": [
+    "Query pagination is not a stable multi-request snapshot/delta/metadata receipt",
+    "Rename/delete/Conflict/catalog cache/normal UI not implemented",
+    "Native handle not Auth grant; actual Tauri invoke/native credentials/offline retention/real Supabase login unfinished",
+    "No new physical IME/Android evidence; old SQLite/Page preserved; telemetry not implemented/collected"
+  ],
+  "logFormatting": "Selected text logs trim trailing whitespace/blank EOF only; raw Docker logs retained in ignored .data and /tmp"
+}

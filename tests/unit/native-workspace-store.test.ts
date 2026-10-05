@@ -25,3 +25,6 @@ it('NATIVE-WORKSPACE: Auth abort permanently closes captured store even after fr
 it('NATIVE-WORKSPACE: cleanup failure is safe and never reopens ports or deletes retained data',async()=>{
   const f=await fixture();try{const store=await NativeWorkspaceStore.open(f.connection,f.invoke);f.invoke.mockRejectedValueOnce(Error('private path'));await expect(store.close()).rejects.toMatchObject({stage:'storage',message:'Native workspace storage'});await expect(store.snapshot()).rejects.toMatchObject({stage:'closed'});expect(f.invoke.mock.calls.map(call=>call[0])).toEqual(['workspace_open','workspace_close']);}finally{await f.cleanup();}
 });
+it('NATIVE-WORKSPACE: connection close aborts the native generation and starts cleanup while shared Auth remains verified',async()=>{
+  const f=await fixture();try{const store=await NativeWorkspaceStore.open(f.connection,f.invoke);f.connection.close();await expect.poll(()=>f.invoke.mock.calls.filter(call=>call[0]==='workspace_close').length).toBe(1);expect(f.auth.identity?.subjectId).toBe(f.context.subjectId);await expect(store.prepare()).rejects.toMatchObject({stage:'closed'});await store.close();}finally{await f.cleanup();}
+});

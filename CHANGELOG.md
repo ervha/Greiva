@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.25.0 — 2026-10-05
+
+- 認証付きPage一覧queryとUUID順keyset/HMAC cursor、live metadata照合を追加。接続closeもnative handle cleanupを開始するよう修正。
+- 新unit5/実PG3、通常224/PG69/browser2/型/frontend/Windows build、専用API/preview更新と既存登録・署名鍵保持を確認。全14判断を記録。normal UI/metadata変更/実Auth/nativeは未完成。
+
 ## 0.24.0 — 2026-10-05
 
 - Native workspaceのfixed app-owned root/世代handle/commit gate、Tauri workspace_open/close/executeとstrict whitelistを追加。captured Auth generationのNativeWorkspaceStoreをPage/structured portへ接続し、旧DBと任意path/SQLを分離。

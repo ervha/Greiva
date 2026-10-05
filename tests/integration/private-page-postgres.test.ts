@@ -12,12 +12,40 @@ import { PostgresPrivatePageStore } from '../../apps/api/src/private-page-store.
 import { PrivatePageInvalidRequest } from '../../apps/api/src/private-page-codec.js';
 import { PrivateTransactionUnavailable } from '../../apps/api/src/private-transactions.js';
 import { SessionVerificationError } from '../../apps/api/src/session-verifier.js';
+import {pageCatalogCursor} from '../../apps/api/src/private-page-catalog.js';
 
 const real=it.skipIf(process.env.GREIVA_TEST_POSTGRES!=='1');
 const actor=(subjectId='owner',issuer='https://auth.fixture.invalid/auth/v1')=>({subjectId,issuer,expiresAt:Math.floor(Date.now()/1000)+300});
 async function isolated(run:(pool:pg.Pool,schema:string)=>Promise<void>){const pool=new pg.Pool({connectionString:process.env.DATABASE_URL,max:8,connectionTimeoutMillis:5000,statement_timeout:5000}),schema='greiva_private_'+newId().replaceAll('-','');try{await installPrivateWorkspaceSchema(pool,schema);await installPrivateStructuredSchema(pool,schema);await run(pool,schema);}finally{try{await pool.query(`DROP SCHEMA "${schema}" CASCADE`);}finally{await pool.end();}}}
 function page(text='日本語'){const doc=new Y.Doc({gc:false});Y.applyUpdate(doc,emptyPageUpdate());const paragraph=doc.getXmlFragment('body').get(0) as Y.XmlElement;paragraph.insert(0,[new Y.XmlText(text)]);return doc;}
 const encoded=(bytes:Uint8Array)=>Buffer.from(bytes).toString('base64url');
+real('PRIVATE-PAGE-CATALOG-PG: keyset pages survive reopen, hide tombstones/foreign owners and bind epoch',async()=>{
+  await isolated(async(pool,schema)=>{const f=await fixture(pool,schema);try{
+    const ids=[f.id,newId(),newId()].sort();for(const id of ids)await f.store.bootstrap(f.owner,f.binding.workspaceId,id,{...f.request,title:'title '+id});
+    const query={protocolVersion:1,clientId:f.binding.clientId,limit:1},first=await f.store.query(f.owner,f.binding.workspaceId,query);expect(first.pages.map(p=>p.id)).toEqual([ids[0]]);expect(first.hasMore).toBe(true);
+    const second=await new PostgresPrivatePageStore(pool,schema).query(f.owner,f.binding.workspaceId,{...query,cursor:first.nextCursor});expect(second.pages.map(p=>p.id)).toEqual([ids[1]]);
+    const last=await f.store.query(f.owner,f.binding.workspaceId,{...query,cursor:second.nextCursor});expect(last.pages.map(p=>p.id)).toEqual([ids[2]]);expect(last.nextCursor).toBeNull();expect(last.hasMore).toBe(false);
+    await pool.query(`UPDATE "${schema}".private_resources SET deleted=true WHERE id=$1`,[ids[1]]);expect((await f.store.query(f.owner,f.binding.workspaceId,{...query,limit:100})).pages.map(p=>p.id)).toEqual([ids[0],ids[2]]);
+    const stranger=actor('stranger'),other=await f.bootstrap.bootstrap(stranger,{clientId:newId()});expect((await f.store.query(stranger,other.workspaceId,{protocolVersion:1,clientId:other.clientId})).pages).toEqual([]);
+    await expect(f.store.query(stranger,f.binding.workspaceId,{...query,clientId:other.clientId})).rejects.toBeInstanceOf(PrivateWorkspaceAccessDenied);
+    await expect(f.store.query(f.owner,f.binding.workspaceId,{...query,cursor:first.nextCursor+'x'})).rejects.toMatchObject({code:'invalid_cursor'});
+    const secret=(await pool.query(`SELECT secret FROM "${schema}".private_structured_config`)).rows[0].secret;await expect(f.store.query(f.owner,f.binding.workspaceId,{...query,cursor:pageCatalogCursor(secret,other.workspaceId,other.epoch,ids[0]!)})).rejects.toMatchObject({code:'invalid_cursor'});
+    await pool.query(`UPDATE "${schema}".private_workspaces SET epoch=$2 WHERE id=$1`,[f.binding.workspaceId,newId()]);await expect(f.store.query(f.owner,f.binding.workspaceId,{...query,cursor:first.nextCursor})).rejects.toMatchObject({code:'invalid_cursor'});
+    await pool.query(`UPDATE "${schema}".private_devices SET revoked=true WHERE id=$1`,[f.binding.clientId]);await expect(f.store.query(f.owner,f.binding.workspaceId,query)).rejects.toBeInstanceOf(PrivateWorkspaceAccessDenied);
+  }finally{f.doc.destroy();}});
+});
+real('PRIVATE-PAGE-CATALOG-CORRUPTION-PG: corrupt lookahead refuses partial results without modifying binary or regenerating key',async()=>{
+  await isolated(async(pool,schema)=>{const f=await fixture(pool,schema);try{const ids=[f.id,newId()].sort();for(const id of ids)await f.store.bootstrap(f.owner,f.binding.workspaceId,id,f.request);const secret=(await pool.query(`SELECT secret FROM "${schema}".private_structured_config`)).rows[0].secret;
+    await pool.query(`UPDATE "${schema}".private_page_documents SET metadata=jsonb_set(metadata,'{yDocId}','"wrong"') WHERE page_id=$1`,[ids[1]]);await expect(f.store.query(f.owner,f.binding.workspaceId,{protocolVersion:1,clientId:f.binding.clientId,limit:1})).rejects.toBeInstanceOf(PrivateTransactionUnavailable);
+    expect((await pool.query(`SELECT count(*)::int AS n FROM "${schema}".private_page_updates`)).rows[0].n).toBe(2);expect((await pool.query(`SELECT secret FROM "${schema}".private_structured_config`)).rows[0].secret).toEqual(secret);
+  }finally{f.doc.destroy();}});
+});
+real('PRIVATE-PAGE-CATALOG-EXPIRY-PG: expiry during resource lock wait cannot return metadata',async()=>{
+  await isolated(async(pool,schema)=>{let time=Date.now();const clock=vi.spyOn(Date,'now').mockImplementation(()=>time),f=await fixture(pool,schema),blocker=await pool.connect();let pending:ReturnType<typeof f.store.query>|undefined;try{
+    await f.create();await blocker.query('BEGIN');await blocker.query(`SELECT id FROM "${schema}".private_resources WHERE id=$1 FOR UPDATE`,[f.id]);pending=f.store.query(f.owner,f.binding.workspaceId,{protocolVersion:1,clientId:f.binding.clientId});void pending.catch(()=>{});
+    await expect.poll(async()=>(await pool.query("SELECT 1 FROM pg_stat_activity WHERE query LIKE $1 AND wait_event_type='Lock'",[`SELECT d.page_id%"${schema}".private_page_documents%FOR SHARE OF r`])).rowCount).toBe(1);time+=301000;await blocker.query('COMMIT');await expect(pending).rejects.toBeInstanceOf(SessionVerificationError);expect((await pool.query(`SELECT head_order FROM "${schema}".private_page_documents WHERE page_id=$1`,[f.id])).rows[0].head_order).toBe('1');
+  }finally{await blocker.query('ROLLBACK');if(pending)await Promise.allSettled([pending]);blocker.release();clock.mockRestore();f.doc.destroy();}});
+});
 async function fixture(pool:pg.Pool,schema:string){await installPrivatePageSchema(pool,schema);const owner=actor(),bootstrap=new PostgresPrivateBootstrapStore(pool,schema),binding=await bootstrap.bootstrap(owner,{clientId:newId()}),id=newId(),store=new PostgresPrivatePageStore(pool,schema),doc=page();const request={protocolVersion:1,clientId:binding.clientId,editorSchemaVersion:1,title:'日本語 Page',initialUpdate:encoded(Y.encodeStateAsUpdate(doc))};const create=()=>store.bootstrap(owner,binding.workspaceId,id,request),append=(update:Uint8Array)=>store.append(owner,binding.workspaceId,id,{protocolVersion:1,clientId:binding.clientId,editorSchemaVersion:1,update:encoded(update)}),read=(stateVector='AA')=>store.read(owner,binding.workspaceId,id,{protocolVersion:1,clientId:binding.clientId,editorSchemaVersion:1,stateVector});return{owner,bootstrap,binding,id,store,doc,request,create,append,read};}
 real('PRIVATE-PAGE-SCHEMA-PG: explicit upgrade retains structured key/metadata and refuses orphan/partial/reinstall without inventing an empty body',async()=>{
   await isolated(async(pool,schema)=>{
