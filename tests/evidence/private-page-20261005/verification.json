@@ -1,0 +1,39 @@
+{
+  "result": "Pass",
+  "version": "0.21.0",
+  "unit": {
+    "pass": 180,
+    "skip": 65,
+    "new": 3
+  },
+  "postgres": {
+    "pass": 65,
+    "skip": 0,
+    "new": 11
+  },
+  "typecheck": "Pass",
+  "frontend": "Pass",
+  "normalWindowsBuild": "Pass",
+  "buildSourcesMatch": 108,
+  "externalNpm315Unchanged": true,
+  "externalCargoBothLocksUnchanged": true,
+  "dedicatedDockerBuild": "Pass",
+  "compose": "Version0.21/schema3; metadata unchanged and cursor key retained; API/proxy Page401, auth.html200",
+  "pageBinary": "Exact V1 input/canonical vector; append-only ordered digest journal; duplicate frame; unknown XML/attrs; pending dependency/deletion; six peer concurrency; combined600k diff; corrupt/missing/orphan fails closed",
+  "serverCrash": "Actual worker SIGKILL before and after COMMIT; binary/head atomic; same update stored once after retry",
+  "http": "Signed fixture JWT; real CLI/schema3/private HTTP; 401/200/400/403/409; restart restoration/revoked device; prior structured stream retained",
+  "reportCredentialScan": "No compact JWT/private key/publishable key material in selected reports",
+  "initialFailures": [
+    "Expiry test spy was installed after Date.now was captured; mutable clock installed before constructing store and actual lock-wait rollback passed",
+    "Windows npm install EACCES on copied root-owned lockfile; initial chown used default non-root container user and failed; explicit root chown corrected file ownership, normal non-root build passed"
+  ],
+  "limits": [
+    "No real Supabase normal login or new native IME/Android proof",
+    "No client Page queue/normal UI/IPC/Hocuspocus continuous authorization",
+    "Initial title metadata only; rename/delete/metadata Conflict unfinished",
+    "HTTP binary foundation does not replace final collaboration transport",
+    "No snapshot/compaction/GC/public deployment or guessed retention periods",
+    "Existing v0.18 UI regression retained; no new UI change",
+    "Telemetry not implemented or collected"
+  ]
+}

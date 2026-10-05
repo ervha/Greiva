@@ -21,8 +21,9 @@
 | v0.18.0 ログイン確認画面 | [Private login](../decisions/private-login-preview.md) | 21 | memory-only/明示登録/更新、browser fetch修正、safe public config、独立preview、未確定失敗保持 |
 | v0.19.0 同期transaction | [Private transactions](../decisions/private-sync-transactions.md) | 15 | owner/device/resource lock、期限/失効競合、active query/rollback、device確認 |
 | v0.20.0 structured同期 | [Private stream](../decisions/private-structured-stream.md) | 20 | 明示schema2/鍵保持、ledger/Conflict/順序/typed refs、実SQLite/SIGKILL、専用API更新 |
+| v0.21.0 Page本文保存 | [Private Page](../decisions/private-page-binary.md) | 22 | 明示schema3、binary journal/diff、失効/期限/kill、metadata初期化限定 |
 
-合計234件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
+合計256件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
 
 共通：同じcodex/poc-editor、確認後の版/tag/push、外部依存を監査、元Page/DBを保持。Computer UseはWindows診断後に解除し、今回の基盤開発では使わない。cloud/project/配布・課金・新global toolchainを作成せず、端末保持/旧DB帰属/保持期限を未決定のまま創作しない。初期OFFの改善送信は設計で、実際の収集は始めていない。
 

@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.21.0：認証付きPage本文のbinary保存基盤を実装。明示schema3、初期title、append-only journal/digest/再送、state-vector diff、破損拒否/失効/期限rollback/COMMIT前後SIGKILLを検証。[全22判断](../decisions/private-page-binary.md)、[証拠](../../tests/evidence/private-page-20261005/SUMMARY.md)。通常180/実PG65、型/frontend/Windows cross-buildを確認。通常UI/IPC/端末Page queue、metadata rename/delete/Conflict、Hocuspocus継続認可・実Auth/nativeは未完成。追加操作を求めず端末耐久化/client sessionへ進む。
+
 最新v0.20.0：個人workspace専用Task/Relation streamを実装。immutable ledger/再送、三値Conflict/causal frame、typed Relation参照、signed cursor/commit順序、明示schema2 upgradeを追加。通常177/実PG54/型/frontend/Windows build、専用API/preview更新がPass。[全20判断](../decisions/private-structured-stream.md)。Page metadata/CRDT・通常UI/IPC・実Auth/nativeは未完成で、追加操作を求めずPage同期の保護契約へ進む。
 
 最新v0.19.0：owner/device/typed resourceの認可と業務queryを同一DB transactionへ固定。期限/失効/削除競合/返却後query/rollbackを追加4＋実PG11で確認し、通常175/PG41/型/frontend/Windows buildがPass。[全15判断](../decisions/private-sync-transactions.md)。device access入口を追加し、bootstrapの待機中期限切れもrollback。新sync server ledger/CRDT/native UIは別工程、次はworkspace別structured保存/再送/順序へ進む。

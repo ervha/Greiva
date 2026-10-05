@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.21.0 — 2026-10-05
+
+- 個人workspace Page本文の保護HTTP保存基盤を実装。明示schema3、初期title、append-only V1 binary/digest/順序/再送、state-vector diff、未知XML保持と破損拒否に対応。認可と本文保存は同一transaction。
+- 新3 unit＋実PG11、通常180/PG65/型/frontend/Windows build、COMMIT前後SIGKILL/実HTTP再起動、専用Compose schema3/metadata/鍵保持を検証。全22判断を記録。端末Page queue/通常UI/IPC/Hocuspocus継続認可/metadata編集・実Auth/nativeは未完成。
+
 ## 0.20.0 — 2026-10-05
 
 - 個人workspace専用Task/Relation push/pullを実装。明示schema2 upgrade、immutable ledger/再送、三値Conflict/causal frame、typed Relation参照、workspace別commit順序、耐久署名鍵/cursorとwhole batch transactionに対応。

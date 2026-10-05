@@ -1,5 +1,7 @@
 # Greiva本番architecture候補
 
+v0.21.0補足：private Repositoryは認可row lockと業務SQLを単一lease/transactionに固定するためparameterized node-postgresを使用する。Drizzleは既存/通常modelに保持するが、private処理を別pool/別transactionへ切り離さない。[判断19](../decisions/private-page-binary.md)。
+
 2026-10-05、設計案。合意済み[統合要件](GREIVA_REQUIREMENTS.md) §2–7/11と[条件付き技術採用](../decisions/poc-technology-selection.md)を具体化する。PoC実装の記述と将来の契約を分ける。提供範囲・共有・運用先は[未決定一覧](PRODUCTION_READINESS.md)。本書はmigration実行や本番提供を開始する指示ではない。
 
 ## 責務と依存方向

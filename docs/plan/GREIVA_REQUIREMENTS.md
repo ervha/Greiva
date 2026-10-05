@@ -56,7 +56,7 @@ Apple実機の可否により、Domain、Editor、CRDT、Sync Protocolの再設�
 | Web local DB | SQLite WASM + OPFS（Web Worker内）、fallbackはIndexedDB |
 | Web CRDT persistence | y-indexeddb |
 | API | Node.js + NestJS、Fastify adapter |
-| DB access | Repository Interfaceの背後でDrizzle |
+| DB access | Repository Interfaceの背後でDrizzle。private認可/ledger/binaryは同一leaseのparameterized node-postgres |
 | Server DB | PostgreSQL |
 | Auth | Supabase Auth |
 | Infrastructure | Supabaseを第一候補とし、PostgreSQL/Object Storageを利用 |
@@ -332,7 +332,7 @@ PoCがGate A/B/Cを通過した場合、次の順で本番設計へ進む。
 
 - React / Tauri 2 / Tiptap / Yjs / Hocuspocus / SQLiteを中核候補とする。
 - structured dataとCRDT本文を分離する。
-- PostgreSQLはDrizzle Repository経由でアクセスする。
+- PostgreSQLはRepository経由でアクセスする。通常modelはDrizzle、private認可/ledger/binaryは同一leaseのparameterized node-postgresで認可と業務commitを固定する（[判断19](../decisions/private-page-binary.md)）。
 - Web local storeはSQLite WASM + OPFSを主、IndexedDBをfallbackとする。
 - CRDT本文の正本はY.Doc binaryであり、JSON/textはProjectionである。
 - operation IDの冪等性、cursor pull、Conflict保持、offline crash recoveryを必須とする。

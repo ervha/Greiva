@@ -1,5 +1,7 @@
 # 技術stackの現状と製品化候補
 
+v0.21.0補足：private認可/structured ledger/Page binaryはRepository内のparameterized node-postgres queryを同じlease clientへ固定する。Drizzleの別pool/transactionで認可とwriteを分離しない。既存Drizzle/modelは保持。[全判断](../decisions/private-page-binary.md)。APIは既存固定Yjs13.6.33を明示依存に追加、外部lockは不変。
+
 2026-10-05。sourceは製品0.6.25、[PoCの条件付き採用](../decisions/poc-technology-selection.md)を継承。以下はrepositoryの固定manifest/lock/composeから読んだ値で、最新版の調査・upgrade推奨ではない。
 
 | 領域 | 現PoCの固定版 | 確認元 |

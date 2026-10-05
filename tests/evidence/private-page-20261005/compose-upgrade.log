@@ -1,0 +1,6 @@
+{"service":"private-api","event":"page_schema_installed"}
+ Container greiva-private-development-postgres-1 Running 
+ Container greiva-private-development-postgres-1 Waiting 
+ Container greiva-private-development-postgres-1 Healthy 
+ Container greiva-private-development-schema-run-a174a2a60152 Creating 
+ Container greiva-private-development-schema-run-a174a2a60152 Created 

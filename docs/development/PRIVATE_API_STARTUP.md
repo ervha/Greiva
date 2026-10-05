@@ -1,5 +1,7 @@
 # 保護APIの開発用起動
 
+v0.21.0更新：[Page本文schema3](PRIVATE_PAGE_DOCUMENTS.md)を明示upgradeで追加。schema1はaccess等、schema2以上はstructured、schema3だけPage document POSTをmountする。通常startupに自動DDL/repairなし。
+
 v0.20.0更新：明示metadata1→structured2のupgradeとschema2のみの新sync経路を追加。[導入/maintenance手順](PRIVATE_STRUCTURED_SYNC.md)。以下のv0.17は初期起動手順として保持。通常startupに自動DDL/鍵再生成はなく、schema1は従来のsession/access/bootstrap/device確認だけを提供する。
 
 v0.17.0。通常PoCと別コマンド・別schemaで起動する。日本向け個人版P1の接続検証用で、公開配布用の設定ではない。

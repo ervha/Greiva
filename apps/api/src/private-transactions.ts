@@ -59,7 +59,7 @@ export class PostgresPrivateTransactions implements PrivateDeviceAccess {
       client = await this.pool.connect(); assertSession();
       await client.query('BEGIN ISOLATION LEVEL READ COMMITTED');
       const version = await client.query(`SELECT version FROM "${schema}".private_schema_version WHERE singleton=true FOR SHARE`);
-      if (version.rowCount !== 1 || ![1,2].includes(version.rows[0].version)) throw new PrivateTransactionUnavailable();
+      if (version.rowCount !== 1 || ![1,2,3].includes(version.rows[0].version)) throw new PrivateTransactionUnavailable();
       // SHARE blocks non-key updates (deleted/revoked) too. KEY SHARE would
       // permit them. The lock order is workspace, device, sorted resources.
       const rows = await client.query(`SELECT owner_issuer,owner_subject_id,epoch,deleted FROM "${schema}".private_workspaces WHERE id=$1 FOR SHARE`, [workspace.data]);

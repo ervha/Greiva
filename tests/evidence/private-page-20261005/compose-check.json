@@ -1,0 +1,27 @@
+{
+  "result": "Pass",
+  "version": "0.21.0",
+  "schemaVersion": 3,
+  "explicitUpgrade": true,
+  "metadataPreserved": true,
+  "metadataRows": {
+    "devices": 0,
+    "resources": 0,
+    "workspaces": 0
+  },
+  "cursorKeyStable": true,
+  "ownContainerVersions": {
+    "api": "0.21.0",
+    "preview": "0.21.0"
+  },
+  "unauthenticatedPageRoute": {
+    "1421": 401,
+    "3001": 401
+  },
+  "authHtml": 200,
+  "bindings": [
+    "127.0.0.1:3001",
+    "127.0.0.1:1421"
+  ],
+  "limits": "Dedicated local private-development volume only; no ordinary PoC/SQLite modification, user credentials or real Supabase login"
+}

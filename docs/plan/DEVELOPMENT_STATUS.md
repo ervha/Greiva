@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+最新v0.21.0：認証付きPage本文のbinary保存基盤を実装。明示schema3、初期title、append-only journal/digest/再送、state-vector diff、破損拒否/失効/期限rollback/COMMIT前後SIGKILLを検証。[全22判断](../decisions/private-page-binary.md)、[証拠](../../tests/evidence/private-page-20261005/SUMMARY.md)。通常180/実PG65、型/frontend/Windows cross-buildを確認。通常UI/IPC/端末Page queue、metadata rename/delete/Conflict、Hocuspocus継続認可・実Auth/nativeは未完成。追加操作を求めず端末耐久化/client sessionへ進む。
+
 2026-10-05、checkpoint **v0.20.0**。[個人workspace structured同期](../../tests/evidence/private-stream-20261005/SUMMARY.md)を実装し、通常177/実PG54/型/Windows build、DB COMMIT前後のSIGKILL、実HTTP/2つのRust SQLiteを検証。専用API/previewはschema2/版0.20へ更新済み。[全234判断](AUTONOMOUS_DECISIONS.md)。実Auth正常系/通常UI・IPC/Page metadata/CRDTは未完成。次はPage同期の保護契約へ進む。
 
 2026-10-05、checkpoint **v0.19.0**。[個人workspaceの認可と保存transaction](../../tests/evidence/private-transactions-20261005/SUMMARY.md)を実装。owner/device/resourceを同じtransactionでlockし、失効/削除の両順序と期限切れを実PGで確認。通常175/専用PG41/型/Windows buildがPass。[全214判断](AUTONOMOUS_DECISIONS.md)。新structured stream/CRDTと実Auth/native IPCは未完成。追加手操作を求めず、workspace別のserver ledgerへ進む。
