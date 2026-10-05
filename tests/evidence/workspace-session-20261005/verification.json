@@ -1,0 +1,27 @@
+{
+  "result": "Pass",
+  "version": "0.13.0",
+  "unit": {
+    "pass": 120,
+    "skip": 26,
+    "newWorkspaceSessionRaceTests": 9
+  },
+  "postgres": {
+    "pass": 26,
+    "skip": 0,
+    "scope": "Regression of existing server boundaries; no new client durable adapter"
+  },
+  "typecheck": "Pass",
+  "normalWindowsBuild": "Pass",
+  "buildSourcesMatch": 86,
+  "externalNpm315Unchanged": true,
+  "externalCargoUnchanged": true,
+  "reportCredentialScan": "No compact JWT/private-key material in selected raw JSON",
+  "limits": [
+    "Workspace session uses deferred transport/store double; no new HTTP workspace stream/SQLite/active UI binding",
+    "Started old-store commit can finish after close; no rollback guarantee",
+    "Durable prepared/receipt/cursor adapter remains unimplemented",
+    "JWKS fixture transport; no real Supabase/login/refresh/revocation",
+    "No new browser/native IME/Android proof"
+  ]
+}

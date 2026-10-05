@@ -1,10 +1,12 @@
 # Structured sync本番契約候補
 
-2026-10-05、設計案。[architecture](ARCHITECTURE.md)、[データ](DATA_MODEL.md)、[PoC検証](../decisions/gate-c.md)を基準にする。初期版は個人workspace/自分の端末間。wire変更は未実装で、現protocolのTask/Relationと本番案を分ける。
+2026-10-05、設計案。[architecture](ARCHITECTURE.md)、[データ](DATA_MODEL.md)、[PoC検証](../decisions/gate-c.md)を基準にする。初期版は個人workspace/自分の端末間。新wireの独立型/境界を部分実装し、旧PoCのTask/Relation経路と本番案を分ける。
 
 v0.9.0でprotocol/workspace subpathへprotocolVersion1/workspace/client/response streamEpoch、ACK/pull scope検査を追加し、server専用gw1 cursorを実装した。[証拠](../../tests/evidence/workspace-sync-boundary-20261005/SUMMARY.md)。新経路/queue/SQLへは未接続で、旧PoC wireを変えない。cursorはuser認証ではなく、owner認可を別に通す。
 
 ## 入出力と不変条件
+
+v0.13.0で[portable WorkspaceSyncSession](../../tests/evidence/workspace-session-20261005/SUMMARY.md)を実装。生成時のissuer/subject/workspace/client/epochとtransport/store callbackを捕捉し、close→新instanceで古い応答を適用前に拒否する。prepared JSON文字列を変更せず送信し、ACK identity/pull進行を検査、同時要求を拒否する。receipt/pending・pull/cursorの原子的commitは注入storeの責務で、native adapterは未実装。開始済みの旧store commitはclose後に完了し得るが、新storeへ付け替えず、active成功も返さない。
 
 commandはworkspace/対象/intentを受け、認可・domain validation後にentityとoperationを同一local transactionで保存する。IDはofflineで安定生成し、時刻を順序へ使わない。commit後のoperationを受信しただけで外部actionを再実行しない。
 

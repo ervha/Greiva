@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.13.0 — 2026-10-05
+
+- 新wire用WorkspaceSyncSessionを追加。account/workspace/epoch/保存先を生成時に固定し、close後の遅着ACK/pull、誤所属、不正cursor進行を保存前に拒否。prepared wireの文字列を保ち、同時要求を防ぐ。
+- 非同期race9条件を含む通常120＋専用PG26/型/通常Windows build、source86/外部npm315・Cargo不変を確認。全12判断と継続開発118判断の索引を記録。native prepared/receipt/cursor adapter、UI/実Auth/新HTTP streamは未接続。
+
 ## 0.12.0 — 2026-10-05
 
 - 新規namespaceのprivate workspace/device/resource正本tables/viewsと、認証主体ごとの初期workspace登録を追加。owner uniqueとtransactionで並行/再試行を安定化し、端末IDの他account利用・削除/失効・不正schemaを拒否。

@@ -1,5 +1,7 @@
 # 応答・外部環境が必要な事項
 
+v0.13.0までの[継続開発118判断のまとめ](AUTONOMOUS_DECISIONS.md)を追加。[同期session12判断](../decisions/workspace-sync-session.md)はaccount/workspace/epochと元storeの捕捉、close/遅着応答の検証範囲を記録する。native prepared/receipt/cursor、offline/logout/失効契約、実Authは未完成。
+
 2026-10-05の追加判断は[規約/改善送信12件](../decisions/privacy-telemetry-plan.md)、[独立HTTP12件](../decisions/private-http-boundary.md)、[正本metadata/bootstrap12件](../decisions/private-workspace-bootstrap.md)に全件記録。新規schemaを先行し、旧DB帰属/取り込みを推定しない。現在追加の利用者操作は不要。
 
 2026-10-05。利用者の「応答が必要なら他の作業を先行し、必要事項/全判断を記録」に従う。現在の初期範囲は機能優先委任と個人/自端末同期先行で決定済み。[判断9件](../decisions/production-foundation-plan.md)、[基盤13件](../decisions/production-command-foundation.md)、[認可12件](../decisions/private-workspace-access.md)、[wire/cursor12件](../decisions/workspace-sync-boundary.md)、[署名session16件](../decisions/signed-session-verification.md)。
