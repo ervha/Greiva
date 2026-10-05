@@ -1,5 +1,7 @@
 # 応答・外部環境が必要な事項
 
+v0.15.0：配置設定とmemory-only認証session、保護HTTPの署名検証へ接続するadapterを実装。[全148判断](AUTONOMOUS_DECISIONS.md)。provider login/refreshはfixture、実Supabaseは公開JWKS/不正署名拒否まで。正常な実ログインはUI/OS credential接続後にまとめて確認する。今は追加回答・password/tokenを求めず、新workspace同期/起動adapter等の独立作業を進められる。
+
 v0.14.0ではnative workspace storeを実装し、prepared/ACK/pullの耐久性を実SQLite/SIGKILLで検証。[全132判断のまとめ](AUTONOMOUS_DECISIONS.md)。通常UI/IPC/実Authは未接続。利用者からSupabase URL、ES256、Publishable keyを受領し、公開JWKS/Auth settingsを実HTTPSで確認した。[設定手順](../development/SUPABASE_SETUP.md)。以下の過去版記録は当時の状態。
 
 v0.13.0までの[継続開発118判断のまとめ](AUTONOMOUS_DECISIONS.md)を追加。[同期session12判断](../decisions/workspace-sync-session.md)はaccount/workspace/epochと元storeの捕捉、close/遅着応答の検証範囲を記録する。native prepared/receipt/cursor、offline/logout/失効契約、実Authは未完成。
@@ -10,7 +12,7 @@ v0.13.0までの[継続開発118判断のまとめ](AUTONOMOUS_DECISIONS.md)を�
 
 | 事項 | 必要な情報/環境 | 状態と先行できる作業 |
 | --- | --- | --- |
-| 実Auth検証 | clientログイン/refresh、credential保存と検証用ユーザーによる接続 | URL/ES256/Publishable keyは受領済み。公開HTTPSは確認済み、実ログイン/失効/端末間同期は未確認。現在追加回答待ちなし。まずclient/起動adapterを実装し、password/tokenはチャットへ求めない |
+| 実Auth検証 | 通常UI、OS credential保存、検証用ユーザーによる接続 | URL/ES256/Publishable keyは受領済み。memory-only client認証/保護factoryを実装、公開HTTPS/不正署名拒否は確認済み。正常実ログイン/失効/端末間同期は未確認。現在追加回答待ちなし。password/tokenはチャットへ求めない |
 | 本番接続/配布 | API/collaboration/Auth endpoint、署名/配布先/credential管理 | 未設定。public deploy/課金/ホストglobal toolchain追加をしない |
 | offline/logout/失効 | 端末保存データへのoffline権限、logout/device失効時の保持/消去/再ログイン | 未決定。期限や自動削除を仮定せず、保存済みpendingを保持する |
 | 旧PoC取り込み | 初期提供の有無、workspace帰属、旧pending/ACK/cursor/titleの扱い | 未決定。旧DBを移行・消去せず新contract/fixtureを先行 |

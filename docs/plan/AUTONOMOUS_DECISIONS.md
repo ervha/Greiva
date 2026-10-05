@@ -15,8 +15,9 @@
 | v0.12.0 bootstrap | [Metadata/bootstrap](../decisions/private-workspace-bootstrap.md) | 12 | fresh schema、初期ownerごと1workspace、安定再送/epoch、端末ID衝突rollback |
 | v0.13.0 遅着応答 | [Sync session](../decisions/workspace-sync-session.md) | 12 | 生成時account/store捕捉、close後復帰禁止、不正応答を適用前に除外 |
 | v0.14.0 耐久保存/接続準備 | [Workspace store](../decisions/workspace-durable-store.md) | 14 | 新規binding、prepared/ACK/pull原子保存、SIGKILL6、Supabase公開設定確認 |
+| v0.15.0 認証session | [Supabase session](../decisions/supabase-auth-session.md) | 16 | memory-only token、server検証後identity、rotation/close/期限、local logout、両Rust lock整合 |
 
-合計132件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
+合計148件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
 
 共通：同じcodex/poc-editor、確認後の版/tag/push、外部依存を監査、元Page/DBを保持。Computer UseはWindows診断後に解除し、今回の基盤開発では使わない。cloud/project/配布・課金・新global toolchainを作成せず、端末保持/旧DB帰属/保持期限を未決定のまま創作しない。初期OFFの改善送信は設計で、実際の収集は始めていない。
 

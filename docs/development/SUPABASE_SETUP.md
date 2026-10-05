@@ -25,3 +25,5 @@ Dockerから実HTTPSでJWKSと`/auth/v1/settings`を取得し、両方HTTP 200�
 現在の`sessionVerifier`は明示的な`SessionConfiguration`を受け取る実装。`.env.example`に存在しない設定名を追加しただけでは動作しない。保護HTTPの`createPrivateApp`は独立factoryで、通常PoCのmain・ログインUI・新workspace本文/structured streamへは未接続。旧PoCの未認可経路をこのproject設定で公開しない。
 
 次は公開設定を受ける起動adapter、ログイン/refreshと端末credential保存、検証済みsessionからのworkspace登録、所属/失効を照合する同期経路を順に接続する。実ユーザーのpassword/tokenを開発者へ送る手順にはしない。
+
+v0.15.0で`supabaseConfiguration`、`supabaseAuthSession`、`createSupabasePrivateApp`を追加した。project URL/algorithmと、client側のPublishable key/Greiva API originを明示的に渡す。通常PoC起動に自動適用するenv名・ログインUIはまだない。client tokenはメモリのみで、refreshとlocal logoutを実装し、署名検証後のidentityだけを公開する。正常login/refreshはprovider fixture＋実保護HTTP/PG/SQLiteで検証した。実Supabaseでは公開HTTPSと実JWKSによる不正署名拒否を確認し、実ユーザーの正常ログインは未確認。[全判断と制約](../decisions/supabase-auth-session.md)。

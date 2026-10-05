@@ -1,0 +1,13 @@
+{
+  "at": "2026-10-05T02:39:04.327Z",
+  "projectUrl": "https://lfvipbtayyfhxtprenme.supabase.co",
+  "issuer": "https://lfvipbtayyfhxtprenme.supabase.co/auth/v1",
+  "algorithm": "ES256",
+  "jwksHttps": 200,
+  "authSettingsHttps": 200,
+  "emailEnabled": true,
+  "missingSession": 401,
+  "realJwksWrongSignature": 401,
+  "storageReads": 0,
+  "scope": "Actual Supabase public HTTPS/JWKS with local protected HTTP negative verification. No real user login/refresh/revoke or user creation/data writes."
+}

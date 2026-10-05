@@ -19,6 +19,8 @@
 
 初回driver buildでは、standaloneのignored Cargo.lockが古いapp版と外部yoke-derive 0.8.4を選んだ。authoritative parent lockの0.8.3へDocker内で合わせ、全driver依存のname/version/checksum所属を監査し、最終buildをlockedで再実行した。tracked外部lockは変更しない。Windows初回buildのroot所有package-lockによる権限失敗は所有権を修正し、別のfresh出力で再実行した。最終検証と初回失敗を区別する。
 
+v0.15追記：standalone lockは実際にはtrackedで、v0.14ではDocker内の最終lockをhostのcommitへ戻していなかった。通常Windowsのparent lockと当時のdriver最終buildは照合済みだったが、tracked試験用owner版は古かった。[訂正と両lock監査](supabase-auth-session.md)を記録して修正した。
+
 画面回帰の初回は存在しない`/usr/bin/chromium`を指定して起動前に失敗した。既存の`/opt/playwright`を使うDocker環境設定へ修正して両suiteを再実行し、追加インストールはしない。この修正を新しいUI/実IMEの実装・証拠にはしない。
 
 [検証証拠](../../tests/evidence/workspace-store-20261005/SUMMARY.md)。Rust libraryとDocker JSON-lines test portを実装した段階で、通常Tauri IPC/active UI、新workspaceのHTTP stream/Page CRDT、実Auth/login/credential保管、旧DB移行はまだ接続しない。ユーザーの試験Page/DBを変更せず、telemetryは未実装/未収集のまま保持する。

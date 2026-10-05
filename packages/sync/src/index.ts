@@ -1,4 +1,7 @@
 // Page CRDT persistence and structured operation sync are separate paths.
+export { AuthSession, AuthSessionError } from './auth-session.js';
+export type { AuthIdentity, AuthSessionPorts } from './auth-session.js';
+export { supabaseAuthSession } from './supabase-auth.js';
 export type { SyncOperation, SyncState } from '@greiva/protocol';
 export { emptyPageUpdate } from './page-bootstrap.js';
 export { StructuredSyncEngine, StructuredTransportError, httpStructuredTransport } from './structured-engine.js';

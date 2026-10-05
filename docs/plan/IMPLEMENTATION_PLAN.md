@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.15.0：Supabaseの明示配置設定とmemory-only認証session、password/refresh/local logoutのREST adapter、server署名検証との接続を実装。通常148＋実PG27/型/通常Windows buildを検証。追加client14＋実HTTP2＋実PG/native SQLite1、実Supabaseの公開JWKS/不正署名拒否を分離した。[全16判断](../decisions/supabase-auth-session.md)。通常ログインUI/OS credential/新workspace同期HTTP・CRDTは未接続で、実ユーザーの正常login/refreshは未確認。次は認証済sessionから使うbootstrap/同期HTTP adapterと起動/設定UI、native bindingを接続する。
+
 最新v0.14.0：新規workspace専用Rust/SQLite storeを実装。immutable binding、durable prepared wire、ACK receipt/pending、pull receipt/cursorをtransactionで保存する。追加12条件（実プロセスSIGKILL6を含む）＋既存回帰と通常Windows buildを検証。[全14判断](../decisions/workspace-durable-store.md)。通常Tauri IPC/active UI、実ログイン/refresh、新HTTP stream/CRDTは未接続。Supabase公開設定は受領し、実HTTPSでJWKS/Email設定を確認した。[接続手順](../development/SUPABASE_SETUP.md)。次は実Authの起動設定とclient session/credential境界、新streamのowner/device照合へ進む。
 
 最新v0.13.0：新workspace wireのportable同期session境界を部分実装し、非同期race9を含む通常120＋実PG26/型/通常Windows buildがPass。native durable prepared/receipt/cursor adapterとactive UI/実Auth/全HTTP・CRDTは未接続。保存先を生成時に捕捉し、account切替で旧instanceを閉じる契約を先に検証した。[全判断のまとめ](AUTONOMOUS_DECISIONS.md)。以下の各版は当時の進行記録。

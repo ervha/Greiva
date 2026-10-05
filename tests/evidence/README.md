@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-05 / v0.15.0 / [Supabase認証session](auth-session-20261005/SUMMARY.md): client14＋実署名HTTP2＋実PG/native SQLite1、通常148/PG27/型/通常Windows build。memory-only/rotation/close/owner/期限と実公開JWKSの不正署名拒否。通常UI/OS credential/実ユーザー正常login/新同期HTTPは未接続。
+
 - 2026-10-05 / v0.14.0 / [Workspace耐久保存](workspace-store-20261005/SUMMARY.md): 実Rust/SQLite12（SIGKILL6）、通常132/PG26/画面59/実同期2/型/通常Windows build。新規bindingとprepared/ACK/pull原子保存、Supabase公開HTTPS確認。通常UI/新HTTP stream/実ログインは未接続。
 
 - 2026-10-05 / v0.13.0 / [Workspace同期session](workspace-session-20261005/SUMMARY.md): 非同期race9、通常120/PG26回帰/型/通常Windows build。遅着/ABA復帰/保存先捕捉/不正scopeとcursor進行を検査。native durable/新HTTP stream/UIへの接続は未実装。

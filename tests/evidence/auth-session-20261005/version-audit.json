@@ -1,0 +1,15 @@
+{
+  "result": "Pass",
+  "version": "0.15.0",
+  "externalNpmRecords": 315,
+  "ownerManifestsAligned": true,
+  "rootExternalCargoUnchanged": true,
+  "driverOwnerAligned": true,
+  "driverEveryDependencyMatchesRoot": true,
+  "driverExternalAlignment": {
+    "name": "yoke-derive",
+    "from": "0.8.4",
+    "to": "0.8.3",
+    "reason": "Match existing authoritative parent lock; no root dependency update"
+  }
+}

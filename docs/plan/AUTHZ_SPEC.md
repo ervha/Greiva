@@ -1,6 +1,8 @@
 # 個人版の認証・認可契約候補
 
-2026-10-05、設計案。利用者の回答により、初期版は個人利用/自分の端末間同期を先行する。共有・招待・public linkは初期提供へ含めない。Supabase Authは[統合要件](GREIVA_REQUIREMENTS.md)の候補で、instance/鍵/認証UIは未設定・未実装。
+2026-10-05、個人版の設計と部分実装記録。利用者の回答により、初期版は個人利用/自分の端末間同期を先行する。共有・招待・public linkは初期提供へ含めない。Supabase Authは[統合要件](GREIVA_REQUIREMENTS.md)の候補で、初期設計時点ではinstance/鍵/認証UIは未設定・未実装だった。
+
+v0.15.0追記：Supabase検証project公開設定は受領・確認済み。[memory-only認証sessionと明示保護factory](../../tests/evidence/auth-session-20261005/SUMMARY.md)を実装し、provider password/refresh responseからGreiva server署名検証を経てidentityを公開する。旧main/通常UI、OS credential、実ユーザーの正常login/refreshと全同期経路は未接続。以下の過去版記録は当時の状態。
 
 v0.8.0で[owner/resource読取policyとPG snapshot port](../../tests/evidence/private-access-20261005/SUMMARY.md)を実装した。検証済session主体を与える前提で、JWT/tokenを検証する機能ではない。既存PoC HTTP/CRDT経路はまだ認可されていない。本番接続/移行の[必要事項](PENDING_PRODUCTION_CONFIGURATION.md)を保持する。
 

@@ -1,0 +1,36 @@
+{
+  "result": "Pass",
+  "version": "0.15.0",
+  "unit": {
+    "pass": 148,
+    "skip": 27,
+    "newClientAuth": 14,
+    "newSignedJwtActualHttp": 2
+  },
+  "postgres": {
+    "pass": 27,
+    "skip": 0,
+    "newAuthBootstrapActualPgNativeSqlite": 1
+  },
+  "typecheck": "Pass",
+  "normalWindowsBuild": "Pass",
+  "buildSourcesMatch": 92,
+  "externalNpm315Unchanged": true,
+  "rootExternalCargoUnchanged": true,
+  "driverLock": "Owner 0.15.0; yoke-derive 0.8.4 -> parent 0.8.3; every driver dependency belongs to parent lock",
+  "realSupabase": "Public HTTPS/JWKS/settings and local protected HTTP wrong-signature denial with real public keys; no real user login",
+  "reportCredentialScan": "No compact JWT/private-key/publishable-key material in selected raw JSON",
+  "initialFailures": [
+    "Tracked standalone driver lock was mistaken for ignored; corrected historical note and owner/version audit",
+    "Intermediate ignored helper changed external synstructure version; corrected in Docker before final locked builds"
+  ],
+  "limits": [
+    "Memory-only tokens; no OS secure credential persistence or restart login restoration",
+    "Normal PoC main/UI not rewired; new workspace sync HTTP/CRDT still absent",
+    "Password/refresh/logout provider calls use fixtures; no real user login/refresh/revocation",
+    "Local logout confirmation does not mean immediate access-JWT invalidation",
+    "No new Windows IME/physical interaction/Android native proof",
+    "Existing UI/structured E2E evidence from v0.14 retained; those suites were not rerun for unmounted modules",
+    "Telemetry not implemented and no collection started"
+  ]
+}

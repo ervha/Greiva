@@ -2,6 +2,12 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.15.0 — 2026-10-05
+
+- Supabaseの明示配置設定とmemory-only client認証を追加。password/refresh/local logoutをRESTへ接続し、Greiva側の署名・issuer/subject/expiry検証後にidentityを公開する。account切替/遅着応答、token rotation、期限、秘密を含めないerrorを検証。
+- client14＋実署名HTTP2＋実PG/native SQLite1を含む通常148＋実PG27/型/通常Windows buildを確認。実Supabase公開JWKSで不正署名拒否も確認した。通常UI/OS credential/新同期HTTPは未接続、実ユーザーの正常login/refreshは未確認。
+- tracked試験用Cargo.lockの古いowner版を修正し、yoke-deriveだけを既存parent lockに揃えた。parent外部Cargo/npmは維持。全16判断・訂正と継続開発148判断の索引を記録。
+
 ## 0.14.0 — 2026-10-05
 
 - 新規workspace専用Rust/SQLite storeを追加。account/workspace/client/epochを固定し、prepared wire、ACK receipt/pending、pull receipt/cursorを原子的に耐久保存する。旧PoC DBを自動移行・採用しない。
