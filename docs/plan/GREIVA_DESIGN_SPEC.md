@@ -1,4 +1,4 @@
-# Greiva UI・横断設計仕様 v0.8
+# Greiva UI・横断設計仕様 v0.9
 
 ## 1. 目的と適用範囲
 
@@ -17,6 +17,8 @@
 2026-10-01 v0.6改訂: アプリ内更新の非遮断の検知案内、利用者によるダウンロード、延期と再起動前の確認を追加。保存・署名・復旧の詳細案は`APP_UPDATE_SPEC.md`。未実装でありPoCの範囲を変更しない。
 
 2026-10-01 v0.7改訂: 汎用DBビュー・プロパティ・レコード詳細レイアウトと、Button/automationの製品設計を追加。時間割画像は任意PropertyのGroup/Subgroup・カード表示・共通actionの利用例として扱う。対応目標と受入条件は[DATABASE_SPEC.md](DATABASE_SPEC.md)・[BUTTON_AUTOMATION_SPEC.md](BUTTON_AUTOMATION_SPEC.md)。未実装でありPoCの範囲を拡張しない。
+
+2026-10-06 v0.9改訂: 設計項目・機能モジュールおよび設定項目のユーザーによるON/OFFトグル切り替え設計を追加。Settings内に「機能とカスタマイズ」を新設し、Material Design標準のスイッチUI（A11y準拠、非破壊的トグル）を規定。詳細は [FEATURE_SETTINGS_TOGGLE_SPEC.md](FEATURE_SETTINGS_TOGGLE_SPEC.md) を参照する。
 
 ## 2. UX原則
 
@@ -49,6 +51,7 @@ Workspace
 ├─ Conflicts            # 同一field競合の解決キュー
 ├─ Settings
 │  ├─ Account / Workspace
+│  ├─ Features & Customization  # 機能・設定項目のON/OFFトグル（モジュール、エディタ、同期、AI等）
 │  ├─ Sync & Storage
 │  ├─ Integrations
 │  └─ Appearance / Accessibility

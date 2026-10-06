@@ -2,6 +2,13 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.25.2 — 2026-10-06
+
+- 機能モジュールおよび各種設定項目をユーザーがON/OFFトグルで切り替え可能にする統合設計仕様を追加。
+- 統合仕様書 `docs/plan/FEATURE_SETTINGS_TOGGLE_SPEC.md`、判断記録 `docs/decisions/feature-settings-toggles.md` を作成。要件定義（`GREIVA_REQUIREMENTS.md`）および横断設計（`GREIVA_DESIGN_SPEC.md`）へ反映。
+- モジュール無効化時も実データを保持する非破壊性原則、端末ローカル設定（SQLite `local_settings`）とワークスペース同期設定のスコープ分離、Material Design準拠のSwitch UI・アクセシビリティ要件を規定。
+- コード変更を伴わない仕様書・計画文書の追加・更新のみ。
+
 ## 0.25.1 — 2026-10-05
 
 - 編集画面・接続確認画面の配色を共通化。白・ニュートラルグレーと控えめな緑へ整理し、強い背景グラデーションを除去。接続確認画面のdark表示はチャコールへ変更。
