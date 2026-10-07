@@ -1,0 +1,46 @@
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.
+
+Running 3 tests using 1 worker
+
+  ✘  1 [chromium] › tests/e2e/private-page-editor.spec.ts:6:1 › PRIVATE-EDITOR-UI: keyboard edits, durable restore, exact ACK retry and read-only title use existing Editor controls (6.2s)
+  ✓  2 [chromium] › tests/e2e/private-page-editor.spec.ts:23:1 › PRIVATE-EDITOR-UI: committed peer text retains a blurred selection and waits until synthetic composition finishes (1.3s)
+  ✓  3 [chromium] › tests/e2e/private-page-editor.spec.ts:44:1 › PRIVATE-EDITOR-UI: failed native commit keeps copyable draft and disables editing/send at a narrow viewport (878ms)
+
+
+  1) [chromium] › tests/e2e/private-page-editor.spec.ts:6:1 › PRIVATE-EDITOR-UI: keyboard edits, durable restore, exact ACK retry and read-only title use existing Editor controls
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('textbox', { name: 'Page本文', exact: true })
+    Expected substring: "private text"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" getByRole('textbox', { name: 'Page本文', exact: true }) with timeout 5000ms
+      - waiting for getByRole('textbox', { name: 'Page本文', exact: true })
+
+
+      13 |   await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('同期エラー');
+      14 |   await page.getByRole('button', { name: '同期する', exact: true }).click(); await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('サーバーと同期済み');
+    > 15 |   await page.evaluate(() => window.privateEditorTest.reopen()); await expect(body).toContainText('private text');
+         |                                                                                    ^
+      16 |   await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('同期はまだ確認していません');
+      17 |   await body.click(); await page.keyboard.press('End'); await page.keyboard.press('Enter'); await page.keyboard.type('/h2');
+      18 |   await page.getByRole('option', { name: '見出し2', exact: true }).click(); await page.keyboard.type('Heading'); await expect(body.locator('h2')).toHaveText('Heading');
+        at /workspace/tests/e2e/private-page-editor.spec.ts:15:84
+
+    Error Context: tests/evidence/runs/private-editor-switch-focused/artifacts/private-page-editor-PRIVAT-03172-se-existing-Editor-controls-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    tests/evidence/runs/private-editor-switch-focused/artifacts/private-page-editor-PRIVAT-03172-se-existing-Editor-controls-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace tests/evidence/runs/private-editor-switch-focused/artifacts/private-page-editor-PRIVAT-03172-se-existing-Editor-controls-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests/e2e/private-page-editor.spec.ts:6:1 › PRIVATE-EDITOR-UI: keyboard edits, durable restore, exact ACK retry and read-only title use existing Editor controls
+  2 passed (10.8s)

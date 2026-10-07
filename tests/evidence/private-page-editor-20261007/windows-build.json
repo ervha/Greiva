@@ -1,0 +1,33 @@
+{
+  "version": "0.26.0",
+  "diagnostic": false,
+  "results": [
+    {
+      "id": "install",
+      "start": "2026-10-07T07:30:42.813Z",
+      "finished": "2026-10-07T07:30:43.222Z",
+      "exit": 0
+    },
+    {
+      "id": "frontend",
+      "start": "2026-10-07T07:30:43.223Z",
+      "finished": "2026-10-07T07:30:46.867Z",
+      "exit": 0
+    },
+    {
+      "id": "cross",
+      "start": "2026-10-07T07:30:46.867Z",
+      "finished": "2026-10-07T07:30:59.334Z",
+      "exit": 0
+    }
+  ],
+  "frontendTestFlags": 0,
+  "storeFeatures": [
+    "default"
+  ],
+  "artifact": {
+    "bytes": 19118592,
+    "sha256": "50205b116896f4542f417c2d52912052a036200fd3488e52b9023db8e57df0f2"
+  },
+  "scope": "Normal Windows debug cross-build using existing cache. No new native IME/interaction proof."
+}

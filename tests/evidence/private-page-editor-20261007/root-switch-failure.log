@@ -1,0 +1,107 @@
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.
+
+Running 64 tests using 1 worker
+
+  ✓   1 [chromium] › tests/e2e/block-drag-large.spec.ts:5:1 › STEP8-DRAG-1000: real gutter drag retains every block and reports browser frame timing (2.4s)
+  ✓   2 [chromium] › tests/e2e/block-drag.spec.ts:29:1 › STEP8-DRAG-PREVIEW: held block floats, siblings make space, drop and cancellation retain the document (1.8s)
+  ✓   3 [chromium] › tests/e2e/block-drag.spec.ts:66:1 › STEP8-DRAG-REMOTE: a real peer edit cancels the stale drag without inserting its text (1.5s)
+  ✓   4 [chromium] › tests/e2e/block-drag.spec.ts:83:1 › STEP8-DRAG-DOWN: a multiline block opens a full-height gap, reduced motion and outside drop preserve content (1.7s)
+  ✓   5 [chromium] › tests/e2e/block-drag.spec.ts:107:1 › STEP8-DRAG-GUTTER: vertical movement in the handle column drops without entering the text (1.4s)
+  ✓   6 [chromium] › tests/e2e/collaboration.spec.ts:66:1 › STEP4-PARAGRAPH: simultaneous edits retain both changes and remote update keeps the caret (2.5s)
+  ✓   7 [chromium] › tests/e2e/collaboration.spec.ts:82:1 › STEP4-BLOCKS: different blocks, local undo does not undo the other client (3.5s)
+  ✓   8 [chromium] › tests/e2e/collaboration.spec.ts:100:1 › STEP4-OFFLINE: each client adds and deletes blocks, reconnect and fresh client restore the result (4.6s)
+  ✓   9 [chromium] › tests/e2e/collaboration.spec.ts:139:1 › STEP4-MOVE: both clients move blocks while offline (2.8s)
+  ✓  10 [chromium] › tests/e2e/collaboration.spec.ts:153:1 › STEP4-NESTED: edit and move within a nested Toggle, then reconnect (3.7s)
+  ✓  11 [chromium] › tests/e2e/collaboration.spec.ts:178:1 › STEP4-TODO: concurrent checked change and nested list edits retain valid nodes (3.2s)
+  ✓  12 [chromium] › tests/e2e/collaboration.spec.ts:201:1 › STEP4-ISOLATION: another Page never receives this Page body (2.4s)
+  ✓  13 [chromium] › tests/e2e/editor-ux.spec.ts:17:1 › STEP2-UX-SLASH: pointer and keyboard share one selection and retain editor focus (1.3s)
+  ✓  14 [chromium] › tests/e2e/editor-ux.spec.ts:35:1 › STEP2-UX-SLASH: wrap, Home/End, Tab, search aliases and empty dismissal (1.4s)
+  ✓  15 [chromium] › tests/e2e/editor-ux.spec.ts:63:1 › STEP2-UX-SLASH: outside dismissal preserves query, narrow popup stays on screen (1.1s)
+  ✓  16 [chromium] › tests/e2e/editor-ux.spec.ts:80:1 › STEP2-UX-TOGGLE: Enter reuses existing body and collapse moves caret to visible heading (1.4s)
+  ✓  17 [chromium] › tests/e2e/editor-ux.spec.ts:100:1 › STEP2-UX-TOGGLE: pointer retains caret, keyboard button activation retains focus (1.6s)
+  ✓  18 [chromium] › tests/e2e/editor-ux.spec.ts:120:1 › STEP2-UX-TOGGLE: folding is excluded from content undo and nested shortcut uses nearest toggle (1.6s)
+  ✓  19 [chromium] › tests/e2e/editor-ux.spec.ts:140:1 › STEP2-UX-VISUAL: capture polished slash menu and toggle at a desktop viewport (1.7s)
+  ✓  20 [chromium] › tests/e2e/editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts 本文, edit and delete (1.2s)
+  ✓  21 [chromium] › tests/e2e/editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts 見出し1, edit and delete (1.2s)
+  ✓  22 [chromium] › tests/e2e/editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts 見出し2, edit and delete (1.3s)
+  ✓  23 [chromium] › tests/e2e/editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts 見出し3, edit and delete (1.4s)
+  ✓  24 [chromium] › tests/e2e/editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts 箇条書き, edit and delete (1.2s)
+  ✓  25 [chromium] › tests/e2e/editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts 番号付きリスト, edit and delete (1.3s)
+  ✓  26 [chromium] › tests/e2e/editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts Todo, edit and delete (1.3s)
+  ✓  27 [chromium] › tests/e2e/editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts 引用, edit and delete (1.3s)
+  ✓  28 [chromium] › tests/e2e/editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts コード, edit and delete (1.2s)
+  ✓  29 [chromium] › tests/e2e/editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts 区切り線, edit and delete (1.1s)
+  ✓  30 [chromium] › tests/e2e/editor.spec.ts:26:3 › STEP2-BLOCK: slash inserts Toggle, edit and delete (1.2s)
+  ✓  31 [chromium] › tests/e2e/editor.spec.ts:41:1 › STEP2-TODO: checkbox and nested list survive undo/redo (1.5s)
+  ✓  32 [chromium] › tests/e2e/editor.spec.ts:60:1 › STEP8-TODO: each checkbox aligns with its editable text and pointer editing keeps the item (1.4s)
+  ✓  33 [chromium] › tests/e2e/editor.spec.ts:89:1 › STEP2-TOGGLE: nested content folds without losing text and unwraps (1.9s)
+  ✓  34 [chromium] › tests/e2e/editor.spec.ts:112:1 › STEP2-MENTION: keyboard selects a fixed entity and Escape leaves ordinary text (1.2s)
+  ✓  35 [chromium] › tests/e2e/editor.spec.ts:127:3 › STEP2-MARKDOWN: #  shortcut (1.1s)
+  ✓  36 [chromium] › tests/e2e/editor.spec.ts:127:3 › STEP2-MARKDOWN: ##  shortcut (1.1s)
+  ✓  37 [chromium] › tests/e2e/editor.spec.ts:127:3 › STEP2-MARKDOWN: ###  shortcut (1.0s)
+  ✓  38 [chromium] › tests/e2e/editor.spec.ts:127:3 › STEP2-MARKDOWN: -  shortcut (1.1s)
+  ✓  39 [chromium] › tests/e2e/editor.spec.ts:127:3 › STEP2-MARKDOWN: 1.  shortcut (1.1s)
+  ✓  40 [chromium] › tests/e2e/editor.spec.ts:127:3 › STEP2-MARKDOWN: []  shortcut (1.1s)
+  ✓  41 [chromium] › tests/e2e/editor.spec.ts:136:1 › STEP2-MOVE: drag changes order, undo restores it, keyboard moves the block (1.4s)
+  ✓  42 [chromium] › tests/e2e/editor.spec.ts:156:1 › STEP8-HANDLES: typing retains handle DOM and dragging uses current offsets and text (1.6s)
+  ✓  43 [chromium] › tests/e2e/editor.spec.ts:188:1 › STEP2-COMPOSITION: slash menu does not consume composition Enter (1.0s)
+  ✓  44 [chromium] › tests/e2e/focus-reconnect.spec.ts:37:3 › STEP8-FOCUS-paragraph-forward: peer updates during blur retain selection and local Undo excludes remote edits (3.8s)
+  ✓  45 [chromium] › tests/e2e/focus-reconnect.spec.ts:37:3 › STEP8-FOCUS-paragraph-backward: peer updates during blur retain selection and local Undo excludes remote edits (3.8s)
+  ✓  46 [chromium] › tests/e2e/focus-reconnect.spec.ts:37:3 › STEP8-FOCUS-heading-forward: peer updates during blur retain selection and local Undo excludes remote edits (4.0s)
+  ✓  47 [chromium] › tests/e2e/focus-reconnect.spec.ts:37:3 › STEP8-FOCUS-heading-backward: peer updates during blur retain selection and local Undo excludes remote edits (4.0s)
+  ✓  48 [chromium] › tests/e2e/focus-reconnect.spec.ts:37:3 › STEP8-FOCUS-todo-forward: peer updates during blur retain selection and local Undo excludes remote edits (4.0s)
+  ✓  49 [chromium] › tests/e2e/focus-reconnect.spec.ts:37:3 › STEP8-FOCUS-todo-backward: peer updates during blur retain selection and local Undo excludes remote edits (4.1s)
+  ✓  50 [chromium] › tests/e2e/focus-reconnect.spec.ts:37:3 › STEP8-FOCUS-toggle-forward: peer updates during blur retain selection and local Undo excludes remote edits (4.0s)
+  ✓  51 [chromium] › tests/e2e/focus-reconnect.spec.ts:37:3 › STEP8-FOCUS-toggle-backward: peer updates during blur retain selection and local Undo excludes remote edits (4.1s)
+  ✓  52 [chromium] › tests/e2e/focus-reconnect.spec.ts:85:1 › STEP8-RECONNECT-CYCLES: repeated offline edits converge once and restore to an independent client (5.6s)
+  ✓  53 [chromium] › tests/e2e/foundation.spec.ts:2:1 › STEP1-E2E: React client starts alongside API and collaboration services (958ms)
+  ✓  54 [chromium] › tests/e2e/persistence.spec.ts:35:1 › STEP5-CRASH: new offline Page metadata and block edits survive renderer/store SIGKILL, reopen offline and converge (6.7s)
+  ✓  55 [chromium] › tests/e2e/persistence.spec.ts:90:1 › STEP5-WRITE-ERROR: failed SQLite commit never sends the unsafe update or reports saved/synced (2.6s)
+  ✓  56 [chromium] › tests/e2e/persistence.spec.ts:107:3 › STEP5-RESTORE-corrupt: incompatible or corrupted SQLite fails closed (1.4s)
+  ✓  57 [chromium] › tests/e2e/persistence.spec.ts:107:3 › STEP5-RESTORE-schema: incompatible or corrupted SQLite fails closed (1.4s)
+  ✘  58 [chromium] › tests/e2e/private-page-editor.spec.ts:6:1 › PRIVATE-EDITOR-UI: keyboard edits, durable restore, exact ACK retry and read-only title use existing Editor controls (6.1s)
+  ✓  59 [chromium] › tests/e2e/private-page-editor.spec.ts:23:1 › PRIVATE-EDITOR-UI: committed peer text retains a blurred selection and waits until synthetic composition finishes (1.3s)
+  ✓  60 [chromium] › tests/e2e/private-page-editor.spec.ts:44:1 › PRIVATE-EDITOR-UI: failed native commit keeps copyable draft and disables editing/send at a narrow viewport (849ms)
+  ✓  61 [chromium] › tests/e2e/private-page-runtime.spec.ts:4:1 › PAGE-BROWSER-RUNTIME: real secure-context WebCrypto/base64 and portable session validate and commit binary without Node APIs (576ms)
+  ✓  62 [chromium] › tests/e2e/private-page-runtime.spec.ts:19:1 › NATIVE-WORKSPACE-BROWSER: adapter imports with browser Tauri module, sends fixed-handle bytes and closes Auth generation without Web fallback (507ms)
+  ✓  63 [chromium] › tests/e2e/structured-local.spec.ts:3:1 › STEP6-E2E: Task and Relation pointer/keyboard CRUD persist with pending operations after renderer/store restart (2.4s)
+  ✓  64 [chromium] › tests/e2e/structured-local.spec.ts:45:1 › STEP6-WRITE-ERROR: failed queue commit retains the draft and permits a safe retry without duplicate Task (1.2s)
+
+
+  1) [chromium] › tests/e2e/private-page-editor.spec.ts:6:1 › PRIVATE-EDITOR-UI: keyboard edits, durable restore, exact ACK retry and read-only title use existing Editor controls
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('textbox', { name: 'Page本文', exact: true })
+    Expected substring: "private text"
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toContainText" getByRole('textbox', { name: 'Page本文', exact: true }) with timeout 5000ms
+      - waiting for getByRole('textbox', { name: 'Page本文', exact: true })
+
+
+      13 |   await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('同期エラー');
+      14 |   await page.getByRole('button', { name: '同期する', exact: true }).click(); await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('サーバーと同期済み');
+    > 15 |   await page.evaluate(() => window.privateEditorTest.reopen()); await expect(body).toContainText('private text');
+         |                                                                                    ^
+      16 |   await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('同期はまだ確認していません');
+      17 |   await body.click(); await page.keyboard.press('End'); await page.keyboard.press('Enter'); await page.keyboard.type('/h2');
+      18 |   await page.getByRole('option', { name: '見出し2', exact: true }).click(); await page.keyboard.type('Heading'); await expect(body.locator('h2')).toHaveText('Heading');
+        at /workspace/tests/e2e/private-page-editor.spec.ts:15:84
+
+    Error Context: tests/evidence/runs/private-editor-root-final/artifacts/private-page-editor-PRIVAT-03172-se-existing-Editor-controls-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    tests/evidence/runs/private-editor-root-final/artifacts/private-page-editor-PRIVAT-03172-se-existing-Editor-controls-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace tests/evidence/runs/private-editor-root-final/artifacts/private-page-editor-PRIVAT-03172-se-existing-Editor-controls-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests/e2e/private-page-editor.spec.ts:6:1 › PRIVATE-EDITOR-UI: keyboard edits, durable restore, exact ACK retry and read-only title use existing Editor controls
+  63 passed (2.4m)

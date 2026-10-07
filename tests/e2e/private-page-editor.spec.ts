@@ -1,0 +1,56 @@
+import { test, expect, type Page } from '@playwright/test';
+const pageErrors = new WeakMap<Page, string[]>();
+test.beforeEach(({ page }) => { const errors: string[] = []; pageErrors.set(page, errors); page.on('pageerror', error => errors.push(error.message)); });
+test.afterEach(({ page }) => { expect(pageErrors.get(page)).toEqual([]); });
+type Fixture = { snapshot: () => { state: { saving: number; synced: boolean; remoteWaiting: boolean }; body: string; server: string; pending: number; events: string[] };
+  remote: (text: string) => void; durable: () => Promise<void>; refresh: () => Promise<void>; loseAck: () => void; failStorage: () => void; reopen: () => Promise<void> };
+declare global { interface Window { privateEditorTest: Fixture } }
+const route = '/private-editor.fixture.html';
+test('PRIVATE-EDITOR-UI: keyboard edits, durable restore, exact ACK retry and read-only title use existing Editor controls', async ({ page }, info) => {
+  await page.goto(route); const body = page.getByRole('textbox', { name: 'Page本文', exact: true }); await expect(body).toBeVisible();
+  await expect(page.getByLabel('Pageタイトル', { exact: true })).toHaveAttribute('readonly', '');
+  await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('同期はまだ確認していません');
+  await body.click(); await page.keyboard.type('private text'); await page.evaluate(() => window.privateEditorTest.durable());
+  await expect(page.getByLabel('端末の保存状態', { exact: true })).toHaveText('端末に保存済み');
+  await page.evaluate(() => window.privateEditorTest.loseAck()); await page.getByRole('button', { name: '同期する', exact: true }).click();
+  await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('同期エラー');
+  await page.getByRole('button', { name: '同期する', exact: true }).click(); await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('サーバーと同期済み');
+  await page.evaluate(() => window.privateEditorTest.reopen()); await expect(body).toContainText('private text');
+  await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('同期はまだ確認していません');
+  await body.click(); await page.keyboard.press('End'); await page.keyboard.press('Enter'); await page.keyboard.type('/h2');
+  await page.getByRole('option', { name: '見出し2', exact: true }).click(); await page.keyboard.type('Heading'); await expect(body.locator('h2')).toHaveText('Heading');
+  await page.getByRole('button', { name: '元に戻す', exact: true }).click(); await expect(body.locator('h2')).toHaveText('');
+  await page.getByRole('button', { name: 'やり直す', exact: true }).click(); await expect(body.locator('h2')).toHaveText('Heading');
+  await info.attach('private-editor', { body: await page.screenshot(), contentType: 'image/png' });
+});
+test('PRIVATE-EDITOR-UI: committed peer text retains a blurred selection and waits until synthetic composition finishes', async ({ page }, info) => {
+  await page.goto(route); const body = page.getByRole('textbox', { name: 'Page本文', exact: true }); await expect(body).toBeVisible();
+  await body.click(); await page.keyboard.type('abcd'); await page.keyboard.press('Home'); await page.keyboard.press('ArrowRight'); await page.keyboard.press('ArrowRight');
+  await expect.poll(() => page.evaluate(() => (window as unknown as { greivaTest: { snapshot: () => { selection: { offset: number } } } }).greivaTest.snapshot().selection.offset)).toBe(2);
+  await page.getByRole('button', { name: '同期する', exact: true }).click(); await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('サーバーと同期済み');
+  await info.attach('after-initial-sync', { body: JSON.stringify(await page.evaluate(() => (window as unknown as { greivaTest: { snapshot: () => unknown } }).greivaTest.snapshot())), contentType: 'application/json' });
+  await page.evaluate(() => window.privateEditorTest.remote('peer ')); await page.getByRole('button', { name: '同期する', exact: true }).click();
+  await expect(body).toContainText('peer abcd');
+  await info.attach('before-focus', { body: JSON.stringify(await page.evaluate(() => (window as unknown as { greivaTest: { snapshot: () => unknown } }).greivaTest.snapshot())), contentType: 'application/json' });
+  await body.focus();
+  await info.attach('after-focus', { body: JSON.stringify(await page.evaluate(() => (window as unknown as { greivaTest: { snapshot: () => unknown } }).greivaTest.snapshot())), contentType: 'application/json' });
+  await page.keyboard.type('X'); await expect(body).toContainText('peer abXcd');
+  await body.dispatchEvent('compositionstart'); await page.evaluate(() => window.privateEditorTest.remote('during '));
+  await page.getByRole('button', { name: '同期する', exact: true }).click();
+  await expect.poll(() => page.evaluate(() => window.privateEditorTest.snapshot().state.remoteWaiting)).toBe(true);
+  await expect(body).not.toContainText('during '); await body.dispatchEvent('compositionend'); await expect(body).toContainText('during ');
+  await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('サーバーと同期済み');
+  expect((await page.evaluate(() => window.privateEditorTest.snapshot())).pending).toBe(0);
+  await page.evaluate(() => window.privateEditorTest.refresh()); await expect(body).toHaveCount(0);
+  await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('接続を閉じました');
+});
+test('PRIVATE-EDITOR-UI: failed native commit keeps copyable draft and disables editing/send at a narrow viewport', async ({ page }) => {
+  await page.setViewportSize({ width: 360, height: 780 }); await page.goto(route);
+  const body = page.getByRole('textbox', { name: 'Page本文', exact: true }); await expect(body).toBeVisible();
+  await page.evaluate(() => window.privateEditorTest.failStorage()); await body.click(); await page.keyboard.type('Z');
+  await expect(page.getByRole('alert')).toContainText('未保存の本文をコピー'); await expect(body).toContainText('Z');
+  await expect(body).toHaveAttribute('contenteditable', 'false'); await expect(page.getByRole('button', { name: '同期する', exact: true })).toBeDisabled();
+  await expect(page.getByRole('button', { name: '元に戻す', exact: true })).toBeDisabled();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  expect((await page.evaluate(() => window.privateEditorTest.snapshot())).state.synced).toBe(false);
+});

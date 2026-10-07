@@ -1,0 +1,48 @@
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.
+
+Running 3 tests using 1 worker
+
+  ✓  1 [chromium] › tests/e2e/private-page-editor.spec.ts:6:1 › PRIVATE-EDITOR-UI: keyboard edits, durable restore, exact ACK retry and read-only title use existing Editor controls (1.7s)
+  ✘  2 [chromium] › tests/e2e/private-page-editor.spec.ts:23:1 › PRIVATE-EDITOR-UI: committed peer text retains a blurred selection and waits until synthetic composition finishes (6.2s)
+  ✓  3 [chromium] › tests/e2e/private-page-editor.spec.ts:39:1 › PRIVATE-EDITOR-UI: failed native commit keeps copyable draft and disables editing/send at a narrow viewport (1.0s)
+
+
+  1) [chromium] › tests/e2e/private-page-editor.spec.ts:23:1 › PRIVATE-EDITOR-UI: committed peer text retains a blurred selection and waits until synthetic composition finishes
+
+    Error: expect(locator).toContainText(expected) failed
+
+    Locator: getByRole('textbox', { name: 'Page本文', exact: true })
+    Expected substring: "peer abXcd"
+    Received string:    "⠿Xpeer abcd"
+    Timeout: 5000ms
+
+    Call log:
+      - Expect "toContainText" getByRole('textbox', { name: 'Page本文', exact: true }) with timeout 5000ms
+      - waiting for getByRole('textbox', { name: 'Page本文', exact: true })
+        14 × locator resolved to <div tabindex="0" role="textbox" translate="no" spellcheck="false" aria-label="Page本文" aria-multiline="true" contenteditable="true" class="tiptap ProseMirror ProseMirror-focused">…</div>
+           - unexpected value "⠿Xpeer abcd"
+
+
+      27 |   await page.getByRole('button', { name: '同期する', exact: true }).click(); await expect(page.getByLabel('同期状態', { exact: true })).toHaveText('サーバーと同期済み');
+      28 |   await page.evaluate(() => window.privateEditorTest.remote('peer ')); await page.getByRole('button', { name: '同期する', exact: true }).click();
+    > 29 |   await expect(body).toContainText('peer abcd'); await body.focus(); await page.keyboard.type('X'); await expect(body).toContainText('peer abXcd');
+         |                                                                                                                        ^
+      30 |   await body.dispatchEvent('compositionstart'); await page.evaluate(() => window.privateEditorTest.remote('during '));
+      31 |   await page.getByRole('button', { name: '同期する', exact: true }).click();
+      32 |   await expect.poll(() => page.evaluate(() => window.privateEditorTest.snapshot().state.remoteWaiting)).toBe(true);
+        at /workspace/tests/e2e/private-page-editor.spec.ts:29:120
+
+    Error Context: tests/evidence/runs/private-editor-browser-third-recheck/artifacts/private-page-editor-PRIVAT-6f12b-thetic-composition-finishes-chromium/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    tests/evidence/runs/private-editor-browser-third-recheck/artifacts/private-page-editor-PRIVAT-6f12b-thetic-composition-finishes-chromium/trace.zip
+    Usage:
+
+        npx playwright show-trace tests/evidence/runs/private-editor-browser-third-recheck/artifacts/private-page-editor-PRIVAT-6f12b-thetic-composition-finishes-chromium/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  1 failed
+    [chromium] › tests/e2e/private-page-editor.spec.ts:23:1 › PRIVATE-EDITOR-UI: committed peer text retains a blurred selection and waits until synthetic composition finishes
+  2 passed (13.2s)

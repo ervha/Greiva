@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.26.0：Page本文のlive editorをcaptured native storeと認証付きHTTP sessionへ接続。[全18判断](../decisions/private-page-editor.md)、[契約](../development/PRIVATE_PAGE_EDITOR.md)、[証拠・初回失敗](../../tests/evidence/private-page-editor-20261007/SUMMARY.md)。保存→送信、ACK再送、remote commit→live反映、composition待機、Auth/同Page置換/切替、未保存本文と選択位置を検証。通常234/PG69/画面64/auth8/型/frontend/通常Windows debug buildがPass。再利用viewで、通常アプリの認証/一覧/編集compositionとnative credential/grant、metadata変更/offline保持契約は未完成。追加手操作待ちはなく、次は通常アプリの接続compositionを進める。
+
 最新v0.25.0：認証付きPage一覧query、bounded keyset/HMAC workspace・epoch/metadata照合、connection.closeでnative cleanup開始を追加。[全14判断](../decisions/private-page-catalog.md)、[証拠](../../tests/evidence/page-catalog-20261005/SUMMARY.md)。通常224/PG69/browser2/型/frontend/Windows source116、専用API/preview v0.25/schema3を確認。一覧はsnapshot/delta同期ではなくnormal UI/metadata変更/native Authは未完成。次は利用者要望のシンプルな配色を独立して改善する。
 
 最新v0.24.0：app-owned workspace DB root/世代handleとTauri commandを追加し、captured Auth generationのNativeWorkspaceStoreをPage/structured portへ接続。[全16判断](../decisions/native-workspace-ipc.md)、[証拠](../../tests/evidence/workspace-ipc-20261005/SUMMARY.md)。新11、通常219/PG66/型/frontend/Windows build/Browser2を検証。local handleはAuth grantではなく、通常UI/実Tauri invoke/native Auth/offline保持契約は未完成。専用APIはv0.21/schema3を保持、追加操作を求めずPage metadata/一覧へ進む。

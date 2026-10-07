@@ -2,6 +2,12 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.26.0 — 2026-10-07
+
+- 認証済workspaceのPage編集runtimeと再利用viewを追加。native保存→正確なwire送信、ACK喪失再送、commit後のremote反映、composition待機、Auth/Page切替の取消と未確認表示を接続する。
+- 同期ボタンから本文へ戻る時のDOM選択を補正し、保存失敗後はコピー可能な本文を残して編集/送信を停止する。
+- 通常234/実PG69/画面64/ログイン画面8/型/frontend/通常Windows debug cross-buildを確認。初回失敗と再確認、source/外部依存監査を保存。[証拠](tests/evidence/private-page-editor-20261007/SUMMARY.md)。通常アプリの認証/一覧/編集composition、metadata変更、実Auth/native IME/offline保持契約は未完成。
+
 ## 0.25.2 — 2026-10-06
 
 - 機能モジュールおよび各種設定項目をユーザーがON/OFFトグルで切り替え可能にする統合設計仕様を追加。

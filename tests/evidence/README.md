@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-07 / v0.26.0 / [Page編集接続](private-page-editor-20261007/SUMMARY.md): 新unit10、通常234/実PG69/画面64/auth8/型/frontend/通常Windows debug build。native commit→HTTP、remote commit→live、composition待機、Auth/Page切替、選択復帰。通常アプリcomposition/metadata変更/実Auth/native IMEは残る。
+
 - 2026-10-05 / v0.24.0 / [Native workspace IPC](workspace-ipc-20261005/SUMMARY.md): 新11、通常219/PG66/型/Windows build/Browser2。fixed root/世代handle/strict command/captured Auth、実library/HTTP。実Tauri invoke/通常UI/native Auth/offline保持契約は未完成。
 
 - 2026-10-05 / v0.23.0 / [Page client session](private-page-session-20261005/SUMMARY.md): 新15 unit、通常208/PG66/型/Windows build/実browser1。Yjs/digest/固定store/close/遅着、Auth lease、実HTTP/SQLite。通常IPC/UI/Hocuspocus/native Authは未完成。

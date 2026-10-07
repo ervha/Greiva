@@ -1,0 +1,116 @@
+{
+  "version": "0.26.0",
+  "result": "Pass",
+  "counts": {
+    "normal": {
+      "pass": 234,
+      "failed": 0,
+      "skip": 69,
+      "success": true
+    },
+    "postgres": {
+      "pass": 69,
+      "failed": 0,
+      "skip": 0,
+      "success": true
+    },
+    "root-ui": {
+      "startTime": "2026-10-07T07:28:29.443Z",
+      "duration": 133323.99300000002,
+      "expected": 64,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "auth-ui": {
+      "startTime": "2026-10-07T07:16:35.299Z",
+      "duration": 23135.181,
+      "expected": 8,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "initial-fixture": {
+      "startTime": "2026-10-07T07:06:05.439Z",
+      "duration": 21556.745,
+      "expected": 0,
+      "skipped": 0,
+      "unexpected": 3,
+      "flaky": 0
+    },
+    "fixture-recheck": {
+      "startTime": "2026-10-07T07:08:48.563Z",
+      "duration": 20576.174,
+      "expected": 0,
+      "skipped": 0,
+      "unexpected": 3,
+      "flaky": 0
+    },
+    "initial-selection": {
+      "startTime": "2026-10-07T07:09:38.248Z",
+      "duration": 11793.423,
+      "expected": 2,
+      "skipped": 0,
+      "unexpected": 1,
+      "flaky": 0
+    },
+    "selection-recheck": {
+      "startTime": "2026-10-07T07:11:14.510Z",
+      "duration": 13151.858,
+      "expected": 2,
+      "skipped": 0,
+      "unexpected": 1,
+      "flaky": 0
+    },
+    "selection-diagnostic": {
+      "startTime": "2026-10-07T07:11:58.604Z",
+      "duration": 8499.222,
+      "expected": 0,
+      "skipped": 0,
+      "unexpected": 1,
+      "flaky": 0
+    },
+    "focused-final": {
+      "startTime": "2026-10-07T07:12:53.735Z",
+      "duration": 5842.36,
+      "expected": 3,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "root-switch-failure": {
+      "startTime": "2026-10-07T07:23:05.464Z",
+      "duration": 141055.153,
+      "expected": 63,
+      "skipped": 0,
+      "unexpected": 1,
+      "flaky": 0
+    },
+    "switch-recheck": {
+      "startTime": "2026-10-07T07:26:51.611Z",
+      "duration": 10830.261,
+      "expected": 2,
+      "skipped": 0,
+      "unexpected": 1,
+      "flaky": 0
+    },
+    "switch-final": {
+      "startTime": "2026-10-07T07:27:59.176Z",
+      "duration": 5755.5830000000005,
+      "expected": 3,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "sourceFilesMatched": 226,
+  "externalDependenciesUnchanged": true,
+  "typecheck": "Pass",
+  "frontend": "Pass",
+  "windowsDebugCrossBuild": "Pass",
+  "normalBuildTestFlags": 0,
+  "automaticRetries": 0,
+  "finalBrowserWorkers": 1,
+  "scope": "Reusable authenticated Page editor runtime/view. Browser native port doubles; runtime also verified with actual signed HTTP, PostgreSQL and Rust SQLite registry. Normal app auth/catalog/editor composition and actual native IME remain incomplete.",
+  "preview": "T3 automation host unavailable; Docker Chromium screenshots and interactions used."
+}

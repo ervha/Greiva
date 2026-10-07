@@ -8,6 +8,7 @@ import {PostgresPrivateBootstrapStore} from '../../apps/api/src/private-bootstra
 import {WorkspaceDevice,workspacePagePort} from '../support/workspace-device.js';
 import {WorkspaceRegistryDevice} from '../support/workspace-registry-device.js';
 import {NativeWorkspaceStore} from '../../apps/client/src/workspace/native-workspace-store.js';
+import {PrivatePageEditorSession} from '../../apps/client/src/editor/private-page-session.js';
 it.skipIf(process.env.GREIVA_TEST_POSTGRES!=='1')('PRIVATE-PAGE-CLIENT-PG: signed fixture HTTP and two actual SQLite stores recover lost ACKs, offline restart, concurrent edits and revoked pending without duplicate binary',async()=>{
   const directory=mkdtempSync(join(tmpdir(),'greiva-private-page-client-')),schema='greiva_private_'+newId().replaceAll('-',''),pool=new pg.Pool({connectionString:process.env.DATABASE_URL}),projectUrl='https://project.fixture.invalid',keys=await generateKeyPair('ES256'),jwk={...await exportJWK(keys.publicKey),kid:'fixture',alg:'ES256'};
   const registries:WorkspaceRegistryDevice[]=[],devices:WorkspaceDevice[]=[],auths:ReturnType<typeof supabaseAuthSession>[]=[],docs:Y.Doc[]=[];let app:Awaited<ReturnType<typeof createSupabasePrivateApp>>|undefined;
@@ -37,5 +38,18 @@ it.skipIf(process.env.GREIVA_TEST_POSTGRES!=='1')('PRIVATE-PAGE-CLIENT-PG: signe
     await nativePage.append(edit(nativeDoc,'registry '));await nativeSession.push(await nativePage.prepare());expect(await nativePage.prepare()).toBeNull();
     await twoAuth.refresh();await native.close();await expect(nativePage.load()).rejects.toMatchObject({stage:'closed'});await twoConnection.bootstrap();const nativeFresh=await NativeWorkspaceStore.open(twoConnection,registry.invoke);expect((await nativeFresh.page(id).load()).pending).toBe(0);await nativeFresh.close();
     await device.request('page_append',{pageId:id,update:Array.from(edit(a,'retained '))});const pending=await device.request('page_prepare',{pageId:id});await pool.query(`UPDATE "${schema}".private_devices SET revoked=true WHERE id=$1`,[one.clientId]);await expect(refreshed.push(pending)).rejects.toMatchObject({stage:'closed'});expect(oneConnection.context).toBeNull();expect((await post(oneAuth,'append',pending.wire)).status).toBe(403);await device.close('SIGKILL');expect(await device.request('page_prepare',{pageId:id})).toEqual(pending);expect((await restore(device)).getXmlFragment('body').toString()).toContain('retained ');expect((await pool.query(`SELECT count(*)::int AS n FROM "${schema}".private_page_updates`)).rows[0].n).toBe(5);
+    const editorStore=await NativeWorkspaceStore.open(twoConnection,registry.invoke);
+    const editor=await PrivatePageEditorSession.open(twoConnection,editorStore,id,{kind:'local'});
+    expect(editor.snapshot).toMatchObject({pending:0,synced:false});edit(editor.document,'editor ');
+    await editor.durable();expect((await editorStore.page(id).load()).pending).toBe(1);
+    await editor.sync();expect(editor.snapshot).toMatchObject({pending:0,synced:true});
+    expect((await pool.query(`SELECT count(*)::int AS n FROM "${schema}".private_page_updates`)).rows[0].n).toBe(6);
+    await twoAuth.refresh();expect(editor.snapshot.phase).toBe('closed');await editor.close();await editorStore.close();
+    await registry.close();await twoConnection.bootstrap();
+    const reopenedStore=await NativeWorkspaceStore.open(twoConnection,registry.invoke);
+    const reopened=await PrivatePageEditorSession.open(twoConnection,reopenedStore,id,{kind:'local'});
+    expect(reopened.document.getXmlFragment('body').toString()).toContain('editor ');
+    expect(reopened.snapshot).toMatchObject({pending:0,synced:false});
+    await reopened.sync();expect(reopened.snapshot.synced).toBe(true);await reopened.close();await reopenedStore.close();
   }finally{for(const auth of auths)auth.close();for(const doc of docs)doc.destroy();for(const device of devices)await device.close();for(const registry of registries)await registry.close();await app?.close();try{await pool.query(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);}finally{await pool.end();rmSync(directory,{recursive:true,force:true});}}
 });

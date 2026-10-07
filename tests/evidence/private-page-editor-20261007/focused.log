@@ -1,0 +1,12 @@
+
+ RUN  v5.0.2 /workspace
+
+ ✓ tests/unit/private-page-editor.test.ts (10 tests) 121ms
+
+ Test Files  1 passed (1)
+      Tests  10 passed (10)
+   Start at  07:05:04
+   Duration  558ms (import 38%, transform 35%, tests 26%, worker 1%)
+
+JSON report written to /workspace/tests/evidence/runs/latest/vitest.json
+JUNIT report written to /workspace/tests/evidence/runs/latest/vitest.xml

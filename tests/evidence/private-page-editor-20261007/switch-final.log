@@ -1,0 +1,10 @@
+[WebServer] ../../.env not found. Continuing without it.
+[WebServer] ../../.env not found. Continuing without it.
+
+Running 3 tests using 1 worker
+
+  ✓  1 [chromium] › tests/e2e/private-page-editor.spec.ts:9:1 › PRIVATE-EDITOR-UI: keyboard edits, durable restore, exact ACK retry and read-only title use existing Editor controls (1.5s)
+  ✓  2 [chromium] › tests/e2e/private-page-editor.spec.ts:26:1 › PRIVATE-EDITOR-UI: committed peer text retains a blurred selection and waits until synthetic composition finishes (1.2s)
+  ✓  3 [chromium] › tests/e2e/private-page-editor.spec.ts:47:1 › PRIVATE-EDITOR-UI: failed native commit keeps copyable draft and disables editing/send at a narrow viewport (872ms)
+
+  3 passed (5.8s)

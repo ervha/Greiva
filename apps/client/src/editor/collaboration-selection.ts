@@ -25,7 +25,13 @@ export const CollaborationSelection = Extension.create({
         ? getRelativeSelection(binding, current.state) : null;
     };
     return [new Plugin({
-      props: { handleDOMEvents: { keyup: commitNativeNavigationSelection } },
+      props: { handleDOMEvents: {
+        keyup: commitNativeNavigationSelection,
+        // Native element.focus() can place the DOM caret at the start after a
+        // button held focus, even while the relative PM bookmark is correct.
+        // Reconcile it before selectionchange imports that stale DOM position.
+        focus: current => { if (!current.composing) current.focus(); return false; },
+      } },
       appendTransaction: (transactions, oldState, newState) => {
         if (!view || view.composing || !bookmark || bookmark.type !== 'text' ||
           bookmark.absAnchor !== oldState.selection.anchor || bookmark.absHead !== oldState.selection.head ||

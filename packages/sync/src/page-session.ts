@@ -31,6 +31,7 @@ export class PageSyncSession {
     try{if(!context.issuer.trim() || !context.subjectId.trim() || context.editorSchemaVersion!==1)throw Error();const pageId=idSchema.parse(context.pageId);if(context.documentName!==`page:${pageId}`)throw Error();this.context=Object.freeze({issuer:context.issuer,subjectId:context.subjectId,workspaceId:idSchema.parse(context.workspaceId),clientId:idSchema.parse(context.clientId),streamEpoch:idSchema.parse(context.streamEpoch),pageId,documentName:context.documentName,editorSchemaVersion:1});}catch{throw new PageSessionError('protocol');}
     this.send=ports.transport.push.bind(ports.transport);this.read=ports.transport.read.bind(ports.transport);this.acknowledge=ports.store.acknowledge.bind(ports.store);this.receive=ports.store.receive.bind(ports.store);
   }
+  get signal():AbortSignal {return this.controller.signal;}
   close(){this.closed=true;this.controller.abort();}
   private check(){if(this.closed)throw new PageSessionError('closed');}
   private async run(work:()=>Promise<void>){this.check();if(this.busy)throw new PageSessionError('busy');this.busy=true;try{await work();this.check();}finally{this.busy=false;}}

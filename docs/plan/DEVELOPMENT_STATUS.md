@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+最新v0.26.0：開発を再開し、Page本文の編集runtime/viewを認証済connection・native保存・HTTP同期へ接続した。[契約](../development/PRIVATE_PAGE_EDITOR.md)、[全18判断](../decisions/private-page-editor.md)、[証拠・初回失敗](../../tests/evidence/private-page-editor-20261007/SUMMARY.md)。通常234/実PG69/画面64/ログイン画面8、型/frontend/通常Windows debug cross-buildがPass。source226がホストとDockerで一致し、外部依存は不変。保存失敗時の未保存本文保持、composition待機、Auth/Page切替の取消、ボタンから本文への選択復帰を確認。通常アプリの認証/一覧/編集composition、metadata変更、native Auth/offline保持契約、実IME検証は残る。以下のv0.25.1停止は当時の記録で、今回の再開指示により解除済み。次は通常アプリの接続compositionへ進む。
+
 最新v0.25.2：利用者指示に基づき、機能モジュールおよび各種設定項目をユーザーがON/OFFトグルで切り替え可能にする設計仕様書を追加。[仕様設計](FEATURE_SETTINGS_TOGGLE_SPEC.md)、[判断記録](../decisions/feature-settings-toggles.md)。非破壊性原則（OFFにしても実データを保持）、端末ローカル設定（SQLite local_settings）とワークスペース同期設定のスコープ分離、Material Design準拠のSwitch UI・アクセシビリティ要件を規定。コード変更を伴わない仕様書・計画文書の追加・更新のみ。
 
 最新v0.25.1：利用者要望のシンプルな配色へ変更。編集・接続確認画面を白/ニュートラルグレー/控えめな緑で統一し、接続確認のdark表示はチャコールへ整理。[判断記録](../decisions/neutral-palette.md)、[証拠・初回失敗](../../tests/evidence/neutral-palette-20261005/SUMMARY.md)。型/通常224/frontend/通常Windows cross-build、source117と外部依存不変、Docker画面操作・360pxの表示を確認。専用preview0.25.1、既存API0.25.0を継続。実IME/実Supabase Authの追加検証ではない。**「切りのいいところで止めて」に従い、このcheckpointで停止。次回はPage編集接続から再開し、metadata変更/通常UI/native Auth/offline保持契約の残事項を確認する。**

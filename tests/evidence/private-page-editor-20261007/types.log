@@ -1,0 +1,68 @@
+
+> greiva-poc@0.26.0 typecheck
+> npm run build:packages && npm run typecheck --workspaces --if-present && tsc -p tsconfig.tests.json
+
+
+> greiva-poc@0.26.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application
+
+
+> @greiva/shared@0.26.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/domain@0.26.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.26.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.26.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.26.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.26.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/domain@0.26.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/protocol@0.26.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/shared@0.26.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/sync@0.26.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/api@0.26.0 typecheck
+> tsc --noEmit
+
+
+> @greiva/client@0.26.0 typecheck
+> tsc --noEmit
+
+
+> @greiva/collaboration@0.26.0 typecheck
+> tsc --noEmit
+
+apps/client/src/editor/private-page-session.ts(3,65): error TS2835: Relative import paths need explicit file extensions in ECMAScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean '../workspace/native-workspace-store.js'?
+apps/client/src/editor/private-page-session.ts(38,106): error TS18046: 'error' is of type 'unknown'.
+apps/client/src/editor/private-page-session.ts(71,119): error TS18046: 'error' is of type 'unknown'.
+apps/client/src/editor/private-page-session.ts(71,166): error TS18046: 'error' is of type 'unknown'.
+tests/support/private-page-editor-fixture.ts(31,62): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+tests/support/private-page-editor-fixture.ts(35,30): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.

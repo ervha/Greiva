@@ -25,10 +25,12 @@
 | v0.22.0 Page端末保存 | [Page durability](../decisions/private-page-durable-store.md) | 16 | SQLite6/binding保持、binary/queue/ACK/remote原子保存、SIGKILL/実HTTP |
 | v0.23.0 Page session | [Page session](../decisions/private-page-session.md) | 16 | Auth lease/固定store、Yjs/digest、遅着/close、実browser crypto/HTTP |
 | v0.24.0 Native workspace IPC | [Native IPC](../decisions/native-workspace-ipc.md) | 16 | fixed root/世代handle、captured Auth/port、commit gate、実library/HTTP |
-
 | v0.25.0 Page一覧 | [Page catalog](../decisions/private-page-catalog.md) | 14 | 認証付きkeyset/HMAC、metadata検証、connection close cleanup、既存DB保持 |
+| v0.25.1 配色 | [Neutral palette](../decisions/neutral-palette.md) | 10 | 共通theme、初回失敗保持、専用previewのみ更新、指定checkpointで停止 |
+| v0.25.2 トグル仕様 | [Feature settings](../decisions/feature-settings-toggles.md) | 5 | 利用者指定の仕様のみ、非破壊性、設定scope、Switch A11y |
+| v0.26.0 Page編集接続 | [Page editor](../decisions/private-page-editor.md) | 18 | 保存→送信/ACK再送、remote commit→live、composition待機、世代取消、選択復帰 |
 
-合計318件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
+合計351件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
 
 共通：同じcodex/poc-editor、確認後の版/tag/push、外部依存を監査、元Page/DBを保持。Computer UseはWindows診断後に解除し、今回の基盤開発では使わない。cloud/project/配布・課金・新global toolchainを作成せず、端末保持/旧DB帰属/保持期限を未決定のまま創作しない。初期OFFの改善送信は設計で、実際の収集は始めていない。
 
