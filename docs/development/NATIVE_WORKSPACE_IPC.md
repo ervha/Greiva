@@ -1,5 +1,7 @@
 # Native workspace保存先のIPC境界
 
+v0.28.0：workspace_execute whitelistへ strict `page_list(after, limit)` を追加。[端末Page一覧](LOCAL_PAGE_CATALOG.md)はmetadata/pendingだけを返し、queue/本文を変更しない。
+
 v0.27.0：`workspace_device(owner, candidate)` を追加し、アカウント別のstable clientIdを解決する。[契約/制限](PRIVATE_DEVICE_IDENTITY.md)、[証拠](../../tests/evidence/private-device-20261008/SUMMARY.md)。既存active handleを失効させず、署名native Authの代わりにはしない。
 
 v0.24.0。Tauri command登録とRust registry/client adapterを追加。通常PoC UI/旧DBは保持し、新login/workspace画面へまだmountしない。実Auth/native token custody/実Windows invokeの完了証拠ではない。

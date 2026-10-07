@@ -28,3 +28,18 @@ it('NATIVE-WORKSPACE: cleanup failure is safe and never reopens ports or deletes
 it('NATIVE-WORKSPACE: connection close aborts the native generation and starts cleanup while shared Auth remains verified',async()=>{
   const f=await fixture();try{const store=await NativeWorkspaceStore.open(f.connection,f.invoke);f.connection.close();await expect.poll(()=>f.invoke.mock.calls.filter(call=>call[0]==='workspace_close').length).toBe(1);expect(f.auth.identity?.subjectId).toBe(f.context.subjectId);await expect(store.prepare()).rejects.toMatchObject({stage:'closed'});await store.close();}finally{await f.cleanup();}
 });
+it('LOCAL-PAGE-CATALOG: strict request and bound immutable response; no binary/wire or caller mutation',async()=>{
+ const f=await fixture();try{
+  const store=await NativeWorkspaceStore.open(f.connection,f.invoke),metadata={id:f.id,title:'local pending',yDocId:'page:'+f.id,createdAt:'2026-10-08T00:00:00.000Z',updatedAt:'2026-10-08T00:00:00.000Z'};
+  const response={context:f.context,pages:[{metadata,pending:2}],nextAfter:null};f.invoke.mockResolvedValueOnce(response);
+  const result=await store.listPages();expect(result.pages[0]?.pending).toBe(2);expect(Object.isFrozen(result.pages[0]?.metadata)).toBe(true);
+  expect(f.invoke).toHaveBeenLastCalledWith('workspace_execute',{handle:f.handle,request:{command:'page_list',after:null,limit:50}});
+  const count=f.invoke.mock.calls.length;for(const candidate of [{after:null,limit:0},{after:'../path',limit:1},{after:null,limit:101},{after:null,limit:1,sql:'delete'}])await expect(store.listPages(candidate)).rejects.toMatchObject({stage:'protocol'});expect(f.invoke).toHaveBeenCalledTimes(count);
+  for(const candidate of [{...response,context:{...f.context,clientId:newId()}},{...response,nextAfter:newId()},{...response,pages:[{metadata,pending:-1}]},{...response,pages:[{metadata,pending:1,wire:'private'}]}]){f.invoke.mockResolvedValueOnce(candidate);await expect(store.listPages()).rejects.toMatchObject({stage:'protocol'});}
+  f.invoke.mockResolvedValueOnce(response);await expect(store.listPages({after:f.id,limit:1})).rejects.toMatchObject({stage:'protocol'});
+  await store.close();
+ }finally{await f.cleanup();}
+});
+it('LOCAL-PAGE-CATALOG: Auth close rejects ignored-abort late result and does not adopt a current workspace',async()=>{
+ const f=await fixture();try{const store=await NativeWorkspaceStore.open(f.connection,f.invoke),wait=deferred<unknown>();f.invoke.mockImplementationOnce(()=>wait.promise);const work=store.listPages();f.connection.close();wait.resolve({context:f.context,pages:[],nextAfter:null});await expect(work).rejects.toMatchObject({stage:'closed'});await store.close();}finally{await f.cleanup();}
+});

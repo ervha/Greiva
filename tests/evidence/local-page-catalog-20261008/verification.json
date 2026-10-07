@@ -1,0 +1,26 @@
+{
+  "version": "0.28.0",
+  "totals": {
+    "normal": {
+      "total": 320,
+      "passed": 251,
+      "failed": 0,
+      "pending": 69
+    }
+  },
+  "source": {
+    "count": 221,
+    "rawMatches": 208,
+    "textOnly": 13,
+    "excluded": [
+      "playwright.performance.config.ts",
+      "playwright.render-diagnostic.config.ts",
+      "tests/diagnostics/render-isolation.spec.ts",
+      "tests/native/windows-store-fixture.json",
+      "tests/performance/workloads.spec.ts"
+    ]
+  },
+  "realAuth": false,
+  "windowsLaunch": false,
+  "nativeIme": false
+}

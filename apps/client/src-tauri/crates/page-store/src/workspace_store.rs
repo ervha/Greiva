@@ -122,6 +122,10 @@ impl WorkspaceStore {
     pub async fn page_create(&self,id:&str,title:&str,bytes:&[u8])->StoreResult<()> {safe(self.inner.private_page_create(&self.context.client_id,id,title,bytes).await)}
     pub async fn page_append(&self,id:&str,bytes:&[u8])->StoreResult<()> {safe(self.inner.private_page_append(&self.context.client_id,id,bytes).await)}
     pub async fn page_load(&self,id:&str)->StoreResult<Value> {safe(self.inner.private_page_load(id).await)}
+    pub async fn page_list(&self,after:Option<&str>,limit:usize)->StoreResult<Value> {
+        let list=safe(self.inner.private_page_list(after,limit).await)?;
+        Ok(json!({"context":self.context,"pages":list["pages"],"nextAfter":list["nextAfter"]}))
+    }
     pub async fn page_prepare(&self,id:&str)->StoreResult<Value> {safe(self.inner.private_page_prepare(&self.context.client_id,id).await)}
     pub async fn page_ack(&self,id:&str,sequence:&str,wire:&str,response:Value)->StoreResult<()> {safe(self.inner.private_page_ack(&self.context.client_id,&self.context.workspace_id,id,sequence,wire,response).await)}
     pub async fn page_receive(&self,id:&str,response:Value)->StoreResult<()> {safe(self.inner.private_page_receive(&self.context.workspace_id,id,response).await)}

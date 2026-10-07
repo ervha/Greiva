@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+最新v0.28.0：[端末Page一覧](../development/LOCAL_PAGE_CATALOG.md)を追加。未送信の新規Pageもmetadata/pending件数として列挙できる。strict native command、UUID keyset、captured context/世代を検査し、一覧読取でqueueを消費しない。通常251/型/Rust/frontend/Windows cross-buildがPass。[証拠](../../tests/evidence/local-page-catalog-20261008/SUMMARY.md)。通常画面compositionへ続行し、実Auth/native IME/offline権限は別工程。
+
 最新v0.27.0：[アカウント別native端末ID](../development/PRIVATE_DEVICE_IDENTITY.md)を実装。同じissuer＋subjectで同IDを再利用し、再ログイン後の保存済みPage・pending exact wire再openを実HTTP/PG/Rust SQLiteで確認した。通常246/実PG69/画面64/Auth画面12、型/frontend/driver/通常Windows cross-buildがPass。[全16判断](../decisions/private-device-identity.md)、[証拠](../../tests/evidence/private-device-20261008/SUMMARY.md)。source221一致、外部依存不変。device metadata欠損時は空の代替DBへ切り替えず停止する。メール/tokenをこのDBへ保存しない。通常画面composition、native Auth/grant/offline権限、旧private root取り込み、実Windows/IMEと暗号化配備は後続。次は通常アプリの接続compositionとnative認証契約へ進む。
 
 最新v0.26.1：利用者の最終回答を[ユーザー定義・個人情報・暗号化仕様](ACCOUNT_PRIVACY_ENCRYPTION_SPEC.md)と[全8判断](../decisions/account-privacy-encryption.md)に反映。メールはSupabase Authだけに保管しGreiva DB/ログへコピーしない。本文は通信/DB/backupの暗号化とログ除外、server復号を許容。E2EE/本文復旧コードは必須にせず、端末内検索/明示範囲AI送信を維持する。文書/相対リンク/差分を確認した設計のみのPATCHで、配備保護や鍵管理の実装・アプリ試験を追加実行していない。既存実行物はv0.26.0。通常アプリの接続composition等の既存残作業も完了扱いにしない。

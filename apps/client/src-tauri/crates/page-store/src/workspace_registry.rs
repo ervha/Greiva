@@ -55,6 +55,7 @@ impl WorkspaceRegistry {
             "page_create"=>{exact(&request,&["command","pageId","title","update"])?;let update:Vec<u8>=serde_json::from_value(request["update"].clone()).map_err(|_|REJECTED)?;store.page_create(text(&request,"pageId")?,text(&request,"title")?,&update).await?;Ok(Value::Null)},
             "page_append"=>{exact(&request,&["command","pageId","update"])?;let update:Vec<u8>=serde_json::from_value(request["update"].clone()).map_err(|_|REJECTED)?;store.page_append(text(&request,"pageId")?,&update).await?;Ok(Value::Null)},
             "page_load"=>{exact(&request,&["command","pageId"])?;store.page_load(text(&request,"pageId")?).await},
+            "page_list"=>{exact(&request,&["command","after","limit"])?;let after=if request["after"].is_null(){None}else{Some(text(&request,"after")?)};let limit=request["limit"].as_u64().filter(|limit|*limit<=100).ok_or(REJECTED)? as usize;store.page_list(after,limit).await},
             "page_prepare"=>{exact(&request,&["command","pageId"])?;store.page_prepare(text(&request,"pageId")?).await},
             "page_ack"=>{exact(&request,&["command","pageId","sequence","wire","response"])?;store.page_ack(text(&request,"pageId")?,text(&request,"sequence")?,text(&request,"wire")?,request["response"].clone()).await?;Ok(Value::Null)},
             "page_receive"=>{exact(&request,&["command","pageId","response"])?;store.page_receive(text(&request,"pageId")?,request["response"].clone()).await?;Ok(Value::Null)},

@@ -1,4 +1,5 @@
 import {idSchema} from '@greiva/shared';
+import {privateLocalPageCatalogRequestSchema,privateLocalPageCatalogResponseSchema} from '@greiva/protocol/private-page-catalog';
 import {invoke,isTauri} from '@tauri-apps/api/core';
 import {workspaceLocalHandleSchema,workspaceLocalContextSchema,type WorkspacePushRequest,type WorkspacePullResponse,verifyWorkspacePushResponse} from '@greiva/protocol/workspace';
 import {privatePageLocalLoadSchema,privatePagePreparedSchema,privatePageBootstrapRequestSchema,privatePageAppendRequestSchema,type PrivatePagePrepared,type PrivatePageReadRequest,type PrivatePageReadResponse} from '@greiva/protocol/private-page';
@@ -48,6 +49,13 @@ export class NativeWorkspaceStore implements WorkspaceSessionStore {
     const parsed=idSchema.safeParse(pageId);if(!parsed.success)throw new NativeWorkspaceError('protocol');this.check();return new NativeWorkspacePage(this,pageId);
   }
   assertActive(){this.check();}
+  async listPages(candidate:unknown={after:null,limit:50}) {
+    const request=privateLocalPageCatalogRequestSchema.safeParse(candidate);if(!request.success)throw new NativeWorkspaceError('protocol');
+    const value=await this.execute({command:'page_list',...request.data});
+    try{const result=privateLocalPageCatalogResponseSchema.parse(value);if(!same(this.context,result.context) || result.pages.length>request.data.limit || result.pages.some(page=>request.data.after!==null && page.metadata.id<=request.data.after!))throw Error();
+      for(const page of result.pages){Object.freeze(page.metadata);Object.freeze(page);}Object.freeze(result.pages);Object.freeze(result.context);this.check();return Object.freeze(result);
+    }catch{this.check();throw new NativeWorkspaceError('protocol');}
+  }
   assertConnection(connection:PrivateWorkspaceConnection){if(connection!==this.connection)throw new NativeWorkspaceError('protocol');this.check();}
   async pageCommand(pageId:string,command:string,fields:Record<string,unknown>={}):Promise<unknown>{return this.execute({...fields,command,pageId});}
 }

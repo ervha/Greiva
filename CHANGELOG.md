@@ -2,6 +2,11 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.28.0 — 2026-10-08
+
+- bound workspaceの保存済みPage一覧と未ACK件数をnative IPC/adapterへ追加。未送信Pageを列挙し、UUID keyset/上限100/context/世代を検査、本文・wireを返さずqueueを維持する。
+- 新unit2/実Rust SQLite3、通常251/型/frontend/Rust/通常Windows cross-buildがPass。[証拠](tests/evidence/local-page-catalog-20261008/SUMMARY.md)。画面/PG専用は未再実行、通常compositionと実native認証は後続。
+
 ## 0.27.0 — 2026-10-08
 
 - アカウント別のnative端末IDを永続化。Auth検証後に同じIDを解決し、再ログインで保存済みPage・未送信更新の保存先を維持する。並行初回登録、COMMIT前後のkill、取消/遅着、missing metadataの安全な停止に対応。

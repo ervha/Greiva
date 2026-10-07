@@ -72,6 +72,24 @@ async fn advance_head(tx:&mut Transaction<'_,Sqlite>,id:&str,head:i64)->StoreRes
     sqlx::query("UPDATE workspace_page_documents SET server_head=? WHERE page_id=?").bind(head.to_string()).bind(id).execute(&mut **tx).await.map_err(|e|e.to_string())?;Ok(true)
 }
 impl PageStore {
+    pub(super) async fn private_page_list(&self,after:Option<&str>,limit:usize)->StoreResult<Value> {
+        if !(1..=100).contains(&limit){return Err("Invalid Page list limit".into());}
+        if let Some(id)=after{validate_id(id)?;}
+        // One read statement keeps metadata and pending counts in one snapshot.
+        // Only attributed private documents are listed; no binary or wire leaves
+        // this query, and no receipt/queue is consumed by navigation.
+        let rows=sqlx::query("SELECT p.id,p.title,p.y_doc_id,p.created_at,p.updated_at,(SELECT count(*) FROM workspace_page_pending q LEFT JOIN workspace_page_receipts r ON r.pending_seq=q.seq WHERE q.page_id=p.id AND r.pending_seq IS NULL) AS pending FROM pages p JOIN workspace_page_documents d ON d.page_id=p.id WHERE (? IS NULL OR p.id>?) ORDER BY p.id LIMIT ?")
+            .bind(after).bind(after).bind((limit+1) as i64).fetch_all(&self.pool).await.map_err(|e|e.to_string())?;
+        let has_more=rows.len()>limit;let mut pages=Vec::new();
+        for row in rows.into_iter().take(limit){
+            let page=PageMetadata{id:row.get("id"),title:row.get("title"),y_doc_id:row.get("y_doc_id"),created_at:row.get("created_at"),updated_at:row.get("updated_at")};
+            validate_id(&page.id)?;metadata(&serde_json::to_value(&page).unwrap(),&page.id)?;
+            let pending:i64=row.get("pending");if !(0..=9007199254740991).contains(&pending){return Err("Invalid Page pending count".into());}
+            pages.push(json!({"metadata":page,"pending":pending}));
+        }
+        let next=if has_more{pages.last().map(|page|page["metadata"]["id"].clone()).unwrap_or(Value::Null)}else{Value::Null};
+        Ok(json!({"pages":pages,"nextAfter":next}))
+    }
     pub(super) async fn private_page_create(&self,client:&str,id:&str,title:&str,bytes:&[u8])->StoreResult<()> {
         validate_id(id)?;input(bytes)?;if title.encode_utf16().count()>65536{return Err("Invalid Page title".into());}
         let wire=json!({"protocolVersion":1,"clientId":client,"editorSchemaVersion":1,"title":title,"initialUpdate":encode(bytes)}).to_string();let hash=digest(bytes);

@@ -18,3 +18,27 @@ it('NATIVE-WORKSPACE-PORT: actual registry/SQLite adapter validates bytes, captu
   const f=fixture();const token={access_token:'fixture.access.signature',refresh_token:'fixture-refresh',token_type:'bearer',user:{id:f.context.subjectId}},auth=new AuthSession(f.context.issuer,{login:async()=>token,refresh:async()=>token,verify:async()=>({issuer:f.context.issuer,subjectId:f.context.subjectId,expiresAt:200}),revoke:async()=>{}},()=>100),connection=new PrivateWorkspaceConnection(auth,{apiUrl:'http://127.0.0.1:3001',clientId:f.context.clientId},async()=>new Response(JSON.stringify({protocolVersion:1,workspaceId:f.context.workspaceId,clientId:f.context.clientId,epoch:f.context.streamEpoch})));
   try{await auth.login('fixture@example.invalid','fixture-password');await connection.bootstrap();const store=await NativeWorkspaceStore.open(connection,f.registry.invoke),page=store.page(f.id);await page.create(f.create.title,emptyPageUpdate());await expect(page.append(Uint8Array.from([255]))).rejects.toMatchObject({stage:'protocol'});const prepared=await page.prepare();expect(prepared?.kind).toBe('bootstrap');expect((await page.load()).pending).toBe(1);await auth.refresh();await store.close();await expect(page.load()).rejects.toMatchObject({stage:'closed'});await connection.bootstrap();const fresh=await NativeWorkspaceStore.open(connection,f.registry.invoke);expect(await fresh.page(f.id).prepare()).toEqual(prepared);await fresh.close();}finally{connection.close();auth.close();await f.cleanup();}
 });
+it('LOCAL-PAGE-CATALOG: paginated saved Pages and pending survive restart; navigation never consumes prepared wire',async()=>{
+ const f=fixture();try{
+  let active=await f.registry.request('open',{context:f.context});const ids=[newId(),newId(),newId()].sort();
+  for(const id of ids)await f.execute(active.handle,{...f.create,pageId:id,title:'saved '+id.slice(-4)});
+  const before=await f.execute(active.handle,{command:'page_prepare',pageId:ids[0]});
+  let after:null|string=null;const collected:string[]=[];
+  do{const list=await f.execute(active.handle,{command:'page_list',after,limit:1});expect(list.context).toEqual(f.context);expect(list.pages).toHaveLength(1);expect(list.pages[0].pending).toBe(1);expect(list.pages[0]).not.toHaveProperty('updates');collected.push(list.pages[0].metadata.id);after=list.nextAfter;}while(after);
+  expect(collected).toEqual(ids);expect(await f.execute(active.handle,{command:'page_prepare',pageId:ids[0]})).toEqual(before);
+  await f.registry.close('SIGKILL');active=await f.registry.request('open',{context:f.context});expect((await f.execute(active.handle,{command:'page_list',after:null,limit:100})).pages.map((page:any)=>page.metadata.id)).toEqual(ids);
+  const other=await f.registry.request('open',{context:{...f.context,subjectId:'other'}});expect(await f.execute(other.handle,{command:'page_list',after:null,limit:100})).toMatchObject({pages:[],nextAfter:null});await expect(f.execute(active.handle,{command:'page_list',after:null,limit:100})).rejects.toThrow();
+ }finally{await f.cleanup();}
+});
+it('LOCAL-PAGE-CATALOG: invalid cursor/limit/extra input leaves retained Page and queue unchanged',async()=>{
+ const f=fixture();try{const active=await f.registry.request('open',{context:f.context});await f.execute(active.handle,f.create);const wire=await f.execute(active.handle,{command:'page_prepare',pageId:f.id});
+ for(const request of [{command:'page_list',after:null,limit:0},{command:'page_list',after:null,limit:101},{command:'page_list',after:null,limit:1.5},{command:'page_list',after:'../foreign',limit:1},{command:'page_list',after:null,limit:1,path:'../foreign'}])await expect(f.execute(active.handle,request)).rejects.toThrow('Private workspace command rejected or unavailable');
+ expect(await f.execute(active.handle,{command:'page_prepare',pageId:f.id})).toEqual(wire);expect((await f.execute(active.handle,{command:'page_list',after:null,limit:1})).pages[0].pending).toBe(1);
+ }finally{await f.cleanup();}
+});
+it('LOCAL-PAGE-CATALOG: corrupt metadata fails closed without modifying retained bytes',async()=>{
+ const f=fixture();try{let active=await f.registry.request('open',{context:f.context});await f.execute(active.handle,f.create);await f.registry.close();
+ const path=join(f.root,readdirSync(f.root).find(name=>name.endsWith('.sqlite'))!);const db=new DatabaseSync(path);try{db.prepare('UPDATE pages SET y_doc_id=? WHERE id=?').run('page:'+newId(),f.id);}finally{db.close();}
+ active=await f.registry.request('open',{context:f.context});await expect(f.execute(active.handle,{command:'page_list',after:null,limit:1})).rejects.toThrow('Private workspace command rejected or unavailable');await f.registry.close();const check=new DatabaseSync(path,{readOnly:true});try{expect(check.prepare('SELECT count(*) AS n FROM workspace_page_pending').get()?.n).toBe(1);}finally{check.close();}
+ }finally{await f.cleanup();}
+});
