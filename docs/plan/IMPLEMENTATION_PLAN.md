@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.30.0：[Task・Relation runtime](../development/PRIVATE_STRUCTURED_RUNTIME.md)をcaptured Auth/native storeへ接続。型付き原子保存、結果不明の同ID再試行、bounded explicit同期、三値Conflict/rejection保持、世代/stream置換取消を実装。通常268/実PG70/型/Rust/frontend/Windows cross-buildを確認。[証拠](../../tests/evidence/private-structured-runtime-20261008/SUMMARY.md)。新画面mountは次工程で、実Auth/native grant/IMEと本番配備は別条件。追加手操作を求めずTask/Relation画面へ続行する。
+
 最新v0.29.0：[個人workspace接続画面](../development/PRIVATE_WORKSPACE_SCREEN.md)を専用entryへ追加。login/端末・server一覧/create/open/editor/sync、Auth取消、結果不明createの同ID再確認、pagination外local優先、composition/failed draftのnavigation保護を接続。通常258/実PG69/新画面10/既存画面64/Auth12/型/Rust/frontend/Windows cross-buildを確認。[証拠・初回失敗/画像修正](../../tests/evidence/private-workspace-screen-20261008/SUMMARY.md)。旧root/CSPを保持し、実native認証/IMEや本番既定入口への昇格は別工程。次はTask/Relationのworkspace接続基盤へ進む。
 
 最新v0.28.0：[端末Page一覧](../development/LOCAL_PAGE_CATALOG.md)を追加。未送信の新規Pageもmetadata/pending件数として列挙できる。strict native command、UUID keyset、captured context/世代を検査し、一覧読取でqueueを消費しない。通常251/型/Rust/frontend/Windows cross-buildがPass。[証拠](../../tests/evidence/local-page-catalog-20261008/SUMMARY.md)。通常画面compositionへ続行し、実Auth/native IME/offline権限は別工程。

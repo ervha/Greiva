@@ -1,5 +1,7 @@
 # 応答・外部環境が必要な事項
 
+最新v0.30.0：[Task・Relation runtime](../development/PRIVATE_STRUCTURED_RUNTIME.md)をcaptured Auth/native storeへ接続。型付き原子保存、結果不明の同ID再試行、bounded explicit同期、三値Conflict/rejection保持、世代/stream置換取消を実装。通常268/実PG70/型/Rust/frontend/Windows cross-buildを確認。[証拠](../../tests/evidence/private-structured-runtime-20261008/SUMMARY.md)。新画面mountは次工程で、実Auth/native grant/IMEと本番配備は別条件。追加手操作を求めずTask/Relation画面へ続行する。
+
 v0.29.0：[専用workspace接続画面](../development/PRIVATE_WORKSPACE_SCREEN.md)をlocal fixture/実PG/Rustで検証した。rootの既定入口へは未昇格、native CSPを未拡張。正常実Auth/署名native Auth/OS credential/offline権限/実Windows invoke・IMEの残条件は維持する。追加手操作を求めずTask/Relation接続を先行する。
 
 v0.27.0：[stable native端末ID](../development/PRIVATE_DEVICE_IDENTITY.md)と再ログイン後の同Page/pending復帰をlocal検証した。端末IDはAuth grantではなく、実Auth/native署名/OS credential/offline権限や通常画面compositionは引き続き残る。旧private rootのdevice metadataを推測して取り込む処理は追加しない。暗号化配備・鍵管理の実装も後続。

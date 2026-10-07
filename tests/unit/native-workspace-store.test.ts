@@ -43,3 +43,18 @@ it('LOCAL-PAGE-CATALOG: strict request and bound immutable response; no binary/w
 it('LOCAL-PAGE-CATALOG: Auth close rejects ignored-abort late result and does not adopt a current workspace',async()=>{
  const f=await fixture();try{const store=await NativeWorkspaceStore.open(f.connection,f.invoke),wait=deferred<unknown>();f.invoke.mockImplementationOnce(()=>wait.promise);const work=store.listPages();f.connection.close();wait.resolve({context:f.context,pages:[],nextAfter:null});await expect(work).rejects.toMatchObject({stage:'closed'});await store.close();}finally{await f.cleanup();}
 });
+it('PRIVATE-STRUCTURED-NATIVE: snapshot is strict, bound and deeply immutable, including conflict values',async()=>{
+ const f=await fixture();try{const store=await NativeWorkspaceStore.open(f.connection,f.invoke),snapshot={clientId:f.context.clientId,tasks:[],relations:[],operations:[],conflicts:[],errors:[],state:{stream:'structured',cursor:null,headCursor:null,lastSuccessfulSyncAt:null}},response={context:f.context,snapshot};
+  f.invoke.mockResolvedValueOnce(response);const result=await store.structuredSnapshot();expect(Object.isFrozen(result.state)).toBe(true);expect(Object.isFrozen(result.tasks)).toBe(true);
+  for(const candidate of [{...response,context:{...f.context,workspaceId:newId()}},{...response,snapshot:{...snapshot,clientId:newId()}},{...response,path:'private.sqlite'},{...response,snapshot:{...snapshot,tasks:[{id:f.id}]}}]){f.invoke.mockResolvedValueOnce(candidate);await expect(store.structuredSnapshot()).rejects.toMatchObject({stage:'protocol'});}
+  await store.close();
+ }finally{await f.cleanup();}
+});
+it('PRIVATE-STRUCTURED-NATIVE: mutation captures its exact payload, rejects foreign client/response and exposes no private cause',async()=>{
+ const f=await fixture();try{const store=await NativeWorkspaceStore.open(f.connection,f.invoke),wait=deferred<unknown>(),operation={operationId:newId(),clientId:f.context.clientId,entityType:'task',entityId:f.id,kind:'create',baseVersion:null,payload:{title:'captured',status:'todo',due:null}},time='2026-10-08T00:00:00.000Z',entity={id:f.id,title:'captured',status:'todo',due:null,version:0,createdAt:time,updatedAt:time,deletedAt:null};
+  f.invoke.mockImplementationOnce(()=>wait.promise);const work=store.mutate(operation);operation.payload.title='changed';expect((f.invoke.mock.calls[1]?.[1]?.request as any).operation.payload.title).toBe('captured');wait.resolve(entity);await work;
+  const count=f.invoke.mock.calls.length;await expect(store.mutate({...operation,clientId:newId()})).rejects.toMatchObject({stage:'protocol'});expect(f.invoke).toHaveBeenCalledTimes(count);
+  f.invoke.mockResolvedValueOnce({...entity,id:newId()});await expect(store.mutate(operation)).rejects.toMatchObject({stage:'protocol'});
+  f.invoke.mockRejectedValueOnce(Error('private title and path'));await expect(store.mutate(operation)).rejects.toMatchObject({stage:'storage',message:'Native workspace storage'});await store.close();
+ }finally{await f.cleanup();}
+});

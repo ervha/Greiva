@@ -2,6 +2,12 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.30.0 — 2026-10-08
+
+- 個人workspaceのTask/Relation保存・同期runtimeを追加。captured Auth/native store、型付き原子保存、結果不明の同ID再確認、正確なwire再送、bounded pull、Conflict/rejectionの保持と同期表示を実装。
+- Auth/stream置換時に旧runtimeを閉じる。strict immutable snapshotと安全なエラーを公開し、旧無認証経路を使用しない。
+- 通常268/実PG70、型/Rust/frontend/通常Windows cross-buildを確認。[証拠](tests/evidence/private-structured-runtime-20261008/SUMMARY.md)。画面mount、実Auth/native IME/grant、暗号化配備は後続。
+
 ## 0.29.0 — 2026-10-08
 
 - 専用workspace接続画面でログイン・端末/server Page一覧・作成・本文編集/同期を統合。Auth世代取消、open/cleanup直列化、未送信Page優先、結果不明createの同ID再確認、composition/未保存draftの切替保護を実装。

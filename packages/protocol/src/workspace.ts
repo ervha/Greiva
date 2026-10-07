@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { idSchema } from '@greiva/shared';
-import { pushRequestSchema, pushResponseSchema, pullRequestSchema, pullResponseSchema } from './index.js';
+import { pushRequestSchema, pushResponseSchema, pullRequestSchema, pullResponseSchema, structuredSnapshotSchema } from './index.js';
 
 const scope = { protocolVersion: z.literal(1), workspaceId: idSchema };
 export const privateBootstrapRequestSchema = z.strictObject({ clientId: idSchema });
@@ -47,5 +47,6 @@ export type WorkspacePullResponse = z.infer<typeof workspacePullResponseSchema>;
 // Local binding only, never a native authentication/authorization grant.
 export const workspaceLocalContextSchema=z.strictObject({issuer:z.string().min(1),subjectId:z.string().min(1),workspaceId:idSchema,clientId:idSchema,streamEpoch:idSchema});
 export const workspaceLocalHandleSchema=z.strictObject({handle:z.string().min(1).max(256).regex(/^[0-9a-f-]+$/),context:workspaceLocalContextSchema});
+export const workspaceStructuredSnapshotSchema=z.strictObject({context:workspaceLocalContextSchema,snapshot:structuredSnapshotSchema});
 // Local registration metadata only. No token/profile fields or native Auth grant.
 export const workspaceDeviceIdentitySchema=z.strictObject({issuer:z.string().min(1).max(2048),subjectId:z.string().min(1).max(512),clientId:idSchema});

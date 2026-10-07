@@ -16,7 +16,13 @@ export class StructuredDevice {
     child.stderr.on('data', data => { stderr += String(data); });
     const lines = createInterface({ input: child.stdout });
     lines.on('line', line => {
-      const reply = JSON.parse(line) as { id: number; value?: unknown; error?: string };
+      let reply: { id: number; value?: unknown; error?: string };
+      try { reply = JSON.parse(line); if (!reply || !Number.isSafeInteger(reply.id)) throw Error(); }
+      catch {
+        // SIGTERM/SIGKILL can end stdout in the middle of a response. Reject
+        // every outstanding request; a partial frame is never a valid result.
+        ended('Invalid Rust store response'); child.kill(); return;
+      }
       const pending = this.pending.get(reply.id); this.pending.delete(reply.id);
       if (reply.error) pending?.reject(new Error(reply.error)); else pending?.resolve(reply.value);
     });

@@ -1,0 +1,31 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [31m❯[39m tests/integration/private-stream-client-postgres.test.ts [2m([22m[2m2 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 1309[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-STREAM-CLIENT-PG: signed HTTP and two actual SQLite stores recover lost ACK/restart, paginate and retain revoked pending[33m 624[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-STRUCTURED-RUNTIME-PG: signed HTTP/native stores preserve conflict triples, explicit resolution, lost ACK/restart, rejection and revoked pending[39m[33m 684[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-stream-client-postgres.test.ts[2m > [22mPRIVATE-STRUCTURED-RUNTIME-PG: signed HTTP/native stores preserve conflict triples, explicit resolution, lost ACK/restart, rejection and revoked pending
+[31m[1mPrivateStructuredError[22m: Private structured storage[39m
+[36m [2m❯[22m PrivateStructuredSession.failure apps/client/src/structured/private-structured-session.ts:[2m34:51[22m[39m
+    [90m 32|[39m   if(this.phase==='closed'||this.lease.aborted)return new PrivateStruc…
+    [90m 33|[39m   if(error instanceof PrivateStructuredError)return error;
+    [90m 34|[39m   if(error instanceof NativeWorkspaceError)return new PrivateStructure…
+    [90m   |[39m                                                   [31m^[39m
+    [90m 35|[39m   if(error instanceof WorkspaceSessionError)return new PrivateStructur…
+    [90m 36|[39m   if(error instanceof MutationCommitError)return this.failure(error.ca…
+[90m [2m❯[22m PrivateStructuredSession.failure apps/client/src/structured/private-structured-session.ts:[2m36:55[22m[39m
+[90m [2m❯[22m apps/client/src/structured/private-structured-session.ts:[2m51:90[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (2)[39m
+[2m   Start at [22m 16:39:38
+[2m   Duration [22m 2.42s[2m (tests 56%, import 30%, transform 13%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261008/v30/postgres-focused/vitest.json
+JUNIT report written to /workspace/.data/autonomous-20261008/v30/postgres-focused/vitest.xml

@@ -1,4 +1,6 @@
 import {idSchema} from '@greiva/shared';
+import {parseOperationPayload,pushOperationSchema,taskSchema,relationSchema} from '@greiva/protocol';
+import {workspaceStructuredSnapshotSchema} from '@greiva/protocol/workspace';
 import {privateLocalPageCatalogRequestSchema,privateLocalPageCatalogResponseSchema} from '@greiva/protocol/private-page-catalog';
 import {invoke,isTauri} from '@tauri-apps/api/core';
 import {workspaceLocalHandleSchema,workspaceLocalContextSchema,type WorkspacePushRequest,type WorkspacePullResponse,verifyWorkspacePushResponse} from '@greiva/protocol/workspace';
@@ -9,6 +11,7 @@ export class NativeWorkspaceError extends Error {
   constructor(readonly stage:'configuration'|'closed'|'protocol'|'storage'){super(`Native workspace ${stage}`);this.name='NativeWorkspaceError';}
 }
 function same(one:WorkspaceSyncContext,two:WorkspaceSyncContext){return Object.entries(one).every(([key,value])=>two[key as keyof WorkspaceSyncContext]===value);}
+function immutable<T>(value:T):T{if(value&&typeof value==='object'){Object.freeze(value);for(const child of Object.values(value))immutable(child);}return value;}
 // Fixed app-owned paths and local handles are repository binding, not a native
 // JWT grant. This adapter requires the trusted verified connection composition;
 // no Web fallback, credential disk writes or offline grant is introduced.
@@ -49,6 +52,18 @@ export class NativeWorkspaceStore implements WorkspaceSessionStore {
     const parsed=idSchema.safeParse(pageId);if(!parsed.success)throw new NativeWorkspaceError('protocol');this.check();return new NativeWorkspacePage(this,pageId);
   }
   assertActive(){this.check();}
+  async structuredSnapshot(){
+    const value=await this.execute({command:'snapshot'});
+    try{const result=workspaceStructuredSnapshotSchema.parse(value);if(!same(this.context,result.context)||result.snapshot.clientId!==this.context.clientId)throw Error();this.check();return immutable(result.snapshot);}
+    catch{this.check();throw new NativeWorkspaceError('protocol');}
+  }
+  async mutate(candidate:unknown):Promise<void>{
+    let operation:ReturnType<typeof pushOperationSchema.parse>;
+    try{operation=pushOperationSchema.parse(candidate);parseOperationPayload(operation);if(operation.clientId!==this.context.clientId)throw Error();}catch{throw new NativeWorkspaceError('protocol');}
+    const value=await this.execute({command:'mutate',operation});
+    try{const entity=operation.entityType==='task'?taskSchema.parse(value):relationSchema.parse(value);if(entity.id!==operation.entityId)throw Error();this.check();}
+    catch{this.check();throw new NativeWorkspaceError('protocol');}
+  }
   async hasPage(candidate:string):Promise<boolean>{
     const pageId=idSchema.safeParse(candidate);if(!pageId.success)throw new NativeWorkspaceError('protocol');
     const value=await this.execute({command:'page_exists',pageId:pageId.data});if(typeof value!=='boolean')throw new NativeWorkspaceError('protocol');this.check();return value;

@@ -1,0 +1,18 @@
+{
+  "root": "greiva-poc",
+  "rootVersion": "0.30.0",
+  "store": "greiva-page-store",
+  "storeVersion": "0.30.0",
+  "storeFeatures": [
+    "default"
+  ],
+  "crashBarrierEnabled": false,
+  "args": [
+    "metadata",
+    "--locked",
+    "--format-version",
+    "1",
+    "--manifest-path",
+    "apps/client/src-tauri/Cargo.toml"
+  ]
+}

@@ -48,6 +48,7 @@ export class WorkspaceSyncSession {
     this.acknowledge = ports.store.acknowledge.bind(ports.store); this.applyPull = ports.store.applyPull.bind(ports.store);
   }
   close() { this.closed = true; this.controller.abort(); }
+  get signal():AbortSignal { return this.controller.signal; }
   private check() { if (this.closed) throw new WorkspaceSessionError('closed'); }
   private async run(work: () => Promise<void>) {
     this.check(); if (this.busy) throw new WorkspaceSessionError('busy'); this.busy = true;

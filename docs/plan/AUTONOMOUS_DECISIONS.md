@@ -34,7 +34,9 @@
 | v0.28.0 端末Page一覧 | [Local catalog](../development/LOCAL_PAGE_CATALOG.md) | 6 | 保存済み/未送信の列挙、bounded keyset、queue非消費、strict世代 |
 | v0.29.0 workspace画面 | [Workspace screen](../development/PRIVATE_WORKSPACE_SCREEN.md) | 14 | login/一覧/editor、native presence、世代取消、同ID再確認、draft/IME保護 |
 
-合計395件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
+| v0.30.0 Task/Relation runtime | [Structured runtime](../development/PRIVATE_STRUCTURED_RUNTIME.md) | 13 | typed atomic保存、同ID retry、bounded同期、Conflict/rejection保持、stream取消 |
+
+合計408件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
 
 共通：同じcodex/poc-editor、確認後の版/tag/push、外部依存を監査、元Page/DBを保持。Computer UseはWindows診断後に解除し、今回の基盤開発では使わない。cloud/project/配布・課金・新global toolchainを作成せず、端末保持/旧DB帰属/保持期限を未決定のまま創作しない。初期OFFの改善送信は設計で、実際の収集は始めていない。
 
