@@ -1,5 +1,7 @@
 # 応答・外部環境が必要な事項
 
+最新v0.31.0：[Task・Relation画面](../development/PRIVATE_STRUCTURED_SCREEN.md)をworkspace previewへ接続。typed CRUD、三値Conflict/別operation解決、rejection保持、draft/変換/結果不明の保護と同期状態、両runtimeの取消/cleanupを追加。通常269/実PG70/画面18/型/Rust/frontend/Windows cross-buildを確認。[証拠](../../tests/evidence/private-structured-screen-20261008/SUMMARY.md)。本番入口/native Auth・credential/offline grant、実Auth/IME/Android、Page metadata同期と暗号化配備は残る。追加の利用者操作依頼は出していない。
+
 最新v0.30.0：[Task・Relation runtime](../development/PRIVATE_STRUCTURED_RUNTIME.md)をcaptured Auth/native storeへ接続。型付き原子保存、結果不明の同ID再試行、bounded explicit同期、三値Conflict/rejection保持、世代/stream置換取消を実装。通常268/実PG70/型/Rust/frontend/Windows cross-buildを確認。[証拠](../../tests/evidence/private-structured-runtime-20261008/SUMMARY.md)。新画面mountは次工程で、実Auth/native grant/IMEと本番配備は別条件。追加手操作を求めずTask/Relation画面へ続行する。
 
 v0.29.0：[専用workspace接続画面](../development/PRIVATE_WORKSPACE_SCREEN.md)をlocal fixture/実PG/Rustで検証した。rootの既定入口へは未昇格、native CSPを未拡張。正常実Auth/署名native Auth/OS credential/offline権限/実Windows invoke・IMEの残条件は維持する。追加手操作を求めずTask/Relation接続を先行する。

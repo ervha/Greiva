@@ -2,6 +2,12 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.31.0 — 2026-10-08
+
+- 専用workspace画面へTask/Relationのtyped CRUD、明示同期、三値Conflictと別operationによる解決、拒否された更新の表示を追加。
+- draft/変換/結果不明を同期済みから区別し、入力・選択・focusを保護。両runtimeの世代取消とcleanup、未送信更新のre-login/restart復帰を接続する。
+- 通常269/実PG70/専用画面18、型/Rust/frontend/通常Windows cross-buildを確認。[証拠](tests/evidence/private-structured-screen-20261008/SUMMARY.md)。実Auth/native IME/grant、Page metadata、本番入口と暗号化配備は後続。過去3checkpointの外部npm entry数の説明を監査JSONの315へ訂正（323は誤記、依存監査結果は不変）。
+
 ## 0.30.0 — 2026-10-08
 
 - 個人workspaceのTask/Relation保存・同期runtimeを追加。captured Auth/native store、型付き原子保存、結果不明の同ID再確認、正確なwire再送、bounded pull、Conflict/rejectionの保持と同期表示を実装。

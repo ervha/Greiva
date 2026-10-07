@@ -10,7 +10,7 @@
 | 既存画面/Auth | 64 / 12 Pass | 今回の直前のroot/editor/login回帰。最後の新画面専用表示修正は旧画面のcode pathを変更せず、通常/PG/新画面を再確認 |
 | 型/fixture型 | Pass | app/test全体＋Vite型を指定した新TSX fixtureの独立noEmit |
 | Rust/frontend/Windows | Pass | normal/crash driver、通常hooks=0 frontend、Docker debug/custom-protocol。実Windows起動/IMEは未実施 |
-| source/依存 | Pass | source232一致（raw220、CRLF/LFのみ12）、cacheにない診断5を明示除外。外部npm323/両Cargo118・501 entry不変 |
+| source/依存 | Pass | source232一致（raw220、CRLF/LFのみ12）、cacheにない診断5を明示除外。外部npm315/両Cargo118・501 entry不変 |
 
 初回型検査はimmutable配列の型で失敗し、readonly契約へ修正した。fixture用の追加型検査はVite型が欠けて失敗し、検査configへ `vite/client` を追加。製品の型を緩めていない。
 
@@ -23,3 +23,5 @@ Docker主な再現：`npm run typecheck`、`npm test`、既存fixture設定で `
 [集約](verification.json)、[通常](normal.json.gz)、[PG](postgres.json.gz)、[新画面](workspace-ui.json.gz)、[既存画面](root-ui.json.gz)、[Auth](auth-ui.json.gz)、[初回unit](initial-unit.json.gz)、[初回画面](initial-workspace-ui.json.gz)、[storage試験の旧期待](storage-check-workspace-ui.json.gz)、[PG初回](initial-postgres.json.gz)、[型](types.log)、[fixture型](fixture-types.log)、[Rust](native.log)、[crash](crash.log)、[frontend](frontend.log)、[Windows](windows.log)、[exe](windows-build.json)、[feature](native-features.json)、[source](source-inventory.json)、[依存](version-audit.json)。reportはconfig除外/gzip、logは行末空白/末尾空行のみ整理、secret/JWT patternを確認。DB/trace/credential/実行物をGitへ含めない。
 
 [desktop](workspace-desktop.png)、[360px dark](workspace-mobile-dark-reduced-motion.png)、[修正前desktop](before-visual-desktop.png)、[修正前dark](before-visual-mobile.png)、[契約/自主判断14件](../../../docs/development/PRIVATE_WORKSPACE_SCREEN.md)。実Supabase正常login、実Tauri invoke/Microsoft IME、Android、native Auth/grant/CSP、OS credential/offline権限、rootへの昇格、Task/Relation scoped画面とmetadata同期は未完成。
+
+外部npm数の説明はv0.31.0で323の誤記を315へ訂正。元のversion-audit.jsonと実行結果は変更していない。

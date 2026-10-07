@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useCallback,useEffect, useState } from 'react';
+import {PrivateStructuredPanel} from '../structured/PrivateStructuredPanel';
 import { PrivatePageEditor } from '../editor/PrivatePageEditor';
 import type { PrivateLoginController } from '../auth/private-login';
 import type { PrivateWorkspaceController } from './private-workspace-controller';
@@ -7,6 +8,7 @@ export function PrivateWorkspaceScreen({login,workspace,nativeAvailable}:{login:
   const [auth,setAuth]=useState(login.snapshot),[state,setState]=useState(workspace.snapshot);
   const [email,setEmail]=useState(''),[password,setPassword]=useState(''),[title,setTitle]=useState('');
   useEffect(()=>login.subscribe(setAuth),[login]);useEffect(()=>workspace.subscribe(setState),[workspace]);
+  const structuredDraft=useCallback((blocked:boolean)=>workspace.setStructuredDraft(blocked),[workspace]);
   const connection=login.activeConnection,lease=connection?.generationSignal;
   useEffect(()=>{if(connection)void workspace.connect(connection);else void workspace.close();},[connection,lease,workspace]);
   const busy=auth.busy||state.busy,blocked=busy||state.navigationBlocked;
@@ -49,6 +51,7 @@ export function PrivateWorkspaceScreen({login,workspace,nativeAvailable}:{login:
         <button disabled={blocked}>{state.retryCreate?'同じPageの作成を再確認':'新しいPageを作成'}</button>
       </form>
     </aside><section aria-label="Page編集" className="workspace-editor">{workspace.editor?<PrivatePageEditor session={workspace.editor}/>:<p>Pageを選ぶか、新しく作成してください。</p>}</section></div>}
-    <p className="editor-hint">ログアウトしても、この端末に保存済みのPageと未送信更新は保持します。ログイン前の閲覧は提供していません。</p>
+    {state.phase==='ready'&&workspace.structured&&<PrivateStructuredPanel session={workspace.structured} pages={[...state.localPages.map(row=>row.metadata),...state.remotePages.filter(row=>!state.localPages.some(local=>local.metadata.id===row.id))]} onDraftChange={structuredDraft}/>}
+    <p className="editor-hint">ログアウトしても、この端末に保存済みのPage・Task・Relationと未送信更新は保持します。ログイン前の閲覧は提供していません。</p>
   </main>;
 }

@@ -3,6 +3,7 @@ import type { PrivatePageCatalogResponse, PrivateLocalPageCatalogResponse } from
 import { PrivateConnectionError, type PrivateWorkspaceConnection } from '@greiva/sync';
 import { NativeWorkspaceStore, NativeWorkspaceError, type NativeWorkspaceInvoke } from './native-workspace-store.js';
 import { PrivatePageEditorSession, PrivatePageEditorError } from '../editor/private-page-session.js';
+import {PrivateStructuredSession} from '../structured/private-structured-session.js';
 
 type Failure='storage'|'transport'|'protocol'|null;
 export type PrivateWorkspaceState=Readonly<{
@@ -19,11 +20,14 @@ export class PrivateWorkspaceController {
   private revision=0;private disposed=false;private tail:Promise<void>=Promise.resolve();
   private connection:PrivateWorkspaceConnection|null=null;private store:NativeWorkspaceStore|null=null;
   private page:PrivatePageEditorSession|null=null;private detachPage=()=>{};private detachLease=()=>{};
+  private structuredSession:PrivateStructuredSession|null=null;private detachStructured=()=>{};private structuredDraft=false;
   private creation:{id:string;title:string}|null=null;private listeners=new Set<(state:PrivateWorkspaceState)=>void>();
   private state=empty();
   constructor(private readonly invokePort?:NativeWorkspaceInvoke){}
   get editor(){return this.state.phase==='ready'?this.page:null;}
-  get snapshot():PrivateWorkspaceState{return Object.freeze({...this.state,navigationBlocked:this.state.phase==='ready'&&Boolean(this.page?.snapshot.storageError||this.page?.isComposing),retryCreate:this.creation!==null});}
+  get structured(){return this.state.phase==='ready'?this.structuredSession:null;}
+  setStructuredDraft(blocked:boolean){if(this.structuredDraft!==blocked){this.structuredDraft=blocked;this.publish();}}
+  get snapshot():PrivateWorkspaceState{return Object.freeze({...this.state,navigationBlocked:this.state.phase==='ready'&&Boolean(this.page?.snapshot.storageError||this.page?.isComposing||this.structuredDraft||this.structuredSession?.snapshot.busy||this.structuredSession?.snapshot.retryMutation),retryCreate:this.creation!==null});}
   subscribe(listener:(state:PrivateWorkspaceState)=>void){if(this.disposed)return()=>{};this.listeners.add(listener);listener(this.snapshot);return()=>{this.listeners.delete(listener);};}
   private publish(){if(!this.disposed)for(const listener of this.listeners){try{listener(this.snapshot);}catch{/* observer cannot interrupt cleanup/commit */}}}
   private patch(value:Partial<typeof this.state>){this.state={...this.state,...value};this.publish();}
@@ -45,12 +49,14 @@ export class PrivateWorkspaceController {
   }
   private async release(){
     this.detachLease();this.detachLease=()=>{};this.detachPage();this.detachPage=()=>{};
-    const page=this.page,store=this.store;this.page=null;this.store=null;this.connection=null;this.creation=null;
-    try{await page?.close();}finally{await store?.close();}
+    this.detachStructured();this.detachStructured=()=>{};
+    const page=this.page,structured=this.structuredSession,store=this.store;this.page=null;this.structuredSession=null;this.structuredDraft=false;this.store=null;this.connection=null;this.creation=null;
+    const work=await Promise.allSettled([page?.close(),structured?.close()]);await store?.close();if(work.some(result=>result.status==='rejected'))throw new NativeWorkspaceError('storage');
   }
   connect(connection:PrivateWorkspaceConnection){
     if(this.disposed)return Promise.resolve();const revision=++this.revision;
     this.detachLease();this.detachLease=()=>{};
+    this.structuredDraft=false;void this.structuredSession?.close();void this.page?.close().catch(()=>{});
     this.state={...empty(),phase:'opening',busy:true};this.publish();
     return this.enqueue(revision,async()=>{
       await this.release();if(!this.current(revision))return;
@@ -58,12 +64,16 @@ export class PrivateWorkspaceController {
       const invalidated=()=>{if(this.connection===connection)void this.close();};lease.addEventListener('abort',invalidated,{once:true});this.detachLease=()=>lease.removeEventListener('abort',invalidated);
       const store=await NativeWorkspaceStore.open(connection,this.invokePort);
       if(!this.current(revision)){await store.close();return;}this.store=store;this.check(revision);
-      const local=await store.listPages();this.check(revision);this.patch({phase:'ready',localPages:local.pages,localAfter:local.nextAfter});
+      const local=await store.listPages();this.check(revision);const structured=await PrivateStructuredSession.open(connection,store);
+      if(!this.current(revision)){await structured.close();return;}this.structuredSession=structured;
+      this.detachStructured=structured.subscribe(value=>{if(this.structuredSession!==structured||!this.current(revision))return;if(value.phase==='closed')void this.close();else this.publish();});
+      this.check(revision);this.patch({phase:'ready',localPages:local.pages,localAfter:local.nextAfter});
     });
   }
   close(){
     this.detachLease();this.detachLease=()=>{};
-    ++this.revision;this.state=empty();this.publish();
+    ++this.revision;this.state=empty();this.structuredDraft=false;this.publish();
+    void this.structuredSession?.close();void this.page?.close().catch(()=>{});
     const work=this.tail.then(()=>this.release());this.tail=work.catch(()=>{});return work.catch(()=>{if(!this.disposed&&this.state.phase==='closed')this.patch({error:'storage'});});
   }
   async dispose(){if(this.disposed)return;this.disposed=true;this.listeners.clear();await this.close();}

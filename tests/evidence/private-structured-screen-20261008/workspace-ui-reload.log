@@ -1,0 +1,114 @@
+
+> greiva-poc@0.31.0 test:workspace-e2e
+> npm run build:packages && playwright test -c playwright.private-workspace.config.ts
+
+
+> greiva-poc@0.31.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application
+
+
+> @greiva/shared@0.31.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/domain@0.31.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.31.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.31.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.31.0 build
+> tsc -p tsconfig.json
+
+
+Running 18 tests using 1 worker
+
+  ✓   1 [desktop] › tests/e2e/private-workspace.spec.ts:7:1 › WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries (2.2s)
+  ✓   2 [desktop] › tests/e2e/private-workspace.spec.ts:14:1 › WORKSPACE-TASKS: explicit Task/Relation CRUD, typed date/status, keyboard focus and logout/re-login keep unsent records (2.5s)
+  ✓   3 [desktop] › tests/e2e/private-workspace.spec.ts:23:1 › WORKSPACE-TASKS: unknown mutation result, composition, failed draft and ACK loss preserve one intent and copyable input (1.5s)
+  ✘   4 [desktop] › tests/e2e/private-workspace.spec.ts:28:1 › WORKSPACE-TASKS: conflict exposes base/local/remote and records an explicit resolution as a new operation (30.1s)
+  ✓   5 [desktop] › tests/e2e/private-workspace.spec.ts:31:1 › WORKSPACE-TASKS: unsaved draft and rejected updates remain distinct from sync confirmation without server error text (2.3s)
+  ✓   6 [desktop] › tests/e2e/private-workspace.spec.ts:34:1 › WORKSPACE-SCREEN: remote selection checks local presence beyond first page and remote-only download remains unconfirmed (2.6s)
+  ✓   7 [desktop] › tests/e2e/private-workspace.spec.ts:40:1 › WORKSPACE-SCREEN: close during native open suppresses late ready; production Web has no persistence fallback (2.7s)
+  ✓   8 [desktop] › tests/e2e/private-workspace.spec.ts:44:1 › WORKSPACE-SCREEN: status/catalog rendering preserves selection/composition and uncertain create retries one ID (2.9s)
+  ✓   9 [desktop] › tests/e2e/private-workspace.spec.ts:49:1 › WORKSPACE-SCREEN: failed commit retains copyable draft and blocks destructive navigation without leaking causes (2.1s)
+  ✘  10 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:7:1 › WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries (2.9s)
+  ✓  11 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:14:1 › WORKSPACE-TASKS: explicit Task/Relation CRUD, typed date/status, keyboard focus and logout/re-login keep unsent records (4.7s)
+  ✓  12 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:23:1 › WORKSPACE-TASKS: unknown mutation result, composition, failed draft and ACK loss preserve one intent and copyable input (2.4s)
+  ✓  13 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:28:1 › WORKSPACE-TASKS: conflict exposes base/local/remote and records an explicit resolution as a new operation (1.9s)
+  ✓  14 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:31:1 › WORKSPACE-TASKS: unsaved draft and rejected updates remain distinct from sync confirmation without server error text (3.2s)
+  ✓  15 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:34:1 › WORKSPACE-SCREEN: remote selection checks local presence beyond first page and remote-only download remains unconfirmed (2.4s)
+  ✓  16 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:40:1 › WORKSPACE-SCREEN: close during native open suppresses late ready; production Web has no persistence fallback (2.2s)
+  ✓  17 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:44:1 › WORKSPACE-SCREEN: status/catalog rendering preserves selection/composition and uncertain create retries one ID (2.1s)
+  ✓  18 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:49:1 › WORKSPACE-SCREEN: failed commit retains copyable draft and blocks destructive navigation without leaking causes (1.8s)
+
+
+  1) [desktop] › tests/e2e/private-workspace.spec.ts:28:1 › WORKSPACE-TASKS: conflict exposes base/local/remote and records an explicit resolution as a new operation
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByRole('region', { name: 'TaskとRelationの競合', exact: true }).getByRole('button', { name: 'この端末の値を選ぶ', exact: true })
+        - locator resolved to <button type="button">この端末の値を選ぶ</button>
+      - attempting click action
+        - waiting for element to be visible, enabled and stable
+        - element is visible, enabled and stable
+        - scrolling into view if needed
+        - done scrolling
+        - waiting for "http://127.0.0.1:1422/private-workspace.fixture.html" navigation to finish...
+        - navigated to "http://127.0.0.1:1422/private-workspace.fixture.html"
+
+
+      27 | });
+      28 | test('WORKSPACE-TASKS: conflict exposes base/local/remote and records an explicit resolution as a new operation',async({page})=>{
+    > 29 |  await page.goto('/private-workspace.fixture.html');await login(page);await page.getByLabel('Taskタイトル',{exact:true}).fill('base');await page.getByRole('button',{name:'Taskを端末に保存',exact:true}).click();await page.getByRole('button',{name:'TaskとRelationを同期',exact:true}).click();await expect(page.getByLabel('TaskとRelationの同期状態')).toHaveText('取得した更新まで同期済み');await page.evaluate(()=>window.workspaceTest.seedConflict());const conflict=page.getByRole('region',{name:'TaskとRelationの競合',exact:true});await expect(conflict.getByText('base',{exact:true})).toBeVisible();await expect(conflict.getByText('local',{exact:true})).toBeVisible();await expect(conflict.getByText('remote',{exact:true})).toBeVisible();await expect(page.getByLabel('TaskとRelationの同期状態')).toHaveText('競合を確認してください');const before=await page.evaluate(()=>window.workspaceTest.structuredSnapshot().data.operations.length);await conflict.getByRole('button',{name:'この端末の値を選ぶ',exact:true}).click();expect(await page.evaluate(()=>window.workspaceTest.structuredSnapshot().data.operations.length)).toBe(before+1);await page.getByRole('button',{name:'TaskとRelationを同期',exact:true}).click();await expect(conflict).toHaveCount(0);await expect(page.getByRole('button',{name:'Taskを編集: local',exact:true})).toBeVisible();expect((await page.evaluate(()=>window.workspaceTest.structuredSnapshot())).data.conflicts[0]!.resolvedBy).toBeTruthy();
+         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ^
+      30 | });
+      31 | test('WORKSPACE-TASKS: unsaved draft and rejected updates remain distinct from sync confirmation without server error text',async({page})=>{
+      32 |  await page.goto('/private-workspace.fixture.html');await login(page);await page.getByRole('button',{name:'TaskとRelationを同期',exact:true}).click();await expect(page.getByLabel('TaskとRelationの同期状態')).toHaveText('取得した更新まで同期済み');await page.getByLabel('Taskタイトル',{exact:true}).fill('rejected task');await expect(page.getByLabel('TaskとRelationの同期状態')).toHaveText('入力内容はまだ保存していません');await page.getByRole('button',{name:'Taskを端末に保存',exact:true}).click();await page.evaluate(()=>window.workspaceTest.rejectStructured());await page.getByRole('button',{name:'TaskとRelationを同期',exact:true}).click();await expect(page.getByLabel('TaskとRelationの同期状態')).toHaveText('拒否された更新があります');await expect(page.getByRole('region',{name:'拒否された更新',exact:true})).toContainText('Task: rejected task / 作成が拒否されました');expect((await page.evaluate(()=>window.workspaceTest.structuredSnapshot())).data.operations[0]!.status).toBe('rejected');await expect(page.locator('body')).not.toContainText('fixture-private-server');await page.getByRole('button',{name:'TaskとRelationを同期',exact:true}).click();await expect(page.getByLabel('TaskとRelationの同期状態')).toHaveText('拒否された更新があります');
+        at /workspace/tests/e2e/private-workspace.spec.ts:29:947
+
+    Error Context: .data/autonomous-20261008/v31/workspace-ui/artifacts/private-workspace-WORKSPAC-d9987-solution-as-a-new-operation-desktop/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261008/v31/workspace-ui/artifacts/private-workspace-WORKSPAC-d9987-solution-as-a-new-operation-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261008/v31/workspace-ui/artifacts/private-workspace-WORKSPAC-d9987-solution-as-a-new-operation-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:7:1 › WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries
+
+    Error: page.evaluate: Execution context was destroyed, most likely because of a navigation
+
+       6 | async function create(page:Page,title='私のPage'){await page.getByLabel('新しいPageのタイトル',{exact:true}).fill(title);await page.getByRole('button',{name:'新しいPageを作成',exact:true}).click();await expect(page.getByRole('textbox',{name:'Page本文',exact:true})).toBeVisible();}
+       7 | test('WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries',async({page},info)=>{
+    >  8 |  await page.goto('/private-workspace.fixture.html');await login(page);await create(page);const body=page.getByRole('textbox',{name:'Page本文',exact:true});await body.click();await page.keyboard.type('saved text');await page.evaluate(()=>window.workspaceTest.durable());const before=await page.evaluate(()=>window.workspaceTest.snapshot().pages);
+         |                                                                                                                                                                                                                               ^
+       9 |  await page.getByRole('button',{name:'ログアウト',exact:true}).click();await expect(body).toHaveCount(0);await login(page);await page.getByRole('complementary',{name:'Page一覧'}).getByRole('button',{name:'私のPage',exact:true}).click();await expect(body).toContainText('saved text');expect(await page.evaluate(()=>window.workspaceTest.snapshot().pages)).toEqual(before);await expect(page.getByLabel('同期状態',{exact:true})).toHaveText('同期はまだ確認していません');
+      10 |  await page.evaluate(()=>window.workspaceTest.loseAck());await page.getByRole('button',{name:'同期する',exact:true}).click();await expect(page.getByLabel('同期状態',{exact:true})).toHaveText('同期エラー');await page.getByRole('button',{name:'同期する',exact:true}).click();await expect(page.getByLabel('同期状態',{exact:true})).toHaveText('サーバーと同期済み');await expect(page.getByRole('complementary',{name:'Page一覧'}).getByText(/未確認の更新/)).toHaveCount(0);expect(await page.getByLabel('Pageタイトル',{exact:true}).evaluate(element=>getComputedStyle(element).color)).toBe(await page.locator('main').evaluate(element=>getComputedStyle(element).color));const wires=await page.evaluate(()=>window.workspaceTest.snapshot().sent);expect(wires[0]).toBe(wires[1]);
+      11 |  await info.attach('workspace-'+info.project.name,{body:await page.screenshot({fullPage:true}),contentType:'image/png'});
+        at /workspace/tests/e2e/private-workspace.spec.ts:8:223
+
+    Error Context: .data/autonomous-20261008/v31/workspace-ui/artifacts/private-workspace-WORKSPAC-2538c-d-native-browser-boundaries-mobile-dark-reduced-motion/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261008/v31/workspace-ui/artifacts/private-workspace-WORKSPAC-2538c-d-native-browser-boundaries-mobile-dark-reduced-motion/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261008/v31/workspace-ui/artifacts/private-workspace-WORKSPAC-2538c-d-native-browser-boundaries-mobile-dark-reduced-motion/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [desktop] › tests/e2e/private-workspace.spec.ts:28:1 › WORKSPACE-TASKS: conflict exposes base/local/remote and records an explicit resolution as a new operation
+    [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:7:1 › WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries
+  16 passed (1.3m)

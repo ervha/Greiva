@@ -1,6 +1,6 @@
 # 個人workspaceのTask・Relation runtime
 
-v0.30.0。`PrivateStructuredSession` を認証済みconnectionとcaptured native storeへ固定し、既存Applicationのmutation port、workspace専用HTTP、atomic SQLite ACK/pullへ接続する。旧PoCのunscoped engine/routeへfallbackしない。今回のruntimeは再利用基盤で、workspace画面へのTask/Relation表示は次の工程。
+v0.30.0。`PrivateStructuredSession` を認証済みconnectionとcaptured native storeへ固定し、既存Applicationのmutation port、workspace専用HTTP、atomic SQLite ACK/pullへ接続する。旧PoCのunscoped engine/routeへfallbackしない。v0.30.0時点では再利用基盤。v0.31.0で[workspace画面](PRIVATE_STRUCTURED_SCREEN.md)へmountした。
 
 ## 保存と再試行
 

@@ -12,11 +12,13 @@ v0.29.0。`workspace.html` にログイン・端末/サーバーPage一覧・作
 
 エラーは固定categoryだけを表示。メール/password/tokenをlocal/sessionStorageやworkspace DBへ保存せず、passwordは送信後に入力欄から除く。通常Webではnative保存を代替せず、ログイン操作を無効にする。
 
+v0.31.0で[scoped Task/Relation画面](PRIVATE_STRUCTURED_SCREEN.md)を同じnative storeへ接続。typed CRUD/Conflict/rejectionとdraft保護を追加し、close/切替で両runtimeを閉じる。以下v0.29.0の検証範囲は当時の記録。
+
 ## 実装範囲と残工程
 
 PC/360px、dark/reduced motion、keyboard/pointer、selection/合成compositionをDockerで確認する。fixture HTML/moduleは通常build inputへ含めない。実HTTP/PG/Rust SQLiteではcontrollerからcreate/edit/sync、close/reopen、refresh後のpending保持を別に検証する。
 
-native CSPと実Auth正常系、署名native session/OS credential/offline権限、root既定画面への昇格、Task/Relationのscoped画面、Page metadata変更/Conflict、provider接続は後続。旧PoC DBと旧経路を保護workspaceへ取り込まない。
+native CSPと実Auth正常系、署名native session/OS credential/offline権限、root既定画面への昇格、Page metadata変更/Conflict、provider接続は後続。旧PoC DBと旧経路を保護workspaceへ取り込まない。
 
 自主判断14件：1) 専用entryと旧root保持、2) ready connectionだけを公開、3) 明示登録後local open、4) open/cleanup直列化、5) local/remote一覧分離、6) pagination外もnative presenceで確認、7) restore/downloadと同期確認の区別、8) 結果不明createの同ID再確認、9) durable完了後のPage切替、10) Auth世代取消と即時非表示、11) composition/failed draftのnavigation保護、12) Web保存fallbackなし、13) fixed category/認証情報非保存、14) browser doubleと実PG/Rustの証拠分離。
 

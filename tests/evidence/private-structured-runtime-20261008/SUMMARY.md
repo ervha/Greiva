@@ -8,7 +8,7 @@
 | PostgreSQL | 70 Pass / unhandled 0 | signed fixture HTTP＋実PG＋二つのRust SQLite。Conflict三値、新operation解決、Relation、ACK喪失/restart、rejection、失効後pending保持 |
 | 型/Rust/frontend | Pass | app/test全体、normal/crash drivers、normal frontend flags=0、default native features |
 | Windows | Docker cross-build Pass | locked debug/custom-protocol。hostでexe FileVersion 0.30.0とSHA照合。未起動/IME未実施 |
-| source/依存 | Pass | 235一致：raw223/LFのみ12、診断5を明示除外。外部npm323/両Cargo118・501 entry不変 |
+| source/依存 | Pass | 235一致：raw223/LFのみ12、診断5を明示除外。外部npm315/両Cargo118・501 entry不変 |
 
 初回型検査は既存WorkspaceSyncSessionにsignal getterがなく失敗。公開read-only AbortSignalを追加してstream置換の取消も実SQLiteで検証した。初回focusedは16 Pass、追加のstream置換を含む最終normalは268 Pass。
 
@@ -19,3 +19,5 @@ PG focusedの初回1 Pass/1 Failは、server rejectionを確認しようと古�
 新しい画面変更はないためUI E2Eは再実行していない。再現はDockerで `npm run typecheck`、`npm test`、既存開発DB設定の `npm run test:postgres`、normal flags=0の `npm run build`。locked Rust normal/crash examples、Windows cross-buildとfeature監査は前checkpointと同じ既存cache/command。SDK/PDB警告を保持する。秘密credentialを使用しない。
 
 [集約](verification.json)、[通常](normal.json.gz)、[PG最終](postgres.json.gz)、[初回focused](initial-unit.json.gz)、[PG focused初回](initial-postgres.json.gz)、[PG unhandled](postgres-unhandled.json.gz)、[型](typecheck.log)、[normal Rust](native-build.log)、[crash Rust](crash-build.log)、[frontend](frontend-build.log)、[Windows](windows-build.log)、[exe](windows-build.json)、[features](native-features.log)、[source](source-inventory.json)、[依存](version-audit.json)、[契約/13判断](../../../docs/development/PRIVATE_STRUCTURED_RUNTIME.md)。reportのconfig除外/gzip、log行末空白整理、secret/JWT patternと相対リンクを確認。実Auth正常系、native JWT/OS credential/offline grant、Windows invoke/IME、Android、暗号化配備、本番既定入口は未完成。
+
+外部npm数の説明はv0.31.0で323の誤記を315へ訂正。元のversion-audit.jsonと実行結果は変更していない。

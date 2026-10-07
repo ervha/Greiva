@@ -1,6 +1,6 @@
 import * as Y from 'yjs';
 import { newId } from '@greiva/shared';
-import type { Page } from '@greiva/protocol';
+import type { Page,PushOperation,PushResult,StructuredSnapshot,Conflict } from '@greiva/protocol';
 import type { PrivatePagePrepared } from '@greiva/protocol/private-page';
 import { emptyPageUpdate, pageBase64, pageBytes, pageDigest } from '@greiva/sync';
 import type { NativeWorkspaceInvoke } from '../../apps/client/src/workspace/native-workspace-store.js';
@@ -13,8 +13,12 @@ export function privateWorkspaceFixture(){
  type Local={metadata:Page;updates:number[][];queue:PrivatePagePrepared[];bootstrap:string;head:string|null};
  type Server={metadata:Page;doc:Y.Doc;head:number;digests:Map<string,number>};
  const local=new Map<string,Local>(),server=new Map<string,Server>(),calls:{command:string;request:Record<string,unknown>|null}[]=[];
+ const structured:StructuredSnapshot={clientId:context.clientId,tasks:[],relations:[],operations:[],conflicts:[],errors:[],state:{stream:'structured',cursor:null,headCursor:null,lastSuccessfulSyncAt:null}},ledger:PushResult[]=[],prepared=new Map<string,string>();
+ const clone=<T>(value:T):T=>JSON.parse(JSON.stringify(value));const time='2026-10-08T00:00:00.000Z';
+ function receive(result:PushResult){const rows=result.entityType==='task'?structured.tasks:structured.relations;if(result.entity){const index=rows.findIndex(row=>row.id===result.entityId);if(index<0)(rows as unknown[]).push(clone(result.entity));else (rows as unknown[])[index]=clone(result.entity);}
+  for(const conflict of result.conflicts){const index=structured.conflicts.findIndex(row=>row.id===conflict.id);if(index<0)structured.conflicts.push(clone(conflict));else structured.conflicts[index]=clone(conflict);}}
  let active:string|null=null,generation=0,sequence=0;
- const state={loseAck:false,loseCreateReply:false,storageFailure:false,catalogFailure:false,nativeHook:null as null|((command:string,request:Record<string,unknown>|null)=>Promise<void>),queryHook:null as null|(()=>Promise<void>),readCalls:[] as string[],sentWires:[] as string[]};
+ const state={loseAck:false,loseCreateReply:false,storageFailure:false,catalogFailure:false,structuredLoseAck:false,structuredReject:false,structuredLoseMutationReply:false,structuredStorageFailure:false,structuredSent:[] as string[],nativeHook:null as null|((command:string,request:Record<string,unknown>|null)=>Promise<void>),queryHook:null as null|(()=>Promise<void>),readCalls:[] as string[],sentWires:[] as string[]};
  const metadata=(id:string,title:string):Page=>({id,title,yDocId:'page:'+id,createdAt:'2026-10-08T00:00:00.000Z',updatedAt:'2026-10-08T00:00:00.000Z'});
  async function queue(entry:Local,id:string,kind:'bootstrap'|'append',bytes:Uint8Array){
   const digest=await pageDigest(bytes),wire=JSON.stringify({protocolVersion:1,clientId:context.clientId,editorSchemaVersion:1,...(kind==='bootstrap'?{title:entry.metadata.title,initialUpdate:pageBase64(bytes)}:{update:pageBase64(bytes)})});
@@ -27,6 +31,16 @@ export function privateWorkspaceFixture(){
   if(command==='workspace_close'){if(args!.handle!==active)throw Error('Old handle');active=null;return null;}
   if(command!=='workspace_execute'||args!.handle!==active)throw Error('Closed handle');
   const kind=String(request!.command),id=String(request!.pageId),entry=local.get(id);
+  if(kind==='snapshot')return {context,snapshot:clone(structured)};
+  if(kind==='mutate'){
+   if(state.structuredStorageFailure)throw Error('fixture-private-task storage');const operation=request!.operation as PushOperation,rows=operation.entityType==='task'?structured.tasks:structured.relations,previous=rows.find(row=>row.id===operation.entityId);if(structured.operations.some(row=>row.operationId===operation.operationId))return clone(previous);
+   if(operation.kind!=='create'&&(!previous||previous.version!==operation.baseVersion))throw Error('Stale base');
+   const entity={...previous,id:operation.entityId,version:previous?.version??0,createdAt:previous?.createdAt??time,updatedAt:time,deletedAt:operation.kind==='delete'?time:null,...operation.payload as object};const index=rows.findIndex(row=>row.id===operation.entityId);if(index<0)(rows as unknown[]).push(entity);else (rows as unknown[])[index]=entity;structured.operations.push({...clone(operation),createdAt:time,status:'pending'});
+   if(state.structuredLoseMutationReply){state.structuredLoseMutationReply=false;throw Error('fixture-private-task lost reply');}return clone(entity);
+  }
+  if(kind==='prepare'){const operation=structured.operations.find(row=>row.status==='pending');if(!operation)return null;if(!prepared.has(operation.operationId)){const {createdAt:_,status:__,...wire}=operation;prepared.set(operation.operationId,JSON.stringify({protocolVersion:1,workspaceId:context.workspaceId,clientId:context.clientId,operations:[wire]}));}return prepared.get(operation.operationId);}
+  if(kind==='ack'){const response=request!.response as {results:PushResult[]};for(const result of response.results){const operation=structured.operations.find(row=>row.operationId===result.operationId)!;operation.status=result.status==='rejected'?'rejected':'acknowledged';if(result.status==='rejected')structured.errors.push({operationId:operation.operationId,error:result.error.code});receive(result);}return null;}
+  if(kind==='pull'){const response=request!.response as {operations:PushResult[];cursor:string;headCursor:string;serverTime:string};response.operations.forEach(receive);structured.state={stream:'structured',cursor:response.cursor,headCursor:response.headCursor,lastSuccessfulSyncAt:response.serverTime};return null;}
   if(kind==='page_exists')return local.has(id);
   if(kind==='page_list'){
    const after=request!.after as string|null,limit=Number(request!.limit),rows=[...local.values()].sort((a,b)=>a.metadata.id.localeCompare(b.metadata.id)).filter(row=>after===null||row.metadata.id>after),selected=rows.slice(0,limit);
@@ -54,6 +68,8 @@ export function privateWorkspaceFixture(){
   if(url.endsWith('/v1/session'))return Response.json({issuer:context.issuer,subjectId:context.subjectId,expiresAt:Math.floor(Date.now()/1000)+300});
   if(url.includes('/logout?'))return new Response('');
   if(url.endsWith('/workspaces/bootstrap'))return Response.json({protocolVersion:1,workspaceId:context.workspaceId,clientId:body.clientId,epoch:context.streamEpoch});
+  if(url.endsWith('/sync/push')){state.structuredSent.push(String(init?.body));const operations=(body as unknown as {operations:PushOperation[]}).operations,results=operations.map(operation=>{const old=ledger.find(row=>row.operationId===operation.operationId);if(old)return old;const rows=operation.entityType==='task'?structured.tasks:structured.relations,localEntity=rows.find(row=>row.id===operation.entityId)!,conflicts=operation.resolution?structured.conflicts.filter(row=>operation.resolution!.conflictIds.includes(row.id)).map(row=>({...row,status:'resolved' as const,resolvedBy:operation.operationId})):[],result:PushResult=state.structuredReject?{operationId:operation.operationId,clientId:operation.clientId,entityId:operation.entityId,entityType:operation.entityType,serverOrder:String(ledger.length+1),status:'rejected',entity:null,conflicts:[],error:{code:'fixture_rejected',message:'fixture-private-server',retryable:false}}:{operationId:operation.operationId,clientId:operation.clientId,entityId:operation.entityId,entityType:operation.entityType,serverOrder:String(ledger.length+1),status:'acknowledged',entity:{...clone(localEntity),version:localEntity.version+1},conflicts};state.structuredReject=false;ledger.push(result);return result;});if(state.structuredLoseAck){state.structuredLoseAck=false;return Response.json({error:'lost'},{status:503});}return Response.json({protocolVersion:1,workspaceId:context.workspaceId,streamEpoch:context.streamEpoch,results});}
+  if(url.endsWith('/sync/pull')){const offset=Number(body.cursor?.replace('structured:','')??0),operations=ledger.slice(offset,offset+Number(body.limit)),cursor='structured:'+(offset+operations.length),headCursor='structured:'+ledger.length;return Response.json({protocolVersion:1,workspaceId:context.workspaceId,streamEpoch:context.streamEpoch,operations,cursor,headCursor,hasMore:cursor!==headCursor,serverTime:time});}
   if(url.endsWith('/pages/query')){
    await state.queryHook?.();if(state.catalogFailure)return Response.json({error:'fixture-private-token'},{status:503});
    const after=body.cursor?.slice('fixture:'.length),rows=[...server.values()].map(value=>value.metadata).sort((a,b)=>a.id.localeCompare(b.id)).filter(row=>!after||row.id>after),limit=Number(body.limit),selected=rows.slice(0,limit),more=rows.length>limit;
@@ -80,5 +96,6 @@ export function privateWorkspaceFixture(){
   const doc=new Y.Doc({gc:false});Y.applyUpdate(doc,emptyPageUpdate());const block=doc.getXmlFragment('body').get(0) as Y.XmlElement;block.insert(0,[new Y.XmlText(text)]);server.set(id,{metadata:metadata(id,title),doc,head:1,digests:new Map()});return id;
  }
  function edit(doc:Y.Doc,text:string){const block=doc.getXmlFragment('body').get(0) as Y.XmlElement;if(!block.length)block.insert(0,[new Y.XmlText()]);(block.get(0) as Y.XmlText).insert(0,text);}
- return {configuration,context,invoke,fetchPort,local,server,calls,state,seedLocal,seedRemote,edit,cleanup(){for(const saved of server.values())saved.doc.destroy();}};
+ function seedConflict(){const task=structured.tasks.find(row=>!row.deletedAt)!;task.title='remote';task.version+=1;const conflict:Conflict={id:newId(),operationId:newId(),entityType:'task',entityId:task.id,field:'title',base:'base',local:'local',remote:'remote',createdAt:time,status:'open',resolvedBy:null};structured.conflicts.push(conflict);return conflict;}
+ return {configuration,context,invoke,fetchPort,local,server,calls,state,structured,seedConflict,seedLocal,seedRemote,edit,cleanup(){for(const saved of server.values())saved.doc.destroy();}};
 }

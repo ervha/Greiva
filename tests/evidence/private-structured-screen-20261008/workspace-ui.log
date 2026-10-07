@@ -1,0 +1,51 @@
+
+> greiva-poc@0.31.0 test:workspace-e2e
+> npm run build:packages && playwright test -c playwright.private-workspace.config.ts
+
+
+> greiva-poc@0.31.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application
+
+
+> @greiva/shared@0.31.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/domain@0.31.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.31.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.31.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.31.0 build
+> tsc -p tsconfig.json
+
+
+Running 18 tests using 1 worker
+
+  ✓   1 [desktop] › tests/e2e/private-workspace.spec.ts:7:1 › WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries (2.1s)
+  ✓   2 [desktop] › tests/e2e/private-workspace.spec.ts:14:1 › WORKSPACE-TASKS: explicit Task/Relation CRUD, typed date/status, keyboard focus and logout/re-login keep unsent records (2.4s)
+  ✓   3 [desktop] › tests/e2e/private-workspace.spec.ts:23:1 › WORKSPACE-TASKS: unknown mutation result, composition, failed draft and ACK loss preserve one intent and copyable input (1.5s)
+  ✓   4 [desktop] › tests/e2e/private-workspace.spec.ts:28:1 › WORKSPACE-TASKS: conflict exposes base/local/remote and records an explicit resolution as a new operation (1.3s)
+  ✓   5 [desktop] › tests/e2e/private-workspace.spec.ts:31:1 › WORKSPACE-TASKS: unsaved draft and rejected updates remain distinct from sync confirmation without server error text (1.3s)
+  ✓   6 [desktop] › tests/e2e/private-workspace.spec.ts:34:1 › WORKSPACE-SCREEN: remote selection checks local presence beyond first page and remote-only download remains unconfirmed (1.6s)
+  ✓   7 [desktop] › tests/e2e/private-workspace.spec.ts:40:1 › WORKSPACE-SCREEN: close during native open suppresses late ready; production Web has no persistence fallback (1.6s)
+  ✓   8 [desktop] › tests/e2e/private-workspace.spec.ts:44:1 › WORKSPACE-SCREEN: status/catalog rendering preserves selection/composition and uncertain create retries one ID (1.5s)
+  ✓   9 [desktop] › tests/e2e/private-workspace.spec.ts:49:1 › WORKSPACE-SCREEN: failed commit retains copyable draft and blocks destructive navigation without leaking causes (1.3s)
+  ✓  10 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:7:1 › WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries (1.8s)
+  ✓  11 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:14:1 › WORKSPACE-TASKS: explicit Task/Relation CRUD, typed date/status, keyboard focus and logout/re-login keep unsent records (2.2s)
+  ✓  12 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:23:1 › WORKSPACE-TASKS: unknown mutation result, composition, failed draft and ACK loss preserve one intent and copyable input (1.3s)
+  ✓  13 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:28:1 › WORKSPACE-TASKS: conflict exposes base/local/remote and records an explicit resolution as a new operation (1.3s)
+  ✓  14 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:31:1 › WORKSPACE-TASKS: unsaved draft and rejected updates remain distinct from sync confirmation without server error text (1.3s)
+  ✓  15 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:34:1 › WORKSPACE-SCREEN: remote selection checks local presence beyond first page and remote-only download remains unconfirmed (1.5s)
+  ✓  16 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:40:1 › WORKSPACE-SCREEN: close during native open suppresses late ready; production Web has no persistence fallback (1.5s)
+  ✓  17 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:44:1 › WORKSPACE-SCREEN: status/catalog rendering preserves selection/composition and uncertain create retries one ID (1.5s)
+  ✓  18 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:49:1 › WORKSPACE-SCREEN: failed commit retains copyable draft and blocks destructive navigation without leaking causes (1.3s)
+
+  18 passed (30.1s)
