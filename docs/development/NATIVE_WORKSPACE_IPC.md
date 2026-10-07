@@ -1,5 +1,7 @@
 # Native workspace保存先のIPC境界
 
+v0.29.0：strict `page_exists(pageId)` を追加。サーバー一覧から選んだPageもbound store内の存在を確かめ、pagination外のlocal pendingを優先する。load失敗をdownloadへfallbackしない。[画面契約](PRIVATE_WORKSPACE_SCREEN.md)。
+
 v0.28.0：workspace_execute whitelistへ strict `page_list(after, limit)` を追加。[端末Page一覧](LOCAL_PAGE_CATALOG.md)はmetadata/pendingだけを返し、queue/本文を変更しない。
 
 v0.27.0：`workspace_device(owner, candidate)` を追加し、アカウント別のstable clientIdを解決する。[契約/制限](PRIVATE_DEVICE_IDENTITY.md)、[証拠](../../tests/evidence/private-device-20261008/SUMMARY.md)。既存active handleを失効させず、署名native Authの代わりにはしない。

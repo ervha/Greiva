@@ -1,0 +1,30 @@
+main.workspace-shell { max-width: 1200px; margin-inline: auto; }
+.workspace-account { padding: 16px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); margin-bottom: 20px; }
+.workspace-account form { display: grid; gap: 12px; max-width: 480px; margin-block: 16px; }
+.workspace-shell label { display: grid; gap: 6px; }
+.workspace-shell input { min-width: 0; width: 100%; box-sizing: border-box; }
+.workspace-shell input:not(.page-title) { color: var(--text); background: var(--surface); border: 1px solid var(--border-control); border-radius: 8px; padding: 8px 12px; min-height: 44px; font: inherit; }
+.workspace-shell .page-title { color: var(--text); }
+.workspace-layout { display: grid; grid-template-columns: minmax(220px, 300px) minmax(0, 1fr); gap: 24px; }
+.workspace-layout aside { min-width: 0; }
+.workspace-layout aside section { margin-bottom: 24px; }
+.workspace-layout h2 { font-size: 17px; }
+.workspace-layout ul { padding: 0; list-style: none; }
+.workspace-layout li { display: grid; gap: 4px; margin-block: 10px; }
+.workspace-layout li button { text-align: left; overflow-wrap: anywhere; }
+.workspace-layout li span { font-size: 12px; color: var(--muted); }
+.workspace-layout button[aria-current="page"] { border-color: var(--accent); background: var(--accent-soft); }
+.workspace-editor { min-width: 0; }
+.workspace-shell button { min-height: 44px; }
+.workspace-shell [role="alert"] { color: var(--warning-text); overflow-wrap: anywhere; }
+@media (max-width: 760px) { .workspace-layout { grid-template-columns: minmax(0, 1fr); } }
+@media (prefers-color-scheme: dark) {
+  :root {
+    --canvas: #16191c; --surface: #202428; --surface-soft: #282d32;
+    --surface-hover: #32383e; --surface-pressed: #3a4148;
+    --text: #f0f2f4; --muted: #b1bac3; --border: #40474e; --border-control: #87929c;
+    --accent: #9acabb; --accent-hover: #acd9cc; --accent-soft: #293d36; --on-accent: #152923;
+    --warning-surface: #392f21; --warning-border: #ab8b58; --warning-text: #f1d7a9;
+  }
+}
+@media (forced-colors: active) { .auth-card { box-shadow: none; } }

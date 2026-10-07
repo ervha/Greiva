@@ -2,6 +2,12 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.29.0 — 2026-10-08
+
+- 専用workspace接続画面でログイン・端末/server Page一覧・作成・本文編集/同期を統合。Auth世代取消、open/cleanup直列化、未送信Page優先、結果不明createの同ID再確認、composition/未保存draftの切替保護を実装。
+- darkタイトルの色と、ACK後の一覧pending件数を補正。Webのnative保存fallbackを禁止し、旧root/CSPを保持する。
+- 通常258/実PG69/新画面10/既存画面64/Auth12、型/Rust/frontend/Windows cross-buildを確認。初回失敗と再確認を別記録。[証拠](tests/evidence/private-workspace-screen-20261008/SUMMARY.md)。実Auth/native grant/IME・rootへの昇格・Task/Relation scoped画面は後続。
+
 ## 0.28.0 — 2026-10-08
 
 - bound workspaceの保存済みPage一覧と未ACK件数をnative IPC/adapterへ追加。未送信Pageを列挙し、UUID keyset/上限100/context/世代を検査、本文・wireを返さずqueueを維持する。

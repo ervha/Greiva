@@ -1,0 +1,84 @@
+{
+  "version": "0.29.0",
+  "totals": {
+    "normal": {
+      "total": 327,
+      "passed": 258,
+      "failed": 0,
+      "pending": 69
+    },
+    "postgres": {
+      "total": 69,
+      "passed": 69,
+      "failed": 0,
+      "pending": 0
+    },
+    "root-ui": {
+      "startTime": "2026-10-07T16:09:59.377Z",
+      "duration": 179432.568,
+      "expected": 64,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "workspace-ui": {
+      "startTime": "2026-10-07T16:17:38.726Z",
+      "duration": 18580.912,
+      "expected": 10,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "auth-ui": {
+      "startTime": "2026-10-07T16:13:42.618Z",
+      "duration": 34222.27,
+      "expected": 12,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "initial-unit": {
+      "total": 6,
+      "passed": 0,
+      "failed": 6,
+      "pending": 0
+    },
+    "initial-workspace-ui": {
+      "startTime": "2026-10-07T16:03:16.147Z",
+      "duration": 57103.364,
+      "expected": 2,
+      "skipped": 0,
+      "unexpected": 8,
+      "flaky": 0
+    },
+    "storage-check-workspace-ui": {
+      "startTime": "2026-10-07T16:05:05.356Z",
+      "duration": 27071.789,
+      "expected": 8,
+      "skipped": 0,
+      "unexpected": 2,
+      "flaky": 0
+    },
+    "initial-postgres": {
+      "total": 69,
+      "passed": 0,
+      "failed": 69,
+      "pending": 0
+    }
+  },
+  "source": {
+    "count": 232,
+    "rawMatches": 220,
+    "textOnly": 12,
+    "excluded": [
+      "playwright.performance.config.ts",
+      "playwright.render-diagnostic.config.ts",
+      "tests/diagnostics/render-isolation.spec.ts",
+      "tests/native/windows-store-fixture.json",
+      "tests/performance/workloads.spec.ts"
+    ]
+  },
+  "realAuth": false,
+  "windowsLaunch": false,
+  "nativeIme": false
+}

@@ -49,6 +49,10 @@ export class NativeWorkspaceStore implements WorkspaceSessionStore {
     const parsed=idSchema.safeParse(pageId);if(!parsed.success)throw new NativeWorkspaceError('protocol');this.check();return new NativeWorkspacePage(this,pageId);
   }
   assertActive(){this.check();}
+  async hasPage(candidate:string):Promise<boolean>{
+    const pageId=idSchema.safeParse(candidate);if(!pageId.success)throw new NativeWorkspaceError('protocol');
+    const value=await this.execute({command:'page_exists',pageId:pageId.data});if(typeof value!=='boolean')throw new NativeWorkspaceError('protocol');this.check();return value;
+  }
   async listPages(candidate:unknown={after:null,limit:50}) {
     const request=privateLocalPageCatalogRequestSchema.safeParse(candidate);if(!request.success)throw new NativeWorkspaceError('protocol');
     const value=await this.execute({command:'page_list',...request.data});

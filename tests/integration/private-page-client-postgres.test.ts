@@ -10,6 +10,7 @@ import {WorkspaceRegistryDevice} from '../support/workspace-registry-device.js';
 import {NativeWorkspaceStore} from '../../apps/client/src/workspace/native-workspace-store.js';
 import {PrivatePageEditorSession} from '../../apps/client/src/editor/private-page-session.js';
 import {nativeWorkspaceDevice} from '../../apps/client/src/workspace/native-workspace-device.js';
+import {PrivateWorkspaceController} from '../../apps/client/src/workspace/private-workspace-controller.js';
 it.skipIf(process.env.GREIVA_TEST_POSTGRES!=='1')('PRIVATE-PAGE-CLIENT-PG: signed fixture HTTP and two actual SQLite stores recover lost ACKs, offline restart, concurrent edits and revoked pending without duplicate binary',async()=>{
   const directory=mkdtempSync(join(tmpdir(),'greiva-private-page-client-')),schema='greiva_private_'+newId().replaceAll('-',''),pool=new pg.Pool({connectionString:process.env.DATABASE_URL}),projectUrl='https://project.fixture.invalid',keys=await generateKeyPair('ES256'),jwk={...await exportJWK(keys.publicKey),kid:'fixture',alg:'ES256'};
   const registries:WorkspaceRegistryDevice[]=[],devices:WorkspaceDevice[]=[],auths:ReturnType<typeof supabaseAuthSession>[]=[],docs:Y.Doc[]=[];let app:Awaited<ReturnType<typeof createSupabasePrivateApp>>|undefined;
@@ -60,6 +61,17 @@ it.skipIf(process.env.GREIVA_TEST_POSTGRES!=='1')('PRIVATE-PAGE-CLIENT-PG: signe
     const nextStore=await NativeWorkspaceStore.open(nextConnection,registry.invoke),nextEditor=await PrivatePageEditorSession.open(nextConnection,nextStore,id,{kind:'local'});
     expect(nextEditor.snapshot).toMatchObject({pending:1,synced:false});expect(await nextStore.page(id).prepare()).toEqual(retained);expect(nextEditor.document.getXmlFragment('body').toString()).toContain('relogin ');
     await nextEditor.sync();expect(nextEditor.snapshot).toMatchObject({pending:0,synced:true});expect((await pool.query(`SELECT count(*)::int AS n FROM "${schema}".private_devices`)).rows[0].n).toBe(2);
-    await nextEditor.close();await nextStore.close();nextConnection.close();
+    await nextEditor.close();await nextStore.close();
+    const assembly=new PrivateWorkspaceController(registry.invoke);
+    try{
+      await assembly.connect(nextConnection);expect(assembly.snapshot.phase).toBe('ready');expect(assembly.snapshot.localPages[0]?.metadata.id).toBe(id);
+      await assembly.loadRemote();await assembly.openPage(id);edit(assembly.editor!.document,'assembly ');await assembly.editor!.durable();await assembly.close();
+      await nextAuth.refresh();await nextConnection.bootstrap();await assembly.connect(nextConnection);await assembly.openPage(id);
+      expect(assembly.editor!.snapshot).toMatchObject({pending:1,synced:false});expect(assembly.editor!.document.getXmlFragment('body').toString()).toContain('assembly ');
+      await assembly.editor!.sync();await assembly.createPage('composition Page');const created=assembly.editor!.pageId;
+      expect(assembly.snapshot.localPages.some(page=>page.metadata.id===created)).toBe(true);expect(assembly.editor!.snapshot.synced).toBe(false);
+      await assembly.editor!.sync();await assembly.loadRemote();expect(assembly.snapshot.remotePages.some(page=>page.id===created)).toBe(true);
+      await nextAuth.refresh();expect(assembly.snapshot.phase).toBe('closed');expect(assembly.snapshot.localPages).toEqual([]);expect(assembly.snapshot.remotePages).toEqual([]);
+    }finally{await assembly.dispose();nextConnection.close();}
   }finally{for(const auth of auths)auth.close();for(const doc of docs)doc.destroy();for(const device of devices)await device.close();for(const registry of registries)await registry.close();await app?.close();try{await pool.query(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);}finally{await pool.end();rmSync(directory,{recursive:true,force:true});}}
 });

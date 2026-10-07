@@ -122,6 +122,7 @@ impl WorkspaceStore {
     pub async fn page_create(&self,id:&str,title:&str,bytes:&[u8])->StoreResult<()> {safe(self.inner.private_page_create(&self.context.client_id,id,title,bytes).await)}
     pub async fn page_append(&self,id:&str,bytes:&[u8])->StoreResult<()> {safe(self.inner.private_page_append(&self.context.client_id,id,bytes).await)}
     pub async fn page_load(&self,id:&str)->StoreResult<Value> {safe(self.inner.private_page_load(id).await)}
+    pub async fn page_exists(&self,id:&str)->StoreResult<bool> {safe(self.inner.private_page_exists(id).await)}
     pub async fn page_list(&self,after:Option<&str>,limit:usize)->StoreResult<Value> {
         let list=safe(self.inner.private_page_list(after,limit).await)?;
         Ok(json!({"context":self.context,"pages":list["pages"],"nextAfter":list["nextAfter"]}))

@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+最新v0.29.0：[個人workspace接続画面](../development/PRIVATE_WORKSPACE_SCREEN.md)を専用entryへ追加。login/端末・server一覧/create/open/editor/sync、Auth取消、結果不明createの同ID再確認、pagination外local優先、composition/failed draftのnavigation保護を接続。通常258/実PG69/新画面10/既存画面64/Auth12/型/Rust/frontend/Windows cross-buildを確認。[証拠・初回失敗/画像修正](../../tests/evidence/private-workspace-screen-20261008/SUMMARY.md)。旧root/CSPを保持し、実native認証/IMEや本番既定入口への昇格は別工程。次はTask/Relationのworkspace接続基盤へ進む。
+
 最新v0.28.0：[端末Page一覧](../development/LOCAL_PAGE_CATALOG.md)を追加。未送信の新規Pageもmetadata/pending件数として列挙できる。strict native command、UUID keyset、captured context/世代を検査し、一覧読取でqueueを消費しない。通常251/型/Rust/frontend/Windows cross-buildがPass。[証拠](../../tests/evidence/local-page-catalog-20261008/SUMMARY.md)。通常画面compositionへ続行し、実Auth/native IME/offline権限は別工程。
 
 最新v0.27.0：[アカウント別native端末ID](../development/PRIVATE_DEVICE_IDENTITY.md)を実装。同じissuer＋subjectで同IDを再利用し、再ログイン後の保存済みPage・pending exact wire再openを実HTTP/PG/Rust SQLiteで確認した。通常246/実PG69/画面64/Auth画面12、型/frontend/driver/通常Windows cross-buildがPass。[全16判断](../decisions/private-device-identity.md)、[証拠](../../tests/evidence/private-device-20261008/SUMMARY.md)。source221一致、外部依存不変。device metadata欠損時は空の代替DBへ切り替えず停止する。メール/tokenをこのDBへ保存しない。通常画面composition、native Auth/grant/offline権限、旧private root取り込み、実Windows/IMEと暗号化配備は後続。次は通常アプリの接続compositionとnative認証契約へ進む。

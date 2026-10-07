@@ -4,7 +4,7 @@ process.env.VITE_GREIVA_TEST_SQLITE = '1';
 const evidence = process.env.GREIVA_EVIDENCE_DIR ?? 'tests/evidence/runs/latest';
 export default defineConfig({
   testDir: './tests/e2e', fullyParallel: false, retries: 0,
-  ...(process.env.GREIVA_TEST_STRUCTURED_SYNC ? {testMatch:process.env.GREIVA_TEST_STRUCTURED_SYNC==='crash' ? 'structured-crash.spec.ts':'structured-sync.spec.ts'} : {testIgnore:['structured-sync.spec.ts','structured-crash.spec.ts','private-login.spec.ts']}),
+  ...(process.env.GREIVA_TEST_STRUCTURED_SYNC ? {testMatch:process.env.GREIVA_TEST_STRUCTURED_SYNC==='crash' ? 'structured-crash.spec.ts':'structured-sync.spec.ts'} : {testIgnore:['structured-sync.spec.ts','structured-crash.spec.ts','private-login.spec.ts','private-workspace.spec.ts']}),
   workers: 2,
   reporter: [['list'], ['json', { outputFile: `${evidence}/playwright.json` }], ['junit', { outputFile: `${evidence}/playwright.xml` }]],
   outputDir: `${evidence}/artifacts`,

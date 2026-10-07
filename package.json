@@ -1,7 +1,7 @@
 {
   "name": "greiva-poc",
   "private": true,
-  "version": "0.28.0",
+  "version": "0.29.0",
   "type": "module",
   "workspaces": [
     "packages/*",
@@ -33,7 +33,8 @@
     "versions": "node scripts/versions.mjs",
     "evidence": "node scripts/evidence.mjs",
     "evidence:container": "node scripts/evidence.mjs --container --desktop --step=8",
-    "build:servers": "npm run build -w @greiva/api && npm run build -w @greiva/collaboration"
+    "build:servers": "npm run build -w @greiva/api && npm run build -w @greiva/collaboration",
+    "test:workspace-e2e": "npm run build:packages && playwright test -c playwright.private-workspace.config.ts"
   },
   "devDependencies": {
     "typescript": "7.0.2",

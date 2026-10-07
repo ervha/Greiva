@@ -1,0 +1,297 @@
+
+Running 10 tests using 1 worker
+
+  ✘   1 [desktop] › tests/e2e/private-workspace.spec.ts:7:1 › WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries (6.2s)
+  ✘   2 [desktop] › tests/e2e/private-workspace.spec.ts:14:1 › WORKSPACE-SCREEN: remote selection checks local presence beyond first page and remote-only download remains unconfirmed (6.2s)
+  ✓   3 [desktop] › tests/e2e/private-workspace.spec.ts:20:1 › WORKSPACE-SCREEN: close during native open suppresses late ready; production Web has no persistence fallback (1.6s)
+  ✘   4 [desktop] › tests/e2e/private-workspace.spec.ts:24:1 › WORKSPACE-SCREEN: status/catalog rendering preserves selection/composition and uncertain create retries one ID (6.1s)
+  ✘   5 [desktop] › tests/e2e/private-workspace.spec.ts:29:1 › WORKSPACE-SCREEN: failed commit retains copyable draft and blocks destructive navigation without leaking causes (6.0s)
+  ✘   6 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:7:1 › WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries (6.0s)
+  ✘   7 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:14:1 › WORKSPACE-SCREEN: remote selection checks local presence beyond first page and remote-only download remains unconfirmed (6.0s)
+  ✓   8 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:20:1 › WORKSPACE-SCREEN: close during native open suppresses late ready; production Web has no persistence fallback (1.5s)
+  ✘   9 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:24:1 › WORKSPACE-SCREEN: status/catalog rendering preserves selection/composition and uncertain create retries one ID (6.0s)
+  ✘  10 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:29:1 › WORKSPACE-SCREEN: failed commit retains copyable draft and blocks destructive navigation without leaking causes (6.1s)
+
+
+  1) [desktop] › tests/e2e/private-workspace.spec.ts:7:1 › WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: '新しいPageを作成', exact: true })
+    Expected: enabled
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" getByRole('button', { name: '新しいPageを作成', exact: true }) with timeout 5000ms
+      - waiting for getByRole('button', { name: '新しいPageを作成', exact: true })
+
+
+      3 | declare global{interface Window{workspaceTest:Fixture}}
+      4 | const errors=new WeakMap<Page,string[]>();test.beforeEach(({page})=>{const values:string[]=[];errors.set(page,values);page.on('pageerror',error=>values.push(error.message));});test.afterEach(({page})=>expect(errors.get(page)).toEqual([]));
+    > 5 | async function login(page:Page){await page.getByRole('textbox',{name:'メールアドレス',exact:true}).fill('fixture@example.invalid');await page.getByLabel('パスワード',{exact:true}).fill('fixture-password');await page.getByRole('button',{name:'ログイン',exact:true}).click();await expect(page.getByLabel('認証状態',{exact:true})).toHaveText('認証を確認しました');await page.getByRole('button',{name:'workspaceを開く',exact:true}).click();await expect(page.getByRole('button',{name:'新しいPageを作成',exact:true})).toBeEnabled();}
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+      6 | async function create(page:Page,title='私のPage'){await page.getByLabel('新しいPageのタイトル',{exact:true}).fill(title);await page.getByRole('button',{name:'新しいPageを作成',exact:true}).click();await expect(page.getByRole('textbox',{name:'Page本文',exact:true})).toBeVisible();}
+      7 | test('WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries',async({page},info)=>{
+      8 |  await page.goto('/private-workspace.fixture.html');await login(page);await create(page);const body=page.getByRole('textbox',{name:'Page本文',exact:true});await body.click();await page.keyboard.type('saved text');await page.evaluate(()=>window.workspaceTest.durable());const before=await page.evaluate(()=>window.workspaceTest.snapshot().pages);
+        at login (/workspace/tests/e2e/private-workspace.spec.ts:5:475)
+        at /workspace/tests/e2e/private-workspace.spec.ts:8:53
+
+    Error Context: .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-2538c-d-native-browser-boundaries-desktop/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-2538c-d-native-browser-boundaries-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-2538c-d-native-browser-boundaries-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [desktop] › tests/e2e/private-workspace.spec.ts:14:1 › WORKSPACE-SCREEN: remote selection checks local presence beyond first page and remote-only download remains unconfirmed
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: '新しいPageを作成', exact: true })
+    Expected: enabled
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" getByRole('button', { name: '新しいPageを作成', exact: true }) with timeout 5000ms
+      - waiting for getByRole('button', { name: '新しいPageを作成', exact: true })
+
+
+      3 | declare global{interface Window{workspaceTest:Fixture}}
+      4 | const errors=new WeakMap<Page,string[]>();test.beforeEach(({page})=>{const values:string[]=[];errors.set(page,values);page.on('pageerror',error=>values.push(error.message));});test.afterEach(({page})=>expect(errors.get(page)).toEqual([]));
+    > 5 | async function login(page:Page){await page.getByRole('textbox',{name:'メールアドレス',exact:true}).fill('fixture@example.invalid');await page.getByLabel('パスワード',{exact:true}).fill('fixture-password');await page.getByRole('button',{name:'ログイン',exact:true}).click();await expect(page.getByLabel('認証状態',{exact:true})).toHaveText('認証を確認しました');await page.getByRole('button',{name:'workspaceを開く',exact:true}).click();await expect(page.getByRole('button',{name:'新しいPageを作成',exact:true})).toBeEnabled();}
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+      6 | async function create(page:Page,title='私のPage'){await page.getByLabel('新しいPageのタイトル',{exact:true}).fill(title);await page.getByRole('button',{name:'新しいPageを作成',exact:true}).click();await expect(page.getByRole('textbox',{name:'Page本文',exact:true})).toBeVisible();}
+      7 | test('WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries',async({page},info)=>{
+      8 |  await page.goto('/private-workspace.fixture.html');await login(page);await create(page);const body=page.getByRole('textbox',{name:'Page本文',exact:true});await body.click();await page.keyboard.type('saved text');await page.evaluate(()=>window.workspaceTest.durable());const before=await page.evaluate(()=>window.workspaceTest.snapshot().pages);
+        at login (/workspace/tests/e2e/private-workspace.spec.ts:5:475)
+        at /workspace/tests/e2e/private-workspace.spec.ts:15:53
+
+    Error Context: .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-d6f62-ownload-remains-unconfirmed-desktop/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-d6f62-ownload-remains-unconfirmed-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-d6f62-ownload-remains-unconfirmed-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [desktop] › tests/e2e/private-workspace.spec.ts:24:1 › WORKSPACE-SCREEN: status/catalog rendering preserves selection/composition and uncertain create retries one ID
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: '新しいPageを作成', exact: true })
+    Expected: enabled
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" getByRole('button', { name: '新しいPageを作成', exact: true }) with timeout 5000ms
+      - waiting for getByRole('button', { name: '新しいPageを作成', exact: true })
+
+
+      3 | declare global{interface Window{workspaceTest:Fixture}}
+      4 | const errors=new WeakMap<Page,string[]>();test.beforeEach(({page})=>{const values:string[]=[];errors.set(page,values);page.on('pageerror',error=>values.push(error.message));});test.afterEach(({page})=>expect(errors.get(page)).toEqual([]));
+    > 5 | async function login(page:Page){await page.getByRole('textbox',{name:'メールアドレス',exact:true}).fill('fixture@example.invalid');await page.getByLabel('パスワード',{exact:true}).fill('fixture-password');await page.getByRole('button',{name:'ログイン',exact:true}).click();await expect(page.getByLabel('認証状態',{exact:true})).toHaveText('認証を確認しました');await page.getByRole('button',{name:'workspaceを開く',exact:true}).click();await expect(page.getByRole('button',{name:'新しいPageを作成',exact:true})).toBeEnabled();}
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+      6 | async function create(page:Page,title='私のPage'){await page.getByLabel('新しいPageのタイトル',{exact:true}).fill(title);await page.getByRole('button',{name:'新しいPageを作成',exact:true}).click();await expect(page.getByRole('textbox',{name:'Page本文',exact:true})).toBeVisible();}
+      7 | test('WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries',async({page},info)=>{
+      8 |  await page.goto('/private-workspace.fixture.html');await login(page);await create(page);const body=page.getByRole('textbox',{name:'Page本文',exact:true});await body.click();await page.keyboard.type('saved text');await page.evaluate(()=>window.workspaceTest.durable());const before=await page.evaluate(()=>window.workspaceTest.snapshot().pages);
+        at login (/workspace/tests/e2e/private-workspace.spec.ts:5:475)
+        at /workspace/tests/e2e/private-workspace.spec.ts:25:53
+
+    Error Context: .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-2ca93-rtain-create-retries-one-ID-desktop/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-2ca93-rtain-create-retries-one-ID-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-2ca93-rtain-create-retries-one-ID-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [desktop] › tests/e2e/private-workspace.spec.ts:29:1 › WORKSPACE-SCREEN: failed commit retains copyable draft and blocks destructive navigation without leaking causes
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: '新しいPageを作成', exact: true })
+    Expected: enabled
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" getByRole('button', { name: '新しいPageを作成', exact: true }) with timeout 5000ms
+      - waiting for getByRole('button', { name: '新しいPageを作成', exact: true })
+
+
+      3 | declare global{interface Window{workspaceTest:Fixture}}
+      4 | const errors=new WeakMap<Page,string[]>();test.beforeEach(({page})=>{const values:string[]=[];errors.set(page,values);page.on('pageerror',error=>values.push(error.message));});test.afterEach(({page})=>expect(errors.get(page)).toEqual([]));
+    > 5 | async function login(page:Page){await page.getByRole('textbox',{name:'メールアドレス',exact:true}).fill('fixture@example.invalid');await page.getByLabel('パスワード',{exact:true}).fill('fixture-password');await page.getByRole('button',{name:'ログイン',exact:true}).click();await expect(page.getByLabel('認証状態',{exact:true})).toHaveText('認証を確認しました');await page.getByRole('button',{name:'workspaceを開く',exact:true}).click();await expect(page.getByRole('button',{name:'新しいPageを作成',exact:true})).toBeEnabled();}
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+      6 | async function create(page:Page,title='私のPage'){await page.getByLabel('新しいPageのタイトル',{exact:true}).fill(title);await page.getByRole('button',{name:'新しいPageを作成',exact:true}).click();await expect(page.getByRole('textbox',{name:'Page本文',exact:true})).toBeVisible();}
+      7 | test('WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries',async({page},info)=>{
+      8 |  await page.goto('/private-workspace.fixture.html');await login(page);await create(page);const body=page.getByRole('textbox',{name:'Page本文',exact:true});await body.click();await page.keyboard.type('saved text');await page.evaluate(()=>window.workspaceTest.durable());const before=await page.evaluate(()=>window.workspaceTest.snapshot().pages);
+        at login (/workspace/tests/e2e/private-workspace.spec.ts:5:475)
+        at /workspace/tests/e2e/private-workspace.spec.ts:30:53
+
+    Error Context: .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-75015-tion-without-leaking-causes-desktop/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-75015-tion-without-leaking-causes-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-75015-tion-without-leaking-causes-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:7:1 › WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: '新しいPageを作成', exact: true })
+    Expected: enabled
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" getByRole('button', { name: '新しいPageを作成', exact: true }) with timeout 5000ms
+      - waiting for getByRole('button', { name: '新しいPageを作成', exact: true })
+
+
+      3 | declare global{interface Window{workspaceTest:Fixture}}
+      4 | const errors=new WeakMap<Page,string[]>();test.beforeEach(({page})=>{const values:string[]=[];errors.set(page,values);page.on('pageerror',error=>values.push(error.message));});test.afterEach(({page})=>expect(errors.get(page)).toEqual([]));
+    > 5 | async function login(page:Page){await page.getByRole('textbox',{name:'メールアドレス',exact:true}).fill('fixture@example.invalid');await page.getByLabel('パスワード',{exact:true}).fill('fixture-password');await page.getByRole('button',{name:'ログイン',exact:true}).click();await expect(page.getByLabel('認証状態',{exact:true})).toHaveText('認証を確認しました');await page.getByRole('button',{name:'workspaceを開く',exact:true}).click();await expect(page.getByRole('button',{name:'新しいPageを作成',exact:true})).toBeEnabled();}
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+      6 | async function create(page:Page,title='私のPage'){await page.getByLabel('新しいPageのタイトル',{exact:true}).fill(title);await page.getByRole('button',{name:'新しいPageを作成',exact:true}).click();await expect(page.getByRole('textbox',{name:'Page本文',exact:true})).toBeVisible();}
+      7 | test('WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries',async({page},info)=>{
+      8 |  await page.goto('/private-workspace.fixture.html');await login(page);await create(page);const body=page.getByRole('textbox',{name:'Page本文',exact:true});await body.click();await page.keyboard.type('saved text');await page.evaluate(()=>window.workspaceTest.durable());const before=await page.evaluate(()=>window.workspaceTest.snapshot().pages);
+        at login (/workspace/tests/e2e/private-workspace.spec.ts:5:475)
+        at /workspace/tests/e2e/private-workspace.spec.ts:8:53
+
+    Error Context: .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-2538c-d-native-browser-boundaries-mobile-dark-reduced-motion/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-2538c-d-native-browser-boundaries-mobile-dark-reduced-motion/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-2538c-d-native-browser-boundaries-mobile-dark-reduced-motion/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:14:1 › WORKSPACE-SCREEN: remote selection checks local presence beyond first page and remote-only download remains unconfirmed
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: '新しいPageを作成', exact: true })
+    Expected: enabled
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" getByRole('button', { name: '新しいPageを作成', exact: true }) with timeout 5000ms
+      - waiting for getByRole('button', { name: '新しいPageを作成', exact: true })
+
+
+      3 | declare global{interface Window{workspaceTest:Fixture}}
+      4 | const errors=new WeakMap<Page,string[]>();test.beforeEach(({page})=>{const values:string[]=[];errors.set(page,values);page.on('pageerror',error=>values.push(error.message));});test.afterEach(({page})=>expect(errors.get(page)).toEqual([]));
+    > 5 | async function login(page:Page){await page.getByRole('textbox',{name:'メールアドレス',exact:true}).fill('fixture@example.invalid');await page.getByLabel('パスワード',{exact:true}).fill('fixture-password');await page.getByRole('button',{name:'ログイン',exact:true}).click();await expect(page.getByLabel('認証状態',{exact:true})).toHaveText('認証を確認しました');await page.getByRole('button',{name:'workspaceを開く',exact:true}).click();await expect(page.getByRole('button',{name:'新しいPageを作成',exact:true})).toBeEnabled();}
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+      6 | async function create(page:Page,title='私のPage'){await page.getByLabel('新しいPageのタイトル',{exact:true}).fill(title);await page.getByRole('button',{name:'新しいPageを作成',exact:true}).click();await expect(page.getByRole('textbox',{name:'Page本文',exact:true})).toBeVisible();}
+      7 | test('WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries',async({page},info)=>{
+      8 |  await page.goto('/private-workspace.fixture.html');await login(page);await create(page);const body=page.getByRole('textbox',{name:'Page本文',exact:true});await body.click();await page.keyboard.type('saved text');await page.evaluate(()=>window.workspaceTest.durable());const before=await page.evaluate(()=>window.workspaceTest.snapshot().pages);
+        at login (/workspace/tests/e2e/private-workspace.spec.ts:5:475)
+        at /workspace/tests/e2e/private-workspace.spec.ts:15:53
+
+    Error Context: .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-d6f62-ownload-remains-unconfirmed-mobile-dark-reduced-motion/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-d6f62-ownload-remains-unconfirmed-mobile-dark-reduced-motion/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-d6f62-ownload-remains-unconfirmed-mobile-dark-reduced-motion/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  7) [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:24:1 › WORKSPACE-SCREEN: status/catalog rendering preserves selection/composition and uncertain create retries one ID
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: '新しいPageを作成', exact: true })
+    Expected: enabled
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" getByRole('button', { name: '新しいPageを作成', exact: true }) with timeout 5000ms
+      - waiting for getByRole('button', { name: '新しいPageを作成', exact: true })
+
+
+      3 | declare global{interface Window{workspaceTest:Fixture}}
+      4 | const errors=new WeakMap<Page,string[]>();test.beforeEach(({page})=>{const values:string[]=[];errors.set(page,values);page.on('pageerror',error=>values.push(error.message));});test.afterEach(({page})=>expect(errors.get(page)).toEqual([]));
+    > 5 | async function login(page:Page){await page.getByRole('textbox',{name:'メールアドレス',exact:true}).fill('fixture@example.invalid');await page.getByLabel('パスワード',{exact:true}).fill('fixture-password');await page.getByRole('button',{name:'ログイン',exact:true}).click();await expect(page.getByLabel('認証状態',{exact:true})).toHaveText('認証を確認しました');await page.getByRole('button',{name:'workspaceを開く',exact:true}).click();await expect(page.getByRole('button',{name:'新しいPageを作成',exact:true})).toBeEnabled();}
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+      6 | async function create(page:Page,title='私のPage'){await page.getByLabel('新しいPageのタイトル',{exact:true}).fill(title);await page.getByRole('button',{name:'新しいPageを作成',exact:true}).click();await expect(page.getByRole('textbox',{name:'Page本文',exact:true})).toBeVisible();}
+      7 | test('WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries',async({page},info)=>{
+      8 |  await page.goto('/private-workspace.fixture.html');await login(page);await create(page);const body=page.getByRole('textbox',{name:'Page本文',exact:true});await body.click();await page.keyboard.type('saved text');await page.evaluate(()=>window.workspaceTest.durable());const before=await page.evaluate(()=>window.workspaceTest.snapshot().pages);
+        at login (/workspace/tests/e2e/private-workspace.spec.ts:5:475)
+        at /workspace/tests/e2e/private-workspace.spec.ts:25:53
+
+    Error Context: .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-2ca93-rtain-create-retries-one-ID-mobile-dark-reduced-motion/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-2ca93-rtain-create-retries-one-ID-mobile-dark-reduced-motion/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-2ca93-rtain-create-retries-one-ID-mobile-dark-reduced-motion/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  8) [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:29:1 › WORKSPACE-SCREEN: failed commit retains copyable draft and blocks destructive navigation without leaking causes
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('button', { name: '新しいPageを作成', exact: true })
+    Expected: enabled
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" getByRole('button', { name: '新しいPageを作成', exact: true }) with timeout 5000ms
+      - waiting for getByRole('button', { name: '新しいPageを作成', exact: true })
+
+
+      3 | declare global{interface Window{workspaceTest:Fixture}}
+      4 | const errors=new WeakMap<Page,string[]>();test.beforeEach(({page})=>{const values:string[]=[];errors.set(page,values);page.on('pageerror',error=>values.push(error.message));});test.afterEach(({page})=>expect(errors.get(page)).toEqual([]));
+    > 5 | async function login(page:Page){await page.getByRole('textbox',{name:'メールアドレス',exact:true}).fill('fixture@example.invalid');await page.getByLabel('パスワード',{exact:true}).fill('fixture-password');await page.getByRole('button',{name:'ログイン',exact:true}).click();await expect(page.getByLabel('認証状態',{exact:true})).toHaveText('認証を確認しました');await page.getByRole('button',{name:'workspaceを開く',exact:true}).click();await expect(page.getByRole('button',{name:'新しいPageを作成',exact:true})).toBeEnabled();}
+        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+      6 | async function create(page:Page,title='私のPage'){await page.getByLabel('新しいPageのタイトル',{exact:true}).fill(title);await page.getByRole('button',{name:'新しいPageを作成',exact:true}).click();await expect(page.getByRole('textbox',{name:'Page本文',exact:true})).toBeVisible();}
+      7 | test('WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries',async({page},info)=>{
+      8 |  await page.goto('/private-workspace.fixture.html');await login(page);await create(page);const body=page.getByRole('textbox',{name:'Page本文',exact:true});await body.click();await page.keyboard.type('saved text');await page.evaluate(()=>window.workspaceTest.durable());const before=await page.evaluate(()=>window.workspaceTest.snapshot().pages);
+        at login (/workspace/tests/e2e/private-workspace.spec.ts:5:475)
+        at /workspace/tests/e2e/private-workspace.spec.ts:30:53
+
+    Error Context: .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-75015-tion-without-leaking-causes-mobile-dark-reduced-motion/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-75015-tion-without-leaking-causes-mobile-dark-reduced-motion/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261008/v29/workspace-ui/artifacts/private-workspace-WORKSPAC-75015-tion-without-leaking-causes-mobile-dark-reduced-motion/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  8 failed
+    [desktop] › tests/e2e/private-workspace.spec.ts:7:1 › WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries
+    [desktop] › tests/e2e/private-workspace.spec.ts:14:1 › WORKSPACE-SCREEN: remote selection checks local presence beyond first page and remote-only download remains unconfirmed
+    [desktop] › tests/e2e/private-workspace.spec.ts:24:1 › WORKSPACE-SCREEN: status/catalog rendering preserves selection/composition and uncertain create retries one ID
+    [desktop] › tests/e2e/private-workspace.spec.ts:29:1 › WORKSPACE-SCREEN: failed commit retains copyable draft and blocks destructive navigation without leaking causes
+    [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:7:1 › WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries
+    [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:14:1 › WORKSPACE-SCREEN: remote selection checks local presence beyond first page and remote-only download remains unconfirmed
+    [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:24:1 › WORKSPACE-SCREEN: status/catalog rendering preserves selection/composition and uncertain create retries one ID
+    [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:29:1 › WORKSPACE-SCREEN: failed commit retains copyable draft and blocks destructive navigation without leaking causes
+  2 passed (57.1s)

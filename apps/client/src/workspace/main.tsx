@@ -1,0 +1,12 @@
+import { createRoot } from 'react-dom/client';
+import { isTauri } from '@tauri-apps/api/core';
+import { PrivateLoginController, type PrivateLoginConfiguration } from '../auth/private-login';
+import { nativeWorkspaceDevice } from './native-workspace-device';
+import { PrivateWorkspaceController } from './private-workspace-controller';
+import { PrivateWorkspaceScreen } from './PrivateWorkspaceScreen';
+import '../style.css';
+import './style.css';
+const configuration={projectUrl:import.meta.env.VITE_GREIVA_SUPABASE_URL??'',publishableKey:import.meta.env.VITE_GREIVA_SUPABASE_PUBLISHABLE_KEY??'',algorithm:import.meta.env.VITE_GREIVA_SUPABASE_ALGORITHM??'',apiUrl:import.meta.env.VITE_GREIVA_PRIVATE_API_ORIGIN??''} as PrivateLoginConfiguration;
+const login=new PrivateLoginController(configuration,globalThis.fetch,nativeWorkspaceDevice),workspace=new PrivateWorkspaceController();
+window.addEventListener('pagehide',()=>{login.dispose();void workspace.dispose();},{once:true});
+createRoot(document.getElementById('root')!).render(<PrivateWorkspaceScreen login={login} workspace={workspace} nativeAvailable={isTauri()}/>);

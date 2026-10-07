@@ -72,6 +72,11 @@ async fn advance_head(tx:&mut Transaction<'_,Sqlite>,id:&str,head:i64)->StoreRes
     sqlx::query("UPDATE workspace_page_documents SET server_head=? WHERE page_id=?").bind(head.to_string()).bind(id).execute(&mut **tx).await.map_err(|e|e.to_string())?;Ok(true)
 }
 impl PageStore {
+    pub(super) async fn private_page_exists(&self,id:&str)->StoreResult<bool> {
+        validate_id(id)?;
+        let count:i64=sqlx::query_scalar("SELECT count(*) FROM workspace_page_documents WHERE page_id=?").bind(id).fetch_one(&self.pool).await.map_err(|e|e.to_string())?;
+        Ok(count==1)
+    }
     pub(super) async fn private_page_list(&self,after:Option<&str>,limit:usize)->StoreResult<Value> {
         if !(1..=100).contains(&limit){return Err("Invalid Page list limit".into());}
         if let Some(id)=after{validate_id(id)?;}

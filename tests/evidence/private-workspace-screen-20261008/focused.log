@@ -1,0 +1,112 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [31m❯[39m tests/unit/private-workspace-controller.test.ts [2m([22m[2m6 tests[22m[2m | [22m[31m6 failed[39m[2m)[22m[33m 1121[2mms[22m[39m
+[31m   [31m×[31m WORKSPACE-UI: local create/edit/logout/re-login keeps captured store and exact pending; remote catalog is explicit[39m[32m 34[2mms[22m[39m
+[31m   [31m×[31m WORKSPACE-UI: remote selection uses local pending even outside first local pagination; missing local downloads without implicit sync[39m[32m 23[2mms[22m[39m
+[31m   [31m×[31m WORKSPACE-UI: ignored-abort slow native open is serialized and cleaned before replacement opens; old Auth abort cannot cancel new connect[39m[32m 56[2mms[22m[39m
+[31m   [31m×[31m WORKSPACE-UI: close removes titles/editor and ignored-abort catalog never repopulates them[39m[33m 1002[2mms[22m[39m
+[31m   [31m×[31m WORKSPACE-UI: uncertain create retries same ID; composition and failed draft block navigation and preserve copyable body[39m[32m 2[2mms[22m[39m
+[31m   [31m×[31m WORKSPACE-UI: catalog transport errors retain same-account local Pages and never expose private causes[39m[32m 4[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 6 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/unit/private-workspace-controller.test.ts[2m > [22mWORKSPACE-UI: local create/edit/logout/re-login keeps captured store and exact pending; remote catalog is explicit
+[31m[1mAssertionError[22m: expected { phase: 'error', busy: false, …(9) } to match object { phase: 'ready', …(2) }
+(8 matching properties omitted from actual)[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[2m  {[22m
+[2m    "localPages": [],[22m
+[32m-   "phase": "ready",[39m
+[31m+   "phase": "error",[39m
+[2m    "remoteStatus": "unloaded",[22m
+[2m  }[22m
+
+[36m [2m❯[22m tests/unit/private-workspace-controller.test.ts:[2m10:112[22m[39m
+    [90m  8|[39m
+    [90m  9|[39m it('WORKSPACE-UI: local create/edit/logout/re-login keeps captured sto…
+    [90m 10|[39m  const f=await fixture();try{await f.workspace.connect(f.login.activeC…
+    [90m   |[39m                                                                                                                [31m^[39m
+    [90m 11|[39m  await f.workspace.createPage('local');const page=f.workspace.editor!;…
+    [90m 12|[39m  await f.workspace.close();await f.login.logout();expect(f.workspace.s…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/6]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/unit/private-workspace-controller.test.ts[2m > [22mWORKSPACE-UI: remote selection uses local pending even outside first local pagination; missing local downloads without implicit sync
+[31m[1mTypeError[22m: Cannot read properties of null (reading 'snapshot')[39m
+[36m [2m❯[22m tests/unit/private-workspace-controller.test.ts:[2m20:67[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/6]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/unit/private-workspace-controller.test.ts[2m > [22mWORKSPACE-UI: ignored-abort slow native open is serialized and cleaned before replacement opens; old Auth abort cannot cancel new connect
+[31m[1mAssertionError[22m: expected 'error' to be 'ready' // Object.is equality[39m
+
+Expected: [32m"ready"[39m
+Received: [31m"error"[39m
+
+[36m [2m❯[22m tests/unit/private-workspace-controller.test.ts:[2m25:189[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/6]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/unit/private-workspace-controller.test.ts[2m > [22mWORKSPACE-UI: close removes titles/editor and ignored-abort catalog never repopulates them
+[31m[1mAssertionError[22m: expected false to be true // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+[36m [2m❯[22m tests/unit/private-workspace-controller.test.ts:[2m29:257[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/6]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/unit/private-workspace-controller.test.ts[2m > [22mWORKSPACE-UI: uncertain create retries same ID; composition and failed draft block navigation and preserve copyable body
+[31m[1mAssertionError[22m: expected false to be true // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+[36m [2m❯[22m tests/unit/private-workspace-controller.test.ts:[2m33:200[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/6]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/unit/private-workspace-controller.test.ts[2m > [22mWORKSPACE-UI: catalog transport errors retain same-account local Pages and never expose private causes
+[31m[1mAssertionError[22m: expected { phase: 'error', busy: false, …(9) } to match object { phase: 'ready', …(2) }
+(8 matching properties omitted from actual)[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[2m  {[22m
+[32m-   "error": "transport",[39m
+[32m-   "phase": "ready",[39m
+[32m-   "remoteStatus": "error",[39m
+[31m+   "error": "protocol",[39m
+[31m+   "phase": "error",[39m
+[31m+   "remoteStatus": "unloaded",[39m
+[2m  }[22m
+
+[36m [2m❯[22m tests/unit/private-workspace-controller.test.ts:[2m38:210[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/6]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m6 failed[39m[22m[90m (6)[39m
+[2m   Start at [22m 16:02:50
+[2m   Duration [22m 1.89s[2m (tests 64%, transform 18%, import 18%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261008/v29/focused/vitest.json
+JUNIT report written to /workspace/.data/autonomous-20261008/v29/focused/vitest.xml

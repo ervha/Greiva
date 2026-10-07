@@ -32,6 +32,8 @@ export class PrivateLoginController {
     return Object.freeze({ phase: this.#phase, busy: busyPhases.includes(this.#phase), identity: rotating ? null : this.#auth?.identity ?? null,
       context: rotating ? null : this.#connection?.context ?? null, message: this.#message });
   }
+  // Trusted UI composition only. Never exposes tokens or bypasses a generation.
+  get activeConnection():PrivateWorkspaceConnection|null {return this.#phase==='ready' && this.#connection?.context?this.#connection:null;}
   subscribe(listener: (snapshot: LoginSnapshot) => void) { if (this.#disposed) return () => {}; this.#listeners.add(listener); listener(this.snapshot); return () => { this.#listeners.delete(listener); }; }
   #publish() { if (!this.#disposed) for (const listener of this.#listeners) listener(this.snapshot); }
   #clearTimer() { clearTimeout(this.#expiry); this.#expiry = undefined; }

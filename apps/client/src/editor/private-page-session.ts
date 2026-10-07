@@ -119,6 +119,7 @@ export class PrivatePageEditorSession {
     void this.tail.catch(() => {});
   };
   durable(): Promise<void> { return this.tail; }
+  get isComposing():boolean {return this.composing;}
   pendingUpdates = () => this.state.pending;
   setComposing = (value: boolean) => { this.composing = value; if (!value) this.flushRemote(); this.publish(); };
   private flushRemote() {

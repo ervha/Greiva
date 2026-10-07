@@ -1,0 +1,15 @@
+
+Running 10 tests using 1 worker
+
+  ✓   1 [desktop] › tests/e2e/private-workspace.spec.ts:7:1 › WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries (2.4s)
+  ✓   2 [desktop] › tests/e2e/private-workspace.spec.ts:14:1 › WORKSPACE-SCREEN: remote selection checks local presence beyond first page and remote-only download remains unconfirmed (1.6s)
+  ✓   3 [desktop] › tests/e2e/private-workspace.spec.ts:20:1 › WORKSPACE-SCREEN: close during native open suppresses late ready; production Web has no persistence fallback (1.7s)
+  ✓   4 [desktop] › tests/e2e/private-workspace.spec.ts:24:1 › WORKSPACE-SCREEN: status/catalog rendering preserves selection/composition and uncertain create retries one ID (1.4s)
+  ✓   5 [desktop] › tests/e2e/private-workspace.spec.ts:29:1 › WORKSPACE-SCREEN: failed commit retains copyable draft and blocks destructive navigation without leaking causes (1.2s)
+  ✓   6 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:7:1 › WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries (1.9s)
+  ✓   7 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:14:1 › WORKSPACE-SCREEN: remote selection checks local presence beyond first page and remote-only download remains unconfirmed (1.4s)
+  ✓   8 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:20:1 › WORKSPACE-SCREEN: close during native open suppresses late ready; production Web has no persistence fallback (1.5s)
+  ✓   9 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:24:1 › WORKSPACE-SCREEN: status/catalog rendering preserves selection/composition and uncertain create retries one ID (1.3s)
+  ✓  10 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:29:1 › WORKSPACE-SCREEN: failed commit retains copyable draft and blocks destructive navigation without leaking causes (1.2s)
+
+  10 passed (18.6s)

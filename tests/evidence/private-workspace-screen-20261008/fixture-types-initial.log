@@ -1,0 +1,4 @@
+apps/client/src/editor/PageEditor.tsx(45,32): error TS2339: Property 'env' does not exist on type 'ImportMeta'.
+tests/fixtures/private-workspace.tsx(7,8): error TS2882: Cannot find module or type declarations for side-effect import of '../../apps/client/src/style.css'.
+tests/fixtures/private-workspace.tsx(7,49): error TS2882: Cannot find module or type declarations for side-effect import of '../../apps/client/src/workspace/style.css'.
+tests/fixtures/private-workspace.tsx(8,16): error TS2339: Property 'env' does not exist on type 'ImportMeta'.

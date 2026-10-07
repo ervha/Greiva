@@ -1,5 +1,7 @@
 # 応答・外部環境が必要な事項
 
+v0.29.0：[専用workspace接続画面](../development/PRIVATE_WORKSPACE_SCREEN.md)をlocal fixture/実PG/Rustで検証した。rootの既定入口へは未昇格、native CSPを未拡張。正常実Auth/署名native Auth/OS credential/offline権限/実Windows invoke・IMEの残条件は維持する。追加手操作を求めずTask/Relation接続を先行する。
+
 v0.27.0：[stable native端末ID](../development/PRIVATE_DEVICE_IDENTITY.md)と再ログイン後の同Page/pending復帰をlocal検証した。端末IDはAuth grantではなく、実Auth/native署名/OS credential/offline権限や通常画面compositionは引き続き残る。旧private rootのdevice metadataを推測して取り込む処理は追加しない。暗号化配備・鍵管理の実装も後続。
 
 最新v0.25.0：認証付きPage一覧query、bounded keyset/HMAC workspace・epoch/metadata照合、connection.closeでnative cleanup開始を追加。[全14判断](../decisions/private-page-catalog.md)、[証拠](../../tests/evidence/page-catalog-20261005/SUMMARY.md)。通常224/PG69/browser2/型/frontend/Windows source116、専用API/preview v0.25/schema3を確認。一覧はsnapshot/delta同期ではなくnormal UI/metadata変更/native Authは未完成。次は利用者要望のシンプルな配色を独立して改善する。

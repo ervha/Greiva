@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.29.0：[個人workspace接続画面](../development/PRIVATE_WORKSPACE_SCREEN.md)を専用entryへ追加。login/端末・server一覧/create/open/editor/sync、Auth取消、結果不明createの同ID再確認、pagination外local優先、composition/failed draftのnavigation保護を接続。通常258/実PG69/新画面10/既存画面64/Auth12/型/Rust/frontend/Windows cross-buildを確認。[証拠・初回失敗/画像修正](../../tests/evidence/private-workspace-screen-20261008/SUMMARY.md)。旧root/CSPを保持し、実native認証/IMEや本番既定入口への昇格は別工程。次はTask/Relationのworkspace接続基盤へ進む。
+
 最新v0.28.0：[端末Page一覧](../development/LOCAL_PAGE_CATALOG.md)を追加。未送信の新規Pageもmetadata/pending件数として列挙できる。strict native command、UUID keyset、captured context/世代を検査し、一覧読取でqueueを消費しない。通常251/型/Rust/frontend/Windows cross-buildがPass。[証拠](../../tests/evidence/local-page-catalog-20261008/SUMMARY.md)。通常画面compositionへ続行し、実Auth/native IME/offline権限は別工程。
 
 最新v0.26.0：Page本文のlive editorをcaptured native storeと認証付きHTTP sessionへ接続。[全18判断](../decisions/private-page-editor.md)、[契約](../development/PRIVATE_PAGE_EDITOR.md)、[証拠・初回失敗](../../tests/evidence/private-page-editor-20261007/SUMMARY.md)。保存→送信、ACK再送、remote commit→live反映、composition待機、Auth/同Page置換/切替、未保存本文と選択位置を検証。通常234/PG69/画面64/auth8/型/frontend/通常Windows debug buildがPass。再利用viewで、通常アプリの認証/一覧/編集compositionとnative credential/grant、metadata変更/offline保持契約は未完成。追加手操作待ちはなく、次は通常アプリの接続compositionを進める。

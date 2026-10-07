@@ -1,0 +1,605 @@
+
+> greiva-poc@0.29.0 test:postgres
+> node scripts/test-postgres.mjs
+
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [31m❯[39m tests/integration/authenticated-access-postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 42[2mms[22m[39m
+[31m   [31m×[31m AUTH-ACCESS-PG: signed local JWT plus real SQL ownership rejects forged workspace/role and verifies session before metadata access[39m[32m 41[2mms[22m[39m
+ [31m❯[39m tests/integration/postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 23[2mms[22m[39m
+[31m   [31m×[31m STEP1-POSTGRES: connects to the real development PostgreSQL[39m[32m 22[2mms[22m[39m
+ [31m❯[39m tests/integration/private-access-postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 29[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-ACCESS-PG: one real SQL snapshot rejects cross-owner/workspace/type/deleted resources and cleans its isolated schema[39m[32m 26[2mms[22m[39m
+ [31m❯[39m tests/integration/private-bootstrap-postgres.test.ts [2m([22m[2m3 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[32m 88[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-SCHEMA-PG: fresh transactional tables/views refuse reinstall and unknown version without changing existing rows[39m[32m 69[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-BOOTSTRAP-PG: concurrent/replayed registration is stable, issuer/account/device isolation rolls back, canonical tombstone views deny access[39m[32m 10[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-BOOTSTRAP-HTTP-PG: signed actual HTTP creates stable owner workspace and rejects body identity spoof without partial registration[39m[32m 8[2mms[22m[39m
+ [31m❯[39m tests/integration/private-http-postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 23[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-HTTP-PG: actual loopback HTTP plus signed JWT/SQL ownership rejects unauthenticated, foreign scope, deletion, spoofed query and old aliases[39m[32m 22[2mms[22m[39m
+ [31m❯[39m tests/integration/private-page-client-postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 89[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-PAGE-CLIENT-PG: signed fixture HTTP and two actual SQLite stores recover lost ACKs, offline restart, concurrent edits and revoked pending without duplicate binary[39m[32m 88[2mms[22m[39m
+ [31m❯[39m tests/integration/private-page-crash-postgres.test.ts [2m([22m[2m2 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[32m 129[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-PAGE-SIGKILL-before-commit: binary/head commit atomically and the same update is appended once after ACK loss[39m[32m 112[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-PAGE-SIGKILL-after-commit: binary/head commit atomically and the same update is appended once after ACK loss[39m[32m 15[2mms[22m[39m
+ [31m❯[39m tests/integration/private-page-postgres.test.ts [2m([22m[2m11 tests[22m[2m | [22m[31m11 failed[39m[2m)[22m[33m 523[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-PAGE-CATALOG-PG: keyset pages survive reopen, hide tombstones/foreign owners and bind epoch[39m[32m 118[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-PAGE-CATALOG-CORRUPTION-PG: corrupt lookahead refuses partial results without modifying binary or regenerating key[39m[32m 14[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-PAGE-CATALOG-EXPIRY-PG: expiry during resource lock wait cannot return metadata[39m[32m 72[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-PAGE-SCHEMA-PG: explicit upgrade retains structured key/metadata and refuses orphan/partial/reinstall without inventing an empty body[39m[32m 17[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-PAGE-BOOTSTRAP-PG: create/retry preserves initial title/binary identity; changed request, foreign owner/device/page and unknown schema are denied[39m[32m 88[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-PAGE-BINARY-PG: duplicate updates retain order; reopen and state-vector diffs converge without losing unknown XML blocks/attrs[39m[32m 13[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-PAGE-CAUSAL-PG: out-of-order dependency and deletion frames survive reopening; append-only journal restores all content/clocks[39m[32m 83[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-PAGE-CORRUPTION-PG: malformed input never advances head; missing/corrupt journal or orphan document fails closed without reset[39m[32m 13[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-PAGE-LARGE-DIFF-PG: combined committed updates can exceed the input frame limit and still restore intact[39m[32m 14[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-PAGE-PERMISSION-PG: revoked/deleted resources reject binary read/write; expiry during document lock rolls back before journal append[39m[32m 76[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-PAGE-CONCURRENT-PG: six independent edits plus duplicate frames serialize the journal and converge all binary content[39m[32m 12[2mms[22m[39m
+ [31m❯[39m tests/integration/private-runtime-postgres.test.ts [2m([22m[2m5 tests[22m[2m | [22m[31m5 failed[39m[2m)[22m[33m 1704[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-RUNTIME-PG: signed session/bootstrap uses actual startup/read-only schema; old aliases absent and close coalesced[39m[32m 35[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-RUNTIME-PG: CLI initializer is explicit/non-destructive; missing or unknown schema prevents listening without credentials in output[39m[33m 1552[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-RUNTIME-PG: actual process listens without legacy routes and SIGTERM closes listener/pool without schema mutation[39m[32m 18[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-RUNTIME-SYNC-PG: explicit CLI upgrade mounts signed private sync; restart preserves cursor and refuses missing key without repair[39m[32m 84[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-RUNTIME-PAGE-PG: explicit schema3 CLI exposes signed binary routes, preserves structured stream and restores after restart[39m[32m 14[2mms[22m[39m
+ [31m❯[39m tests/integration/private-stream-client-postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 95[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-STREAM-CLIENT-PG: signed HTTP and two actual SQLite stores recover lost ACK/restart, paginate and retain revoked pending[39m[32m 94[2mms[22m[39m
+ [31m❯[39m tests/integration/private-stream-crash-postgres.test.ts [2m([22m[2m2 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[32m 119[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-STREAM-SIGKILL-before-commit: actual worker termination recovers the same operation once with durable key/epoch[39m[32m 103[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-STREAM-SIGKILL-after-commit: actual worker termination recovers the same operation once with durable key/epoch[39m[32m 15[2mms[22m[39m
+ [31m❯[39m tests/integration/private-structured-postgres.test.ts [2m([22m[2m9 tests[22m[2m | [22m[31m9 failed[39m[2m)[22m[32m 108[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-STREAM-SCHEMA-PG: explicit atomic upgrade preserves metadata/key; repeated/partial/orphaned installation refuses without repair[39m[32m 27[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-STREAM-LEDGER-PG: duplicate batches return immutable results; changed ID reuse and foreign scope roll back the whole batch[39m[32m 11[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-STREAM-CONFLICT-PG: different fields merge, same field retains three values; new resolution operation and causal frames survive stale bases[39m[32m 9[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-STREAM-TOMBSTONE-PG: deletions retain immutable history; pending updates acknowledge tombstones and conflicts resolve by delete[39m[32m 9[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-STREAM-RELATION-PG: endpoints are typed/live/same workspace; foreign refs and entities cannot leave prior batch writes or disclose data[39m[32m 12[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-STREAM-REJECTIONS-PG: malformed payload/base/predecessor/collision results are durable and retry stable without guessed data[39m[32m 9[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-STREAM-ORDER-PG: concurrent commits and pagination stay contiguous; cursors persist across reopen and reject foreign/forged/future tokens[39m[32m 10[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-STREAM-ISOLATION-PG: clients cannot mix IDs or use revoked registration; per-workspace streams have independent order and durable epoch[39m[32m 8[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-STREAM-CAPTURE-PG: queued push retains detached payload/identity despite caller mutation while the stream is locked[39m[32m 11[2mms[22m[39m
+ [31m❯[39m tests/integration/private-transactions-postgres.test.ts [2m([22m[2m11 tests[22m[2m | [22m[31m11 failed[39m[2m)[22m[33m 353[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-TX-PG: issuer/owner/device and typed resource isolation; malformed/duplicate references never run work[39m[32m 109[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-TX-PG: admitted write holds device non-key revocation/tombstone until commit; next transaction denied[39m[32m 80[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-TX-PG: admitted write holds workspace non-key revocation/tombstone until commit; next transaction denied[39m[32m 12[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-TX-PG: admitted write holds resource non-key revocation/tombstone until commit; next transaction denied[39m[32m 16[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-TX-PG: device change committed before permission lock is observed and denies business work[39m[32m 73[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-TX-PG: workspace change committed before permission lock is observed and denies business work[39m[32m 10[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-TX-PG: resource change committed before permission lock is observed and denies business work[39m[32m 9[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-TX-PG: callback failure, swallowed SQL failure and unfinished query roll back; escaped query cannot run after release[39m[32m 9[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-TX-PG: expiry during lock wait or before commit denies and rolls back; captured identity and targets survive caller mutation[39m[32m 9[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-DEVICE-HTTP-PG: signed device access checks owner, registration, revocation and schema; no old sync route mounted[39m[32m 11[2mms[22m[39m
+[31m   [31m×[31m PRIVATE-BOOTSTRAP-EXPIRY-PG: expiry during owner lock wait rolls back a new device registration[39m[32m 11[2mms[22m[39m
+ [31m❯[39m tests/integration/structured-postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 94[2mms[22m[39m
+[31m   [31m×[31m STEP6-POSTGRES: real models survive reopen; version guards serialize competing edits; Nest exposes durable reads[39m[32m 93[2mms[22m[39m
+ [31m❯[39m tests/integration/structured-process-crash.test.ts [2m([22m[2m2 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[32m 33[2mms[22m[39m
+[31m   [31m×[31m STEP7-API-SIGKILL-before-commit: an actual API process crash preserves immutable wire, cursor and exactly one final operation[39m[32m 23[2mms[22m[39m
+[31m   [31m×[31m STEP7-API-SIGKILL-after-commit: an actual API process crash preserves immutable wire, cursor and exactly one final operation[39m[32m 8[2mms[22m[39m
+ [31m❯[39m tests/integration/structured-sync-client.test.ts [2m([22m[2m6 tests[22m[2m | [22m[31m6 failed[39m[2m)[22m[32m 211[2mms[22m[39m
+[31m   [31m×[31m STEP7-CLIENT-HTTP: offline Task/Relation chains survive SIGKILL and converge through restore/pull/push/pull in creation order[39m[32m 104[2mms[22m[39m
+[31m   [31m×[31m STEP7-CLIENT-ACK-LOSS: commit followed by dropped HTTP ACK and API/store restart is recovered once through durable pull[39m[32m 8[2mms[22m[39m
+[31m   [31m×[31m STEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution[39m[32m 9[2mms[22m[39m
+[31m   [31m×[31m STEP7-CLIENT-PULL-FAILURE: cursor commit failure stops network progress; restart and explicit retry keep the original cursor and restore all records[39m[32m 9[2mms[22m[39m
+[31m   [31m×[31m STEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent[39m[32m 6[2mms[22m[39m
+[31m   [31m×[31m STEP7-CLIENT-REJECTED: create collision stops the affected causal chain, retains both original payloads and never displays synced[39m[32m 5[2mms[22m[39m
+ [31m❯[39m tests/integration/structured-sync-server.test.ts [2m([22m[2m10 tests[22m[2m | [22m[31m10 failed[39m[2m)[22m[33m 405[2mms[22m[39m
+[31m   [31m×[31m STEP7-SERVER-IDEMPOTENCY: concurrent replays, ID collisions, malformed payloads and API recreation retain immutable results[39m[32m 99[2mms[22m[39m
+[31m   [31m×[31m STEP7-SERVER-MERGE: field merge keeps peer edits and same-field conflicts retain base/local/remote through explicit resolution[39m[32m 11[2mms[22m[39m
+[31m   [31m×[31m STEP7-SERVER-RELATION: disjoint endpoint edits merge and same endpoint conflicts resolve as a new operation[39m[32m 80[2mms[22m[39m
+[31m   [31m×[31m STEP7-SERVER-DELETE: deletes dominate stale Task/Relation updates and close existing conflicts without resurrecting entities[39m[32m 10[2mms[22m[39m
+[31m   [31m×[31m STEP7-SERVER-ORDER: concurrent writers cannot leave lower committed operations behind a pull cursor[39m[32m 8[2mms[22m[39m
+[31m   [31m×[31m STEP7-SERVER-ATOMIC: ledger failure rolls back entity/history/counter and retry finalizes exactly once[39m[32m 82[2mms[22m[39m
+[31m   [31m×[31m STEP7-SERVER-MIGRATION: Step 6 rows and tombstones enter the new stream atomically without fabricating missing history[39m[32m 7[2mms[22m[39m
+[31m   [31m×[31m STEP7-SERVER-CAUSAL: sequential offline intent keeps competing peer values and merges its own accepted fields[39m[32m 8[2mms[22m[39m
+[31m   [31m×[31m STEP7-SERVER-CAUSAL-VALIDATION: aliases preserve original intent, invalid dependencies reject durably and chained deletes remain acknowledged[39m[32m 86[2mms[22m[39m
+[31m   [31m×[31m STEP7-SERVER-CAUSAL-MIGRATION: existing version 2 ledger frames are reconstructed without changing immutable ACKs or cursors[39m[32m 11[2mms[22m[39m
+ [31m❯[39m tests/integration/supabase-auth-bootstrap-postgres.test.ts [2m([22m[2m1 test[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 100[2mms[22m[39m
+[31m   [31m×[31m SUPABASE-AUTH-PG: client login/verified bootstrap binds actual SQLite; foreign device registration and revoked-device retry roll back[39m[32m 99[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 69 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/integration/authenticated-access-postgres.test.ts[2m > [22mAUTH-ACCESS-PG: signed local JWT plus real SQL ownership rejects forged workspace/role and verifies session before metadata access
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m tests/integration/authenticated-access-postgres.test.ts:[2m14:5[22m[39m
+    [90m 12|[39m   const schema = `greiva_auth_${newId().replaceAll('-', '')}`, workspa…
+    [90m 13|[39m   try {
+    [90m 14|[39m     await pool.query(`CREATE SCHEMA "${schema}"`); created = true;
+    [90m   |[39m     [31m^[39m
+    [90m 15|[39m     await pool.query(`CREATE TABLE "${schema}".workspace_access(id uui…
+    [90m 16|[39m     await pool.query(`CREATE TABLE "${schema}".resource_access(type te…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/postgres.test.ts[2m > [22mSTEP1-POSTGRES: connects to the real development PostgreSQL
+[41m[1m FAIL [22m[49m tests/integration/structured-postgres.test.ts[2m > [22mSTEP6-POSTGRES: real models survive reopen; version guards serialize competing edits; Nest exposes durable reads
+[41m[1m FAIL [22m[49m tests/integration/structured-process-crash.test.ts[2m > [22mSTEP7-API-SIGKILL-before-commit: an actual API process crash preserves immutable wire, cursor and exactly one final operation
+[41m[1m FAIL [22m[49m tests/integration/structured-process-crash.test.ts[2m > [22mSTEP7-API-SIGKILL-after-commit: an actual API process crash preserves immutable wire, cursor and exactly one final operation
+[41m[1m FAIL [22m[49m tests/integration/structured-sync-client.test.ts[2m > [22mSTEP7-CLIENT-HTTP: offline Task/Relation chains survive SIGKILL and converge through restore/pull/push/pull in creation order
+[41m[1m FAIL [22m[49m tests/integration/structured-sync-client.test.ts[2m > [22mSTEP7-CLIENT-ACK-LOSS: commit followed by dropped HTTP ACK and API/store restart is recovered once through durable pull
+[41m[1m FAIL [22m[49m tests/integration/structured-sync-client.test.ts[2m > [22mSTEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution
+[41m[1m FAIL [22m[49m tests/integration/structured-sync-client.test.ts[2m > [22mSTEP7-CLIENT-PULL-FAILURE: cursor commit failure stops network progress; restart and explicit retry keep the original cursor and restore all records
+[41m[1m FAIL [22m[49m tests/integration/structured-sync-client.test.ts[2m > [22mSTEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent
+[41m[1m FAIL [22m[49m tests/integration/structured-sync-client.test.ts[2m > [22mSTEP7-CLIENT-REJECTED: create collision stops the affected causal chain, retains both original payloads and never displays synced
+[41m[1m FAIL [22m[49m tests/integration/structured-sync-server.test.ts[2m > [22mSTEP7-SERVER-IDEMPOTENCY: concurrent replays, ID collisions, malformed payloads and API recreation retain immutable results
+[41m[1m FAIL [22m[49m tests/integration/structured-sync-server.test.ts[2m > [22mSTEP7-SERVER-MERGE: field merge keeps peer edits and same-field conflicts retain base/local/remote through explicit resolution
+[41m[1m FAIL [22m[49m tests/integration/structured-sync-server.test.ts[2m > [22mSTEP7-SERVER-RELATION: disjoint endpoint edits merge and same endpoint conflicts resolve as a new operation
+[41m[1m FAIL [22m[49m tests/integration/structured-sync-server.test.ts[2m > [22mSTEP7-SERVER-DELETE: deletes dominate stale Task/Relation updates and close existing conflicts without resurrecting entities
+[41m[1m FAIL [22m[49m tests/integration/structured-sync-server.test.ts[2m > [22mSTEP7-SERVER-ORDER: concurrent writers cannot leave lower committed operations behind a pull cursor
+[41m[1m FAIL [22m[49m tests/integration/structured-sync-server.test.ts[2m > [22mSTEP7-SERVER-ATOMIC: ledger failure rolls back entity/history/counter and retry finalizes exactly once
+[41m[1m FAIL [22m[49m tests/integration/structured-sync-server.test.ts[2m > [22mSTEP7-SERVER-MIGRATION: Step 6 rows and tombstones enter the new stream atomically without fabricating missing history
+[41m[1m FAIL [22m[49m tests/integration/structured-sync-server.test.ts[2m > [22mSTEP7-SERVER-CAUSAL: sequential offline intent keeps competing peer values and merges its own accepted fields
+[41m[1m FAIL [22m[49m tests/integration/structured-sync-server.test.ts[2m > [22mSTEP7-SERVER-CAUSAL-VALIDATION: aliases preserve original intent, invalid dependencies reject durably and chained deletes remain acknowledged
+[41m[1m FAIL [22m[49m tests/integration/structured-sync-server.test.ts[2m > [22mSTEP7-SERVER-CAUSAL-MIGRATION: existing version 2 ledger frames are reconstructed without changing immutable ACKs or cursors
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m parseErrorMessage node_modules/pg-protocol/src/parser.ts:[2m395:9[22m[39m
+[90m [2m❯[22m Parser.handlePacket node_modules/pg-protocol/src/parser.ts:[2m212:19[22m[39m
+[90m [2m❯[22m Parser.parse node_modules/pg-protocol/src/parser.ts:[2m105:30[22m[39m
+[90m [2m❯[22m Socket.<anonymous> node_modules/pg-protocol/src/index.ts:[2m7:48[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-access-postgres.test.ts[2m > [22mPRIVATE-ACCESS-PG: one real SQL snapshot rejects cross-owner/workspace/type/deleted resources and cleans its isolated schema
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m tests/integration/private-access-postgres.test.ts:[2m13:5[22m[39m
+    [90m 11|[39m   expect(() => new PostgresPrivateAccessStore(pool, 'public";DROP SCHE…
+    [90m 12|[39m   try {
+    [90m 13|[39m     await pool.query(`CREATE SCHEMA "${schema}"`);
+    [90m   |[39m     [31m^[39m
+    [90m 14|[39m     created = true;
+    [90m 15|[39m     // Fixture read-model tables only. No production migration/view is…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-bootstrap-postgres.test.ts[2m > [22mPRIVATE-SCHEMA-PG: fresh transactional tables/views refuse reinstall and unknown version without changing existing rows
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m installPrivateWorkspaceSchema apps/api/src/private-workspace-schema.ts:[2m34:57[22m[39m
+    [90m 32|[39m // destructive repair, auto-start migration or guessed workspace owner…
+    [90m 33|[39m export async function installPrivateWorkspaceSchema(pool: pg.Pool, can…
+    [90m 34|[39m   const schema = privateSchemaName(candidate), client = await pool.con…
+    [90m   |[39m                                                         [31m^[39m
+    [90m 35|[39m   try {
+    [90m 36|[39m     await client.query('BEGIN');
+[90m [2m❯[22m isolated tests/integration/private-bootstrap-postgres.test.ts:[2m16:9[22m[39m
+[90m [2m❯[22m tests/integration/private-bootstrap-postgres.test.ts:[2m23:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-bootstrap-postgres.test.ts[2m > [22mPRIVATE-BOOTSTRAP-PG: concurrent/replayed registration is stable, issuer/account/device isolation rolls back, canonical tombstone views deny access
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m installPrivateWorkspaceSchema apps/api/src/private-workspace-schema.ts:[2m34:57[22m[39m
+    [90m 32|[39m // destructive repair, auto-start migration or guessed workspace owner…
+    [90m 33|[39m export async function installPrivateWorkspaceSchema(pool: pg.Pool, can…
+    [90m 34|[39m   const schema = privateSchemaName(candidate), client = await pool.con…
+    [90m   |[39m                                                         [31m^[39m
+    [90m 35|[39m   try {
+    [90m 36|[39m     await client.query('BEGIN');
+[90m [2m❯[22m isolated tests/integration/private-bootstrap-postgres.test.ts:[2m16:9[22m[39m
+[90m [2m❯[22m tests/integration/private-bootstrap-postgres.test.ts:[2m33:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-bootstrap-postgres.test.ts[2m > [22mPRIVATE-BOOTSTRAP-HTTP-PG: signed actual HTTP creates stable owner workspace and rejects body identity spoof without partial registration
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m installPrivateWorkspaceSchema apps/api/src/private-workspace-schema.ts:[2m34:57[22m[39m
+    [90m 32|[39m // destructive repair, auto-start migration or guessed workspace owner…
+    [90m 33|[39m export async function installPrivateWorkspaceSchema(pool: pg.Pool, can…
+    [90m 34|[39m   const schema = privateSchemaName(candidate), client = await pool.con…
+    [90m   |[39m                                                         [31m^[39m
+    [90m 35|[39m   try {
+    [90m 36|[39m     await client.query('BEGIN');
+[90m [2m❯[22m isolated tests/integration/private-bootstrap-postgres.test.ts:[2m16:9[22m[39m
+[90m [2m❯[22m tests/integration/private-bootstrap-postgres.test.ts:[2m52:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-http-postgres.test.ts[2m > [22mPRIVATE-HTTP-PG: actual loopback HTTP plus signed JWT/SQL ownership rejects unauthenticated, foreign scope, deletion, spoofed query and old aliases
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m tests/integration/private-http-postgres.test.ts:[2m14:5[22m[39m
+    [90m 12|[39m   let app: Awaited<ReturnType<typeof createPrivateApp>> | undefined;
+    [90m 13|[39m   try {
+    [90m 14|[39m     await pool.query(`CREATE SCHEMA "${schema}"`); created = true;
+    [90m   |[39m     [31m^[39m
+    [90m 15|[39m     await pool.query(`CREATE TABLE "${schema}".workspace_access(id uui…
+    [90m 16|[39m     await pool.query(`CREATE TABLE "${schema}".resource_access(type te…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-page-client-postgres.test.ts[2m > [22mPRIVATE-PAGE-CLIENT-PG: signed fixture HTTP and two actual SQLite stores recover lost ACKs, offline restart, concurrent edits and revoked pending without duplicate binary
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m tests/integration/private-page-client-postgres.test.ts:[2m76:213[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-page-crash-postgres.test.ts[2m > [22mPRIVATE-PAGE-SIGKILL-before-commit: binary/head commit atomically and the same update is appended once after ACK loss
+[41m[1m FAIL [22m[49m tests/integration/private-page-crash-postgres.test.ts[2m > [22mPRIVATE-PAGE-SIGKILL-after-commit: binary/head commit atomically and the same update is appended once after ACK loss
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m tests/integration/private-page-crash-postgres.test.ts:[2m24:181[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-page-postgres.test.ts[2m > [22mPRIVATE-PAGE-CATALOG-PG: keyset pages survive reopen, hide tombstones/foreign owners and bind epoch
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-page-postgres.test.ts:[2m19:391[22m[39m
+
+[90m [2m❯[22m tests/integration/private-page-postgres.test.ts:[2m23:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-page-postgres.test.ts[2m > [22mPRIVATE-PAGE-CATALOG-CORRUPTION-PG: corrupt lookahead refuses partial results without modifying binary or regenerating key
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-page-postgres.test.ts:[2m19:391[22m[39m
+
+[90m [2m❯[22m tests/integration/private-page-postgres.test.ts:[2m38:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-page-postgres.test.ts[2m > [22mPRIVATE-PAGE-CATALOG-EXPIRY-PG: expiry during resource lock wait cannot return metadata
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-page-postgres.test.ts:[2m19:391[22m[39m
+
+[90m [2m❯[22m tests/integration/private-page-postgres.test.ts:[2m44:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[12/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-page-postgres.test.ts[2m > [22mPRIVATE-PAGE-SCHEMA-PG: explicit upgrade retains structured key/metadata and refuses orphan/partial/reinstall without inventing an empty body
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-page-postgres.test.ts:[2m19:391[22m[39m
+
+[90m [2m❯[22m tests/integration/private-page-postgres.test.ts:[2m51:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[13/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-page-postgres.test.ts[2m > [22mPRIVATE-PAGE-BOOTSTRAP-PG: create/retry preserves initial title/binary identity; changed request, foreign owner/device/page and unknown schema are denied
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-page-postgres.test.ts:[2m19:391[22m[39m
+
+[90m [2m❯[22m tests/integration/private-page-postgres.test.ts:[2m59:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[14/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-page-postgres.test.ts[2m > [22mPRIVATE-PAGE-BINARY-PG: duplicate updates retain order; reopen and state-vector diffs converge without losing unknown XML blocks/attrs
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-page-postgres.test.ts:[2m19:391[22m[39m
+
+[90m [2m❯[22m tests/integration/private-page-postgres.test.ts:[2m72:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[15/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-page-postgres.test.ts[2m > [22mPRIVATE-PAGE-CAUSAL-PG: out-of-order dependency and deletion frames survive reopening; append-only journal restores all content/clocks
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-page-postgres.test.ts:[2m19:391[22m[39m
+
+[90m [2m❯[22m tests/integration/private-page-postgres.test.ts:[2m84:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[16/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-page-postgres.test.ts[2m > [22mPRIVATE-PAGE-CORRUPTION-PG: malformed input never advances head; missing/corrupt journal or orphan document fails closed without reset
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-page-postgres.test.ts:[2m19:391[22m[39m
+
+[90m [2m❯[22m tests/integration/private-page-postgres.test.ts:[2m93:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[17/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-page-postgres.test.ts[2m > [22mPRIVATE-PAGE-LARGE-DIFF-PG: combined committed updates can exceed the input frame limit and still restore intact
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-page-postgres.test.ts:[2m19:391[22m[39m
+
+[90m [2m❯[22m tests/integration/private-page-postgres.test.ts:[2m103:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[18/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-page-postgres.test.ts[2m > [22mPRIVATE-PAGE-PERMISSION-PG: revoked/deleted resources reject binary read/write; expiry during document lock rolls back before journal append
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-page-postgres.test.ts:[2m19:391[22m[39m
+
+[90m [2m❯[22m tests/integration/private-page-postgres.test.ts:[2m111:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[19/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-page-postgres.test.ts[2m > [22mPRIVATE-PAGE-CONCURRENT-PG: six independent edits plus duplicate frames serialize the journal and converge all binary content
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-page-postgres.test.ts:[2m19:391[22m[39m
+
+[90m [2m❯[22m tests/integration/private-page-postgres.test.ts:[2m127:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[20/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-runtime-postgres.test.ts[2m > [22mPRIVATE-RUNTIME-PG: signed session/bootstrap uses actual startup/read-only schema; old aliases absent and close coalesced
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m tests/integration/private-runtime-postgres.test.ts:[2m43:39[22m[39m
+    [90m 41|[39m     for (const path of ['/tasks', '/sync/pull', '/pages', '/health']) …
+    [90m 42|[39m     const a = runtime.close(), b = runtime.close(); expect(a).toBe(b);…
+    [90m 43|[39m   } finally { await runtime?.close(); await pool.query(`DROP SCHEMA IF…
+    [90m   |[39m                                       [31m^[39m
+    [90m 44|[39m });
+    [90m 45|[39m test('PRIVATE-RUNTIME-PG: CLI initializer is explicit/non-destructive;…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[21/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-runtime-postgres.test.ts[2m > [22mPRIVATE-RUNTIME-PG: CLI initializer is explicit/non-destructive; missing or unknown schema prevents listening without credentials in output
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m tests/integration/private-runtime-postgres.test.ts:[2m62:15[22m[39m
+    [90m 60|[39m     const bad = await command('apps/api/dist/private-main.js', { ...en…
+    [90m 61|[39m     expect(bad).toEqual({ code: 1, output: '{"service":"private-api","…
+    [90m 62|[39m   } finally { await pool.query(`DROP SCHEMA IF EXISTS "${schema}" CASC…
+    [90m   |[39m               [31m^[39m
+    [90m 63|[39m });
+    [90m 64|[39m test('PRIVATE-RUNTIME-PG: actual process listens without legacy routes…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[22/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-runtime-postgres.test.ts[2m > [22mPRIVATE-RUNTIME-PG: actual process listens without legacy routes and SIGTERM closes listener/pool without schema mutation
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m tests/integration/private-runtime-postgres.test.ts:[2m80:105[22m[39m
+    [90m 78|[39m     await expect(fetch(`http://127.0.0.1:${port}/v1/session`)).rejects…
+    [90m 79|[39m     expect((await pool.query(`SELECT count(*)::int AS n FROM "${schema…
+    [90m 80|[39m   } finally { if (child && child.exitCode === null && child.signalCode…
+    [90m   |[39m                                                                                                         [31m^[39m
+    [90m 81|[39m });
+    [90m 82|[39m test('PRIVATE-RUNTIME-SYNC-PG: explicit CLI upgrade mounts signed priv…
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[23/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-runtime-postgres.test.ts[2m > [22mPRIVATE-RUNTIME-SYNC-PG: explicit CLI upgrade mounts signed private sync; restart preserves cursor and refuses missing key without repair
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m tests/integration/private-runtime-postgres.test.ts:[2m101:39[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[24/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-runtime-postgres.test.ts[2m > [22mPRIVATE-RUNTIME-PAGE-PG: explicit schema3 CLI exposes signed binary routes, preserves structured stream and restores after restart
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m tests/integration/private-runtime-postgres.test.ts:[2m133:68[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[25/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-stream-client-postgres.test.ts[2m > [22mPRIVATE-STREAM-CLIENT-PG: signed HTTP and two actual SQLite stores recover lost ACK/restart, paginate and retain revoked pending
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m tests/integration/private-stream-client-postgres.test.ts:[2m49:121[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[26/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-stream-crash-postgres.test.ts[2m > [22mPRIVATE-STREAM-SIGKILL-before-commit: actual worker termination recovers the same operation once with durable key/epoch
+[41m[1m FAIL [22m[49m tests/integration/private-stream-crash-postgres.test.ts[2m > [22mPRIVATE-STREAM-SIGKILL-after-commit: actual worker termination recovers the same operation once with durable key/epoch
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m tests/integration/private-stream-crash-postgres.test.ts:[2m25:167[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[27/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-structured-postgres.test.ts[2m > [22mPRIVATE-STREAM-SCHEMA-PG: explicit atomic upgrade preserves metadata/key; repeated/partial/orphaned installation refuses without repair
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-structured-postgres.test.ts:[2m14:341[22m[39m
+
+[90m [2m❯[22m tests/integration/private-structured-postgres.test.ts:[2m21:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[28/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-structured-postgres.test.ts[2m > [22mPRIVATE-STREAM-LEDGER-PG: duplicate batches return immutable results; changed ID reuse and foreign scope roll back the whole batch
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-structured-postgres.test.ts:[2m14:341[22m[39m
+
+[90m [2m❯[22m tests/integration/private-structured-postgres.test.ts:[2m42:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[29/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-structured-postgres.test.ts[2m > [22mPRIVATE-STREAM-CONFLICT-PG: different fields merge, same field retains three values; new resolution operation and causal frames survive stale bases
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-structured-postgres.test.ts:[2m14:341[22m[39m
+
+[90m [2m❯[22m tests/integration/private-structured-postgres.test.ts:[2m53:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[30/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-structured-postgres.test.ts[2m > [22mPRIVATE-STREAM-TOMBSTONE-PG: deletions retain immutable history; pending updates acknowledge tombstones and conflicts resolve by delete
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-structured-postgres.test.ts:[2m14:341[22m[39m
+
+[90m [2m❯[22m tests/integration/private-structured-postgres.test.ts:[2m66:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[31/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-structured-postgres.test.ts[2m > [22mPRIVATE-STREAM-RELATION-PG: endpoints are typed/live/same workspace; foreign refs and entities cannot leave prior batch writes or disclose data
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-structured-postgres.test.ts:[2m14:341[22m[39m
+
+[90m [2m❯[22m tests/integration/private-structured-postgres.test.ts:[2m77:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[32/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-structured-postgres.test.ts[2m > [22mPRIVATE-STREAM-REJECTIONS-PG: malformed payload/base/predecessor/collision results are durable and retry stable without guessed data
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-structured-postgres.test.ts:[2m14:341[22m[39m
+
+[90m [2m❯[22m tests/integration/private-structured-postgres.test.ts:[2m91:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[33/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-structured-postgres.test.ts[2m > [22mPRIVATE-STREAM-ORDER-PG: concurrent commits and pagination stay contiguous; cursors persist across reopen and reject foreign/forged/future tokens
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-structured-postgres.test.ts:[2m14:341[22m[39m
+
+[90m [2m❯[22m tests/integration/private-structured-postgres.test.ts:[2m104:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[34/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-structured-postgres.test.ts[2m > [22mPRIVATE-STREAM-ISOLATION-PG: clients cannot mix IDs or use revoked registration; per-workspace streams have independent order and durable epoch
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-structured-postgres.test.ts:[2m14:341[22m[39m
+
+[90m [2m❯[22m tests/integration/private-structured-postgres.test.ts:[2m116:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[35/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-structured-postgres.test.ts[2m > [22mPRIVATE-STREAM-CAPTURE-PG: queued push retains detached payload/identity despite caller mutation while the stream is locked
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-structured-postgres.test.ts:[2m14:341[22m[39m
+
+[90m [2m❯[22m tests/integration/private-structured-postgres.test.ts:[2m125:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[36/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-transactions-postgres.test.ts[2m > [22mPRIVATE-TX-PG: issuer/owner/device and typed resource isolation; malformed/duplicate references never run work
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-transactions-postgres.test.ts:[2m23:21[22m[39m
+    [90m 21|[39m     await pool.query(`CREATE TABLE "${schema}".test_data (id uuid PRIM…
+    [90m 22|[39m     await run(pool,schema);
+    [90m 23|[39m   } finally { try { await pool.query(`DROP SCHEMA "${schema}" CASCADE`…
+    [90m   |[39m                     [31m^[39m
+    [90m 24|[39m }
+    [90m 25|[39m async function locked(pool: pg.Pool, pid: number) {
+[90m [2m❯[22m tests/integration/private-transactions-postgres.test.ts:[2m40:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[37/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-transactions-postgres.test.ts[2m > [22mPRIVATE-TX-PG: admitted write holds device non-key revocation/tombstone until commit; next transaction denied
+[41m[1m FAIL [22m[49m tests/integration/private-transactions-postgres.test.ts[2m > [22mPRIVATE-TX-PG: admitted write holds workspace non-key revocation/tombstone until commit; next transaction denied
+[41m[1m FAIL [22m[49m tests/integration/private-transactions-postgres.test.ts[2m > [22mPRIVATE-TX-PG: admitted write holds resource non-key revocation/tombstone until commit; next transaction denied
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-transactions-postgres.test.ts:[2m23:21[22m[39m
+    [90m 21|[39m     await pool.query(`CREATE TABLE "${schema}".test_data (id uuid PRIM…
+    [90m 22|[39m     await run(pool,schema);
+    [90m 23|[39m   } finally { try { await pool.query(`DROP SCHEMA "${schema}" CASCADE`…
+    [90m   |[39m                     [31m^[39m
+    [90m 24|[39m }
+    [90m 25|[39m async function locked(pool: pg.Pool, pid: number) {
+[90m [2m❯[22m tests/integration/private-transactions-postgres.test.ts:[2m56:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[38/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-transactions-postgres.test.ts[2m > [22mPRIVATE-TX-PG: device change committed before permission lock is observed and denies business work
+[41m[1m FAIL [22m[49m tests/integration/private-transactions-postgres.test.ts[2m > [22mPRIVATE-TX-PG: workspace change committed before permission lock is observed and denies business work
+[41m[1m FAIL [22m[49m tests/integration/private-transactions-postgres.test.ts[2m > [22mPRIVATE-TX-PG: resource change committed before permission lock is observed and denies business work
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-transactions-postgres.test.ts:[2m23:21[22m[39m
+    [90m 21|[39m     await pool.query(`CREATE TABLE "${schema}".test_data (id uuid PRIM…
+    [90m 22|[39m     await run(pool,schema);
+    [90m 23|[39m   } finally { try { await pool.query(`DROP SCHEMA "${schema}" CASCADE`…
+    [90m   |[39m                     [31m^[39m
+    [90m 24|[39m }
+    [90m 25|[39m async function locked(pool: pg.Pool, pid: number) {
+[90m [2m❯[22m tests/integration/private-transactions-postgres.test.ts:[2m79:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[39/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-transactions-postgres.test.ts[2m > [22mPRIVATE-TX-PG: callback failure, swallowed SQL failure and unfinished query roll back; escaped query cannot run after release
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-transactions-postgres.test.ts:[2m23:21[22m[39m
+    [90m 21|[39m     await pool.query(`CREATE TABLE "${schema}".test_data (id uuid PRIM…
+    [90m 22|[39m     await run(pool,schema);
+    [90m 23|[39m   } finally { try { await pool.query(`DROP SCHEMA "${schema}" CASCADE`…
+    [90m   |[39m                     [31m^[39m
+    [90m 24|[39m }
+    [90m 25|[39m async function locked(pool: pg.Pool, pid: number) {
+[90m [2m❯[22m tests/integration/private-transactions-postgres.test.ts:[2m92:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[40/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-transactions-postgres.test.ts[2m > [22mPRIVATE-TX-PG: expiry during lock wait or before commit denies and rolls back; captured identity and targets survive caller mutation
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-transactions-postgres.test.ts:[2m23:21[22m[39m
+    [90m 21|[39m     await pool.query(`CREATE TABLE "${schema}".test_data (id uuid PRIM…
+    [90m 22|[39m     await run(pool,schema);
+    [90m 23|[39m   } finally { try { await pool.query(`DROP SCHEMA "${schema}" CASCADE`…
+    [90m   |[39m                     [31m^[39m
+    [90m 24|[39m }
+    [90m 25|[39m async function locked(pool: pg.Pool, pid: number) {
+[90m [2m❯[22m tests/integration/private-transactions-postgres.test.ts:[2m104:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[41/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-transactions-postgres.test.ts[2m > [22mPRIVATE-DEVICE-HTTP-PG: signed device access checks owner, registration, revocation and schema; no old sync route mounted
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-transactions-postgres.test.ts:[2m23:21[22m[39m
+    [90m 21|[39m     await pool.query(`CREATE TABLE "${schema}".test_data (id uuid PRIM…
+    [90m 22|[39m     await run(pool,schema);
+    [90m 23|[39m   } finally { try { await pool.query(`DROP SCHEMA "${schema}" CASCADE`…
+    [90m   |[39m                     [31m^[39m
+    [90m 24|[39m }
+    [90m 25|[39m async function locked(pool: pg.Pool, pid: number) {
+[90m [2m❯[22m tests/integration/private-transactions-postgres.test.ts:[2m123:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[42/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-transactions-postgres.test.ts[2m > [22mPRIVATE-BOOTSTRAP-EXPIRY-PG: expiry during owner lock wait rolls back a new device registration
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-transactions-postgres.test.ts:[2m23:21[22m[39m
+    [90m 21|[39m     await pool.query(`CREATE TABLE "${schema}".test_data (id uuid PRIM…
+    [90m 22|[39m     await run(pool,schema);
+    [90m 23|[39m   } finally { try { await pool.query(`DROP SCHEMA "${schema}" CASCADE`…
+    [90m   |[39m                     [31m^[39m
+    [90m 24|[39m }
+    [90m 25|[39m async function locked(pool: pg.Pool, pid: number) {
+[90m [2m❯[22m tests/integration/private-transactions-postgres.test.ts:[2m139:3[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[43/69]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/supabase-auth-bootstrap-postgres.test.ts[2m > [22mSUPABASE-AUTH-PG: client login/verified bootstrap binds actual SQLite; foreign device registration and revoked-device retry roll back
+[31m[1merror[22m: password authentication failed for user "greiva"[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m tests/integration/supabase-auth-bootstrap-postgres.test.ts:[2m43:5[22m[39m
+    [90m 41|[39m   }finally{
+    [90m 42|[39m     for(const auth of sessions)auth.close();await device?.close();awai…
+    [90m 43|[39m     await pool.query(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);awai…
+    [90m   |[39m     [31m^[39m
+    [90m 44|[39m   }
+    [90m 45|[39m });
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[44/69]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m18 failed[39m[22m[90m (18)[39m
+[2m      Tests [22m [1m[31m69 failed[39m[22m[90m (69)[39m
+[2m   Start at [22m 16:10:10
+[2m   Duration [22m 25.01s[2m (import 71%, tests 21%, transform 8%, worker 1%)[22m
+
+[2m     Import [22m [33m80 modules were evaluated 106 times[39m[2m · 14.32s total, 71% of tracked time[22m
+[2m            [22m [2m~3.51s faster with [22m[33misolate: false[39m[2m — shared modules are evaluated once per worker instead of once per file[22m
+[2m            [22m [2mlearn more: https://vitest.dev/guide/improving-performance#test-isolation[22m
+
+JSON report written to /workspace/.data/autonomous-20261008/v29/postgres/vitest.json
+JUNIT report written to /workspace/.data/autonomous-20261008/v29/postgres/vitest.xml
