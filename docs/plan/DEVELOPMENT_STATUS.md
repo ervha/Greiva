@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+最新v0.26.1：利用者の最終回答を[ユーザー定義・個人情報・暗号化仕様](ACCOUNT_PRIVACY_ENCRYPTION_SPEC.md)と[全8判断](../decisions/account-privacy-encryption.md)に反映。メールはSupabase Authだけに保管しGreiva DB/ログへコピーしない。本文は通信/DB/backupの暗号化とログ除外、server復号を許容。E2EE/本文復旧コードは必須にせず、端末内検索/明示範囲AI送信を維持する。文書/相対リンク/差分を確認した設計のみのPATCHで、配備保護や鍵管理の実装・アプリ試験を追加実行していない。既存実行物はv0.26.0。通常アプリの接続composition等の既存残作業も完了扱いにしない。
+
 最新v0.26.0：開発を再開し、Page本文の編集runtime/viewを認証済connection・native保存・HTTP同期へ接続した。[契約](../development/PRIVATE_PAGE_EDITOR.md)、[全18判断](../decisions/private-page-editor.md)、[証拠・初回失敗](../../tests/evidence/private-page-editor-20261007/SUMMARY.md)。通常234/実PG69/画面64/ログイン画面8、型/frontend/通常Windows debug cross-buildがPass。source226がホストとDockerで一致し、外部依存は不変。保存失敗時の未保存本文保持、composition待機、Auth/Page切替の取消、ボタンから本文への選択復帰を確認。通常アプリの認証/一覧/編集composition、metadata変更、native Auth/offline保持契約、実IME検証は残る。以下のv0.25.1停止は当時の記録で、今回の再開指示により解除済み。次は通常アプリの接続compositionへ進む。
 
 最新v0.25.2：利用者指示に基づき、機能モジュールおよび各種設定項目をユーザーがON/OFFトグルで切り替え可能にする設計仕様書を追加。[仕様設計](FEATURE_SETTINGS_TOGGLE_SPEC.md)、[判断記録](../decisions/feature-settings-toggles.md)。非破壊性原則（OFFにしても実データを保持）、端末ローカル設定（SQLite local_settings）とワークスペース同期設定のスコープ分離、Material Design準拠のSwitch UI・アクセシビリティ要件を規定。コード変更を伴わない仕様書・計画文書の追加・更新のみ。

@@ -29,8 +29,9 @@
 | v0.25.1 配色 | [Neutral palette](../decisions/neutral-palette.md) | 10 | 共通theme、初回失敗保持、専用previewのみ更新、指定checkpointで停止 |
 | v0.25.2 トグル仕様 | [Feature settings](../decisions/feature-settings-toggles.md) | 5 | 利用者指定の仕様のみ、非破壊性、設定scope、Switch A11y |
 | v0.26.0 Page編集接続 | [Page editor](../decisions/private-page-editor.md) | 18 | 保存→送信/ACK再送、remote commit→live、composition待機、世代取消、選択復帰 |
+| v0.26.1 アカウント/本文保護設計 | [Privacy/encryption](../decisions/account-privacy-encryption.md) | 8 | Auth限定メール、通信/保存時暗号化、server復号許容、端末検索/明示送信（回答） |
 
-合計351件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
+合計359件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
 
 共通：同じcodex/poc-editor、確認後の版/tag/push、外部依存を監査、元Page/DBを保持。Computer UseはWindows診断後に解除し、今回の基盤開発では使わない。cloud/project/配布・課金・新global toolchainを作成せず、端末保持/旧DB帰属/保持期限を未決定のまま創作しない。初期OFFの改善送信は設計で、実際の収集は始めていない。
 

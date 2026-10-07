@@ -1,5 +1,7 @@
 # 本番データモデル候補と移行条件
 
+2026-10-07追記：[個人情報・暗号化設計](ACCOUNT_PRIVACY_ENCRYPTION_SPEC.md)はメール等のAuth限定保管、本文/title/履歴/Conflictを含むDB・backupの保存時暗号化を要求する。server復号を許容し、既存Yjs差分/structured意味検査を維持する。独自暗号wireやE2EEへの自動migrationは追加せず、具体保管方式/鍵管理/保持を提供前に確定する。
+
 2026-10-05、設計案。[統合要件](GREIVA_REQUIREMENTS.md) §5–7を具体化する。物理migration/新operation schemaは未実装。現protocolは[packages/protocol](../../packages/protocol/src/index.ts)、native schemaはRust page-store、serverはStructuredRepositoryが所有する。要件と実装の差を黙って正規化しない。
 
 ## 正本と論理識別

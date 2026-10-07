@@ -1,5 +1,7 @@
 # 初期提供範囲・PoCとの差・残る判断
 
+2026-10-07追記：[個人情報・暗号化仕様](ACCOUNT_PRIVACY_ENCRYPTION_SPEC.md)のアカウント最小化、TLS、DB/backup保存時暗号化・鍵管理、ログ/監視監査、restore/端末認可・索引保護を提供前の受入として管理する。server復号は許容しE2EEを必須にしない。配備先/保持/鍵管理詳細は未確定で、現同期試験を保管暗号化の証拠にしない。
+
 2026-10-05。利用者は機能優先を「おまかせ」、利用形態を「個人利用と自分の端末間同期を先行」と回答した。Codexは最初の案を**Windows/Android、Page/Task/Relation、基本DB Table/List、個人workspace同期**に選ぶ。基本DBの後に他view/Calendar/Automationを段階追加する。Android browser試験をTauri Androidアプリの完成へ換算しない。
 
 共有/招待/public link、外部Calendar、AI、通知/添付、DB全機能の同時提供は初期受入に加えない。これらの製品要求を削除したという意味ではなく、後続提供の対象として保持する。Home/Inboxの詳細を仮定して実装しない。

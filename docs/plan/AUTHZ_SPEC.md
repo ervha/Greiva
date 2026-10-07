@@ -1,5 +1,7 @@
 # 個人版の認証・認可契約候補
 
+2026-10-07追記：[ユーザー定義・個人情報・暗号化](ACCOUNT_PRIVACY_ENCRYPTION_SPEC.md)により、Supabase Authのメール保管を許容し、GreivaのDB/ログへのメール・プロフィールコピーを禁止する。主体は検証済みissuer＋subjectのまま。本文は通信/保存時暗号化としserver復号を許容、厳格なE2EEや本文復旧コードを初期提供の必須条件にしない。メールによるAuth回復だけで別主体へworkspaceを渡さず、署名session/端末認可を維持する。配備保護は未実装/未検証。
+
 v0.24.0：[Native workspace IPC](../development/NATIVE_WORKSPACE_IPC.md)はlocal repository bindingで、native署名Auth/credential/offline grantの完成ではない。通常UIへの接続前に残る契約を確定する。
 
 v0.20.0でschema2のstructured push/pullを同じ認可transactionへ接続。新scoped repositoryのresource作成/tombstoneだけを、typed所属/lock検査後に行う。owner/device/schema認可の任意変更は禁止を継続。Relation両endpointとConflict/ledger/historyのworkspaceを照合する。[実装/未完成範囲](../development/PRIVATE_STRUCTURED_SYNC.md)。Page CRDT/routerは別工程。

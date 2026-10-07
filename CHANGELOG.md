@@ -2,6 +2,12 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.26.1 — 2026-10-07
+
+- [ユーザー定義・個人情報・本文保護](docs/plan/ACCOUNT_PRIVACY_ENCRYPTION_SPEC.md)を追加。メール等はSupabase Authに保管しGreiva DB/ログへコピーしない。最終回答により本文は通信/DB/backupの暗号化、ログ除外、server復号許容とし、厳格なE2EE/本文復旧コードを必須にしない。
+- 端末内検索と明示範囲のAI送信を維持。配備/鍵/権限/backupの保護、現同期との整合、受入・残る詳細を記録。
+- 文書・相対リンク・差分を確認した設計のみのPATCH。保護設定・暗号機能の実装やアプリ試験は追加実施せず、manifest/lockfile/既存実行物はv0.26.0を保持。
+
 ## 0.26.0 — 2026-10-07
 
 - 認証済workspaceのPage編集runtimeと再利用viewを追加。native保存→正確なwire送信、ACK喪失再送、commit後のremote反映、composition待機、Auth/Page切替の取消と未確認表示を接続する。
