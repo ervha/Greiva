@@ -1,9 +1,12 @@
 # Native workspace保存先のIPC境界
 
+v0.27.0：`workspace_device(owner, candidate)` を追加し、アカウント別のstable clientIdを解決する。[契約/制限](PRIVATE_DEVICE_IDENTITY.md)、[証拠](../../tests/evidence/private-device-20261008/SUMMARY.md)。既存active handleを失効させず、署名native Authの代わりにはしない。
+
 v0.24.0。Tauri command登録とRust registry/client adapterを追加。通常PoC UI/旧DBは保持し、新login/workspace画面へまだmountしない。実Auth/native token custody/実Windows invokeの完了証拠ではない。
 
 | Command | 入力 | 内容 |
 | --- | --- | --- |
+| workspace_device | strict issuer/subjectId、UUIDv7 candidate | fixed devices.sqliteへ保存済みIDを照合/初回登録。owner/clientIdだけ返す |
 | workspace_open | WorkspaceContext | app-owned root内のbound DBを開き、handle/contextのみ返す |
 | workspace_close | handle | 旧処理commit完了を待ってhandleを閉じる。DB/queueは保持 |
 | workspace_execute | handle、strict command request | 固定されたstructured/Page whitelistだけを同storeへ適用 |

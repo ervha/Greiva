@@ -1,5 +1,7 @@
 # ログイン接続確認画面
 
+v0.27.0：nativeではAuth検証後に[保存済み端末ID](PRIVATE_DEVICE_IDENTITY.md)を解決する。確認中/取消/遅着/保存失敗を扱い、random fallbackをしない。browser診断IDはmemory-onlyのまま。Tauri commandのcompileとDockerのinvoke doubleで確認し、実起動/正常Supabase/CSP/OS credential/通常root画面接続の完成とはしない。[最新画面検証12件](../../tests/evidence/private-device-20261008/SUMMARY.md)。
+
 v0.20.0更新：専用Compose API/previewはschema2/版0.20へ更新し、[保護structured同期](PRIVATE_STRUCTURED_SYNC.md)を提供する。auth.htmlの動作は登録確認までで、本文/Taskを自動同期しない。
 
 v0.18.0。browserの`/auth.html`でEmail/passwordのログイン、Greivaの署名確認、個人workspace登録、明示refresh、local logoutを確認する。通常PoC画面と別entryで、本文同期や端末保存を提供する画面ではない。
@@ -37,6 +39,6 @@ client設定は環境変数かgit対象外のroot `.env`から受ける。Vite�
 | VITE_GREIVA_PRIVATE_API_ORIGIN | previewなら`http://127.0.0.1:1421` |
 | GREIVA_PRIVATE_PROXY_TARGET | Vite serverだけ。preview内なら`http://127.0.0.1:3002` |
 
-設定不足ではログインを無効にする。通常buildでもauth entryを作るが、rootの通常UIを変更せず、Tauriの既存CSPを拡張しない。nativeログイン/OS credential/再起動復元/IPCへの接続は後続。
+設定不足ではログインを無効にする。通常buildでもauth entryを作るが、rootの通常UIを変更せず、Tauriの既存CSPを拡張しない。native端末ID IPCはv0.27で追加済み。実nativeログイン/OS credential/Auth再起動復元/通常画面compositionは後続。
 
 `npm run test:auth-e2e`はDockerで実行する。provider/HTTPはfixtureの8 browser条件（PC/モバイル各4）で、実Supabaseや実MS IMEの証拠ではない。[証拠](../../tests/evidence/private-login-20261005/SUMMARY.md)、[全判断](../decisions/private-login-preview.md)、[残る外部条件](../plan/PENDING_PRODUCTION_CONFIGURATION.md)。

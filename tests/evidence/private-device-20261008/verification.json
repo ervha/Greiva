@@ -1,0 +1,47 @@
+{
+  "checkpoint": "0.27.0",
+  "totals": {
+    "normal": {
+      "total": 315,
+      "passed": 246,
+      "failed": 0,
+      "pending": 69
+    },
+    "postgres": {
+      "total": 69,
+      "passed": 69,
+      "failed": 0,
+      "pending": 0
+    },
+    "root-ui": {
+      "startTime": "2026-10-07T15:29:10.719Z",
+      "duration": 164923.666,
+      "expected": 64,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "auth-ui": {
+      "startTime": "2026-10-07T15:27:57.113Z",
+      "duration": 22915.63,
+      "expected": 12,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "source": {
+    "count": 221,
+    "rawMatches": 207,
+    "textOnly": 14
+  },
+  "nativeBuild": true,
+  "crashDriverBuild": true,
+  "typecheck": true,
+  "frontend": true,
+  "windowsCrossBuild": true,
+  "externalDependenciesUnchanged": true,
+  "realAuth": false,
+  "windowsLaunch": false,
+  "nativeIme": false
+}

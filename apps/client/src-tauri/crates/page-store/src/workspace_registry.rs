@@ -18,6 +18,10 @@ const REJECTED:&str="Private workspace command rejected or unavailable";
 fn exact(request:&Value,fields:&[&str])->StoreResult<()> {let object=request.as_object().ok_or(REJECTED)?;if object.len()!=fields.len() || fields.iter().any(|field|!object.contains_key(*field)){return Err(REJECTED.into());}Ok(())}
 fn text<'a>(request:&'a Value,key:&str)->StoreResult<&'a str> {request[key].as_str().ok_or_else(||REJECTED.into())}
 impl WorkspaceRegistry {
+    pub async fn device(&self,owner:crate::WorkspaceOwner,candidate:&str)->StoreResult<crate::WorkspaceDevice> {
+        // Device lookup must not close or rebind an already active workspace.
+        crate::workspace_device::resolve(&self.root,owner,candidate).await
+    }
     pub fn new(root:PathBuf)->Self {
         // Uniqueness namespace only, not a secret capability or proof of owner.
         let time=SystemTime::now().duration_since(UNIX_EPOCH).unwrap_or_default().as_nanos();

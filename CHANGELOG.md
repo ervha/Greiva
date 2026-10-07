@@ -2,6 +2,12 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.27.0 — 2026-10-08
+
+- アカウント別のnative端末IDを永続化。Auth検証後に同じIDを解決し、再ログインで保存済みPage・未送信更新の保存先を維持する。並行初回登録、COMMIT前後のkill、取消/遅着、missing metadataの安全な停止に対応。
+- メール・プロフィール・Auth tokenを端末ID DBへ保存せず、失敗時のrandom ID fallbackを禁止。browser診断はmemory-onlyを継続。
+- 通常246/実PG69/画面64/Auth画面12、型/frontend/Rust driver/通常Windows cross-buildを確認。[証拠](tests/evidence/private-device-20261008/SUMMARY.md)。通常画面composition、実native Auth/IME、offline権限、暗号化配備は未完成。
+
 ## 0.26.1 — 2026-10-07
 
 - [ユーザー定義・個人情報・本文保護](docs/plan/ACCOUNT_PRIVACY_ENCRYPTION_SPEC.md)を追加。メール等はSupabase Authに保管しGreiva DB/ログへコピーしない。最終回答により本文は通信/DB/backupの暗号化、ログ除外、server復号許容とし、厳格なE2EE/本文復旧コードを必須にしない。

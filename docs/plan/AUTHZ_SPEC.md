@@ -1,5 +1,7 @@
 # 個人版の認証・認可契約候補
 
+v0.27.0：[アカウント別native端末ID](../development/PRIVATE_DEVICE_IDENTITY.md)をAuth検証後に解決し、同主体の再ログインで保存先を維持する。ローカル登録識別子でありAuth grant/物理端末証明ではない。OS credential/署名native Auth/offline権限の未完成状態を変更しない。
+
 2026-10-07追記：[ユーザー定義・個人情報・暗号化](ACCOUNT_PRIVACY_ENCRYPTION_SPEC.md)により、Supabase Authのメール保管を許容し、GreivaのDB/ログへのメール・プロフィールコピーを禁止する。主体は検証済みissuer＋subjectのまま。本文は通信/保存時暗号化としserver復号を許容、厳格なE2EEや本文復旧コードを初期提供の必須条件にしない。メールによるAuth回復だけで別主体へworkspaceを渡さず、署名session/端末認可を維持する。配備保護は未実装/未検証。
 
 v0.24.0：[Native workspace IPC](../development/NATIVE_WORKSPACE_IPC.md)はlocal repository bindingで、native署名Auth/credential/offline grantの完成ではない。通常UIへの接続前に残る契約を確定する。

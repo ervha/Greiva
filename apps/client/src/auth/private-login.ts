@@ -1,13 +1,16 @@
-import { newId } from '@greiva/shared';
+import { newId, idSchema } from '@greiva/shared';
+import { NativeWorkspaceDeviceError } from '../workspace/native-workspace-device.js';
 import { supabaseAuthSession, PrivateWorkspaceConnection, PrivateConnectionError, type AuthIdentity, type AuthSession, type WorkspaceSyncContext } from '@greiva/sync';
 
 export type PrivateLoginConfiguration = Readonly<{ projectUrl: string; publishableKey: string; algorithm: 'ES256' | 'RS256'; apiUrl: string }>;
-export type LoginPhase = 'signed_out' | 'logging_in' | 'verified' | 'registering' | 'ready' | 'refreshing' | 'expired' | 'signing_out' | 'configuration';
+export type LoginPhase = 'signed_out' | 'logging_in' | 'preparing_device' | 'verified' | 'registering' | 'ready' | 'refreshing' | 'expired' | 'signing_out' | 'configuration';
 export type LoginSnapshot = Readonly<{ phase: LoginPhase; busy: boolean; identity: AuthIdentity | null; context: WorkspaceSyncContext | null; message: string | null }>;
-const busyPhases: readonly LoginPhase[] = ['logging_in', 'registering', 'refreshing', 'signing_out'];
+const busyPhases: readonly LoginPhase[] = ['logging_in', 'preparing_device', 'registering', 'refreshing', 'signing_out'];
+export type PrivateDeviceIdentityPort = (identity: AuthIdentity, signal: AbortSignal) => Promise<string>;
 
-// Verification screen only: no durable store, offline grant, token storage or
-// automatic bootstrap/refresh. Every login owns a fresh auth/connection pair.
+// Verification screen only: no content store, offline grant, token storage or
+// automatic bootstrap/refresh. Native composition may persist owner/device
+// metadata through the explicit port. Every login owns a fresh auth pair.
 export class PrivateLoginController {
   readonly #config: PrivateLoginConfiguration;
   readonly #fetch: typeof fetch;
@@ -19,13 +22,13 @@ export class PrivateLoginController {
   #disposed = false;
   #listeners = new Set<(snapshot: LoginSnapshot) => void>();
   #expiry: ReturnType<typeof setTimeout> | undefined;
-  constructor(configuration: PrivateLoginConfiguration, fetchPort: typeof fetch = globalThis.fetch) {
+  constructor(configuration: PrivateLoginConfiguration, fetchPort: typeof fetch = globalThis.fetch, private readonly deviceIdentity: PrivateDeviceIdentityPort = async () => newId()) {
     this.#config = Object.freeze({ ...configuration }); this.#fetch = fetchPort;
     try { const probe = supabaseAuthSession(this.#config, fetchPort); probe.close(); }
     catch { this.#phase = 'configuration'; this.#message = '接続設定が不足しているか、正しくありません。'; }
   }
   get snapshot(): LoginSnapshot {
-    const rotating = ['logging_in', 'refreshing', 'signing_out'].includes(this.#phase);
+    const rotating = ['logging_in', 'preparing_device', 'refreshing', 'signing_out'].includes(this.#phase);
     return Object.freeze({ phase: this.#phase, busy: busyPhases.includes(this.#phase), identity: rotating ? null : this.#auth?.identity ?? null,
       context: rotating ? null : this.#connection?.context ?? null, message: this.#message });
   }
@@ -54,10 +57,14 @@ export class PrivateLoginController {
     const auth = supabaseAuthSession(this.#config, this.#fetch); this.#auth = auth;
     try {
       await auth.login(email, password); if (!this.#current(revision)) return;
-      // Ephemeral diagnostic registration ID, not persistent device identity.
-      this.#connection = new PrivateWorkspaceConnection(auth, { apiUrl: this.#config.apiUrl, clientId: newId() }, this.#fetch);
+      this.#phase = 'preparing_device'; this.#publish();
+      const deviceIdentity = this.deviceIdentity;
+      const clientId = await auth.authorized(async (_authorization, signal, identity) => idSchema.parse(await deviceIdentity(identity, signal)));
+      if (!this.#current(revision)) return;
+      this.#connection = new PrivateWorkspaceConnection(auth, { apiUrl: this.#config.apiUrl, clientId }, this.#fetch);
       this.#phase = 'verified'; this.#expire();
-    } catch { if (!this.#current(revision)) return; this.#release(); this.#phase = 'signed_out'; this.#message = 'ログインを確認できませんでした。入力内容・接続先・ネットワークを確認してください。'; }
+    } catch (error) { if (!this.#current(revision)) return; const deviceFailed = this.#phase === 'preparing_device' || error instanceof NativeWorkspaceDeviceError;
+      this.#release(); this.#phase = 'signed_out'; this.#message = deviceFailed ? 'この端末の登録情報を確認できませんでした。保存先を確認して、もう一度ログインしてください。' : 'ログインを確認できませんでした。入力内容・接続先・ネットワークを確認してください。'; }
     this.#publish();
   }
   async register() {

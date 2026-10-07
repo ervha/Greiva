@@ -7,6 +7,8 @@ mod structured_sync;
 mod workspace_store;
 mod private_page;
 mod workspace_registry;
+mod workspace_device;
+pub use workspace_device::{WorkspaceOwner, WorkspaceDevice};
 pub use workspace_registry::{WorkspaceRegistry,WorkspaceHandle};
 pub use workspace_store::{WorkspaceContext, WorkspaceStore};
 pub use structured::{LocalOperation, StructuredSnapshot};

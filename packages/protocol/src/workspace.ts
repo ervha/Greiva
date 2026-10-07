@@ -47,3 +47,5 @@ export type WorkspacePullResponse = z.infer<typeof workspacePullResponseSchema>;
 // Local binding only, never a native authentication/authorization grant.
 export const workspaceLocalContextSchema=z.strictObject({issuer:z.string().min(1),subjectId:z.string().min(1),workspaceId:idSchema,clientId:idSchema,streamEpoch:idSchema});
 export const workspaceLocalHandleSchema=z.strictObject({handle:z.string().min(1).max(256).regex(/^[0-9a-f-]+$/),context:workspaceLocalContextSchema});
+// Local registration metadata only. No token/profile fields or native Auth grant.
+export const workspaceDeviceIdentitySchema=z.strictObject({issuer:z.string().min(1).max(2048),subjectId:z.string().min(1).max(512),clientId:idSchema});

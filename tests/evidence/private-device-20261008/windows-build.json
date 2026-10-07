@@ -1,0 +1,16 @@
+{
+  "checkpoint": "0.27.0",
+  "profile": "debug",
+  "target": "x86_64-pc-windows-msvc",
+  "features": [
+    "custom-protocol"
+  ],
+  "testHooks": false,
+  "testSqlite": false,
+  "crashHooks": false,
+  "bytes": 19172864,
+  "sha256": "157da61dabb58928d03072e40aeaf7d2373b809e72f7d34cbf61a50f203648cc",
+  "builtInDocker": true,
+  "hostLaunched": false,
+  "nativeImeTested": false
+}

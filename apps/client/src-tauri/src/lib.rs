@@ -1,7 +1,7 @@
 use greiva_page_store::{PageStore, StoredPage, PageMetadata, LocalOperation, StructuredSnapshot, PullBatch};
 use std::path::PathBuf;
 use tauri::Manager;
-use greiva_page_store::{WorkspaceRegistry,WorkspaceHandle,WorkspaceContext};
+use greiva_page_store::{WorkspaceRegistry,WorkspaceHandle,WorkspaceContext,WorkspaceOwner,WorkspaceDevice};
 use tokio::sync::OnceCell;
 
 struct LocalStore { path: PathBuf, store: OnceCell<PageStore> }
@@ -52,6 +52,8 @@ async fn structured_pull(base_cursor: Option<String>, batch: PullBatch, state: t
 }
 
 #[tauri::command]
+async fn workspace_device(owner:WorkspaceOwner,candidate:String,state:tauri::State<'_,WorkspaceRegistry>)->Result<WorkspaceDevice,String> {state.device(owner,&candidate).await}
+#[tauri::command]
 async fn workspace_open(context:WorkspaceContext,state:tauri::State<'_,WorkspaceRegistry>)->Result<WorkspaceHandle,String> {state.open(context).await}
 #[tauri::command]
 async fn workspace_close(handle:String,state:tauri::State<'_,WorkspaceRegistry>)->Result<(),String> {state.close(&handle).await}
@@ -77,7 +79,7 @@ pub fn run() {
             eprintln!("Greiva native startup: local store configured");
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![page_list, page_load, page_append, page_set_title, structured_snapshot, structured_mutate, structured_client_id, structured_prepare, structured_ack, structured_pull, workspace_open, workspace_close, workspace_execute])
+        .invoke_handler(tauri::generate_handler![page_list, page_load, page_append, page_set_title, structured_snapshot, structured_mutate, structured_client_id, structured_prepare, structured_ack, structured_pull, workspace_device, workspace_open, workspace_close, workspace_execute])
         .build(tauri::generate_context!())
         .expect("Greiva PoC failed to start");
     #[cfg(debug_assertions)]

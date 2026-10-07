@@ -23,6 +23,36 @@ async function login(page: Page) {
   await page.getByLabel('パスワード', { exact: true }).fill('fixture-password'); await page.getByRole('button', { name: 'ログインを確認', exact: true }).click();
 }
 const status = (page: Page) => page.getByLabel('接続確認の状態', { exact: true });
+test('PRIVATE-LOGIN-UI: native device port supplies same registration ID across logout/reload; no email/token reaches invoke', async ({ page }) => {
+  const f = await fixture(page), clientId = '01a10240-0000-7000-8000-000000000103';
+  await page.addInitScript(({ clientId }) => {
+    const target = window as unknown as { isTauri: boolean; __TAURI_INTERNALS__: { invoke(command: string, args: Record<string, unknown>): Promise<unknown> }; deviceCalls: unknown[] };
+    target.isTauri = true; target.deviceCalls = [];
+    target.__TAURI_INTERNALS__ = { invoke: async (command, args) => { target.deviceCalls.push({ command, args }); return { ...(args.owner as object), clientId }; } };
+  }, { clientId });
+  await page.goto('/auth.html'); await login(page); await expect(status(page)).toHaveText('認証を確認しました');
+  await page.getByRole('button', { name: 'workspace登録を確認', exact: true }).click(); await expect(status(page)).toHaveText('workspace登録を確認しました');
+  await page.getByRole('button', { name: 'ログアウト', exact: true }).click(); await expect(status(page)).toHaveText('ログインしていません');
+  await page.reload(); await login(page); await expect(status(page)).toHaveText('認証を確認しました'); await page.getByRole('button', { name: 'workspace登録を確認', exact: true }).click();
+  await expect(status(page)).toHaveText('workspace登録を確認しました'); expect(f.requests.filter(request => request.path === '/v1/workspaces/bootstrap').map(request => request.body)).toEqual([{ clientId }, { clientId }]);
+  const calls = await page.evaluate(() => (window as unknown as { deviceCalls: { command: string; args: Record<string, unknown> }[] }).deviceCalls);
+  expect(calls).toHaveLength(1); expect(calls[0]?.command).toBe('workspace_device'); expect(Object.keys(calls[0]!.args).sort()).toEqual(['candidate', 'owner']);
+  expect(Object.keys(calls[0]!.args.owner as object).sort()).toEqual(['issuer', 'subjectId']); expect(JSON.stringify(calls)).not.toMatch(/fixture-password|fixture-refresh|fixture.header.signature|fixture@example/);
+  expect(await page.evaluate(() => ({ local: localStorage.length, session: sessionStorage.length }))).toEqual({ local: 0, session: 0 });
+});
+test('PRIVATE-LOGIN-UI: pending native identity can be cancelled; failed persistence never falls back or discloses private cause', async ({ page }) => {
+  const f = await fixture(page);
+  await page.addInitScript(() => {
+    const target = window as unknown as { isTauri: boolean; __TAURI_INTERNALS__: { invoke(command: string, args: Record<string, unknown>): Promise<unknown> }; releaseDevice(): void };
+    target.isTauri = true; let calls = 0;
+    target.__TAURI_INTERNALS__ = { invoke: async (_command, args) => { if (++calls > 1) throw Error('fixture-private-device-path-token'); return new Promise(resolve => { target.releaseDevice = () => resolve({ ...(args.owner as object), clientId: '01a10240-0000-7000-8000-000000000103' }); }); } };
+  });
+  await page.goto('/auth.html'); await login(page); await expect(status(page)).toHaveText('端末の登録情報を確認中…');
+  await expect(page.getByRole('button', { name: 'workspace登録を確認', exact: true })).toHaveCount(0); await page.getByRole('button', { name: '接続を閉じる', exact: true }).click();
+  await page.evaluate(() => (window as unknown as { releaseDevice(): void }).releaseDevice()); await expect(status(page)).toHaveText('ログインしていません');
+  await login(page); await expect(page.getByRole('alert')).toContainText('端末の登録情報'); await expect(status(page)).toHaveText('ログインしていません');
+  expect(f.requests.some(request => request.path === '/v1/workspaces/bootstrap')).toBe(false); await expect(page.locator('body')).not.toContainText('fixture-private-device-path-token');
+});
 test('PRIVATE-LOGIN-UI: keyboard login, explicit bootstrap, refresh/re-register/local logout; no implicit sync or token storage', async ({ page }, info) => {
   const f = await fixture(page); await page.goto('/auth.html'); await expect(status(page)).toHaveText('ログインしていません'); expect(f.requests).toHaveLength(0);
   await info.attach('login-layout', { body: await page.screenshot(), contentType: 'image/png' });

@@ -18,6 +18,25 @@ function fixture() {
   return { calls, fetchPort, setSubject: (value: string) => { subject = value; }, setExpiry: (value: number) => { expiresAt = value; },
     setBootstrap: (value: number) => { bootstrapStatus = value; }, setLogout: (value: number) => { logoutStatus = value; }, setIntercept: (value: typeof intercept) => { intercept = value; } };
 }
+it('PRIVATE-LOGIN: durable device resolver is used only after verification and stable ID survives logout/login', async () => {
+  const f = fixture(), clientId = newId(), resolveDevice = vi.fn(async (_identity: import('@greiva/sync').AuthIdentity, _signal: AbortSignal) => clientId), controller = new PrivateLoginController(configuration, f.fetchPort, resolveDevice);
+  try {
+    await controller.login('fixture@example.invalid', 'fixture-password'); await controller.register(); const first = controller.snapshot.context;
+    expect(first?.clientId).toBe(clientId); expect(resolveDevice.mock.calls[0]?.[0]).toMatchObject({ subjectId: 'owner-fixture', issuer: projectUrl + '/auth/v1' });
+    await controller.logout(); await controller.login('fixture@example.invalid', 'fixture-password'); await controller.register(); expect(controller.snapshot.context).toEqual(first);
+  } finally { controller.dispose(); }
+});
+it('PRIVATE-LOGIN: close during device persistence never exposes identity or registers a late device; storage failure never falls back to random ID', async () => {
+  const f = fixture(), wait = deferred<string>(), controller = new PrivateLoginController(configuration, f.fetchPort, async () => wait.promise);
+  try {
+    const login = controller.login('fixture@example.invalid', 'fixture-password'); await vi.waitFor(() => expect(controller.snapshot.phase).toBe('preparing_device'));
+    expect(controller.snapshot).toMatchObject({ busy: true, identity: null, context: null }); controller.close(); wait.resolve(newId()); await login; await controller.register();
+    expect(controller.snapshot.phase).toBe('signed_out'); expect(f.calls.some(call => call.url.endsWith('/bootstrap'))).toBe(false);
+  } finally { controller.dispose(); }
+  const failed = new PrivateLoginController(configuration, f.fetchPort, async () => { throw Error('private email token path'); });
+  try { await failed.login('fixture@example.invalid', 'fixture-password'); await failed.register(); expect(failed.snapshot).toMatchObject({ phase: 'signed_out', identity: null, context: null }); expect(failed.snapshot.message).toContain('端末の登録情報'); expect(JSON.stringify(failed.snapshot)).not.toContain('private email token path'); }
+  finally { failed.dispose(); }
+});
 it('PRIVATE-LOGIN: explicit login/registration/refresh/logout; immutable public snapshot omits tokens and ready is not synchronization', async () => {
   const f = fixture(), controller = new PrivateLoginController(configuration, f.fetchPort);
   try {

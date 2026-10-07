@@ -1,12 +1,15 @@
 import { useEffect, useRef, useState } from 'react';
 import { createRoot } from 'react-dom/client';
 import { PrivateLoginController, type PrivateLoginConfiguration } from './private-login';
+import { isTauri } from '@tauri-apps/api/core';
+import { nativeWorkspaceDevice } from '../workspace/native-workspace-device';
 import './style.css';
 
 const configuration = Object.freeze({ projectUrl: import.meta.env.VITE_GREIVA_SUPABASE_URL ?? '', publishableKey: import.meta.env.VITE_GREIVA_SUPABASE_PUBLISHABLE_KEY ?? '',
   algorithm: import.meta.env.VITE_GREIVA_SUPABASE_ALGORITHM ?? '', apiUrl: import.meta.env.VITE_GREIVA_PRIVATE_API_ORIGIN ?? '' }) as PrivateLoginConfiguration;
-const controller = new PrivateLoginController(configuration);
-const labels = { signed_out: 'ログインしていません', logging_in: 'ログインを確認中…', verified: '認証を確認しました', registering: 'workspace登録を確認中…',
+const native = isTauri();
+const controller = new PrivateLoginController(configuration, globalThis.fetch, native ? nativeWorkspaceDevice : undefined);
+const labels = { signed_out: 'ログインしていません', logging_in: 'ログインを確認中…', preparing_device: '端末の登録情報を確認中…', verified: '認証を確認しました', registering: 'workspace登録を確認中…',
   ready: 'workspace登録を確認しました', refreshing: '認証を更新中…', expired: '認証の有効期限が切れました', signing_out: 'ログアウト中…', configuration: '接続設定を確認してください' };
 
 function LoginScreen() {
@@ -35,7 +38,7 @@ function LoginScreen() {
         {signedIn && <button type="button" disabled={state.busy} onClick={() => { void controller.logout(); }}>ログアウト</button>}
         <button type="button" onClick={() => controller.close()}>接続を閉じる</button></div>}
       {state.context && <p className="auth-success">個人workspaceの登録を確認しました。データ同期はまだ開始していません。</p>}
-      <p className="auth-help">初回のworkspace確認では検証用の端末を登録します。本文やタスクを同期する画面は開発中です。</p>
+      <p className="auth-help">{native ? 'このアカウント用の端末IDを端末内に保持します。メールや認証トークンは保存しません。' : '初回のworkspace確認では検証用の端末を登録します。'}本文やタスクを同期する画面は開発中です。</p>
     </section><footer><span>接続先</span><span>{state.phase === 'configuration' ? '未設定' : configuration.projectUrl}</span></footer></main>;
 }
 createRoot(document.getElementById('root')!).render(<LoginScreen />);
