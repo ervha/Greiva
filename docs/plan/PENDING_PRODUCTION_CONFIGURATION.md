@@ -1,5 +1,7 @@
 # 応答・外部環境が必要な事項
 
+最新v0.33.0：[Pageタイトル端末保存](../development/PRIVATE_PAGE_TITLE_DURABILITY.md)を実装。native schema7、既知基底/intent/immutable wire・receipt/候補の原子保存、連続offline編集と古い応答の投影保護、strict IPC/世代取消を検証。[証拠](../../tests/evidence/private-title-store-20261008/SUMMARY.md)。専用HTTP transport/runtime・title画面は後続。実Auth/Windows invoke・IME/Android/native grantと暗号化配備の残条件を継続し、追加の手操作依頼はない。
+
 最新v0.32.0：[Pageタイトルserver基盤](../development/PRIVATE_PAGE_METADATA.md)を追加。明示schema4、版/history/immutable結果、三値Conflictと新operation解決、bounded query、nonce/期限/失効の原子処理を実装。通常272/実PG82/型/Rust/frontend/Windows buildがPass。[証拠](../../tests/evidence/private-page-metadata-20261008/SUMMARY.md)。画面rename/端末title queue・replica/metadata delta、実Auth/native grant/IME/Androidと暗号化配備は後続。追加の利用者手操作依頼はない。
 
 最新v0.31.0：[Task・Relation画面](../development/PRIVATE_STRUCTURED_SCREEN.md)をworkspace previewへ接続。typed CRUD、三値Conflict/別operation解決、rejection保持、draft/変換/結果不明の保護と同期状態、両runtimeの取消/cleanupを追加。通常269/実PG70/画面18/型/Rust/frontend/Windows cross-buildを確認。[証拠](../../tests/evidence/private-structured-screen-20261008/SUMMARY.md)。本番入口/native Auth・credential/offline grant、実Auth/IME/Android、Page metadata同期と暗号化配備は残る。追加の利用者操作依頼は出していない。

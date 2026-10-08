@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.33.0 — 2026-10-08
+
+- Pageタイトルの端末保存とstrict IPCを追加。native schema7で版付き基底、offline intent、immutable wire/receiptと候補を原子的に保存し、古い応答でも新しい入力を保持する。
+- 連続編集は自分の成功receiptだけで基底を進める。改名後の元Page creation再送の互換性を修正し、本文binary/Task/Relationを保持する。
+- 全回帰、実PG/2 native SQLiteとsigned fixture HTTP、COMMIT前後8 SIGKILL、型/Rust/frontend/Windows buildを検証。[証拠](tests/evidence/private-title-store-20261008/SUMMARY.md)。title専用transport/runtime/画面、実Auth/Windows invoke・IMEと配備暗号化は後続。
+
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
 ## 0.32.0 — 2026-10-08

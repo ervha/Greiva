@@ -1,5 +1,7 @@
 # 初期提供範囲・PoCとの差・残る判断
 
+v0.33.0で[title端末保存基盤](../development/PRIVATE_PAGE_TITLE_DURABILITY.md)を実装・検証した。signed fixture HTTP/実PGと2 native SQLiteで再送・競合・本文保持を確認したが、専用transport/runtime/画面、実Supabase正常系・Windows invoke/IME・配備暗号化は未完成。削除/保持/復元とnative grantの残条件を継続する。
+
 v0.32.0で[title server基盤](../development/PRIVATE_PAGE_METADATA.md)を実装・検証した。private schema4の認証付きrename/read、履歴/immutable結果/Conflict解決を追加した段階で、端末title queue/replica/画面・metadata delta同期は未完成。削除/保持/復元とnative grant・配備暗号化の残条件を継続する。
 
 2026-10-07追記：[個人情報・暗号化仕様](ACCOUNT_PRIVACY_ENCRYPTION_SPEC.md)のアカウント最小化、TLS、DB/backup保存時暗号化・鍵管理、ログ/監視監査、restore/端末認可・索引保護を提供前の受入として管理する。server復号は許容しE2EEを必須にしない。配備先/保持/鍵管理詳細は未確定で、現同期試験を保管暗号化の証拠にしない。

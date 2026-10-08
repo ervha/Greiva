@@ -1,0 +1,20 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/private-page-store.test.ts [2m([22m[2m13 tests[22m[2m)[22m[33m 3969[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-PAGE-STORE: bound schema5 upgrade preserves structured data and rejects orphan/partial/foreign binding without mutation[33m 392[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-PAGE-STORE: input bounds and prepared corruption reject; combined large remote binary survives restart without an input-frame cap[33m 1510[2mms[22m[39m
+ [32m✓[39m tests/integration/private-title-store.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 3124[2mms[22m[39m
+   [33m[2m✓[22m[39m TITLE-STORE: bound schema6 upgrade preserves Page/structured data, keeps baseline unknown and rolls back partial schema[33m 304[2mms[22m[39m
+ [32m✓[39m tests/unit/page-session.test.ts [2m([22m[2m13 tests[22m[2m)[22m[33m 3019[2mms[22m[39m
+   [33m[2m✓[22m[39m PAGE-SESSION: combined large binary and unknown block attrs remain intact without JSON projection or input frame bound[33m 2664[2mms[22m[39m
+ [32m✓[39m tests/integration/workspace-store.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 2290[2mms[22m[39m
+ [32m✓[39m tests/unit/native-workspace-store.test.ts [2m([22m[2m14 tests[22m[2m)[22m[32m 132[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m5 passed[39m[22m[90m (5)[39m
+[2m      Tests [22m [1m[32m67 passed[39m[22m[90m (67)[39m
+[2m   Start at [22m 03:06:38
+[2m   Duration [22m 15.44s[2m (tests 87%, import 9%, transform 4%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261008/v33/focused/vitest.json
+JUNIT report written to /workspace/.data/autonomous-20261008/v33/focused/vitest.xml

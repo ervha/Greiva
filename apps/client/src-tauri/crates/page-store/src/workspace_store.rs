@@ -41,6 +41,7 @@ pub(super) async fn initialize(tx:&mut Transaction<'_,Sqlite>,context:&Workspace
         sqlx::query(sql).execute(&mut **tx).await.map_err(|e|e.to_string())?;
     }
     super::private_page::initialize(tx,version).await?;
+    super::private_title::initialize(tx,version).await?;
     Ok(())
 }
 #[derive(Deserialize)]
@@ -130,5 +131,10 @@ impl WorkspaceStore {
     pub async fn page_prepare(&self,id:&str)->StoreResult<Value> {safe(self.inner.private_page_prepare(&self.context.client_id,id).await)}
     pub async fn page_ack(&self,id:&str,sequence:&str,wire:&str,response:Value)->StoreResult<()> {safe(self.inner.private_page_ack(&self.context.client_id,&self.context.workspace_id,id,sequence,wire,response).await)}
     pub async fn page_receive(&self,id:&str,response:Value)->StoreResult<()> {safe(self.inner.private_page_receive(&self.context.workspace_id,id,response).await)}
+    pub async fn title_enqueue(&self,id:&str,intent:Value)->StoreResult<()> {safe(self.inner.title_enqueue(&self.context,id,intent).await)}
+    pub async fn title_prepare(&self,id:&str)->StoreResult<Value> {safe(self.inner.title_prepare(&self.context,id).await)}
+    pub async fn title_ack(&self,id:&str,sequence:&str,wire:&str,response:Value)->StoreResult<()> {safe(self.inner.title_ack(&self.context,id,sequence,wire,response).await)}
+    pub async fn title_receive(&self,id:&str,request:Value,response:Value)->StoreResult<()> {safe(self.inner.title_receive(&self.context,id,request,response).await)}
+    pub async fn title_load(&self,id:&str,after_operation:Option<&str>,after_conflict:Option<&str>,limit:usize)->StoreResult<Value> {safe(self.inner.title_load(&self.context,id,after_operation,after_conflict,limit).await)}
 
 }

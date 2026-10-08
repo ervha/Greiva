@@ -48,7 +48,9 @@ export class PageSyncSession {
     const candidateResponse=await this.network(()=>this.send(prepared.kind,prepared.wire,this.controller.signal));
     const response=await this.protocol(()=>{
       const response=freeze((prepared.kind==='bootstrap'?privatePageBootstrapResponseSchema:privatePageAppendResponseSchema).parse(clone(candidateResponse)));this.binding(response);
-      if('initialDigest' in response){if(response.initialDigest!==prepared.digest || !('title' in request) || response.metadata.title!==request.title)throw Error();}
+      // Bootstrap retry metadata can contain a later title; the initial binary
+      // digest confirms the immutable creation request. Title has its own wire.
+      if('initialDigest' in response){if(response.initialDigest!==prepared.digest || !('title' in request))throw Error();}
       else{if(response.digest!==prepared.digest)throw Error();pageVectorBytes(response.stateVector);}return response;
     });
     await this.stored(()=>this.acknowledge(this.context,prepared,response));

@@ -28,7 +28,7 @@ fn text<'a>(value:&'a Value,key:&str)->StoreResult<&'a str> {value[key].as_str()
 fn order(value:&Value,key:&str)->StoreResult<i64> {let raw=text(value,key)?;let number=raw.parse::<i64>().map_err(|_|"Invalid order")?;if number<1 || number.to_string()!=raw{return Err("Invalid order".into());}Ok(number)}
 fn validate_id(id:&str)->StoreResult<()> {if !uuid_v7(id){return Err("Invalid private Page ID".into());}Ok(())}
 fn input(bytes:&[u8])->StoreResult<()> {if bytes.is_empty() || bytes.len()>512*1024 {return Err("Invalid private Page frame size".into());}Ok(())}
-fn metadata(value:&Value,id:&str)->StoreResult<PageMetadata> {
+pub(super) fn metadata(value:&Value,id:&str)->StoreResult<PageMetadata> {
     exact(value,&["id","title","yDocId","createdAt","updatedAt"])?;
     let metadata:PageMetadata=serde_json::from_value(value.clone()).map_err(|_|"Invalid Page metadata")?;
     if metadata.id!=id || metadata.y_doc_id!=format!("page:{id}") || metadata.title.encode_utf16().count()>65536 || !timestamp(&metadata.created_at) || !timestamp(&metadata.updated_at){return Err("Invalid Page metadata".into());}Ok(metadata)
@@ -143,9 +143,11 @@ impl PageStore {
         let stored:String=row.get("wire");let kind:String=row.get("kind");let hash:Vec<u8>=row.get("digest");if stored!=wire{return Err("Page ACK wire mismatch".into());}verify_wire(client,&kind,wire,&hash)?;
         let head=if kind=="bootstrap" {
             exact(&response,&["protocolVersion","workspaceId","pageId","documentName","editorSchemaVersion","metadata","initialDigest"])?;
-            if response["initialDigest"]!=hex(&hash){return Err("Page bootstrap digest mismatch".into());}let page=metadata(&response["metadata"],id)?;let request:Value=serde_json::from_str(wire).map_err(|_|"Invalid prepared wire")?;if page.title!=text(&request,"title")?{return Err("Page bootstrap title mismatch".into());}
-            // Preserve local updatedAt while queued edits remain; server metadata
-            // is initial-title confirmation, never a binary overwrite.
+            if response["initialDigest"]!=hex(&hash){return Err("Page bootstrap digest mismatch".into());}let page=metadata(&response["metadata"],id)?;
+            let known_created:Option<String>=sqlx::query_scalar("SELECT json_extract(metadata,'$.createdAt') FROM workspace_title_base WHERE page_id=?").bind(id).fetch_optional(&mut *tx).await.map_err(|e|e.to_string())?;
+            if known_created.as_ref().is_some_and(|created|*created!=page.created_at){return Err("Page creation identity changed".into());}
+            // A bootstrap retry returns current mutable title, not the initial
+            // title. Digest still confirms creation; no title replica is applied.
             sqlx::query("UPDATE pages SET created_at=? WHERE id=?").bind(page.created_at).bind(id).execute(&mut *tx).await.map_err(|e|e.to_string())?;None
         }else{
             exact(&response,&["protocolVersion","workspaceId","pageId","documentName","editorSchemaVersion","serverOrder","headOrder","digest","stateVector"])?;
@@ -165,7 +167,8 @@ impl PageStore {
         let current=advance_head(&mut tx,id,head).await?;save(&mut tx,id,&bytes).await?;
         // Late diffs still add binary information, but cannot regress metadata.
         let pending:i64=sqlx::query_scalar("SELECT count(*) FROM workspace_page_pending p LEFT JOIN workspace_page_receipts r ON r.pending_seq=p.seq WHERE p.page_id=? AND r.pending_seq IS NULL").bind(id).fetch_one(&mut *tx).await.map_err(|e|e.to_string())?;
-        if current && pending==0 {set_metadata(&mut tx,&page).await?;}
+        let managed:i64=sqlx::query_scalar("SELECT (EXISTS(SELECT 1 FROM workspace_title_base WHERE page_id=?))+(EXISTS(SELECT 1 FROM workspace_title_operations WHERE page_id=?))").bind(id).bind(id).fetch_one(&mut *tx).await.map_err(|e|e.to_string())?;
+        if current && pending==0 && managed==0 {set_metadata(&mut tx,&page).await?;}
         crash_barrier("workspace-page-receive-before-commit")?;tx.commit().await.map_err(|e|e.to_string())?;crash_barrier("workspace-page-receive-after-commit")
     }
 }

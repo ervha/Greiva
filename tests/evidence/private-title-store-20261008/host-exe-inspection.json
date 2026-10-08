@@ -1,0 +1,10 @@
+{
+  "nativeImeTested": false,
+  "hostLaunched": false,
+  "fileVersion": "0.33.0",
+  "version": "0.33.0",
+  "bytes": 19469824,
+  "sha256": "d139a061f8f3b73d599f4324be417b2954be075895267e96f6462d631493b169",
+  "productVersion": "0.33.0",
+  "dockerShaMatches": true
+}

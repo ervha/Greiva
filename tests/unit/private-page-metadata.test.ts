@@ -1,11 +1,15 @@
 import {it,expect} from 'vitest';
 import {newId} from '@greiva/shared';
-import {privatePageRenameRequestSchema,privatePageRenameResponseSchema,privatePageMetadataReadResponseSchema,privatePageTitleConflictSchema} from '@greiva/protocol/private-page-metadata';
+import {privatePageRenameRequestSchema,privatePageRenameResponseSchema,privatePageMetadataReadResponseSchema,privatePageTitleConflictSchema,privatePageTitlePreparedSchema,privatePageTitleLocalResponseSchema} from '@greiva/protocol/private-page-metadata';
 const id=newId(),operationId=newId(),scope={protocolVersion:1,workspaceId:newId(),workspaceEpoch:newId(),pageId:id},metadata={id,title:'remote',yDocId:'page:'+id,createdAt:'2026-10-08T00:00:00.000Z',updatedAt:'2026-10-08T00:00:00.000Z'};
 const conflict={id:newId(),operationId,baseVersion:0,remoteVersion:1,base:'base',local:'local',remote:'remote'};
 it('TITLE-WIRE: strict requests reject identity spoofing, oversized titles and unsafe versions',()=>{
   const request={protocolVersion:1,clientId:newId(),operationId,baseVersion:0,title:'日本語'};expect(privatePageRenameRequestSchema.parse(request)).toEqual(request);
   for(const extra of [{subjectId:'owner'},{title:'x'.repeat(65537)},{baseVersion:Number.MAX_SAFE_INTEGER+1},{baseVersion:-1},{resolution:{conflictId:newId(),choice:'automatic'}},{protocolVersion:2}])expect(privatePageRenameRequestSchema.safeParse({...request,...extra}).success).toBe(false);
+});
+it('TITLE-LOCAL-WIRE: exact bigint sequences, unknown base and receipt binding are checked without parse exceptions',()=>{const prepared={pageId:id,sequence:'9223372036854775807',operationId,wire:'{}'};expect(privatePageTitlePreparedSchema.safeParse(prepared).success).toBe(true);for(const sequence of ['0','01','bad','9223372036854775808'])expect(privatePageTitlePreparedSchema.safeParse({...prepared,sequence}).success).toBe(false);
+  const context={issuer:'https://auth.fixture.invalid/auth/v1',subjectId:'owner',workspaceId:scope.workspaceId,clientId:newId(),streamEpoch:scope.workspaceEpoch},entry={sequence:'1',intent:{operationId,title:'local'},baseVersion:0,baseTitle:'base',predecessor:null,wire:'{}',response:{...scope,metadata,version:1,operationId,result:{status:'conflict',conflict}}},value={context,pageId:id,base:{metadata,version:1},localTitle:'local',pending:1,operations:[entry],nextOperation:null,conflicts:[{record:conflict,resolvedBy:null}],nextConflict:null};expect(privatePageTitleLocalResponseSchema.safeParse(value).success).toBe(true);
+  for(const extra of [{base:null},{nextOperation:'2'},{operations:[{...entry,sequence:'bad'},entry]},{operations:[{...entry,response:{...entry.response,workspaceEpoch:newId()}}]}])expect(privatePageTitleLocalResponseSchema.safeParse({...value,...extra}).success).toBe(false);
 });
 it('TITLE-WIRE: conflict receipt binds title, operation, Page and version',()=>{
   const receipt={...scope,metadata,version:1,operationId,result:{status:'conflict',conflict}};expect(privatePageRenameResponseSchema.safeParse(receipt).success).toBe(true);

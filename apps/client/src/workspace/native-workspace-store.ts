@@ -1,4 +1,5 @@
 import {idSchema} from '@greiva/shared';
+import {NativeWorkspaceTitle} from './native-workspace-title.js';
 import {parseOperationPayload,pushOperationSchema,taskSchema,relationSchema} from '@greiva/protocol';
 import {workspaceStructuredSnapshotSchema} from '@greiva/protocol/workspace';
 import {privateLocalPageCatalogRequestSchema,privateLocalPageCatalogResponseSchema} from '@greiva/protocol/private-page-catalog';
@@ -57,6 +58,7 @@ export class NativeWorkspaceStore implements WorkspaceSessionStore {
     try{const result=workspaceStructuredSnapshotSchema.parse(value);if(!same(this.context,result.context)||result.snapshot.clientId!==this.context.clientId)throw Error();this.check();return immutable(result.snapshot);}
     catch{this.check();throw new NativeWorkspaceError('protocol');}
   }
+  title(pageId:string):NativeWorkspaceTitle{const parsed=idSchema.safeParse(pageId);if(!parsed.success)throw new NativeWorkspaceError('protocol');this.check();return new NativeWorkspaceTitle(this,pageId);}
   async mutate(candidate:unknown):Promise<void>{
     let operation:ReturnType<typeof pushOperationSchema.parse>;
     try{operation=pushOperationSchema.parse(candidate);parseOperationPayload(operation);if(operation.clientId!==this.context.clientId)throw Error();}catch{throw new NativeWorkspaceError('protocol');}
