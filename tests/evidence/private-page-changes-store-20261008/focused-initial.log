@@ -1,0 +1,57 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/private-page-store.test.ts [2m([22m[2m13 tests[22m[2m)[22m[33m 2305[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-PAGE-STORE: input bounds and prepared corruption reject; combined large remote binary survives restart without an input-frame cap[33m 732[2mms[22m[39m
+ [32m✓[39m tests/integration/private-title-store.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 2154[2mms[22m[39m
+ [31m❯[39m tests/integration/workspace-store.test.ts [2m([22m[2m12 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 1536[2mms[22m[39m
+   [32m✓[39m WORKSPACE-STORE: prepared bytes and causal offline intent survive process restart; ACK never skips pull[32m 120[2mms[22m[39m
+   [32m✓[39m WORKSPACE-STORE: every account/workspace/device/epoch mismatch fails without adopting or deleting the old database[32m 182[2mms[22m[39m
+[31m   [31m×[31m WORKSPACE-STORE: private schema never imports PoC or unversioned data; ordinary PoC cannot open a bound database[39m[32m 168[2mms[22m[39m
+   [32m✓[39m WORKSPACE-STORE: invalid ACK scope/identity/bytes and altered replay never partially acknowledge local intent[32m 77[2mms[22m[39m
+   [32m✓[39m WORKSPACE-STORE: pull validation and cursor-write failure roll back entity/receipt/cursor; exact page replay is idempotent[32m 78[2mms[22m[39m
+   [32m✓[39m WORKSPACE-STORE: closed portable session ignores a late network ACK and fresh sessions commit only their bound native store[32m 84[2mms[22m[39m
+   [32m✓[39m WORKSPACE-STORE-SIGKILL: prepare before commit recovers atomic durable state and retries without duplication[32m 151[2mms[22m[39m
+   [32m✓[39m WORKSPACE-STORE-SIGKILL: prepare after commit recovers atomic durable state and retries without duplication[32m 143[2mms[22m[39m
+   [32m✓[39m WORKSPACE-STORE-SIGKILL: ack before commit recovers atomic durable state and retries without duplication[32m 138[2mms[22m[39m
+   [32m✓[39m WORKSPACE-STORE-SIGKILL: ack after commit recovers atomic durable state and retries without duplication[32m 133[2mms[22m[39m
+   [32m✓[39m WORKSPACE-STORE-SIGKILL: pull before commit recovers atomic durable state and retries without duplication[32m 135[2mms[22m[39m
+   [32m✓[39m WORKSPACE-STORE-SIGKILL: pull after commit recovers atomic durable state and retries without duplication[32m 126[2mms[22m[39m
+ [31m❯[39m tests/integration/private-page-changes-store.test.ts [2m([22m[2m7 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 1004[2mms[22m[39m
+   [32m✓[39m PAGE-CHANGES-STORE: metadata-only Pages, exact replay, filtered empty windows and cursor survive restart without body creation[32m 152[2mms[22m[39m
+[31m   [31m×[31m PAGE-CHANGES-STORE: cached title/candidates adopt after body import; remote resolution preserves pending title and immutable wire[39m[32m 123[2mms[22m[39m
+   [32m✓[39m PAGE-CHANGES-STORE: bad scope/cursor/order and late semantic failure roll back whole catalog/receipt/progress[32m 60[2mms[22m[39m
+   [32m✓[39m PAGE-CHANGES-STORE: catalog is bounded/keyset and corrupted lookahead refuses partial local result[32m 168[2mms[22m[39m
+   [32m✓[39m PAGE-CHANGES-STORE: bound schema7 migration preserves binary/queue and rejects wrong identity/partial DDL atomically[32m 217[2mms[22m[39m
+   [32m✓[39m PAGE-CHANGES-STORE-SIGKILL: before commit keeps catalog/event/receipt/cursor atomic[32m 138[2mms[22m[39m
+   [32m✓[39m PAGE-CHANGES-STORE-SIGKILL: after commit keeps catalog/event/receipt/cursor atomic[32m 144[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 2 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-page-changes-store.test.ts[2m > [22mPAGE-CHANGES-STORE: cached title/candidates adopt after body import; remote resolution preserves pending title and immutable wire
+[31m[1mNativeWorkspaceError[22m: Native workspace storage[39m
+[36m [2m❯[22m NativeWorkspaceStore.execute apps/client/src/workspace/native-workspace-store.ts:[2m46:180[22m[39m
+
+[90m [2m❯[22m NativeWorkspaceTitle.enqueue apps/client/src/workspace/native-workspace-title.ts:[2m11:128[22m[39m
+[90m [2m❯[22m tests/integration/private-page-changes-store.test.ts:[2m19:804[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/workspace-store.test.ts[2m > [22mWORKSPACE-STORE: private schema never imports PoC or unversioned data; ordinary PoC cannot open a bound database
+[31m[1mAssertionError[22m: expected [Function] to throw error including 'Unsupported local schema version: 7' but got 'Unsupported local schema version: 8'[39m
+
+Expected: [32m"Unsupported local schema version: [7m7[27m"[39m
+Received: [31m"Unsupported local schema version: [7m8[27m"[39m
+
+[36m [2m❯[22m tests/integration/workspace-store.test.ts:[2m61:93[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m2 passed[39m[22m[90m (4)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m45 passed[39m[22m[90m (47)[39m
+[2m   Start at [22m 08:10:48
+[2m   Duration [22m 8.30s[2m (tests 88%, import 7%, transform 4%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261008/v37/focused/vitest.json

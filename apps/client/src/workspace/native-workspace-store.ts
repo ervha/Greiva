@@ -3,6 +3,7 @@ import {NativeWorkspaceTitle} from './native-workspace-title.js';
 import {parseOperationPayload,pushOperationSchema,taskSchema,relationSchema} from '@greiva/protocol';
 import {workspaceStructuredSnapshotSchema} from '@greiva/protocol/workspace';
 import {privateLocalPageCatalogRequestSchema,privateLocalPageCatalogResponseSchema} from '@greiva/protocol/private-page-catalog';
+import {privatePageChangesLocalRequestSchema,privatePageChangesLocalResponseSchema,privatePageChangesRequestSchema,privatePageChangesResponseSchema} from '@greiva/protocol/private-page-changes';
 import {invoke,isTauri} from '@tauri-apps/api/core';
 import {workspaceLocalHandleSchema,workspaceLocalContextSchema,type WorkspacePushRequest,type WorkspacePullResponse,verifyWorkspacePushResponse} from '@greiva/protocol/workspace';
 import {privatePageLocalLoadSchema,privatePagePreparedSchema,privatePageBootstrapRequestSchema,privatePageAppendRequestSchema,type PrivatePagePrepared,type PrivatePageReadRequest,type PrivatePageReadResponse} from '@greiva/protocol/private-page';
@@ -53,6 +54,15 @@ export class NativeWorkspaceStore implements WorkspaceSessionStore {
     const parsed=idSchema.safeParse(pageId);if(!parsed.success)throw new NativeWorkspaceError('protocol');this.check();return new NativeWorkspacePage(this,pageId);
   }
   assertActive(){this.check();}
+  async changesLoad(candidate:unknown={afterPage:null,limit:50}){
+    const parsed=privatePageChangesLocalRequestSchema.safeParse(candidate);if(!parsed.success)throw new NativeWorkspaceError('protocol');const request=parsed.data;
+    const value=await this.execute({command:'changes_load',...request});try{const result=privatePageChangesLocalResponseSchema.parse(value);if(!same(this.context,result.context)||result.pages.length>request.limit||result.pages.some(row=>request.afterPage!==null&&row.metadata.id<=request.afterPage!))throw Error();this.check();return immutable(result);}catch{this.check();throw new NativeWorkspaceError('protocol');}
+  }
+  async changesReceive(candidateRequest:unknown,candidateResponse:unknown):Promise<void>{
+    let request:ReturnType<typeof privatePageChangesRequestSchema.parse>,response:ReturnType<typeof privatePageChangesResponseSchema.parse>;
+    this.check();try{request=privatePageChangesRequestSchema.parse(candidateRequest);response=privatePageChangesResponseSchema.parse(candidateResponse);if(request.clientId!==this.context.clientId||response.workspaceId!==this.context.workspaceId||response.workspaceEpoch!==this.context.streamEpoch||response.events.length>request.limit)throw Error();immutable(request);immutable(response);}catch{throw new NativeWorkspaceError('protocol');}
+    await this.execute({command:'changes_receive',request,response});this.check();
+  }
   async structuredSnapshot(){
     const value=await this.execute({command:'snapshot'});
     try{const result=workspaceStructuredSnapshotSchema.parse(value);if(!same(this.context,result.context)||result.snapshot.clientId!==this.context.clientId)throw Error();this.check();return immutable(result.snapshot);}

@@ -1,0 +1,44 @@
+{
+  "version": "0.37.0",
+  "totals": {
+    "normal": {
+      "total": 421,
+      "passed": 328,
+      "failed": 0,
+      "pending": 93
+    },
+    "postgres": {
+      "total": 93,
+      "passed": 93,
+      "failed": 0,
+      "pending": 0
+    },
+    "initial-focused": {
+      "total": 47,
+      "passed": 45,
+      "failed": 2,
+      "pending": 0
+    },
+    "focused": {
+      "total": 49,
+      "passed": 49,
+      "failed": 0,
+      "pending": 0
+    }
+  },
+  "source": {
+    "count": 260,
+    "rawMatches": 250,
+    "textOnly": 10,
+    "excluded": [
+      "playwright.performance.config.ts",
+      "playwright.render-diagnostic.config.ts",
+      "tests/diagnostics/render-isolation.spec.ts",
+      "tests/native/windows-store-fixture.json",
+      "tests/performance/workloads.spec.ts"
+    ]
+  },
+  "realAuth": false,
+  "windowsLaunch": false,
+  "nativeIme": false
+}

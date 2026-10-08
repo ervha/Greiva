@@ -1,10 +1,13 @@
 {
   "name": "@greiva/protocol",
-  "version": "0.36.0",
+  "version": "0.37.0",
   "private": true,
   "type": "module",
   "exports": {
-    "./private-page-changes": {"types":"./dist/private-page-changes.d.ts","import":"./dist/private-page-changes.js"},
+    "./private-page-changes": {
+      "types": "./dist/private-page-changes.d.ts",
+      "import": "./dist/private-page-changes.js"
+    },
     ".": {
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js"
@@ -31,8 +34,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@greiva/domain": "0.36.0",
+    "@greiva/domain": "0.37.0",
     "zod": "4.6.5",
-    "@greiva/shared": "0.36.0"
+    "@greiva/shared": "0.37.0"
   }
 }

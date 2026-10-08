@@ -18,7 +18,7 @@ fn title(v:&str)->StoreResult<()>{if v.encode_utf16().count()>65536{return Err("
 fn version(v:&Value,key:&str)->StoreResult<i64>{v[key].as_i64().filter(|n|(0..=MAX).contains(n)).ok_or("Invalid title version".into())}
 fn sequence(v:&str)->StoreResult<i64>{let n=v.parse::<i64>().map_err(|_|"Invalid title sequence")?;if n<1||n.to_string()!=v{return Err("Invalid title sequence".into());}Ok(n)}
 fn intent(v:Value)->StoreResult<Intent>{if v.get("resolution").is_some(){exact(&v,&["operationId","title","resolution"])?;if v["resolution"].is_null(){return Err("Invalid null resolution".into());}}else{exact(&v,&["operationId","title"])?;}let i:Intent=serde_json::from_value(v).map_err(|_|"Invalid title intent")?;id(&i.operation_id)?;title(&i.title)?;if let Some(r)=&i.resolution{id(&r.conflict_id)?;if !["local","remote"].contains(&r.choice.as_str()){return Err("Invalid title choice".into());}}Ok(i)}
-fn conflict(v:&Value)->StoreResult<()> {
+pub(super) fn conflict(v:&Value)->StoreResult<()> {
     exact(v,&["id","operationId","baseVersion","remoteVersion","base","local","remote"])?;id(text(v,"id")?)?;id(text(v,"operationId")?)?;
     if version(v,"baseVersion")?>=version(v,"remoteVersion")?{return Err("Invalid conflict versions".into());}
     for key in ["base","local","remote"]{title(text(v,key)?)?;}
@@ -72,6 +72,18 @@ async fn apply_base(tx:&mut Transaction<'_,Sqlite>,page:&str,v:&Value)->StoreRes
 async fn save_conflict(tx:&mut Transaction<'_,Sqlite>,page:&str,v:&Value)->StoreResult<()> {
     conflict(v)?;let key=text(v,"id")?;let old:Option<String>=sqlx::query_scalar("SELECT record FROM workspace_title_conflicts WHERE page_id=? AND id=?").bind(page).bind(key).fetch_optional(&mut **tx).await.map_err(|e|e.to_string())?;
     if let Some(old)=old{if serde_json::from_str::<Value>(&old).map_err(|_|"Corrupt title conflict")?!=*v{return Err("Immutable title conflict changed".into());}}else{sqlx::query("INSERT INTO workspace_title_conflicts(page_id,id,record) VALUES(?,?,?)").bind(page).bind(key).bind(v.to_string()).execute(&mut **tx).await.map_err(|e|e.to_string())?;}Ok(())
+}
+pub(super) async fn receive_change(tx:&mut Transaction<'_,Sqlite>,page:&str,v:&Value)->StoreResult<()> {
+    let present:i64=sqlx::query_scalar("SELECT count(*) FROM workspace_page_documents WHERE page_id=?").bind(page).fetch_one(&mut **tx).await.map_err(|e|e.to_string())?;
+    if present==0{return Ok(());}
+    // A metadata event can arrive before a lost bootstrap acknowledgement is
+    // retried. Keep that cache separate until creation has been confirmed.
+    let bootstrap:i64=sqlx::query_scalar("SELECT count(*) FROM workspace_page_pending p LEFT JOIN workspace_page_receipts r ON r.pending_seq=p.seq WHERE p.page_id=? AND p.kind='bootstrap' AND r.pending_seq IS NULL").bind(page).fetch_one(&mut **tx).await.map_err(|e|e.to_string())?;
+    if bootstrap!=0{return Ok(());}
+    let created:String=sqlx::query_scalar("SELECT created_at FROM pages WHERE id=?").bind(page).fetch_one(&mut **tx).await.map_err(|e|e.to_string())?;
+    if v["metadata"]["createdAt"]!=created{return Err("Cached Page creation identity changed".into());}apply_base(tx,page,v).await?;
+    if !v["conflict"].is_null(){let cf=&v["conflict"];save_conflict(tx,page,&cf["record"]).await?;if !cf["resolvedBy"].is_null(){let incoming=text(cf,"resolvedBy")?;id(incoming)?;let old:Option<String>=sqlx::query_scalar("SELECT resolved_by FROM workspace_title_conflicts WHERE page_id=? AND id=?").bind(page).bind(text(&cf["record"],"id")?).fetch_one(&mut **tx).await.map_err(|e|e.to_string())?;if old.as_ref().is_some_and(|value|value!=incoming){return Err("Conflict resolution changed".into());}sqlx::query("UPDATE workspace_title_conflicts SET resolved_by=? WHERE page_id=? AND id=?").bind(incoming).bind(page).bind(text(&cf["record"],"id")?).execute(&mut **tx).await.map_err(|e|e.to_string())?;}}
+    project(tx,page).await
 }
 async fn effective(tx:&mut Transaction<'_,Sqlite>,c:&WorkspaceContext,row:&sqlx::sqlite::SqliteRow)->StoreResult<(Intent,i64,String,String)> {
     let page:String=row.get("page_id");let stored_id:String=row.get("operation_id");let i=intent(serde_json::from_str(&row.get::<String,_>("intent")).map_err(|_|"Corrupt title intent")?)?;if i.operation_id!=stored_id{return Err("Title intent ID changed".into());}

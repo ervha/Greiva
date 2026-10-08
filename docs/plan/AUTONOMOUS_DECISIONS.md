@@ -47,8 +47,9 @@
 | v0.35.0 Pageタイトル画面 | [Title screen](../decisions/private-page-title-screen.md) | 18 | 明示保存/確認/解決、入力/切替保護、独立状態、bounded候補/履歴、実IME証拠分離 |
 
 | v0.36.0 Pageタイトル増分server | [Page changes server](../decisions/private-page-changes-server.md) | 16 | 原子journal/commit順、同値解決通知、HMAC cursor、filtered進捗、明示seed移行 |
+| v0.37.0 Pageタイトル増分端末保存 | [Page changes store](../decisions/private-page-changes-store.md) | 16 | 原子catalog/cursor、本文と作成確認後の採用、exact replay、pending保持、remote解決・migration |
 
-合計507件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
+合計523件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
 
 共通：同じcodex/poc-editor、確認後の版/tag/push、外部依存を監査、元Page/DBを保持。Computer UseはWindows診断後に解除し、今回の基盤開発では使わない。cloud/project/配布・課金・新global toolchainを作成せず、端末保持/旧DB帰属/保持期限を未決定のまま創作しない。初期OFFの改善送信は設計で、実際の収集は始めていない。
 

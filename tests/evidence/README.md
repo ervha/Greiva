@@ -1,5 +1,6 @@
 # 試験証拠の索引
 
+- 2026-10-08 / v0.37.0 / [Pageタイトル増分端末保存](private-page-changes-store-20261008/SUMMARY.md): schema8/原子catalog・cursor、本文/作成確認後の採用、exact replay/pending保持/remote解決、migration/SIGKILL。通常328/PG93/重点49/型/Rust/frontend/Windows build。認証付きruntime/UIと実Auth/native/配備暗号化は後続。
 - 2026-10-08 / v0.36.0 / [Pageタイトル増分server](private-page-changes-server-20261008/SUMMARY.md): schema5/atomic journal・commit順、HMAC cursor、bounded/filtered空頁、seed移行/失効/SIGKILL。通常319/PG93/専用10/型/Rust/frontend/Windows build。端末受信/session/UIと実Auth/native/配備暗号化は後続。
 
 - 2026-10-08 / v0.35.0 / [Pageタイトル画面](private-title-screen-20261008/SUMMARY.md): 明示保存/取消/確認、三値候補/拒否履歴、同ID再確認/同wire再送、入力と切替保護、独立pending、bounded履歴。通常315/PG83/workspace32/root64/Auth12/型/Rust/frontend/Windows build。実IME/実Auth/配備暗号化は未検証。

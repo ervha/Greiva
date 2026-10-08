@@ -10,12 +10,12 @@ use sha2::{Digest,Sha256};
 use sqlx::{Row,Sqlite,Transaction};
 
 const ALPHABET:&[u8;64]=b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_";
-fn encode(bytes:&[u8])->String {
+pub(super) fn encode(bytes:&[u8])->String {
     let mut out=String::new();let mut bits=0u32;let mut count=0u8;
     for byte in bytes {bits=(bits<<8)|u32::from(*byte);count+=8;while count>=6 {count-=6;out.push(ALPHABET[((bits>>count)&63) as usize] as char);}}
     if count>0 {out.push(ALPHABET[((bits<<(6-count))&63) as usize] as char);}out
 }
-fn decode(value:&str)->StoreResult<Vec<u8>> {
+pub(super) fn decode(value:&str)->StoreResult<Vec<u8>> {
     if value.is_empty() {return Err("Empty binary".into());}
     let mut bytes=Vec::new();let mut bits=0u32;let mut count=0u8;
     for byte in value.bytes() {let digit=ALPHABET.iter().position(|candidate|*candidate==byte).ok_or("Invalid base64url")?;bits=(bits<<6)|(digit as u32);count+=6;if count>=8 {count-=8;bytes.push(((bits>>count)&255) as u8);}}
@@ -157,6 +157,7 @@ impl PageStore {
         if let Some(old)=old {let old:Value=serde_json::from_str(&old).map_err(|_|"Corrupt Page receipt")?;let stable=if kind=="bootstrap" {"initialDigest"}else{"serverOrder"};if old[stable]!=response[stable] || (kind=="bootstrap" && old["metadata"]["createdAt"]!=response["metadata"]["createdAt"]){return Err("Page ACK identity changed".into());}}
         else {let first:Option<i64>=sqlx::query_scalar("SELECT p.seq FROM workspace_page_pending p LEFT JOIN workspace_page_receipts r ON r.pending_seq=p.seq WHERE p.page_id=? AND r.pending_seq IS NULL ORDER BY p.seq LIMIT 1").bind(id).fetch_optional(&mut *tx).await.map_err(|e|e.to_string())?;if first!=Some(seq){return Err("Page ACK skips pending frame".into());}sqlx::query("INSERT INTO workspace_page_receipts VALUES(?,?)").bind(seq).bind(response.to_string()).execute(&mut *tx).await.map_err(|e|e.to_string())?;}
         if let Some(head)=head{advance_head(&mut tx,id,head).await?;}
+        if kind=="bootstrap"{super::private_changes::adopt(&mut tx,id).await?;}
         crash_barrier("workspace-page-ack-before-commit")?;tx.commit().await.map_err(|e|e.to_string())?;crash_barrier("workspace-page-ack-after-commit")
     }
     pub(super) async fn private_page_receive(&self,workspace:&str,id:&str,response:Value)->StoreResult<()> {
@@ -169,6 +170,7 @@ impl PageStore {
         let pending:i64=sqlx::query_scalar("SELECT count(*) FROM workspace_page_pending p LEFT JOIN workspace_page_receipts r ON r.pending_seq=p.seq WHERE p.page_id=? AND r.pending_seq IS NULL").bind(id).fetch_one(&mut *tx).await.map_err(|e|e.to_string())?;
         let managed:i64=sqlx::query_scalar("SELECT (EXISTS(SELECT 1 FROM workspace_title_base WHERE page_id=?))+(EXISTS(SELECT 1 FROM workspace_title_operations WHERE page_id=?))").bind(id).bind(id).fetch_one(&mut *tx).await.map_err(|e|e.to_string())?;
         if current && pending==0 && managed==0 {set_metadata(&mut tx,&page).await?;}
+        super::private_changes::adopt(&mut tx,id).await?;
         crash_barrier("workspace-page-receive-before-commit")?;tx.commit().await.map_err(|e|e.to_string())?;crash_barrier("workspace-page-receive-after-commit")
     }
 }

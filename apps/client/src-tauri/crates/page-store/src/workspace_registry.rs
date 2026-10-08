@@ -53,6 +53,8 @@ impl WorkspaceRegistry {
             "ack"=>{exact(&request,&["command","wire","response"])?;store.acknowledge(text(&request,"wire")?.into(),request["response"].clone()).await?;Ok(Value::Null)},
             "pull"=>{exact(&request,&["command","request","response"])?;store.apply_pull(request["request"].clone(),request["response"].clone()).await?;Ok(Value::Null)},
             "title_enqueue"=>{exact(&request,&["command","pageId","intent"])?;store.title_enqueue(text(&request,"pageId")?,request["intent"].clone()).await?;Ok(Value::Null)},
+            "changes_receive"=>{exact(&request,&["command","request","response"])?;store.changes_receive(request["request"].clone(),request["response"].clone()).await?;Ok(Value::Null)},
+            "changes_load"=>{exact(&request,&["command","afterPage","limit"])?;let after=if request["afterPage"].is_null(){None}else{Some(text(&request,"afterPage")?)};let limit=request["limit"].as_u64().filter(|n|*n<=100).ok_or(REJECTED)? as usize;store.changes_load(after,limit).await},
             "title_prepare"=>{exact(&request,&["command","pageId"])?;store.title_prepare(text(&request,"pageId")?).await},
             "title_ack"=>{exact(&request,&["command","pageId","sequence","wire","response"])?;store.title_ack(text(&request,"pageId")?,text(&request,"sequence")?,text(&request,"wire")?,request["response"].clone()).await?;Ok(Value::Null)},
             "title_receive"=>{exact(&request,&["command","pageId","request","response"])?;store.title_receive(text(&request,"pageId")?,request["request"].clone(),request["response"].clone()).await?;Ok(Value::Null)},

@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.37.0 — 2026-10-08
+
+- Pageタイトル増分をnative schema8へ原子保存し、catalog・候補/解決・取得位置・正確な再適用を接続する。本文未取得情報は独立して保持し、本文取得またはPage作成確認後に採用する。
+- 未送信タイトルと保存済みwireを保持し、別端末の解決、破損window/lookahead、移行失敗、COMMIT前後の強制終了を検証する。
+- 通常328/実PG93/重点49、型/Rust/frontend/Windows buildを検証。[証拠](tests/evidence/private-page-changes-store-20261008/SUMMARY.md)。認証付きsession/runtime/UIは次工程。実Auth/native IMEと配備暗号化は未検証。
+
 ## 0.36.0 — 2026-10-08
 
 - Pageタイトル変更・競合と解決結果をworkspace別の原子journalへ記録し、認可付きの増分取得APIを追加する。同値の競合解決も通知し、再送/no-op/rejectionで変更記録を増やさない。
