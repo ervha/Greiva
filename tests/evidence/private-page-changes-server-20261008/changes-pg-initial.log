@@ -1,0 +1,34 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [31m❯[39m tests/integration/private-page-changes-postgres.test.ts [2m([22m[2m10 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 2112[2mms[22m[39m
+   [32m✓[39m PAGE-CHANGES-PG: creation/rename/conflict and unchanged-title resolution each commit once; retry/no-op/rejection do not append[32m 299[2mms[22m[39m
+   [32m✓[39m PAGE-CHANGES-PG: explicit upgrade seeds current metadata and retained resolved candidates without rewriting body/key/epoch[32m 163[2mms[22m[39m
+   [32m✓[39m PAGE-CHANGES-PG: malformed seed and partial DDL roll back to schema4[32m 106[2mms[22m[39m
+   [32m✓[39m PAGE-CHANGES-PG: independent pages serialize commit order; same-Page creation retry and rename do not deadlock[32m 212[2mms[22m[39m
+   [32m✓[39m PAGE-CHANGES-PG: bounded keysets and deletion filtering progress through empty pages; foreign/device/cursor rejected[32m 148[2mms[22m[39m
+[31m   [31m×[31m PAGE-CHANGES-PG: corrupted lookahead/head/gap refuses cursor advance or partial payload[39m[32m 111[2mms[22m[39m
+   [32m✓[39m PAGE-CHANGES-PG: expiry waiting for metadata head rolls back title/history/journal[32m 109[2mms[22m[39m
+   [33m[2m✓[22m[39m PAGE-CHANGES-PG: CLI/readiness and protected HTTP map fixed errors and preserve existing routes[33m 375[2mms[22m[39m
+   [32m✓[39m PAGE-CHANGES-SIGKILL-before-commit: title and event recover together; immutable retry appends once[32m 283[2mms[22m[39m
+   [33m[2m✓[22m[39m PAGE-CHANGES-SIGKILL-after-commit: title and event recover together; immutable retry appends once[33m 305[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-page-changes-postgres.test.ts[2m > [22mPAGE-CHANGES-PG: corrupted lookahead/head/gap refuses cursor advance or partial payload
+[31m[1merror[22m: could not determine data type of parameter $1[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m tests/integration/private-page-changes-postgres.test.ts:[2m28:226[22m[39m
+
+[90m [2m❯[22m isolated tests/integration/private-page-changes-postgres.test.ts:[2m21:451[22m[39m
+[90m [2m❯[22m tests/integration/private-page-changes-postgres.test.ts:[2m28:106[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m9 passed[39m[22m[90m (10)[39m
+[2m   Start at [22m 07:40:43
+[2m   Duration [22m 3.31s[2m (tests 66%, import 22%, transform 11%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261008/v36/changes-pg/vitest.json

@@ -13,12 +13,20 @@ import { PrivatePageInvalidRequest } from './private-page-codec.js';
 import {PrivatePageCatalogInvalidRequest} from './private-page-catalog.js';
 import {PrivatePageMetadataInvalidRequest,type PrivatePageMetadata} from './private-page-metadata-store.js';
 import type { PrivatePageDocuments } from './private-page-store.js';
+import type {PrivatePageChanges} from './private-page-changes-store.js';
 
 const SESSION = Symbol('private-session'), ACCESS = Symbol('private-access');
 const BOOTSTRAP = Symbol('private-bootstrap');
 const DEVICE = Symbol('private-device');
 const SYNC = Symbol('private-structured-sync');
 const PAGE = Symbol('private-page-document'), METADATA=Symbol('private-page-metadata');
+const CHANGES=Symbol('private-page-changes');
+@Controller('v1/workspaces/:workspaceId/pages/metadata')
+class PrivatePageChangesController {
+  constructor(@Inject(SESSION) private readonly verifier:SessionVerifier,@Inject(CHANGES) private readonly changes:PrivatePageChanges){}
+  @Post('pull') @HttpCode(200)
+  async pull(@Headers('authorization') authorization:unknown,@Param('workspaceId') workspaceId:string,@Body() body:unknown){return this.changes.pull(await this.verifier.verify(authorization),workspaceId,body);}
+}
 @Controller('v1/workspaces/:workspaceId/pages/:pageId/metadata')
 class PrivatePageMetadataController {
   constructor(@Inject(SESSION) private readonly verifier:SessionVerifier,@Inject(METADATA) private readonly metadata:PrivatePageMetadata){}
@@ -104,13 +112,14 @@ class PrivateAccessErrors implements ExceptionFilter {
 }
 // Independent protected API factory. Does not mount or expose old PoC routes,
 // listen automatically, create a test identity, or migrate a caller's database.
-export async function createPrivateApp(verifier: SessionVerifier, store: PrivateWorkspaceAccessStore, bootstrap?: PrivateWorkspaceBootstrap, device?: PrivateDeviceAccess, sync?: PrivateStructuredSync, page?: PrivatePageDocuments, metadata?:PrivatePageMetadata) {
-  @Module({ controllers: [PrivateAccessController, ...(metadata?[PrivatePageMetadataController]:[]), ...(bootstrap ? [PrivateBootstrapController] : []), ...(device ? [PrivateDeviceController] : []), ...(sync ? [PrivateStructuredController] : []), ...(page ? [PrivatePageController,PrivatePageCatalogController] : [])], providers: [
+export async function createPrivateApp(verifier: SessionVerifier, store: PrivateWorkspaceAccessStore, bootstrap?: PrivateWorkspaceBootstrap, device?: PrivateDeviceAccess, sync?: PrivateStructuredSync, page?: PrivatePageDocuments, metadata?:PrivatePageMetadata, changes?:PrivatePageChanges) {
+  @Module({ controllers: [PrivateAccessController, ...(changes?[PrivatePageChangesController]:[]), ...(metadata?[PrivatePageMetadataController]:[]), ...(bootstrap ? [PrivateBootstrapController] : []), ...(device ? [PrivateDeviceController] : []), ...(sync ? [PrivateStructuredController] : []), ...(page ? [PrivatePageController,PrivatePageCatalogController] : [])], providers: [
     { provide: SESSION, useValue: verifier }, { provide: ACCESS, useValue: authenticatedPrivateAccess(verifier, store) },
     ...(bootstrap ? [{ provide: BOOTSTRAP, useValue: bootstrap }] : []),
     ...(device ? [{ provide: DEVICE, useValue: device }] : []),
     ...(sync ? [{ provide: SYNC, useValue: sync }] : []),
     ...(metadata ? [{provide:METADATA,useValue:metadata}] : []),
+    ...(changes?[{provide:CHANGES,useValue:changes}]:[]),
     ...(page ? [{ provide: PAGE, useValue: page }] : []),
   ] })
   class PrivateAppModule {}

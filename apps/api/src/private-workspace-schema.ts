@@ -1,6 +1,7 @@
 import type pg from 'pg';
 import { verifyPrivateStructuredSchema } from './private-structured-schema.js';
 import {verifyPrivatePageMetadataSchema} from './private-page-metadata-schema.js';
+import {verifyPrivatePageChangesSchema} from './private-page-changes-schema.js';
 import { verifyPrivatePageSchema } from './private-page-schema.js';
 import { privateSchemaName } from './private-schema-name.js';
 export { privateSchemaName } from './private-schema-name.js';
@@ -11,7 +12,7 @@ export async function verifyPrivateWorkspaceSchema(pool: pg.Pool, candidate: str
   try {
     await client.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
     const version = await client.query(`SELECT version FROM "${schema}".private_schema_version WHERE singleton=true`);
-    if (version.rowCount !== 1 || ![1,2,3,4].includes(version.rows[0].version)) throw new Error('Unsupported private schema');
+    if (version.rowCount !== 1 || ![1,2,3,4,5].includes(version.rows[0].version)) throw new Error('Unsupported private schema');
     for (const query of [
       `SELECT id,owner_issuer,owner_subject_id,epoch,deleted FROM "${schema}".private_workspaces LIMIT 0`,
       `SELECT id,workspace_id,revoked FROM "${schema}".private_devices LIMIT 0`,
@@ -21,9 +22,10 @@ export async function verifyPrivateWorkspaceSchema(pool: pg.Pool, candidate: str
     ]) await client.query(query);
     if(version.rows[0].version>=2)await verifyPrivateStructuredSchema(client,schema);
     if(version.rows[0].version>=3)await verifyPrivatePageSchema(client,schema);
-    if(version.rows[0].version===4)await verifyPrivatePageMetadataSchema(client,schema);
+    if(version.rows[0].version>=4)await verifyPrivatePageMetadataSchema(client,schema);
+    if(version.rows[0].version===5)await verifyPrivatePageChangesSchema(client,schema);
     await client.query('COMMIT');
-    return version.rows[0].version as 1 | 2 | 3 | 4;
+    return version.rows[0].version as 1 | 2 | 3 | 4 | 5;
   } catch {
     try { await client.query('ROLLBACK'); } catch { /* fixed error only */ }
     throw new Error('Private workspace schema unavailable');

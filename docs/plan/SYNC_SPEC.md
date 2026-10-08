@@ -1,5 +1,7 @@
 # Structured sync本番契約候補
 
+v0.36.0：[title増分server](../development/PRIVATE_PAGE_CHANGES_SERVER.md)は専用gpm1/HMAC cursor、after/read/head、最大100 raw取得/101 lookahead、deleted payload除外と空続頁を提供する。最終頁は観測head終了だけで、全端末/本文のsyncedや削除ACKではない。端末原子受信とcaptured sessionは後続。
+
 v0.35.0：[title画面](../development/PRIVATE_PAGE_TITLE_SCREEN.md)で明示保存/送信・query/新operation解決を接続。unknown baseは本文Page作成の確認後にtitle queryし、known baseでは本文syncを暗黙実行しない。結果不明の同ID再確認、remote/local各100件の続頁、独立pending表示を提供し、syncedとは表示しない。
 
 v0.34.0：[title専用session/runtime](../development/PRIVATE_PAGE_TITLE_RUNTIME.md)でcaptured Auth/scoped rename/readを接続。明示cycleは最大100送信＋query一頁100件、commit/local read後の進捗、同nonce再確認と世代取消を行う。query完了をsyncedと扱わず、本文/structured sessionと独立。title画面とmetadata deltaは後続。

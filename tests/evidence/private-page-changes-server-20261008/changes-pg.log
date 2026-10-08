@@ -1,0 +1,13 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/private-page-changes-postgres.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 2360[2mms[22m[39m
+   [33m[2m✓[22m[39m PAGE-CHANGES-PG: creation/rename/conflict and unchanged-title resolution each commit once; retry/no-op/rejection do not append[33m 366[2mms[22m[39m
+   [33m[2m✓[22m[39m PAGE-CHANGES-PG: CLI/readiness and protected HTTP map fixed errors and preserve existing routes[33m 481[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m10 passed[39m[22m[90m (10)[39m
+[2m   Start at [22m 07:48:38
+[2m   Duration [22m 3.40s[2m (tests 71%, import 18%, transform 11%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261008/v36/changes-pg/vitest.json

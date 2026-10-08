@@ -1,5 +1,7 @@
 # 初期提供範囲・PoCとの差・残る判断
 
+v0.36.0で[title増分server](../development/PRIVATE_PAGE_CHANGES_SERVER.md)を追加した。server journalと認可付きbounded pullは検証済み。端末受信/cursor保存とsession/UI、削除/復元/保持、実Auth/native/暗号化配備は未完成。
+
 v0.35.0で[Pageタイトル画面](../development/PRIVATE_PAGE_TITLE_SCREEN.md)をworkspace previewへ接続した。明示保存/確認/解決と入力保護はDockerで検証し、本文とtitleの状態を分離する。全端末のmetadata delta、実Auth正常系・Windows invoke/IME・Android/native grant、配備暗号化/削除/保持/復元は未完成。
 
 v0.34.0で[title送信・同期基盤](../development/PRIVATE_PAGE_TITLE_RUNTIME.md)を実装・検証した。production session/Auth transportとnative runtimeで再送・競合・取消を接続した段階で、title画面/IMEと全端末のmetadata deltaは未完成。実Auth正常系・Windows invoke/IME・配備暗号化/削除/保持/復元・native grantの残条件を継続する。

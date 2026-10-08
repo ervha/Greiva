@@ -1,0 +1,23 @@
+import type pg from 'pg';
+import {pageSchema} from '@greiva/protocol';
+import {privatePageChangeSchema} from '@greiva/protocol/private-page-changes';
+import {privatePageTitleConflictSchema,privatePageRenameResponseSchema,privatePageRenameRequestSchema} from '@greiva/protocol/private-page-metadata';
+import {privateSchemaName} from './private-schema-name.js';
+
+// Explicit v4 -> v5, seeding existing titles and all known resolution records.
+export async function installPrivatePageChangesSchema(pool:pg.Pool,candidate:string){
+  const schema=privateSchemaName(candidate),client=await pool.connect();
+  try{await client.query('BEGIN');const gate=await client.query(`SELECT version FROM "${schema}".private_schema_version WHERE singleton=true FOR UPDATE`);if(gate.rowCount!==1||gate.rows[0]!.version!==4)throw Error('Explicit metadata schema four required');
+    await client.query(`CREATE TABLE "${schema}".private_page_metadata_heads(workspace_id uuid PRIMARY KEY REFERENCES "${schema}".private_workspaces(id),head_order bigint NOT NULL CHECK(head_order>=0))`);
+    await client.query(`CREATE TABLE "${schema}".private_page_metadata_events(workspace_id uuid NOT NULL,server_order bigint NOT NULL CHECK(server_order>0),page_id uuid NOT NULL,event jsonb NOT NULL,PRIMARY KEY(workspace_id,server_order),FOREIGN KEY(workspace_id,page_id) REFERENCES "${schema}".private_page_documents(workspace_id,page_id))`);
+    await client.query(`INSERT INTO "${schema}".private_page_metadata_heads SELECT id,0 FROM "${schema}".private_workspaces`);
+    const docs=await client.query(`SELECT d.workspace_id,d.page_id,d.metadata,s.version,h.title,r.workspace_id AS owner FROM "${schema}".private_page_documents d LEFT JOIN "${schema}".private_page_title_state s ON s.page_id=d.page_id LEFT JOIN "${schema}".private_page_title_history h ON h.page_id=s.page_id AND h.version=s.version LEFT JOIN "${schema}".private_resources r ON r.type='page' AND r.id=d.page_id ORDER BY d.workspace_id,d.page_id`);
+    for(const row of docs.rows){const metadata=pageSchema.parse(row.metadata),version=Number(row.version);if(row.version===null||!Number.isSafeInteger(version)||version<0||row.title!==metadata.title||row.owner!==row.workspace_id||metadata.id!==row.page_id)throw Error('Invalid metadata seed');
+      const append=async(conflict:unknown)=>{const heads=await client.query(`UPDATE "${schema}".private_page_metadata_heads SET head_order=head_order+1 WHERE workspace_id=$1 AND head_order<9223372036854775807 RETURNING head_order`,[row.workspace_id]);if(heads.rowCount!==1)throw Error('Metadata head overflow');const event=privatePageChangeSchema.parse({order:heads.rows[0]!.head_order,pageId:row.page_id,metadata,version,conflict});await client.query(`INSERT INTO "${schema}".private_page_metadata_events VALUES($1,$2,$3,$4)`,[row.workspace_id,event.order,row.page_id,JSON.stringify(event)]);};
+      await append(null);const records=await client.query(`SELECT id,record,resolved_by FROM "${schema}".private_page_title_conflicts WHERE page_id=$1 ORDER BY id`,[row.page_id]);
+      for(const entry of records.rows){const record=privatePageTitleConflictSchema.parse(entry.record);if(record.id!==entry.id)throw Error('Invalid conflict seed');if(entry.resolved_by!==null){const ops=await client.query(`SELECT page_id,request,result FROM "${schema}".private_page_title_operations WHERE workspace_id=$1 AND operation_id=$2`,[row.workspace_id,entry.resolved_by]);if(ops.rowCount!==1)throw Error('Missing resolution');const request=privatePageRenameRequestSchema.parse(ops.rows[0]!.request),receipt=privatePageRenameResponseSchema.parse(ops.rows[0]!.result);if(ops.rows[0]!.page_id!==row.page_id||request.operationId!==entry.resolved_by||request.resolution?.conflictId!==record.id||receipt.operationId!==entry.resolved_by||receipt.pageId!==row.page_id||receipt.workspaceId!==row.workspace_id||request.title!==record[request.resolution.choice]||receipt.result.status!=='applied')throw Error('Invalid resolution seed');}await append({record,resolvedBy:entry.resolved_by});}
+    }
+    await client.query(`UPDATE "${schema}".private_schema_version SET version=5 WHERE singleton=true`);await client.query('COMMIT');
+  }catch(error){try{await client.query('ROLLBACK');}catch{/* sanitized operator error */}throw error;}finally{client.release();}
+}
+export async function verifyPrivatePageChangesSchema(client:pg.PoolClient,schema:string){await client.query(`SELECT workspace_id,head_order FROM "${schema}".private_page_metadata_heads LIMIT 0`);await client.query(`SELECT workspace_id,server_order,page_id,event FROM "${schema}".private_page_metadata_events LIMIT 0`);}

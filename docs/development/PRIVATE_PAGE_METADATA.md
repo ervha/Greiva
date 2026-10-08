@@ -1,5 +1,7 @@
 # 個人workspace Pageタイトルのserver基盤
 
+後続v0.36.0で[増分server journal](PRIVATE_PAGE_CHANGES_SERVER.md)をschema5へ追加した。既存schema4のrename/read契約を維持し、title版が変わらない解決も別commit順へ記録する。以下はv0.32.0時点の契約と当時の残条件。
+
 後続v0.33.0で[端末保存/strict IPC基盤](PRIVATE_PAGE_TITLE_DURABILITY.md)を実装した。以下はv0.32.0時点のserver契約/検証境界。title専用transport/runtime/画面は引き続き後続。
 
 2026-10-08 / v0.32.0。[実装順](../plan/IMPLEMENTATION_PLAN.md) P2のmetadata変更を部分実装する。[全判断](../decisions/private-page-metadata.md)、[証拠](../../tests/evidence/private-page-metadata-20261008/SUMMARY.md)。画面のrename、native queue/replica、offline復元やmetadata delta同期は後続。

@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.36.0 — 2026-10-08
+
+- Pageタイトル変更・競合と解決結果をworkspace別の原子journalへ記録し、認可付きの増分取得APIを追加する。同値の競合解決も通知し、再送/no-op/rejectionで変更記録を増やさない。
+- 明示server schema4→5、既存title/解決候補のseed、commit順とHMAC cursor、最大100件の取得、deleted payload除外と空頁の進捗を接続する。端末schema7と本文/structured wireを保持する。
+- 通常319/実PG93/専用10、型/Rust/frontend/Windows buildを検証。[証拠](tests/evidence/private-page-changes-server-20261008/SUMMARY.md)。端末受信/session/UIは次工程、実Auth/native IME・配備暗号化は未検証。
+
 ## 0.35.0 — 2026-10-08
 
 - 個人workspace previewへタイトルの明示保存・取消・送信確認、三値候補の新operation解決、拒否履歴とbounded履歴を追加する。本文の同期状態とタイトルのpending/確認状態を分ける。

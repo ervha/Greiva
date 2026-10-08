@@ -1,0 +1,10 @@
+{
+  "sha256": "cfaa4ec9ad6156820dec0bdab549630fb3c76b03b7d0e86028380bcad967f777",
+  "fileVersion": "0.36.0",
+  "dockerShaMatches": true,
+  "version": "0.36.0",
+  "nativeImeTested": false,
+  "bytes": 19473408,
+  "hostLaunched": false,
+  "productVersion": "0.36.0"
+}
