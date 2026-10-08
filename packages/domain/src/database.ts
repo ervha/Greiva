@@ -35,7 +35,8 @@ export function parseDatabaseValue(property:DatabaseProperty,candidate:unknown):
   case 'select':{const id=idSchema.parse(candidate);if(!definition.options.some(option=>option.id===id))throw new Error('Unknown select option ID');return id;}
  }
 }
-const primitive=z.union([text,z.number().finite(),z.boolean(),z.null()]);
+export const databaseValueSchema=z.union([text,z.number().finite(),z.boolean(),z.null()]);
+const primitive=databaseValueSchema;
 export const databaseRecordSchema=z.strictObject({id:idSchema,workspaceId:idSchema,sourceId:idSchema,pageId:idSchema,version,values:z.record(idSchema,primitive)});
 export type DatabaseRecord=z.infer<typeof databaseRecordSchema>;
 export function parseDatabaseRecord(source:DatabaseSource,candidate:unknown):DatabaseRecord{

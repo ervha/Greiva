@@ -1,6 +1,6 @@
 # 初期提供範囲・PoCとの差・残る判断
 
-v0.41.0で[基本DB基盤](../development/BASIC_DATABASE_FOUNDATION.md)の6型とTable/List共通のlocal queryを部分実装する。DB保存/同期/UI、全DB/HELP、削除/復元/保持、実Auth/native/暗号化配備と通常入口の昇格は残条件。
+v0.42.0で[基本DB変更/競合](../development/BASIC_DATABASE_MUTATION.md)のtyped intentと三値比較/解決planを追加する。DB実adapter/ledger/保存/同期/UI、全DB/HELP、削除/復元/保持、実Auth/native/暗号化配備と通常入口の昇格は残条件。
 
 v0.35.0で[Pageタイトル画面](../development/PRIVATE_PAGE_TITLE_SCREEN.md)をworkspace previewへ接続した。明示保存/確認/解決と入力保護はDockerで検証し、本文とtitleの状態を分離する。全端末のmetadata delta、実Auth正常系・Windows invoke/IME・Android/native grant、配備暗号化/削除/保持/復元は未完成。
 

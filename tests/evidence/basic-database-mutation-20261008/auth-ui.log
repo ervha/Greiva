@@ -1,0 +1,17 @@
+
+Running 12 tests using 2 workers
+
+  ✓   1 [mobile-dark-reduced-motion] › tests/e2e/private-login.spec.ts:26:1 › PRIVATE-LOGIN-UI: native device port supplies same registration ID across logout/reload; no email/token reaches invoke (3.2s)
+  ✓   2 [desktop] › tests/e2e/private-login.spec.ts:26:1 › PRIVATE-LOGIN-UI: native device port supplies same registration ID across logout/reload; no email/token reaches invoke (3.2s)
+  ✓   3 [mobile-dark-reduced-motion] › tests/e2e/private-login.spec.ts:43:1 › PRIVATE-LOGIN-UI: pending native identity can be cancelled; failed persistence never falls back or discloses private cause (1.8s)
+  ✓   4 [desktop] › tests/e2e/private-login.spec.ts:43:1 › PRIVATE-LOGIN-UI: pending native identity can be cancelled; failed persistence never falls back or discloses private cause (1.8s)
+  ✓   6 [desktop] › tests/e2e/private-login.spec.ts:56:1 › PRIVATE-LOGIN-UI: keyboard login, explicit bootstrap, refresh/re-register/local logout; no implicit sync or token storage (2.1s)
+  ✓   5 [mobile-dark-reduced-motion] › tests/e2e/private-login.spec.ts:56:1 › PRIVATE-LOGIN-UI: keyboard login, explicit bootstrap, refresh/re-register/local logout; no implicit sync or token storage (2.1s)
+  ✓   7 [desktop] › tests/e2e/private-login.spec.ts:72:1 › PRIVATE-LOGIN-UI: failed provider/refresh/registration show fixed messages and clear revoked authentication (2.0s)
+  ✓   8 [mobile-dark-reduced-motion] › tests/e2e/private-login.spec.ts:72:1 › PRIVATE-LOGIN-UI: failed provider/refresh/registration show fixed messages and clear revoked authentication (2.2s)
+  ✓   9 [desktop] › tests/e2e/private-login.spec.ts:81:1 › PRIVATE-LOGIN-UI: pending password is cleared at submission, cancellation and reload never revive late login (2.7s)
+  ✓  10 [mobile-dark-reduced-motion] › tests/e2e/private-login.spec.ts:81:1 › PRIVATE-LOGIN-UI: pending password is cleared at submission, cancellation and reload never revive late login (2.8s)
+  ✓  11 [desktop] › tests/e2e/private-login.spec.ts:89:1 › PRIVATE-LOGIN-UI: composition does not submit, responsive keyboard controls and reduced motion preserve form (1.6s)
+  ✓  12 [mobile-dark-reduced-motion] › tests/e2e/private-login.spec.ts:89:1 › PRIVATE-LOGIN-UI: composition does not submit, responsive keyboard controls and reduced motion preserve form (1.5s)
+
+  12 passed (15.4s)

@@ -1,6 +1,6 @@
 # 個人版の実装順と受入
 
-最新v0.41.0：[基本DB基盤](../development/BASIC_DATABASE_FOUNDATION.md)の6型Source/RecordとTable/List共通のlocal queryを部分実装。[証拠](../../tests/evidence/basic-database-foundation-20261008/SUMMARY.md)。Page-bound Name、値保全、型付きfilter/sortとloaded-windowを検証。DB保存・同期・画面は次工程。実Auth/native IME/Android・配備暗号化と全DB/HELPは後続。
+最新v0.42.0：[基本DB変更/競合](../development/BASIC_DATABASE_MUTATION.md)へtyped Record intent、field mergeとbase/local/remote候補、active/current照合の解決新intentを追加。[証拠](../../tests/evidence/basic-database-mutation-20261008/SUMMARY.md)。比較planと実保存/ACKを分離する。DB source/view/recordの実adapter・画面が次工程。実Auth/native IME/Android・配備暗号化と全DB/HELPは後続。
 
 最新v0.35.0：[Pageタイトル画面](../development/PRIVATE_PAGE_TITLE_SCREEN.md)をworkspace previewへ接続。明示保存/取消/確認、三値候補/新operation解決、拒否履歴、独立pending表示、dirty/変換/結果不明の切替保護とbounded履歴を実装。[証拠](../../tests/evidence/private-title-screen-20261008/SUMMARY.md)。query終了を同期済みと扱わず、実Auth/Windows invoke・IME/Android/native grant、metadata deltaと配備暗号化は残条件。追加の手操作依頼はない。
 

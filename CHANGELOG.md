@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.42.0 — 2026-10-08
+
+- 基本DBのtyped Record create/update intentとschema/binding/値の検証を追加する。別fieldを保持し、同fieldはbase/local/remoteの三値候補を返すpure merge planを実装する。
+- active候補と現在版・値を照合し、解決を新intentとして準備する。remote選択のno-opと候補解決を分け、元履歴を消さない。DB durable writer/ledger/画面は後続とする。
+- 新17/DB重点32/通常382/実PG94/root64/Auth12/workspace52、型/Rust/frontend/Windows buildを検証。[証拠](tests/evidence/basic-database-mutation-20261008/SUMMARY.md)。初回fixture型エラーと補強前の重点を保持。実adapter/Auth/native IMEと配備暗号化は別条件。
+
 ## 0.41.0 — 2026-10-08
 
 - 基本DBのSource/Record/Propertyをportable Domainへ追加する。Name/Text/Number/Checkbox/Select/Dateの初期型、Page-bound Name、stable ID、strict scope/値の検証を実装する。
