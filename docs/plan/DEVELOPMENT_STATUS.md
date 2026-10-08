@@ -1,6 +1,6 @@
 # Greiva 開発計画・状況・セットアップ
 
-最新v0.39.0：[Page情報の受信画面](../development/PRIVATE_PAGE_CHANGES_SCREEN.md)をworkspace previewへ接続。保存済みcatalog/本文有無、明示取得・続頁・exact再確認、dirty/変換中のactive title保留と入力終了後の更新を実装。[証拠](../../tests/evidence/private-page-changes-screen-20261008/SUMMARY.md)。本文/タイトル/Taskのpendingを受信完了と分ける。実Auth/Windows invoke・IME/Android/native grantと配備暗号化は残条件。次はP2のヘルプ・復旧案内へ続ける。
+最新v0.40.0：[同梱ヘルプ](../development/WORKSPACE_HELP.md)9記事と端末内検索・カテゴリ/関連記事/版表示、保存・同期・接続の文脈案内をworkspace previewへ追加。[証拠](../../tests/evidence/workspace-help-20261008/SUMMARY.md)。未ログイン/offlineで読め、editor/下書き/選択/focusとexact retryを保持する。実Auth/native IME・Android/配備暗号化と全HELPは後続。次はP3の基本DB初期subsetを進める。
 
 最新v0.35.0：[Pageタイトル画面](../development/PRIVATE_PAGE_TITLE_SCREEN.md)をworkspace previewへ接続。明示保存/取消/確認、三値候補/新operation解決、拒否履歴、独立pending表示、dirty/変換/結果不明の切替保護とbounded履歴を実装。[証拠](../../tests/evidence/private-title-screen-20261008/SUMMARY.md)。query終了を同期済みと扱わず、実Auth/Windows invoke・IME/Android/native grant、metadata deltaと配備暗号化は残条件。追加の手操作依頼はない。
 

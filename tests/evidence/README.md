@@ -1,5 +1,6 @@
 # 試験証拠の索引
 
+- 2026-10-08 / v0.40.0 / [workspaceヘルプ](workspace-help-20261008/SUMMARY.md): 同梱9記事・offline端末検索・文脈案内・版、draft/DOM選択/focus/変換保護、exact retry保持。通常350/PG94/重点4/workspace52/root64/Auth12/型/Rust/frontend/Windows build。実Auth/native/全HELPは別条件。
 - 2026-10-08 / v0.39.0 / [Page情報受信画面](private-page-changes-screen-20261008/SUMMARY.md): 明示bounded取得/catalogと本文有無、exact再確認、dirty/composition/focus保持・remote解決。通常346/PG94/重点15/workspace40/root64/Auth12/型/Rust/frontend/Windows build。元失敗を保持、実Auth/native/配備暗号化は後続。
 - 2026-10-08 / v0.38.0 / [Pageタイトル増分接続](private-page-changes-runtime-20261008/SUMMARY.md): captured Auth/portable/native、一回100件、exact再確認/saved cursor再開/失効取消、署名HTTP二端末。通常341/PG94/重点13＋PG1/型/Rust/frontend/Windows build。画面・実Auth/native/配備暗号化は後続。
 - 2026-10-08 / v0.37.0 / [Pageタイトル増分端末保存](private-page-changes-store-20261008/SUMMARY.md): schema8/原子catalog・cursor、本文/作成確認後の採用、exact replay/pending保持/remote解決、migration/SIGKILL。通常328/PG93/重点49/型/Rust/frontend/Windows build。認証付きruntime/UIと実Auth/native/配備暗号化は後続。

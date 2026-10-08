@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'node:path';
+import {readFileSync} from 'node:fs';
 import { privateApiOrigin, supabaseConfiguration } from '@greiva/shared';
 const sqlite = process.env.VITE_GREIVA_TEST_SQLITE === '1' ? (await import('../../tests/support/sqlite-bridge.ts')).sqliteBridge() : null;
 const envDir = resolve(import.meta.dirname, '../..');
@@ -15,6 +16,7 @@ export default defineConfig(({ mode }) => {
   const target = process.env.GREIVA_PRIVATE_PROXY_TARGET ?? loadEnv(mode, envDir, 'GREIVA_PRIVATE_PROXY_TARGET').GREIVA_PRIVATE_PROXY_TARGET;
   const privateTarget = target ? privateApiOrigin(target) : null;
   return {
+  define:{__GREIVA_VERSION__:JSON.stringify(JSON.parse(readFileSync(new URL('./package.json',import.meta.url),'utf8')).version)},
   envDir,
   plugins: [react(), ...(sqlite ? [sqlite] : [])],
   server: { port: 1420, strictPort: true, watch: { ignored: ['**/src-tauri/**'] }, ...(privateTarget ? { proxy: { '/v1': { target: privateTarget, changeOrigin: true } } } : {}) },

@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.40.0 — 2026-10-08
+
+- 個人workspace previewへ同梱ヘルプ9記事、端末内検索、カテゴリ・関連記事・アプリ版、保存/同期/接続エラーの案内を追加する。未ログイン・画面読込後のofflineでも読める。
+- 記事を開いてもeditorと未保存フォームを保持し、閉じると入力focus/選択へ戻す。変換中の入口/Enter/Escapeを保護し、exact保存再確認や未送信内容を変更しない。
+- 通常350/実PG94/検索契約4/workspace52/root64/Auth12、型/Rust/frontend/Windows buildを検証。[証拠](tests/evidence/workspace-help-20261008/SUMMARY.md)。Calendar/初回学習/診断export、実Auth/native IMEと配備暗号化は後続。
+
 ## 0.39.0 — 2026-10-08
 
 - 個人workspace previewへPage情報の明示取得・続頁・保存再確認を追加する。本文未取得のcatalogと本文保存済みを分け、以前の取得結果と観測範囲の末尾を表示する。

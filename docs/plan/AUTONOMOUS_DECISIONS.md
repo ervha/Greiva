@@ -51,7 +51,9 @@
 | v0.38.0 Pageタイトル増分接続 | [Page changes runtime](../decisions/private-page-changes-runtime.md) | 16 | captured Auth/保存先、exact再確認、saved cursor再開、明示bounded cycleと失効取消 |
 | v0.39.0 Page情報受信画面 | [Page changes screen](../decisions/private-page-changes-screen.md) | 16 | cached/body分離、観測状態/再確認、dirty/変換中の保留とlocal refresh、本文focus保持 |
 
-合計555件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
+| v0.40.0 workspaceヘルプ | [Bundled help](../decisions/workspace-help.md) | 16 | 9記事/端末検索、文脈案内、版/keyboard modal、draft/選択/変換保持、送信なし |
+
+合計571件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
 
 共通：同じcodex/poc-editor、確認後の版/tag/push、外部依存を監査、元Page/DBを保持。Computer UseはWindows診断後に解除し、今回の基盤開発では使わない。cloud/project/配布・課金・新global toolchainを作成せず、端末保持/旧DB帰属/保持期限を未決定のまま創作しない。初期OFFの改善送信は設計で、実際の収集は始めていない。
 

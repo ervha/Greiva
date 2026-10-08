@@ -4,10 +4,13 @@ import { PrivatePageEditor } from '../editor/PrivatePageEditor';
 import type { PrivateLoginController } from '../auth/private-login';
 import type { PrivateWorkspaceController } from './private-workspace-controller';
 import {PrivateTitlePanel} from './PrivateTitlePanel';
+import {useWorkspaceHelp} from '../help/WorkspaceHelp';
 
 export function PrivateWorkspaceScreen({login,workspace,nativeAvailable}:{login:PrivateLoginController;workspace:PrivateWorkspaceController;nativeAvailable:boolean}){
   const [auth,setAuth]=useState(login.snapshot),[state,setState]=useState(workspace.snapshot);
   const [email,setEmail]=useState(''),[password,setPassword]=useState(''),[title,setTitle]=useState('');
+  const [composing,setComposing]=useState(false);
+  const help=useWorkspaceHelp(composing||Boolean(workspace.editor?.isComposing));
   useEffect(()=>login.subscribe(setAuth),[login]);useEffect(()=>workspace.subscribe(setState),[workspace]);
   const structuredDraft=useCallback((blocked:boolean)=>workspace.setStructuredDraft(blocked),[workspace]);
   const titleDraft=useCallback((blocked:boolean)=>workspace.setTitleDraft(blocked),[workspace]);
@@ -19,7 +22,7 @@ export function PrivateWorkspaceScreen({login,workspace,nativeAvailable}:{login:
   const labels={signed_out:'ログインしていません',logging_in:'ログインを確認中…',preparing_device:'端末の登録情報を確認中…',verified:'認証を確認しました',registering:'workspaceを確認中…',ready:'ログイン済み',refreshing:'認証を更新中…',expired:'認証の有効期限が切れました',signing_out:'ログアウト中…',configuration:'接続設定を確認してください'};
   const logout=async()=>{await workspace.close();await login.logout();setEmail('');setTitle('');};
   const refresh=async()=>{await workspace.close();await login.refresh();if(login.snapshot.phase==='verified')await login.register();};
-  return <main className="workspace-shell"><header><h1>Greiva</h1><span className="scope-note">個人workspace 接続プレビュー</span></header>
+  return <main className="workspace-shell" onCompositionStartCapture={()=>setComposing(true)} onCompositionEndCapture={()=>setComposing(false)}><header><h1>Greiva</h1><span className="scope-note">個人workspace 接続プレビュー</span><button ref={help.launcherRef} type="button" {...help.entry()}>ヘルプ・アプリ情報</button></header>
     <section aria-label="アカウント" className="workspace-account"><output aria-label="認証状態" aria-live="polite">{labels[auth.phase]}</output>
       {!nativeAvailable&&<p role="status">端末への保存に対応したアプリで開いてください。</p>}
       {auth.message&&<p role="alert">{auth.message}</p>}
@@ -37,6 +40,7 @@ export function PrivateWorkspaceScreen({login,workspace,nativeAvailable}:{login:
     </section>
     {state.phase==='opening'&&<p role="status">端末のworkspaceを開いています…</p>}
     {state.error&&<p role="alert">{state.error==='transport'?'サーバーへ接続できませんでした。端末に保存済みのPageは残っています。':state.error==='storage'?'端末の保存情報を確認できませんでした。保存先を変更せず、もう一度お試しください。':'接続情報を確認できませんでした。接続を閉じてログインし直してください。'}</p>}
+    {state.error&&<button type="button" {...help.entry(state.error==='storage'?'local-save':'connection')}>このエラーの対処を読む</button>}
     {state.phase==='error'&&connection&&<button type="button" disabled={busy} onClick={()=>{void workspace.connect(connection);}}>端末保存を再確認</button>}
     {state.phase==='ready'&&<div className="workspace-layout"><aside aria-label="Page一覧">
       <section><h2>端末に保存済み</h2><button type="button" disabled={blocked} onClick={()=>{void workspace.loadLocal();}}>端末一覧を更新</button>
@@ -44,7 +48,7 @@ export function PrivateWorkspaceScreen({login,workspace,nativeAvailable}:{login:
         <ul>{state.localPages.map(({metadata,pending,titlePending})=><li key={metadata.id}><button type="button" disabled={blocked} aria-current={state.selectedPageId===metadata.id?'page':undefined} onClick={()=>{void workspace.openPage(metadata.id);}}>{metadata.title||'無題のPage'}</button><span>{pending?`未確認の更新 ${pending}件`:'端末に保存済み'}{titlePending?` / タイトル未確認 ${titlePending}件`:''}</span></li>)}</ul>
         {state.localAfter&&<button type="button" disabled={blocked} onClick={()=>{void workspace.loadLocal(true);}}>端末一覧をさらに表示</button>}
       </section>
-      <section aria-label="保存済みのPage情報"><h2>保存済みのPage情報</h2><output aria-label="Page情報の取得状態" aria-live="polite">{changesStatus}</output>
+      <section aria-label="保存済みのPage情報"><h2>保存済みのPage情報</h2><button type="button" {...help.entry('page-info')}>Page情報の使い方を読む</button><output aria-label="Page情報の取得状態" aria-live="polite">{changesStatus}</output>
         <div className="connection-tools"><button type="button" disabled={blocked||Boolean(changes?.retryReceive)} onClick={()=>{void workspace.syncChanges();}}>{changes?.hasMoreRemote?'Page情報の続きを取得':'Page情報を取得'}</button>
           {changes?.retryReceive&&<button type="button" disabled={blocked} onClick={()=>{void workspace.syncChanges(true);}}>受信した情報の保存を再確認</button>}
           <button type="button" disabled={blocked||Boolean(changes?.retryReceive)} onClick={()=>{void workspace.loadCached();}}>情報の一覧を先頭へ</button></div>
@@ -67,6 +71,8 @@ export function PrivateWorkspaceScreen({login,workspace,nativeAvailable}:{login:
       </form>
     </aside><section aria-label="Page編集" className="workspace-editor">{workspace.editor?<>{workspace.title&&<PrivateTitlePanel key={workspace.title.pageId} session={workspace.title} onDraftChange={titleDraft} onSync={()=>workspace.syncTitle()} blocked={busy||Boolean(workspace.editor.isComposing||workspace.editor.snapshot.storageError||workspace.editor.snapshot.syncing)}/>}<PrivatePageEditor session={workspace.editor} displayTitle={workspace.title?.snapshot.data?.localTitle}/></>:<p>Pageを選ぶか、新しく作成してください。</p>}</section></div>}
     {state.phase==='ready'&&workspace.structured&&<PrivateStructuredPanel session={workspace.structured} pages={[...new Map([...state.cachedPages.map(row=>row.metadata),...state.remotePages,...state.localPages.map(row=>row.metadata)].map(row=>[row.id,row])).values()]} onDraftChange={structuredDraft}/>}
+    {state.phase==='ready'&&<div className="connection-tools" aria-label="操作の説明"><button type="button" {...help.entry('save-sync')}>保存・同期の見方を読む</button><button type="button" {...help.entry('title')}>タイトル編集の説明を読む</button><button type="button" {...help.entry('tasks')}>TaskとRelationの説明を読む</button><button type="button" {...help.entry('local-save')}>端末保存に失敗したときの説明を読む</button><button type="button" {...help.entry('conflict')}>競合候補の説明を読む</button></div>}
     <p className="editor-hint">ログアウトしても、この端末に保存済みのPage・Task・Relationと未送信更新は保持します。ログイン前の閲覧は提供していません。</p>
+    {help.panel}
   </main>;
 }
