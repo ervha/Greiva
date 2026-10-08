@@ -1,0 +1,74 @@
+{
+  "version": "0.35.0",
+  "totals": {
+    "pagination-initial": {
+      "total": 9,
+      "passed": 8,
+      "failed": 1,
+      "pending": 0
+    },
+    "normal": {
+      "total": 398,
+      "passed": 315,
+      "failed": 0,
+      "pending": 83
+    },
+    "postgres": {
+      "total": 83,
+      "passed": 83,
+      "failed": 0,
+      "pending": 0
+    },
+    "root-ui": {
+      "startTime": "2026-10-08T07:16:15.609Z",
+      "duration": 183846.66,
+      "expected": 64,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "workspace-ui": {
+      "startTime": "2026-10-08T07:25:06.481Z",
+      "duration": 57778.308000000005,
+      "expected": 32,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "auth-ui": {
+      "startTime": "2026-10-08T07:19:21.975Z",
+      "duration": 21122.858,
+      "expected": 12,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "focused": {
+      "total": 19,
+      "passed": 19,
+      "failed": 0,
+      "pending": 0
+    },
+    "focused-final": {
+      "total": 19,
+      "passed": 19,
+      "failed": 0,
+      "pending": 0
+    }
+  },
+  "source": {
+    "count": 252,
+    "rawMatches": 242,
+    "textOnly": 10,
+    "excluded": [
+      "playwright.performance.config.ts",
+      "playwright.render-diagnostic.config.ts",
+      "tests/diagnostics/render-isolation.spec.ts",
+      "tests/native/windows-store-fixture.json",
+      "tests/performance/workloads.spec.ts"
+    ]
+  },
+  "realAuth": false,
+  "windowsLaunch": false,
+  "nativeIme": false
+}

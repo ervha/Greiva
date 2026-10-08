@@ -19,6 +19,10 @@ const test={
  structuredSnapshot:()=>({data:f.structured,sent:f.state.structuredSent.slice(),state:workspace.structured?.snapshot}),
  rejectStructured:()=>{f.state.structuredReject=true;},loseStructuredAck:()=>{f.state.structuredLoseAck=true;},loseStructuredMutationReply:()=>{f.state.structuredLoseMutationReply=true;},failStructuredStorage:()=>{f.state.structuredStorageFailure=true;},restoreStructuredStorage:()=>{f.state.structuredStorageFailure=false;},
  seedConflict:async()=>{f.seedConflict();await workspace.structured?.sync();},
+ titleSnapshot:()=>({state:workspace.title?.snapshot??null,sent:f.title.state.sent.slice(),records:workspace.editor?f.title.snapshot(workspace.editor.pageId)?.operations??[]:[]}),
+ loseTitleAck:()=>{f.title.state.loseAck=true;},loseTitleMutationReply:()=>{f.title.state.loseMutation=true;},failTitleStorage:()=>{f.title.state.storageFailure=true;},restoreTitleStorage:()=>{f.title.state.storageFailure=false;},rejectTitle:()=>{f.title.state.reject=true;},
+ remoteTitle:(value:string)=>{if(workspace.editor)f.title.remoteEdit(workspace.editor.pageId,value);},
+ seedTitleCandidates:()=>{if(workspace.editor)f.title.seedCandidates(workspace.editor.pageId,101);},refreshTitle:()=>workspace.title?.history(),
 };
 (window as unknown as {workspaceTest:typeof test}).workspaceTest=test;
 window.addEventListener('pagehide',()=>{login.dispose();void workspace.dispose();f.cleanup();},{once:true});

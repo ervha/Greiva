@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.35.0 — 2026-10-08
+
+- 個人workspace previewへタイトルの明示保存・取消・送信確認、三値候補の新operation解決、拒否履歴とbounded履歴を追加する。本文の同期状態とタイトルのpending/確認状態を分ける。
+- 未保存/変換中/結果不明の入力と切替を保護し、同ID保存再確認・同wire再送を提供する。タイトル更新で本文editorをremountせず、端末一覧にも独立したタイトル未確認件数を保持する。
+- Dockerで通常315/実PG83/workspace32/root64/Auth12、型/Rust/frontend/Windows cross-buildを確認。[証拠](tests/evidence/private-title-screen-20261008/SUMMARY.md)。実Auth/Windows invoke・IME/Android/native grantと配備暗号化は未検証。
+
 ## 0.34.0 — 2026-10-08
 
 - Pageタイトルの保存済み変更を専用portable session・認証付きtransport・native runtimeで送信/再送する。応答喪失は同wire、保存結果不明は同operationIdで再確認する。

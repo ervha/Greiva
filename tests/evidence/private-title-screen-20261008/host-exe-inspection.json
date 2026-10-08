@@ -1,0 +1,10 @@
+{
+  "bytes": 19472384,
+  "version": "0.35.0",
+  "sha256": "70484d58cb4a146629f86168416505212c0a57c22fce452ee6251f63e88b326d",
+  "fileVersion": "0.35.0",
+  "dockerShaMatches": true,
+  "hostLaunched": false,
+  "productVersion": "0.35.0",
+  "nativeImeTested": false
+}

@@ -1,5 +1,7 @@
 # 応答・外部環境が必要な事項
 
+最新v0.35.0：[Pageタイトル画面](../development/PRIVATE_PAGE_TITLE_SCREEN.md)をworkspace previewへ接続。明示保存/取消/確認、三値候補/新operation解決、拒否履歴、独立pending表示、dirty/変換/結果不明の切替保護とbounded履歴を実装。[証拠](../../tests/evidence/private-title-screen-20261008/SUMMARY.md)。query終了を同期済みと扱わず、実Auth/Windows invoke・IME/Android/native grant、metadata deltaと配備暗号化は残条件。追加の手操作依頼はない。
+
 最新v0.34.0：[Pageタイトル送信・同期基盤](../development/PRIVATE_PAGE_TITLE_RUNTIME.md)を接続。captured Auth/scoped transport、strict portable session、native明示runtime、同wire再送/同ID保存再確認、bounded query/100件送信、世代取消を実装。[証拠](../../tests/evidence/private-title-runtime-20261008/SUMMARY.md)。title draft/解決画面は次工程。query完了をsyncedと扱わず、実Auth/Windows invoke・IME/Android/native grantと配備暗号化は残条件。追加の手操作依頼はない。
 
 最新v0.33.0：[Pageタイトル端末保存](../development/PRIVATE_PAGE_TITLE_DURABILITY.md)を実装。native schema7、既知基底/intent/immutable wire・receipt/候補の原子保存、連続offline編集と古い応答の投影保護、strict IPC/世代取消を検証。[証拠](../../tests/evidence/private-title-store-20261008/SUMMARY.md)。専用HTTP transport/runtime・title画面は後続。実Auth/Windows invoke・IME/Android/native grantと暗号化配備の残条件を継続し、追加の手操作依頼はない。

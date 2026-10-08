@@ -4,11 +4,12 @@ import { PrivateConnectionError, type PrivateWorkspaceConnection } from '@greiva
 import { NativeWorkspaceStore, NativeWorkspaceError, type NativeWorkspaceInvoke } from './native-workspace-store.js';
 import { PrivatePageEditorSession, PrivatePageEditorError } from '../editor/private-page-session.js';
 import {PrivateStructuredSession} from '../structured/private-structured-session.js';
+import {PrivateTitleSession,PrivateTitleError} from './private-title-session.js';
 
 type Failure='storage'|'transport'|'protocol'|null;
 export type PrivateWorkspaceState=Readonly<{
   phase:'closed'|'opening'|'ready'|'error';busy:boolean;
-  localPages:readonly PrivateLocalPageCatalogResponse['pages'][number][];localAfter:string|null;
+  localPages:readonly (PrivateLocalPageCatalogResponse['pages'][number]&{titlePending?:number})[];localAfter:string|null;
   remotePages:readonly PrivatePageCatalogResponse['pages'][number][];remoteCursor:string|null;remoteStatus:'unloaded'|'ready'|'error';
   selectedPageId:string|null;error:Failure;navigationBlocked:boolean;retryCreate:boolean;
 }>;
@@ -21,26 +22,32 @@ export class PrivateWorkspaceController {
   private connection:PrivateWorkspaceConnection|null=null;private store:NativeWorkspaceStore|null=null;
   private page:PrivatePageEditorSession|null=null;private detachPage=()=>{};private detachLease=()=>{};
   private structuredSession:PrivateStructuredSession|null=null;private detachStructured=()=>{};private structuredDraft=false;
+  private titleSession:PrivateTitleSession|null=null;private detachTitle=()=>{};private titleDraft=false;
   private creation:{id:string;title:string}|null=null;private listeners=new Set<(state:PrivateWorkspaceState)=>void>();
   private state=empty();
   constructor(private readonly invokePort?:NativeWorkspaceInvoke){}
   get editor(){return this.state.phase==='ready'?this.page:null;}
   get structured(){return this.state.phase==='ready'?this.structuredSession:null;}
+  get title(){return this.state.phase==='ready'?this.titleSession:null;}
+  setTitleDraft(blocked:boolean){if(this.titleDraft!==blocked){this.titleDraft=blocked;this.publish();}}
   setStructuredDraft(blocked:boolean){if(this.structuredDraft!==blocked){this.structuredDraft=blocked;this.publish();}}
-  get snapshot():PrivateWorkspaceState{return Object.freeze({...this.state,navigationBlocked:this.state.phase==='ready'&&Boolean(this.page?.snapshot.storageError||this.page?.isComposing||this.structuredDraft||this.structuredSession?.snapshot.busy||this.structuredSession?.snapshot.retryMutation),retryCreate:this.creation!==null});}
+  get snapshot():PrivateWorkspaceState{return Object.freeze({...this.state,navigationBlocked:this.state.phase==='ready'&&Boolean(this.page?.snapshot.storageError||this.page?.isComposing||this.structuredDraft||this.structuredSession?.snapshot.busy||this.structuredSession?.snapshot.retryMutation||this.titleDraft||this.titleSession?.snapshot.busy||this.titleSession?.snapshot.retryMutation),retryCreate:this.creation!==null});}
   subscribe(listener:(state:PrivateWorkspaceState)=>void){if(this.disposed)return()=>{};this.listeners.add(listener);listener(this.snapshot);return()=>{this.listeners.delete(listener);};}
   private publish(){if(!this.disposed)for(const listener of this.listeners){try{listener(this.snapshot);}catch{/* observer cannot interrupt cleanup/commit */}}}
   private patch(value:Partial<typeof this.state>){this.state={...this.state,...value};this.publish();}
   private livePending(pages:PrivateWorkspaceState['localPages']){
     const page=this.page;
-    return Object.freeze(pages.map(entry=>page?.snapshot.phase==='ready'&&entry.metadata.id===page.pageId?Object.freeze({...entry,pending:page.snapshot.pending}):entry));
+    const title=this.titleSession?.snapshot;
+    return Object.freeze(pages.map(entry=>page?.snapshot.phase==='ready'&&entry.metadata.id===page.pageId?Object.freeze({...entry,pending:page.snapshot.pending,...(title?.data?{metadata:Object.freeze({...entry.metadata,title:title.data.localTitle}),titlePending:title.pending}:{})}):entry));
   }
   private current(revision:number){return !this.disposed&&revision===this.revision;}
+  private async titles(revision:number,store:NativeWorkspaceStore,pages:PrivateWorkspaceState['localPages']){const result=[];for(const page of pages){const title=await store.title(page.metadata.id).load({limit:1});this.check(revision);result.push(Object.freeze({...page,metadata:Object.freeze({...page.metadata,title:title.localTitle}),titlePending:title.pending}));}return Object.freeze(result);}
   private check(revision:number){if(!this.current(revision)||!this.connection?.context)throw new NativeWorkspaceError('closed');this.store?.assertActive();}
   private category(error:unknown):Exclude<Failure,null>{
     if(error instanceof NativeWorkspaceError)return error.stage==='protocol'||error.stage==='configuration'?'protocol':'storage';
     if(error instanceof PrivatePageEditorError)return error.stage==='transport'?'transport':error.stage==='protocol'?'protocol':'storage';
     if(error instanceof PrivateConnectionError)return error.stage==='transport'?'transport':'protocol';
+    if(error instanceof PrivateTitleError)return error.stage==='transport'?'transport':error.stage==='protocol'?'protocol':'storage';
     return 'protocol';
   }
   private enqueue(revision:number,work:()=>Promise<void>){
@@ -50,13 +57,14 @@ export class PrivateWorkspaceController {
   private async release(){
     this.detachLease();this.detachLease=()=>{};this.detachPage();this.detachPage=()=>{};
     this.detachStructured();this.detachStructured=()=>{};
-    const page=this.page,structured=this.structuredSession,store=this.store;this.page=null;this.structuredSession=null;this.structuredDraft=false;this.store=null;this.connection=null;this.creation=null;
-    const work=await Promise.allSettled([page?.close(),structured?.close()]);await store?.close();if(work.some(result=>result.status==='rejected'))throw new NativeWorkspaceError('storage');
+    this.detachTitle();this.detachTitle=()=>{};
+    const page=this.page,structured=this.structuredSession,title=this.titleSession,store=this.store;this.page=null;this.titleSession=null;this.titleDraft=false;this.structuredSession=null;this.structuredDraft=false;this.store=null;this.connection=null;this.creation=null;
+    const work=await Promise.allSettled([page?.close(),structured?.close(),title?.close()]);await store?.close();if(work.some(result=>result.status==='rejected'))throw new NativeWorkspaceError('storage');
   }
   connect(connection:PrivateWorkspaceConnection){
     if(this.disposed)return Promise.resolve();const revision=++this.revision;
     this.detachLease();this.detachLease=()=>{};
-    this.structuredDraft=false;void this.structuredSession?.close();void this.page?.close().catch(()=>{});
+    this.structuredDraft=false;this.titleDraft=false;void this.titleSession?.close();void this.structuredSession?.close();void this.page?.close().catch(()=>{});
     this.state={...empty(),phase:'opening',busy:true};this.publish();
     return this.enqueue(revision,async()=>{
       await this.release();if(!this.current(revision))return;
@@ -64,15 +72,16 @@ export class PrivateWorkspaceController {
       const invalidated=()=>{if(this.connection===connection)void this.close();};lease.addEventListener('abort',invalidated,{once:true});this.detachLease=()=>lease.removeEventListener('abort',invalidated);
       const store=await NativeWorkspaceStore.open(connection,this.invokePort);
       if(!this.current(revision)){await store.close();return;}this.store=store;this.check(revision);
-      const local=await store.listPages();this.check(revision);const structured=await PrivateStructuredSession.open(connection,store);
+      const local=await store.listPages();this.check(revision);const pages=await this.titles(revision,store,local.pages),structured=await PrivateStructuredSession.open(connection,store);
       if(!this.current(revision)){await structured.close();return;}this.structuredSession=structured;
       this.detachStructured=structured.subscribe(value=>{if(this.structuredSession!==structured||!this.current(revision))return;if(value.phase==='closed')void this.close();else this.publish();});
-      this.check(revision);this.patch({phase:'ready',localPages:local.pages,localAfter:local.nextAfter});
+      this.check(revision);this.patch({phase:'ready',localPages:pages,localAfter:local.nextAfter});
     });
   }
   close(){
     this.detachLease();this.detachLease=()=>{};
-    ++this.revision;this.state=empty();this.structuredDraft=false;this.publish();
+    ++this.revision;this.state=empty();this.structuredDraft=false;this.titleDraft=false;this.publish();
+    void this.titleSession?.close();
     void this.structuredSession?.close();void this.page?.close().catch(()=>{});
     const work=this.tail.then(()=>this.release());this.tail=work.catch(()=>{});return work.catch(()=>{if(!this.disposed&&this.state.phase==='closed')this.patch({error:'storage'});});
   }
@@ -80,7 +89,7 @@ export class PrivateWorkspaceController {
   private begin(){if(this.disposed||this.state.phase!=='ready'||this.state.busy)return null;this.patch({busy:true,error:null});return this.revision;}
   loadLocal(more=false){
     const revision=this.begin();if(revision===null)return Promise.resolve();const store=this.store!,after=more?this.state.localAfter:null;
-    return this.enqueue(revision,async()=>{if(more&&after===null)return;const result=await store.listPages({after,limit:50});this.check(revision);this.patch({localPages:this.livePending(more?[...this.state.localPages,...result.pages]:result.pages),localAfter:result.nextAfter});});
+    return this.enqueue(revision,async()=>{if(more&&after===null)return;const result=await store.listPages({after,limit:50});this.check(revision);const pages=await this.titles(revision,store,result.pages);this.patch({localPages:this.livePending(more?[...this.state.localPages,...pages]:pages),localAfter:result.nextAfter});});
   }
   loadRemote(more=false){
     const revision=this.begin();if(revision===null)return Promise.resolve();const connection=this.connection!,cursor=more?this.state.remoteCursor:null;
@@ -94,10 +103,17 @@ export class PrivateWorkspaceController {
     // Page navigation waits for admitted durable writes. Never switch while a
     // composition or an unsaved storage-failure draft still needs copying.
     const previous=this.page;await previous?.durable();this.check(revision);
-    this.detachPage();this.detachPage=()=>{};this.page=null;this.patch({selectedPageId:null});await previous?.close();this.check(revision);
+    this.detachPage();this.detachPage=()=>{};this.detachTitle();this.detachTitle=()=>{};const previousTitle=this.titleSession;this.titleSession=null;this.titleDraft=false;this.page=null;this.patch({selectedPageId:null});await Promise.all([previous?.close(),previousTitle?.close()]);this.check(revision);
     const page=await PrivatePageEditorSession.open(connection,store,id,source);
-    if(!this.current(revision)){await page.close();return;}this.check(revision);this.page=page;
+    if(!this.current(revision)){await page.close();return;}let title:PrivateTitleSession;try{this.check(revision);title=await PrivateTitleSession.open(connection,store,id);}catch(error){await page.close();throw error;}
+    if(!this.current(revision)){await Promise.all([page.close(),title.close()]);return;}this.check(revision);this.page=page;this.titleSession=title;
+    this.detachTitle=title.subscribe(value=>{if(this.titleSession!==title||!this.current(revision))return;if(value.phase==='closed')void this.close();else this.patch({localPages:this.livePending(this.state.localPages)});});
     this.detachPage=page.subscribe(()=>{if(this.page===page&&this.current(revision))this.patch({localPages:this.livePending(this.state.localPages)});});this.patch({selectedPageId:id});
+  }
+  syncTitle(){
+    if(!this.page||!this.titleSession||this.titleDraft||this.titleSession.snapshot.busy||this.titleSession.snapshot.retryMutation||this.page.isComposing||this.page.snapshot.storageError||this.page.snapshot.syncing)return Promise.resolve();
+    const page=this.page,title=this.titleSession,revision=this.begin();if(revision===null)return Promise.resolve();
+    return this.enqueue(revision,async()=>{if(title.snapshot.data?.base===null){await page.sync();this.check(revision);}await title.sync();this.check(revision);this.patch({localPages:this.livePending(this.state.localPages)});});
   }
   openPage(candidate:string){
     if(this.snapshot.navigationBlocked)return Promise.resolve();
@@ -113,7 +129,7 @@ export class PrivateWorkspaceController {
     this.creation??={id:newId(),title};const intent=this.creation;
     return this.enqueue(revision,async()=>{
       await this.replacePage(revision,connection,store,intent.id,{kind:'create',title:intent.title});this.check(revision);this.creation=null;
-      const local=await store.listPages();this.check(revision);this.patch({localPages:this.livePending(local.pages),localAfter:local.nextAfter});
+      const local=await store.listPages();this.check(revision);const pages=await this.titles(revision,store,local.pages);this.patch({localPages:this.livePending(pages),localAfter:local.nextAfter});
     });
   }
 }

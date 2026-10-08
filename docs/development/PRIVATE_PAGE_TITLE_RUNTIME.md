@@ -1,5 +1,7 @@
 # Pageタイトルの送信・同期基盤
 
+後続v0.35.0で[タイトル編集画面](PRIVATE_PAGE_TITLE_SCREEN.md)を接続し、runtimeのlocal historyに各100件の続頁/先頭復帰を追加した。以下はv0.34.0時点の実装と当時の検証境界。
+
 2026-10-08 / v0.34.0。[端末保存](PRIVATE_PAGE_TITLE_DURABILITY.md)と[server](PRIVATE_PAGE_METADATA.md)を専用session・captured Auth transport・native runtimeで接続する。[判断](../decisions/private-page-title-runtime.md)、[証拠](../../tests/evidence/private-title-runtime-20261008/SUMMARY.md)。title画面/IME/focusへの接続は後続。server schema4/native schema7と既存本文/structured wireを変更しない。
 
 ## Portable sessionと認証

@@ -17,6 +17,7 @@ export class PrivateTitleSession {
   private phase:PrivateTitleState['phase']='opening';private busy=false;
   private data:PrivatePageTitleLocalResponse|null=null;private error:PrivateTitleState['error']=null;
   private uncertain:PrivatePageTitleIntent|null=null;private nextQuery:string|null=null;private queryComplete=false;
+  private historyOperation:string|null=null;private historyConflict:string|null=null;
   private tail:Promise<void>=Promise.resolve();private closeWork:Promise<void>|null=null;
   private readonly listeners=new Set<(state:PrivateTitleState)=>void>();
   private readonly syncSession:PageTitleSyncSession;private readonly lease:AbortSignal;private detach=()=>{};
@@ -43,7 +44,13 @@ export class PrivateTitleSession {
     queryComplete:this.phase==='ready'&&!this.busy&&!this.error&&!this.uncertain&&this.queryComplete,hasMoreRemote:this.nextQuery!==null,hasMoreLocal:Boolean(this.data&&(this.data.nextOperation!==null||this.data.nextConflict!==null))});}
   subscribe(listener:(state:PrivateTitleState)=>void){this.listeners.add(listener);try{listener(this.snapshot);}catch{/* observer cannot interrupt a commit */}return()=>{this.listeners.delete(listener);};}
   private publish(){for(const listener of this.listeners)try{listener(this.snapshot);}catch{/* observer cannot interrupt a commit */}}
-  private async reload(){const value=await this.load({limit:100});this.check();this.data=value;this.publish();}
+  private async reload(candidate:{limit:100;afterOperation?:string|null;afterConflict?:string|null}={limit:100}){const value=await this.load(candidate);this.check();
+    // Keep each last key even when its next page is empty. The other stream
+    // may have more pages; null would restart an already exhausted stream.
+    this.historyOperation=value.operations.at(-1)?.sequence??candidate.afterOperation??null;
+    this.historyConflict=value.conflicts.at(-1)?.record.id??candidate.afterConflict??null;
+    this.data=value;this.publish();}
+  async history(more=false){this.check();if(this.uncertain)throw new PrivateTitleError('busy');const afterOperation=more?this.historyOperation:null,afterConflict=more?this.historyConflict:null;return this.run(async()=>{await this.reload({limit:100,afterOperation,afterConflict});});}
   private run(work:()=>Promise<void>){
     this.check();if(this.phase!=='ready'||this.busy)throw new PrivateTitleError('busy');this.busy=true;this.error=null;this.queryComplete=false;this.publish();
     const result=(async()=>{try{this.check();await work();this.check();}catch(error){const failure=this.failure(error);if(failure.stage==='closed')void this.close();else{this.error=failure.stage==='busy'?'protocol':failure.stage;this.publish();}throw failure;}finally{this.busy=false;this.publish();}})();this.tail=result.catch(()=>{});return result;
@@ -68,5 +75,5 @@ export class PrivateTitleSession {
       await this.reload();this.nextQuery=response.nextAfter;this.queryComplete=response.nextAfter===null;
     });
   }
-  close():Promise<void>{if(this.closeWork)return this.closeWork;this.phase='closed';this.busy=false;this.data=null;this.uncertain=null;this.nextQuery=null;this.queryComplete=false;this.detach();this.syncSession.close();this.publish();this.closeWork=this.tail.then(()=>{this.listeners.clear();});return this.closeWork;}
+  close():Promise<void>{if(this.closeWork)return this.closeWork;this.phase='closed';this.busy=false;this.data=null;this.uncertain=null;this.nextQuery=null;this.historyOperation=null;this.historyConflict=null;this.queryComplete=false;this.detach();this.syncSession.close();this.publish();this.closeWork=this.tail.then(()=>{this.listeners.clear();});return this.closeWork;}
 }

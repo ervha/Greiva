@@ -1,0 +1,65 @@
+
+> greiva-poc@0.35.0 test:workspace-e2e
+> npm run build:packages && playwright test -c playwright.private-workspace.config.ts
+
+
+> greiva-poc@0.35.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application
+
+
+> @greiva/shared@0.35.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/domain@0.35.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.35.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.35.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.35.0 build
+> tsc -p tsconfig.json
+
+
+Running 32 tests using 1 worker
+
+  ✓   1 [desktop] › tests/e2e/private-workspace.spec.ts:7:1 › WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries (3.4s)
+  ✓   2 [desktop] › tests/e2e/private-workspace.spec.ts:14:1 › WORKSPACE-TASKS: explicit Task/Relation CRUD, typed date/status, keyboard focus and logout/re-login keep unsent records (3.0s)
+  ✓   3 [desktop] › tests/e2e/private-workspace.spec.ts:23:1 › WORKSPACE-TASKS: unknown mutation result, composition, failed draft and ACK loss preserve one intent and copyable input (1.5s)
+  ✓   4 [desktop] › tests/e2e/private-workspace.spec.ts:28:1 › WORKSPACE-TASKS: conflict exposes base/local/remote and records an explicit resolution as a new operation (1.4s)
+  ✓   5 [desktop] › tests/e2e/private-workspace.spec.ts:31:1 › WORKSPACE-TASKS: unsaved draft and rejected updates remain distinct from sync confirmation without server error text (1.4s)
+  ✓   6 [desktop] › tests/e2e/private-workspace.spec.ts:34:1 › WORKSPACE-SCREEN: remote selection checks local presence beyond first page and remote-only download remains unconfirmed (1.7s)
+  ✓   7 [desktop] › tests/e2e/private-workspace.spec.ts:40:1 › WORKSPACE-SCREEN: close during native open suppresses late ready; production Web has no persistence fallback (1.6s)
+  ✓   8 [desktop] › tests/e2e/private-workspace.spec.ts:44:1 › WORKSPACE-SCREEN: status/catalog rendering preserves selection/composition and uncertain create retries one ID (1.8s)
+  ✓   9 [desktop] › tests/e2e/private-workspace.spec.ts:49:1 › WORKSPACE-SCREEN: failed commit retains copyable draft and blocks destructive navigation without leaking causes (1.4s)
+  ✓  10 [desktop] › tests/e2e/private-workspace.spec.ts:54:1 › WORKSPACE-TITLE: keyboard save, offline rename, sidebar pending and relogin preserve title separately from body sync (1.9s)
+  ✓  11 [desktop] › tests/e2e/private-workspace.spec.ts:58:1 › WORKSPACE-TITLE: composition, local refresh and dirty input preserve focus/selection and block navigation/submit (1.5s)
+  ✓  12 [desktop] › tests/e2e/private-workspace.spec.ts:61:1 › WORKSPACE-TITLE: unknown local save and failed storage preserve copyable draft and retry same operation (1.7s)
+  ✓  13 [desktop] › tests/e2e/private-workspace.spec.ts:64:1 › WORKSPACE-TITLE: lost HTTP ACK keeps pending and sends exact same immutable request on retry (1.7s)
+  ✓  14 [desktop] › tests/e2e/private-workspace.spec.ts:67:1 › WORKSPACE-TITLE: base/local/remote choices create new resolution and retain resolved history (1.7s)
+  ✓  15 [desktop] › tests/e2e/private-workspace.spec.ts:70:1 › WORKSPACE-TITLE: rejected resolution keeps candidate and original input without private server error text (1.6s)
+  ✓  16 [desktop] › tests/e2e/private-workspace.spec.ts:73:1 › WORKSPACE-TITLE: remote and local candidate pagination stays bounded and dirty cancellation restores latest saved title (2.2s)
+  ✓  17 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:7:1 › WORKSPACE-SCREEN: login/create/keyboard edit/logout/relogin preserve unsent Page; ACK retry and native/browser boundaries (2.0s)
+  ✓  18 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:14:1 › WORKSPACE-TASKS: explicit Task/Relation CRUD, typed date/status, keyboard focus and logout/re-login keep unsent records (2.3s)
+  ✓  19 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:23:1 › WORKSPACE-TASKS: unknown mutation result, composition, failed draft and ACK loss preserve one intent and copyable input (1.5s)
+  ✓  20 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:28:1 › WORKSPACE-TASKS: conflict exposes base/local/remote and records an explicit resolution as a new operation (1.3s)
+  ✓  21 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:31:1 › WORKSPACE-TASKS: unsaved draft and rejected updates remain distinct from sync confirmation without server error text (1.5s)
+  ✓  22 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:34:1 › WORKSPACE-SCREEN: remote selection checks local presence beyond first page and remote-only download remains unconfirmed (1.5s)
+  ✓  23 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:40:1 › WORKSPACE-SCREEN: close during native open suppresses late ready; production Web has no persistence fallback (1.5s)
+  ✓  24 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:44:1 › WORKSPACE-SCREEN: status/catalog rendering preserves selection/composition and uncertain create retries one ID (1.5s)
+  ✓  25 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:49:1 › WORKSPACE-SCREEN: failed commit retains copyable draft and blocks destructive navigation without leaking causes (1.3s)
+  ✓  26 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:54:1 › WORKSPACE-TITLE: keyboard save, offline rename, sidebar pending and relogin preserve title separately from body sync (1.8s)
+  ✓  27 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:58:1 › WORKSPACE-TITLE: composition, local refresh and dirty input preserve focus/selection and block navigation/submit (1.6s)
+  ✓  28 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:61:1 › WORKSPACE-TITLE: unknown local save and failed storage preserve copyable draft and retry same operation (1.5s)
+  ✓  29 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:64:1 › WORKSPACE-TITLE: lost HTTP ACK keeps pending and sends exact same immutable request on retry (1.4s)
+  ✓  30 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:67:1 › WORKSPACE-TITLE: base/local/remote choices create new resolution and retain resolved history (1.5s)
+  ✓  31 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:70:1 › WORKSPACE-TITLE: rejected resolution keeps candidate and original input without private server error text (1.5s)
+  ✓  32 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:73:1 › WORKSPACE-TITLE: remote and local candidate pagination stays bounded and dirty cancellation restores latest saved title (1.8s)
+
+  32 passed (57.8s)

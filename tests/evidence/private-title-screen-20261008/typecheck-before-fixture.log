@@ -1,0 +1,70 @@
+
+> greiva-poc@0.35.0 typecheck
+> npm run build:packages && npm run typecheck --workspaces --if-present && tsc -p tsconfig.tests.json
+
+
+> greiva-poc@0.35.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application
+
+
+> @greiva/shared@0.35.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/domain@0.35.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.35.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.35.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.35.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.35.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/domain@0.35.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/protocol@0.35.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/shared@0.35.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/sync@0.35.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/api@0.35.0 typecheck
+> tsc --noEmit
+
+
+> @greiva/client@0.35.0 typecheck
+> tsc --noEmit
+
+
+> @greiva/collaboration@0.35.0 typecheck
+> tsc --noEmit
+
+tests/e2e/private-workspace.spec.ts(2,47): error TS2835: Relative import paths need explicit file extensions in ECMAScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean '../../apps/client/src/workspace/private-title-session.js'?
+tests/support/private-title-fixture.ts(29,244): error TS2345: Argument of type '{ id: string; operationId: string; baseVersion: number; remoteVersion: number; base: string | undefined; local: string; remote: string; resolvedBy: null; }' is not assignable to parameter of type '{ id: string; operationId: string; baseVersion: number; remoteVersion: number; base: string; local: string; remote: string; } & { resolvedBy: string | null; }'.
+  Type '{ id: string; operationId: string; baseVersion: number; remoteVersion: number; base: string | undefined; local: string; remote: string; resolvedBy: null; }' is not assignable to type '{ id: string; operationId: string; baseVersion: number; remoteVersion: number; base: string; local: string; remote: string; }'.
+    Types of property 'base' are incompatible.
+      Type 'string | undefined' is not assignable to type 'string'.
+        Type 'undefined' is not assignable to type 'string'.
+tests/support/private-title-fixture.ts(29,295): error TS2322: Type '{ id: string; operationId: string; baseVersion: number; remoteVersion: number; base: string | undefined; local: string; remote: string; }' is not assignable to type '{ id: string; operationId: string; baseVersion: number; remoteVersion: number; base: string; local: string; remote: string; }'.
+  Types of property 'base' are incompatible.
+    Type 'string | undefined' is not assignable to type 'string'.
+      Type 'undefined' is not assignable to type 'string'.

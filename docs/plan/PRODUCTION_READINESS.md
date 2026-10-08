@@ -1,5 +1,7 @@
 # 初期提供範囲・PoCとの差・残る判断
 
+v0.35.0で[Pageタイトル画面](../development/PRIVATE_PAGE_TITLE_SCREEN.md)をworkspace previewへ接続した。明示保存/確認/解決と入力保護はDockerで検証し、本文とtitleの状態を分離する。全端末のmetadata delta、実Auth正常系・Windows invoke/IME・Android/native grant、配備暗号化/削除/保持/復元は未完成。
+
 v0.34.0で[title送信・同期基盤](../development/PRIVATE_PAGE_TITLE_RUNTIME.md)を実装・検証した。production session/Auth transportとnative runtimeで再送・競合・取消を接続した段階で、title画面/IMEと全端末のmetadata deltaは未完成。実Auth正常系・Windows invoke/IME・配備暗号化/削除/保持/復元・native grantの残条件を継続する。
 
 v0.33.0で[title端末保存基盤](../development/PRIVATE_PAGE_TITLE_DURABILITY.md)を実装・検証した。signed fixture HTTP/実PGと2 native SQLiteで再送・競合・本文保持を確認したが、専用transport/runtime/画面、実Supabase正常系・Windows invoke/IME・配備暗号化は未完成。削除/保持/復元とnative grantの残条件を継続する。

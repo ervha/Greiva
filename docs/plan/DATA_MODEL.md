@@ -1,5 +1,7 @@
 # 本番データモデル候補と移行条件
 
+v0.35.0：[title画面](../development/PRIVATE_PAGE_TITLE_SCREEN.md)は既存schema4/7の保存済み投影・pending・候補/拒否履歴を表示する。新migrationを追加せず、query欠落やresolvedBy nullからserverの現在状態を推定しない。
+
 v0.34.0：[title runtime](../development/PRIVATE_PAGE_TITLE_RUNTIME.md)を既存server schema4/native schema7へ接続。immutable wire/receipt/候補と観測baseを維持し、migrationを追加しない。runtimeのqueryCompleteとbounded local snapshotはserver正本の同期完了や候補statusの証明ではない。
 
 v0.33.0：[title端末保存](../development/PRIVATE_PAGE_TITLE_DURABILITY.md)のnative workspace schema7を追加。版付きbase/intent・先行operation/immutable wire・receipt/候補・resolvedByを保持し、本文/structuredとbindingは維持。旧versionless titleはknown版へ推測変換しない。serverはschema4のまま。以下の旧schema記録は当時の状態として保持する。

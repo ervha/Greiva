@@ -3,12 +3,14 @@ import {PrivateStructuredPanel} from '../structured/PrivateStructuredPanel';
 import { PrivatePageEditor } from '../editor/PrivatePageEditor';
 import type { PrivateLoginController } from '../auth/private-login';
 import type { PrivateWorkspaceController } from './private-workspace-controller';
+import {PrivateTitlePanel} from './PrivateTitlePanel';
 
 export function PrivateWorkspaceScreen({login,workspace,nativeAvailable}:{login:PrivateLoginController;workspace:PrivateWorkspaceController;nativeAvailable:boolean}){
   const [auth,setAuth]=useState(login.snapshot),[state,setState]=useState(workspace.snapshot);
   const [email,setEmail]=useState(''),[password,setPassword]=useState(''),[title,setTitle]=useState('');
   useEffect(()=>login.subscribe(setAuth),[login]);useEffect(()=>workspace.subscribe(setState),[workspace]);
   const structuredDraft=useCallback((blocked:boolean)=>workspace.setStructuredDraft(blocked),[workspace]);
+  const titleDraft=useCallback((blocked:boolean)=>workspace.setTitleDraft(blocked),[workspace]);
   const connection=login.activeConnection,lease=connection?.generationSignal;
   useEffect(()=>{if(connection)void workspace.connect(connection);else void workspace.close();},[connection,lease,workspace]);
   const busy=auth.busy||state.busy,blocked=busy||state.navigationBlocked;
@@ -37,7 +39,7 @@ export function PrivateWorkspaceScreen({login,workspace,nativeAvailable}:{login:
     {state.phase==='ready'&&<div className="workspace-layout"><aside aria-label="Page一覧">
       <section><h2>端末に保存済み</h2><button type="button" disabled={blocked} onClick={()=>{void workspace.loadLocal();}}>端末一覧を更新</button>
         {state.localPages.length===0&&<p>保存済みのPageはありません。</p>}
-        <ul>{state.localPages.map(({metadata,pending})=><li key={metadata.id}><button type="button" disabled={blocked} aria-current={state.selectedPageId===metadata.id?'page':undefined} onClick={()=>{void workspace.openPage(metadata.id);}}>{metadata.title||'無題のPage'}</button><span>{pending?`未確認の更新 ${pending}件`:'端末に保存済み'}</span></li>)}</ul>
+        <ul>{state.localPages.map(({metadata,pending,titlePending})=><li key={metadata.id}><button type="button" disabled={blocked} aria-current={state.selectedPageId===metadata.id?'page':undefined} onClick={()=>{void workspace.openPage(metadata.id);}}>{metadata.title||'無題のPage'}</button><span>{pending?`未確認の更新 ${pending}件`:'端末に保存済み'}{titlePending?` / タイトル未確認 ${titlePending}件`:''}</span></li>)}</ul>
         {state.localAfter&&<button type="button" disabled={blocked} onClick={()=>{void workspace.loadLocal(true);}}>端末一覧をさらに表示</button>}
       </section>
       <section><h2>サーバーのPage</h2><button type="button" disabled={blocked} onClick={()=>{void workspace.loadRemote();}}>サーバー一覧を取得</button>
@@ -50,7 +52,7 @@ export function PrivateWorkspaceScreen({login,workspace,nativeAvailable}:{login:
       <form onSubmit={event=>{event.preventDefault();void workspace.createPage(title);}}><label>新しいPageのタイトル<input value={title} onChange={event=>setTitle(event.target.value)} maxLength={65536} disabled={blocked||state.retryCreate}/></label>
         <button disabled={blocked}>{state.retryCreate?'同じPageの作成を再確認':'新しいPageを作成'}</button>
       </form>
-    </aside><section aria-label="Page編集" className="workspace-editor">{workspace.editor?<PrivatePageEditor session={workspace.editor}/>:<p>Pageを選ぶか、新しく作成してください。</p>}</section></div>}
+    </aside><section aria-label="Page編集" className="workspace-editor">{workspace.editor?<>{workspace.title&&<PrivateTitlePanel key={workspace.title.pageId} session={workspace.title} onDraftChange={titleDraft} onSync={()=>workspace.syncTitle()} blocked={busy||Boolean(workspace.editor.isComposing||workspace.editor.snapshot.storageError||workspace.editor.snapshot.syncing)}/>}<PrivatePageEditor session={workspace.editor} displayTitle={workspace.title?.snapshot.data?.localTitle}/></>:<p>Pageを選ぶか、新しく作成してください。</p>}</section></div>}
     {state.phase==='ready'&&workspace.structured&&<PrivateStructuredPanel session={workspace.structured} pages={[...state.localPages.map(row=>row.metadata),...state.remotePages.filter(row=>!state.localPages.some(local=>local.metadata.id===row.id))]} onDraftChange={structuredDraft}/>}
     <p className="editor-hint">ログアウトしても、この端末に保存済みのPage・Task・Relationと未送信更新は保持します。ログイン前の閲覧は提供していません。</p>
   </main>;

@@ -1,5 +1,7 @@
 # Structured sync本番契約候補
 
+v0.35.0：[title画面](../development/PRIVATE_PAGE_TITLE_SCREEN.md)で明示保存/送信・query/新operation解決を接続。unknown baseは本文Page作成の確認後にtitle queryし、known baseでは本文syncを暗黙実行しない。結果不明の同ID再確認、remote/local各100件の続頁、独立pending表示を提供し、syncedとは表示しない。
+
 v0.34.0：[title専用session/runtime](../development/PRIVATE_PAGE_TITLE_RUNTIME.md)でcaptured Auth/scoped rename/readを接続。明示cycleは最大100送信＋query一頁100件、commit/local read後の進捗、同nonce再確認と世代取消を行う。query完了をsyncedと扱わず、本文/structured sessionと独立。title画面とmetadata deltaは後続。
 
 v0.33.0：[title端末保存](../development/PRIVATE_PAGE_TITLE_DURABILITY.md)で最古pendingのimmutable wire/ACKと観測基底・投影を保存する。自分の成功receiptのみ未prepared子の基底を進め、古い本文metadataでmanaged titleを上書きしない。local title pendingと本文pendingを分離し、queryを同期済み証明にしない。専用transport/runtime/画面は後続。
