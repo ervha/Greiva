@@ -6,6 +6,7 @@ import { emptyPageUpdate, pageBase64, pageBytes, pageDigest } from '@greiva/sync
 import type { NativeWorkspaceInvoke } from '../../apps/client/src/workspace/native-workspace-store.js';
 import type { PrivateLoginConfiguration } from '../../apps/client/src/auth/private-login.js';
 import {privateTitleFixture} from './private-title-fixture.js';
+import type {PrivatePageChange,PrivatePageChangesResponse} from '@greiva/protocol/private-page-changes';
 
 // UI/unit double only. Real signed HTTP/PG/Rust tests are separate evidence.
 export function privateWorkspaceFixture(){
@@ -21,7 +22,10 @@ export function privateWorkspaceFixture(){
  let active:string|null=null,generation=0,sequence=0;
  const state={loseAck:false,loseCreateReply:false,storageFailure:false,catalogFailure:false,structuredLoseAck:false,structuredReject:false,structuredLoseMutationReply:false,structuredStorageFailure:false,structuredSent:[] as string[],nativeHook:null as null|((command:string,request:Record<string,unknown>|null)=>Promise<void>),queryHook:null as null|(()=>Promise<void>),readCalls:[] as string[],sentWires:[] as string[]};
  const metadata=(id:string,title:string):Page=>({id,title,yDocId:'page:'+id,createdAt:'2026-10-08T00:00:00.000Z',updatedAt:'2026-10-08T00:00:00.000Z'});
- const title=privateTitleFixture(context,{local:id=>local.get(id)?.metadata,server:id=>server.get(id)?.metadata,project:(id,value)=>{local.get(id)!.metadata.title=value;},remote:(id,value)=>{server.get(id)!.metadata.title=value;},bootstrapPending:id=>Boolean(local.get(id)?.queue.some(frame=>frame.kind==='bootstrap'))});
+ const changes={events:[] as PrivatePageChange[],catalog:new Map<string,PrivatePageChange>(),receipts:new Set<string>(),order:'0',cursor:null as string|null,headOrder:'0',hasMore:false,received:false,pulls:[] as unknown[],receiveCount:0,loseReply:false,storageFailure:false,transportFailure:false,hook:null as null|(()=>Promise<void>)};
+ const change=(pageId:string,metadata:Page,version:number,conflict:PrivatePageChange['conflict'])=>{changes.events.push(clone({order:String(changes.events.length+1),pageId,metadata,version,conflict}));};
+ const title=privateTitleFixture(context,{local:id=>local.get(id)?.metadata,server:id=>server.get(id)?.metadata,project:(id,value)=>{local.get(id)!.metadata.title=value;},remote:(id,value)=>{server.get(id)!.metadata.title=value;},bootstrapPending:id=>Boolean(local.get(id)?.queue.some(frame=>frame.kind==='bootstrap')),change});
+ const adopt=(id:string)=>{for(const event of changes.events.filter(event=>event.pageId===id&&BigInt(event.order)<=BigInt(changes.order)))title.receiveChange(id,event.metadata,event.version,event.conflict);};
  async function queue(entry:Local,id:string,kind:'bootstrap'|'append',bytes:Uint8Array){
   const digest=await pageDigest(bytes),wire=JSON.stringify({protocolVersion:1,clientId:context.clientId,editorSchemaVersion:1,...(kind==='bootstrap'?{title:entry.metadata.title,initialUpdate:pageBase64(bytes)}:{update:pageBase64(bytes)})});
   entry.updates.push(Array.from(bytes));entry.queue.push({sequence:String(++sequence),pageId:id,kind,digest,wire});return wire;
@@ -34,6 +38,8 @@ export function privateWorkspaceFixture(){
   if(command!=='workspace_execute'||args!.handle!==active)throw Error('Closed handle');
   const kind=String(request!.command),id=String(request!.pageId),entry=local.get(id);
   if(kind.startsWith('title_'))return title.execute(kind,id,request!);
+  if(kind==='changes_load'){const limit=Number(request!.limit),after=request!.afterPage as string|null,rows=[...changes.catalog.values()].sort((a,b)=>a.pageId.localeCompare(b.pageId)).filter(row=>after===null||row.pageId>after),pages=rows.slice(0,limit).map(row=>({metadata:clone(row.metadata),version:row.version,lastOrder:row.order}));return{context,order:changes.order,cursor:changes.cursor,headOrder:changes.headOrder,hasMore:changes.hasMore,received:changes.received,pages,nextAfter:rows.length>limit?pages.at(-1)!.metadata.id:null};}
+  if(kind==='changes_receive'){++changes.receiveCount;if(changes.storageFailure)throw Error('fixture-private-changes storage');const response=request!.response as PrivatePageChangesResponse,receipt=JSON.stringify([request!.request,response]);if(!changes.receipts.has(receipt)){if(response.afterOrder!==changes.order)throw Error('Stale changes base');for(const event of response.events){changes.catalog.set(event.pageId,clone(event));title.receiveChange(event.pageId,event.metadata,event.version,event.conflict);}changes.order=response.readOrder;changes.cursor=response.cursor;changes.headOrder=response.headOrder;changes.hasMore=response.hasMore;changes.received=true;changes.receipts.add(receipt);}if(changes.loseReply){changes.loseReply=false;throw Error('fixture-private-changes lost reply');}return null;}
   if(kind==='snapshot')return {context,snapshot:clone(structured)};
   if(kind==='mutate'){
    if(state.structuredStorageFailure)throw Error('fixture-private-task storage');const operation=request!.operation as PushOperation,rows=operation.entityType==='task'?structured.tasks:structured.relations,previous=rows.find(row=>row.id===operation.entityId);if(structured.operations.some(row=>row.operationId===operation.operationId))return clone(previous);
@@ -58,10 +64,10 @@ export function privateWorkspaceFixture(){
   if(kind==='page_append'){if(state.storageFailure)throw Error('fixture-private-email storage error');await queue(entry,id,'append',Uint8Array.from(request!.update as number[]));return null;}
   if(kind==='page_load')return {page:{metadata:{...entry.metadata},updates:entry.updates.map(bytes=>bytes.slice())},pending:entry.queue.length,serverHead:entry.head};
   if(kind==='page_prepare')return entry.queue[0]?{...entry.queue[0]}:null;
-  if(kind==='page_ack'){if(entry.queue[0]?.wire!==request!.wire)throw Error('Wrong receipt');entry.queue.shift();return null;}
+  if(kind==='page_ack'){if(entry.queue[0]?.wire!==request!.wire)throw Error('Wrong receipt');entry.queue.shift();adopt(id);return null;}
   if(kind==='page_receive'){
    const response=request!.response as {metadata:Page;update:string;headOrder:string};entry.updates.push(Array.from(pageBytes(response.update)));entry.head=response.headOrder;
-   if(!entry.queue.length&&!title.managed(id))entry.metadata={...response.metadata};return null;
+   if(!entry.queue.length&&!title.managed(id))entry.metadata={...response.metadata};adopt(id);return null;
   }
   throw Error('Unexpected request');
  };
@@ -71,6 +77,7 @@ export function privateWorkspaceFixture(){
   if(url.endsWith('/v1/session'))return Response.json({issuer:context.issuer,subjectId:context.subjectId,expiresAt:Math.floor(Date.now()/1000)+300});
   if(url.includes('/logout?'))return new Response('');
   if(url.endsWith('/workspaces/bootstrap'))return Response.json({protocolVersion:1,workspaceId:context.workspaceId,clientId:body.clientId,epoch:context.streamEpoch});
+  if(url.endsWith('/pages/metadata/pull')){changes.pulls.push(clone(body));const after=Number(body.cursor?.replace('changes:','')??0),read=Math.min(changes.events.length,after+Number(body.limit)),response={protocolVersion:1,workspaceId:context.workspaceId,workspaceEpoch:context.streamEpoch,afterOrder:String(after),readOrder:String(read),headOrder:String(changes.events.length),events:clone(changes.events.slice(after,read)),hasMore:read<changes.events.length,cursor:'changes:'+read};await changes.hook?.();if(changes.transportFailure)return Response.json({error:'fixture-private-changes transport'},{status:503});return Response.json(response);}
   const titleMatch=/\/pages\/([^/]+)\/metadata\/(rename|read)$/.exec(url);if(titleMatch)return title.fetch(titleMatch[1]!,titleMatch[2]!,body,String(init?.body));
   if(url.endsWith('/sync/push')){state.structuredSent.push(String(init?.body));const operations=(body as unknown as {operations:PushOperation[]}).operations,results=operations.map(operation=>{const old=ledger.find(row=>row.operationId===operation.operationId);if(old)return old;const rows=operation.entityType==='task'?structured.tasks:structured.relations,localEntity=rows.find(row=>row.id===operation.entityId)!,conflicts=operation.resolution?structured.conflicts.filter(row=>operation.resolution!.conflictIds.includes(row.id)).map(row=>({...row,status:'resolved' as const,resolvedBy:operation.operationId})):[],result:PushResult=state.structuredReject?{operationId:operation.operationId,clientId:operation.clientId,entityId:operation.entityId,entityType:operation.entityType,serverOrder:String(ledger.length+1),status:'rejected',entity:null,conflicts:[],error:{code:'fixture_rejected',message:'fixture-private-server',retryable:false}}:{operationId:operation.operationId,clientId:operation.clientId,entityId:operation.entityId,entityType:operation.entityType,serverOrder:String(ledger.length+1),status:'acknowledged',entity:{...clone(localEntity),version:localEntity.version+1},conflicts};state.structuredReject=false;ledger.push(result);return result;});if(state.structuredLoseAck){state.structuredLoseAck=false;return Response.json({error:'lost'},{status:503});}return Response.json({protocolVersion:1,workspaceId:context.workspaceId,streamEpoch:context.streamEpoch,results});}
   if(url.endsWith('/sync/pull')){const offset=Number(body.cursor?.replace('structured:','')??0),operations=ledger.slice(offset,offset+Number(body.limit)),cursor='structured:'+(offset+operations.length),headCursor='structured:'+ledger.length;return Response.json({protocolVersion:1,workspaceId:context.workspaceId,streamEpoch:context.streamEpoch,operations,cursor,headCursor,hasMore:cursor!==headCursor,serverTime:time});}
@@ -88,7 +95,7 @@ export function privateWorkspaceFixture(){
    return Response.json({...scope,metadata:saved.metadata,headOrder:String(saved.head),update:pageBase64(update),digest:await pageDigest(update),stateVector:pageBase64(Y.encodeStateVector(saved.doc))});
   }
   state.sentWires.push(String(init?.body));const bytes=pageBytes((kind==='bootstrap'?body.initialUpdate:body.update)!),digest=await pageDigest(bytes);
-  if(!saved){if(kind!=='bootstrap')return new Response('{}',{status:404});saved={metadata:metadata(id,body.title!),doc:new Y.Doc({gc:false}),head:1,digests:new Map()};server.set(id,saved);}
+  if(!saved){if(kind!=='bootstrap')return new Response('{}',{status:404});saved={metadata:metadata(id,body.title!),doc:new Y.Doc({gc:false}),head:1,digests:new Map()};server.set(id,saved);change(id,saved.metadata,0,null);}
   if(!saved.digests.has(digest)){Y.applyUpdate(saved.doc,bytes);if(kind==='append')++saved.head;saved.digests.set(digest,saved.head);}
   if(state.loseAck){state.loseAck=false;return Response.json({error:'lost'},{status:503});}
   return Response.json(kind==='bootstrap'?{...scope,metadata:saved.metadata,initialDigest:digest}:{...scope,serverOrder:String(saved.digests.get(digest)),headOrder:String(saved.head),digest,stateVector:pageBase64(Y.encodeStateVector(saved.doc))});
@@ -97,9 +104,9 @@ export function privateWorkspaceFixture(){
   const entry:Local={metadata:metadata(id,title),updates:[],queue:[],bootstrap:'',head:null};local.set(id,entry);entry.bootstrap=await queue(entry,id,'bootstrap',emptyPageUpdate());return id;
  }
  function seedRemote(title:string,text='remote',id=newId()){
-  const doc=new Y.Doc({gc:false});Y.applyUpdate(doc,emptyPageUpdate());const block=doc.getXmlFragment('body').get(0) as Y.XmlElement;block.insert(0,[new Y.XmlText(text)]);server.set(id,{metadata:metadata(id,title),doc,head:1,digests:new Map()});return id;
+  const doc=new Y.Doc({gc:false});Y.applyUpdate(doc,emptyPageUpdate());const block=doc.getXmlFragment('body').get(0) as Y.XmlElement;block.insert(0,[new Y.XmlText(text)]);server.set(id,{metadata:metadata(id,title),doc,head:1,digests:new Map()});change(id,server.get(id)!.metadata,0,null);return id;
  }
  function edit(doc:Y.Doc,text:string){const block=doc.getXmlFragment('body').get(0) as Y.XmlElement;if(!block.length)block.insert(0,[new Y.XmlText()]);(block.get(0) as Y.XmlText).insert(0,text);}
  function seedConflict(){const task=structured.tasks.find(row=>!row.deletedAt)!;task.title='remote';task.version+=1;const conflict:Conflict={id:newId(),operationId:newId(),entityType:'task',entityId:task.id,field:'title',base:'base',local:'local',remote:'remote',createdAt:time,status:'open',resolvedBy:null};structured.conflicts.push(conflict);return conflict;}
- return {configuration,context,invoke,fetchPort,local,server,calls,state,title,structured,seedConflict,seedLocal,seedRemote,edit,cleanup(){for(const saved of server.values())saved.doc.destroy();}};
+ return {configuration,context,invoke,fetchPort,local,server,calls,state,title,changes,structured,seedConflict,seedLocal,seedRemote,edit,cleanup(){for(const saved of server.values())saved.doc.destroy();}};
 }

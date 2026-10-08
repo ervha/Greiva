@@ -1,0 +1,78 @@
+{
+  "version": "0.39.0",
+  "totals": {
+    "normal": {
+      "total": 440,
+      "passed": 346,
+      "failed": 0,
+      "pending": 94
+    },
+    "postgres": {
+      "total": 94,
+      "passed": 94,
+      "failed": 0,
+      "pending": 0
+    },
+    "root-ui": {
+      "startTime": "2026-10-08T09:00:06.304Z",
+      "duration": 172995.475,
+      "expected": 64,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "workspace-ui": {
+      "startTime": "2026-10-08T09:04:51.738Z",
+      "duration": 64056.654,
+      "expected": 40,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "auth-ui": {
+      "startTime": "2026-10-08T09:02:59.932Z",
+      "duration": 15530.43,
+      "expected": 12,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "focused": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0,
+      "pending": 0
+    },
+    "initial-workspace-ui": {
+      "startTime": "2026-10-08T08:56:53.087Z",
+      "duration": 120806.213,
+      "expected": 39,
+      "skipped": 0,
+      "unexpected": 1,
+      "flaky": 0
+    },
+    "reload-workspace-ui": {
+      "startTime": "2026-10-08T09:04:47.096Z",
+      "duration": 4007.4170000000004,
+      "expected": 1,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "source": {
+    "count": 265,
+    "rawMatches": 255,
+    "textOnly": 10,
+    "excluded": [
+      "playwright.performance.config.ts",
+      "playwright.render-diagnostic.config.ts",
+      "tests/diagnostics/render-isolation.spec.ts",
+      "tests/native/windows-store-fixture.json",
+      "tests/performance/workloads.spec.ts"
+    ]
+  },
+  "realAuth": false,
+  "windowsLaunch": false,
+  "nativeIme": false
+}

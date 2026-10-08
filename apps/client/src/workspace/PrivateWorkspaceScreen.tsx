@@ -14,6 +14,8 @@ export function PrivateWorkspaceScreen({login,workspace,nativeAvailable}:{login:
   const connection=login.activeConnection,lease=connection?.generationSignal;
   useEffect(()=>{if(connection)void workspace.connect(connection);else void workspace.close();},[connection,lease,workspace]);
   const busy=auth.busy||state.busy,blocked=busy||state.navigationBlocked;
+  const changes=state.changes,changesFailure=state.changesError||changes?.error;
+  const changesStatus=changes?.busy?'Page情報を取得・保存中…':changes?.retryReceive?'受信した情報の保存を再確認してください':changesFailure?'Page情報を取得できませんでした':changes?.hasMoreRemote?'取得した変更に続きがあります':changes?.readComplete?'前回取得した範囲の末尾まで保存しました':changes?.data?.received?'以前取得した情報を表示しています':'Page情報はまだ取得していません';
   const labels={signed_out:'ログインしていません',logging_in:'ログインを確認中…',preparing_device:'端末の登録情報を確認中…',verified:'認証を確認しました',registering:'workspaceを確認中…',ready:'ログイン済み',refreshing:'認証を更新中…',expired:'認証の有効期限が切れました',signing_out:'ログアウト中…',configuration:'接続設定を確認してください'};
   const logout=async()=>{await workspace.close();await login.logout();setEmail('');setTitle('');};
   const refresh=async()=>{await workspace.close();await login.refresh();if(login.snapshot.phase==='verified')await login.register();};
@@ -42,6 +44,17 @@ export function PrivateWorkspaceScreen({login,workspace,nativeAvailable}:{login:
         <ul>{state.localPages.map(({metadata,pending,titlePending})=><li key={metadata.id}><button type="button" disabled={blocked} aria-current={state.selectedPageId===metadata.id?'page':undefined} onClick={()=>{void workspace.openPage(metadata.id);}}>{metadata.title||'無題のPage'}</button><span>{pending?`未確認の更新 ${pending}件`:'端末に保存済み'}{titlePending?` / タイトル未確認 ${titlePending}件`:''}</span></li>)}</ul>
         {state.localAfter&&<button type="button" disabled={blocked} onClick={()=>{void workspace.loadLocal(true);}}>端末一覧をさらに表示</button>}
       </section>
+      <section aria-label="保存済みのPage情報"><h2>保存済みのPage情報</h2><output aria-label="Page情報の取得状態" aria-live="polite">{changesStatus}</output>
+        <div className="connection-tools"><button type="button" disabled={blocked||Boolean(changes?.retryReceive)} onClick={()=>{void workspace.syncChanges();}}>{changes?.hasMoreRemote?'Page情報の続きを取得':'Page情報を取得'}</button>
+          {changes?.retryReceive&&<button type="button" disabled={blocked} onClick={()=>{void workspace.syncChanges(true);}}>受信した情報の保存を再確認</button>}
+          <button type="button" disabled={blocked||Boolean(changes?.retryReceive)} onClick={()=>{void workspace.loadCached();}}>情報の一覧を先頭へ</button></div>
+        {changesFailure&&<p role="alert">{changes?.retryReceive?'保存結果が不明です。同じ受信内容で再確認してください。':'情報を確認できませんでした。表示中の情報と端末の未送信変更は保持しています。'}</p>}
+        {state.cachedPages.length===0&&<p>保存済みのPage情報はありません。</p>}
+        <ul>{state.cachedPages.map(({metadata,hasBody})=><li key={metadata.id}><button type="button" disabled={blocked} aria-current={state.selectedPageId===metadata.id?'page':undefined} onClick={()=>{void workspace.openPage(metadata.id);}}>{metadata.title||'無題のPage'}</button><span>{hasBody?'本文を端末に保存済み':'本文は未取得'}</span></li>)}</ul>
+        {changes?.hasMoreLocal&&<button type="button" disabled={blocked||changes.retryReceive} onClick={()=>{void workspace.loadCached(true);}}>情報の一覧をさらに表示</button>}
+        {state.titleRefreshPending&&<p role="status">受信済みのタイトルがあります。入力が終わるまで編集表示を保持します。<button type="button" disabled={blocked} onClick={()=>{void workspace.refreshReceivedTitle();}}>受信したタイトルの表示を更新</button></p>}
+        <p className="editor-hint">以前取得したタイトル情報です。本文の保存・同期状態は別に確認します。</p>
+      </section>
       <section><h2>サーバーのPage</h2><button type="button" disabled={blocked} onClick={()=>{void workspace.loadRemote();}}>サーバー一覧を取得</button>
         {state.remoteStatus==='unloaded'&&<p>サーバーの一覧はまだ取得していません。</p>}
         {state.remoteStatus==='error'&&<p>一覧を取得できませんでした。表示中の一覧があれば、以前の取得結果です。</p>}
@@ -53,7 +66,7 @@ export function PrivateWorkspaceScreen({login,workspace,nativeAvailable}:{login:
         <button disabled={blocked}>{state.retryCreate?'同じPageの作成を再確認':'新しいPageを作成'}</button>
       </form>
     </aside><section aria-label="Page編集" className="workspace-editor">{workspace.editor?<>{workspace.title&&<PrivateTitlePanel key={workspace.title.pageId} session={workspace.title} onDraftChange={titleDraft} onSync={()=>workspace.syncTitle()} blocked={busy||Boolean(workspace.editor.isComposing||workspace.editor.snapshot.storageError||workspace.editor.snapshot.syncing)}/>}<PrivatePageEditor session={workspace.editor} displayTitle={workspace.title?.snapshot.data?.localTitle}/></>:<p>Pageを選ぶか、新しく作成してください。</p>}</section></div>}
-    {state.phase==='ready'&&workspace.structured&&<PrivateStructuredPanel session={workspace.structured} pages={[...state.localPages.map(row=>row.metadata),...state.remotePages.filter(row=>!state.localPages.some(local=>local.metadata.id===row.id))]} onDraftChange={structuredDraft}/>}
+    {state.phase==='ready'&&workspace.structured&&<PrivateStructuredPanel session={workspace.structured} pages={[...new Map([...state.cachedPages.map(row=>row.metadata),...state.remotePages,...state.localPages.map(row=>row.metadata)].map(row=>[row.id,row])).values()]} onDraftChange={structuredDraft}/>}
     <p className="editor-hint">ログアウトしても、この端末に保存済みのPage・Task・Relationと未送信更新は保持します。ログイン前の閲覧は提供していません。</p>
   </main>;
 }

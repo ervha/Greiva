@@ -1,6 +1,6 @@
 # Structured sync本番契約候補
 
-v0.38.0：[増分runtime](../development/PRIVATE_PAGE_CHANGES_RUNTIME.md)はcaptured Auth/scope/after/limitを検査し、一回最大100件の明示取得を行う。storage結果不明は新pullを止め同pairを再確認、post-commit read失敗はsaved cursorから再開する。観測head末尾はsyncedではない。画面接続は次工程。
+v0.39.0：[受信画面](../development/PRIVATE_PAGE_CHANGES_SCREEN.md)へ明示bounded取得・続頁・exact保存再確認を接続する。以前の取得結果/観測head末尾/未知の保存を分け、dirty/composition中のtitle表示を保留する。metadata完了を本文/title/Taskのsyncedに広げない。
 
 v0.35.0：[title画面](../development/PRIVATE_PAGE_TITLE_SCREEN.md)で明示保存/送信・query/新operation解決を接続。unknown baseは本文Page作成の確認後にtitle queryし、known baseでは本文syncを暗黙実行しない。結果不明の同ID再確認、remote/local各100件の続頁、独立pending表示を提供し、syncedとは表示しない。
 

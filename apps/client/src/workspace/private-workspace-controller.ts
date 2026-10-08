@@ -5,15 +5,17 @@ import { NativeWorkspaceStore, NativeWorkspaceError, type NativeWorkspaceInvoke 
 import { PrivatePageEditorSession, PrivatePageEditorError } from '../editor/private-page-session.js';
 import {PrivateStructuredSession} from '../structured/private-structured-session.js';
 import {PrivateTitleSession,PrivateTitleError} from './private-title-session.js';
+import {PrivateChangesSession,PrivateChangesError,type PrivateChangesState} from './private-changes-session.js';
 
 type Failure='storage'|'transport'|'protocol'|null;
 export type PrivateWorkspaceState=Readonly<{
   phase:'closed'|'opening'|'ready'|'error';busy:boolean;
   localPages:readonly (PrivateLocalPageCatalogResponse['pages'][number]&{titlePending?:number})[];localAfter:string|null;
   remotePages:readonly PrivatePageCatalogResponse['pages'][number][];remoteCursor:string|null;remoteStatus:'unloaded'|'ready'|'error';
+  cachedPages:readonly {metadata:PrivatePageCatalogResponse['pages'][number];version:number;hasBody:boolean}[];changes:PrivateChangesState|null;changesError:Failure;titleRefreshPending:boolean;
   selectedPageId:string|null;error:Failure;navigationBlocked:boolean;retryCreate:boolean;
 }>;
-const empty=():Omit<PrivateWorkspaceState,'navigationBlocked'|'retryCreate'>=>({phase:'closed',busy:false,localPages:Object.freeze([]),localAfter:null,remotePages:Object.freeze([]),remoteCursor:null,remoteStatus:'unloaded',selectedPageId:null,error:null});
+const empty=():Omit<PrivateWorkspaceState,'navigationBlocked'|'retryCreate'>=>({phase:'closed',busy:false,localPages:Object.freeze([]),localAfter:null,remotePages:Object.freeze([]),remoteCursor:null,remoteStatus:'unloaded',cachedPages:Object.freeze([]),changes:null,changesError:null,titleRefreshPending:false,selectedPageId:null,error:null});
 
 // One composition owns one native store/editor. Serialize cleanup and opening:
 // a slow old workspace_open must finish/close before the next owner opens.
@@ -23,13 +25,14 @@ export class PrivateWorkspaceController {
   private page:PrivatePageEditorSession|null=null;private detachPage=()=>{};private detachLease=()=>{};
   private structuredSession:PrivateStructuredSession|null=null;private detachStructured=()=>{};private structuredDraft=false;
   private titleSession:PrivateTitleSession|null=null;private detachTitle=()=>{};private titleDraft=false;
+  private changesSession:PrivateChangesSession|null=null;private detachChanges=()=>{};
   private creation:{id:string;title:string}|null=null;private listeners=new Set<(state:PrivateWorkspaceState)=>void>();
   private state=empty();
   constructor(private readonly invokePort?:NativeWorkspaceInvoke){}
   get editor(){return this.state.phase==='ready'?this.page:null;}
   get structured(){return this.state.phase==='ready'?this.structuredSession:null;}
   get title(){return this.state.phase==='ready'?this.titleSession:null;}
-  setTitleDraft(blocked:boolean){if(this.titleDraft!==blocked){this.titleDraft=blocked;this.publish();}}
+  setTitleDraft(blocked:boolean){if(this.titleDraft!==blocked){this.titleDraft=blocked;this.publish();if(!blocked)this.scheduleTitleRefresh();}}
   setStructuredDraft(blocked:boolean){if(this.structuredDraft!==blocked){this.structuredDraft=blocked;this.publish();}}
   get snapshot():PrivateWorkspaceState{return Object.freeze({...this.state,navigationBlocked:this.state.phase==='ready'&&Boolean(this.page?.snapshot.storageError||this.page?.isComposing||this.structuredDraft||this.structuredSession?.snapshot.busy||this.structuredSession?.snapshot.retryMutation||this.titleDraft||this.titleSession?.snapshot.busy||this.titleSession?.snapshot.retryMutation),retryCreate:this.creation!==null});}
   subscribe(listener:(state:PrivateWorkspaceState)=>void){if(this.disposed)return()=>{};this.listeners.add(listener);listener(this.snapshot);return()=>{this.listeners.delete(listener);};}
@@ -48,6 +51,7 @@ export class PrivateWorkspaceController {
     if(error instanceof PrivatePageEditorError)return error.stage==='transport'?'transport':error.stage==='protocol'?'protocol':'storage';
     if(error instanceof PrivateConnectionError)return error.stage==='transport'?'transport':'protocol';
     if(error instanceof PrivateTitleError)return error.stage==='transport'?'transport':error.stage==='protocol'?'protocol':'storage';
+    if(error instanceof PrivateChangesError)return error.stage==='transport'?'transport':error.stage==='protocol'?'protocol':'storage';
     return 'protocol';
   }
   private enqueue(revision:number,work:()=>Promise<void>){
@@ -58,13 +62,14 @@ export class PrivateWorkspaceController {
     this.detachLease();this.detachLease=()=>{};this.detachPage();this.detachPage=()=>{};
     this.detachStructured();this.detachStructured=()=>{};
     this.detachTitle();this.detachTitle=()=>{};
-    const page=this.page,structured=this.structuredSession,title=this.titleSession,store=this.store;this.page=null;this.titleSession=null;this.titleDraft=false;this.structuredSession=null;this.structuredDraft=false;this.store=null;this.connection=null;this.creation=null;
-    const work=await Promise.allSettled([page?.close(),structured?.close(),title?.close()]);await store?.close();if(work.some(result=>result.status==='rejected'))throw new NativeWorkspaceError('storage');
+    this.detachChanges();this.detachChanges=()=>{};
+    const page=this.page,structured=this.structuredSession,title=this.titleSession,changes=this.changesSession,store=this.store;this.page=null;this.titleSession=null;this.titleDraft=false;this.changesSession=null;this.structuredSession=null;this.structuredDraft=false;this.store=null;this.connection=null;this.creation=null;
+    const work=await Promise.allSettled([page?.close(),structured?.close(),title?.close(),changes?.close()]);await store?.close();if(work.some(result=>result.status==='rejected'))throw new NativeWorkspaceError('storage');
   }
   connect(connection:PrivateWorkspaceConnection){
     if(this.disposed)return Promise.resolve();const revision=++this.revision;
     this.detachLease();this.detachLease=()=>{};
-    this.structuredDraft=false;this.titleDraft=false;void this.titleSession?.close();void this.structuredSession?.close();void this.page?.close().catch(()=>{});
+    this.structuredDraft=false;this.titleDraft=false;void this.changesSession?.close();void this.titleSession?.close();void this.structuredSession?.close();void this.page?.close().catch(()=>{});
     this.state={...empty(),phase:'opening',busy:true};this.publish();
     return this.enqueue(revision,async()=>{
       await this.release();if(!this.current(revision))return;
@@ -75,6 +80,9 @@ export class PrivateWorkspaceController {
       const local=await store.listPages();this.check(revision);const pages=await this.titles(revision,store,local.pages),structured=await PrivateStructuredSession.open(connection,store);
       if(!this.current(revision)){await structured.close();return;}this.structuredSession=structured;
       this.detachStructured=structured.subscribe(value=>{if(this.structuredSession!==structured||!this.current(revision))return;if(value.phase==='closed')void this.close();else this.publish();});
+      const changes=await PrivateChangesSession.open(connection,store);if(!this.current(revision)){await changes.close();return;}this.changesSession=changes;
+      this.detachChanges=changes.subscribe(value=>{if(this.changesSession!==changes||!this.current(revision))return;if(value.phase==='closed')void this.close();else this.patch({changes:value});});
+      await this.cached(revision,store,changes);this.check(revision);
       this.check(revision);this.patch({phase:'ready',localPages:pages,localAfter:local.nextAfter});
     });
   }
@@ -82,6 +90,7 @@ export class PrivateWorkspaceController {
     this.detachLease();this.detachLease=()=>{};
     ++this.revision;this.state=empty();this.structuredDraft=false;this.titleDraft=false;this.publish();
     void this.titleSession?.close();
+    void this.changesSession?.close();
     void this.structuredSession?.close();void this.page?.close().catch(()=>{});
     const work=this.tail.then(()=>this.release());this.tail=work.catch(()=>{});return work.catch(()=>{if(!this.disposed&&this.state.phase==='closed')this.patch({error:'storage'});});
   }
@@ -99,16 +108,22 @@ export class PrivateWorkspaceController {
       this.patch({remotePages:more?Object.freeze([...this.state.remotePages,...result.pages]):result.pages,remoteCursor:result.nextCursor,remoteStatus:'ready'});
     }catch(error){if(this.current(revision))this.patch({remoteStatus:'error'});throw error;}});
   }
+  private async cached(revision:number,store:NativeWorkspaceStore,session:PrivateChangesSession){const pages=[];for(const row of session.snapshot.data?.pages??[]){const hasBody=await store.hasPage(row.metadata.id);this.check(revision);pages.push(Object.freeze({metadata:row.metadata,version:row.version,hasBody}));}this.patch({cachedPages:Object.freeze(pages)});}
+  private async receivedTitle(revision:number){const title=this.titleSession;if(!title||this.titleDraft||title.snapshot.busy||title.snapshot.retryMutation||this.page?.isComposing)return;await title.history();this.check(revision);this.patch({titleRefreshPending:false,localPages:this.livePending(this.state.localPages)});}
+  private scheduleTitleRefresh(){if(this.state.titleRefreshPending&&!this.state.busy&&!this.titleDraft&&!this.page?.isComposing&&!this.titleSession?.snapshot.error)void this.refreshReceivedTitle();}
+  refreshReceivedTitle(){if(!this.state.titleRefreshPending||this.titleDraft||this.titleSession?.snapshot.busy||this.titleSession?.snapshot.retryMutation||this.page?.isComposing)return Promise.resolve();const revision=this.begin();if(revision===null)return Promise.resolve();return this.enqueue(revision,()=>this.receivedTitle(revision));}
+  loadCached(more=false){if(this.snapshot.navigationBlocked)return Promise.resolve();const revision=this.begin();if(revision===null)return Promise.resolve();const store=this.store!,changes=this.changesSession!;return this.enqueue(revision,async()=>{await changes.catalog(more);this.check(revision);await this.cached(revision,store,changes);this.patch({changesError:null});});}
+  syncChanges(retry=false){if(this.snapshot.navigationBlocked)return Promise.resolve();const revision=this.begin();if(revision===null)return Promise.resolve();const store=this.store!,changes=this.changesSession!;this.patch({changesError:null});return this.enqueue(revision,async()=>{try{if(retry)await changes.retryReceive();else await changes.sync();this.check(revision);this.patch({titleRefreshPending:Boolean(this.titleSession)});await this.cached(revision,store,changes);const local=await store.listPages();this.check(revision);const pages=await this.titles(revision,store,local.pages);this.patch({localPages:this.livePending(pages),localAfter:local.nextAfter});await this.receivedTitle(revision);}catch(error){if(this.current(revision))this.patch({changesError:this.category(error)});throw error;}});}
   private async replacePage(revision:number,connection:PrivateWorkspaceConnection,store:NativeWorkspaceStore,id:string,source:Parameters<typeof PrivatePageEditorSession.open>[3]){
     // Page navigation waits for admitted durable writes. Never switch while a
     // composition or an unsaved storage-failure draft still needs copying.
     const previous=this.page;await previous?.durable();this.check(revision);
-    this.detachPage();this.detachPage=()=>{};this.detachTitle();this.detachTitle=()=>{};const previousTitle=this.titleSession;this.titleSession=null;this.titleDraft=false;this.page=null;this.patch({selectedPageId:null});await Promise.all([previous?.close(),previousTitle?.close()]);this.check(revision);
+    this.detachPage();this.detachPage=()=>{};this.detachTitle();this.detachTitle=()=>{};const previousTitle=this.titleSession;this.titleSession=null;this.titleDraft=false;this.page=null;this.patch({selectedPageId:null,titleRefreshPending:false});await Promise.all([previous?.close(),previousTitle?.close()]);this.check(revision);
     const page=await PrivatePageEditorSession.open(connection,store,id,source);
     if(!this.current(revision)){await page.close();return;}let title:PrivateTitleSession;try{this.check(revision);title=await PrivateTitleSession.open(connection,store,id);}catch(error){await page.close();throw error;}
     if(!this.current(revision)){await Promise.all([page.close(),title.close()]);return;}this.check(revision);this.page=page;this.titleSession=title;
     this.detachTitle=title.subscribe(value=>{if(this.titleSession!==title||!this.current(revision))return;if(value.phase==='closed')void this.close();else this.patch({localPages:this.livePending(this.state.localPages)});});
-    this.detachPage=page.subscribe(()=>{if(this.page===page&&this.current(revision))this.patch({localPages:this.livePending(this.state.localPages)});});this.patch({selectedPageId:id});
+    this.detachPage=page.subscribe(()=>{if(this.page===page&&this.current(revision)){this.patch({localPages:this.livePending(this.state.localPages)});this.scheduleTitleRefresh();}});this.patch({selectedPageId:id});
   }
   syncTitle(){
     if(!this.page||!this.titleSession||this.titleDraft||this.titleSession.snapshot.busy||this.titleSession.snapshot.retryMutation||this.page.isComposing||this.page.snapshot.storageError||this.page.snapshot.syncing)return Promise.resolve();
@@ -118,9 +133,9 @@ export class PrivateWorkspaceController {
   openPage(candidate:string){
     if(this.snapshot.navigationBlocked)return Promise.resolve();
     if(this.page?.pageId===candidate&&this.page.snapshot.phase==='ready')return Promise.resolve();
-    if(!idSchema.safeParse(candidate).success||![...this.state.localPages.map(page=>page.metadata.id),...this.state.remotePages.map(page=>page.id)].includes(candidate)){this.patch({error:'protocol'});return Promise.resolve();}
+    if(!idSchema.safeParse(candidate).success||![...this.state.localPages.map(page=>page.metadata.id),...this.state.remotePages.map(page=>page.id),...this.state.cachedPages.map(page=>page.metadata.id)].includes(candidate)){this.patch({error:'protocol'});return Promise.resolve();}
     const revision=this.begin();if(revision===null)return Promise.resolve();const connection=this.connection!,store=this.store!;
-    return this.enqueue(revision,async()=>{const exists=await store.hasPage(candidate);this.check(revision);await this.replacePage(revision,connection,store,candidate,{kind:exists?'local':'remote'});});
+    return this.enqueue(revision,async()=>{const exists=await store.hasPage(candidate);this.check(revision);await this.replacePage(revision,connection,store,candidate,{kind:exists?'local':'remote'});await this.cached(revision,store,this.changesSession!);});
   }
   createPage(title:string){
     if(this.snapshot.navigationBlocked)return Promise.resolve();

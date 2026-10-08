@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.39.0 — 2026-10-08
+
+- 個人workspace previewへPage情報の明示取得・続頁・保存再確認を追加する。本文未取得のcatalogと本文保存済みを分け、以前の取得結果と観測範囲の末尾を表示する。
+- 受信中の未保存タイトル・変換・選択/focusを保持し、入力終了後にlocal表示を更新する。本文editorを作り直さず、別端末の解決を候補へ反映する。
+- 通常346/実PG94/重点15/workspace40/root64/Auth12、型/Rust/frontend/Windows buildを検証。[証拠](tests/evidence/private-page-changes-screen-20261008/SUMMARY.md)。元画面失敗は別に保持。実Auth/native IMEと配備暗号化は未検証。
+
 ## 0.38.0 — 2026-10-08
 
 - Pageタイトル増分をcaptured Auth transport・portable session・native runtimeへ接続する。一回最大100件を明示取得し、取得位置から再開する。

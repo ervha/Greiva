@@ -1,6 +1,6 @@
 # 初期提供範囲・PoCとの差・残る判断
 
-v0.38.0で[増分runtime](../development/PRIVATE_PAGE_CHANGES_RUNTIME.md)を接続した。server/native/認証付き取得・取消と二端末を検証済み。workspace画面、削除/復元/保持、実Auth/native/暗号化配備は未完成。
+v0.39.0で[受信画面](../development/PRIVATE_PAGE_CHANGES_SCREEN.md)をworkspace previewへ接続する。metadata情報と本文保存済み・pending状態を分ける。ヘルプ、削除/復元/保持、実Auth/native/暗号化配備と通常入口の昇格は残条件。
 
 v0.35.0で[Pageタイトル画面](../development/PRIVATE_PAGE_TITLE_SCREEN.md)をworkspace previewへ接続した。明示保存/確認/解決と入力保護はDockerで検証し、本文とtitleの状態を分離する。全端末のmetadata delta、実Auth正常系・Windows invoke/IME・Android/native grant、配備暗号化/削除/保持/復元は未完成。
 

@@ -1,0 +1,54 @@
+{
+  "version": "0.39.0",
+  "environment": "Docker Vite fixture + T3 shared preview",
+  "before": {
+    "signedIn": "ログイン済み",
+    "time": "2026-10-08T09:10:41.355Z"
+  },
+  "command": "npm run build:packages",
+  "after": {
+    "header": "Greiva",
+    "signedIn": "ログインしていません",
+    "time": "2026-10-08T09:11:17.103Z"
+  },
+  "snapshot": {
+    "url": "http://localhost:1422/private-workspace.fixture.html",
+    "visibleText": "Greiva\n個人workspace 接続プレビュー\nログインしていません\nメールアドレス\nパスワード\nログイン\n接続を閉じる\n\nログアウトしても、この端末に保存済みのPage・Task・Relationと未送信更新は保持します。ログイン前の閲覧は提供していません。",
+    "console": [
+      {
+        "level": "debug",
+        "text": "[vite] connecting...",
+        "timestamp": "2026-10-08T09:11:14.208Z"
+      },
+      {
+        "level": "debug",
+        "text": "[vite] connected.",
+        "timestamp": "2026-10-08T09:11:14.522Z"
+      },
+      {
+        "level": "debug",
+        "text": "[vite] connecting...",
+        "timestamp": "2026-10-08T09:11:14.566Z"
+      },
+      {
+        "level": "debug",
+        "text": "[vite] connected.",
+        "timestamp": "2026-10-08T09:11:14.895Z"
+      },
+      {
+        "level": "debug",
+        "text": "[vite] connecting...",
+        "timestamp": "2026-10-08T09:11:14.950Z"
+      },
+      {
+        "level": "debug",
+        "text": "[vite] connected.",
+        "timestamp": "2026-10-08T09:11:15.268Z"
+      }
+    ]
+  },
+  "finding": "Building imported package dist reloads Vite and clears memory-only fixture Auth. First timeout attributed to overlapping builds by matching trace and reproduction; no application source fix or timeout relaxation.",
+  "futureChecks": "Build/type/native/normal checks finish before browser E2E; UI suites run sequentially.",
+  "realAuth": false,
+  "nativeIme": false
+}

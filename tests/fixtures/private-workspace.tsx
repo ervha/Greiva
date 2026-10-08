@@ -23,6 +23,10 @@ const test={
  loseTitleAck:()=>{f.title.state.loseAck=true;},loseTitleMutationReply:()=>{f.title.state.loseMutation=true;},failTitleStorage:()=>{f.title.state.storageFailure=true;},restoreTitleStorage:()=>{f.title.state.storageFailure=false;},rejectTitle:()=>{f.title.state.reject=true;},
  remoteTitle:(value:string)=>{if(workspace.editor)f.title.remoteEdit(workspace.editor.pageId,value);},
  seedTitleCandidates:()=>{if(workspace.editor)f.title.seedCandidates(workspace.editor.pageId,101);},refreshTitle:()=>workspace.title?.history(),
+ changesSnapshot:()=>({state:workspace.snapshot.changes,cached:workspace.snapshot.cachedPages,pulls:f.changes.pulls.slice(),receives:f.changes.receiveCount}),
+ loseChangesReply:()=>{f.changes.loseReply=true;},failChangesTransport:()=>{f.changes.transportFailure=true;},restoreChangesTransport:()=>{f.changes.transportFailure=false;},
+ holdChanges:()=>{const wait=new Promise<void>(resolve=>{resume=resolve;});f.changes.hook=()=>wait;},
+ resolveRemoteTitle:()=>workspace.editor?f.title.resolveRemote(workspace.editor.pageId):null,
 };
 (window as unknown as {workspaceTest:typeof test}).workspaceTest=test;
 window.addEventListener('pagehide',()=>{login.dispose();void workspace.dispose();f.cleanup();},{once:true});

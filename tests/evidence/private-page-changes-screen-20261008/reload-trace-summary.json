@@ -1,0 +1,145 @@
+{
+  "version": "0.39.0",
+  "project": "desktop",
+  "originalOutcome": "timedOut at Task title fill after login",
+  "traceSha256": "06bc0e689c91510deea3db89f42aefc5a542d2881bef61892ade4e0b3a62c47d",
+  "htmlRequests": [
+    {
+      "time": "2026-10-08T08:57:00.985Z",
+      "url": "http://127.0.0.1:1422/private-workspace.fixture.html"
+    },
+    {
+      "time": "2026-10-08T08:57:02.829Z",
+      "url": "http://127.0.0.1:1422/private-workspace.fixture.html"
+    },
+    {
+      "time": "2026-10-08T08:57:03.423Z",
+      "url": "http://127.0.0.1:1422/private-workspace.fixture.html"
+    },
+    {
+      "time": "2026-10-08T08:57:04.084Z",
+      "url": "http://127.0.0.1:1422/private-workspace.fixture.html"
+    },
+    {
+      "time": "2026-10-08T08:57:04.683Z",
+      "url": "http://127.0.0.1:1422/private-workspace.fixture.html"
+    },
+    {
+      "time": "2026-10-08T08:57:05.329Z",
+      "url": "http://127.0.0.1:1422/private-workspace.fixture.html"
+    },
+    {
+      "time": "2026-10-08T08:57:10.146Z",
+      "url": "http://127.0.0.1:1422/private-workspace.fixture.html"
+    },
+    {
+      "time": "2026-10-08T08:57:10.645Z",
+      "url": "http://127.0.0.1:1422/private-workspace.fixture.html"
+    },
+    {
+      "time": "2026-10-08T08:57:11.291Z",
+      "url": "http://127.0.0.1:1422/private-workspace.fixture.html"
+    },
+    {
+      "time": "2026-10-08T08:57:11.802Z",
+      "url": "http://127.0.0.1:1422/private-workspace.fixture.html"
+    },
+    {
+      "time": "2026-10-08T08:57:12.321Z",
+      "url": "http://127.0.0.1:1422/private-workspace.fixture.html"
+    }
+  ],
+  "viteConnections": [
+    {
+      "time": 8807.756,
+      "text": "[vite] connecting..."
+    },
+    {
+      "time": 8895.363,
+      "text": "[vite] connected."
+    },
+    {
+      "time": 10506.853,
+      "text": "[vite] connecting..."
+    },
+    {
+      "time": 10731.516,
+      "text": "[vite] connected."
+    },
+    {
+      "time": 11192.343,
+      "text": "[vite] connecting..."
+    },
+    {
+      "time": 11420.03,
+      "text": "[vite] connected."
+    },
+    {
+      "time": 11792.153,
+      "text": "[vite] connecting..."
+    },
+    {
+      "time": 12011.503,
+      "text": "[vite] connected."
+    },
+    {
+      "time": 12403.465,
+      "text": "[vite] connecting..."
+    },
+    {
+      "time": 12702.019,
+      "text": "[vite] connected."
+    },
+    {
+      "time": 13000.677,
+      "text": "[vite] connecting..."
+    },
+    {
+      "time": 13229.337,
+      "text": "[vite] connected."
+    },
+    {
+      "time": 17794.944,
+      "text": "[vite] connecting..."
+    },
+    {
+      "time": 18010.623,
+      "text": "[vite] connected."
+    },
+    {
+      "time": 18397.659,
+      "text": "[vite] connecting..."
+    },
+    {
+      "time": 18400.081,
+      "text": "[vite] connected."
+    },
+    {
+      "time": 18991.001,
+      "text": "[vite] connecting..."
+    },
+    {
+      "time": 19190.324,
+      "text": "[vite] connected."
+    },
+    {
+      "time": 19498.509,
+      "text": "[vite] connecting..."
+    },
+    {
+      "time": 19705.749,
+      "text": "[vite] connected."
+    },
+    {
+      "time": 20014.021,
+      "text": "[vite] connecting..."
+    },
+    {
+      "time": 20019.212,
+      "text": "[vite] connected."
+    }
+  ],
+  "snapshotAtFailure": "signed out; no Task form",
+  "reloadCause": "Concurrent build:packages rewrites imported dist; shared preview reproduction confirmed reload. Initial-run causality inferred from matching trace/overlapping builds.",
+  "claim": "Task operation did not reach save; retain original failure separately"
+}

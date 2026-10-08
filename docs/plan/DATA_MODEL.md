@@ -1,6 +1,6 @@
 # 本番データモデル候補と移行条件
 
-v0.38.0：[増分runtime](../development/PRIVATE_PAGE_CHANGES_RUNTIME.md)はserver5/native8の保存済みcursorを読み、captured Authと原子native受信を接続する。未知のcommitは同pairで再確認し、本文未取得catalogは独立保持する。schemaと本文/structured wireは維持する。
+v0.39.0：[受信画面](../development/PRIVATE_PAGE_CHANGES_SCREEN.md)は独立metadata catalogとactual本文有無を表示し、canonical cacheとpending local title投影を区別する。server5/native8・本文/structured wireは維持する。
 
 v0.35.0：[title画面](../development/PRIVATE_PAGE_TITLE_SCREEN.md)は既存schema4/7の保存済み投影・pending・候補/拒否履歴を表示する。新migrationを追加せず、query欠落やresolvedBy nullからserverの現在状態を推定しない。
 

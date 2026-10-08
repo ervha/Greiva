@@ -1,0 +1,6 @@
+
+Running 1 test using 1 worker
+
+  ✓  1 [desktop] › tests/e2e/private-workspace.spec.ts:14:1 › WORKSPACE-TASKS: explicit Task/Relation CRUD, typed date/status, keyboard focus and logout/re-login keep unsent records (2.5s)
+
+  1 passed (4.0s)
