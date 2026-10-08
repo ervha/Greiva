@@ -1,5 +1,7 @@
 # 本番データモデル候補と移行条件
 
+v0.43.0：[DataSource保存](../development/PRIVATE_DATABASE_SOURCE.md)でserver schema6のheads/sources/immutable create operationsを追加する。定義は初期schema1でimmutable、catalogはheaderのみ。既存Page/structured/鍵を保持し、native schema8は未変更。Record/View保存と端末DB同期は次工程。
+
 v0.41.0：[基本DB基盤](../development/BASIC_DATABASE_FOUNDATION.md)はSource/active Record/6型Propertyを検証し、Nameをbound Page metadataのread projectionとして扱う。Record.valuesへtitleを二重保存しない。物理schema/認可済みbinding/履歴/移行は後続で、server5/native8を維持する。
 
 v0.39.0：[受信画面](../development/PRIVATE_PAGE_CHANGES_SCREEN.md)は独立metadata catalogとactual本文有無を表示し、canonical cacheとpending local title投影を区別する。server5/native8・本文/structured wireは維持する。

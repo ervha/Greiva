@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.43.0 — 2026-10-08
+
+- 利用者回答Aに沿って基本DBの6型/Table/Listを初期範囲へ確定する。署名済みowner/device境界でDataSourceの作成・取得・bounded header一覧を実Postgresへ追加する。
+- 明示schema5→6、commit順head、immutable create receipt、scope/head固定HMAC cursorを実装する。既存Page/Task同期とnative schema8を保持する。
+- 専用PG12件、wire/cursor8件、signed HTTPと全回帰を検証する。初回fixture失敗とnumeric ORDER BY修正前の失敗を保持する。Record/View保存とDB画面は次工程。
+
 ## 0.42.0 — 2026-10-08
 
 - 基本DBのtyped Record create/update intentとschema/binding/値の検証を追加する。別fieldを保持し、同fieldはbase/local/remoteの三値候補を返すpure merge planを実装する。

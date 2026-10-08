@@ -1,0 +1,81 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [31m❯[39m tests/integration/private-database-source-postgres.test.ts [2m([22m[2m12 tests[22m[2m | [22m[31m3 failed[39m[2m)[22m[33m 3151[2mms[22m[39m
+   [32m✓[39m DB-SOURCE-PG: explicit five-to-six migration preserves metadata/config and rejects repeats without repair[32m 274[2mms[22m[39m
+   [32m✓[39m DB-SOURCE-PG: failed DDL rolls the whole upgrade back and readiness never repairs tables[32m 136[2mms[22m[39m
+   [32m✓[39m DB-SOURCE-PG: create, active read and exact replay commit definition/head/receipt once[32m 145[2mms[22m[39m
+   [32m✓[39m DB-SOURCE-PG: strict/canonical requests and other owner/issuer/workspace/device cannot mutate or read[32m 131[2mms[22m[39m
+   [32m✓[39m DB-SOURCE-PG: serial workspace head prevents parallel create/replay from missing a committed source[32m 172[2mms[22m[39m
+[31m   [31m×[31m DB-SOURCE-PG: catalog is bounded/signed/header-only and retains its observed head across new creation[39m[33m 733[2mms[22m[39m
+[31m   [31m×[31m DB-SOURCE-PG: filtered deleted windows advance without returning definitions or acting as delete ACK[39m[33m 709[2mms[22m[39m
+   [32m✓[39m DB-SOURCE-PG: malformed lookahead/head/definition fails closed instead of showing an empty database[32m 110[2mms[22m[39m
+   [32m✓[39m DB-SOURCE-PG: failure after definition insertion rolls back source, counter and immutable result together[32m 100[2mms[22m[39m
+   [32m✓[39m DB-SOURCE-PG: session expiry while waiting for the source head prevents every write[32m 153[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-SOURCE-PG: actual protected runtime/JWKS signature gates routes and keeps Auth profile/token out of source storage[33m 339[2mms[22m[39m
+[31m   [31m×[31m DB-SOURCE-PG: schema six retains Page bootstrap/title journal and structured stream behavior[39m[32m 148[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 3 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-source-postgres.test.ts[2m > [22mDB-SOURCE-PG: catalog is bounded/signed/header-only and retains its observed head across new creation
+[31m[1mError[22m: Private transaction unavailable[39m
+[36m [2m❯[22m PostgresPrivateTransactions.run apps/api/src/private-transactions.ts:[2m123:13[22m[39m
+    [90m121|[39m       try { await client?.query('ROLLBACK'); } catch { destroy = true;…
+    [90m122|[39m       if (error instanceof SessionVerificationError || error instanceo…
+    [90m123|[39m       throw new PrivateTransactionUnavailable();
+    [90m   |[39m             [31m^[39m
+    [90m124|[39m     } finally { client?.release(destroy); }
+    [90m125|[39m   }
+[90m [2m❯[22m Object.catalog tests/integration/private-database-source-postgres.test.ts:[2m29:836[22m[39m
+[90m [2m❯[22m tests/integration/private-database-source-postgres.test.ts:[2m37:242[22m[39m
+[90m [2m❯[22m isolated tests/integration/private-database-source-postgres.test.ts:[2m28:588[22m[39m
+[90m [2m❯[22m tests/integration/private-database-source-postgres.test.ts:[2m37:120[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-source-postgres.test.ts[2m > [22mDB-SOURCE-PG: filtered deleted windows advance without returning definitions or acting as delete ACK
+[31m[1mError[22m: Private transaction unavailable[39m
+[36m [2m❯[22m PostgresPrivateTransactions.run apps/api/src/private-transactions.ts:[2m123:13[22m[39m
+    [90m121|[39m       try { await client?.query('ROLLBACK'); } catch { destroy = true;…
+    [90m122|[39m       if (error instanceof SessionVerificationError || error instanceo…
+    [90m123|[39m       throw new PrivateTransactionUnavailable();
+    [90m   |[39m             [31m^[39m
+    [90m124|[39m     } finally { client?.release(destroy); }
+    [90m125|[39m   }
+[90m [2m❯[22m Object.catalog tests/integration/private-database-source-postgres.test.ts:[2m29:836[22m[39m
+[90m [2m❯[22m tests/integration/private-database-source-postgres.test.ts:[2m38:447[22m[39m
+[90m [2m❯[22m isolated tests/integration/private-database-source-postgres.test.ts:[2m28:588[22m[39m
+[90m [2m❯[22m tests/integration/private-database-source-postgres.test.ts:[2m38:119[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-source-postgres.test.ts[2m > [22mDB-SOURCE-PG: schema six retains Page bootstrap/title journal and structured stream behavior
+[31m[1mAssertionError[22m: expected { results: [ { …(8) } ], …(3) } to match object { results: [ { status: 'applied' } ] }
+(18 matching properties omitted from actual)[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[2m  {[22m
+[2m    "results": [[22m
+[2m      {[22m
+[32m-       "status": "applied",[39m
+[31m+       "status": "acknowledged",[39m
+[2m      },[22m
+[2m    ],[22m
+[2m  }[22m
+
+[36m [2m❯[22m tests/integration/private-database-source-postgres.test.ts:[2m43:1285[22m[39m
+
+[90m [2m❯[22m isolated tests/integration/private-database-source-postgres.test.ts:[2m28:588[22m[39m
+[90m [2m❯[22m tests/integration/private-database-source-postgres.test.ts:[2m43:111[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m3 failed[39m[22m[2m | [22m[1m[32m9 passed[39m[22m[90m (12)[39m
+[2m   Start at [22m 10:51:01
+[2m   Duration [22m 4.40s[2m (tests 73%, import 17%, transform 9%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261008/v43/source-pg/vitest.json

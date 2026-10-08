@@ -1,0 +1,124 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [31m❯[39m tests/integration/private-database-source-postgres.test.ts [2m([22m[2m11 tests[22m[2m | [22m[31m11 failed[39m[2m)[22m[32m 117[2mms[22m[39m
+[31m   [31m×[31m DB-SOURCE-PG: explicit five-to-six migration preserves metadata/config and rejects repeats without repair[39m[32m 48[2mms[22m[39m
+[31m   [31m×[31m DB-SOURCE-PG: failed DDL rolls the whole upgrade back and readiness never repairs tables[39m[32m 8[2mms[22m[39m
+[31m   [31m×[31m DB-SOURCE-PG: create, active read and exact replay commit definition/head/receipt once[39m[32m 7[2mms[22m[39m
+[31m   [31m×[31m DB-SOURCE-PG: strict/canonical requests and other owner/issuer/workspace/device cannot mutate or read[39m[32m 6[2mms[22m[39m
+[31m   [31m×[31m DB-SOURCE-PG: serial workspace head prevents parallel create/replay from missing a committed source[39m[32m 6[2mms[22m[39m
+[31m   [31m×[31m DB-SOURCE-PG: catalog is bounded/signed/header-only and retains its observed head across new creation[39m[32m 7[2mms[22m[39m
+[31m   [31m×[31m DB-SOURCE-PG: filtered deleted windows advance without returning definitions or acting as delete ACK[39m[32m 6[2mms[22m[39m
+[31m   [31m×[31m DB-SOURCE-PG: malformed lookahead/head/definition fails closed instead of showing an empty database[39m[32m 7[2mms[22m[39m
+[31m   [31m×[31m DB-SOURCE-PG: failure after definition insertion rolls back source, counter and immutable result together[39m[32m 7[2mms[22m[39m
+[31m   [31m×[31m DB-SOURCE-PG: session expiry while waiting for the source head prevents every write[39m[32m 7[2mms[22m[39m
+[31m   [31m×[31m DB-SOURCE-PG: actual protected runtime/JWKS signature gates routes and keeps Auth profile/token out of source storage[39m[32m 7[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 11 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-source-postgres.test.ts[2m > [22mDB-SOURCE-PG: explicit five-to-six migration preserves metadata/config and rejects repeats without repair
+[31m[1merror[22m: schema "greiva_source_01a11b1faf93703da87a59ecce9d6d95" does not exist[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-database-source-postgres.test.ts:[2m23:616[22m[39m
+
+[90m [2m❯[22m tests/integration/private-database-source-postgres.test.ts:[2m27:124[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/11]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-source-postgres.test.ts[2m > [22mDB-SOURCE-PG: failed DDL rolls the whole upgrade back and readiness never repairs tables
+[31m[1merror[22m: schema "greiva_source_01a11b1fafc37259828ab175926affab" does not exist[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-database-source-postgres.test.ts:[2m23:616[22m[39m
+
+[90m [2m❯[22m tests/integration/private-database-source-postgres.test.ts:[2m28:107[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/11]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-source-postgres.test.ts[2m > [22mDB-SOURCE-PG: create, active read and exact replay commit definition/head/receipt once
+[31m[1merror[22m: schema "greiva_source_01a11b1fafca74829bf41563505af0b8" does not exist[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-database-source-postgres.test.ts:[2m23:616[22m[39m
+
+[90m [2m❯[22m tests/integration/private-database-source-postgres.test.ts:[2m29:105[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/11]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-source-postgres.test.ts[2m > [22mDB-SOURCE-PG: strict/canonical requests and other owner/issuer/workspace/device cannot mutate or read
+[31m[1merror[22m: schema "greiva_source_01a11b1fafd173faadd31737e6b5ec1c" does not exist[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-database-source-postgres.test.ts:[2m23:616[22m[39m
+
+[90m [2m❯[22m tests/integration/private-database-source-postgres.test.ts:[2m30:120[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/11]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-source-postgres.test.ts[2m > [22mDB-SOURCE-PG: serial workspace head prevents parallel create/replay from missing a committed source
+[31m[1merror[22m: schema "greiva_source_01a11b1fafd7725eb27dec06bf58af59" does not exist[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-database-source-postgres.test.ts:[2m23:616[22m[39m
+
+[90m [2m❯[22m tests/integration/private-database-source-postgres.test.ts:[2m31:118[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/11]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-source-postgres.test.ts[2m > [22mDB-SOURCE-PG: catalog is bounded/signed/header-only and retains its observed head across new creation
+[31m[1merror[22m: schema "greiva_source_01a11b1fafdd73fea9c74581e8652f32" does not exist[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-database-source-postgres.test.ts:[2m23:616[22m[39m
+
+[90m [2m❯[22m tests/integration/private-database-source-postgres.test.ts:[2m32:120[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/11]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-source-postgres.test.ts[2m > [22mDB-SOURCE-PG: filtered deleted windows advance without returning definitions or acting as delete ACK
+[31m[1merror[22m: schema "greiva_source_01a11b1fafe4765aba4c1632a2b8b56e" does not exist[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-database-source-postgres.test.ts:[2m23:616[22m[39m
+
+[90m [2m❯[22m tests/integration/private-database-source-postgres.test.ts:[2m33:119[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/11]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-source-postgres.test.ts[2m > [22mDB-SOURCE-PG: malformed lookahead/head/definition fails closed instead of showing an empty database
+[31m[1merror[22m: schema "greiva_source_01a11b1fafea72128b8aee94d8fe63d8" does not exist[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-database-source-postgres.test.ts:[2m23:616[22m[39m
+
+[90m [2m❯[22m tests/integration/private-database-source-postgres.test.ts:[2m34:118[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[8/11]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-source-postgres.test.ts[2m > [22mDB-SOURCE-PG: failure after definition insertion rolls back source, counter and immutable result together
+[31m[1merror[22m: schema "greiva_source_01a11b1faff271f8b317fc9be30beb10" does not exist[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-database-source-postgres.test.ts:[2m23:616[22m[39m
+
+[90m [2m❯[22m tests/integration/private-database-source-postgres.test.ts:[2m35:124[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[9/11]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-source-postgres.test.ts[2m > [22mDB-SOURCE-PG: session expiry while waiting for the source head prevents every write
+[31m[1merror[22m: schema "greiva_source_01a11b1faff87359a6280041a3ced915" does not exist[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-database-source-postgres.test.ts:[2m23:616[22m[39m
+
+[90m [2m❯[22m tests/integration/private-database-source-postgres.test.ts:[2m36:102[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[10/11]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-source-postgres.test.ts[2m > [22mDB-SOURCE-PG: actual protected runtime/JWKS signature gates routes and keeps Auth profile/token out of source storage
+[31m[1merror[22m: schema "greiva_source_01a11b1fafff76b09d98e280805e3b79" does not exist[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m isolated tests/integration/private-database-source-postgres.test.ts:[2m23:616[22m[39m
+
+[90m [2m❯[22m tests/integration/private-database-source-postgres.test.ts:[2m37:136[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[11/11]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m11 failed[39m[22m[90m (11)[39m
+[2m   Start at [22m 10:47:02
+[2m   Duration [22m 1.22s[2m (import 60%, transform 29%, tests 10%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261008/v43/source-pg-initial/vitest.json

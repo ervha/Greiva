@@ -47,7 +47,7 @@ export class PostgresPrivatePageMetadataStore implements PrivatePageMetadata{
       const inserted=await tx.query(`INSERT INTO "${this.schema}".private_page_title_operations VALUES($1,$2,$3,$4,$5,$6) ON CONFLICT(workspace_id,operation_id) DO NOTHING RETURNING operation_id`,[workspaceId,id,request.operationId,request.clientId,JSON.stringify(request),JSON.stringify(receipt)]);
       // A cross-Page nonce collision rolls back all title/conflict writes.
       if(inserted.rowCount!==1)throw new PrivatePageMetadataInvalidRequest('operation_id_reused');
-      if(current.schemaVersion===5&&(version!==current.version||result.status==='conflict'||resolved!==null))await appendPageChange(tx,this.schema,{pageId:id,metadata,version,conflict:result.status==='conflict'?{record:result.conflict,resolvedBy:null}:resolved?{record:resolved,resolvedBy:request.operationId}:null});
+      if(current.schemaVersion>=5&&(version!==current.version||result.status==='conflict'||resolved!==null))await appendPageChange(tx,this.schema,{pageId:id,metadata,version,conflict:result.status==='conflict'?{record:result.conflict,resolvedBy:null}:resolved?{record:resolved,resolvedBy:request.operationId}:null});
       return receipt;
     },{metadataJournal:true});
   }
@@ -62,7 +62,7 @@ export class PostgresPrivatePageMetadataStore implements PrivatePageMetadata{
   }
   private scope(tx:PrivateTransaction,pageId:string){return{protocolVersion:1,workspaceId:tx.context.workspaceId,workspaceEpoch:tx.context.epoch,pageId};}
   private async current(tx:PrivateTransaction,id:string,write:boolean){
-    const gate=await tx.query(`SELECT version FROM "${this.schema}".private_schema_version WHERE singleton=true`);if(gate.rowCount!==1||![4,5].includes(gate.rows[0]!.version))throw new PrivateTransactionUnavailable();
+    const gate=await tx.query(`SELECT version FROM "${this.schema}".private_schema_version WHERE singleton=true`);if(gate.rowCount!==1||![4,5,6].includes(gate.rows[0]!.version))throw new PrivateTransactionUnavailable();
     const docs=await tx.query(`SELECT metadata FROM "${this.schema}".private_page_documents WHERE workspace_id=$1 AND page_id=$2 FOR ${write?'UPDATE':'SHARE'}`,[tx.context.workspaceId,id]);
     if(docs.rowCount!==1)throw new PrivateTransactionUnavailable();const metadata=pageSchema.parse(docs.rows[0]!.metadata);if(metadata.id!==id||metadata.yDocId!=='page:'+id||metadata.title.length>65536)throw new PrivateTransactionUnavailable();
     const state=await tx.query(`SELECT s.version,h.title FROM "${this.schema}".private_page_title_state s JOIN "${this.schema}".private_page_title_history h ON h.page_id=s.page_id AND h.version=s.version WHERE s.page_id=$1`,[id]);

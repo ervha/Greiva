@@ -2,6 +2,8 @@
 
 2026-10-08 / v0.41.0。初期提供順/継続開発の委任に基づく自主判断。初期型A/B/Cの任意質問は未回答で、Aを暫定基盤範囲とする。新しい利用者回答とは記録しない。[実装](../development/BASIC_DATABASE_FOUNDATION.md)、[証拠](../../tests/evidence/basic-database-foundation-20261008/SUMMARY.md)。
 
+追記 2026-10-08 / v0.43.0：利用者がA（Name/Text/Number/Checkbox/Select/Date、Table/List）を回答し、初期範囲を確定した。[現在の記録](private-database-source.md)。以下はv0.41時点の判断として保持する。
+
 | # | 判断 | 理由・境界 |
 | --- | --- | --- |
 | 1 | P3 portable型/ビュー処理から進める | 手操作・配備に依存しない、提供画面完成とはしない |

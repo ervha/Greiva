@@ -4,6 +4,8 @@
 
 2026-10-08 / v0.41.0：[基本DB基盤](../development/BASIC_DATABASE_FOUNDATION.md)として6型のSource/Record検証とTable/Listのlocal queryを部分実装する。plain Text/date-onlyの初期subsetで、物理保存・同期・DB操作画面・全ビュー/型・本書の全受入は未完了。[証拠](../../tests/evidence/basic-database-foundation-20261008/SUMMARY.md)。
 
+2026-10-08 / v0.43.0：利用者回答AによりName/Text/Number/Checkbox/Select/DateとTable/Listを初期範囲へ確定。[保護Source保存](../development/PRIVATE_DATABASE_SOURCE.md)で作成/取得/bounded catalogを実装する。Record/View保存、端末DB同期、Table/List操作画面と全受入は次工程。型/queryだけを実保存やビュー完成へ昇格しない。
+
 ## 1. 要求と適用範囲
 
 ユーザー指定:
