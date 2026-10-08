@@ -1,6 +1,8 @@
 # Greiva 開発計画・状況・セットアップ
 
-最新v0.43.0：[保護Source保存](../development/PRIVATE_DATABASE_SOURCE.md)で署名済みowner/deviceのDataSource create/read/bounded header catalog、immutable再送と明示schema6を実装。[証拠](../../tests/evidence/private-database-source-20261008/SUMMARY.md)。利用者回答Aにより6型/Table/Listを初期範囲へ確定。Record/View実保存・端末DB同期・画面が次工程。実Auth/native IME/Android・配備暗号化と全DB/HELPは後続。
+最新v0.44.0：[Record保存/競合](../development/PRIVATE_DATABASE_RECORD.md)で実Postgres create/update/read、Page binding、history/immutable ledger/三値候補・新操作解決、明示schema7を実装。[証拠](../../tests/evidence/private-database-record-20261008/SUMMARY.md)。Source6型/Table/Listは回答済みA。Record一覧/View、端末DB保存/同期、画面が次工程。実Auth/native IME/Android・配備暗号化と全DB/HELPは後続。
+
+停止checkpoint（2026-10-08、利用者指示）：v0.44.0の進行中検証・証拠・版/tag/pushを完了して一旦停止する。Record一覧/Viewや端末DB同期へは着手しない。再開時はこの検証済みcheckpointからRecordのbounded一覧/受信経路、View保存、native replica/queue/runtime、Table/List画面へ進める。今回の停止を全DB/native Gateの完了とは扱わない。
 
 最新v0.35.0：[Pageタイトル画面](../development/PRIVATE_PAGE_TITLE_SCREEN.md)をworkspace previewへ接続。明示保存/取消/確認、三値候補/新operation解決、拒否履歴、独立pending表示、dirty/変換/結果不明の切替保護とbounded履歴を実装。[証拠](../../tests/evidence/private-title-screen-20261008/SUMMARY.md)。query終了を同期済みと扱わず、実Auth/Windows invoke・IME/Android/native grant、metadata deltaと配備暗号化は残条件。追加の手操作依頼はない。
 

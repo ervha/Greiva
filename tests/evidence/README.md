@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-08 / v0.44.0 / [Record保存/競合](private-database-record-20261008/SUMMARY.md): 実PG writer/history/Page binding、三値/非競合merge/新操作解決/immutable再送、schema7/COMMIT前後SIGKILL。専用PG18/重点23/通常396/PG124/root64/Auth12/workspace52/型/Rust/frontend/Windows build。null試験とfixture型の元Fail保持。DB一覧/View/端末同期/画面は後続。
+
 - 2026-10-08 / v0.43.0 / [DataSource保存](private-database-source-20261008/SUMMARY.md): A回答確定、schema6/actual owner-device transaction、immutable create、bounded header/HMAC/commit順。専用PG12/新unit8/通常390/PG106/root64/Auth12/workspace52/型/Rust/frontend/Windows build。fixture失敗と実SQL順序bugの元Failを保持、Record/View/画面は後続。
 
 - 2026-10-08 / v0.42.0 / [基本DB変更/競合](basic-database-mutation-20261008/SUMMARY.md): typed create/update、field merge/三値/presence、新intent解決のcurrent/active/choice検査。新17/重点32/通常382/PG94/root64/Auth12/workspace52/型/Rust/frontend/Windows build。初回fixture型エラーを保持、DB writer/画面は後続。

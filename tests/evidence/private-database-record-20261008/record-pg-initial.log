@@ -1,0 +1,50 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [31m❯[39m tests/integration/private-database-record-postgres.test.ts [2m([22m[2m16 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 7316[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-PG: explicit six to seven preserves Source/Page/config and failed DDL cannot partially upgrade[33m 879[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-PG: create/read/exact replay preserve six typed values and Page name/body without a second title[33m 373[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-PG: exact operation reuse, binding uniqueness, schema/Name/type failures are atomic[33m 411[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-PG: disjoint stale patches merge and unchanged/converged patches do not overwrite or version[33m 348[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-PG: conflict commits nonconflicting fields and preserves triads, immutable replay and new local resolution[33m 377[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-PG: remote resolution records a new operation without changing current version or erasing the candidate[33m 341[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-PG: unknown base and stale/changed/resolved/tampered resolutions keep durable rejection receipts[33m 421[2mms[22m[39m
+[31m   [31m×[31m DB-RECORD-PG: missing/null, zero, false and empty text remain typed saved states[39m[32m 286[2mms[22m[39m
+   [32m✓[39m DB-RECORD-PG: owner/issuer/device/Source/Page/deleted boundaries reject writes and reads including replay[32m 280[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-PG: concurrent first creates/replay serialize one record and capture input before awaiting locks[33m 307[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-PG: ledger failure rolls back current/history/candidate/resolution together and retry is exact[33m 311[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-PG: corrupted current/history/lookahead are unavailable rather than an empty record[33m 322[2mms[22m[39m
+   [32m✓[39m DB-RECORD-PG: expiry after waiting for Source rolls every record write back[32m 299[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-SIGKILL-before-commit: actual server worker death recovers the same record once[33m 672[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-SIGKILL-after-commit: actual server worker death recovers the same record once[33m 687[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-PG: schema seven signed HTTP gates records and retains Page title journal/Task protocol[33m 998[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-record-postgres.test.ts[2m > [22mDB-RECORD-PG: missing/null, zero, false and empty text remain typed saved states
+[31m[1mAssertionError[22m: expected { …(3) } to deeply equal { …(4) }[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[2m  {[22m
+[2m    "01a11b3b-2153-7313-b9fd-4158ffe97f9f": "",[22m
+[2m    "01a11b3b-2153-7313-b9fd-44f419535a2e": 0,[22m
+[2m    "01a11b3b-2153-7313-b9fd-4becadc04ad4": false,[22m
+[32m-   "01a11b3b-2153-7313-b9fd-52f5a387b6a1": null,[39m
+[2m  }[22m
+
+[36m [2m❯[22m tests/integration/private-database-record-postgres.test.ts:[2m49:423[22m[39m
+
+[90m [2m❯[22m isolated tests/integration/private-database-record-postgres.test.ts:[2m30:642[22m[39m
+[90m [2m❯[22m tests/integration/private-database-record-postgres.test.ts:[2m49:99[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m15 passed[39m[22m[90m (16)[39m
+[2m   Start at [22m 11:16:56
+[2m   Duration [22m 9.68s[2m (tests 77%, import 15%, transform 8%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261008/v44/record-pg/vitest.json

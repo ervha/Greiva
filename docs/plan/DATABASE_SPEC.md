@@ -6,6 +6,8 @@
 
 2026-10-08 / v0.43.0：利用者回答AによりName/Text/Number/Checkbox/Select/DateとTable/Listを初期範囲へ確定。[保護Source保存](../development/PRIVATE_DATABASE_SOURCE.md)で作成/取得/bounded catalogを実装する。Record/View保存、端末DB同期、Table/List操作画面と全受入は次工程。型/queryだけを実保存やビュー完成へ昇格しない。
 
+2026-10-08 / v0.44.0：[Record保存/競合](../development/PRIVATE_DATABASE_RECORD.md)で既存Page-bound create/update、historyとimmutable operation、三値候補/新操作解決、bounded readを部分実装する。schema7/native8。Record一覧/View保存、端末DB同期、Table/List画面と全DB受入は次工程。
+
 ## 1. 要求と適用範囲
 
 ユーザー指定:

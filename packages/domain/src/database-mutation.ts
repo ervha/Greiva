@@ -57,12 +57,17 @@ export function planDatabaseRecordUpdate(source:DatabaseSource,baseRecord:Databa
  if(intent.resolution){
   if(intent.baseVersion!==current.version)throw new Error('A resolution requires the current record snapshot');
   const conflict=checkedResolution(source,current,activeConflict),chosen=conflict[intent.resolution.choice];
-  if(conflict.id!==intent.resolution.conflictId||conflict.propertyId!==intent.resolution.propertyId||intent.values[conflict.propertyId]!==chosen.value)throw new Error('Database resolution choice mismatch');
+  if(conflict.id!==intent.resolution.conflictId||conflict.propertyId!==intent.resolution.propertyId||conflict.remoteVersion!==intent.resolution.remoteVersion||intent.values[conflict.propertyId]!==chosen.value)throw new Error('Database resolution choice mismatch');
  }else if(activeConflict!==undefined)throw new Error('Unexpected resolution snapshot');
  const proposedValues={...current.values},changedPropertyIds:string[]=[],conflicts:DatabaseFieldConflictPlan[]=[];
  for(const propertyId of Object.keys(intent.values).sort()){
   const prior=state(base,propertyId),remote=state(current,propertyId),local:DatabaseCellState={present:true,value:intent.values[propertyId]!};
-  if(local.value===prior.value||local.value===remote.value)continue;
+  if(local.value===prior.value||local.value===remote.value){
+   // Preserve an explicit saved null when neither snapshot had this key.
+   // Remote resolution keeps its original absent/present state unchanged.
+   if(!intent.resolution&&local.value===null&&!prior.present&&!remote.present){proposedValues[propertyId]=null;changedPropertyIds.push(propertyId);}
+   continue;
+  }
   if(remote.value!==prior.value)conflicts.push({propertyId,base:prior,local,remote});
   else{proposedValues[propertyId]=local.value;changedPropertyIds.push(propertyId);}
  }

@@ -1,6 +1,6 @@
 {
   "name": "@greiva/protocol",
-  "version": "0.43.0",
+  "version": "0.44.0",
   "private": true,
   "type": "module",
   "exports": {
@@ -31,6 +31,10 @@
     "./private-page-catalog": {
       "types": "./dist/private-page-catalog.d.ts",
       "import": "./dist/private-page-catalog.js"
+    },
+    "./private-database-record": {
+      "types": "./dist/private-database-record.d.ts",
+      "import": "./dist/private-database-record.js"
     }
   },
   "scripts": {
@@ -38,8 +42,8 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@greiva/domain": "0.43.0",
+    "@greiva/domain": "0.44.0",
     "zod": "4.6.5",
-    "@greiva/shared": "0.43.0"
+    "@greiva/shared": "0.44.0"
   }
 }

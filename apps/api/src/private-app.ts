@@ -2,6 +2,7 @@ import 'reflect-metadata';
 import { type ArgumentsHost, Body, Catch, Controller, type ExceptionFilter, Get, Headers, HttpCode, HttpException, Inject, Module, Param, Post } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import {PrivateDatabaseSourceInvalidRequest,type PrivateDatabaseSources} from './private-database-source-store.js';
+import {PrivateDatabaseRecordInvalidRequest,type PrivateDatabaseRecords} from './private-database-record-store.js';
 import { FastifyAdapter, type NestFastifyApplication } from '@nestjs/platform-fastify';
 import type { FastifyReply } from 'fastify';
 import { PrivateWorkspaceAccessDenied, type PrivateWorkspaceAccessStore } from '@greiva/application';
@@ -23,6 +24,15 @@ const SYNC = Symbol('private-structured-sync');
 const PAGE = Symbol('private-page-document'), METADATA=Symbol('private-page-metadata');
 const CHANGES=Symbol('private-page-changes');
 const SOURCES=Symbol('private-database-sources');
+const RECORDS=Symbol('private-database-records');
+@Controller('v1/workspaces/:workspaceId/databases/:sourceId/records')
+class PrivateDatabaseRecordController{
+ constructor(@Inject(SESSION) private readonly verifier:SessionVerifier,@Inject(RECORDS) private readonly records:PrivateDatabaseRecords){}
+ @Post('write') @HttpCode(200)
+ async write(@Headers('authorization') authorization:unknown,@Param('workspaceId') workspaceId:string,@Param('sourceId') sourceId:string,@Body() body:unknown){return this.records.write(await this.verifier.verify(authorization),workspaceId,sourceId,body);}
+ @Post(':recordId/read') @HttpCode(200)
+ async read(@Headers('authorization') authorization:unknown,@Param('workspaceId') workspaceId:string,@Param('sourceId') sourceId:string,@Param('recordId') recordId:string,@Body() body:unknown){return this.records.read(await this.verifier.verify(authorization),workspaceId,sourceId,recordId,body);}
+}
 @Controller('v1/workspaces/:workspaceId/databases')
 class PrivateDatabaseSourceController{
  constructor(@Inject(SESSION) private readonly verifier:SessionVerifier,@Inject(SOURCES) private readonly sources:PrivateDatabaseSources){}
@@ -115,6 +125,7 @@ class PrivateAccessErrors implements ExceptionFilter {
     if (error instanceof PrivatePageInvalidRequest) return response.status(['page_id_reused','unsupported_document_schema'].includes(error.code)?409:400).send({error:error.code});
     if(error instanceof PrivatePageMetadataInvalidRequest)return response.status(error.code==='operation_id_reused'?409:400).send({error:error.code});
     if(error instanceof PrivateDatabaseSourceInvalidRequest)return response.status(error.code==='invalid_request'?400:409).send({error:error.code});
+    if(error instanceof PrivateDatabaseRecordInvalidRequest)return response.status(error.code==='invalid_request'?400:409).send({error:error.code});
     if (error instanceof PrivateSyncInvalidRequest) return response.status(error.code==='operation_id_reused'?409:400).send({ error: error.code });
     if (error instanceof PrivateTransactionInvalidRequest) return response.status(400).send({ error: 'invalid_request' });
     if (error instanceof PrivateTransactionUnavailable) return response.status(503).send({ error: 'transaction_unavailable' });
@@ -125,8 +136,8 @@ class PrivateAccessErrors implements ExceptionFilter {
 }
 // Independent protected API factory. Does not mount or expose old PoC routes,
 // listen automatically, create a test identity, or migrate a caller's database.
-export async function createPrivateApp(verifier: SessionVerifier, store: PrivateWorkspaceAccessStore, bootstrap?: PrivateWorkspaceBootstrap, device?: PrivateDeviceAccess, sync?: PrivateStructuredSync, page?: PrivatePageDocuments, metadata?:PrivatePageMetadata, changes?:PrivatePageChanges,sources?:PrivateDatabaseSources) {
-  @Module({ controllers: [PrivateAccessController, ...(sources?[PrivateDatabaseSourceController]:[]), ...(changes?[PrivatePageChangesController]:[]), ...(metadata?[PrivatePageMetadataController]:[]), ...(bootstrap ? [PrivateBootstrapController] : []), ...(device ? [PrivateDeviceController] : []), ...(sync ? [PrivateStructuredController] : []), ...(page ? [PrivatePageController,PrivatePageCatalogController] : [])], providers: [
+export async function createPrivateApp(verifier: SessionVerifier, store: PrivateWorkspaceAccessStore, bootstrap?: PrivateWorkspaceBootstrap, device?: PrivateDeviceAccess, sync?: PrivateStructuredSync, page?: PrivatePageDocuments, metadata?:PrivatePageMetadata, changes?:PrivatePageChanges,sources?:PrivateDatabaseSources,records?:PrivateDatabaseRecords) {
+  @Module({ controllers: [PrivateAccessController, ...(records?[PrivateDatabaseRecordController]:[]), ...(sources?[PrivateDatabaseSourceController]:[]), ...(changes?[PrivatePageChangesController]:[]), ...(metadata?[PrivatePageMetadataController]:[]), ...(bootstrap ? [PrivateBootstrapController] : []), ...(device ? [PrivateDeviceController] : []), ...(sync ? [PrivateStructuredController] : []), ...(page ? [PrivatePageController,PrivatePageCatalogController] : [])], providers: [
     { provide: SESSION, useValue: verifier }, { provide: ACCESS, useValue: authenticatedPrivateAccess(verifier, store) },
     ...(bootstrap ? [{ provide: BOOTSTRAP, useValue: bootstrap }] : []),
     ...(device ? [{ provide: DEVICE, useValue: device }] : []),
@@ -134,6 +145,7 @@ export async function createPrivateApp(verifier: SessionVerifier, store: Private
     ...(metadata ? [{provide:METADATA,useValue:metadata}] : []),
     ...(changes?[{provide:CHANGES,useValue:changes}]:[]),
     ...(sources?[{provide:SOURCES,useValue:sources}]:[]),
+    ...(records?[{provide:RECORDS,useValue:records}]:[]),
     ...(page ? [{ provide: PAGE, useValue: page }] : []),
   ] })
   class PrivateAppModule {}

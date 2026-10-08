@@ -1,0 +1,66 @@
+
+> greiva-poc@0.44.0 typecheck
+> npm run build:packages && npm run typecheck --workspaces --if-present && tsc -p tsconfig.tests.json
+
+
+> greiva-poc@0.44.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application
+
+
+> @greiva/shared@0.44.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/domain@0.44.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.44.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.44.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.44.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.44.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/domain@0.44.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/protocol@0.44.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/shared@0.44.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/sync@0.44.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/api@0.44.0 typecheck
+> tsc --noEmit
+
+
+> @greiva/client@0.44.0 typecheck
+> tsc --noEmit
+
+
+> @greiva/collaboration@0.44.0 typecheck
+> tsc --noEmit
+
+tests/integration/private-database-record-postgres.test.ts(58,674): error TS2339: Property 'conflicts' does not exist on type '{ status: "applied"; } | { status: "conflict"; conflicts: { sourceId: string; schemaVersion: number; recordId: string; pageId: string; id: string; workspaceId: string; propertyId: string; baseVersion: number; ... 4 more ...; resolvedBy: string | null; }[]; } | { ...; }'.
+  Property 'conflicts' does not exist on type '{ status: "applied"; }'.
+tests/integration/private-database-record-postgres.test.ts(58,739): error TS2345: Argument of type '{ sourceId: string; schemaVersion: number; recordId: string; pageId: string; kind: "create"; values: Record<string, string | number | boolean | null>; baseVersion: number; } | { ...; }' is not assignable to parameter of type '{ sourceId: string; schemaVersion: number; recordId: string; pageId: string; kind: "create"; baseVersion: null; values: Record<string, string | number | boolean | null>; } | { sourceId: string; ... 6 more ...; resolution?: { ...; } | undefined; }'.
+  Type '{ sourceId: string; schemaVersion: number; recordId: string; pageId: string; kind: "create"; values: Record<string, string | number | boolean | null>; baseVersion: number; }' is not assignable to type '{ sourceId: string; schemaVersion: number; recordId: string; pageId: string; kind: "create"; baseVersion: null; values: Record<string, string | number | boolean | null>; } | { sourceId: string; ... 6 more ...; resolution?: { ...; } | undefined; }'.
+    Types of property 'baseVersion' are incompatible.
+      Type 'number' is not assignable to type 'null'.

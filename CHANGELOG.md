@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.44.0 — 2026-10-08
+
+- 基本DB Recordの実Postgres create/update/read、Page binding、authoritative history、field merge/三値Conflictと新operation解決を追加する。Name/title/本文は既存Pageを参照する。
+- 明示schema6→7とimmutable operation結果を原子保存し、unknown base/stale解決の拒否履歴、exact再送、bounded候補取得を実装する。明示null保存と候補観測版の照合を補強する。
+- 実PG・署名HTTP・COMMIT前後のSIGKILLと全回帰を検証する。初回null試験とfixture型エラーを保持する。native schema8、既存Task/Pageを維持し、DB一覧/View/端末同期/画面は次工程。
+
 ## 0.43.0 — 2026-10-08
 
 - 利用者回答Aに沿って基本DBの6型/Table/Listを初期範囲へ確定する。署名済みowner/device境界でDataSourceの作成・取得・bounded header一覧を実Postgresへ追加する。

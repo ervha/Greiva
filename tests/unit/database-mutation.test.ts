@@ -65,3 +65,14 @@ it('DB-RESOLUTION: unrelated updates allow a fresh choice while an already prepa
  const f=fixture(),old=prepareDatabaseResolution(f.source,f.remote,f.conflict,'local'),current=f.current({[f.ids.text]:'remote',[f.ids.number]:9},3);
  const fresh=prepareDatabaseResolution(f.source,current,f.conflict,'local');expect(fresh).toMatchObject({baseVersion:3,resolution:{remoteVersion:2}});expect(planDatabaseRecordUpdate(f.source,current,current,fresh,f.conflict)).toMatchObject({status:'merged',proposedValues:{[f.ids.text]:'local',[f.ids.number]:9}});expect(()=>planDatabaseRecordUpdate(f.source,f.remote,current,old,f.conflict)).toThrow();expect(f.conflict.remoteVersion).toBe(2);
 });
+it('DB-RESOLUTION: the candidate observed version cannot be replaced in a fresh resolution',()=>{
+ const f=fixture(),current=f.current({[f.ids.text]:'remote',[f.ids.number]:9},3),intent=prepareDatabaseResolution(f.source,current,f.conflict,'local');
+ if(intent.kind!=='update'||!intent.resolution)throw Error('fixture resolution');
+ expect(()=>planDatabaseRecordUpdate(f.source,current,current,{...intent,resolution:{...intent.resolution,remoteVersion:1}},f.conflict)).toThrow();
+});
+it('DB-MERGE: explicit null is saved from an absent base while remote resolution preserves an absent cell',()=>{
+ const f=fixture(),empty={...f.base,values:{}},saved=planDatabaseRecordUpdate(f.source,empty,empty,f.update({[f.ids.number]:null}));
+ expect(saved).toMatchObject({status:'merged',changedPropertyIds:[f.ids.number],proposedValues:{[f.ids.number]:null}});
+ const base={...f.base,values:{[f.ids.number]:1}},current={...base,version:2,values:{}},pending=f.update({[f.ids.number]:2}),plan=planDatabaseRecordUpdate(f.source,base,current,pending),candidate={...f.conflict,...plan.conflicts[0]!};
+ const intent=prepareDatabaseResolution(f.source,current,candidate,'remote');expect(planDatabaseRecordUpdate(f.source,current,current,intent,candidate)).toMatchObject({status:'unchanged',proposedValues:{},conflicts:[]});
+});
