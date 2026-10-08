@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-08 / v0.34.0 / [Pageタイトル送信・同期基盤](private-title-runtime-20261008/SUMMARY.md): strict portable/Auth transport/native runtime、lost ACK/同ID保存再確認、bounded query/100件送信、失効/世代取消。通常313/PG83/型/Rust/frontend/Windows build。title画面・実Auth/native IME/配備暗号化は後続。
+
 - 2026-10-08 / v0.33.0 / [Pageタイトル端末保存基盤](private-title-store-20261008/SUMMARY.md): native schema7/intent・immutable wire/receipt・Conflict/投影、連続offline編集/8 SIGKILL、signed HTTP/PG+2 native store。transport/runtime/画面と実Auth/native IME/配備暗号化は後続。
 
 - 2026-10-08 / v0.32.0 / [Pageタイトルserver基盤](private-page-metadata-20261008/SUMMARY.md): 通常272/実PG82/型/Rust/frontend/Windows build。明示schema4/三値/immutable retry/解決、6並行rename、signed HTTP、COMMIT前後SIGKILL。画面/端末title queueと実Auth/native IME/配備暗号化は後続。

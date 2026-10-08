@@ -1,6 +1,7 @@
 import { idSchema, privateApiOrigin } from '@greiva/shared';
 import {privatePageCatalogRequestSchema,privatePageCatalogResponseSchema,type PrivatePageCatalogResponse} from '@greiva/protocol/private-page-catalog';
 import {PageSyncSession,type PageSessionStore} from './page-session.js';
+import {PageTitleSyncSession,type PageTitleStore} from './page-title-session.js';
 import { privateBootstrapResponseSchema } from '@greiva/protocol/workspace';
 import { AuthSession, AuthSessionError, type AuthIdentity } from './auth-session.js';
 import { WorkspaceSyncSession, type WorkspaceSyncContext, type WorkspaceSessionStore } from './workspace-session.js';
@@ -29,6 +30,7 @@ export class PrivateWorkspaceConnection {
   #controller = new AbortController();
   #session: WorkspaceSyncSession | null = null;
   #pages = new Map<string,{session:PageSyncSession;detach:()=>void}>();
+  #titles = new Map<string,{session:PageTitleSyncSession;detach:()=>void}>();
   #detach: (() => void) | null = null;
   constructor(auth: AuthSession, configuration: Readonly<{ apiUrl: string; clientId: string }>, fetchPort: typeof fetch = globalThis.fetch) {
     try { this.#api = privateApiOrigin(configuration.apiUrl); this.#clientId = idSchema.parse(configuration.clientId); }
@@ -39,7 +41,7 @@ export class PrivateWorkspaceConnection {
     return !this.#closed && this.#lease && !this.#lease.aborted && this.#context && sameOwner(this.#auth.identity, this.#context) ? this.#context : null;
   }
   get generationSignal():AbortSignal|null {return this.context?this.#storeLease:null;}
-  close() { for(const page of this.#pages.values()){page.session.close();page.detach();}this.#pages.clear();this.#closed = true; this.#controller.abort(); this.#session?.close(); this.#detach?.(); this.#session = null; this.#detach = null; }
+  close() { for(const page of this.#pages.values()){page.session.close();page.detach();}this.#pages.clear();for(const title of this.#titles.values()){title.session.close();title.detach();}this.#titles.clear();this.#closed = true; this.#controller.abort(); this.#session?.close(); this.#detach?.(); this.#session = null; this.#detach = null; }
   #active(context: WorkspaceSyncContext, lease: AbortSignal) {
     if (this.#closed || lease.aborted || lease !== this.#lease) throw new PrivateConnectionError('closed');
     if (!sameOwner(this.#auth.identity, context)) throw new PrivateConnectionError('authentication');
@@ -120,6 +122,17 @@ export class PrivateWorkspaceConnection {
     });
     const invalidated=()=>{session.close();if(this.#pages.get(pageId)?.session===session)this.#pages.delete(pageId);};lease.addEventListener('abort',invalidated,{once:true});
     this.#pages.set(pageId,{session,detach:()=>lease.removeEventListener('abort',invalidated)});return session;
+  }
+
+  openTitle(candidateId:string,store:PageTitleStore):PageTitleSyncSession {
+    const context=this.context,lease=this.#lease;if(!context||!lease)throw new PrivateConnectionError(this.#closed?'closed':'authentication');
+    let pageId:string;try{pageId=idSchema.parse(candidateId);}catch{throw new PrivateConnectionError('configuration');}
+    const previous=this.#titles.get(pageId);previous?.detach();previous?.session.close();
+    const acknowledge=store.acknowledge.bind(store),receive=store.receive.bind(store),path='/v1/workspaces/'+context.workspaceId+'/pages/'+pageId+'/metadata/';
+    const session=new PageTitleSyncSession({...context,pageId},{transport:{rename:async(wire,signal)=>(await this.#call(path+'rename',wire,signal,{context,lease})).value,read:async(request,signal)=>(await this.#call(path+'read',request,signal,{context,lease})).value},
+      store:{acknowledge:async(...args)=>{this.#active(context,lease);await acknowledge(...args);this.#active(context,lease);},receive:async(...args)=>{this.#active(context,lease);await receive(...args);this.#active(context,lease);}}});
+    const invalidated=()=>{session.close();if(this.#titles.get(pageId)?.session===session)this.#titles.delete(pageId);};lease.addEventListener('abort',invalidated,{once:true});
+    this.#titles.set(pageId,{session,detach:()=>lease.removeEventListener('abort',invalidated)});return session;
   }
 
   async queryPages(candidate:unknown):Promise<PrivatePageCatalogResponse>{

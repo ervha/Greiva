@@ -1,5 +1,7 @@
 # 初期提供範囲・PoCとの差・残る判断
 
+v0.34.0で[title送信・同期基盤](../development/PRIVATE_PAGE_TITLE_RUNTIME.md)を実装・検証した。production session/Auth transportとnative runtimeで再送・競合・取消を接続した段階で、title画面/IMEと全端末のmetadata deltaは未完成。実Auth正常系・Windows invoke/IME・配備暗号化/削除/保持/復元・native grantの残条件を継続する。
+
 v0.33.0で[title端末保存基盤](../development/PRIVATE_PAGE_TITLE_DURABILITY.md)を実装・検証した。signed fixture HTTP/実PGと2 native SQLiteで再送・競合・本文保持を確認したが、専用transport/runtime/画面、実Supabase正常系・Windows invoke/IME・配備暗号化は未完成。削除/保持/復元とnative grantの残条件を継続する。
 
 v0.32.0で[title server基盤](../development/PRIVATE_PAGE_METADATA.md)を実装・検証した。private schema4の認証付きrename/read、履歴/immutable結果/Conflict解決を追加した段階で、端末title queue/replica/画面・metadata delta同期は未完成。削除/保持/復元とnative grant・配備暗号化の残条件を継続する。

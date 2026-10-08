@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.34.0 — 2026-10-08
+
+- Pageタイトルの保存済み変更を専用portable session・認証付きtransport・native runtimeで送信/再送する。応答喪失は同wire、保存結果不明は同operationIdで再確認する。
+- bounded query/最大100件の明示送信、commit後の進捗、Auth取消/同Page置換、失効時pending保持を接続する。query完了を同期済みと扱わず、本文/structured wireとschemaを維持する。
+- 通常313/実PG83/型/Rust/frontend/Windows buildを確認。[証拠](tests/evidence/private-title-runtime-20261008/SUMMARY.md)。title draft/解決画面、実Auth/Windows invoke・IMEと配備暗号化は後続。
+
 ## 0.33.0 — 2026-10-08
 
 - Pageタイトルの端末保存とstrict IPCを追加。native schema7で版付き基底、offline intent、immutable wire/receiptと候補を原子的に保存し、古い応答でも新しい入力を保持する。

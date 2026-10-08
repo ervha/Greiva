@@ -1,5 +1,7 @@
 # 本番データモデル候補と移行条件
 
+v0.34.0：[title runtime](../development/PRIVATE_PAGE_TITLE_RUNTIME.md)を既存server schema4/native schema7へ接続。immutable wire/receipt/候補と観測baseを維持し、migrationを追加しない。runtimeのqueryCompleteとbounded local snapshotはserver正本の同期完了や候補statusの証明ではない。
+
 v0.33.0：[title端末保存](../development/PRIVATE_PAGE_TITLE_DURABILITY.md)のnative workspace schema7を追加。版付きbase/intent・先行operation/immutable wire・receipt/候補・resolvedByを保持し、本文/structuredとbindingは維持。旧versionless titleはknown版へ推測変換しない。serverはschema4のまま。以下の旧schema記録は当時の状態として保持する。
 
 v0.32.0：[private Pageタイトル基盤](../development/PRIVATE_PAGE_METADATA.md)のserver schema4を追加。canonical title0移行、独立title version/history、workspace内immutable operation ledger、三値Conflict/resolved_byを保持する。本文journal/creation_requestを変更せず、private native SQLite schema6とtitle queue/replica/画面は今回未変更。以下の旧PoC/schema記録は当時の状態として保持する。

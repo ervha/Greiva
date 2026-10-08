@@ -1,5 +1,7 @@
 # Pageタイトルの端末保存基盤
 
+後続v0.34.0で[専用session/Auth transport/native runtime](PRIVATE_PAGE_TITLE_RUNTIME.md)を接続した。以下はv0.33.0時点の保存基盤と当時の検証境界。title画面は引き続き次工程。
+
 2026-10-08 / v0.33.0。[server契約](PRIVATE_PAGE_METADATA.md)を端末SQLiteとstrict IPCへ接続する。[全判断](../decisions/private-page-title-durability.md)、[証拠](../../tests/evidence/private-title-store-20261008/SUMMARY.md)。タイトル専用HTTP transport・runtime・画面rename/解決は後続で、今回のHTTP試験はfixtureによる手順の合成である。
 
 ## 保存と移行

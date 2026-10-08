@@ -1,5 +1,7 @@
 # Structured sync本番契約候補
 
+v0.34.0：[title専用session/runtime](../development/PRIVATE_PAGE_TITLE_RUNTIME.md)でcaptured Auth/scoped rename/readを接続。明示cycleは最大100送信＋query一頁100件、commit/local read後の進捗、同nonce再確認と世代取消を行う。query完了をsyncedと扱わず、本文/structured sessionと独立。title画面とmetadata deltaは後続。
+
 v0.33.0：[title端末保存](../development/PRIVATE_PAGE_TITLE_DURABILITY.md)で最古pendingのimmutable wire/ACKと観測基底・投影を保存する。自分の成功receiptのみ未prepared子の基底を進め、古い本文metadataでmanaged titleを上書きしない。local title pendingと本文pendingを分離し、queryを同期済み証明にしない。専用transport/runtime/画面は後続。
 
 v0.32.0：[private Pageタイトル](../development/PRIVATE_PAGE_METADATA.md)のrename/readを独立wire/routesで追加。既存Task/Relation streamとPage本文wireを維持し、title版・immutable再送・三値Conflict/新operation解決をserverで検証した。readはbounded keyset queryで、snapshot/delta/ACKではない。native title queue/replica/画面接続は後続。
