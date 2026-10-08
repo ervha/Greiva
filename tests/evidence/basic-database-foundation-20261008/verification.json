@@ -1,0 +1,62 @@
+{
+  "version": "0.41.0",
+  "totals": {
+    "normal": {
+      "total": 459,
+      "passed": 365,
+      "failed": 0,
+      "pending": 94
+    },
+    "postgres": {
+      "total": 94,
+      "passed": 94,
+      "failed": 0,
+      "pending": 0
+    },
+    "root-ui": {
+      "startTime": "2026-10-08T09:46:46.880Z",
+      "duration": 178674.44199999998,
+      "expected": 64,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "workspace-ui": {
+      "startTime": "2026-10-08T09:50:02.117Z",
+      "duration": 84797.874,
+      "expected": 52,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "auth-ui": {
+      "startTime": "2026-10-08T09:49:46.255Z",
+      "duration": 15212.623,
+      "expected": 12,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "focused": {
+      "total": 15,
+      "passed": 15,
+      "failed": 0,
+      "pending": 0
+    }
+  },
+  "source": {
+    "count": 272,
+    "rawMatches": 262,
+    "textOnly": 10,
+    "excluded": [
+      "playwright.performance.config.ts",
+      "playwright.render-diagnostic.config.ts",
+      "tests/diagnostics/render-isolation.spec.ts",
+      "tests/native/windows-store-fixture.json",
+      "tests/performance/workloads.spec.ts"
+    ]
+  },
+  "realAuth": false,
+  "windowsLaunch": false,
+  "nativeIme": false
+}

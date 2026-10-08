@@ -1,5 +1,7 @@
 # 本番データモデル候補と移行条件
 
+v0.41.0：[基本DB基盤](../development/BASIC_DATABASE_FOUNDATION.md)はSource/active Record/6型Propertyを検証し、Nameをbound Page metadataのread projectionとして扱う。Record.valuesへtitleを二重保存しない。物理schema/認可済みbinding/履歴/移行は後続で、server5/native8を維持する。
+
 v0.39.0：[受信画面](../development/PRIVATE_PAGE_CHANGES_SCREEN.md)は独立metadata catalogとactual本文有無を表示し、canonical cacheとpending local title投影を区別する。server5/native8・本文/structured wireは維持する。
 
 v0.35.0：[title画面](../development/PRIVATE_PAGE_TITLE_SCREEN.md)は既存schema4/7の保存済み投影・pending・候補/拒否履歴を表示する。新migrationを追加せず、query欠落やresolvedBy nullからserverの現在状態を推定しない。

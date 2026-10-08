@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.41.0 — 2026-10-08
+
+- 基本DBのSource/Record/Propertyをportable Domainへ追加する。Name/Text/Number/Checkbox/Select/Dateの初期型、Page-bound Name、stable ID、strict scope/値の検証を実装する。
+- Table/List共通のloaded-window query、型付きAND/OR filter・複数sort・未設定末尾、上限とreadonly結果を追加する。既存Taskをコピーせず、DB保存・同期・画面は後続とする。
+- 新契約15/通常365/実PG94/root64/Auth12/workspace52、型/Rust/frontend/Windows buildを検証。[証拠](tests/evidence/basic-database-foundation-20261008/SUMMARY.md)。全DB対応、実Auth/native IMEと配備暗号化は別条件。
+
 ## 0.40.0 — 2026-10-08
 
 - 個人workspace previewへ同梱ヘルプ9記事、端末内検索、カテゴリ・関連記事・アプリ版、保存/同期/接続エラーの案内を追加する。未ログイン・画面読込後のofflineでも読める。

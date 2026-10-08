@@ -1,6 +1,6 @@
 # 個人版の実装順と受入
 
-最新v0.40.0：[同梱ヘルプ](../development/WORKSPACE_HELP.md)9記事と端末内検索・カテゴリ/関連記事/版表示、保存・同期・接続の文脈案内をworkspace previewへ追加。[証拠](../../tests/evidence/workspace-help-20261008/SUMMARY.md)。未ログイン/offlineで読め、editor/下書き/選択/focusとexact retryを保持する。実Auth/native IME・Android/配備暗号化と全HELPは後続。次はP3の基本DB初期subsetを進める。
+最新v0.41.0：[基本DB基盤](../development/BASIC_DATABASE_FOUNDATION.md)の6型Source/RecordとTable/List共通のlocal queryを部分実装。[証拠](../../tests/evidence/basic-database-foundation-20261008/SUMMARY.md)。Page-bound Name、値保全、型付きfilter/sortとloaded-windowを検証。DB保存・同期・画面は次工程。実Auth/native IME/Android・配備暗号化と全DB/HELPは後続。
 
 最新v0.35.0：[Pageタイトル画面](../development/PRIVATE_PAGE_TITLE_SCREEN.md)をworkspace previewへ接続。明示保存/取消/確認、三値候補/新operation解決、拒否履歴、独立pending表示、dirty/変換/結果不明の切替保護とbounded履歴を実装。[証拠](../../tests/evidence/private-title-screen-20261008/SUMMARY.md)。query終了を同期済みと扱わず、実Auth/Windows invoke・IME/Android/native grant、metadata deltaと配備暗号化は残条件。追加の手操作依頼はない。
 
