@@ -2,6 +2,14 @@
 
 番号は確認済みのリポジトリ開発チェックポイントを示す。[運用方針](docs/development/versioning.md)。将来機能の設計と実装は区別して記載する。
 
+## 0.32.0 — 2026-10-08
+
+- Pageタイトルの認証付きserver rename/readを追加。明示schema4、独立title版/履歴、同operation再送のimmutable結果、三値Conflictと新operation解決を実装する。
+- 本文binary/head/creation requestを保持し、同時編集/nonce競合/期限切れを原子的に処理。readはbounded queryで、metadata deltaや同期完了の証明とはしない。
+- 通常272/実PG82/型/Rust/frontend/Windows buildを確認。[証拠](tests/evidence/private-page-metadata-20261008/SUMMARY.md)。画面rename/端末title queue・replica、実Auth/native grant/IMEと配備暗号化は後続。
+
+
+
 ## 0.31.0 — 2026-10-08
 
 - 専用workspace画面へTask/Relationのtyped CRUD、明示同期、三値Conflictと別operationによる解決、拒否された更新の表示を追加。

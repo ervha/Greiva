@@ -68,7 +68,7 @@ export class PostgresPrivateStructuredStore implements PrivateStructuredSync {
   }
   private async stream(tx:PrivateTransaction,write:boolean) {
     const version=await tx.query(`SELECT version FROM "${this.schema}".private_schema_version WHERE singleton=true`);
-    if(version.rowCount!==1 || ![2,3].includes(version.rows[0]!.version))throw new PrivateTransactionUnavailable();
+    if(version.rowCount!==1 || ![2,3,4].includes(version.rows[0]!.version))throw new PrivateTransactionUnavailable();
     const config=await tx.query(`SELECT secret FROM "${this.schema}".private_structured_config WHERE singleton=true`);
     if(config.rowCount!==1 || !Buffer.isBuffer(config.rows[0]!.secret) || config.rows[0]!.secret.length!==32)throw new PrivateTransactionUnavailable();
     await tx.query(`INSERT INTO "${this.schema}".private_structured_streams(workspace_id) VALUES($1) ON CONFLICT(workspace_id) DO NOTHING`,[tx.context.workspaceId]);

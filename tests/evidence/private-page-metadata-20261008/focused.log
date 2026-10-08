@@ -1,0 +1,42 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [31m❯[39m tests/integration/private-page-metadata-postgres.test.ts [2m([22m[2m10 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 1863[2mms[22m[39m
+   [32m✓[39m TITLE-SCHEMA-PG: atomic upgrade preserves binary/key/epoch and refuses partial/reinstall/orphan[32m 287[2mms[22m[39m
+   [32m✓[39m TITLE-RETRY-PG: immutable replies survive reopen/later edits; changed nonce never alters binary or title[32m 134[2mms[22m[39m
+   [32m✓[39m TITLE-CONFLICT-PG: canonical three values, no-op merges, new-operation resolution, stale/wrong choice rejections[32m 181[2mms[22m[39m
+   [32m✓[39m TITLE-PAGINATION-PG: bounded keyset survives reopen, omits resolved conflicts and preserves remote-choice no-op[32m 146[2mms[22m[39m
+   [32m✓[39m TITLE-CONCURRENT-PG: same-base renames retain alternatives; cross-Page nonce collision rolls back losing transaction[32m 158[2mms[22m[39m
+   [32m✓[39m TITLE-CORRUPTION-PG: unknown base is immutable rejection; corrupt state/receipt/lookahead refuse partial success[32m 136[2mms[22m[39m
+   [32m✓[39m TITLE-PERMISSIONS-PG: foreign/revoked/deleted resources cannot read or rename[32m 96[2mms[22m[39m
+   [32m✓[39m TITLE-EXPIRY-PG: expiry during Page lock wait rolls back every title/operation write[32m 108[2mms[22m[39m
+[31m   [31m×[31m TITLE-HTTP-PG: protected routes map fixed errors and preserve Page/structured compatibility[39m[32m 213[2mms[22m[39m
+   [33m[2m✓[22m[39m TITLE-RUNTIME-PG: CLI enables routes explicitly; reinstall and missing tables fail without startup repair[33m 400[2mms[22m[39m
+ [32m✓[39m tests/unit/private-page-metadata.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 17[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-page-metadata-postgres.test.ts[2m > [22mTITLE-HTTP-PG: protected routes map fixed errors and preserve Page/structured compatibility
+[31m[1mAssertionError[22m: expected 400 to be 200 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 200[39m
+[31m+ 400[39m
+
+[36m [2m❯[22m tests/integration/private-page-metadata-postgres.test.ts:[2m56:233[22m[39m
+
+[90m [2m❯[22m isolated tests/integration/private-page-metadata-postgres.test.ts:[2m22:399[22m[39m
+[90m [2m❯[22m tests/integration/private-page-metadata-postgres.test.ts:[2m55:110[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (2)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m12 passed[39m[22m[90m (13)[39m
+[2m   Start at [22m 02:41:05
+[2m   Duration [22m 3.21s[2m (tests 62%, import 27%, transform 10%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261008/v32/postgres-initial/vitest.json
+JUNIT report written to /workspace/.data/autonomous-20261008/v32/postgres-initial/vitest.xml

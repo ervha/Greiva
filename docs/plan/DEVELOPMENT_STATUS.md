@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+最新v0.32.0：[Pageタイトルserver基盤](../development/PRIVATE_PAGE_METADATA.md)を追加。明示schema4、版/history/immutable結果、三値Conflictと新operation解決、bounded query、nonce/期限/失効の原子処理を実装。通常272/実PG82/型/Rust/frontend/Windows buildがPass。[証拠](../../tests/evidence/private-page-metadata-20261008/SUMMARY.md)。画面rename/端末title queue・replica/metadata delta、実Auth/native grant/IME/Androidと暗号化配備は後続。追加の利用者手操作依頼はない。
+
 最新v0.31.0：[Task・Relation画面](../development/PRIVATE_STRUCTURED_SCREEN.md)をworkspace previewへ接続。typed CRUD、三値Conflict/別operation解決、rejection保持、draft/変換/結果不明の保護と同期状態、両runtimeの取消/cleanupを追加。通常269/実PG70/画面18/型/Rust/frontend/Windows cross-buildを確認。[証拠](../../tests/evidence/private-structured-screen-20261008/SUMMARY.md)。本番入口/native Auth・credential/offline grant、実Auth/IME/Android、Page metadata同期と暗号化配備は残る。追加の利用者操作依頼は出していない。
 
 最新v0.30.0：[Task・Relation runtime](../development/PRIVATE_STRUCTURED_RUNTIME.md)をcaptured Auth/native storeへ接続。型付き原子保存、結果不明の同ID再試行、bounded explicit同期、三値Conflict/rejection保持、世代/stream置換取消を実装。通常268/実PG70/型/Rust/frontend/Windows cross-buildを確認。[証拠](../../tests/evidence/private-structured-runtime-20261008/SUMMARY.md)。新画面mountは次工程で、実Auth/native grant/IMEと本番配備は別条件。追加手操作を求めずTask/Relation画面へ続行する。

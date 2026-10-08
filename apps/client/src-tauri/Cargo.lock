@@ -1298,7 +1298,7 @@ dependencies = [
 
 [[package]]
 name = "greiva-page-store"
-version = "0.31.0"
+version = "0.32.0"
 dependencies = [
  "serde",
  "serde_json",
@@ -1309,7 +1309,7 @@ dependencies = [
 
 [[package]]
 name = "greiva-poc"
-version = "0.31.0"
+version = "0.32.0"
 dependencies = [
  "greiva-page-store",
  "serde_json",

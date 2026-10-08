@@ -34,7 +34,7 @@ export class PostgresPrivatePageStore implements PrivatePageDocuments {
     const id=pageId(candidateId),parsed=privatePageBootstrapRequestSchema.safeParse(body);if(!parsed.success)throw new PrivatePageInvalidRequest();
     const request=parsed.data;supported(request.editorSchemaVersion);
     return this.transactions.run(session,workspaceId,request.clientId,[],async tx=>{
-      await this.version(tx);
+      const schemaVersion=await this.version(tx);
       const existing=await tx.query(`SELECT workspace_id,deleted FROM "${this.schema}".private_resources WHERE type='page' AND id=$1 FOR UPDATE`,[id]);
       if(existing.rowCount){
         if(existing.rows[0]!.workspace_id!==workspaceId || existing.rows[0]!.deleted)throw new PrivateWorkspaceAccessDenied();
@@ -49,6 +49,7 @@ export class PostgresPrivatePageStore implements PrivatePageDocuments {
         const reserved=await tx.query(`INSERT INTO "${this.schema}".private_resources(type,id,workspace_id,deleted) VALUES('page',$1,$2,false) ON CONFLICT(type,id) DO NOTHING RETURNING workspace_id`,[id,workspaceId]);
         if(reserved.rowCount!==1){const collision=await tx.query(`SELECT workspace_id FROM "${this.schema}".private_resources WHERE type='page' AND id=$1`,[id]);if(collision.rows[0]?.workspace_id!==workspaceId)throw new PrivateWorkspaceAccessDenied();throw new PrivateTransactionUnavailable();}
         await tx.query(`INSERT INTO "${this.schema}".private_page_documents(page_id,workspace_id,editor_schema_version,creation_request,metadata,head_order) VALUES($1,$2,1,$3,$4,1)`,[id,workspaceId,JSON.stringify(request),JSON.stringify(metadata)]);
+        if(schemaVersion===4){await tx.query(`INSERT INTO "${this.schema}".private_page_title_state VALUES($1,0)`,[id]);await tx.query(`INSERT INTO "${this.schema}".private_page_title_history VALUES($1,0,$2)`,[id,metadata.title]);}
         await this.save(tx,id,'1',digest,update,request.clientId);
         return privatePageBootstrapResponseSchema.parse({...scope(workspaceId,id),metadata,initialDigest:digest});
       }finally{document.destroy();}
@@ -83,7 +84,7 @@ export class PostgresPrivatePageStore implements PrivatePageDocuments {
       finally{restored.document.destroy();}
     });
   }
-  private async version(tx:PrivateTransaction) {const rows=await tx.query(`SELECT version FROM "${this.schema}".private_schema_version WHERE singleton=true`);if(rows.rowCount!==1 || rows.rows[0]!.version!==3)throw new PrivateTransactionUnavailable();}
+  private async version(tx:PrivateTransaction) {const rows=await tx.query(`SELECT version FROM "${this.schema}".private_schema_version WHERE singleton=true`);if(rows.rowCount!==1 || ![3,4].includes(rows.rows[0]!.version))throw new PrivateTransactionUnavailable();return rows.rows[0]!.version as number;}
   private async document(tx:PrivateTransaction,id:string,write:boolean):Promise<StoredDocument> {
     const rows=await tx.query<StoredDocument>(`SELECT head_order,editor_schema_version,metadata,creation_request FROM "${this.schema}".private_page_documents WHERE workspace_id=$1 AND page_id=$2 FOR ${write?'UPDATE':'SHARE'}`,[tx.context.workspaceId,id]);
     const row=rows.rows[0];if(rows.rowCount!==1 || !row || row.editor_schema_version!==1)throw new PrivateTransactionUnavailable();

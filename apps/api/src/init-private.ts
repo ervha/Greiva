@@ -1,6 +1,7 @@
 import pg from 'pg';
 import { installPrivateWorkspaceSchema, privateSchemaName } from './private-workspace-schema.js';
 import { installPrivateStructuredSchema } from './private-structured-schema.js';
+import {installPrivatePageMetadataSchema} from './private-page-metadata-schema.js';
 import { installPrivatePageSchema } from './private-page-schema.js';
 
 // Explicit operator command only; never called by normal/private API startup.
@@ -14,10 +15,11 @@ try {
   pool.on('error', () => { /* no credential-bearing exception log */ });
   const mode=process.argv[2];
   if(mode==='--structured')await installPrivateStructuredSchema(pool,schema);
+  else if(mode==='--page-metadata')await installPrivatePageMetadataSchema(pool,schema);
   else if(mode==='--pages')await installPrivatePageSchema(pool,schema);
   else if(mode===undefined)await installPrivateWorkspaceSchema(pool,schema);
   else throw new Error();
-  console.log(JSON.stringify({ service: 'private-api', event: mode==='--structured'?'structured_schema_installed':mode==='--pages'?'page_schema_installed':'schema_created' }));
+  console.log(JSON.stringify({ service: 'private-api', event: mode==='--page-metadata'?'page_metadata_schema_installed':mode==='--structured'?'structured_schema_installed':mode==='--pages'?'page_schema_installed':'schema_created' }));
 } catch {
   console.error(JSON.stringify({ service: 'private-api', event: 'schema_install_failed' })); process.exitCode = 1;
 } finally { try { await pool?.end(); } catch { process.exitCode = 1; } }

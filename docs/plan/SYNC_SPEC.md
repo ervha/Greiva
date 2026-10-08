@@ -1,5 +1,7 @@
 # Structured sync本番契約候補
 
+v0.32.0：[private Pageタイトル](../development/PRIVATE_PAGE_METADATA.md)のrename/readを独立wire/routesで追加。既存Task/Relation streamとPage本文wireを維持し、title版・immutable再送・三値Conflict/新operation解決をserverで検証した。readはbounded keyset queryで、snapshot/delta/ACKではない。native title queue/replica/画面接続は後続。
+
 v0.20.0で[private structured stream](../development/PRIVATE_STRUCTURED_SYNC.md)を実装。schema2の新Task/Relation ledger/history/Conflict、workspace別transaction counterと耐久署名鍵、strict push/pullが動作する。batchは全体原子的、ID異内容再使用は409/rollback、foreign対象/参照は403。通常177/実PG54/2つのRust SQLite/SIGKILLで確認。以下の「server streamなし」は過去checkpointの記録で、Page metadata/CRDT/通常UI・IPCと実Auth正常系は引き続き未完成。
 
 v0.19.0では[同一transactionの認可境界](../development/PRIVATE_SYNC_TRANSACTIONS.md)を実装。owner/device/既存typed resourceをFOR SHAREでlockし、業務callbackのquery/期限/終了を管理する。新push/pullやmetadata作成validation/ledgerを実装した状態ではない。schema移行中の稼働/排他とworkspace stream順序を後続で定義する。
