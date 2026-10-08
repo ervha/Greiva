@@ -2,6 +2,7 @@ import { idSchema, privateApiOrigin } from '@greiva/shared';
 import {privatePageCatalogRequestSchema,privatePageCatalogResponseSchema,type PrivatePageCatalogResponse} from '@greiva/protocol/private-page-catalog';
 import {PageSyncSession,type PageSessionStore} from './page-session.js';
 import {PageTitleSyncSession,type PageTitleStore} from './page-title-session.js';
+import {PageChangesSyncSession,type PageChangesStore} from './page-changes-session.js';
 import { privateBootstrapResponseSchema } from '@greiva/protocol/workspace';
 import { AuthSession, AuthSessionError, type AuthIdentity } from './auth-session.js';
 import { WorkspaceSyncSession, type WorkspaceSyncContext, type WorkspaceSessionStore } from './workspace-session.js';
@@ -31,6 +32,7 @@ export class PrivateWorkspaceConnection {
   #session: WorkspaceSyncSession | null = null;
   #pages = new Map<string,{session:PageSyncSession;detach:()=>void}>();
   #titles = new Map<string,{session:PageTitleSyncSession;detach:()=>void}>();
+  #changes:{session:PageChangesSyncSession;detach:()=>void}|null=null;
   #detach: (() => void) | null = null;
   constructor(auth: AuthSession, configuration: Readonly<{ apiUrl: string; clientId: string }>, fetchPort: typeof fetch = globalThis.fetch) {
     try { this.#api = privateApiOrigin(configuration.apiUrl); this.#clientId = idSchema.parse(configuration.clientId); }
@@ -41,7 +43,7 @@ export class PrivateWorkspaceConnection {
     return !this.#closed && this.#lease && !this.#lease.aborted && this.#context && sameOwner(this.#auth.identity, this.#context) ? this.#context : null;
   }
   get generationSignal():AbortSignal|null {return this.context?this.#storeLease:null;}
-  close() { for(const page of this.#pages.values()){page.session.close();page.detach();}this.#pages.clear();for(const title of this.#titles.values()){title.session.close();title.detach();}this.#titles.clear();this.#closed = true; this.#controller.abort(); this.#session?.close(); this.#detach?.(); this.#session = null; this.#detach = null; }
+  close() { this.#changes?.session.close();this.#changes?.detach();this.#changes=null;for(const page of this.#pages.values()){page.session.close();page.detach();}this.#pages.clear();for(const title of this.#titles.values()){title.session.close();title.detach();}this.#titles.clear();this.#closed = true; this.#controller.abort(); this.#session?.close(); this.#detach?.(); this.#session = null; this.#detach = null; }
   #active(context: WorkspaceSyncContext, lease: AbortSignal) {
     if (this.#closed || lease.aborted || lease !== this.#lease) throw new PrivateConnectionError('closed');
     if (!sameOwner(this.#auth.identity, context)) throw new PrivateConnectionError('authentication');
@@ -133,6 +135,15 @@ export class PrivateWorkspaceConnection {
       store:{acknowledge:async(...args)=>{this.#active(context,lease);await acknowledge(...args);this.#active(context,lease);},receive:async(...args)=>{this.#active(context,lease);await receive(...args);this.#active(context,lease);}}});
     const invalidated=()=>{session.close();if(this.#titles.get(pageId)?.session===session)this.#titles.delete(pageId);};lease.addEventListener('abort',invalidated,{once:true});
     this.#titles.set(pageId,{session,detach:()=>lease.removeEventListener('abort',invalidated)});return session;
+  }
+
+  openChanges(store:PageChangesStore):PageChangesSyncSession {
+    const context=this.context,lease=this.#lease;if(!context||!lease)throw new PrivateConnectionError(this.#closed?'closed':'authentication');
+    this.#changes?.session.close();this.#changes?.detach();const receive=store.receive.bind(store);
+    const session=new PageChangesSyncSession(context,{transport:{pull:async(request,signal)=>(await this.#call('/v1/workspaces/'+context.workspaceId+'/pages/metadata/pull',request,signal,{context,lease})).value},
+      store:{receive:async(...args)=>{this.#active(context,lease);await receive(...args);this.#active(context,lease);}}});
+    const invalidated=()=>{session.close();if(this.#changes?.session===session)this.#changes=null;};lease.addEventListener('abort',invalidated,{once:true});
+    this.#changes={session,detach:()=>lease.removeEventListener('abort',invalidated)};return session;
   }
 
   async queryPages(candidate:unknown):Promise<PrivatePageCatalogResponse>{

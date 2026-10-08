@@ -1,6 +1,6 @@
 # 本番データモデル候補と移行条件
 
-v0.37.0：[端末増分保存](../development/PRIVATE_PAGE_CHANGES_STORE.md)はbound native8でmetadata catalog/event/receipt/progressを追加する。本文未取得情報を独立保存し、本文取得/作成確認のtransactionでcacheを採用する。server5と本文/structured wireを維持する。
+v0.38.0：[増分runtime](../development/PRIVATE_PAGE_CHANGES_RUNTIME.md)はserver5/native8の保存済みcursorを読み、captured Authと原子native受信を接続する。未知のcommitは同pairで再確認し、本文未取得catalogは独立保持する。schemaと本文/structured wireは維持する。
 
 v0.35.0：[title画面](../development/PRIVATE_PAGE_TITLE_SCREEN.md)は既存schema4/7の保存済み投影・pending・候補/拒否履歴を表示する。新migrationを追加せず、query欠落やresolvedBy nullからserverの現在状態を推定しない。
 

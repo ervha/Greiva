@@ -19,3 +19,5 @@ export type {PageSyncContext,PageReceipt,PageSessionTransport,PageSessionStore} 
 export {pageBase64,pageBytes,pageDigest,pageUpdateBytes,pageVectorBytes} from './page-binary.js';
 export {PageTitleSyncSession,PageTitleSessionError} from './page-title-session.js';
 export type {PageTitleContext,PageTitleTransport,PageTitleStore} from './page-title-session.js';
+export {PageChangesSyncSession,PageChangesSessionError} from './page-changes-session.js';
+export type {PageChangesTransport,PageChangesStore} from './page-changes-session.js';

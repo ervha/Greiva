@@ -1,6 +1,6 @@
 # Structured sync本番契約候補
 
-v0.37.0：[端末増分保存](../development/PRIVATE_PAGE_CHANGES_STORE.md)はreply/cursorとcatalog/title投影を原子的に保存し、exact replayとfiltered空頁を扱う。最大100件/keyset・破損lookaheadを検査する。received/head終了はsyncedではなく、captured Auth/session/runtime/UIは次工程。
+v0.38.0：[増分runtime](../development/PRIVATE_PAGE_CHANGES_RUNTIME.md)はcaptured Auth/scope/after/limitを検査し、一回最大100件の明示取得を行う。storage結果不明は新pullを止め同pairを再確認、post-commit read失敗はsaved cursorから再開する。観測head末尾はsyncedではない。画面接続は次工程。
 
 v0.35.0：[title画面](../development/PRIVATE_PAGE_TITLE_SCREEN.md)で明示保存/送信・query/新operation解決を接続。unknown baseは本文Page作成の確認後にtitle queryし、known baseでは本文syncを暗黙実行しない。結果不明の同ID再確認、remote/local各100件の続頁、独立pending表示を提供し、syncedとは表示しない。
 

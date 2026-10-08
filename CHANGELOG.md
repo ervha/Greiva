@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.38.0 — 2026-10-08
+
+- Pageタイトル増分をcaptured Auth transport・portable session・native runtimeへ接続する。一回最大100件を明示取得し、取得位置から再開する。
+- 保存結果不明は同request/replyを通信なしで再確認し、新しい取得を保留する。保存後の読み出し失敗、ログイン更新/失効/接続置換を区別して入力を保持する。
+- 通常341/実PG94/重点13＋署名HTTP二端末1、型/Rust/frontend/Windows buildを検証。[証拠](tests/evidence/private-page-changes-runtime-20261008/SUMMARY.md)。workspace画面は次工程。実Auth/native IMEと配備暗号化は未検証。
+
 ## 0.37.0 — 2026-10-08
 
 - Pageタイトル増分をnative schema8へ原子保存し、catalog・候補/解決・取得位置・正確な再適用を接続する。本文未取得情報は独立して保持し、本文取得またはPage作成確認後に採用する。

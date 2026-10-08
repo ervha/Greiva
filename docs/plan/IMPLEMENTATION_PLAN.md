@@ -1,6 +1,6 @@
 # 個人版の実装順と受入
 
-最新v0.37.0：[Pageタイトル増分の端末保存](../development/PRIVATE_PAGE_CHANGES_STORE.md)を実装。native schema8、catalog/cursor/候補の原子受信、本文後と作成確認後のcache採用、同reply再確認、remote解決と未送信入力保持を検証。[証拠](../../tests/evidence/private-page-changes-store-20261008/SUMMARY.md)。captured Auth/session/runtime/UIへ続ける。実Auth/Windows invoke・IME/Android/native grantと配備暗号化は残条件。
+最新v0.38.0：[Pageタイトル増分の認証付き接続](../development/PRIVATE_PAGE_CHANGES_RUNTIME.md)を実装。captured Auth/portable/native runtime、一回100件の明示取得、保存結果不明のexact再確認、saved cursor再開と失効取消を検証。[証拠](../../tests/evidence/private-page-changes-runtime-20261008/SUMMARY.md)。次はworkspace画面へ続ける。実Auth/Windows invoke・IME/Android/native grantと配備暗号化は残条件。
 
 最新v0.35.0：[Pageタイトル画面](../development/PRIVATE_PAGE_TITLE_SCREEN.md)をworkspace previewへ接続。明示保存/取消/確認、三値候補/新operation解決、拒否履歴、独立pending表示、dirty/変換/結果不明の切替保護とbounded履歴を実装。[証拠](../../tests/evidence/private-title-screen-20261008/SUMMARY.md)。query終了を同期済みと扱わず、実Auth/Windows invoke・IME/Android/native grant、metadata deltaと配備暗号化は残条件。追加の手操作依頼はない。
 
