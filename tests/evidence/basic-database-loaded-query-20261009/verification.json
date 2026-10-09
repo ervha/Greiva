@@ -1,0 +1,32 @@
+{
+  "version": "0.67.0",
+  "totals": {
+    "normal": {
+      "total": 967,
+      "passed": 750,
+      "failed": 0,
+      "pending": 217
+    },
+    "focused": {
+      "total": 22,
+      "passed": 22,
+      "failed": 0,
+      "pending": 0
+    }
+  },
+  "source": {
+    "count": 355,
+    "rawMatches": 345,
+    "textOnly": 10,
+    "excluded": [
+      "playwright.performance.config.ts",
+      "playwright.render-diagnostic.config.ts",
+      "tests/diagnostics/render-isolation.spec.ts",
+      "tests/native/windows-store-fixture.json",
+      "tests/performance/workloads.spec.ts"
+    ]
+  },
+  "realAuth": false,
+  "windowsLaunch": false,
+  "nativeIme": false
+}

@@ -1,6 +1,6 @@
 import {it,expect} from 'vitest';
 import {newId} from '@greiva/shared';
-import {databaseSourceSchema,parseDatabaseValue,parseDatabaseRecord,parseDatabaseView,queryDatabaseView,type DatabaseSource,type DatabaseRow} from '@greiva/domain';
+import {databaseSourceSchema,parseDatabaseValue,parseDatabaseRecord,parseDatabaseView,queryDatabaseView,queryLoadedDatabaseView,type DatabaseSource,type DatabaseRow} from '@greiva/domain';
 function fixture(){
  const ids={name:newId(),text:newId(),number:newId(),checkbox:newId(),select:newId(),date:newId()},options=[{id:newId(),name:'Z'},{id:newId(),name:'A'}];
  const source=databaseSourceSchema.parse({id:newId(),workspaceId:newId(),name:'Source',schemaVersion:1,properties:Object.entries(ids).map(([type,id])=>({id,type,name:type,...(type==='select'?{options}:{})}))});
@@ -69,4 +69,55 @@ it('DB-QUERY: bounded authorized input rejects duplicate IDs/Page bindings, othe
 });
 it('DB-NAME: empty bound Page title is a set string and an unavailable title is not silently projected as blank',()=>{
  const f=fixture(),row=f.row({},'');expect(queryDatabaseView(f.source,{...f.view,filter:f.predicate('name','eq','')},[row]).rows).toHaveLength(1);expect(queryDatabaseView(f.source,{...f.view,filter:f.predicate('name','is_unset')},[row]).rows).toHaveLength(0);expect(()=>queryDatabaseView(f.source,f.view,[{...row,pageTitle:null}])).toThrow();
+});
+
+it('DB-LOADED-NAME: unknown metadata stays visible without Name-dependent settings; blank is an actual title',()=>{
+ const f=fixture(),unknown={...f.row({[f.ids.number]:0}),pageTitle:null},blank=f.row({},'');
+ const result=queryLoadedDatabaseView(f.source,f.view,[unknown,blank]);
+ expect(result.scope).toBe('loaded-window');expect(result.unresolved).toEqual([]);expect(result.rows).toHaveLength(2);
+ expect(result.rows.find(row=>row.record.id===unknown.record.id)!.pageTitle).toBeNull();
+ const filtered=queryLoadedDatabaseView(f.source,{...f.view,filter:f.predicate('name','eq','')},[unknown,blank]);
+ expect(filtered.rows.map(row=>row.record.id)).toEqual([blank.record.id]);expect(filtered.unresolved).toEqual([{row:unknown,reason:'filter'}]);
+});
+it('DB-LOADED-NAME: every Name predicate needs metadata, including set/unset and empty contains',()=>{
+ const f=fixture(),unknown={...f.row(),pageTitle:null};
+ for(const filter of [f.predicate('name','is_set'),f.predicate('name','is_unset'),f.predicate('name','contains',''),f.predicate('name','not_eq','')]){
+  const result=queryLoadedDatabaseView(f.source,{...f.view,filter},[unknown]);expect(result.rows).toEqual([]);expect(result.unresolved[0]!.reason).toBe('filter');
+ }
+});
+it('DB-LOADED-FILTER: nested AND/OR settle known false/true and preserve unknown when undecidable',()=>{
+ const f=fixture(),unknown={...f.row({[f.ids.number]:0}),pageTitle:null},name=f.predicate('name','contains','A'),yes=f.predicate('number','eq',0),no=f.predicate('number','gt',0);
+ for(const [filter,included,unresolved] of [
+  [{kind:'and',children:[name,no]},0,0],
+  [{kind:'or',children:[name,yes]},1,0],
+  [{kind:'and',children:[name,yes]},0,1],
+  [{kind:'or',children:[name,no]},0,1],
+  [{kind:'and',children:[{kind:'or',children:[name,yes]},yes]},1,0],
+  [{kind:'or',children:[{kind:'and',children:[name,no]},no]},0,0],
+ ] as const){const result=queryLoadedDatabaseView(f.source,{...f.view,filter},[unknown]);expect(result.rows).toHaveLength(included);expect(result.unresolved).toHaveLength(unresolved);}
+});
+it('DB-LOADED-SORT: Name sort separates unknown rows, including secondary sorts, after filtering exclusions',()=>{
+ const f=fixture(),unknown={...f.row({[f.ids.number]:1}),pageTitle:null},a=f.row({[f.ids.number]:1},'Alpha'),b=f.row({[f.ids.number]:1},'Beta');
+ for(const direction of ['asc','desc']){
+  const result=queryLoadedDatabaseView(f.source,{...f.view,sorts:[{propertyId:f.ids.number,direction:'asc'},{propertyId:f.ids.name,direction}]},[unknown,b,a]);
+  expect(result.rows.map(row=>row.record.id)).toEqual(direction==='asc'?[a.record.id,b.record.id]:[b.record.id,a.record.id]);expect(result.unresolved).toEqual([{row:unknown,reason:'sort'}]);
+ }
+ const excluded=queryLoadedDatabaseView(f.source,{...f.view,filter:f.predicate('number','gt',1),sorts:[{propertyId:f.ids.name,direction:'asc'}]},[unknown]);expect(excluded.rows).toEqual([]);expect(excluded.unresolved).toEqual([]);
+});
+it('DB-LOADED-VALUES: typed sort/filter keep zero false blank date and option order while Name is unknown',()=>{
+ const f=fixture(),a={...f.row({[f.ids.checkbox]:false,[f.ids.number]:0,[f.ids.text]:'',[f.ids.date]:'2028-02-29',[f.ids.select]:f.options[0]!.id}),pageTitle:null},b={...f.row({[f.ids.select]:f.options[1]!.id}),pageTitle:null},c={...f.row(),pageTitle:null};
+ const result=queryLoadedDatabaseView(f.source,{...f.view,sorts:[{propertyId:f.ids.select,direction:'desc'}]},[c,a,b]);expect(result.rows.map(row=>row.record.id)).toEqual([b.record.id,a.record.id,c.record.id]);expect(result.unresolved).toEqual([]);
+ for(const filter of [f.predicate('checkbox','eq',false),f.predicate('number','eq',0),f.predicate('text','eq',''),f.predicate('date','gte','2028-02-29')])expect(queryLoadedDatabaseView(f.source,{...f.view,filter},[a,b,c]).rows.map(row=>row.record.id)).toEqual([a.record.id]);
+});
+it('DB-LOADED-QUERY: bound scope duplicates size and title types are checked before evaluation',()=>{
+ const f=fixture(),a={...f.row(),pageTitle:null};
+ for(const rows of [[a,a],[a,{...a,record:{...a.record,id:newId()}}],[{...a,record:{...a.record,workspaceId:newId()}}],[{...a,pageTitle:42}],[{...a,pageTitle:undefined}],Array.from({length:1001},()=>a)])expect(()=>queryLoadedDatabaseView(f.source,f.view,rows)).toThrow();
+ expect(()=>queryLoadedDatabaseView(f.source,{...f.view,sourceId:newId()},[a])).toThrow();
+});
+it('DB-LOADED-QUERY: results clone and freeze both resolved/unresolved rows and match the existing query when titles are known',()=>{
+ const f=fixture(),a=f.row({[f.ids.number]:2},'Alpha'),b=f.row({[f.ids.number]:1},'Beta'),view={...f.view,filter:f.predicate('name','contains','a'),sorts:[{propertyId:f.ids.number,direction:'desc'}]};
+ expect(queryLoadedDatabaseView(f.source,view,[b,a]).rows).toEqual(queryDatabaseView(f.source,view,[b,a]).rows);
+ const unknown={...a,pageTitle:null},before=JSON.stringify(unknown),result=queryLoadedDatabaseView(f.source,view,[unknown]);
+ expect(JSON.stringify(unknown)).toBe(before);expect(result.unresolved[0]!.row).not.toBe(unknown);expect(Object.isFrozen(result.unresolved[0]!.row.record.values)).toBe(true);
+ unknown.record.values[f.ids.number]=99;expect(result.unresolved[0]!.row.record.values[f.ids.number]).toBe(2);
 });

@@ -1,5 +1,7 @@
 # 汎用データベース・ビュー・プロパティ 設計案 v0.1
 
+最新v0.67.0：[読み込み済み行の検索](../development/BASIC_DATABASE_LOADED_QUERY.md)で未取得Nameと空タイトル、AND/ORの未判定、Name sortの未確定行を区別する。[証拠](../../tests/evidence/basic-database-loaded-query-20261009/SUMMARY.md)。利用者指示でこのcheckpointにて一旦停止。進捗・再開順は[まとめ](CHECKPOINT_20261009.md)。Table/List操作画面は次工程。
+
 最新v0.66.0：[View実HTTP/runtime](../development/PRIVATE_DATABASE_VIEW_WRITE.md)で元queue capture/wireをcaptured Authの固定write HTTPへ接続。HTTP unknownの同操作再送、ACK unknownの元pair/networkless retryとlocal opening/queueFresh/busy/原結果/閉鎖を検証。[証拠](../../tests/evidence/private-database-view-write-20261009/SUMMARY.md)。native16/server11保持。6型Table/List操作画面へ続行する。
 
 最新v0.65.0：[View端末queue](../development/PRIVATE_DATABASE_VIEW_QUEUE.md)で作成・更新・既知候補解決の元capture/immutable wire/原ACK-cache-history-解決proofを接続。native16/server11。read/delta先行・遅着・byte window・移行/SIGKILLを確認し、元fixture Failを別保存。[証拠](../../tests/evidence/private-database-view-queue-20261009/SUMMARY.md)。View実HTTP/runtimeと6型Table/Listへ続行する。

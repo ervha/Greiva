@@ -1,5 +1,7 @@
 # 初期提供範囲・PoCとの差・残る判断
 
+2026-10-09 / v0.67.0：個人workspaceの日常編集画面・ヘルプ、基本DB6型のserver/native保存・差分・queue・HTTP/runtimeと読み込み済み検索まで進んだ。Table/List操作画面は未接続。実Auth/最新native/配備暗号化/提供Gateの残条件は継続する。[現在の進捗と再開順](CHECKPOINT_20261009.md)。以下の各版・初期比較表は当時の記録として保持する。
+
 v0.42.0で[基本DB変更/競合](../development/BASIC_DATABASE_MUTATION.md)のtyped intentと三値比較/解決planを追加する。DB実adapter/ledger/保存/同期/UI、全DB/HELP、削除/復元/保持、実Auth/native/暗号化配備と通常入口の昇格は残条件。
 
 v0.35.0で[Pageタイトル画面](../development/PRIVATE_PAGE_TITLE_SCREEN.md)をworkspace previewへ接続した。明示保存/確認/解決と入力保護はDockerで検証し、本文とtitleの状態を分離する。全端末のmetadata delta、実Auth正常系・Windows invoke/IME・Android/native grant、配備暗号化/削除/保持/復元は未完成。

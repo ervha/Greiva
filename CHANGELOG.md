@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.67.0 — 2026-10-09
+
+- 読み込み済みDB行のqueryへ未取得Nameと空タイトルの区別を追加。AND/ORの確定可能な条件を評価し、不明なfilter/Name sortは理由付きの未判定行として返す。既存の型・範囲・件数検査とquery契約を保持する。
+- 新7条件を含むDB query22ケースと通常回帰・型・buildを検証する。Table/List操作画面は未接続、native16/server11を保持する。
+- 利用者指示で検証済みcheckpointにて一旦停止し、進捗・残条件・再開順をdocs/planへ整理する。実Supabase正常系/最新native IME/配備暗号化・最終Gateは別工程。
+
 ## 0.66.0 — 2026-10-09
 
 - View作成・更新・競合解決の元queue capture/wireをcaptured Authの固定View HTTPへ接続する。HTTP unknownは同operation再送、native ACK unknownは元pairをnetworkなしで再保存する。
