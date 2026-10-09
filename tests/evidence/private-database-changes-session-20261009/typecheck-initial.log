@@ -1,0 +1,64 @@
+
+> greiva-poc@0.57.0 typecheck
+> npm run build:packages && npm run typecheck --workspaces --if-present && tsc -p tsconfig.tests.json
+
+
+> greiva-poc@0.57.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application
+
+
+> @greiva/shared@0.57.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/domain@0.57.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.57.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.57.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.57.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.57.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/domain@0.57.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/protocol@0.57.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/shared@0.57.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/sync@0.57.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/api@0.57.0 typecheck
+> tsc --noEmit
+
+
+> @greiva/client@0.57.0 typecheck
+> tsc --noEmit
+
+
+> @greiva/collaboration@0.57.0 typecheck
+> tsc --noEmit
+
+tests/unit/database-changes-session.test.ts(12,1048): error TS2339: Property 'record' does not exist on type '{ kind: "record"; order: string; record: { id: string; workspaceId: string; sourceId: string; pageId: string; version: number; values: Record<string, string | number | boolean | null>; }; conflict: { ...; } | null; } | { ...; }'.
+  Property 'record' does not exist on type '{ kind: "view"; order: string; snapshot: { view: { id: string; sourceId: string; layout: "list" | "table"; name: string; visiblePropertyIds: string[]; filter: { kind: "predicate"; propertyId: string; operator: "contains" | ... 5 more ... | "not_eq"; value: string | ... 2 more ... | null; } | { ...; } | { ...; } | nu...'.
+tests/unit/database-changes-session.test.ts(15,914): error TS2339: Property 'record' does not exist on type '{ kind: "record"; order: string; record: { id: string; workspaceId: string; sourceId: string; pageId: string; version: number; values: Record<string, string | number | boolean | null>; }; conflict: { ...; } | null; } | { ...; }'.
+  Property 'record' does not exist on type '{ kind: "view"; order: string; snapshot: { view: { id: string; sourceId: string; layout: "list" | "table"; name: string; visiblePropertyIds: string[]; filter: { kind: "predicate"; propertyId: string; operator: "contains" | ... 5 more ... | "not_eq"; value: string | ... 2 more ... | null; } | { ...; } | { ...; } | nu...'.

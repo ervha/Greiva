@@ -1,0 +1,15 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/private-database-changes-client-postgres.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 2380[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-CLIENT-PG: captured signed HTTP resumes two actual SQLite replicas; lost commit return retries exact response without HTTP and restart retains cursor/cache[33m 835[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-CLIENT-PG: read-ahead snapshots retain versions while delta fills histories/candidates; remote resolution survives stale read/restart and progress never rewinds[33m 742[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-CLIENT-PG: filtered empty windows advance without deleting cached entities; denied Source closes old sessions and reconnect retains cursor/data[33m 412[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-CLIENT-PG: replacement/refresh/native-close exclude late signed pulls; invalid replacement keeps old session; local opening never fetches changes[33m 389[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m4 passed[39m[22m[90m (4)[39m
+[2m   Start at [22m 05:01:10
+[2m   Duration [22m 3.66s[2m (tests 67%, import 20%, transform 14%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v57/changes-client-pg-initial/vitest.json

@@ -1,0 +1,52 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [31m❯[39m tests/unit/database-changes-session.test.ts [2m([22m[2m13 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 144[2mms[22m[39m
+[31m   [31m×[31m DB-CHANGES-SESSION: immutable scope/ports and explicit durable-progress pull save typed response; opening/local progress never starts HTTP[39m[32m 14[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-SESSION: scope/source/schema/journal/raw-range/type and looping response reject before receive[32m 12[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-SESSION: corrupt/foreign saved progress and invalid limits fail before network without empty fallback[32m 3[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-SESSION: unknown commit retains exact immutable pair; retry has no HTTP and returns actual newer durable progress[32m 2[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-SESSION: post-commit progress failure retains receive pair and storage retry never refetches[32m 1[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-SESSION: false success/rewound or wrong journal progress keeps exact pair without claiming an observation[32m 1[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-SESSION: transport/load failures preserve private causes and never create receive retry[32m 1[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-SESSION load: close/busy exclude late work and do not retain a private pair[32m 1[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-SESSION transport: close/busy exclude late work and do not retain a private pair[32m 1[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-SESSION receive: close/busy exclude late work and do not retain a private pair[32m 52[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-SESSION reload: close/busy exclude late work and do not retain a private pair[32m 51[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-SESSION: filtered empty bounded windows advance exact bigint progress without projecting or acknowledging entities[32m 1[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-SESSION: constructor rejects foreign definitions/context before ports can be used[32m 1[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/unit/database-changes-session.test.ts[2m > [22mDB-CHANGES-SESSION: immutable scope/ports and explicit durable-progress pull save typed response; opening/local progress never starts HTTP
+[31m[1mAssertionError[22m: expected { context: { …(5) }, …(8) } to deeply equal { context: { …(5) }, …(8) }[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[33m@@ -1,11 +1,11 @@[39m
+[2m  {[22m
+[2m    "context": {[22m
+[2m      "clientId": "01a11f07-693e-73aa-a2aa-d8320c3a1c0f",[22m
+[2m      "issuer": "https://auth.fixture.invalid/auth/v1",[22m
+[2m      "streamEpoch": "01a11f07-693e-73aa-a2aa-de620de1407f",[22m
+[32m-     "subjectId": "changed",[39m
+[31m+     "subjectId": "owner",[39m
+[2m      "workspaceId": "01a11f07-693d-73e2-8fc8-cb240b7a7375",[22m
+[2m    },[22m
+[2m    "cursor": null,[22m
+[2m    "hasMore": false,[22m
+[2m    "headOrder": "0",[22m
+
+[36m [2m❯[22m tests/unit/database-changes-session.test.ts:[2m14:453[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m12 passed[39m[22m[90m (13)[39m
+[2m   Start at [22m 04:59:01
+[2m   Duration [22m 662ms[2m (transform 43%, import 30%, tests 26%, worker 1%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v57/focused-final/vitest.json

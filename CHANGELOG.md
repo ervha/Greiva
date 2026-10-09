@@ -1,5 +1,10 @@
 # 変更履歴
 
+## 0.57.0 — 2026-10-09
+
+- captured Source/AuthのDB差分取得をnative cache/progressへ接続する。毎回durable cursorから最大100件を明示取得し、scope/型/journal/raw進捗を照合する。
+- 保存結果不明のimmutable pairをnetworkなしで再保存し、保存後に最新端末progressを読み直す。置換/refresh/close/native store closeで遅着HTTPを除外する。
+- portable13・actual signed HTTP/native PG4と全回帰/build/help版表示を検証する。server11/native12保持。画面runtime・作成/更新queue・Table/List画面と全DB/native Gateは後続。
 ## 0.56.0 — 2026-10-09
 
 - native12へDB差分受信を追加し、mixed Record/View history・候補/解決・元window/event/progressを原子保存する。server11と旧read cache/Page/queueを保持する。

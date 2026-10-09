@@ -22,6 +22,8 @@
 
 2026-10-09 / v0.51.0：[Source端末保存](../development/PRIVATE_DATABASE_SOURCE_CACHE.md)でnative9/current/履歴/read receiptの原子保存、late reply保護、6型/strict IPCとbounded端末一覧を追加。server11保持。Record/View replica/queue/DB cursor/runtime、Table/List画面は後続。
 
+2026-10-09 / v0.57.0：[DB差分取得session](../development/PRIVATE_DATABASE_CHANGES_SESSION.md)で認証付きbounded pull→native deltaを接続する。durable進捗・結果不明の同応答retry・保存後cursor・取消を検証し、全DB同期/作成更新queue/Table/List画面の完成と分ける。[証拠](../../tests/evidence/private-database-changes-session-20261009/SUMMARY.md)。
+
 2026-10-09 / v0.56.0：[DB差分端末保存](../development/PRIVATE_DATABASE_CHANGES_STORE.md)でnative12、元window/event・Record/View履歴・候補/解決・cursorを原子保存。server11保持。差分HTTP/runtime、作成/更新queueと画面は後続。
 
 2026-10-09 / v0.55.0：[DB内容取得session](../development/PRIVATE_DATABASE_CONTENT_SESSION.md)でcaptured Source/AuthのRecord/View read→native cache、headers catalog、結果不明の同応答retryと世代取消を接続。server11/native11保持。差分cursor/queue/画面は後続。

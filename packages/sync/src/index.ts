@@ -25,3 +25,5 @@ export {DatabaseSourceSyncSession,DatabaseSourceSessionError} from './database-s
 export type {DatabaseSourceTransport,DatabaseSourceStore} from './database-source-session.js';
 export {DatabaseContentSyncSession,DatabaseContentSessionError} from './database-content-session.js';
 export type {DatabaseContentTransport,DatabaseContentStore} from './database-content-session.js';
+export {DatabaseChangesSyncSession,DatabaseChangesSessionError} from './database-changes-session.js';
+export type {DatabaseChangesTransport,DatabaseChangesStore,DatabaseChangesProgress,DatabaseChangesObservation} from './database-changes-session.js';
