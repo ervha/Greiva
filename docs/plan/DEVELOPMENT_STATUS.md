@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+最新v0.63.0：[Record実HTTP送信](../development/PRIVATE_DATABASE_RECORD_WRITE.md)でcreate/update/解決の元queue capture・wireをcaptured Authの固定HTTPへ接続。HTTP unknownは同操作再送、native ACK unknownは元pairのnetworkless retryで区別する。[証拠](../../tests/evidence/private-database-record-write-20261009/SUMMARY.md)。native15/server11保持。画面用runtime、View queue、6型Table/Listへ続行する。
+
 最新v0.62.0：[Record更新・解決queue](../development/PRIVATE_DATABASE_RECORD_UPDATE_QUEUE.md)でnative15へ元base/intent/candidateの捕捉、同Record処理待ち、immutable wireと原ACK/cache/history/解決proofの原子保存を追加。read/delta先行・late ACK・非補修replay・byte window・migration/SIGKILLを検証。[証拠](../../tests/evidence/private-database-record-update-queue-20261009/SUMMARY.md)。server11保持。View queue、Record送信runtime、Table/Listへ続行する。
 
 最新v0.61.0：[Record作成queue](../development/PRIVATE_DATABASE_RECORD_CREATE_QUEUE.md)でnative14へ独立pending intent・Source/Page待ち・immutable wireと原create ACK/cache/historyの原子保存を追加。read/delta先行・late ACK・非補修replay・migration/SIGKILLを検証。[証拠](../../tests/evidence/private-database-record-create-queue-20261009/SUMMARY.md)。server11保持。update/View queue、Record送信runtime、Table/Listへ続行する。

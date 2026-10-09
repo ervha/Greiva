@@ -1,0 +1,42 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [31m❯[39m tests/unit/database-record-write-session.test.ts [2m([22m[2m17 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[32m 162[2mms[22m[39m
+[31m   [31m×[31m DB-RECORD-WRITE create: original formatted/value-key-order wire and checked capture survive immutable port/context binding[39m[32m 18[2mms[22m[39m
+[31m   [31m×[31m DB-RECORD-WRITE update: original formatted/value-key-order wire and checked capture survive immutable port/context binding[39m[32m 4[2mms[22m[39m
+   [32m✓[39m DB-RECORD-WRITE: empty and Source/Page-blocked create do not load capture, send HTTP or invent ACK[32m 2[2mms[22m[39m
+   [32m✓[39m DB-RECORD-WRITE: malformed wire/sequence/kind/client or queue capture/Source/base rejects before HTTP[32m 6[2mms[22m[39m
+   [32m✓[39m DB-RECORD-WRITE create: invalid ACK scope/type/field/outcome is protocol failure without invented local-ACK retry[32m 7[2mms[22m[39m
+   [32m✓[39m DB-RECORD-WRITE update: invalid ACK scope/type/field/outcome is protocol failure without invented local-ACK retry[32m 6[2mms[22m[39m
+   [32m✓[39m DB-RECORD-WRITE create: unknown HTTP re-prepares/rechecks durable exact wire for same operation[32m 2[2mms[22m[39m
+   [32m✓[39m DB-RECORD-WRITE update: unknown HTTP re-prepares/rechecks durable exact wire for same operation[32m 1[2mms[22m[39m
+   [32m✓[39m DB-RECORD-WRITE create: unknown native ACK retains exact immutable pair; retry sends no HTTP and loads no capture[32m 1[2mms[22m[39m
+   [32m✓[39m DB-RECORD-WRITE update: unknown native ACK retains exact immutable pair; retry sends no HTTP and loads no capture[32m 1[2mms[22m[39m
+   [32m✓[39m DB-RECORD-WRITE prepare storage failure: starts no HTTP and exposes no private cause[32m 1[2mms[22m[39m
+   [32m✓[39m DB-RECORD-WRITE capture storage failure: starts no HTTP and exposes no private cause[32m 0[2mms[22m[39m
+   [32m✓[39m DB-RECORD-WRITE prepare close/busy: late work cannot ACK another session or retain old private pair[32m 2[2mms[22m[39m
+   [32m✓[39m DB-RECORD-WRITE capture close/busy: late work cannot ACK another session or retain old private pair[32m 1[2mms[22m[39m
+   [32m✓[39m DB-RECORD-WRITE http close/busy: late work cannot ACK another session or retain old private pair[32m 52[2mms[22m[39m
+   [32m✓[39m DB-RECORD-WRITE ack close/busy: late work cannot ACK another session or retain old private pair[32m 52[2mms[22m[39m
+   [32m✓[39m DB-RECORD-WRITE: capture and meaningful update validation distinguish missing/null, unchanged local and original conflict triad[32m 4[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 2 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/unit/database-record-write-session.test.ts[2m > [22mDB-RECORD-WRITE create: original formatted/value-key-order wire and checked capture survive immutable port/context binding
+[41m[1m FAIL [22m[49m tests/unit/database-record-write-session.test.ts[2m > [22mDB-RECORD-WRITE update: original formatted/value-key-order wire and checked capture survive immutable port/context binding
+[31m[1mDatabaseRecordWriteSessionError[22m: Database Record write protocol[39m
+[90m [2m❯[22m DatabaseRecordWriteSyncSession.parse packages/sync/src/database-record-write-session.ts:[2m35:77[22m[39m
+[90m [2m❯[22m packages/sync/src/database-record-write-session.ts:[2m44:22[22m[39m
+[90m [2m❯[22m DatabaseRecordWriteSyncSession.run packages/sync/src/database-record-write-session.ts:[2m37:163[22m[39m
+[36m [2m❯[22m tests/unit/database-record-write-session.test.ts:[2m7:330[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m15 passed[39m[22m[90m (17)[39m
+[2m   Start at [22m 07:20:31
+[2m   Duration [22m 727ms[2m (transform 45%, import 29%, tests 26%, worker 1%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v63/focused-initial/vitest.json

@@ -1,0 +1,59 @@
+
+> greiva-poc@0.63.0 typecheck
+> npm run build:packages && npm run typecheck --workspaces --if-present && tsc -p tsconfig.tests.json
+
+
+> greiva-poc@0.63.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application
+
+
+> @greiva/shared@0.63.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/domain@0.63.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.63.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.63.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.63.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.63.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/domain@0.63.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/protocol@0.63.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/shared@0.63.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/sync@0.63.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/api@0.63.0 typecheck
+> tsc --noEmit
+
+
+> @greiva/client@0.63.0 typecheck
+> tsc --noEmit
+
+
+> @greiva/collaboration@0.63.0 typecheck
+> tsc --noEmit

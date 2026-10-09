@@ -29,3 +29,6 @@ export {DatabaseChangesSyncSession,DatabaseChangesSessionError} from './database
 export type {DatabaseChangesTransport,DatabaseChangesStore,DatabaseChangesProgress,DatabaseChangesObservation} from './database-changes-session.js';
 export {DatabaseSourceWriteSyncSession,DatabaseSourceWriteSessionError} from './database-source-write-session.js';
 export type {DatabaseSourceWriteTransport,DatabaseSourceWriteStore} from './database-source-write-session.js';
+
+export {DatabaseRecordWriteSyncSession,DatabaseRecordWriteSessionError} from './database-record-write-session.js';
+export type {DatabaseRecordWriteKind,DatabaseRecordWriteTransport,DatabaseRecordWriteStore} from './database-record-write-session.js';

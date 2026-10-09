@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.63.0 — 2026-10-09
+
+- Record create/update/競合解決queueの元Source/base/候補・sequence・wireを照合して、captured Authの固定Record HTTPへ送るsessionを追加する。Source/Page待ちはHTTPを呼ばない。
+- HTTP結果不明の同operation再送とnative ACK結果不明の元pair/networkless retryを分ける。原format/value key順、typed reply/三値/拒否、Auth世代/replacement/store closeを検査する。
+- portable17/actual signed HTTP→PG→Rust SQLite6と全回帰/build/help版表示を検証。native15/server11保持。画面用runtime、View queue、6型Table/Listとnative Gateは後続。
+
 ## 0.62.0 — 2026-10-09
 
 - native15へRecord update/競合解決queueを追加し、確認済みの元baseとintent/候補を保持する。同Record未ACKは1件とし、別保存は元操作を守るbusyで返す。

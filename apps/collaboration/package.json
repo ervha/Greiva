@@ -1,7 +1,7 @@
 {
   "name": "@greiva/collaboration",
   "private": true,
-  "version": "0.62.0",
+  "version": "0.63.0",
   "type": "module",
   "scripts": {
     "dev": "node --env-file-if-exists=../../.env --import tsx src/main.ts",
@@ -12,9 +12,9 @@
   "dependencies": {
     "@hocuspocus/server": "4.7.0",
     "yjs": "13.6.33",
-    "@greiva/protocol": "0.62.0",
-    "@greiva/shared": "0.62.0",
-    "@greiva/sync": "0.62.0"
+    "@greiva/protocol": "0.63.0",
+    "@greiva/shared": "0.63.0",
+    "@greiva/sync": "0.63.0"
   },
   "devDependencies": {}
 }
