@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.55.0：[DB内容取得session](../development/PRIVATE_DATABASE_CONTENT_SESSION.md)でcaptured Source/AuthのRecord/View catalog/readをnative cacheへ接続。immutable結果不明pair/同応答retry、型・対象・raw進捗、置換/refresh/store closeを検証。[証拠](../../tests/evidence/private-database-content-session-20261009/SUMMARY.md)。server11/native11保持。DB delta/cursor、Source/Record/View queueとTable/List画面へ続行する。
+
 最新v0.54.0：[View端末保存](../development/PRIVATE_DATABASE_VIEW_CACHE.md)でnative11、Table/List設定・whole-field既知候補の履歴/receipt/current原子保存を追加。filter型/参照/深さ/件数、遅着履歴とbounded読取を検証。[証拠](../../tests/evidence/private-database-view-cache-20261009/SUMMARY.md)。server11保持。DB cursor、Source/Record/View queue・runtimeと画面へ続行する。
 
 最新v0.53.0：[Record端末保存](../development/PRIVATE_DATABASE_RECORD_CACHE.md)でnative10、typed snapshot/history/read receipt/既知候補の原子保存、late replyとbaseline照合、bounded読取を追加。[証拠](../../tests/evidence/private-database-record-cache-20261009/SUMMARY.md)。server11保持。View replica、DB cursor、Source/Record/View queue・runtimeとTable/List画面へ続行する。

@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.55.0 — 2026-10-09
+
+- captured Source/AuthのRecord/View catalog/readを端末cacheへ接続する。header観測と内容保存を分け、型・対象・候補・raw進捗を検査する。
+- 保存結果不明のkind/ID/request/responseを保持してnetworkなしで同応答を再確認する。置換/refresh/closeで遅着応答を除外し、native store closeでも自Source/content factoryを閉じる。
+- 専用13条件・actual signed HTTP/native PG3と全回帰/build/help版表示を検証する。server11/native11保持。空readで既知候補を解決しない。delta/cursor・作成/更新queue・Table/List画面と全DB/native Gateは後続。
+
 ## 0.54.0 — 2026-10-09
 
 - native11へView read replicaを追加し、Table/List設定・履歴・receipt・whole-field既知候補を原子保存する。server11と旧Record/Source/Page/pendingを保持する。

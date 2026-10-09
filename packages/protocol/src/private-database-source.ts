@@ -7,6 +7,7 @@ const positiveOrder=structuredOrderSchema.refine(value=>value!=='0','Positive so
 const version=z.number().int().min(1).max(Number.MAX_SAFE_INTEGER);
 const canonicalId=idSchema.refine(value=>value===value.toLowerCase(),'Canonical entity ID required');
 const definition=databaseSourceSchema.refine(source=>[source.id,source.workspaceId,...source.properties.flatMap(property=>[property.id,...(property.type==='select'?property.options.map(option=>option.id):[])])].every(id=>canonicalId.safeParse(id).success),'Canonical definition IDs required');
+export const privateDatabaseSourceDefinitionSchema=definition;
 const scope={protocolVersion:z.literal(1),workspaceId:canonicalId,workspaceEpoch:canonicalId,clientId:canonicalId};
 export const privateDatabaseSourceSnapshotSchema=z.strictObject({source:definition,version,creationOrder:positiveOrder}).refine(row=>row.source.schemaVersion<=row.version,'Schema version exceeds metadata version');
 export const privateDatabaseSourceCreateRequestSchema=z.strictObject({protocolVersion:z.literal(1),clientId:canonicalId,operationId:canonicalId,source:definition.refine(source=>source.schemaVersion===1,'Initial definition version required')});

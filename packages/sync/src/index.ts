@@ -23,3 +23,5 @@ export {PageChangesSyncSession,PageChangesSessionError} from './page-changes-ses
 export type {PageChangesTransport,PageChangesStore} from './page-changes-session.js';
 export {DatabaseSourceSyncSession,DatabaseSourceSessionError} from './database-source-session.js';
 export type {DatabaseSourceTransport,DatabaseSourceStore} from './database-source-session.js';
+export {DatabaseContentSyncSession,DatabaseContentSessionError} from './database-content-session.js';
+export type {DatabaseContentTransport,DatabaseContentStore} from './database-content-session.js';

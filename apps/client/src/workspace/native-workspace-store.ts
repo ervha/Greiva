@@ -24,6 +24,7 @@ function immutable<T>(value:T):T{if(value&&typeof value==='object'){Object.freez
 export class NativeWorkspaceStore implements WorkspaceSessionStore {
   readonly context:WorkspaceSyncContext;
   private closed=false;private closeWork:Promise<void>|null=null;
+  private databaseSessions=new Set<{close():void;signal:AbortSignal}>();
   private constructor(private readonly connection:PrivateWorkspaceConnection,private readonly handle:string,context:WorkspaceSyncContext,private readonly lease:AbortSignal,private readonly invokePort:NativeWorkspaceInvoke){this.context=Object.freeze({...context});lease.addEventListener('abort',this.invalidated,{once:true});}
   private invalidated=()=>{void this.close().catch(()=>{});};
   static async open(connection:PrivateWorkspaceConnection,invokePort:NativeWorkspaceInvoke=invoke):Promise<NativeWorkspaceStore>{
@@ -42,7 +43,7 @@ export class NativeWorkspaceStore implements WorkspaceSessionStore {
     if(!same(this.context,context) || !same(this.context,this.connection.context))throw new NativeWorkspaceError('protocol');
   }
   close():Promise<void>{
-    if(this.closeWork)return this.closeWork;this.closed=true;this.lease.removeEventListener('abort',this.invalidated);
+    if(this.closeWork)return this.closeWork;this.closed=true;for(const session of this.databaseSessions)session.close();this.databaseSessions.clear();this.lease.removeEventListener('abort',this.invalidated);
     const invokePort=this.invokePort;this.closeWork=Promise.resolve().then(()=>invokePort('workspace_close',{handle:this.handle})).then(()=>{},()=>{throw new NativeWorkspaceError('storage');});return this.closeWork;
   }
   private async execute(request:Record<string,unknown>):Promise<unknown>{
@@ -58,7 +59,9 @@ export class NativeWorkspaceStore implements WorkspaceSessionStore {
     const parsed=idSchema.safeParse(pageId);if(!parsed.success)throw new NativeWorkspaceError('protocol');this.check();return new NativeWorkspacePage(this,pageId);
   }
   assertActive(){this.check();}
-  databaseSources(){this.check();return this.connection.openDatabaseSources({receive:this.databaseSourceReceive.bind(this)});}
+  databaseSources(){this.check();return this.trackDatabase(this.connection.openDatabaseSources({receive:this.databaseSourceReceive.bind(this)}));}
+  private trackDatabase<T extends {close():void;signal:AbortSignal}>(session:T):T{this.check();this.databaseSessions.add(session);session.signal.addEventListener('abort',()=>this.databaseSessions.delete(session),{once:true});return session;}
+  async databaseContents(sourceId:string){this.check();const cached=await this.databaseSourceLoad(sourceId);this.check();if(!cached.snapshot)throw new NativeWorkspaceError('protocol');return this.trackDatabase(this.connection.openDatabaseContents(cached.snapshot.source,{receiveRecord:(id,request,response)=>this.databaseRecordReceive(sourceId,id,request,response),receiveView:(id,request,response)=>this.databaseViewReceive(sourceId,id,request,response)}));}
   async databaseViewReceive(sourceId:string,viewId:string,candidateRequest:unknown,candidateResponse:unknown):Promise<void>{
     this.check();let request:ReturnType<typeof privateDatabaseViewReadRequestSchema.parse>,response:ReturnType<typeof privateDatabaseViewReadResponseSchema.parse>;
     try{if(idSchema.parse(viewId)!==viewId.toLowerCase())throw Error();request=privateDatabaseViewReadRequestSchema.parse(candidateRequest);response=privateDatabaseViewReadResponseSchema.parse(candidateResponse);if(request.clientId!==this.context.clientId||response.clientId!==this.context.clientId||response.workspaceId!==this.context.workspaceId||response.workspaceEpoch!==this.context.streamEpoch||response.sourceId!==sourceId||response.snapshot.view.id!==viewId||response.conflicts.length>request.limit||response.conflicts.some(item=>request.afterConflict!==null&&item.id<=request.afterConflict!))throw Error();immutable(request);immutable(response);}catch{throw new NativeWorkspaceError('protocol');}
