@@ -29,7 +29,7 @@ export class DatabaseRecordWriteSyncSession {
  readonly context:WorkspaceSyncContext;private readonly controller=new AbortController();private busy=false;private pending:Pair|null=null;
  private readonly write:DatabaseRecordWriteTransport['write'];private readonly prepare:DatabaseRecordWriteStore['prepare'];private readonly queue:DatabaseRecordWriteStore['queue'];private readonly acknowledge:DatabaseRecordWriteStore['acknowledge'];
  constructor(context:WorkspaceSyncContext,ports:{transport:DatabaseRecordWriteTransport;store:DatabaseRecordWriteStore}){try{this.context=frozen(workspaceLocalContextSchema.parse(context));}catch{throw new DatabaseRecordWriteSessionError('protocol');}this.write=ports.transport.write.bind(ports.transport);this.prepare=ports.store.prepare.bind(ports.store);this.queue=ports.store.queue.bind(ports.store);this.acknowledge=ports.store.acknowledge.bind(ports.store);}
- get signal(){return this.controller.signal;}get retryAck(){return this.pending!==null;}
+ get signal(){return this.controller.signal;}get retryAck(){return this.pending!==null;}get retryKind(){return this.pending?.kind??null;}
  close(){this.controller.abort();this.pending=null;}
  private check(){if(this.signal.aborted)throw new DatabaseRecordWriteSessionError('closed');}
  private parse<T>(work:()=>T):T{this.check();try{return work();}catch{throw new DatabaseRecordWriteSessionError('protocol');}}

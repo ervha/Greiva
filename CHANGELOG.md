@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.64.0 — 2026-10-09
+
+- Record保存・送信の画面用runtimeへlocal opening、create/update未送信window、種類別鮮度、unknown enqueue/ACK retry、known busy/blocked/原applied-conflict-rejected結果を接続する。
+- known ACK後の一覧失敗とACK unknownを分離し、busy後に新draftを自動保存しない。閉鎖で私有状態を消し、共有storeを保持する。作成queueもSQL1行ずつ/32MiB byte windowで分割する。
+- runtime18/作成native24/actual signed HTTP-native Record9と全回帰/build/help版表示を確認。native15/server11保持。View queue、6型Table/List画面、同Record successor/新draftとnative Gateは後続。
+
 ## 0.63.0 — 2026-10-09
 
 - Record create/update/競合解決queueの元Source/base/候補・sequence・wireを照合して、captured Authの固定Record HTTPへ送るsessionを追加する。Source/Page待ちはHTTPを呼ばない。

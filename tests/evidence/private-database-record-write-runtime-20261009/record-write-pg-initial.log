@@ -1,0 +1,20 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/private-database-record-write-postgres.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 5033[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-WRITE-PG: Source/Page waits perform no Record HTTP; lost HTTP and unknown native create ACK reconcile original operation across restart[33m 853[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-WRITE-PG: original update wire survives lost HTTP/native ACK; explicit null/zero/false and exact write receipt remain durable[33m 509[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-WRITE-PG: partial merge/three-value conflict and local/remote new-operation resolution cross actual HTTP and native proof atomically[33m 793[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-WRITE-PG: stale resolution is original known rejection; server/current history retained and candidate remains unresolved[33m 544[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-WRITE-PG: replacement/Auth refresh/native close discard late committed HTTP; new captured sender reconciles exact original bytes[33m 636[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-WRITE-PG: denied device closes old generation while retaining exact queued operation for renewed bootstrap[33m 394[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-RUNTIME-PG: offline enqueue return loss stays unknown across reload; exact enqueue and original ACK retry make no extra HTTP[33m 360[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-RUNTIME-PG: known busy preserves first update, lost HTTP retains old display and restart sends exact original operation[33m 448[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-RUNTIME-PG: known ACK/list failure keeps original outcome, then Auth refresh closes late HTTP without adopting old private state[33m 493[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m9 passed[39m[22m[90m (9)[39m
+[2m   Start at [22m 07:44:38
+[2m   Duration [22m 6.41s[2m (tests 80%, import 12%, transform 9%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v64/record-write-pg-initial/vitest.json

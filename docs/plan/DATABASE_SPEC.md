@@ -1,5 +1,7 @@
 # 汎用データベース・ビュー・プロパティ 設計案 v0.1
 
+2026-10-09 / v0.64.0：[Record画面用runtime](../development/PRIVATE_DATABASE_RECORD_WRITE_RUNTIME.md)へ未送信一覧/unknown retry/known busy/blocked/原結果と鮮度を接続する。native15/server11保持。View queue・6型Table/List操作画面と本書の全受入は後続。
+
 2026-10-09 / v0.63.0：[Record実HTTP送信](../development/PRIVATE_DATABASE_RECORD_WRITE.md)でtyped原capture/wire/ACKをcaptured Authへ接続する。native15/server11保持。画面用runtime・View queue・6型Table/Listと本書の全受入は後続。
 
 2026-10-09 / v0.62.0：[Record更新・競合解決queue](../development/PRIVATE_DATABASE_RECORD_UPDATE_QUEUE.md)で確認済みbase/元候補・busy・原ACK原子確認とnative15を追加する。server11保持。View queue・Record HTTP/runtime・Table/List画面と本書の全受入は後続。
