@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.61.0：[Record作成queue](../development/PRIVATE_DATABASE_RECORD_CREATE_QUEUE.md)でnative14へ独立pending intent・Source/Page待ち・immutable wireと原create ACK/cache/historyの原子保存を追加。read/delta先行・late ACK・非補修replay・migration/SIGKILLを検証。[証拠](../../tests/evidence/private-database-record-create-queue-20261009/SUMMARY.md)。server11保持。update/View queue、Record送信runtime、Table/Listへ続行する。
+
 最新v0.60.0：[DB作成送信](../development/PRIVATE_DATABASE_SOURCE_WRITE.md)で端末queueの元wireをcaptured Authの固定create HTTPへ接続。local opening/未送信一覧、enqueue/ACK結果不明の同操作retry、catalogFreshと遅着拒否を追加。[証拠](../../tests/evidence/private-database-source-write-20261009/SUMMARY.md)。server11/native13保持。Record/View queueとTable/List画面へ続行する。
 
 最新v0.59.0：[DB作成queue](../development/PRIVATE_DATABASE_SOURCE_QUEUE.md)でnative13、独立pending定義・immutable wire/checksum・原ACKとcache/historyの原子確認を追加。read先行/late ACK・非補修replay・bounded list・移行/実SIGKILL6を検証。[証拠](../../tests/evidence/private-database-source-queue-20261009/SUMMARY.md)。server11保持。Source送信session/runtime、Record/View queue、Table/Listへ続行する。

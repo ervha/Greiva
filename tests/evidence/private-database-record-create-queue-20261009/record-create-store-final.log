@@ -1,0 +1,15 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/private-database-record-create-store.test.ts [2m([22m[2m23 tests[22m[2m)[22m[33m 5345[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-CREATE-SIGKILL-enqueue: COMMIT before/after keeps intent/wire/confirmation atomic across actual process death[33m 442[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-CREATE-SIGKILL-prepare: COMMIT before/after keeps intent/wire/confirmation atomic across actual process death[33m 425[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-CREATE-SIGKILL-ack: COMMIT before/after keeps intent/wire/confirmation atomic across actual process death[33m 453[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-CREATE: actual over8MiB UTF8 wire rejects enqueue without persisting an unsendable intent[33m 968[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m23 passed[39m[22m[90m (23)[39m
+[2m   Start at [22m 06:24:39
+[2m   Duration [22m 6.28s[2m (tests 87%, transform 8%, import 5%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v61/record-create-store-final/vitest.json

@@ -1,0 +1,70 @@
+{
+  "version": "0.61.0",
+  "totals": {
+    "source-ids-record-create-store": {
+      "total": 23,
+      "passed": 23,
+      "failed": 0,
+      "pending": 0
+    },
+    "final-record-create-store": {
+      "total": 23,
+      "passed": 23,
+      "failed": 0,
+      "pending": 0
+    },
+    "record-create-store": {
+      "total": 22,
+      "passed": 22,
+      "failed": 0,
+      "pending": 0
+    },
+    "initial-record-create-store": {
+      "total": 20,
+      "passed": 20,
+      "failed": 0,
+      "pending": 0
+    },
+    "initial-normal": {
+      "total": 813,
+      "passed": 613,
+      "failed": 1,
+      "pending": 199
+    },
+    "normal": {
+      "total": 813,
+      "passed": 614,
+      "failed": 0,
+      "pending": 199
+    },
+    "postgres": {
+      "total": 199,
+      "passed": 199,
+      "failed": 0,
+      "pending": 0
+    },
+    "workspace-ui": {
+      "startTime": "2026-10-09T06:28:58.247Z",
+      "duration": 27296.174,
+      "expected": 12,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "source": {
+    "count": 342,
+    "rawMatches": 332,
+    "textOnly": 10,
+    "excluded": [
+      "playwright.performance.config.ts",
+      "playwright.render-diagnostic.config.ts",
+      "tests/diagnostics/render-isolation.spec.ts",
+      "tests/native/windows-store-fixture.json",
+      "tests/performance/workloads.spec.ts"
+    ]
+  },
+  "realAuth": false,
+  "windowsLaunch": false,
+  "nativeIme": false
+}

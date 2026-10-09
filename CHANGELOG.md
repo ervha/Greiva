@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.61.0 — 2026-10-09
+
+- native14へRecord作成の独立queueを追加し、typed intentをconfirmed snapshotと分けて保持する。未送信Source/Pageに依存する作成は確認まで明示的に待ち、bootstrap後の未送信本文とは区別する。
+- 元wire/checksumを固定し、原create ACK・write receipt・history/currentを原子保存する。read/deltaでqueueを消さず、late ACK保護と非補修replayを検査する。
+- native23/実SIGKILL6・移行/破損/UTF8 sizeと全回帰/build/help版表示を検証する。server11保持。update/View queue・Record送信session/runtime・Table/List画面と全DB/native Gateは後続。
+
 ## 0.60.0 — 2026-10-09
 
 - DB作成queueの元wireをcaptured Authの固定create HTTPへ接続し、原reply/Scope/operation/定義を照合する。HTTP結果不明は元wire再送、端末ACK結果不明は元pairをnetworkなしで再保存する。
