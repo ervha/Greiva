@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.48.0 — 2026-10-09
+
+- Table/Listの小さいView header catalogを追加する。最大100件、現在name/layout/version、Source/device/head固定gdv1 HMAC、numeric順とfiltered raw進捗を実装する。詳細設定は単一View readへ分ける。
+- 明示server9→10で旧Viewをstable ID seedし、新規位置をView/history/ledgerと原子保存する。再送・SQL失敗・COMMIT前後SIGKILLで位置の二重消費を防ぎ、native8と既存APIを保持する。
+- 専用/全PG・通常回帰・型/build/help版表示を検証し、fixtureのschema名長とSource cursor指定の元Failを保持する。Record/View変更受信・端末DB同期・画面と全DB/native Gateは後続。
+
 ## 0.47.0 — 2026-10-09
 
 - 基本DB Viewのactual Postgres create/update/read、authoritative版履歴、immutable operation結果と三値候補/新operation解決を追加する。Source/Record/Page本文は複製しない。

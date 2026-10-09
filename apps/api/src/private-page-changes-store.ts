@@ -19,7 +19,7 @@ export class PostgresPrivatePageChangesStore implements PrivatePageChanges{
   async pull(session:VerifiedSession,workspaceId:string,body:unknown){
     const parsed=privatePageChangesRequestSchema.safeParse(body);if(!parsed.success)throw new PrivateTransactionInvalidRequest();const request=parsed.data;
     return this.transactions.run(session,workspaceId,request.clientId,[],async tx=>{
-      const version=await tx.query(`SELECT version FROM "${this.schema}".private_schema_version WHERE singleton=true`);if(![5,6,7,8,9].includes(version.rows[0]?.version))throw new PrivateTransactionUnavailable();
+      const version=await tx.query(`SELECT version FROM "${this.schema}".private_schema_version WHERE singleton=true`);if(![5,6,7,8,9,10].includes(version.rows[0]?.version))throw new PrivateTransactionUnavailable();
       const heads=await tx.query(`SELECT head_order FROM "${this.schema}".private_page_metadata_heads WHERE workspace_id=$1 FOR SHARE`,[workspaceId]);
       const head=structuredOrderSchema.parse(heads.rowCount?heads.rows[0]!.head_order:'0');
       // Missing heads are valid only for a newly bootstrapped empty workspace.

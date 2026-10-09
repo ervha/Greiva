@@ -14,6 +14,8 @@
 
 2026-10-09 / v0.47.0：[View設定保存](../development/PRIVATE_DATABASE_VIEW.md)をactual PGへ接続。明示server9/current/history/三値候補/new解決/immutable結果、bounded候補readを追加。Source/Record/Pageは複製せずnative8を保持する。View一覧/Record受信/端末DB/Table/List画面は後続。
 
+2026-10-09 / v0.48.0：[View header一覧](../development/PRIVATE_DATABASE_VIEW_CATALOG.md)を追加。max100/current name/layout/version、gdv1で固定creation範囲とraw進捗、明示server10のID seed/atomic位置。設定全体や変更受信/同期完了とは扱わず、native8を保持する。Record/View受信・端末DB/Table/List操作画面は後続。
+
 ## 1. 要求と適用範囲
 
 ユーザー指定:

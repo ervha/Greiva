@@ -1,0 +1,41 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [31m❯[39m tests/integration/private-database-view-catalog-postgres.test.ts [2m([22m[2m11 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 3209[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-CATALOG-PG: explicit nine to ten seeds ID order and preserves original snapshots/history/receipts/key[33m 330[2mms[22m[39m
+   [32m✓[39m DB-VIEW-CATALOG-PG: invalid seed/DDL collision rollback all new columns and do not repair history[32m 182[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-CATALOG-PG: 101 numeric positions paginate at100, freeze membership head and observe current labels/versions[33m 865[2mms[22m[39m
+   [32m✓[39m DB-VIEW-CATALOG-PG: deleted raw windows advance without delete ACK or consuming operations[32m 158[2mms[22m[39m
+   [32m✓[39m DB-VIEW-CATALOG-PG: lookahead header/head corruption fails closed and catalog never repairs a missing head[32m 160[2mms[22m[39m
+   [32m✓[39m DB-VIEW-CATALOG-PG: new empty Source has no read-side head and failed ledger rolls back head/current/history[32m 146[2mms[22m[39m
+   [32m✓[39m DB-VIEW-CATALOG-PG: concurrent creates/exact replay reserve one creation position per new View[32m 156[2mms[22m[39m
+   [32m✓[39m DB-VIEW-CATALOG-PG: owner/device/Source/cursor scope deny and lock-wait expiry cannot return success[32m 226[2mms[22m[39m
+[31m   [31m×[31m DB-VIEW-CATALOG-PG: signed actual schema10 runtime catalog/write/read retains Source and Record headers[39m[33m 352[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-CATALOG-SIGKILL-before-commit: View/head/history/ledger recover together without double position[33m 311[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-CATALOG-SIGKILL-after-commit: View/head/history/ledger recover together without double position[33m 319[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-view-catalog-postgres.test.ts[2m > [22mDB-VIEW-CATALOG-PG: signed actual schema10 runtime catalog/write/read retains Source and Record headers
+[31m[1mAssertionError[22m: expected 400 to be 200 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 200[39m
+[31m+ 400[39m
+
+[36m [2m❯[22m tests/integration/private-database-view-catalog-postgres.test.ts:[2m42:1831[22m[39m
+
+[90m [2m❯[22m isolated tests/integration/private-database-view-catalog-postgres.test.ts:[2m30:783[22m[39m
+[90m [2m❯[22m tests/integration/private-database-view-catalog-postgres.test.ts:[2m42:122[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m10 passed[39m[22m[90m (11)[39m
+[2m   Start at [22m 02:17:15
+[2m   Duration [22m 4.01s[2m (tests 82%, transform 10%, import 9%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v48/view-catalog-pg/vitest.json

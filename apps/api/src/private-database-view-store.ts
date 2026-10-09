@@ -1,3 +1,4 @@
+import {structuredOrderSchema} from '@greiva/protocol/workspace';
 import type pg from 'pg';
 import {isDeepStrictEqual} from 'node:util';
 import {idSchema,newId} from '@greiva/shared';
@@ -36,7 +37,14 @@ export class PostgresPrivateDatabaseViewStore implements PrivateDatabaseViews{
    if(intent.kind==='create'){
     const existing=await tx.query(`SELECT id FROM "${this.schema}".private_database_views WHERE workspace_id=$1 AND id=$2`,[workspaceId,intent.viewId]);if(existing.rowCount)throw new PrivateDatabaseViewInvalidRequest('view_id_reused');
     current=parseDatabaseViewSnapshot(source,{view:{id:intent.viewId,sourceId,...intent.settings},version:1});
-    const inserted=await tx.query(`INSERT INTO "${this.schema}".private_database_views(id,workspace_id,source_id,version,snapshot) VALUES($1,$2,$3,1,$4) ON CONFLICT(id) DO NOTHING RETURNING id`,[intent.viewId,workspaceId,sourceId,JSON.stringify(current)]);if(inserted.rowCount!==1)throw new PrivateWorkspaceAccessDenied();
+    let creationOrder:string|null=null;
+    const gate=await tx.query(`SELECT version FROM "${this.schema}".private_schema_version WHERE singleton=true`);
+    if(gate.rows[0]!.version>=10){
+     await tx.query(`INSERT INTO "${this.schema}".private_database_view_heads VALUES($1,$2,0) ON CONFLICT(source_id) DO NOTHING`,[sourceId,workspaceId]);
+     const head=await tx.query(`SELECT workspace_id,head_order::text FROM "${this.schema}".private_database_view_heads WHERE source_id=$1 FOR UPDATE`,[sourceId]),maximum=await tx.query(`SELECT COALESCE(max(creation_order),0)::text AS head FROM "${this.schema}".private_database_views WHERE workspace_id=$1 AND source_id=$2`,[workspaceId,sourceId]);if(head.rowCount!==1||head.rows[0]!.workspace_id!==workspaceId||head.rows[0]!.head_order!==maximum.rows[0]!.head)throw new PrivateTransactionUnavailable();
+     const next=await tx.query(`UPDATE "${this.schema}".private_database_view_heads SET head_order=head_order+1 WHERE source_id=$1 AND head_order<9223372036854775807 RETURNING head_order::text`,[sourceId]);if(next.rowCount!==1)throw new PrivateTransactionUnavailable();creationOrder=structuredOrderSchema.parse(next.rows[0]!.head_order);
+    }
+    const inserted=await tx.query(`INSERT INTO "${this.schema}".private_database_views(id,workspace_id,source_id,version,snapshot${creationOrder?',creation_order':''}) VALUES($1,$2,$3,1,$4${creationOrder?',$5':''}) ON CONFLICT(id) DO NOTHING RETURNING id`,[intent.viewId,workspaceId,sourceId,JSON.stringify(current),...(creationOrder?[creationOrder]:[])]);if(inserted.rowCount!==1)throw new PrivateWorkspaceAccessDenied();
     await this.history(tx,current);
    }else{
     current=await this.current(tx,source,intent.viewId);
@@ -80,7 +88,7 @@ export class PostgresPrivateDatabaseViewStore implements PrivateDatabaseViews{
  }
  private scope(tx:PrivateTransaction,source:DatabaseSource){return{protocolVersion:1 as const,workspaceId:tx.context.workspaceId,workspaceEpoch:tx.context.epoch,clientId:tx.context.clientId,sourceId:source.id,schemaVersion:source.schemaVersion};}
  private async source(tx:PrivateTransaction,id:string,write:boolean){
-  const gate=await tx.query(`SELECT version FROM "${this.schema}".private_schema_version WHERE singleton=true`);if(gate.rowCount!==1||gate.rows[0]!.version!==9)throw new PrivateTransactionUnavailable();
+  const gate=await tx.query(`SELECT version FROM "${this.schema}".private_schema_version WHERE singleton=true`);if(gate.rowCount!==1||![9,10].includes(gate.rows[0]!.version))throw new PrivateTransactionUnavailable();
   const rows=await tx.query(`SELECT id,workspace_id,definition,version::text,creation_order::text,deleted FROM "${this.schema}".private_database_sources WHERE workspace_id=$1 AND id=$2 FOR ${write?'UPDATE':'SHARE'}`,[tx.context.workspaceId,id]);if(rows.rowCount!==1||rows.rows[0]!.deleted)throw new PrivateWorkspaceAccessDenied();
   const row=rows.rows[0]!,parsed=privateDatabaseSourceSnapshotSchema.safeParse({source:row.definition,version:Number(row.version),creationOrder:row.creation_order});if(!parsed.success||parsed.data.source.id!==id||parsed.data.source.workspaceId!==tx.context.workspaceId)throw new PrivateTransactionUnavailable();return parsed.data.source;
  }

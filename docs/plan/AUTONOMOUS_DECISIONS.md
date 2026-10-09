@@ -67,7 +67,9 @@
 
 | v0.47.0 View保存/競合 | [View storage](../decisions/private-database-view.md) | 16 | actual writer/history/immutable receipt、三値/new解決、候補ledger照合、明示9/SIGKILL |
 
-合計683件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
+| v0.48.0 View header一覧 | [View catalog](../decisions/private-database-view-catalog.md) | 16 | max100/gdv1/範囲固定、明示10/ID seed/atomic位置、filtered raw進捗/SIGKILL |
+
+合計699件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
 
 共通：同じcodex/poc-editor、確認後の版/tag/push、外部依存を監査、元Page/DBを保持。Computer UseはWindows診断後に解除し、今回の基盤開発では使わない。cloud/project/配布・課金・新global toolchainを作成せず、端末保持/旧DB帰属/保持期限を未決定のまま創作しない。初期OFFの改善送信は設計で、実際の収集は始めていない。
 

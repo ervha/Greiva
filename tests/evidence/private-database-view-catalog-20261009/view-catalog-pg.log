@@ -1,0 +1,15 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/private-database-view-catalog-postgres.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 3128[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-CATALOG-PG: 101 numeric positions paginate at100, freeze membership head and observe current labels/versions[33m 924[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-CATALOG-PG: signed actual schema10 runtime catalog/write/read retains Source and Record headers[33m 317[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-CATALOG-SIGKILL-before-commit: View/head/history/ledger recover together without double position[33m 307[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-CATALOG-SIGKILL-after-commit: View/head/history/ledger recover together without double position[33m 312[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m11 passed[39m[22m[90m (11)[39m
+[2m   Start at [22m 02:18:05
+[2m   Duration [22m 3.91s[2m (tests 82%, transform 10%, import 9%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v48/view-catalog-pg/vitest.json
