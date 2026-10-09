@@ -1,0 +1,186 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [31m❯[39m tests/integration/private-database-record-update-store.test.ts [2m([22m[2m34 tests[22m[2m | [22m[31m1 failed[39m[2m | [22m[33m33 skipped[39m[2m)[22m[32m 196[2mms[22m[39m
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE: original base and intent survive restart, known busy never overwrites, ACK preserves original write receipt without Page body
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE read-first: observations do not consume queue; original ACK never rewinds new projection
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE late-ack: observations do not consume queue; original ACK never rewinds new projection
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE: conflict ACK retains typed base/local/remote plus partial merge and permits later original-candidate resolution
+   [2m[90m↓[39m[22m DB-RECORD-RESOLUTION local: original candidate/new operation/ACK and resolved proof commit together, including no-change remote choice
+   [2m[90m↓[39m[22m DB-RECORD-RESOLUTION remote: original candidate/new operation/ACK and resolved proof commit together, including no-change remote choice
+   [2m[90m↓[39m[22m DB-RECORD-REJECTED base_unknown: original rejection is known ACK, values and candidate remain untouched
+   [2m[90m↓[39m[22m DB-RECORD-REJECTED resolution_invalid: original rejection is known ACK, values and candidate remain untouched
+   [2m[90m↓[39m[22m DB-RECORD-REJECTED resolution_stale: original rejection is known ACK, values and candidate remain untouched
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE: raw/portable malformed Source/type/Name/scope/canonical IDs reject without persistence; unknown baseline/binding/schema is not invented
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE: reject stale/unknown/resolved or mismatched resolution intent, retain original choice after later remote arrival
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE: original wire/ACK scope and meaningful field checks; trigger failure rolls ACK/history/candidate resolution back
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE base corruption: fail closed; exact replay does not repair missing proof
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE candidate corruption: fail closed; exact replay does not repair missing proof
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE index corruption: fail closed; exact replay does not repair missing proof
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE wire corruption: fail closed; exact replay does not repair missing proof
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE hash corruption: fail closed; exact replay does not repair missing proof
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE ack corruption: fail closed; exact replay does not repair missing proof
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE history corruption: fail closed; exact replay does not repair missing proof
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE projection corruption: fail closed; exact replay does not repair missing proof
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE lookahead corruption: fail closed; exact replay does not repair missing proof
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE: high sequence/pendingOnly and original key format survive metadata change, strict IPC refuses ambiguous filters
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE: actual oversized UTF8 wire rejects before enqueue; missing/null/false/zero stay distinct
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE: concurrent exact enqueue/ACK is idempotent; Auth refresh invalidates mutation methods and reopen retains confirmation
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE-SIGKILL-enqueue: before/after COMMIT keeps original intent/wire/resolution atomic across process death
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE-SIGKILL-prepare: before/after COMMIT keeps original intent/wire/resolution atomic across process death
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE-SIGKILL-ack: before/after COMMIT keeps original intent/wire/resolution atomic across process death
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE: operation IDs cannot cross create/update ledger; own unresolved create ACK stays separate from confirmed remote Record
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE: schema14 migration preserves create/Source queues, delta cursor, Page binary and Task pending; foreign/partial DDL rollback
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE: actual large confirmed baselines paginate by byte budget without hiding pending count or losing keyset progress
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE delta-first ordinary: observation and original ACK stay distinct, first proof and cursor retained
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE delta-first resolution: observation and original ACK stay distinct, first proof and cursor retained
+   [2m[90m↓[39m[22m DB-RECORD-UPDATE: unchanged local preserves a newer remote field, explicit null from absence requires presence in ACK
+[31m   [31m×[31m ACK-CHOICE-GUARD Record: applied remote choice and conflict remote must match original ACK before consuming queue[39m[32m 195[2mms[22m[39m
+ [31m❯[39m tests/integration/private-database-view-queue-store.test.ts [2m([22m[2m30 tests[22m[2m | [22m[31m1 failed[39m[2m | [22m[33m29 skipped[39m[2m)[22m[32m 190[2mms[22m[39m
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE: offline create is separate from confirmed projection; original wire, all settings and ACK survive restart/replay
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE: pending Source blocks create without fake wire or View; confirmed Source unlocks exact intent
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE: actual original base survives newer observation; same View busy does not overwrite either intent
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE local resolution: known triad/base captured, applied choice consumes candidate in same transaction, remote no-change allowed
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE remote resolution: known triad/base captured, applied choice consumes candidate in same transaction, remote no-change allowed
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE: partial merge conflict preserves original triad, rejected resolution never consumes it; later explicit fresh choice uses new operation
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE: malformed ACK scope/settings/triad/applied-version rejects without consuming pending or receipts
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE intent corruption: exact replay/list fails without repair
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE base corruption: exact replay/list fails without repair
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE candidate corruption: exact replay/list fails without repair
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE wire corruption: exact replay/list fails without repair
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE index corruption: exact replay/list fails without repair
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE history corruption: exact replay/list fails without repair
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE projection corruption: exact replay/list fails without repair
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE receipt corruption: exact replay/list fails without repair
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE: resolution projection failure rolls back original ACK, history, receipt and resolvedBy together
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE: pending-only/keyset/exact i64 sequence and corrupt lookahead are bounded and never report fake empty
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE: create/update ID reuse, unknown baseline, invalid whole-field/filter refs and unobserved candidates never persist
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE-SIGKILL-enqueue: before/after COMMIT retains original resolution, wire, ACK and choice atomically
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE-SIGKILL-prepare: before/after COMMIT retains original resolution, wire, ACK and choice atomically
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE-SIGKILL-ack: before/after COMMIT retains original resolution, wire, ACK and choice atomically
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE: bound schema15 migration keeps Source/Record queues, read replicas and Page/Task pending; foreign/partial DDL rolls back
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE delta-first ordinary: observation never consumes queue, late ACK preserves first history/cursor/resolution proof
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE delta-first resolution: observation never consumes queue, late ACK preserves first history/cursor/resolution proof
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE: read-first create and newer projection keep own pending; late original ACK never regresses latest View
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE: original formatted wire and semantic filter key order survive; changed wire digest is rejected
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE: actual large base and ACK filters split byte windows with validated lookahead and global pending
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE: oversized valid filter wire is rejected before durable insert, exact i64 sequence beyond JS safe integer stays intact
+   [2m[90m↓[39m[22m DB-VIEW-QUEUE: Auth replacement closes old captured methods; reopened native queue retains exact pending operation
+[31m   [31m×[31m ACK-CHOICE-GUARD View: applied remote choice cannot confirm a different original reply value[39m[32m 189[2mms[22m[39m
+ [31m❯[39m tests/unit/database-view-write-session.test.ts [2m([22m[2m28 tests[22m[2m | [22m[31m1 failed[39m[2m | [22m[33m26 skipped[39m[2m)[22m[32m 47[2mms[22m[39m
+   [2m[90m↓[39m[22m DB-VIEW-WRITE create: original bytes/capture/context and ports bind immutably
+   [2m[90m↓[39m[22m DB-VIEW-WRITE update: original bytes/capture/context and ports bind immutably
+   [2m[90m↓[39m[22m DB-VIEW-WRITE: empty and Source blocked invoke no capture/HTTP/ACK
+   [2m[90m↓[39m[22m DB-VIEW-WRITE: malformed wire/sequence/client/original capture rejects before HTTP
+   [2m[90m↓[39m[22m DB-VIEW-WRITE create: invalid reply never invents retryable local ACK
+   [2m[90m↓[39m[22m DB-VIEW-WRITE update: invalid reply never invents retryable local ACK
+   [2m[90m↓[39m[22m DB-VIEW-WRITE create: HTTP unknown rechecks durable same wire; local ACK unknown retries exact immutable pair without HTTP/capture
+   [2m[90m↓[39m[22m DB-VIEW-WRITE update: HTTP unknown rechecks durable same wire; local ACK unknown retries exact immutable pair without HTTP/capture
+   [2m[90m↓[39m[22m DB-VIEW-WRITE prepare close/busy: late work cannot retain old private pair or ACK elsewhere
+   [2m[90m↓[39m[22m DB-VIEW-WRITE capture close/busy: late work cannot retain old private pair or ACK elsewhere
+   [2m[90m↓[39m[22m DB-VIEW-WRITE http close/busy: late work cannot retain old private pair or ACK elsewhere
+   [2m[90m↓[39m[22m DB-VIEW-WRITE ack close/busy: late work cannot retain old private pair or ACK elsewhere
+   [2m[90m↓[39m[22m DB-VIEW-WRITE: conflict remote/base/local and unique field match original reply/capture; rejected remains original result
+   [2m[90m↓[39m[22m DB-VIEW-WRITE: unchanged local patch keeps remote, whole filter object key order is semantic, arrays retain order
+   [2m[90m↓[39m[22m DB-VIEW-RUNTIME: local opening/enqueue/reload are networkless; queueFresh/window/global count do not claim synced
+   [2m[90m↓[39m[22m DB-VIEW-RUNTIME: opening read failure closes own session and never adopts fake empty or shared-store close
+   [2m[90m↓[39m[22m DB-VIEW-RUNTIME: unknown enqueue retained across reload and caller mutation; exact networkless retry blocks new save/send
+   [2m[90m↓[39m[22m DB-VIEW-RUNTIME: enqueue known queued then list failure keeps original retry; known busy plus list failure never autosaves unsaved attempt
+   [2m[90m↓[39m[22m DB-VIEW-RUNTIME: empty/Source blocked/original applied stay distinct and local ACK unknown retries after pending0 without HTTP
+   [2m[90m↓[39m[22m DB-VIEW-RUNTIME: known ACK then list read failure preserves original outcome without invented ACK retry
+   [2m[90m↓[39m[22m DB-VIEW-RUNTIME: failed reload leaves prior data stale, bounded more uses keyset and no-more performs no I/O
+   [2m[90m↓[39m[22m DB-VIEW-RUNTIME enqueue close and observer failures: busy guarded, late data/private retry removed, shared store retained
+   [2m[90m↓[39m[22m DB-VIEW-RUNTIME load close and observer failures: busy guarded, late data/private retry removed, shared store retained
+   [2m[90m↓[39m[22m DB-VIEW-RUNTIME http close and observer failures: busy guarded, late data/private retry removed, shared store retained
+   [2m[90m↓[39m[22m DB-VIEW-RUNTIME ack close and observer failures: busy guarded, late data/private retry removed, shared store retained
+   [2m[90m↓[39m[22m DB-VIEW-RUNTIME: lease abort closes old private state and never renews captured Auth
+   [32m✓[39m DB-VIEW-WRITE filter local resolution: original whole-field candidate/key semantics and remote no-change ACK stay valid[32m 29[2mms[22m[39m
+[31m   [31m×[31m DB-VIEW-WRITE filter remote resolution: original whole-field candidate/key semantics and remote no-change ACK stay valid[39m[32m 16[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 3 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-record-update-store.test.ts[2m > [22mACK-CHOICE-GUARD Record: applied remote choice and conflict remote must match original ACK before consuming queue
+[31m[1mAssertionError[22m: promise resolved "null" instead of rejecting[39m
+
+[32m- Expected:[39m
+Error {
+  "message": "rejected promise",
+}
+
+[31m+ Received:[39m
+null
+
+[36m [2m❯[22m tests/integration/private-database-record-update-store.test.ts:[2m49:494[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/3]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-view-queue-store.test.ts[2m > [22mACK-CHOICE-GUARD View: applied remote choice cannot confirm a different original reply value
+[31m[1mAssertionError[22m: promise resolved "null" instead of rejecting[39m
+
+[32m- Expected:[39m
+Error {
+  "message": "rejected promise",
+}
+
+[31m+ Received:[39m
+null
+
+[36m [2m❯[22m tests/integration/private-database-view-queue-store.test.ts:[2m37:427[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/3]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/unit/database-view-write-session.test.ts[2m > [22mDB-VIEW-WRITE filter remote resolution: original whole-field candidate/key semantics and remote no-change ACK stay valid
+[31m[1mAssertionError[22m: promise resolved "{ protocolVersion: 1, …(8) }" instead of rejecting[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- Error {[39m
+[32m-   "message": "rejected promise",[39m
+[31m+ {[39m
+[31m+   "clientId": "01a11fd0-8e1e-7792-895e-a020af503821",[39m
+[31m+   "operationId": "01a11fd0-8e1e-7792-895e-be348b05ec22",[39m
+[31m+   "protocolVersion": 1,[39m
+[31m+   "result": {[39m
+[31m+     "status": "applied",[39m
+[31m+   },[39m
+[31m+   "schemaVersion": 1,[39m
+[31m+   "snapshot": {[39m
+[31m+     "version": 3,[39m
+[31m+     "view": {[39m
+[31m+       "filter": {[39m
+[31m+         "kind": "predicate",[39m
+[31m+         "operator": "gte",[39m
+[31m+         "propertyId": "01a11fd0-8e1e-7792-895e-b395129201ba",[39m
+[31m+         "value": 30,[39m
+[31m+       },[39m
+[31m+       "id": "01a11fd0-8e1e-7792-895e-b9bf3e013e04",[39m
+[31m+       "layout": "table",[39m
+[31m+       "name": "base",[39m
+[31m+       "sorts": [],[39m
+[31m+       "sourceId": "01a11fd0-8e1e-7792-895e-b44545b76012",[39m
+[31m+       "visiblePropertyIds": [[39m
+[31m+         "01a11fd0-8e1e-7792-895e-aaba47e6d73c",[39m
+[31m+         "01a11fd0-8e1e-7792-895e-aeeb23700c63",[39m
+[31m+       ],[39m
+[31m+     },[39m
+[31m+   },[39m
+[31m+   "sourceId": "01a11fd0-8e1e-7792-895e-b44545b76012",[39m
+[31m+   "workspaceEpoch": "01a11fd0-8e1e-7792-895e-a7bc353106e0",[39m
+[31m+   "workspaceId": "01a11fd0-8e1e-7792-895e-9c7247c01262",[39m
+[2m  }[22m
+
+[36m [2m❯[22m tests/unit/database-view-write-session.test.ts:[2m28:1496[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/3]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m3 failed[39m[22m[90m (3)[39m
+[2m      Tests [22m [1m[31m3 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[2m | [22m[33m88 skipped[39m[90m (92)[39m
+[2m   Start at [22m 08:38:42
+[2m   Duration [22m 1.63s[2m (transform 34%, import 33%, tests 32%, worker 1%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v66/choice-guards-before/vitest.json

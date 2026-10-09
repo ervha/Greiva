@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.66.0：[View実HTTP/runtime](../development/PRIVATE_DATABASE_VIEW_WRITE.md)で元queue capture/wireをcaptured Authの固定write HTTPへ接続。HTTP unknownの同操作再送、ACK unknownの元pair/networkless retryとlocal opening/queueFresh/busy/原結果/閉鎖を検証。[証拠](../../tests/evidence/private-database-view-write-20261009/SUMMARY.md)。native16/server11保持。6型Table/List操作画面へ続行する。
+
 最新v0.65.0：[View端末queue](../development/PRIVATE_DATABASE_VIEW_QUEUE.md)で作成・更新・既知候補解決の元capture/immutable wire/原ACK-cache-history-解決proofを接続。native16/server11。read/delta先行・遅着・byte window・移行/SIGKILLを確認し、元fixture Failを別保存。[証拠](../../tests/evidence/private-database-view-queue-20261009/SUMMARY.md)。View実HTTP/runtimeと6型Table/Listへ続行する。
 
 最新v0.64.0：[Record画面用runtime](../development/PRIVATE_DATABASE_RECORD_WRITE_RUNTIME.md)でlocal opening/未送信一覧、種類別queueFresh、unknown enqueue/ACKの同操作retry、known busy/blocked/原結果と閉鎖を接続。作成queueもbyte windowで分割する。[証拠](../../tests/evidence/private-database-record-write-runtime-20261009/SUMMARY.md)。native15/server11保持。View queueと6型Table/Listへ続行する。

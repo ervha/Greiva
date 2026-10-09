@@ -1,0 +1,88 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [31m❯[39m tests/unit/database-view-write-session.test.ts [2m([22m[2m28 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 239[2mms[22m[39m
+   [32m✓[39m DB-VIEW-WRITE create: original bytes/capture/context and ports bind immutably[32m 24[2mms[22m[39m
+   [32m✓[39m DB-VIEW-WRITE update: original bytes/capture/context and ports bind immutably[32m 5[2mms[22m[39m
+   [32m✓[39m DB-VIEW-WRITE: empty and Source blocked invoke no capture/HTTP/ACK[32m 2[2mms[22m[39m
+   [32m✓[39m DB-VIEW-WRITE: malformed wire/sequence/client/original capture rejects before HTTP[32m 9[2mms[22m[39m
+   [32m✓[39m DB-VIEW-WRITE create: invalid reply never invents retryable local ACK[32m 8[2mms[22m[39m
+   [32m✓[39m DB-VIEW-WRITE update: invalid reply never invents retryable local ACK[32m 8[2mms[22m[39m
+   [32m✓[39m DB-VIEW-WRITE create: HTTP unknown rechecks durable same wire; local ACK unknown retries exact immutable pair without HTTP/capture[32m 5[2mms[22m[39m
+   [32m✓[39m DB-VIEW-WRITE update: HTTP unknown rechecks durable same wire; local ACK unknown retries exact immutable pair without HTTP/capture[32m 5[2mms[22m[39m
+   [32m✓[39m DB-VIEW-WRITE prepare close/busy: late work cannot retain old private pair or ACK elsewhere[32m 2[2mms[22m[39m
+   [32m✓[39m DB-VIEW-WRITE capture close/busy: late work cannot retain old private pair or ACK elsewhere[32m 1[2mms[22m[39m
+   [32m✓[39m DB-VIEW-WRITE http close/busy: late work cannot retain old private pair or ACK elsewhere[32m 54[2mms[22m[39m
+   [32m✓[39m DB-VIEW-WRITE ack close/busy: late work cannot retain old private pair or ACK elsewhere[32m 53[2mms[22m[39m
+   [32m✓[39m DB-VIEW-WRITE: conflict remote/base/local and unique field match original reply/capture; rejected remains original result[32m 11[2mms[22m[39m
+   [32m✓[39m DB-VIEW-WRITE: unchanged local patch keeps remote, whole filter object key order is semantic, arrays retain order[32m 3[2mms[22m[39m
+   [32m✓[39m DB-VIEW-RUNTIME: local opening/enqueue/reload are networkless; queueFresh/window/global count do not claim synced[32m 3[2mms[22m[39m
+   [32m✓[39m DB-VIEW-RUNTIME: opening read failure closes own session and never adopts fake empty or shared-store close[32m 1[2mms[22m[39m
+   [32m✓[39m DB-VIEW-RUNTIME: unknown enqueue retained across reload and caller mutation; exact networkless retry blocks new save/send[32m 2[2mms[22m[39m
+   [32m✓[39m DB-VIEW-RUNTIME: enqueue known queued then list failure keeps original retry; known busy plus list failure never autosaves unsaved attempt[32m 2[2mms[22m[39m
+   [32m✓[39m DB-VIEW-RUNTIME: empty/Source blocked/original applied stay distinct and local ACK unknown retries after pending0 without HTTP[32m 3[2mms[22m[39m
+   [32m✓[39m DB-VIEW-RUNTIME: known ACK then list read failure preserves original outcome without invented ACK retry[32m 2[2mms[22m[39m
+   [32m✓[39m DB-VIEW-RUNTIME: failed reload leaves prior data stale, bounded more uses keyset and no-more performs no I/O[32m 5[2mms[22m[39m
+   [32m✓[39m DB-VIEW-RUNTIME enqueue close and observer failures: busy guarded, late data/private retry removed, shared store retained[32m 2[2mms[22m[39m
+   [32m✓[39m DB-VIEW-RUNTIME load close and observer failures: busy guarded, late data/private retry removed, shared store retained[32m 1[2mms[22m[39m
+   [32m✓[39m DB-VIEW-RUNTIME http close and observer failures: busy guarded, late data/private retry removed, shared store retained[32m 4[2mms[22m[39m
+   [32m✓[39m DB-VIEW-RUNTIME ack close and observer failures: busy guarded, late data/private retry removed, shared store retained[32m 3[2mms[22m[39m
+   [32m✓[39m DB-VIEW-RUNTIME: lease abort closes old private state and never renews captured Auth[32m 1[2mms[22m[39m
+   [32m✓[39m DB-VIEW-WRITE filter local resolution: original whole-field candidate/key semantics and remote no-change ACK stay valid[32m 5[2mms[22m[39m
+[31m   [31m×[31m DB-VIEW-WRITE filter remote resolution: original whole-field candidate/key semantics and remote no-change ACK stay valid[39m[32m 13[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/unit/database-view-write-session.test.ts[2m > [22mDB-VIEW-WRITE filter remote resolution: original whole-field candidate/key semantics and remote no-change ACK stay valid
+[31m[1mAssertionError[22m: promise resolved "{ protocolVersion: 1, …(8) }" instead of rejecting[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- Error {[39m
+[32m-   "message": "rejected promise",[39m
+[31m+ {[39m
+[31m+   "clientId": "01a11fca-ba4d-730e-9399-7a4383a07563",[39m
+[31m+   "operationId": "01a11fca-ba4d-730e-9399-97db8eca3e06",[39m
+[31m+   "protocolVersion": 1,[39m
+[31m+   "result": {[39m
+[31m+     "status": "applied",[39m
+[31m+   },[39m
+[31m+   "schemaVersion": 1,[39m
+[31m+   "snapshot": {[39m
+[31m+     "version": 2,[39m
+[31m+     "view": {[39m
+[31m+       "filter": {[39m
+[31m+         "kind": "predicate",[39m
+[31m+         "operator": "gte",[39m
+[31m+         "propertyId": "01a11fca-ba4d-730e-9399-8b2954a42cbd",[39m
+[31m+         "value": 0,[39m
+[31m+       },[39m
+[31m+       "id": "01a11fca-ba4d-730e-9399-92ade9ba5b5c",[39m
+[31m+       "layout": "table",[39m
+[31m+       "name": "local",[39m
+[31m+       "sorts": [],[39m
+[31m+       "sourceId": "01a11fca-ba4d-730e-9399-8d93995a2dce",[39m
+[31m+       "visiblePropertyIds": [[39m
+[31m+         "01a11fca-ba4d-730e-9399-839f1e82ad05",[39m
+[31m+         "01a11fca-ba4d-730e-9399-865208d4c764",[39m
+[31m+       ],[39m
+[31m+     },[39m
+[31m+   },[39m
+[31m+   "sourceId": "01a11fca-ba4d-730e-9399-8d93995a2dce",[39m
+[31m+   "workspaceEpoch": "01a11fca-ba4d-730e-9399-7cecac6976f7",[39m
+[31m+   "workspaceId": "01a11fca-ba4d-730e-9399-744d512ed87a",[39m
+[2m  }[22m
+
+[36m [2m❯[22m tests/unit/database-view-write-session.test.ts:[2m28:1508[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m27 passed[39m[22m[90m (28)[39m
+[2m   Start at [22m 08:32:21
+[2m   Duration [22m 914ms[2m (transform 50%, tests 30%, import 20%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v66/focused/vitest.json

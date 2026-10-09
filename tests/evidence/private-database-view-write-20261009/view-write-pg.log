@@ -1,0 +1,20 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/private-database-view-write-postgres.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 4438[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-WRITE-PG: Source wait invokes no View HTTP; original create survives lost HTTP/native ACK and restart without Page dependency[33m 606[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-WRITE-PG: all five settings original update survives lost HTTP/native ACK with exact arrays/filter/null and write proof[33m 513[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-WRITE-PG: partial merge/name conflict and local/remote explicit choices cross actual HTTP and native atomic proof[33m 764[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-WRITE-PG: stale choice remains original rejection, newer remote settings survive and candidate stays unresolved[33m 517[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-WRITE-PG: replacement/Auth refresh/native close discard late committed reply; renewed sender reconciles durable original wire[33m 513[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-WRITE-PG: revoked device closes generation with durable pending and renewal can send same operation[33m 371[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-RUNTIME-PG: unknown enqueue persists through local reload; exact retry and unknown ACK retry require no extra HTTP[33m 339[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-RUNTIME-PG: known busy keeps first update, HTTP loss/restart keeps exact body, known ACK/list failure keeps original result[33m 435[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-RUNTIME-PG: Auth refresh closes private runtime during committed HTTP and reopening retrieves exact pending without old state[33m 376[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m9 passed[39m[22m[90m (9)[39m
+[2m   Start at [22m 08:31:09
+[2m   Duration [22m 5.54s[2m (tests 81%, transform 11%, import 7%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v66/view-write-pg/vitest.json

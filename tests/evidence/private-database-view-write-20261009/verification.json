@@ -1,0 +1,100 @@
+{
+  "version": "0.66.0",
+  "totals": {
+    "before-choice-guards-normal": {
+      "total": 957,
+      "passed": 740,
+      "failed": 0,
+      "pending": 217
+    },
+    "before-choice-guards-postgres": {
+      "total": 217,
+      "passed": 217,
+      "failed": 0,
+      "pending": 0
+    },
+    "choice-guards-before": {
+      "total": 92,
+      "passed": 1,
+      "failed": 3,
+      "pending": 88
+    },
+    "choice-guards-after": {
+      "total": 110,
+      "passed": 5,
+      "failed": 0,
+      "pending": 105
+    },
+    "after-choice-guards-focused": {
+      "total": 46,
+      "passed": 46,
+      "failed": 0,
+      "pending": 0
+    },
+    "initial-view-write-pg": {
+      "total": 9,
+      "passed": 8,
+      "failed": 1,
+      "pending": 0
+    },
+    "view-write-pg": {
+      "total": 9,
+      "passed": 9,
+      "failed": 0,
+      "pending": 0
+    },
+    "normal": {
+      "total": 960,
+      "passed": 743,
+      "failed": 0,
+      "pending": 217
+    },
+    "postgres": {
+      "total": 217,
+      "passed": 217,
+      "failed": 0,
+      "pending": 0
+    },
+    "workspace-ui": {
+      "startTime": "2026-10-09T08:48:25.475Z",
+      "duration": 24823.588,
+      "expected": 12,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "initial-focused": {
+      "total": 26,
+      "passed": 26,
+      "failed": 0,
+      "pending": 0
+    },
+    "focused": {
+      "total": 28,
+      "passed": 27,
+      "failed": 1,
+      "pending": 0
+    },
+    "focused-final": {
+      "total": 28,
+      "passed": 28,
+      "failed": 0,
+      "pending": 0
+    }
+  },
+  "source": {
+    "count": 355,
+    "rawMatches": 345,
+    "textOnly": 10,
+    "excluded": [
+      "playwright.performance.config.ts",
+      "playwright.render-diagnostic.config.ts",
+      "tests/diagnostics/render-isolation.spec.ts",
+      "tests/native/windows-store-fixture.json",
+      "tests/performance/workloads.spec.ts"
+    ]
+  },
+  "realAuth": false,
+  "windowsLaunch": false,
+  "nativeIme": false
+}

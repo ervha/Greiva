@@ -32,3 +32,6 @@ export type {DatabaseSourceWriteTransport,DatabaseSourceWriteStore} from './data
 
 export {DatabaseRecordWriteSyncSession,DatabaseRecordWriteSessionError} from './database-record-write-session.js';
 export type {DatabaseRecordWriteKind,DatabaseRecordWriteTransport,DatabaseRecordWriteStore} from './database-record-write-session.js';
+
+export {DatabaseViewWriteSyncSession,DatabaseViewWriteSessionError} from './database-view-write-session.js';
+export type {DatabaseViewWriteTransport,DatabaseViewWriteStore} from './database-view-write-session.js';

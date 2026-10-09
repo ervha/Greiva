@@ -1,0 +1,33 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [31m❯[39m tests/integration/private-database-view-write-postgres.test.ts [2m([22m[2m9 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 4599[2mms[22m[39m
+[31m   [31m×[31m DB-VIEW-WRITE-PG: Source wait invokes no View HTTP; original create survives lost HTTP/native ACK and restart without Page dependency[39m[33m 731[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-WRITE-PG: all five settings original update survives lost HTTP/native ACK with exact arrays/filter/null and write proof[33m 548[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-WRITE-PG: partial merge/name conflict and local/remote explicit choices cross actual HTTP and native atomic proof[33m 777[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-WRITE-PG: stale choice remains original rejection, newer remote settings survive and candidate stays unresolved[33m 509[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-WRITE-PG: replacement/Auth refresh/native close discard late committed reply; renewed sender reconciles durable original wire[33m 552[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-WRITE-PG: revoked device closes generation with durable pending and renewal can send same operation[33m 375[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-RUNTIME-PG: unknown enqueue persists through local reload; exact retry and unknown ACK retry require no extra HTTP[33m 323[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-RUNTIME-PG: known busy keeps first update, HTTP loss/restart keeps exact body, known ACK/list failure keeps original result[33m 429[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-RUNTIME-PG: Auth refresh closes private runtime during committed HTTP and reopening retrieves exact pending without old state[33m 354[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-view-write-postgres.test.ts[2m > [22mDB-VIEW-WRITE-PG: Source wait invokes no View HTTP; original create survives lost HTTP/native ACK and restart without Page dependency
+[31m[1merror[22m: relation "greiva_private_vwrite_01a11fc8f3a873a5b5f2e1a9e7cd388a.private_pages" does not exist[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m tests/integration/private-database-view-write-postgres.test.ts:[2m40:1538[22m[39m
+
+[90m [2m❯[22m isolated tests/integration/private-database-view-write-postgres.test.ts:[2m25:743[22m[39m
+[90m [2m❯[22m tests/integration/private-database-view-write-postgres.test.ts:[2m40:152[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m8 passed[39m[22m[90m (9)[39m
+[2m   Start at [22m 08:30:24
+[2m   Duration [22m 6.04s[2m (tests 77%, import 13%, transform 10%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v66/view-write-pg-initial/vitest.json

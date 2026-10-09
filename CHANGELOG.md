@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.66.0 — 2026-10-09
+
+- View作成・更新・競合解決の元queue capture/wireをcaptured Authの固定View HTTPへ接続する。HTTP unknownは同operation再送、native ACK unknownは元pairをnetworkなしで再保存する。
+- 画面用runtimeへlocal opening/未送信window/queueFresh、unknown enqueueの同操作retry、known busy/empty/Source待ち/原結果と閉鎖を追加し、共有workspace storeを保持する。
+- View/Recordのremote no-change解決でも原ACKの対象値を選択値へ照合し、Record conflict remoteと原replyの不整合も拒否する。修正前3 Failを再現・保存し、否定5/送信46を修正後に検証する。
+- portable28/actual signed HTTP-native PG9と全回帰/build/helpを確認。元fixture Failを保存する。native16/server11を保持し、6型Table/List操作画面とnative Gateは後続。
 ## 0.65.0 — 2026-10-09
 
 - native16へView create/update/既知候補解決queueを追加し、Source待ち・元base/設定/三値・同View busy・immutable wireを保存する。

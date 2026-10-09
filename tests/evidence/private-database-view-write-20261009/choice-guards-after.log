@@ -1,0 +1,17 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/private-database-record-update-store.test.ts [2m([22m[2m34 tests[22m[2m | [22m[33m33 skipped[39m[2m)[22m[32m 276[2mms[22m[39m
+ [32m✓[39m tests/integration/private-database-view-queue-store.test.ts [2m([22m[2m30 tests[22m[2m | [22m[33m29 skipped[39m[2m)[22m[32m 260[2mms[22m[39m
+ [32m✓[39m tests/unit/database-view-write-session.test.ts [2m([22m[2m28 tests[22m[2m | [22m[33m26 skipped[39m[2m)[22m[32m 29[2mms[22m[39m
+ [32m✓[39m tests/unit/database-record-write-session.test.ts [2m([22m[2m18 tests[22m[2m | [22m[33m17 skipped[39m[2m)[22m[32m 26[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m4 passed[39m[22m[90m (4)[39m
+[2m      Tests [22m [1m[32m5 passed[39m[22m[2m | [22m[33m105 skipped[39m[90m (110)[39m
+[2m   Start at [22m 08:41:18
+[2m   Duration [22m 2.23s[2m (import 37%, tests 32%, transform 31%, worker 1%)[22m
+
+[2m    Isolate [22m [33m4 workers spawned[39m[2m · ~85ms startup each (spawn + environment, per file)[22m
+[2m            [22m [2mat least ~255ms faster with [22m[33misolate: false[39m[2m — reuses workers across files instead of one per file[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v66/choice-guards-after/vitest.json

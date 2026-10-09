@@ -1,0 +1,8 @@
+{
+  "sha256": "5c7501c0bb62c171c4fc76086367af9e580900181f54bcc8430aa8dbc27fd9cc",
+  "dockerSha256Matches": true,
+  "productVersion": "0.66.0",
+  "fileVersion": "0.66.0",
+  "hostLaunched": false,
+  "nativeImeTested": false
+}

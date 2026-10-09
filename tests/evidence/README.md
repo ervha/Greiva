@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-09 / v0.66.0 / [View実HTTP/runtime](private-database-view-write-20261009/SUMMARY.md): 元capture/wire/captured Auth/HTTP unknown・ACK pair retry/local queueFresh/原結果・閉鎖。View28/Record sender18/actual HTTP-native View9/通常743/全PG217/help12/型/build。no-change選択ACKの不整合3 Fail再現→否定5 Pass、元fixture Failも別保存。native16/server11、6型Table/List画面は後続。
+
 - 2026-10-09 / v0.65.0 / [View端末queue](private-database-view-queue-20261009/SUMMARY.md): native16/Source待ち/元base・設定・三値/busy/元wire/原ACK-cache-解決原子保存/late・非補修replay/byte window。新native29/SIGKILL6/通常712/全PG208/help12/型/build。元fixture8 Failと型import Fail保持。server11、View HTTP/runtimeと画面は後続。
 
 - 2026-10-09 / v0.64.0 / [Record画面用runtime](private-database-record-write-runtime-20261009/SUMMARY.md): local opening/種類別pending・鮮度/unknown enqueue・ACK retry/known busy・blocked・原結果/共有store閉鎖境界。runtime18/送信17/native作成24/actual HTTP-native Record9/通常683/全PG208/help12/型/build。元型check Fail保持、native15/server11、View queue/画面は後続。

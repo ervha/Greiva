@@ -1,0 +1,12 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/unit/database-view-write-session.test.ts [2m([22m[2m28 tests[22m[2m)[22m[32m 185[2mms[22m[39m
+ [32m✓[39m tests/unit/database-record-write-session.test.ts [2m([22m[2m18 tests[22m[2m)[22m[32m 168[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m2 passed[39m[22m[90m (2)[39m
+[2m      Tests [22m [1m[32m46 passed[39m[22m[90m (46)[39m
+[2m   Start at [22m 08:41:21
+[2m   Duration [22m 1.10s[2m (tests 38%, transform 35%, import 26%, worker 1%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v66/after-choice-guards-focused/vitest.json
