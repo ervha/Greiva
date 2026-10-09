@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+最新v0.60.0：[DB作成送信](../development/PRIVATE_DATABASE_SOURCE_WRITE.md)で端末queueの元wireをcaptured Authの固定create HTTPへ接続。local opening/未送信一覧、enqueue/ACK結果不明の同操作retry、catalogFreshと遅着拒否を追加。[証拠](../../tests/evidence/private-database-source-write-20261009/SUMMARY.md)。server11/native13保持。Record/View queueとTable/List画面へ続行する。
+
 最新v0.59.0：[DB作成queue](../development/PRIVATE_DATABASE_SOURCE_QUEUE.md)でnative13、独立pending定義・immutable wire/checksum・原ACKとcache/historyの原子確認を追加。read先行/late ACK・非補修replay・bounded list・移行/実SIGKILL6を検証。[証拠](../../tests/evidence/private-database-source-queue-20261009/SUMMARY.md)。server11保持。Source送信session/runtime、Record/View queue、Table/Listへ続行する。
 
 最新v0.58.0：[DB差分runtime](../development/PRIVATE_DATABASE_CHANGES_RUNTIME.md)でlocal opening/reload、明示max100取得、busy/error/unknown・最新progress・observedHeadと閉鎖を画面用状態へ接続。[証拠](../../tests/evidence/private-database-changes-runtime-20261009/SUMMARY.md)。server11/native12保持。Source/Record/View永続queue、Table/List画面へ続行する。

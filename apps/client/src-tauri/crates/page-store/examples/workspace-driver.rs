@@ -26,7 +26,7 @@ async fn main() {
                 "database_source_enqueue" => store.database_source_enqueue(request["intent"].clone()).await.map(|_|Value::Null),
                 "database_source_prepare" => store.database_source_prepare().await,
                 "database_source_ack" => store.database_source_ack(request["sequence"].as_str().unwrap_or(""),request["wire"].as_str().unwrap_or(""),request["response"].clone()).await.map(|_|Value::Null),
-                "database_source_queue" => store.database_source_queue(request["after"].as_str(),request["limit"].as_u64().unwrap_or(50) as usize).await,
+                "database_source_queue" => store.database_source_queue(request["after"].as_str(),request["limit"].as_u64().unwrap_or(50) as usize,request["pendingOnly"].as_bool().unwrap_or(false)).await,
                 "database_changes_receive"=>store.database_changes_receive(request["sourceId"].as_str().unwrap_or(""),request["request"].clone(),request["response"].clone()).await.map(|_|Value::Null),
                 "database_changes_load"=>store.database_changes_load(request["sourceId"].as_str().unwrap_or("")).await,
                 "database_view_receive"=>store.database_view_receive(request["sourceId"].as_str().unwrap_or(""),request["viewId"].as_str().unwrap_or(""),request["request"].clone(),request["response"].clone()).await.map(|_|Value::Null),

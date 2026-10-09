@@ -140,7 +140,7 @@ impl WorkspaceStore {
     pub async fn database_source_enqueue(&self,intent:Value)->StoreResult<()> {safe(self.inner.database_source_enqueue(&self.context,intent).await)}
     pub async fn database_source_prepare(&self)->StoreResult<Value> {safe(self.inner.database_source_prepare(&self.context).await)}
     pub async fn database_source_ack(&self,sequence:&str,wire:&str,response:Value)->StoreResult<()> {safe(self.inner.database_source_ack(&self.context,sequence,wire,response).await)}
-    pub async fn database_source_queue(&self,after:Option<&str>,limit:usize)->StoreResult<Value> {safe(self.inner.database_source_queue(&self.context,after,limit).await)}
+    pub async fn database_source_queue(&self,after:Option<&str>,limit:usize,pending_only:bool)->StoreResult<Value> {safe(self.inner.database_source_queue(&self.context,after,limit,pending_only).await)}
     pub async fn database_changes_receive(&self,source:&str,request:Value,response:Value)->StoreResult<()> {safe(self.inner.database_changes_receive(&self.context,source,request,response).await)}
     pub async fn database_changes_load(&self,source:&str)->StoreResult<Value> {safe(self.inner.database_changes_load(&self.context,source).await)}
     pub async fn database_view_receive(&self,source:&str,id:&str,request:Value,response:Value)->StoreResult<()> {safe(self.inner.database_view_receive(&self.context,source,id,request,response).await)}

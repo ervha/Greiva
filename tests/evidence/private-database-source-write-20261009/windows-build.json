@@ -1,0 +1,16 @@
+{
+  "version": "0.60.0",
+  "profile": "debug",
+  "target": "x86_64-pc-windows-msvc",
+  "features": [
+    "custom-protocol"
+  ],
+  "testHooks": false,
+  "testSqlite": false,
+  "crashHooks": false,
+  "bytes": 20393472,
+  "sha256": "5beff9e733e2c0f8c37ef1d9f1195eeb37f506d316d5cb60f5758824ed260adc",
+  "builtInDocker": true,
+  "hostLaunched": false,
+  "nativeImeTested": false
+}

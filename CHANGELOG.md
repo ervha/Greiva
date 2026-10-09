@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.60.0 — 2026-10-09
+
+- DB作成queueの元wireをcaptured Authの固定create HTTPへ接続し、原reply/Scope/operation/定義を照合する。HTTP結果不明は元wire再送、端末ACK結果不明は元pairをnetworkなしで再保存する。
+- 画面用runtimeへlocal opening/enqueue、pending-only max100一覧、unknown retry/busy/error/catalogFreshと閉鎖を追加。古い一覧を最新確認済みと扱わず、共有workspace storeを保持する。
+- portable20/pending-only native2/actual signed HTTP-native PG3と全回帰/build/help版表示を検証する。server11/native13保持。Record/View queue・Table/List画面と全DB/native Gateは後続。
+
 ## 0.59.0 — 2026-10-09
 
 - native13へ独立したDB作成queueを追加する。pending定義へ確認済みversion/creationOrderを与えず、6型/Source/workspace/operationを検査して保持する。

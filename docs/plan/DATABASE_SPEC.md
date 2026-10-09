@@ -22,6 +22,8 @@
 
 2026-10-09 / v0.51.0：[Source端末保存](../development/PRIVATE_DATABASE_SOURCE_CACHE.md)でnative9/current/履歴/read receiptの原子保存、late reply保護、6型/strict IPCとbounded端末一覧を追加。server11保持。Record/View replica/queue/DB cursor/runtime、Table/List画面は後続。
 
+2026-10-09 / v0.60.0：[DB作成送信/状態管理](../development/PRIVATE_DATABASE_SOURCE_WRITE.md)でnative queue→captured Auth HTTP→原ACKへ接続。offline enqueue・結果不明の同操作retry・pending-only一覧/catalogFresh・遅着除外を追加。server11/native13保持。Record/View操作queueとTable/List画面は後続。
+
 2026-10-09 / v0.59.0：[DB作成queue](../development/PRIVATE_DATABASE_SOURCE_QUEUE.md)でpending定義・元wire/checksum・原ACKとcache/historyをnative13へ保存する。readでqueueを清算せず、作成HTTP/runtime・Record/View queue・Table/List画面へ続行。[証拠](../../tests/evidence/private-database-source-queue-20261009/SUMMARY.md)。
 
 2026-10-09 / v0.58.0：[DB差分runtime](../development/PRIVATE_DATABASE_CHANGES_RUNTIME.md)で端末進捗/明示取得/unknown再確認/取消を画面用状態へ接続する。observedHeadを全DB同期やqueue ACKと分け、作成更新queueとTable/List画面へ続行。[証拠](../../tests/evidence/private-database-changes-runtime-20261009/SUMMARY.md)。

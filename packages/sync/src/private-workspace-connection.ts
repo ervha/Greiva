@@ -1,3 +1,4 @@
+import {DatabaseSourceWriteSyncSession,type DatabaseSourceWriteStore} from './database-source-write-session.js';
 import {DatabaseChangesSyncSession,type DatabaseChangesStore} from './database-changes-session.js';
 import { idSchema, privateApiOrigin } from '@greiva/shared';
 import {DatabaseContentSyncSession,type DatabaseContentStore} from './database-content-session.js';
@@ -38,6 +39,7 @@ export class PrivateWorkspaceConnection {
   #titles = new Map<string,{session:PageTitleSyncSession;detach:()=>void}>();
   #changes:{session:PageChangesSyncSession;detach:()=>void}|null=null;
   #sources:{session:DatabaseSourceSyncSession;detach:()=>void}|null=null;
+  #sourceWrites:{session:DatabaseSourceWriteSyncSession;detach:()=>void}|null=null;
   #contents:{session:DatabaseContentSyncSession;detach:()=>void}|null=null;
   #databaseChanges:{session:DatabaseChangesSyncSession;detach:()=>void}|null=null;
   #detach: (() => void) | null = null;
@@ -50,7 +52,7 @@ export class PrivateWorkspaceConnection {
     return !this.#closed && this.#lease && !this.#lease.aborted && this.#context && sameOwner(this.#auth.identity, this.#context) ? this.#context : null;
   }
   get generationSignal():AbortSignal|null {return this.context?this.#storeLease:null;}
-  close() { this.#databaseChanges?.session.close();this.#databaseChanges?.detach();this.#databaseChanges=null;this.#contents?.session.close();this.#contents?.detach();this.#contents=null;this.#sources?.session.close();this.#sources?.detach();this.#sources=null;this.#changes?.session.close();this.#changes?.detach();this.#changes=null;for(const page of this.#pages.values()){page.session.close();page.detach();}this.#pages.clear();for(const title of this.#titles.values()){title.session.close();title.detach();}this.#titles.clear();this.#closed = true; this.#controller.abort(); this.#session?.close(); this.#detach?.(); this.#session = null; this.#detach = null; }
+  close() { this.#sourceWrites?.session.close();this.#sourceWrites?.detach();this.#sourceWrites=null;this.#databaseChanges?.session.close();this.#databaseChanges?.detach();this.#databaseChanges=null;this.#contents?.session.close();this.#contents?.detach();this.#contents=null;this.#sources?.session.close();this.#sources?.detach();this.#sources=null;this.#changes?.session.close();this.#changes?.detach();this.#changes=null;for(const page of this.#pages.values()){page.session.close();page.detach();}this.#pages.clear();for(const title of this.#titles.values()){title.session.close();title.detach();}this.#titles.clear();this.#closed = true; this.#controller.abort(); this.#session?.close(); this.#detach?.(); this.#session = null; this.#detach = null; }
   #active(context: WorkspaceSyncContext, lease: AbortSignal) {
     if (this.#closed || lease.aborted || lease !== this.#lease) throw new PrivateConnectionError('closed');
     if (!sameOwner(this.#auth.identity, context)) throw new PrivateConnectionError('authentication');
@@ -164,6 +166,11 @@ export class PrivateWorkspaceConnection {
     const receiveRecord=store.receiveRecord.bind(store),receiveView=store.receiveView.bind(store),path='/v1/workspaces/'+context.workspaceId+'/databases/'+source.id;
     const session=new DatabaseContentSyncSession(context,source,{transport:{readRecord:async(id,request,signal)=>(await this.#call(path+'/records/'+id+'/read',request,signal,{context,lease})).value,readView:async(id,request,signal)=>(await this.#call(path+'/views/'+id+'/read',request,signal,{context,lease})).value,catalogRecords:async(request,signal)=>(await this.#call(path+'/records/catalog',request,signal,{context,lease})).value,catalogViews:async(request,signal)=>(await this.#call(path+'/views/catalog',request,signal,{context,lease})).value},store:{receiveRecord:async(...args)=>{this.#active(context,lease);await receiveRecord(...args);this.#active(context,lease);},receiveView:async(...args)=>{this.#active(context,lease);await receiveView(...args);this.#active(context,lease);}}});
     this.#contents?.session.close();this.#contents?.detach();const invalidated=()=>{session.close();if(this.#contents?.session===session)this.#contents=null;lease.removeEventListener('abort',invalidated);};lease.addEventListener('abort',invalidated,{once:true});session.signal.addEventListener('abort',invalidated,{once:true});this.#contents={session,detach:()=>{lease.removeEventListener('abort',invalidated);session.signal.removeEventListener('abort',invalidated);}};return session;
+  }
+  openDatabaseSourceWrites(store:DatabaseSourceWriteStore):DatabaseSourceWriteSyncSession{
+    const context=this.context,lease=this.#lease;if(!context||!lease)throw new PrivateConnectionError(this.#closed?'closed':'authentication');const prepare=store.prepare.bind(store),acknowledge=store.acknowledge.bind(store),path='/v1/workspaces/'+context.workspaceId+'/databases/create';
+    const session=new DatabaseSourceWriteSyncSession(context,{transport:{create:async(wire,signal)=>(await this.#call(path,wire,signal,{context,lease})).value},store:{prepare:async()=>{this.#active(context,lease);const value=await prepare();this.#active(context,lease);return value;},acknowledge:async(...args)=>{this.#active(context,lease);await acknowledge(...args);this.#active(context,lease);}}});
+    this.#sourceWrites?.session.close();this.#sourceWrites?.detach();const invalidated=()=>{session.close();if(this.#sourceWrites?.session===session)this.#sourceWrites=null;lease.removeEventListener('abort',invalidated);};lease.addEventListener('abort',invalidated,{once:true});session.signal.addEventListener('abort',invalidated,{once:true});this.#sourceWrites={session,detach:()=>{lease.removeEventListener('abort',invalidated);session.signal.removeEventListener('abort',invalidated);}};return session;
   }
   openDatabaseSources(store:DatabaseSourceStore):DatabaseSourceSyncSession{
     const context=this.context,lease=this.#lease;if(!context||!lease)throw new PrivateConnectionError(this.#closed?'closed':'authentication');this.#sources?.session.close();this.#sources?.detach();const receive=store.receive.bind(store);

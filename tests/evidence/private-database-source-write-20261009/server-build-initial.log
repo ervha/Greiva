@@ -1,0 +1,8 @@
+npm error Missing script: "build:server"
+npm error
+npm error Did you mean this?
+npm error   npm run build:servers # run the "build:servers" package script
+npm error
+npm error To see a list of scripts, run:
+npm error   npm run
+npm error A complete log of this run can be found in: /home/node/.npm/_logs/2026-10-09T05_58_55_082Z-debug-0.log
