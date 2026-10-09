@@ -1,0 +1,44 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [31m❯[39m tests/integration/private-database-changes-runtime-postgres.test.ts [2m([22m[2m2 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[32m 47[2mms[22m[39m
+[31m   [31m×[31m DB-CHANGES-RUNTIME-PG: offline local opening/reload never fetch; one explicit sync is max100 and observed head changes do not imply full sync or consume Page pending[39m[32m 38[2mms[22m[39m
+[31m   [31m×[31m DB-CHANGES-RUNTIME-PG: lost native return remains unknown across local reload; exact retry/restart retains progress and Auth or native close cancels late HTTP[39m[32m 8[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 2 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-changes-runtime-postgres.test.ts[2m > [22mDB-CHANGES-RUNTIME-PG: offline local opening/reload never fetch; one explicit sync is max100 and observed head changes do not imply full sync or consume Page pending
+[31m[1mError[22m: Explicit private schema name required[39m
+[36m [2m❯[22m privateSchemaName apps/api/src/private-schema-name.ts:[2m2:63[22m[39m
+    [90m  1|[39m export function privateSchemaName(schema: string) {
+    [90m  2|[39m   if (!/^greiva_private_[a-z0-9_]{1,40}$/.test(schema)) throw new Erro…
+    [90m   |[39m                                                               [31m^[39m
+    [90m  3|[39m   return schema;
+    [90m  4|[39m }
+[90m [2m❯[22m installPrivateWorkspaceSchema apps/api/src/private-workspace-schema.ts:[2m50:18[22m[39m
+[90m [2m❯[22m isolated tests/integration/private-database-changes-runtime-postgres.test.ts:[2m28:697[22m[39m
+[90m [2m❯[22m tests/integration/private-database-changes-runtime-postgres.test.ts:[2m39:190[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-changes-runtime-postgres.test.ts[2m > [22mDB-CHANGES-RUNTIME-PG: lost native return remains unknown across local reload; exact retry/restart retains progress and Auth or native close cancels late HTTP
+[31m[1mError[22m: Explicit private schema name required[39m
+[36m [2m❯[22m privateSchemaName apps/api/src/private-schema-name.ts:[2m2:63[22m[39m
+    [90m  1|[39m export function privateSchemaName(schema: string) {
+    [90m  2|[39m   if (!/^greiva_private_[a-z0-9_]{1,40}$/.test(schema)) throw new Erro…
+    [90m   |[39m                                                               [31m^[39m
+    [90m  3|[39m   return schema;
+    [90m  4|[39m }
+[90m [2m❯[22m installPrivateWorkspaceSchema apps/api/src/private-workspace-schema.ts:[2m50:18[22m[39m
+[90m [2m❯[22m isolated tests/integration/private-database-changes-runtime-postgres.test.ts:[2m28:697[22m[39m
+[90m [2m❯[22m tests/integration/private-database-changes-runtime-postgres.test.ts:[2m45:183[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[90m (2)[39m
+[2m   Start at [22m 05:11:23
+[2m   Duration [22m 1.43s[2m (import 56%, transform 40%, tests 4%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v58/changes-runtime-pg-initial/vitest.json

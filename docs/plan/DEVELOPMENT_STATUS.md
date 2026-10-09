@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+最新v0.58.0：[DB差分runtime](../development/PRIVATE_DATABASE_CHANGES_RUNTIME.md)でlocal opening/reload、明示max100取得、busy/error/unknown・最新progress・observedHeadと閉鎖を画面用状態へ接続。[証拠](../../tests/evidence/private-database-changes-runtime-20261009/SUMMARY.md)。server11/native12保持。Source/Record/View永続queue、Table/List画面へ続行する。
+
 最新v0.57.0：[DB差分取得session](../development/PRIVATE_DATABASE_CHANGES_SESSION.md)でcaptured Source/Authのbounded pullをnative deltaへ接続。durable cursor・strict型/世代/raw進捗、unknown同応答retryと保存後の最新progress、置換/refresh/store closeを検証。[証拠](../../tests/evidence/private-database-changes-session-20261009/SUMMARY.md)。server11/native12保持。画面runtime、Source/Record/View queueとTable/Listへ続行する。
 
 最新v0.56.0：[DB差分端末保存](../development/PRIVATE_DATABASE_CHANGES_STORE.md)でnative12、Record/View履歴・既知候補/解決・元window/event/progressの原子保存を追加。strict gdb1/scope/型/compact64MiB、late版保護と非補修replayを検証。[証拠](../../tests/evidence/private-database-changes-store-20261009/SUMMARY.md)。server11保持。差分HTTP/runtime、Source/Record/View queueとTable/List画面へ続行する。

@@ -1,0 +1,13 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/private-database-changes-runtime-postgres.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 10462[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-RUNTIME-PG: offline local opening/reload never fetch; one explicit sync is max100 and observed head changes do not imply full sync or consume Page pending[33m 10025[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-RUNTIME-PG: lost native return remains unknown across local reload; exact retry/restart retains progress and Auth or native close cancels late HTTP[33m 435[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m2 passed[39m[22m[90m (2)[39m
+[2m   Start at [22m 05:12:51
+[2m   Duration [22m 11.40s[2m (tests 93%, transform 4%, import 3%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v58/changes-runtime-pg/vitest.json

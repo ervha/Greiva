@@ -1,5 +1,10 @@
 # 変更履歴
 
+## 0.58.0 — 2026-10-09
+
+- DB差分の画面用runtimeへlocal opening/reload、明示max100の1window取得、busy/error/unknown再確認、最新progressとobservedHeadを接続する。
+- Auth/session/native closeで遅着応答とprivate状態を除去し、共有workspace storeを閉じない。observer例外・再入closeも保存や新通信を妨げない。
+- portable11・actual signed HTTP/native PG2と全回帰/build/help版表示を検証する。server11/native12保持。作成/更新queue・Table/List画面と全DB/native Gateは後続。
 ## 0.57.0 — 2026-10-09
 
 - captured Source/AuthのDB差分取得をnative cache/progressへ接続する。毎回durable cursorから最大100件を明示取得し、scope/型/journal/raw進捗を照合する。
