@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-09 / v0.45.0 / [Record header一覧](private-database-record-catalog-20261009/SUMMARY.md): max100/creation範囲固定/HMAC、明示8/ID seed/atomic head、filtered進捗、COMMIT前後SIGKILL。重点4/専用PG11/通常400/全PG135/型/build/help12。旧v44全UIは旧版証拠として保持、Record受信/View/端末DB/画面は後続。
+
 - 2026-10-08 / v0.44.0 / [Record保存/競合](private-database-record-20261008/SUMMARY.md): 実PG writer/history/Page binding、三値/非競合merge/新操作解決/immutable再送、schema7/COMMIT前後SIGKILL。専用PG18/重点23/通常396/PG124/root64/Auth12/workspace52/型/Rust/frontend/Windows build。null試験とfixture型の元Fail保持。DB一覧/View/端末同期/画面は後続。
 
 - 2026-10-08 / v0.43.0 / [DataSource保存](private-database-source-20261008/SUMMARY.md): A回答確定、schema6/actual owner-device transaction、immutable create、bounded header/HMAC/commit順。専用PG12/新unit8/通常390/PG106/root64/Auth12/workspace52/型/Rust/frontend/Windows build。fixture失敗と実SQL順序bugの元Failを保持、Record/View/画面は後続。

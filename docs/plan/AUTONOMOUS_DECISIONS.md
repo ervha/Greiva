@@ -61,7 +61,9 @@
 
 | v0.44.0 Record保存/競合 | [Record storage](../decisions/private-database-record.md) | 16 | actual history/三値/解決/ledger、Page binding、明示7、SIGKILL/null修正 |
 
-合計635件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
+| v0.45.0 Record header一覧 | [Record catalog](../decisions/private-database-record-catalog.md) | 16 | max100/HMAC/固定範囲、ID seed/atomic head、明示8、raw filtered進捗/SIGKILL |
+
+合計651件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
 
 共通：同じcodex/poc-editor、確認後の版/tag/push、外部依存を監査、元Page/DBを保持。Computer UseはWindows診断後に解除し、今回の基盤開発では使わない。cloud/project/配布・課金・新global toolchainを作成せず、端末保持/旧DB帰属/保持期限を未決定のまま創作しない。初期OFFの改善送信は設計で、実際の収集は始めていない。
 

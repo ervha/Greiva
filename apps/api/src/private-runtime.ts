@@ -11,6 +11,7 @@ import { PostgresPrivatePageStore } from './private-page-store.js';
 import {PostgresPrivatePageChangesStore} from './private-page-changes-store.js';
 import {PostgresPrivateDatabaseSourceStore} from './private-database-source-store.js';
 import {PostgresPrivateDatabaseRecordStore} from './private-database-record-store.js';
+import {PostgresPrivateDatabaseRecordCatalogStore} from './private-database-record-catalog-store.js';
 
 export class PrivateRuntimeError extends Error {
   constructor(readonly stage: 'configuration' | 'schema' | 'listen' | 'shutdown') {
@@ -59,7 +60,8 @@ export async function startPrivateApi(configuration: PrivateRuntimeConfiguration
       schemaVersion>=4?new PostgresPrivatePageMetadataStore(pool,config.schema):undefined,
       schemaVersion>=5?new PostgresPrivatePageChangesStore(pool,config.schema):undefined,
       schemaVersion>=6?new PostgresPrivateDatabaseSourceStore(pool,config.schema):undefined,
-      schemaVersion>=7?new PostgresPrivateDatabaseRecordStore(pool,config.schema):undefined);
+      schemaVersion>=7?new PostgresPrivateDatabaseRecordStore(pool,config.schema):undefined,
+      schemaVersion>=8?new PostgresPrivateDatabaseRecordCatalogStore(pool,config.schema):undefined);
     await app.listen(config.port, config.host);
     const address = await app.getUrl(), capturedApp = app, capturedPool = pool;
     let closing: Promise<void> | undefined;

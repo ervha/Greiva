@@ -8,6 +8,8 @@
 
 2026-10-08 / v0.44.0：[Record保存/競合](../development/PRIVATE_DATABASE_RECORD.md)で既存Page-bound create/update、historyとimmutable operation、三値候補/新操作解決、bounded readを部分実装する。schema7/native8。Record一覧/View保存、端末DB同期、Table/List画面と全DB受入は次工程。
 
+2026-10-09 / v0.45.0：[Record header一覧](../development/PRIVATE_DATABASE_RECORD_CATALOG.md)で明示schema8、max100/固定creation範囲/HMAC/raw進捗を追加。内容やNameは別に取得し、変更受信/全同期とは扱わない。View/端末DB/Table/List画面は次工程。
+
 ## 1. 要求と適用範囲
 
 ユーザー指定:

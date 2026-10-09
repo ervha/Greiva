@@ -1,5 +1,7 @@
 # 本番データモデル候補と移行条件
 
+v0.45.0：[Record header一覧](../development/PRIVATE_DATABASE_RECORD_CATALOG.md)はserver schema8でRecord creation_orderとSource単位headsを追加。旧snapshot/history/receipt/候補/鍵を保持してID順seedし、新規位置をatomic writerへ加える。native schema8は別責務で未変更。変更journalやView/端末DBは後続。
+
 v0.44.0：[Record保存](../development/PRIVATE_DATABASE_RECORD.md)でserver schema7のrecords/history/operations/conflictsを追加する。Source内Page binding、NameはPage title正本、三値/immutable結果/解決referenceを原子保存する。Source/Page/既存streamとnative8は保持する。Record一覧/View/端末DB同期は次工程。
 
 v0.43.0：[DataSource保存](../development/PRIVATE_DATABASE_SOURCE.md)でserver schema6のheads/sources/immutable create operationsを追加する。定義は初期schema1でimmutable、catalogはheaderのみ。既存Page/structured/鍵を保持し、native schema8は未変更。Record/View保存と端末DB同期は次工程。

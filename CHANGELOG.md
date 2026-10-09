@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.45.0 — 2026-10-09
+
+- 基本DB Recordの認証付きheader catalogを追加する。最大100件、Source/device/head固定HMAC cursor、numeric順とfiltered raw進捗を実装し、値/title/本文は一覧へ含めない。
+- 明示server schema7→8で既存Recordのstable ID seedとSource単位headを追加する。新規位置はRecord/history/ledgerと原子保存し、exact再送・COMMIT前後SIGKILLで二重採番を防ぐ。native schema8は未変更。
+- 型・専用/全Postgres・通常回帰・buildとhelpの版表示を検証する。Record変更受信/View保存/端末DB同期/Table/List画面と全DB/native Gateは後続。
+
 ## 0.44.0 — 2026-10-08
 
 - 基本DB Recordの実Postgres create/update/read、Page binding、authoritative history、field merge/三値Conflictと新operation解決を追加する。Name/title/本文は既存Pageを参照する。

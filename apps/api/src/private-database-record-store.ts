@@ -4,6 +4,7 @@ import {idSchema,newId} from '@greiva/shared';
 import {PrivateWorkspaceAccessDenied} from '@greiva/application';
 import {parseDatabaseRecord,parseDatabaseRecordIntent,parseDatabaseRecordConflict,planDatabaseRecordUpdate,type DatabaseSource,type DatabaseRecord,type DatabaseRecordConflict} from '@greiva/domain';
 import {pageSchema} from '@greiva/protocol';
+import {structuredOrderSchema} from '@greiva/protocol/workspace';
 import {privateDatabaseSourceSnapshotSchema} from '@greiva/protocol/private-database-source';
 import {privateDatabaseRecordWriteRequestSchema,privateDatabaseRecordWriteResponseSchema,privateDatabaseRecordReadRequestSchema,privateDatabaseRecordReadResponseSchema,type PrivateDatabaseRecordWriteResponse} from '@greiva/protocol/private-database-record';
 import {privateSchemaName} from './private-schema-name.js';
@@ -41,7 +42,16 @@ export class PostgresPrivateDatabaseRecordStore implements PrivateDatabaseRecord
     const existing=await tx.query(`SELECT id,page_id FROM "${this.schema}".private_database_records WHERE workspace_id=$1 AND source_id=$2 AND (id=$3 OR page_id=$4)`,[workspaceId,sourceId,intent.recordId,intent.pageId]);
     if(existing.rowCount)throw new PrivateDatabaseRecordInvalidRequest(existing.rows.some(row=>row.id===intent.recordId)?'record_id_reused':'page_binding_reused');
     current=parseDatabaseRecord(source,{id:intent.recordId,workspaceId,sourceId,pageId:intent.pageId,version:1,values:intent.values});
-    const inserted=await tx.query(`INSERT INTO "${this.schema}".private_database_records(id,workspace_id,source_id,page_id,version,snapshot) VALUES($1,$2,$3,$4,1,$5) ON CONFLICT(id) DO NOTHING RETURNING id`,[intent.recordId,workspaceId,sourceId,intent.pageId,JSON.stringify(current)]);
+    let creationOrder:string|null=null;
+    const gate=await tx.query(`SELECT version FROM "${this.schema}".private_schema_version WHERE singleton=true`);
+    if(gate.rows[0]!.version>=8){
+     await tx.query(`INSERT INTO "${this.schema}".private_database_record_heads VALUES($1,$2,0) ON CONFLICT(source_id) DO NOTHING`,[sourceId,workspaceId]);
+     const head=await tx.query(`SELECT workspace_id,head_order::text FROM "${this.schema}".private_database_record_heads WHERE source_id=$1 FOR UPDATE`,[sourceId]);
+     const maximum=await tx.query(`SELECT COALESCE(max(creation_order),0)::text AS head FROM "${this.schema}".private_database_records WHERE workspace_id=$1 AND source_id=$2`,[workspaceId,sourceId]);
+     if(head.rowCount!==1||head.rows[0]!.workspace_id!==workspaceId||head.rows[0]!.head_order!==maximum.rows[0]!.head)throw new PrivateTransactionUnavailable();
+     const next=await tx.query(`UPDATE "${this.schema}".private_database_record_heads SET head_order=head_order+1 WHERE source_id=$1 AND head_order<9223372036854775807 RETURNING head_order::text`,[sourceId]);if(next.rowCount!==1)throw new PrivateTransactionUnavailable();creationOrder=structuredOrderSchema.parse(next.rows[0]!.head_order);
+    }
+    const inserted=await tx.query(`INSERT INTO "${this.schema}".private_database_records(id,workspace_id,source_id,page_id,version,snapshot${creationOrder?',creation_order':''}) VALUES($1,$2,$3,$4,1,$5${creationOrder?',$6':''}) ON CONFLICT(id) DO NOTHING RETURNING id`,[intent.recordId,workspaceId,sourceId,intent.pageId,JSON.stringify(current),...(creationOrder?[creationOrder]:[])]);
     if(inserted.rowCount!==1)throw new PrivateWorkspaceAccessDenied();
     await this.history(tx,current);
    }else{
@@ -90,7 +100,7 @@ export class PostgresPrivateDatabaseRecordStore implements PrivateDatabaseRecord
  }
  private scope(tx:PrivateTransaction,source:DatabaseSource){return{protocolVersion:1 as const,workspaceId:tx.context.workspaceId,workspaceEpoch:tx.context.epoch,clientId:tx.context.clientId,sourceId:source.id,schemaVersion:source.schemaVersion};}
  private async source(tx:PrivateTransaction,id:string,write:boolean){
-  const gate=await tx.query(`SELECT version FROM "${this.schema}".private_schema_version WHERE singleton=true`);if(gate.rowCount!==1||gate.rows[0]!.version!==7)throw new PrivateTransactionUnavailable();
+  const gate=await tx.query(`SELECT version FROM "${this.schema}".private_schema_version WHERE singleton=true`);if(gate.rowCount!==1||![7,8].includes(gate.rows[0]!.version))throw new PrivateTransactionUnavailable();
   const rows=await tx.query(`SELECT id,workspace_id,definition,version::text,creation_order::text,deleted FROM "${this.schema}".private_database_sources WHERE workspace_id=$1 AND id=$2 FOR ${write?'UPDATE':'SHARE'}`,[tx.context.workspaceId,id]);
   if(rows.rowCount!==1||rows.rows[0]!.deleted)throw new PrivateWorkspaceAccessDenied();const row=rows.rows[0]!,parsed=privateDatabaseSourceSnapshotSchema.safeParse({source:row.definition,version:Number(row.version),creationOrder:row.creation_order});
   if(!parsed.success||parsed.data.source.id!==id||parsed.data.source.workspaceId!==tx.context.workspaceId)throw new PrivateTransactionUnavailable();return parsed.data.source;

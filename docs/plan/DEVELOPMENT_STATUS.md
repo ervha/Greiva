@@ -1,8 +1,10 @@
 # Greiva 開発計画・状況・セットアップ
 
-最新v0.44.0：[Record保存/競合](../development/PRIVATE_DATABASE_RECORD.md)で実Postgres create/update/read、Page binding、history/immutable ledger/三値候補・新操作解決、明示schema7を実装。[証拠](../../tests/evidence/private-database-record-20261008/SUMMARY.md)。Source6型/Table/Listは回答済みA。Record一覧/View、端末DB保存/同期、画面が次工程。実Auth/native IME/Android・配備暗号化と全DB/HELPは後続。
+最新v0.45.0：[Recordヘッダー一覧](../development/PRIVATE_DATABASE_RECORD_CATALOG.md)で認証付きmax100/Source・device・head固定cursor、filtered raw進捗、明示schema8を追加。[証拠](../../tests/evidence/private-database-record-catalog-20261009/SUMMARY.md)。旧RecordをID順seedし、新規位置はwriter/ledgerと原子保存する。値・本文の同期完了とは分離。Record変更受信/View、端末DB保存/同期、Table/List画面が次工程。実Auth/native/配備暗号化と全DBは後続。
 
-停止checkpoint（2026-10-08、利用者指示）：v0.44.0の進行中検証・証拠・版/tag/pushを完了して一旦停止する。Record一覧/Viewや端末DB同期へは着手しない。再開時はこの検証済みcheckpointからRecordのbounded一覧/受信経路、View保存、native replica/queue/runtime、Table/List画面へ進める。今回の停止を全DB/native Gateの完了とは扱わない。
+再開（2026-10-09、利用者指示）：v0.44.0のclean地点を確認し、Record一覧から継続する。
+
+過去の停止checkpoint（2026-10-08、利用者指示）：v0.44.0の進行中検証・証拠・版/tag/pushを完了して一旦停止する。Record一覧/Viewや端末DB同期へは着手しない。再開時はこの検証済みcheckpointからRecordのbounded一覧/受信経路、View保存、native replica/queue/runtime、Table/List画面へ進める。今回の停止を全DB/native Gateの完了とは扱わない。
 
 最新v0.35.0：[Pageタイトル画面](../development/PRIVATE_PAGE_TITLE_SCREEN.md)をworkspace previewへ接続。明示保存/取消/確認、三値候補/新operation解決、拒否履歴、独立pending表示、dirty/変換/結果不明の切替保護とbounded履歴を実装。[証拠](../../tests/evidence/private-title-screen-20261008/SUMMARY.md)。query終了を同期済みと扱わず、実Auth/Windows invoke・IME/Android/native grant、metadata deltaと配備暗号化は残条件。追加の手操作依頼はない。
 
