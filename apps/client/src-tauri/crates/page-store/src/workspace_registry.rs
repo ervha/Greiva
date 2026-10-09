@@ -47,6 +47,9 @@ impl WorkspaceRegistry {
         // admitted operations; a late old handle never resolves a current store.
         let state=self.state.lock().await;let active=state.active.as_ref().filter(|active|active.handle==handle).ok_or(REJECTED)?;let store=&active.store;
         match text(&request,"command")? {
+            "database_source_receive"=>{exact(&request,&["command","sourceId","request","response"])?;store.database_source_receive(text(&request,"sourceId")?,request["request"].clone(),request["response"].clone()).await?;Ok(Value::Null)},
+            "database_source_load"=>{exact(&request,&["command","sourceId"])?;store.database_source_load(text(&request,"sourceId")?).await},
+            "database_source_list"=>{exact(&request,&["command","after","limit"])?;let after=if request["after"].is_null(){None}else{Some(text(&request,"after")?)};let limit=request["limit"].as_u64().filter(|n|*n<=100).ok_or(REJECTED)? as usize;store.database_source_list(after,limit).await},
             "snapshot"=>{exact(&request,&["command"])?;store.snapshot().await},
             "mutate"=>{exact(&request,&["command","operation"])?;store.mutate(serde_json::from_value::<LocalOperation>(request["operation"].clone()).map_err(|_|REJECTED)?).await},
             "prepare"=>{exact(&request,&["command"])?;Ok(store.prepare().await?.map(Value::String).unwrap_or(Value::Null))},

@@ -1,0 +1,51 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/private-page-store.test.ts [2m([22m[2m13 tests[22m[2m)[22m[33m 2470[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-PAGE-STORE: bound schema5 upgrade preserves structured data and rejects orphan/partial/foreign binding without mutation[33m 333[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-PAGE-STORE: input bounds and prepared corruption reject; combined large remote binary survives restart without an input-frame cap[33m 840[2mms[22m[39m
+ [32m✓[39m tests/integration/private-title-store.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 2026[2mms[22m[39m
+ [32m✓[39m tests/integration/workspace-store.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 1410[2mms[22m[39m
+ [32m✓[39m tests/integration/private-page-changes-store.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 1167[2mms[22m[39m
+ [31m❯[39m tests/integration/private-database-source-store.test.ts [2m([22m[2m13 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 1924[2mms[22m[39m
+   [32m✓[39m DB-SOURCE-STORE: six typed definitions and immutable receipt/history survive restart; unknown Source read does not invent entities[32m 111[2mms[22m[39m
+   [32m✓[39m DB-SOURCE-STORE: newer versions remain projected when older responses arrive and same-version divergence is rejected[32m 85[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-SOURCE-STORE: 101 UUID-keyset rows bound to100 and duplicate creation positions roll back without history leaks[33m 809[2mms[22m[39m
+   [32m✓[39m DB-SOURCE-STORE: portable and direct native boundaries reject extra fields, wrong scope and invalid six-type definitions before writing[32m 65[2mms[22m[39m
+[31m   [31m×[31m DB-SOURCE-STORE: UTF16 labels and ECMAScript whitespace match portable/native validation[39m[32m 71[2mms[22m[39m
+   [32m✓[39m DB-SOURCE-STORE snapshot corruption: fail closed without empty fallback or repair[32m 68[2mms[22m[39m
+   [32m✓[39m DB-SOURCE-STORE receipt corruption: fail closed without empty fallback or repair[32m 69[2mms[22m[39m
+   [32m✓[39m DB-SOURCE-STORE projection corruption: fail closed without empty fallback or repair[32m 66[2mms[22m[39m
+   [32m✓[39m DB-SOURCE-STORE lookahead corruption: fail closed without empty fallback or repair[32m 70[2mms[22m[39m
+   [32m✓[39m DB-SOURCE-STORE: bound schema8 upgrade preserves Page and structured pending; wrong identity and partial DDL roll back[32m 164[2mms[22m[39m
+   [32m✓[39m DB-SOURCE-STORE: concurrent exact receives preserve one history row and Auth generation closes old cache access[32m 73[2mms[22m[39m
+   [32m✓[39m DB-SOURCE-STORE-SIGKILL-before-commit: actual native process death preserves history/receipt/projection atomically[32m 140[2mms[22m[39m
+   [32m✓[39m DB-SOURCE-STORE-SIGKILL-after-commit: actual native process death preserves history/receipt/projection atomically[32m 130[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-source-store.test.ts[2m > [22mDB-SOURCE-STORE: UTF16 labels and ECMAScript whitespace match portable/native validation
+[31m[1mAssertionError[22m: expected NativeWorkspaceError: Native workspace st… { stage: '…' } to match object { stage: 'protocol' }
+(1 matching property omitted from actual)[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- {[39m
+[32m-   "stage": "protocol",[39m
+[31m+ NativeWorkspaceError {[39m
+[31m+   "stage": "storage",[39m
+[2m  }[22m
+
+[36m [2m❯[22m tests/integration/private-database-source-store.test.ts:[2m21:544[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m4 passed[39m[22m[90m (5)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m61 passed[39m[22m[90m (62)[39m
+[2m   Start at [22m 03:17:07
+[2m   Duration [22m 10.47s[2m (tests 90%, import 7%, transform 4%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v51/source-store-initial/vitest.json

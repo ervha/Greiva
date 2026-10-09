@@ -57,8 +57,8 @@ it('WORKSPACE-STORE: private schema never imports PoC or unversioned data; ordin
     const unknownPath=join(f.directory,'unknown.sqlite'),db=new DatabaseSync(unknownPath);db.exec("CREATE TABLE retained(value TEXT);INSERT INTO retained VALUES('keep');");db.close();
     const unknown=new WorkspaceDevice(unknownPath,f.context);f.devices.push(unknown);await expect(unknown.request('snapshot')).rejects.toThrow();await unknown.close();
     const check=new DatabaseSync(unknownPath);expect(check.prepare('SELECT value FROM retained').get()?.value).toBe('keep');expect(check.prepare('PRAGMA user_version').get()?.user_version).toBe(0);check.close();
-    await f.device.request('snapshot');expect(f.sql('PRAGMA user_version')?.user_version).toBe(8);
-    const ordinary=new StructuredDevice(f.device.path);try{await expect(ordinary.snapshot()).rejects.toThrow('Unsupported local schema version: 8');}finally{await ordinary.close();}
+    await f.device.request('snapshot');expect(f.sql('PRAGMA user_version')?.user_version).toBe(9);
+    const ordinary=new StructuredDevice(f.device.path);try{await expect(ordinary.snapshot()).rejects.toThrow('Unsupported local schema version: 9');}finally{await ordinary.close();}
   }finally{await old.close();await f.cleanup();}
 });
 it('WORKSPACE-STORE: invalid ACK scope/identity/bytes and altered replay never partially acknowledge local intent',async()=>{

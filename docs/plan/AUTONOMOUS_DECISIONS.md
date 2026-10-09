@@ -71,8 +71,9 @@
 
 | v0.49.0 DB変更契約 | [DB changes contract](../decisions/private-database-changes-contract.md) | 16 | typed Record/View event、解決状態/Source検証、raw進捗/gdb1世代署名、実journalと分離 |
 | v0.50.0 DB変更履歴/取得 | [DB changes](../decisions/private-database-changes.md) | 16 | 明示11/永続世代、seed・writer原子journal、Page先行lock/観測head固定、件数とbyte分割・元Fail保持 |
+| v0.51.0 DB定義端末保存 | [DB Source cache](../decisions/private-database-source-cache.md) | 16 | native9/履歴・receipt原子保存、late reply保護、厳密6型・Unicode/IPC、keyset/SIGKILL・元Fail保持 |
 
-合計731件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
+合計747件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
 
 共通：同じcodex/poc-editor、確認後の版/tag/push、外部依存を監査、元Page/DBを保持。Computer UseはWindows診断後に解除し、今回の基盤開発では使わない。cloud/project/配布・課金・新global toolchainを作成せず、端末保持/旧DB帰属/保持期限を未決定のまま創作しない。初期OFFの改善送信は設計で、実際の収集は始めていない。
 

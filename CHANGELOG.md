@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.51.0 — 2026-10-09
+
+- 受信したSource定義をnative9の版履歴/read receipt/currentへ原子保存し、再起動・同一再送・古い応答・同版divergenceを処理する。server11と旧Page/title/Task/queueを保持する。
+- strict native6型/Name/Select/Unicode/canonical scopeとIPC、受信済み端末SourceのUUID keyset一覧を追加する。読取でdefault entityを作らず、cache保存をACK/fullsyncへ扱わない。
+- 専用13条件・旧native49・実COMMIT前後SIGKILL2と全回帰/build/help版表示を検証する。初回Unicode文字数の不一致Failを保持し修正。Record/View replica・queue・DB cursor/runtime、画面と全DB/native Gateは後続。
+
 ## 0.50.0 — 2026-10-09
 
 - Source別のRecord/View変更journalと永続世代/head、認証付き差分取得APIを追加する。明示server10→11でcurrent/既知候補を検証seedし、writer/解決/ledgerと原子追記する。

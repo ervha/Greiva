@@ -20,6 +20,8 @@
 
 2026-10-09 / v0.50.0：[DB変更履歴/取得](../development/PRIVATE_DATABASE_CHANGES.md)で明示server11、永続Source journal/current・候補seed、atomic追記、認証付きbounded差分APIを追加。native8保持。端末DB適用/queue/runtime/Table/List画面は後続。
 
+2026-10-09 / v0.51.0：[Source端末保存](../development/PRIVATE_DATABASE_SOURCE_CACHE.md)でnative9/current/履歴/read receiptの原子保存、late reply保護、6型/strict IPCとbounded端末一覧を追加。server11保持。Record/View replica/queue/DB cursor/runtime、Table/List画面は後続。
+
 ## 1. 要求と適用範囲
 
 ユーザー指定:

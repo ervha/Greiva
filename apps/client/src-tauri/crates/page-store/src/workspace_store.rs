@@ -43,6 +43,7 @@ pub(super) async fn initialize(tx:&mut Transaction<'_,Sqlite>,context:&Workspace
     super::private_page::initialize(tx,version).await?;
     super::private_title::initialize(tx,version).await?;
     super::private_changes::initialize(tx,version).await?;
+    super::private_database::initialize(tx,version).await?;
     Ok(())
 }
 #[derive(Deserialize)]
@@ -132,6 +133,9 @@ impl WorkspaceStore {
     pub async fn page_prepare(&self,id:&str)->StoreResult<Value> {safe(self.inner.private_page_prepare(&self.context.client_id,id).await)}
     pub async fn page_ack(&self,id:&str,sequence:&str,wire:&str,response:Value)->StoreResult<()> {safe(self.inner.private_page_ack(&self.context.client_id,&self.context.workspace_id,id,sequence,wire,response).await)}
     pub async fn page_receive(&self,id:&str,response:Value)->StoreResult<()> {safe(self.inner.private_page_receive(&self.context.workspace_id,id,response).await)}
+    pub async fn database_source_receive(&self,id:&str,request:Value,response:Value)->StoreResult<()> {safe(self.inner.database_source_receive(&self.context,id,request,response).await)}
+    pub async fn database_source_load(&self,id:&str)->StoreResult<Value> {safe(self.inner.database_source_load(&self.context,id).await)}
+    pub async fn database_source_list(&self,after:Option<&str>,limit:usize)->StoreResult<Value> {safe(self.inner.database_source_list(&self.context,after,limit).await)}
     pub async fn title_enqueue(&self,id:&str,intent:Value)->StoreResult<()> {safe(self.inner.title_enqueue(&self.context,id,intent).await)}
     pub async fn changes_receive(&self,request:Value,response:Value)->StoreResult<()> {safe(self.inner.changes_receive(&self.context,request,response).await)}
     pub async fn changes_load(&self,after:Option<&str>,limit:usize)->StoreResult<Value> {safe(self.inner.changes_load(&self.context,after,limit).await)}

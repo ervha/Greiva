@@ -1,4 +1,5 @@
 import {idSchema} from '@greiva/shared';
+import {privateDatabaseSourceReadRequestSchema,privateDatabaseSourceReadResponseSchema,privateDatabaseSourceLocalLoadSchema,privateDatabaseSourceLocalListSchema,privateDatabaseSourceLocalListRequestSchema} from '@greiva/protocol/private-database-source';
 import {NativeWorkspaceTitle} from './native-workspace-title.js';
 import {parseOperationPayload,pushOperationSchema,taskSchema,relationSchema} from '@greiva/protocol';
 import {workspaceStructuredSnapshotSchema} from '@greiva/protocol/workspace';
@@ -54,6 +55,19 @@ export class NativeWorkspaceStore implements WorkspaceSessionStore {
     const parsed=idSchema.safeParse(pageId);if(!parsed.success)throw new NativeWorkspaceError('protocol');this.check();return new NativeWorkspacePage(this,pageId);
   }
   assertActive(){this.check();}
+  async databaseSourceReceive(sourceId:string,candidateRequest:unknown,candidateResponse:unknown):Promise<void>{
+    this.check();let request:ReturnType<typeof privateDatabaseSourceReadRequestSchema.parse>,response:ReturnType<typeof privateDatabaseSourceReadResponseSchema.parse>;
+    try{if(idSchema.parse(sourceId)!==sourceId.toLowerCase())throw Error();request=privateDatabaseSourceReadRequestSchema.parse(candidateRequest);response=privateDatabaseSourceReadResponseSchema.parse(candidateResponse);if(request.clientId!==this.context.clientId||response.clientId!==this.context.clientId||response.workspaceId!==this.context.workspaceId||response.workspaceEpoch!==this.context.streamEpoch||response.snapshot.source.id!==sourceId)throw Error();immutable(request);immutable(response);}catch{throw new NativeWorkspaceError('protocol');}
+    const result=await this.execute({command:'database_source_receive',sourceId,request,response});if(result!==null)throw new NativeWorkspaceError('protocol');this.check();
+  }
+  async databaseSourceLoad(sourceId:string){
+    this.check();try{if(idSchema.parse(sourceId)!==sourceId.toLowerCase())throw Error();}catch{throw new NativeWorkspaceError('protocol');}
+    const value=await this.execute({command:'database_source_load',sourceId});try{const result=privateDatabaseSourceLocalLoadSchema.parse(value);if(!same(this.context,result.context)||(result.snapshot!==null&&result.snapshot.source.id!==sourceId))throw Error();this.check();return immutable(result);}catch{this.check();throw new NativeWorkspaceError('protocol');}
+  }
+  async databaseSourceList(candidate:unknown={after:null,limit:50}){
+    this.check();let request:ReturnType<typeof privateDatabaseSourceLocalListRequestSchema.parse>;try{request=privateDatabaseSourceLocalListRequestSchema.parse(candidate);}catch{throw new NativeWorkspaceError('protocol');}
+    const value=await this.execute({command:'database_source_list',...request});try{const result=privateDatabaseSourceLocalListSchema.parse(value);if(!same(this.context,result.context)||result.sources.length>request.limit||result.sources.some(row=>request.after!==null&&row.source.id<=request.after!))throw Error();this.check();return immutable(result);}catch{this.check();throw new NativeWorkspaceError('protocol');}
+  }
   async changesLoad(candidate:unknown={afterPage:null,limit:50}){
     const parsed=privatePageChangesLocalRequestSchema.safeParse(candidate);if(!parsed.success)throw new NativeWorkspaceError('protocol');const request=parsed.data;
     const value=await this.execute({command:'changes_load',...request});try{const result=privatePageChangesLocalResponseSchema.parse(value);if(!same(this.context,result.context)||result.pages.length>request.limit||result.pages.some(row=>request.afterPage!==null&&row.metadata.id<=request.afterPage!))throw Error();this.check();return immutable(result);}catch{this.check();throw new NativeWorkspaceError('protocol');}

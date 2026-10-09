@@ -2,6 +2,7 @@ import {z} from 'zod';
 import {idSchema} from '@greiva/shared';
 import {databaseSourceSchema} from '@greiva/domain';
 import {structuredOrderSchema} from './workspace.js';
+import {workspaceLocalContextSchema} from './workspace.js';
 const positiveOrder=structuredOrderSchema.refine(value=>value!=='0','Positive source order required');
 const version=z.number().int().min(1).max(Number.MAX_SAFE_INTEGER);
 const canonicalId=idSchema.refine(value=>value===value.toLowerCase(),'Canonical entity ID required');
@@ -21,3 +22,9 @@ export const privateDatabaseSourceCatalogResponseSchema=z.strictObject({...scope
  let previous=after;for(const row of reply.sources){const order=BigInt(row.creationOrder);if(row.workspaceId!==reply.workspaceId||order<=previous||order>through)ctx.addIssue({code:'custom',message:'Invalid source catalog snapshot'});previous=order;}
 });
 export type PrivateDatabaseSourceSnapshot=z.infer<typeof privateDatabaseSourceSnapshotSchema>;
+export const privateDatabaseSourceLocalLoadSchema=z.strictObject({context:workspaceLocalContextSchema,snapshot:privateDatabaseSourceSnapshotSchema.nullable()}).refine(value=>value.snapshot===null||value.snapshot.source.workspaceId===value.context.workspaceId,'Local Source workspace mismatch');
+export const privateDatabaseSourceLocalListRequestSchema=z.strictObject({after:canonicalId.nullable().default(null),limit:z.number().int().min(1).max(100).default(50)});
+export const privateDatabaseSourceLocalListSchema=z.strictObject({context:workspaceLocalContextSchema,sources:z.array(privateDatabaseSourceSnapshotSchema).max(100),nextAfter:canonicalId.nullable()}).superRefine((value,ctx)=>{
+ let previous='';const positions=new Set<string>();for(const row of value.sources){if(row.source.workspaceId!==value.context.workspaceId||row.source.id<=previous||positions.has(row.creationOrder))ctx.addIssue({code:'custom',message:'Invalid local Source catalog'});previous=row.source.id;positions.add(row.creationOrder);}
+ if(value.nextAfter!==null&&(value.sources.length===0||value.sources.at(-1)!.source.id!==value.nextAfter))ctx.addIssue({code:'custom',message:'Invalid Source continuation'});
+});
