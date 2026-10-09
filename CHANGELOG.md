@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.46.0 — 2026-10-09
+
+- Table/List用View設定のtyped create/update intent、Source/schema/参照検証、exact基底と三値merge計画をportable Domainへ追加する。
+- 列順/filter/sortsをwhole fieldとして保全し、active候補・現在remote・観測版を照合して解決を新intentへ準備する。別field変更後のfresh準備と古いintentを区別する。
+- 専用11条件と既存回帰/build/help版表示を検証する。server8/native8保持。actual View保存・端末DB同期・画面と全DB/native Gateは後続。
+
 ## 0.45.0 — 2026-10-09
 
 - 基本DB Recordの認証付きheader catalogを追加する。最大100件、Source/device/head固定HMAC cursor、numeric順とfiltered raw進捗を実装し、値/title/本文は一覧へ含めない。

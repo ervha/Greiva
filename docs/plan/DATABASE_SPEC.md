@@ -10,6 +10,8 @@
 
 2026-10-09 / v0.45.0：[Record header一覧](../development/PRIVATE_DATABASE_RECORD_CATALOG.md)で明示schema8、max100/固定creation範囲/HMAC/raw進捗を追加。内容やNameは別に取得し、変更受信/全同期とは扱わない。View/端末DB/Table/List画面は次工程。
 
+2026-10-09 / v0.46.0：[View設定intent/merge](../development/BASIC_DATABASE_VIEW_MUTATION.md)を追加。name/layout/visiblePropertyIds/filter/sortsをSource-boundで検証し、別field保持・同field三値と新intent解決を計画する。pure契約でactual View保存/同期/UIは未実装。server8/native8保持。
+
 ## 1. 要求と適用範囲
 
 ユーザー指定:

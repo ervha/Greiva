@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+最新v0.46.0：[View変更・競合計画](../development/BASIC_DATABASE_VIEW_MUTATION.md)で設定5fieldのtyped intent、whole-field三値merge、新intent解決をportable Domainへ追加。[証拠](../../tests/evidence/basic-database-view-mutation-20261009/SUMMARY.md)。配列順を保持し、別field更新後のfresh解決とstale intentを区別する。server8/native8は未変更。actual View保存、Record変更受信、端末DB同期/Table/List画面と実Auth/native/配備暗号化は次工程。
+
 最新v0.45.0：[Recordヘッダー一覧](../development/PRIVATE_DATABASE_RECORD_CATALOG.md)で認証付きmax100/Source・device・head固定cursor、filtered raw進捗、明示schema8を追加。[証拠](../../tests/evidence/private-database-record-catalog-20261009/SUMMARY.md)。旧RecordをID順seedし、新規位置はwriter/ledgerと原子保存する。値・本文の同期完了とは分離。Record変更受信/View、端末DB保存/同期、Table/List画面が次工程。実Auth/native/配備暗号化と全DBは後続。
 
 再開（2026-10-09、利用者指示）：v0.44.0のclean地点を確認し、Record一覧から継続する。

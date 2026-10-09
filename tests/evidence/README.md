@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-09 / v0.46.0 / [View変更/競合計画](basic-database-view-mutation-20261009/SUMMARY.md): typed5設定/whole-field三値/fresh解決とstale拒否。重点11/通常411/全PG135/help12/型/build。server8/native8保持、actual View保存/端末同期/画面は後続。
+
 - 2026-10-09 / v0.45.0 / [Record header一覧](private-database-record-catalog-20261009/SUMMARY.md): max100/creation範囲固定/HMAC、明示8/ID seed/atomic head、filtered進捗、COMMIT前後SIGKILL。重点4/専用PG11/通常400/全PG135/型/build/help12。旧v44全UIは旧版証拠として保持、Record受信/View/端末DB/画面は後続。
 
 - 2026-10-08 / v0.44.0 / [Record保存/競合](private-database-record-20261008/SUMMARY.md): 実PG writer/history/Page binding、三値/非競合merge/新操作解決/immutable再送、schema7/COMMIT前後SIGKILL。専用PG18/重点23/通常396/PG124/root64/Auth12/workspace52/型/Rust/frontend/Windows build。null試験とfixture型の元Fail保持。DB一覧/View/端末同期/画面は後続。

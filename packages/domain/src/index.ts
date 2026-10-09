@@ -4,6 +4,7 @@ export * from './private-workspace.js';
 export * from './database.js';
 export * from './database-query.js';
 export * from './database-mutation.js';
+export * from './database-view-mutation.js';
 
 // Domain intent rules only. Wire envelopes, storage, clocks and UI stay outside.
 // Preserve the existing PoC contract, including whitespace/empty title handling.
