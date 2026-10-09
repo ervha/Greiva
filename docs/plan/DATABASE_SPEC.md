@@ -22,6 +22,8 @@
 
 2026-10-09 / v0.51.0：[Source端末保存](../development/PRIVATE_DATABASE_SOURCE_CACHE.md)でnative9/current/履歴/read receiptの原子保存、late reply保護、6型/strict IPCとbounded端末一覧を追加。server11保持。Record/View replica/queue/DB cursor/runtime、Table/List画面は後続。
 
+2026-10-09 / v0.52.0：[Source取得session](../development/PRIVATE_DATABASE_SOURCE_SESSION.md)でcaptured Auth/明示catalog・readを端末cacheへ接続し、unknown commitの同応答再保存と世代取消を追加。server11/native9保持。Source作成/Record/View queue、内容replica/DB cursorとTable/List画面は後続。
+
 ## 1. 要求と適用範囲
 
 ユーザー指定:

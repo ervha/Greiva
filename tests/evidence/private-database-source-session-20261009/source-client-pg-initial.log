@@ -1,0 +1,36 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [31m❯[39m tests/integration/private-database-source-client-postgres.test.ts [2m([22m[2m2 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 888[2mms[22m[39m
+[31m   [31m×[31m DB-SOURCE-CLIENT-PG: signed actual HTTP catalog/read commits six-type native cache, unknown result retries same response without network and server denies retain local data[39m[33m 567[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-SOURCE-CLIENT-PG: replacement and Auth refresh discard late signed HTTP before native cache, close blocks new calls[33m 319[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-source-client-postgres.test.ts[2m > [22mDB-SOURCE-CLIENT-PG: signed actual HTTP catalog/read commits six-type native cache, unknown result retries same response without network and server denies retain local data
+[31m[1mAssertionError[22m: expected DatabaseSourceSessionError: Database Sour… { stage: '…' } to match object { stage: 'transport' }
+(1 matching property omitted from actual)[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- {[39m
+[32m-   "stage": "transport",[39m
+[31m+ DatabaseSourceSessionError {[39m
+[31m+   "stage": "closed",[39m
+[2m  }[22m
+
+[36m [2m❯[22m tests/integration/private-database-source-client-postgres.test.ts:[2m30:1285[22m[39m
+
+[90m [2m❯[22m isolated tests/integration/private-database-source-client-postgres.test.ts:[2m22:744[22m[39m
+[90m [2m❯[22m tests/integration/private-database-source-client-postgres.test.ts:[2m30:191[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (2)[39m
+[2m   Start at [22m 03:33:41
+[2m   Duration [22m 2.13s[2m (tests 43%, import 33%, transform 23%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v52/source-client-pg-initial/vitest.json

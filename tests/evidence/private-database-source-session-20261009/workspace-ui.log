@@ -1,0 +1,17 @@
+
+Running 12 tests using 1 worker
+
+  ✓   1 [desktop] › tests/e2e/private-workspace.spec.ts:90:1 › WORKSPACE-HELP: unsigned-in offline local search, categories, related articles and manifest version do not send queries (2.6s)
+  ✓   2 [desktop] › tests/e2e/private-workspace.spec.ts:96:1 › WORKSPACE-HELP: dirty title and Task drafts retain selection, focus and immutable unsent records (1.9s)
+  ✓   3 [desktop] › tests/e2e/private-workspace.spec.ts:100:1 › WORKSPACE-HELP: Page body remains mounted and its selection returns without a sync or local mutation (1.6s)
+  ✓   4 [desktop] › tests/e2e/private-workspace.spec.ts:103:1 › WORKSPACE-HELP: composition guards entry, Enter and Escape; keyboard dismissal returns to its launcher (1.3s)
+  ✓   5 [desktop] › tests/e2e/private-workspace.spec.ts:106:1 › WORKSPACE-HELP: contextual unknown title-save guidance leaves exact retry and copyable draft untouched (1.8s)
+  ✓   6 [desktop] › tests/e2e/private-workspace.spec.ts:109:1 › WORKSPACE-HELP: metadata context explains cached progress without fetching or acknowledging pending body (1.5s)
+  ✓   7 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:90:1 › WORKSPACE-HELP: unsigned-in offline local search, categories, related articles and manifest version do not send queries (1.5s)
+  ✓   8 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:96:1 › WORKSPACE-HELP: dirty title and Task drafts retain selection, focus and immutable unsent records (1.5s)
+  ✓   9 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:100:1 › WORKSPACE-HELP: Page body remains mounted and its selection returns without a sync or local mutation (1.5s)
+  ✓  10 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:103:1 › WORKSPACE-HELP: composition guards entry, Enter and Escape; keyboard dismissal returns to its launcher (1.1s)
+  ✓  11 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:106:1 › WORKSPACE-HELP: contextual unknown title-save guidance leaves exact retry and copyable draft untouched (1.7s)
+  ✓  12 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:109:1 › WORKSPACE-HELP: metadata context explains cached progress without fetching or acknowledging pending body (1.5s)
+
+  12 passed (22.3s)

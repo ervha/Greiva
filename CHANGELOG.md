@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.52.0 — 2026-10-09
+
+- 認証済みworkspace/deviceを捕捉するSource catalog/read sessionとnative cache factoryを接続する。openだけでnetworkを開始せず、header観測を全DB同期へ扱わない。
+- 入出力scope/6型を検証し、端末commit結果不明時に同じrequest/responseを保持してnetworkなしで再確認する。置換/Auth refresh/closeで遅着応答を除外する。
+- 専用8条件・actual signed HTTP/native PG2と全回帰/build/help版表示を検証する。403時の既存connection閉鎖を期待し直した元fixture Failを保持。server11/native9、Source作成/Record/View queue・delta/UIと全DB/native Gateは後続。
+
 ## 0.51.0 — 2026-10-09
 
 - 受信したSource定義をnative9の版履歴/read receipt/currentへ原子保存し、再起動・同一再送・古い応答・同版divergenceを処理する。server11と旧Page/title/Task/queueを保持する。

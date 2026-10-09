@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-09 / v0.52.0 / [DB定義取得session](private-database-source-session-20261009/SUMMARY.md): captured Auth/catalog・read→native cache、unknown同応答retry、世代取消/旧store commit。専用8/actual HTTP-native PG2/通常447/全PG187/help12/型/build。元403閉鎖fixture Fail保持。server11/native9、Source作成/Record/View queue/delta/画面は後続。
+
 - 2026-10-09 / v0.51.0 / [DB定義端末保存](private-database-source-cache-20261009/SUMMARY.md): native9/Source current・history・read receipt原子保存、late reply/同版divergence、6型/strict IPC/keyset、移行/実SIGKILL2。専用13/通常439/既存PG185/help12/型/build。Unicode元Fail保持、server11保持。Record/View replica/queue/DB cursor/runtime/画面は後続。
 
 - 2026-10-09 / v0.50.0 / [DB変更履歴/差分取得](private-database-changes-20261009/SUMMARY.md): 明示11/永続Source journal/current・候補seed/atomic追記、Page先行lockと観測head固定、max100/64MiB/filtered進捗。専用PG23/通常426/全PG185/help12/型/build。初回19Pass/4Fail保持、実SIGKILL4試行、native8保持。端末DB適用/queue/runtime/画面は後続。

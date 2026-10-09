@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.52.0：[DB定義取得session](../development/PRIVATE_DATABASE_SOURCE_SESSION.md)でcaptured Authの明示catalog/readを端末cacheへ接続。strict scope/6型、結果不明の同応答再保存、networkなしretry、置換/refresh/closeを追加。[証拠](../../tests/evidence/private-database-source-session-20261009/SUMMARY.md)。server11/native9保持。Source作成queue、Record/View replica・queue・DB cursorとTable/List画面へ続行する。
+
 最新v0.51.0：[DB定義端末保存](../development/PRIVATE_DATABASE_SOURCE_CACHE.md)でnative9、Source snapshot/read receipt/版履歴とcurrentの原子保存、late reply保護、厳密6型/IPC、bounded端末一覧を追加。[証拠](../../tests/evidence/private-database-source-cache-20261009/SUMMARY.md)。再起動/COMMIT前後SIGKILLと旧データ移行を検証する。server11保持。Record/View replica・queue・DB cursor/runtimeとTable/List画面へ続行する。
 
 最新v0.50.0：[DB変更履歴/差分取得](../development/PRIVATE_DATABASE_CHANGES.md)で明示server11、Source別永続世代/head、current・候補seed、writer/解決/ledgerとの原子event保存と認証付きbounded pullを実装。[証拠](../../tests/evidence/private-database-changes-20261009/SUMMARY.md)。PG23の移行待機/分割/競合/COMMIT前後killを確認し、元Failを保持。native8/既存APIは保持。端末DB replica/queue/runtimeとTable/List画面へ続行する。

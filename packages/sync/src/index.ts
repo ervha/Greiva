@@ -21,3 +21,5 @@ export {PageTitleSyncSession,PageTitleSessionError} from './page-title-session.j
 export type {PageTitleContext,PageTitleTransport,PageTitleStore} from './page-title-session.js';
 export {PageChangesSyncSession,PageChangesSessionError} from './page-changes-session.js';
 export type {PageChangesTransport,PageChangesStore} from './page-changes-session.js';
+export {DatabaseSourceSyncSession,DatabaseSourceSessionError} from './database-source-session.js';
+export type {DatabaseSourceTransport,DatabaseSourceStore} from './database-source-session.js';

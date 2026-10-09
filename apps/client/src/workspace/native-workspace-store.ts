@@ -55,6 +55,7 @@ export class NativeWorkspaceStore implements WorkspaceSessionStore {
     const parsed=idSchema.safeParse(pageId);if(!parsed.success)throw new NativeWorkspaceError('protocol');this.check();return new NativeWorkspacePage(this,pageId);
   }
   assertActive(){this.check();}
+  databaseSources(){this.check();return this.connection.openDatabaseSources({receive:this.databaseSourceReceive.bind(this)});}
   async databaseSourceReceive(sourceId:string,candidateRequest:unknown,candidateResponse:unknown):Promise<void>{
     this.check();let request:ReturnType<typeof privateDatabaseSourceReadRequestSchema.parse>,response:ReturnType<typeof privateDatabaseSourceReadResponseSchema.parse>;
     try{if(idSchema.parse(sourceId)!==sourceId.toLowerCase())throw Error();request=privateDatabaseSourceReadRequestSchema.parse(candidateRequest);response=privateDatabaseSourceReadResponseSchema.parse(candidateResponse);if(request.clientId!==this.context.clientId||response.clientId!==this.context.clientId||response.workspaceId!==this.context.workspaceId||response.workspaceEpoch!==this.context.streamEpoch||response.snapshot.source.id!==sourceId)throw Error();immutable(request);immutable(response);}catch{throw new NativeWorkspaceError('protocol');}
