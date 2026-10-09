@@ -12,6 +12,8 @@
 
 2026-10-09 / v0.46.0：[View設定intent/merge](../development/BASIC_DATABASE_VIEW_MUTATION.md)を追加。name/layout/visiblePropertyIds/filter/sortsをSource-boundで検証し、別field保持・同field三値と新intent解決を計画する。pure契約でactual View保存/同期/UIは未実装。server8/native8保持。
 
+2026-10-09 / v0.47.0：[View設定保存](../development/PRIVATE_DATABASE_VIEW.md)をactual PGへ接続。明示server9/current/history/三値候補/new解決/immutable結果、bounded候補readを追加。Source/Record/Pageは複製せずnative8を保持する。View一覧/Record受信/端末DB/Table/List画面は後続。
+
 ## 1. 要求と適用範囲
 
 ユーザー指定:

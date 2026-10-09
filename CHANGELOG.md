@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.47.0 — 2026-10-09
+
+- 基本DB Viewのactual Postgres create/update/read、authoritative版履歴、immutable operation結果と三値候補/新operation解決を追加する。Source/Record/Page本文は複製しない。
+- 明示server8→9、候補の元request/result/history照合、bounded read、unknown/stale/invalid拒否履歴とremote no-op解決を実装する。既存API/native8を保持する。
+- 実PG・署名HTTP・COMMIT前後SIGKILLと全回帰/build/help版表示を検証し、初回schema確認の型エラーを保持する。View一覧・端末DB同期・Table/List画面と全DB/native Gateは後続。
+
 ## 0.46.0 — 2026-10-09
 
 - Table/List用View設定のtyped create/update intent、Source/schema/参照検証、exact基底と三値merge計画をportable Domainへ追加する。

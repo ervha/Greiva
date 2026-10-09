@@ -1,3 +1,4 @@
+import {verifyPrivateDatabaseViewSchema} from './private-database-view-schema.js';
 import type pg from 'pg';
 import { verifyPrivateStructuredSchema } from './private-structured-schema.js';
 import {verifyPrivatePageMetadataSchema} from './private-page-metadata-schema.js';
@@ -15,7 +16,7 @@ export async function verifyPrivateWorkspaceSchema(pool: pg.Pool, candidate: str
   try {
     await client.query('BEGIN ISOLATION LEVEL REPEATABLE READ READ ONLY');
     const version = await client.query(`SELECT version FROM "${schema}".private_schema_version WHERE singleton=true`);
-    if (version.rowCount !== 1 || ![1,2,3,4,5,6,7,8].includes(version.rows[0].version)) throw new Error('Unsupported private schema');
+    if (version.rowCount !== 1 || ![1,2,3,4,5,6,7,8,9].includes(version.rows[0].version)) throw new Error('Unsupported private schema');
     for (const query of [
       `SELECT id,owner_issuer,owner_subject_id,epoch,deleted FROM "${schema}".private_workspaces LIMIT 0`,
       `SELECT id,workspace_id,revoked FROM "${schema}".private_devices LIMIT 0`,
@@ -30,8 +31,9 @@ export async function verifyPrivateWorkspaceSchema(pool: pg.Pool, candidate: str
     if(version.rows[0].version>=6)await verifyPrivateDatabaseSourceSchema(client,schema);
     if(version.rows[0].version>=7)await verifyPrivateDatabaseRecordSchema(client,schema);
     if(version.rows[0].version>=8)await verifyPrivateDatabaseRecordCatalogSchema(client,schema);
+    if(version.rows[0].version>=9)await verifyPrivateDatabaseViewSchema(client,schema);
     await client.query('COMMIT');
-    return version.rows[0].version as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8;
+    return version.rows[0].version as 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
   } catch {
     try { await client.query('ROLLBACK'); } catch { /* fixed error only */ }
     throw new Error('Private workspace schema unavailable');

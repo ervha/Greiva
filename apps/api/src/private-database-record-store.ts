@@ -100,7 +100,7 @@ export class PostgresPrivateDatabaseRecordStore implements PrivateDatabaseRecord
  }
  private scope(tx:PrivateTransaction,source:DatabaseSource){return{protocolVersion:1 as const,workspaceId:tx.context.workspaceId,workspaceEpoch:tx.context.epoch,clientId:tx.context.clientId,sourceId:source.id,schemaVersion:source.schemaVersion};}
  private async source(tx:PrivateTransaction,id:string,write:boolean){
-  const gate=await tx.query(`SELECT version FROM "${this.schema}".private_schema_version WHERE singleton=true`);if(gate.rowCount!==1||![7,8].includes(gate.rows[0]!.version))throw new PrivateTransactionUnavailable();
+  const gate=await tx.query(`SELECT version FROM "${this.schema}".private_schema_version WHERE singleton=true`);if(gate.rowCount!==1||![7,8,9].includes(gate.rows[0]!.version))throw new PrivateTransactionUnavailable();
   const rows=await tx.query(`SELECT id,workspace_id,definition,version::text,creation_order::text,deleted FROM "${this.schema}".private_database_sources WHERE workspace_id=$1 AND id=$2 FOR ${write?'UPDATE':'SHARE'}`,[tx.context.workspaceId,id]);
   if(rows.rowCount!==1||rows.rows[0]!.deleted)throw new PrivateWorkspaceAccessDenied();const row=rows.rows[0]!,parsed=privateDatabaseSourceSnapshotSchema.safeParse({source:row.definition,version:Number(row.version),creationOrder:row.creation_order});
   if(!parsed.success||parsed.data.source.id!==id||parsed.data.source.workspaceId!==tx.context.workspaceId)throw new PrivateTransactionUnavailable();return parsed.data.source;

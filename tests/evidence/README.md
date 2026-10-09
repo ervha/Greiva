@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-09 / v0.47.0 / [View設定保存](private-database-view-20261009/SUMMARY.md): actual writer/history/immutable再送、三値/新operation解決、元ledger/history照合、明示9/SIGKILL。重点14/専用PG16/通常414/全PG151/help12/型/build。初回型Fail保持、native8/既存API維持。View一覧/端末DB/画面は後続。
+
 - 2026-10-09 / v0.46.0 / [View変更/競合計画](basic-database-view-mutation-20261009/SUMMARY.md): typed5設定/whole-field三値/fresh解決とstale拒否。重点11/通常411/全PG135/help12/型/build。server8/native8保持、actual View保存/端末同期/画面は後続。
 
 - 2026-10-09 / v0.45.0 / [Record header一覧](private-database-record-catalog-20261009/SUMMARY.md): max100/creation範囲固定/HMAC、明示8/ID seed/atomic head、filtered進捗、COMMIT前後SIGKILL。重点4/専用PG11/通常400/全PG135/型/build/help12。旧v44全UIは旧版証拠として保持、Record受信/View/端末DB/画面は後続。

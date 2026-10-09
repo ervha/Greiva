@@ -1,0 +1,11 @@
+
+> greiva-poc@0.47.0 build:servers
+> npm run build -w @greiva/api && npm run build -w @greiva/collaboration
+
+
+> @greiva/api@0.47.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/collaboration@0.47.0 build
+> tsc -p tsconfig.json

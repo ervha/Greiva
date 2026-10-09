@@ -1,0 +1,14 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/private-database-view-postgres.test.ts [2m([22m[2m16 tests[22m[2m)[22m[33m 3282[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-PG: actual protected runtime mounts schema9 View endpoints and keeps Page/Task/Record routes[33m 316[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-SIGKILL-before-commit: actual worker death recovers one View/receipt[33m 336[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-SIGKILL-after-commit: actual worker death recovers one View/receipt[33m 327[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m16 passed[39m[22m[90m (16)[39m
+[2m   Start at [22m 02:05:51
+[2m   Duration [22m 4.14s[2m (tests 81%, transform 10%, import 9%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v47/view-pg/vitest.json

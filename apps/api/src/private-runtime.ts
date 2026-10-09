@@ -1,3 +1,4 @@
+import {PostgresPrivateDatabaseViewStore} from './private-database-view-store.js';
 import pg from 'pg';
 import { supabaseConfiguration } from '@greiva/shared';
 import { PostgresPrivateAccessStore } from './private-access-store.js';
@@ -61,7 +62,8 @@ export async function startPrivateApi(configuration: PrivateRuntimeConfiguration
       schemaVersion>=5?new PostgresPrivatePageChangesStore(pool,config.schema):undefined,
       schemaVersion>=6?new PostgresPrivateDatabaseSourceStore(pool,config.schema):undefined,
       schemaVersion>=7?new PostgresPrivateDatabaseRecordStore(pool,config.schema):undefined,
-      schemaVersion>=8?new PostgresPrivateDatabaseRecordCatalogStore(pool,config.schema):undefined);
+      schemaVersion>=8?new PostgresPrivateDatabaseRecordCatalogStore(pool,config.schema):undefined,
+      schemaVersion>=9?new PostgresPrivateDatabaseViewStore(pool,config.schema):undefined);
     await app.listen(config.port, config.host);
     const address = await app.getUrl(), capturedApp = app, capturedPool = pool;
     let closing: Promise<void> | undefined;
