@@ -74,8 +74,9 @@
 | v0.51.0 DB定義端末保存 | [DB Source cache](../decisions/private-database-source-cache.md) | 16 | native9/履歴・receipt原子保存、late reply保護、厳密6型・Unicode/IPC、keyset/SIGKILL・元Fail保持 |
 | v0.52.0 DB定義取得session | [DB Source session](../decisions/private-database-source-session.md) | 16 | captured Auth/明示catalog・read→cache、immutable結果不明pair/同応答retry、世代取消/actual HTTP-native接続 |
 | v0.53.0 Record端末保存 | [DB Record cache](../decisions/private-database-record-cache.md) | 16 | native10/typed履歴・receipt・既知候補原子保存、late baseline/版保護、bounded読取/SIGKILL |
+| v0.54.0 View端末保存 | [DB View cache](../decisions/private-database-view-cache.md) | 16 | native11/typed設定・whole-field候補、履歴・receipt原子保存、filter境界/移行/SIGKILL |
 
-合計779件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
+合計795件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
 
 共通：同じcodex/poc-editor、確認後の版/tag/push、外部依存を監査、元Page/DBを保持。Computer UseはWindows診断後に解除し、今回の基盤開発では使わない。cloud/project/配布・課金・新global toolchainを作成せず、端末保持/旧DB帰属/保持期限を未決定のまま創作しない。初期OFFの改善送信は設計で、実際の収集は始めていない。
 

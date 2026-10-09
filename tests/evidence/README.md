@@ -1,5 +1,6 @@
 # 試験証拠の索引
 
+- 2026-10-09 / v0.54.0 / [View端末保存](private-database-view-cache-20261009/SUMMARY.md): native11/typed設定・whole-field候補/原子履歴、filter境界・遅着版保護・bounded読取。View22＋旧native79/SIGKILL2/通常486/全PG187/help12/型/build。元compile/移行fixture5 Fail保持、server11/queue・delta・画面は後続。
 - 2026-10-09 / v0.53.0 / [Record端末保存](private-database-record-cache-20261009/SUMMARY.md): native10/typed履歴・receipt・既知候補、late baseline/最新版保護、bounded読取。専用17/旧native62/SIGKILL2/通常464/全PG187/help12/型/build。元fixture Fail保持、server11/queue・delta・View・画面は後続。
 - 2026-10-09 / v0.52.0 / [DB定義取得session](private-database-source-session-20261009/SUMMARY.md): captured Auth/catalog・read→native cache、unknown同応答retry、世代取消/旧store commit。専用8/actual HTTP-native PG2/通常447/全PG187/help12/型/build。元403閉鎖fixture Fail保持。server11/native9、Source作成/Record/View queue/delta/画面は後続。
 

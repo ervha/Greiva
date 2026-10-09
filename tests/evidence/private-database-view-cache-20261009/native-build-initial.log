@@ -1,0 +1,19 @@
+   Compiling greiva-page-store v0.54.0 (/workspace/apps/client/src-tauri/crates/page-store)
+error[E0425]: cannot find function `cell` in module `super::private_database_view`
+  --> src/private_database_view.rs:10:156
+   |
+10 | ...("text");}super::private_database_view::cell(&p,v)}
+   |                                            ^^^^ not found in `super::private_database_view`
+   |
+help: consider importing this function
+   |
+ 1 + use crate::private_database_record::cell;
+   |
+help: if you import `cell`, refer to it directly
+   |
+10 - fn value(property:&Value,v:&Value)->StoreResult<()>{let mut p=property.clone();if p["type"]=="name"{p["type"]=json!("text");}super::private_database_view::cell(&p,v)}
+10 + fn value(property:&Value,v:&Value)->StoreResult<()>{let mut p=property.clone();if p["type"]=="name"{p["type"]=json!("text");}cell(&p,v)}
+   |
+
+For more information about this error, try `rustc --explain E0425`.
+error: could not compile `greiva-page-store` (lib) due to 1 previous error

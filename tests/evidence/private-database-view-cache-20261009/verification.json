@@ -1,0 +1,52 @@
+{
+  "version": "0.54.0",
+  "totals": {
+    "view-store": {
+      "total": 101,
+      "passed": 101,
+      "failed": 0,
+      "pending": 0
+    },
+    "initial-view-store": {
+      "total": 101,
+      "passed": 96,
+      "failed": 5,
+      "pending": 0
+    },
+    "normal": {
+      "total": 673,
+      "passed": 486,
+      "failed": 0,
+      "pending": 187
+    },
+    "postgres": {
+      "total": 187,
+      "passed": 187,
+      "failed": 0,
+      "pending": 0
+    },
+    "workspace-ui": {
+      "startTime": "2026-10-09T04:10:36.157Z",
+      "duration": 24848.687,
+      "expected": 12,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    }
+  },
+  "source": {
+    "count": 322,
+    "rawMatches": 312,
+    "textOnly": 10,
+    "excluded": [
+      "playwright.performance.config.ts",
+      "playwright.render-diagnostic.config.ts",
+      "tests/diagnostics/render-isolation.spec.ts",
+      "tests/native/windows-store-fixture.json",
+      "tests/performance/workloads.spec.ts"
+    ]
+  },
+  "realAuth": false,
+  "windowsLaunch": false,
+  "nativeIme": false
+}

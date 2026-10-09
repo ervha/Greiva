@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+最新v0.54.0：[View端末保存](../development/PRIVATE_DATABASE_VIEW_CACHE.md)でnative11、Table/List設定・whole-field既知候補の履歴/receipt/current原子保存を追加。filter型/参照/深さ/件数、遅着履歴とbounded読取を検証。[証拠](../../tests/evidence/private-database-view-cache-20261009/SUMMARY.md)。server11保持。DB cursor、Source/Record/View queue・runtimeと画面へ続行する。
+
 最新v0.53.0：[Record端末保存](../development/PRIVATE_DATABASE_RECORD_CACHE.md)でnative10、typed snapshot/history/read receipt/既知候補の原子保存、late replyとbaseline照合、bounded読取を追加。[証拠](../../tests/evidence/private-database-record-cache-20261009/SUMMARY.md)。server11保持。View replica、DB cursor、Source/Record/View queue・runtimeとTable/List画面へ続行する。
 
 最新v0.52.0：[DB定義取得session](../development/PRIVATE_DATABASE_SOURCE_SESSION.md)でcaptured Authの明示catalog/readを端末cacheへ接続。strict scope/6型、結果不明の同応答再保存、networkなしretry、置換/refresh/closeを追加。[証拠](../../tests/evidence/private-database-source-session-20261009/SUMMARY.md)。server11/native9保持。Source作成queue、Record/View replica・queue・DB cursorとTable/List画面へ続行する。

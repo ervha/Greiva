@@ -10,7 +10,7 @@ pub(super) fn id(v:&str)->StoreResult<()> {if !uuid_v7(v){return Err("Invalid da
 pub(super) fn version(v:&Value)->StoreResult<i64>{v.as_i64().filter(|n|(1..=9007199254740991).contains(n)).ok_or("Invalid database version".into())}
 fn order(v:&Value)->StoreResult<i64>{let raw=v.as_str().ok_or("Expected database order")?;let n=raw.parse::<i64>().map_err(|_|"Invalid database order")?;if n<1||n.to_string()!=raw{return Err("Invalid database order".into());}Ok(n)}
 fn js_space(c:char)->bool{matches!(c,'\u{0009}'..='\u{000d}'|'\u{0020}'|'\u{00a0}'|'\u{1680}'|'\u{2000}'..='\u{200a}'|'\u{2028}'|'\u{2029}'|'\u{202f}'|'\u{205f}'|'\u{3000}'|'\u{feff}')}
-fn label(v:&Value)->StoreResult<()> {let raw=v.as_str().ok_or("Expected database label")?;if raw.chars().count()>120||raw.chars().all(js_space){return Err("Invalid database label".into());}Ok(())}
+pub(super) fn label(v:&Value)->StoreResult<()> {let raw=v.as_str().ok_or("Expected database label")?;if raw.chars().count()>120||raw.chars().all(js_space){return Err("Invalid database label".into());}Ok(())}
 pub(super) fn source_snapshot(c:&WorkspaceContext,snapshot:&Value,source_id:&str)->StoreResult<(i64,i64)> {
     id(source_id)?;exact(snapshot,&["source","version","creationOrder"])?;let ver=version(&snapshot["version"])?;let at=order(&snapshot["creationOrder"])?;let source=&snapshot["source"];
     exact(source,&["id","workspaceId","name","schemaVersion","properties"])?;if text(source,"id")?!=source_id||text(source,"workspaceId")?!=c.workspace_id||version(&source["schemaVersion"])? > ver{return Err("Database Source binding mismatch".into());}id(text(source,"workspaceId")?)?;label(&source["name"])?;

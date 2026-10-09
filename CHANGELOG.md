@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.54.0 — 2026-10-09
+
+- native11へView read replicaを追加し、Table/List設定・履歴・receipt・whole-field既知候補を原子保存する。server11と旧Record/Source/Page/pendingを保持する。
+- nativeでも列/sort参照・Name必須・6型filter・深さ/件数を検査し、設定順を保持する。古いreplyの版保護・known/late baseline照合・bounded候補/headersを追加する。
+- View22＋既存native79・実COMMIT前後SIGKILL2と全回帰/build/help版表示を検証する。初回共通validator参照のcompile Failと旧移行fixture5 Failを保持。DB delta/queue/runtime/画面と全DB/native Gateは後続。
+
 ## 0.53.0 — 2026-10-09
 
 - native10へRecord read replicaを追加し、typed snapshot/履歴/receipt/既知三値候補を原子保存する。Name/Page本文は複製せずserver11を保持する。
