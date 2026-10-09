@@ -1,0 +1,22 @@
+   Compiling greiva-page-store v0.59.0 (/workspace/apps/client/src-tauri/crates/page-store)
+error[E0277]: the `?` operator can only be used in an async block that returns `Result` or `Option` (or another type that implements `FromResidual`)
+  --> examples/workspace-driver.rs:28:114
+   |
+ 5 | #[tokio::main]
+   | -------------- this function should return `Result` or `Option` to accept `?`
+...
+28 |         "database_source_ack" => store.database_source_ack(request["sequence"].as_str().ok_or("Missing sequence")?,request["wire"].a...
+   |                                                                                                                  ^ cannot use the `?` operator in an async block that returns `()`
+
+error[E0277]: the `?` operator can only be used in an async block that returns `Result` or `Option` (or another type that implements `FromResidual`)
+  --> examples/workspace-driver.rs:28:162
+   |
+ 5 | #[tokio::main]
+   | -------------- this function should return `Result` or `Option` to accept `?`
+...
+28 |         "database_source_ack" => store.database_source_ack(request["sequence"].as_str().ok_or("Missing sequence")?,request["wire"].as_str().ok_or("Missing wire")?,re...
+   |                                                                                                                                                                  ^ cannot use the `?` operator in an async block that returns `()`
+
+For more information about this error, try `rustc --explain E0277`.
+error: could not compile `greiva-page-store` (example "workspace-driver") due to 2 previous errors
+warning: build failed, waiting for other jobs to finish...

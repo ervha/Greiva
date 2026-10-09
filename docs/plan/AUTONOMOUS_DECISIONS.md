@@ -79,8 +79,9 @@
 | v0.56.0 DB差分端末保存 | [DB delta store](../decisions/private-database-changes-store.md) | 16 | native12/mixed履歴・候補/解決・cursor原子保存、gdb1/byte guard/非補修replay・移行/SIGKILL |
 | v0.57.0 DB差分取得session | [DB delta session](../decisions/private-database-changes-session.md) | 16 | captured Auth/Source、durable cursor、unknown同応答retry/最新progressと世代取消 |
 | v0.58.0 DB差分runtime | [DB delta runtime](../decisions/private-database-changes-runtime.md) | 16 | local opening/max100明示取得、unknown・最新progress/observedHead、共有store非所有/observer取消 |
+| v0.59.0 DB作成queue | [DB source queue](../decisions/private-database-source-queue.md) | 20 | native13/pending分離・元wire/checksum・原ACK/cache原子確認、read併用/非補修replay・SIGKILL |
 
-合計859件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
+合計879件。利用者回答に基づく決定と自主判断の区別は各記録に明示。上表以前のPoC判断は[技術採用/全Gateレビュー](../decisions/poc-autonomous-review.md)、[Step8描画改善](../decisions/step-8-render-isolation.md)、[過去証拠索引](../../tests/evidence/README.md)と各docs/decisions記録へ保持している。
 
 共通：同じcodex/poc-editor、確認後の版/tag/push、外部依存を監査、元Page/DBを保持。Computer UseはWindows診断後に解除し、今回の基盤開発では使わない。cloud/project/配布・課金・新global toolchainを作成せず、端末保持/旧DB帰属/保持期限を未決定のまま創作しない。初期OFFの改善送信は設計で、実際の収集は始めていない。
 

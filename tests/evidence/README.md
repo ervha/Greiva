@@ -1,5 +1,6 @@
 # 試験証拠の索引
 
+- 2026-10-09 / v0.59.0 / [DB作成queue](private-database-source-queue-20261009/SUMMARY.md): native13/pending定義・元wire/checksum・原ACK/cache原子確認。専用21＋旧126/SIGKILL6/通常569/全PG196/help12/型/build。server11、送信session/runtime・Record/View queue・画面は後続。
 - 2026-10-09 / v0.58.0 / [DB差分runtime](private-database-changes-runtime-20261009/SUMMARY.md): local opening/max100の1window・unknown再保存・観測状態/閉鎖。専用11/actual HTTP-native PG2/通常548/全PG196/help12/型/build。server11/native12、queue・画面は後続。
 - 2026-10-09 / v0.57.0 / [DB差分取得session](private-database-changes-session-20261009/SUMMARY.md): captured Auth/Source、durable cursor→native、unknown同応答retry/最新progress・世代取消。専用13/actual HTTP-native PG4/通常537/全PG194/help12/型/build。server11/native12、runtime・queue・画面は後続。
 - 2026-10-09 / v0.56.0 / [DB差分端末保存](private-database-changes-store-20261009/SUMMARY.md): native12/mixed原子保存・候補/解決/cursor、gdb1/型/compact64MiB/非補修replay。native25＋旧101/SIGKILL2/通常524/全PG190/help12/型/build。server11、差分HTTP・queue・画面は後続。

@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.59.0：[DB作成queue](../development/PRIVATE_DATABASE_SOURCE_QUEUE.md)でnative13、独立pending定義・immutable wire/checksum・原ACKとcache/historyの原子確認を追加。read先行/late ACK・非補修replay・bounded list・移行/実SIGKILL6を検証。[証拠](../../tests/evidence/private-database-source-queue-20261009/SUMMARY.md)。server11保持。Source送信session/runtime、Record/View queue、Table/Listへ続行する。
+
 最新v0.58.0：[DB差分runtime](../development/PRIVATE_DATABASE_CHANGES_RUNTIME.md)でlocal opening/reload、明示max100取得、busy/error/unknown・最新progress・observedHeadと閉鎖を画面用状態へ接続。[証拠](../../tests/evidence/private-database-changes-runtime-20261009/SUMMARY.md)。server11/native12保持。Source/Record/View永続queue、Table/List画面へ続行する。
 
 最新v0.57.0：[DB差分取得session](../development/PRIVATE_DATABASE_CHANGES_SESSION.md)でcaptured Source/Authのbounded pullをnative deltaへ接続。durable cursor・strict型/世代/raw進捗、unknown同応答retryと保存後の最新progress、置換/refresh/store closeを検証。[証拠](../../tests/evidence/private-database-changes-session-20261009/SUMMARY.md)。server11/native12保持。画面runtime、Source/Record/View queueとTable/Listへ続行する。

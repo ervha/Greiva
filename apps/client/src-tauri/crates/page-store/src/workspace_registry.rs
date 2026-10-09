@@ -47,6 +47,10 @@ impl WorkspaceRegistry {
         // admitted operations; a late old handle never resolves a current store.
         let state=self.state.lock().await;let active=state.active.as_ref().filter(|active|active.handle==handle).ok_or(REJECTED)?;let store=&active.store;
         match text(&request,"command")? {
+            "database_source_enqueue"=>{exact(&request,&["command","intent"])?;store.database_source_enqueue(request["intent"].clone()).await?;Ok(Value::Null)},
+            "database_source_prepare"=>{exact(&request,&["command"])?;store.database_source_prepare().await},
+            "database_source_ack"=>{exact(&request,&["command","sequence","wire","response"])?;store.database_source_ack(text(&request,"sequence")?,text(&request,"wire")?,request["response"].clone()).await?;Ok(Value::Null)},
+            "database_source_queue"=>{exact(&request,&["command","after","limit"])?;let after=if request["after"].is_null(){None}else{Some(text(&request,"after")?)};let limit=request["limit"].as_u64().filter(|n|*n<=100).ok_or(REJECTED)? as usize;store.database_source_queue(after,limit).await},
             "database_changes_receive"=>{exact(&request,&["command","sourceId","request","response"])?;store.database_changes_receive(text(&request,"sourceId")?,request["request"].clone(),request["response"].clone()).await?;Ok(Value::Null)},
             "database_changes_load"=>{exact(&request,&["command","sourceId"])?;store.database_changes_load(text(&request,"sourceId")?).await},
             "database_view_receive"=>{exact(&request,&["command","sourceId","viewId","request","response"])?;store.database_view_receive(text(&request,"sourceId")?,text(&request,"viewId")?,request["request"].clone(),request["response"].clone()).await?;Ok(Value::Null)},

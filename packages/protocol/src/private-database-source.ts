@@ -29,3 +29,18 @@ export const privateDatabaseSourceLocalListSchema=z.strictObject({context:worksp
  let previous='';const positions=new Set<string>();for(const row of value.sources){if(row.source.workspaceId!==value.context.workspaceId||row.source.id<=previous||positions.has(row.creationOrder))ctx.addIssue({code:'custom',message:'Invalid local Source catalog'});previous=row.source.id;positions.add(row.creationOrder);}
  if(value.nextAfter!==null&&(value.sources.length===0||value.sources.at(-1)!.source.id!==value.nextAfter))ctx.addIssue({code:'custom',message:'Invalid Source continuation'});
 });
+const sourceSequence=structuredOrderSchema.refine(value=>value!=='0','Positive Source sequence required');
+export const privateDatabaseSourceIntentSchema=z.strictObject({operationId:canonicalId,source:definition.refine(source=>source.schemaVersion===1,'Initial definition version required')});
+export const privateDatabaseSourcePreparedSchema=z.strictObject({sequence:sourceSequence,operationId:canonicalId,sourceId:canonicalId,wire:z.string().min(1).max(4*1024*1024)}).superRefine((value,ctx)=>{try{const request=privateDatabaseSourceCreateRequestSchema.parse(JSON.parse(value.wire));if(request.operationId!==value.operationId||request.source.id!==value.sourceId)throw Error();}catch{ctx.addIssue({code:'custom',message:'Invalid prepared Source wire'});}});
+export const privateDatabaseSourceQueueRequestSchema=z.strictObject({after:sourceSequence.nullable().default(null),limit:z.number().int().min(1).max(100).default(50)});
+export const privateDatabaseSourceQueueSchema=z.strictObject({context:workspaceLocalContextSchema,pending:z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER),operations:z.array(z.strictObject({sequence:sourceSequence,intent:privateDatabaseSourceIntentSchema,wire:z.string().min(1).max(4*1024*1024).nullable(),response:privateDatabaseSourceCreateResponseSchema.nullable()})).max(100),nextAfter:sourceSequence.nullable()}).superRefine((value,ctx)=>{
+ let previous=0n;const sources=new Set<string>(),ids=new Set<string>();
+ for(const row of value.operations){let valid=BigInt(row.sequence)>previous&&row.intent.source.workspaceId===value.context.workspaceId&&!sources.has(row.intent.source.id)&&!ids.has(row.intent.operationId);previous=BigInt(row.sequence);sources.add(row.intent.source.id);ids.add(row.intent.operationId);
+  if(row.wire!==null){try{const request=privateDatabaseSourceCreateRequestSchema.parse(JSON.parse(row.wire));if(request.clientId!==value.context.clientId||request.operationId!==row.intent.operationId||JSON.stringify(request.source)!==JSON.stringify(row.intent.source))valid=false;}catch{valid=false;}}
+  if(row.response!==null&&(row.wire===null||row.response.operationId!==row.intent.operationId||row.response.clientId!==value.context.clientId||row.response.workspaceId!==value.context.workspaceId||row.response.workspaceEpoch!==value.context.streamEpoch||row.response.snapshot.version!==1||JSON.stringify(row.response.snapshot.source)!==JSON.stringify(row.intent.source)))valid=false;
+  if(!valid)ctx.addIssue({code:'custom',message:'Invalid Source operation provenance'});
+ }
+ if(value.nextAfter!==null&&(value.operations.length===0||value.nextAfter!==value.operations.at(-1)!.sequence))ctx.addIssue({code:'custom',message:'Invalid Source operation continuation'});
+});
+export type PrivateDatabaseSourceIntent=z.infer<typeof privateDatabaseSourceIntentSchema>;
+export type PrivateDatabaseSourcePrepared=z.infer<typeof privateDatabaseSourcePreparedSchema>;

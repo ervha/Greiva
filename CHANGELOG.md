@@ -1,5 +1,10 @@
 # 変更履歴
 
+## 0.59.0 — 2026-10-09
+
+- native13へ独立したDB作成queueを追加する。pending定義へ確認済みversion/creationOrderを与えず、6型/Source/workspace/operationを検査して保持する。
+- 元wire/checksumをprepareで固定し、原create ACKとcache/historyを原子保存する。readでqueueを清算せず、late ACKで最新版を戻さず、replayで欠損を補修しない。
+- 新native21＋旧126・enqueue/prepare/ACKの実SIGKILL6と全回帰/build/help版表示を検証する。server11保持。送信session/runtime・Record/View queue・Table/List画面と全DB/native Gateは後続。
 ## 0.58.0 — 2026-10-09
 
 - DB差分の画面用runtimeへlocal opening/reload、明示max100の1window取得、busy/error/unknown再確認、最新progressとobservedHeadを接続する。

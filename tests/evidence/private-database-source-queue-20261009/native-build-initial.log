@@ -1,0 +1,14 @@
+   Compiling greiva-page-store v0.59.0 (/workspace/apps/client/src-tauri/crates/page-store)
+error: expected one of `.`, `;`, `?`, `else`, or an operator, found `,`
+  --> src/private_database_source_queue.rs:15:151
+   |
+15 | ...d=row.get::<String,_>("operation_id"),source_id=row.get::<String,_>("source_id");let source:Value=serde_json::from_str(&row.get::...
+   |                                         ^ expected one of `.`, `;`, `?`, `else`, or an operator
+
+error: expected one of `.`, `;`, `?`, `else`, or an operator, found `,`
+  --> src/private_database_source_queue.rs:41:73
+   |
+41 |   intent(c,&candidate)?;let operation_id=text(&candidate,"operationId")?,source_id=text(&candidate["source"],"id")?;let mut tx=self....
+   |                                                                         ^ expected one of `.`, `;`, `?`, `else`, or an operator
+
+error: could not compile `greiva-page-store` (lib) due to 2 previous errors
