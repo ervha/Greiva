@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.49.0 — 2026-10-09
+
+- Record/Viewの増分受信に使うtyped snapshot/三値候補・解決状態、Source-bound型/参照検証、bounded raw進捗のportable契約を追加する。
+- gdb1 cursorをworkspace/epoch/device/Source/journal世代へ署名し、exact BigInt・canonical envelope・未来位置・他purpose混用を検査する。
+- 専用8条件と通常/既存PG/型/build/help版表示を検証する。server10/native8保持。actual journal/schema11/取得API、端末DB同期・画面と全DB/native Gateは後続。
+
 ## 0.48.0 — 2026-10-09
 
 - Table/Listの小さいView header catalogを追加する。最大100件、現在name/layout/version、Source/device/head固定gdv1 HMAC、numeric順とfiltered raw進捗を実装する。詳細設定は単一View readへ分ける。

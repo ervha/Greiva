@@ -16,6 +16,8 @@
 
 2026-10-09 / v0.48.0：[View header一覧](../development/PRIVATE_DATABASE_VIEW_CATALOG.md)を追加。max100/current name/layout/version、gdv1で固定creation範囲とraw進捗、明示server10のID seed/atomic位置。設定全体や変更受信/同期完了とは扱わず、native8を保持する。Record/View受信・端末DB/Table/List操作画面は後続。
 
+2026-10-09 / v0.49.0：[DB変更packet/cursor契約](../development/PRIVATE_DATABASE_CHANGES_CONTRACT.md)でtyped Record/View snapshot/候補解決状態、Source-bound検証、bounded raw進捗/gdb1を追加。server10/native8保持。actual journal/schema11/API/端末適用と画面は後続。
+
 ## 1. 要求と適用範囲
 
 ユーザー指定:
