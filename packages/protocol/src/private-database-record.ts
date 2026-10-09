@@ -1,6 +1,7 @@
 import {z} from 'zod';
 import {idSchema} from '@greiva/shared';
 import {databaseRecordSchema,databaseRecordIntentSchema,databaseRecordConflictSchema} from '@greiva/domain';
+import {workspaceLocalContextSchema} from './workspace.js';
 
 const id=idSchema.refine(value=>value===value.toLowerCase(),'Canonical ID required');
 const version=z.number().int().min(1).max(Number.MAX_SAFE_INTEGER);
@@ -34,3 +35,10 @@ export const privateDatabaseRecordReadResponseSchema=z.strictObject({...scope,re
 });
 export type PrivateDatabaseRecordWriteRequest=z.infer<typeof privateDatabaseRecordWriteRequestSchema>;
 export type PrivateDatabaseRecordWriteResponse=z.infer<typeof privateDatabaseRecordWriteResponseSchema>;
+export const privateDatabaseRecordLocalLoadRequestSchema=z.strictObject({afterConflict:id.nullable().default(null),limit:z.number().int().min(1).max(20).default(20)});
+export const privateDatabaseRecordLocalLoadSchema=z.strictObject({context:workspaceLocalContextSchema,sourceId:id,schemaVersion:version,record:privateDatabaseRecordSnapshotSchema.nullable(),conflicts:z.array(privateDatabaseRecordConflictSchema).max(20),nextAfter:id.nullable()}).superRefine((value,ctx)=>{
+ if(value.record===null){if(value.conflicts.length||value.nextAfter!==null)ctx.addIssue({code:'custom',message:'Candidate without cached Record'});return;}
+ checkScope({...value,workspaceId:value.context.workspaceId,record:value.record},ctx);if(value.conflicts.some((item,index)=>index>0&&item.id<=value.conflicts[index-1]!.id)||(value.nextAfter!==null&&value.nextAfter!==value.conflicts.at(-1)?.id))ctx.addIssue({code:'custom',message:'Invalid cached candidate continuation'});
+});
+export const privateDatabaseRecordLocalListRequestSchema=z.strictObject({after:id.nullable().default(null),limit:z.number().int().min(1).max(100).default(50)});
+export const privateDatabaseRecordLocalListSchema=z.strictObject({context:workspaceLocalContextSchema,sourceId:id,schemaVersion:version,records:z.array(z.strictObject({id,pageId:id,version})).max(100),nextAfter:id.nullable()}).superRefine((value,ctx)=>{const pages=new Set<string>();let previous='';for(const row of value.records){if(row.id<=previous||pages.has(row.pageId))ctx.addIssue({code:'custom',message:'Invalid cached Record headers'});previous=row.id;pages.add(row.pageId);}if(value.nextAfter!==null&&(value.records.length===0||value.records.at(-1)!.id!==value.nextAfter))ctx.addIssue({code:'custom',message:'Invalid Record continuation'});});

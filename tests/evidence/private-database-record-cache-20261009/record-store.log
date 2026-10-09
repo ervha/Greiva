@@ -1,0 +1,13 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/private-database-record-store.test.ts [2m([22m[2m17 tests[22m[2m)[22m[33m 3225[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-STORE: 21 observed candidates paginate20, empty/newer read does not infer resolution and stale candidates remain observed[33m 416[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-STORE: 101 local headers paginate100 and validate lookahead without copying values/title/body[33m 948[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m17 passed[39m[22m[90m (17)[39m
+[2m   Start at [22m 03:56:03
+[2m   Duration [22m 3.83s[2m (tests 86%, transform 8%, import 5%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v53/record-store/vitest.json

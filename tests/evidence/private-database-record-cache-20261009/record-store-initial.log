@@ -1,0 +1,55 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [31m❯[39m tests/integration/private-database-record-store.test.ts [2m([22m[2m17 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 3122[2mms[22m[39m
+   [32m✓[39m DB-RECORD-STORE: typed values/history/receipt survive restart, unknown Record stays null and Page body/Name are not copied[32m 141[2mms[22m[39m
+   [32m✓[39m DB-RECORD-STORE: missing/null/zero/false/text/date/select stay typed, native bypass rejects invalid values and Name[32m 167[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-STORE: 21 observed candidates paginate20, empty/newer read does not infer resolution and stale candidates remain observed[33m 437[2mms[22m[39m
+   [32m✓[39m DB-RECORD-STORE: late known baseline corroborates seed candidates atomically; contradictory baseline rolls back instead of poisoning cache[32m 106[2mms[22m[39m
+[31m   [31m×[31m DB-RECORD-STORE: source/page/client/epoch/schema/extra fields and read order boundaries reject without receipts[39m[32m 78[2mms[22m[39m
+   [32m✓[39m DB-RECORD-STORE: same version/candidate ID/Page binding divergence rolls back every new receipt/current/history/candidate[32m 95[2mms[22m[39m
+   [32m✓[39m DB-RECORD-STORE snapshot corruption: fail closed without empty fallback or repair[32m 90[2mms[22m[39m
+   [32m✓[39m DB-RECORD-STORE receipt corruption: fail closed without empty fallback or repair[32m 86[2mms[22m[39m
+   [32m✓[39m DB-RECORD-STORE projection corruption: fail closed without empty fallback or repair[32m 91[2mms[22m[39m
+   [32m✓[39m DB-RECORD-STORE candidate corruption: fail closed without empty fallback or repair[32m 94[2mms[22m[39m
+   [32m✓[39m DB-RECORD-STORE baseline corruption: fail closed without empty fallback or repair[32m 86[2mms[22m[39m
+   [32m✓[39m DB-RECORD-STORE lookahead corruption: fail closed without empty fallback or repair[32m 99[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-STORE: 101 local headers paginate100 and validate lookahead without copying values/title/body[33m 911[2mms[22m[39m
+   [32m✓[39m DB-RECORD-STORE: bound schema9 migration preserves Source/Page/pending and rolls back wrong identity/partial DDL[32m 198[2mms[22m[39m
+   [32m✓[39m DB-RECORD-STORE: concurrent exact observations preserve one receipt/history; Auth refresh closes old replica access[32m 90[2mms[22m[39m
+   [32m✓[39m DB-RECORD-STORE-SIGKILL-before-commit: actual native process death preserves candidate/receipt/history/current together and retry does not duplicate[32m 178[2mms[22m[39m
+   [32m✓[39m DB-RECORD-STORE-SIGKILL-after-commit: actual native process death preserves candidate/receipt/history/current together and retry does not duplicate[32m 171[2mms[22m[39m
+ [32m✓[39m tests/integration/private-page-store.test.ts [2m([22m[2m13 tests[22m[2m)[22m[33m 2539[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-PAGE-STORE: bound schema5 upgrade preserves structured data and rejects orphan/partial/foreign binding without mutation[33m 342[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-PAGE-STORE: input bounds and prepared corruption reject; combined large remote binary survives restart without an input-frame cap[33m 865[2mms[22m[39m
+ [32m✓[39m tests/integration/private-title-store.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 2086[2mms[22m[39m
+ [32m✓[39m tests/integration/private-database-source-store.test.ts [2m([22m[2m13 tests[22m[2m)[22m[33m 1923[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-SOURCE-STORE: 101 UUID-keyset rows bound to100 and duplicate creation positions roll back without history leaks[33m 750[2mms[22m[39m
+ [32m✓[39m tests/integration/workspace-store.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 1552[2mms[22m[39m
+ [32m✓[39m tests/integration/private-page-changes-store.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 1270[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-record-store.test.ts[2m > [22mDB-RECORD-STORE: source/page/client/epoch/schema/extra fields and read order boundaries reject without receipts
+[31m[1mAssertionError[22m: promise resolved "undefined" instead of rejecting[39m
+
+[32m- Expected:[39m
+Error {
+  "message": "rejected promise",
+}
+
+[31m+ Received:[39m
+undefined
+
+[36m [2m❯[22m tests/integration/private-database-record-store.test.ts:[2m14:517[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m5 passed[39m[22m[90m (6)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m78 passed[39m[22m[90m (79)[39m
+[2m   Start at [22m 03:52:56
+[2m   Duration [22m 14.29s[2m (tests 91%, import 6%, transform 3%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v53/record-store-initial/vitest.json

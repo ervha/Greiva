@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.53.0 — 2026-10-09
+
+- native10へRecord read replicaを追加し、typed snapshot/履歴/receipt/既知三値候補を原子保存する。Name/Page本文は複製せずserver11を保持する。
+- 同版divergence/Page変更を拒否し、late replyで最新版を戻さない。既知履歴と候補を照合し、後着baselineの矛盾もrollbackする。bounded候補/端末headersを追加する。
+- 専用17条件・旧native62・実COMMIT前後SIGKILL2と全回帰/build/help版表示を検証する。対象IDまで変更していた初回fixture Failを保持。View/delta/queue/runtime/画面と全DB/native Gateは後続。
+
 ## 0.52.0 — 2026-10-09
 
 - 認証済みworkspace/deviceを捕捉するSource catalog/read sessionとnative cache factoryを接続する。openだけでnetworkを開始せず、header観測を全DB同期へ扱わない。

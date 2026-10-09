@@ -4,10 +4,10 @@ use serde_json::{json,Value};
 use sqlx::{Row,Sqlite,Transaction};
 use std::collections::HashSet;
 
-fn exact(v:&Value,keys:&[&str])->StoreResult<()> {let object=v.as_object().ok_or("Expected database object")?;if object.len()!=keys.len()||keys.iter().any(|k|!object.contains_key(*k)){return Err("Unexpected database fields".into());}Ok(())}
-fn text<'a>(v:&'a Value,key:&str)->StoreResult<&'a str>{v[key].as_str().ok_or("Expected database text".into())}
-fn id(v:&str)->StoreResult<()> {if !uuid_v7(v){return Err("Invalid database ID".into());}Ok(())}
-fn version(v:&Value)->StoreResult<i64>{v.as_i64().filter(|n|(1..=9007199254740991).contains(n)).ok_or("Invalid database version".into())}
+pub(super) fn exact(v:&Value,keys:&[&str])->StoreResult<()> {let object=v.as_object().ok_or("Expected database object")?;if object.len()!=keys.len()||keys.iter().any(|k|!object.contains_key(*k)){return Err("Unexpected database fields".into());}Ok(())}
+pub(super) fn text<'a>(v:&'a Value,key:&str)->StoreResult<&'a str>{v[key].as_str().ok_or("Expected database text".into())}
+pub(super) fn id(v:&str)->StoreResult<()> {if !uuid_v7(v){return Err("Invalid database ID".into());}Ok(())}
+pub(super) fn version(v:&Value)->StoreResult<i64>{v.as_i64().filter(|n|(1..=9007199254740991).contains(n)).ok_or("Invalid database version".into())}
 fn order(v:&Value)->StoreResult<i64>{let raw=v.as_str().ok_or("Expected database order")?;let n=raw.parse::<i64>().map_err(|_|"Invalid database order")?;if n<1||n.to_string()!=raw{return Err("Invalid database order".into());}Ok(n)}
 fn js_space(c:char)->bool{matches!(c,'\u{0009}'..='\u{000d}'|'\u{0020}'|'\u{00a0}'|'\u{1680}'|'\u{2000}'..='\u{200a}'|'\u{2028}'|'\u{2029}'|'\u{202f}'|'\u{205f}'|'\u{3000}'|'\u{feff}')}
 fn label(v:&Value)->StoreResult<()> {let raw=v.as_str().ok_or("Expected database label")?;if raw.chars().count()>120||raw.chars().all(js_space){return Err("Invalid database label".into());}Ok(())}
@@ -54,3 +54,4 @@ async fn load(tx:&mut Transaction<'_,Sqlite>,c:&WorkspaceContext,source_id:&str)
     let Some(row)=row else{let exists:Option<i64>=sqlx::query_scalar("SELECT 1 FROM workspace_database_source_history WHERE source_id=? LIMIT 1").bind(source_id).fetch_optional(&mut **tx).await.map_err(|e|e.to_string())?;if exists.is_some(){return Err("Missing Source projection".into());}return Ok(None);};let snapshot:Value=serde_json::from_str(&row.get::<Option<String>,_>("snapshot").ok_or("Missing Source history")?).map_err(|_|"Corrupt Source snapshot")?;let receipt:Value=serde_json::from_str(&row.get::<Option<String>,_>("response").ok_or("Missing Source receipt")?).map_err(|_|"Corrupt Source receipt")?;let (ver,at)=response(c,source_id,&receipt)?;
     if source_snapshot(c,&snapshot,source_id)?!=(ver,at)||receipt["snapshot"]!=snapshot||row.get::<i64,_>("version")!=ver||row.get::<i64,_>("creation_order")!=at||row.get::<Option<i64>,_>("history_order")!=Some(at)||row.get::<Option<i64>,_>("latest_version")!=Some(ver){return Err("Source projection differs from receipt/history".into());}Ok(Some(snapshot))
 }
+pub(super) async fn source_definition(tx:&mut Transaction<'_,Sqlite>,c:&WorkspaceContext,source_id:&str)->StoreResult<Value>{id(source_id)?;Ok(load(tx,c,source_id).await?.ok_or("Missing stored Source")?["source"].clone())}

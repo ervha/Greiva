@@ -1,0 +1,23 @@
+
+> greiva-poc@0.53.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application
+
+
+> @greiva/shared@0.53.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/domain@0.53.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.53.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.53.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.53.0 build
+> tsc -p tsconfig.json
