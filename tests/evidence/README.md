@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-09 / v0.50.0 / [DB変更履歴/差分取得](private-database-changes-20261009/SUMMARY.md): 明示11/永続Source journal/current・候補seed/atomic追記、Page先行lockと観測head固定、max100/64MiB/filtered進捗。専用PG23/通常426/全PG185/help12/型/build。初回19Pass/4Fail保持、実SIGKILL4試行、native8保持。端末DB適用/queue/runtime/画面は後続。
+
 - 2026-10-09 / v0.49.0 / [DB変更契約](private-database-changes-contract-20261009/SUMMARY.md): typed Record/View snapshot/三値・解決状態/Source検証、bounded raw進捗/gdb1世代署名。重点8/通常426/既存PG162/help12/型/build。server10/native8保持。actual journal/取得API/端末DB/画面は後続。
 
 - 2026-10-09 / v0.48.0 / [View header一覧](private-database-view-catalog-20261009/SUMMARY.md): max100/name/layout/version、gdv1/固定creation範囲、明示10/ID seed/atomic位置、filtered進捗/SIGKILL。重点4/専用PG11/通常418/全PG162/help12/型/build。fixture元Fail保持、native8/既存API維持。Record/View受信・端末DB/画面は後続。

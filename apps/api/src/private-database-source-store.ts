@@ -1,3 +1,4 @@
+import {initializeDatabaseJournal} from './private-database-changes-journal.js';
 import type pg from 'pg';
 import {isDeepStrictEqual} from 'node:util';
 import {idSchema} from '@greiva/shared';
@@ -26,6 +27,7 @@ export class PostgresPrivateDatabaseSourceStore implements PrivateDatabaseSource
    const existing=await tx.query(`SELECT id FROM "${this.schema}".private_database_sources WHERE workspace_id=$1 AND id=$2`,[workspaceId,request.source.id]);if(existing.rowCount)throw new PrivateDatabaseSourceInvalidRequest('source_id_reused');
    const head=await tx.query(`UPDATE "${this.schema}".private_database_source_heads SET head_order=head_order+1 WHERE workspace_id=$1 AND head_order<9223372036854775807 RETURNING head_order::text`,[workspaceId]);if(head.rowCount!==1)throw new PrivateTransactionUnavailable();
    const order=structuredOrderSchema.parse(head.rows[0]!.head_order),insert=await tx.query(`INSERT INTO "${this.schema}".private_database_sources(id,workspace_id,creation_order,version,definition) VALUES($1,$2,$3,1,$4) ON CONFLICT(id) DO NOTHING RETURNING id`,[request.source.id,workspaceId,order,JSON.stringify(request.source)]);if(insert.rowCount!==1)throw new PrivateWorkspaceAccessDenied();
+   const journalGate=await tx.query(`SELECT version FROM "${this.schema}".private_schema_version WHERE singleton=true`);if(journalGate.rows[0]!.version>=11)await initializeDatabaseJournal(tx,this.schema,request.source);
    const result=privateDatabaseSourceCreateResponseSchema.parse({...this.scope(tx),operationId:request.operationId,snapshot:{source:request.source,version:1,creationOrder:order},result:{status:'created'}});
    await tx.query(`INSERT INTO "${this.schema}".private_database_source_operations VALUES($1,$2,$3,$4,$5,$6)`,[workspaceId,request.operationId,request.source.id,request.clientId,JSON.stringify(request),JSON.stringify(result)]);return result;
   });
@@ -46,7 +48,7 @@ export class PostgresPrivateDatabaseSourceStore implements PrivateDatabaseSource
   });
  }
  private scope(tx:PrivateTransaction){return{protocolVersion:1 as const,workspaceId:tx.context.workspaceId,workspaceEpoch:tx.context.epoch,clientId:tx.context.clientId};}
- private async gate(tx:PrivateTransaction){const rows=await tx.query(`SELECT version FROM "${this.schema}".private_schema_version WHERE singleton=true`);if(rows.rowCount!==1||![6,7,8,9,10].includes(rows.rows[0]!.version))throw new PrivateTransactionUnavailable();}
+ private async gate(tx:PrivateTransaction){const rows=await tx.query(`SELECT version FROM "${this.schema}".private_schema_version WHERE singleton=true`);if(rows.rowCount!==1||![6,7,8,9,10,11].includes(rows.rows[0]!.version))throw new PrivateTransactionUnavailable();}
  private snapshot(row:SourceRow,workspaceId:string):PrivateDatabaseSourceSnapshot{const parsed=privateDatabaseSourceSnapshotSchema.safeParse({source:row.definition,version:Number(row.version),creationOrder:row.creation_order});if(!parsed.success||row.workspace_id!==workspaceId||parsed.data.source.workspaceId!==workspaceId||parsed.data.source.id!==row.id)throw new PrivateTransactionUnavailable();return parsed.data;}
  private summary(row:CatalogRow,workspaceId:string){if(row.definition_id!==row.id||row.definition_workspace!==workspaceId||row.schema_kind!=='number'||row.name_kind!=='string'||!/^[1-9]\d*$/.test(row.schema_version))throw new PrivateTransactionUnavailable();const parsed=privateDatabaseSourceSummarySchema.safeParse({id:row.id,workspaceId:row.workspace_id,name:row.name,schemaVersion:Number(row.schema_version),version:Number(row.version),creationOrder:row.creation_order,propertyCount:row.property_count});if(!parsed.success)throw new PrivateTransactionUnavailable();return parsed.data;}
  private async current(tx:PrivateTransaction,id:string){const rows=await tx.query(`SELECT id,workspace_id,creation_order::text,version::text,definition,deleted FROM "${this.schema}".private_database_sources WHERE workspace_id=$1 AND id=$2 FOR SHARE`,[tx.context.workspaceId,id]);if(rows.rowCount!==1||rows.rows[0]!.deleted)throw new PrivateWorkspaceAccessDenied();return this.snapshot(rows.rows[0]! as SourceRow,tx.context.workspaceId);}

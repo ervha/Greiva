@@ -1,3 +1,4 @@
+import type {PrivateDatabaseChanges} from './private-database-changes-store.js';
 import type {PrivateDatabaseViewCatalog} from './private-database-view-catalog-store.js';
 import {PrivateDatabaseViewInvalidRequest,type PrivateDatabaseViews} from './private-database-view-store.js';
 import 'reflect-metadata';
@@ -31,6 +32,13 @@ const RECORDS=Symbol('private-database-records');
 const RECORD_CATALOG=Symbol('private-database-record-catalog');
 const VIEWS=Symbol('private-database-views');
 const VIEW_CATALOG=Symbol('private-database-view-catalog');
+const DATABASE_CHANGES=Symbol('private-database-changes');
+@Controller('v1/workspaces/:workspaceId/databases/:sourceId/changes')
+class PrivateDatabaseChangesController{
+ constructor(@Inject(SESSION) private readonly verifier:SessionVerifier,@Inject(DATABASE_CHANGES) private readonly changes:PrivateDatabaseChanges){}
+ @Post('pull') @HttpCode(200)
+ async pull(@Headers('authorization') authorization:unknown,@Param('workspaceId') workspaceId:string,@Param('sourceId') sourceId:string,@Body() body:unknown){return this.changes.pull(await this.verifier.verify(authorization),workspaceId,sourceId,body);}
+}
 @Controller('v1/workspaces/:workspaceId/databases/:sourceId/views')
 class PrivateDatabaseViewCatalogController{
  constructor(@Inject(SESSION) private readonly verifier:SessionVerifier,@Inject(VIEW_CATALOG) private readonly views:PrivateDatabaseViewCatalog){}
@@ -163,8 +171,8 @@ class PrivateAccessErrors implements ExceptionFilter {
 }
 // Independent protected API factory. Does not mount or expose old PoC routes,
 // listen automatically, create a test identity, or migrate a caller's database.
-export async function createPrivateApp(verifier: SessionVerifier, store: PrivateWorkspaceAccessStore, bootstrap?: PrivateWorkspaceBootstrap, device?: PrivateDeviceAccess, sync?: PrivateStructuredSync, page?: PrivatePageDocuments, metadata?:PrivatePageMetadata, changes?:PrivatePageChanges,sources?:PrivateDatabaseSources,records?:PrivateDatabaseRecords,recordCatalog?:PrivateDatabaseRecordCatalog,views?:PrivateDatabaseViews,viewCatalog?:PrivateDatabaseViewCatalog) {
-  @Module({ controllers: [PrivateAccessController, ...(viewCatalog?[PrivateDatabaseViewCatalogController]:[]), ...(views?[PrivateDatabaseViewController]:[]), ...(recordCatalog?[PrivateDatabaseRecordCatalogController]:[]), ...(records?[PrivateDatabaseRecordController]:[]), ...(sources?[PrivateDatabaseSourceController]:[]), ...(changes?[PrivatePageChangesController]:[]), ...(metadata?[PrivatePageMetadataController]:[]), ...(bootstrap ? [PrivateBootstrapController] : []), ...(device ? [PrivateDeviceController] : []), ...(sync ? [PrivateStructuredController] : []), ...(page ? [PrivatePageController,PrivatePageCatalogController] : [])], providers: [
+export async function createPrivateApp(verifier: SessionVerifier, store: PrivateWorkspaceAccessStore, bootstrap?: PrivateWorkspaceBootstrap, device?: PrivateDeviceAccess, sync?: PrivateStructuredSync, page?: PrivatePageDocuments, metadata?:PrivatePageMetadata, changes?:PrivatePageChanges,sources?:PrivateDatabaseSources,records?:PrivateDatabaseRecords,recordCatalog?:PrivateDatabaseRecordCatalog,views?:PrivateDatabaseViews,viewCatalog?:PrivateDatabaseViewCatalog,databaseChanges?:PrivateDatabaseChanges) {
+  @Module({ controllers: [PrivateAccessController, ...(databaseChanges?[PrivateDatabaseChangesController]:[]), ...(viewCatalog?[PrivateDatabaseViewCatalogController]:[]), ...(views?[PrivateDatabaseViewController]:[]), ...(recordCatalog?[PrivateDatabaseRecordCatalogController]:[]), ...(records?[PrivateDatabaseRecordController]:[]), ...(sources?[PrivateDatabaseSourceController]:[]), ...(changes?[PrivatePageChangesController]:[]), ...(metadata?[PrivatePageMetadataController]:[]), ...(bootstrap ? [PrivateBootstrapController] : []), ...(device ? [PrivateDeviceController] : []), ...(sync ? [PrivateStructuredController] : []), ...(page ? [PrivatePageController,PrivatePageCatalogController] : [])], providers: [
     { provide: SESSION, useValue: verifier }, { provide: ACCESS, useValue: authenticatedPrivateAccess(verifier, store) },
     ...(bootstrap ? [{ provide: BOOTSTRAP, useValue: bootstrap }] : []),
     ...(device ? [{ provide: DEVICE, useValue: device }] : []),
@@ -176,6 +184,7 @@ export async function createPrivateApp(verifier: SessionVerifier, store: Private
     ...(recordCatalog?[{provide:RECORD_CATALOG,useValue:recordCatalog}]:[]),
     ...(views?[{provide:VIEWS,useValue:views}]:[]),
     ...(viewCatalog?[{provide:VIEW_CATALOG,useValue:viewCatalog}]:[]),
+    ...(databaseChanges?[{provide:DATABASE_CHANGES,useValue:databaseChanges}]:[]),
     ...(page ? [{ provide: PAGE, useValue: page }] : []),
   ] })
   class PrivateAppModule {}

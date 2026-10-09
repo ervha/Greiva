@@ -1,3 +1,4 @@
+import type {PrivateDatabaseChanges} from './private-database-changes-store.js';
 import type {PrivateDatabaseViewCatalog} from './private-database-view-catalog-store.js';
 import type {PrivateDatabaseViews} from './private-database-view-store.js';
 import { supabaseConfiguration } from '@greiva/shared';
@@ -16,6 +17,6 @@ import type {PrivateDatabaseRecordCatalog} from './private-database-record-catal
 
 // Explicit composition root; does not listen, migrate, select a default project,
 // read a token from env, or expose ordinary PoC routes.
-export function createSupabasePrivateApp(configuration: Readonly<{ projectUrl: string; algorithm: 'ES256' | 'RS256' }>, store: PrivateWorkspaceAccessStore, bootstrap?: PrivateWorkspaceBootstrap, fetchJwks?: typeof fetch, device?: PrivateDeviceAccess, sync?: PrivateStructuredSync, page?: PrivatePageDocuments, metadata?:PrivatePageMetadata, changes?:PrivatePageChanges,sources?:PrivateDatabaseSources,records?:PrivateDatabaseRecords,recordCatalog?:PrivateDatabaseRecordCatalog,views?:PrivateDatabaseViews,viewCatalog?:PrivateDatabaseViewCatalog) {
-  return createPrivateApp(sessionVerifier(supabaseConfiguration(configuration.projectUrl, configuration.algorithm), fetchJwks), store, bootstrap, device, sync, page, metadata,changes,sources,records,recordCatalog,views,viewCatalog);
+export function createSupabasePrivateApp(configuration: Readonly<{ projectUrl: string; algorithm: 'ES256' | 'RS256' }>, store: PrivateWorkspaceAccessStore, bootstrap?: PrivateWorkspaceBootstrap, fetchJwks?: typeof fetch, device?: PrivateDeviceAccess, sync?: PrivateStructuredSync, page?: PrivatePageDocuments, metadata?:PrivatePageMetadata, changes?:PrivatePageChanges,sources?:PrivateDatabaseSources,records?:PrivateDatabaseRecords,recordCatalog?:PrivateDatabaseRecordCatalog,views?:PrivateDatabaseViews,viewCatalog?:PrivateDatabaseViewCatalog,databaseChanges?:PrivateDatabaseChanges) {
+  return createPrivateApp(sessionVerifier(supabaseConfiguration(configuration.projectUrl, configuration.algorithm), fetchJwks), store, bootstrap, device, sync, page, metadata,changes,sources,records,recordCatalog,views,viewCatalog,databaseChanges);
 }

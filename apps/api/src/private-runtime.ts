@@ -1,3 +1,4 @@
+import {PostgresPrivateDatabaseChangesStore} from './private-database-changes-store.js';
 import {PostgresPrivateDatabaseViewCatalogStore} from './private-database-view-catalog-store.js';
 import {PostgresPrivateDatabaseViewStore} from './private-database-view-store.js';
 import pg from 'pg';
@@ -65,7 +66,8 @@ export async function startPrivateApi(configuration: PrivateRuntimeConfiguration
       schemaVersion>=7?new PostgresPrivateDatabaseRecordStore(pool,config.schema):undefined,
       schemaVersion>=8?new PostgresPrivateDatabaseRecordCatalogStore(pool,config.schema):undefined,
       schemaVersion>=9?new PostgresPrivateDatabaseViewStore(pool,config.schema):undefined,
-      schemaVersion>=10?new PostgresPrivateDatabaseViewCatalogStore(pool,config.schema):undefined);
+      schemaVersion>=10?new PostgresPrivateDatabaseViewCatalogStore(pool,config.schema):undefined,
+      schemaVersion>=11?new PostgresPrivateDatabaseChangesStore(pool,config.schema):undefined);
     await app.listen(config.port, config.host);
     const address = await app.getUrl(), capturedApp = app, capturedPool = pool;
     let closing: Promise<void> | undefined;

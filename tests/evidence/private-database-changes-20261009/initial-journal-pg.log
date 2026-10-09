@@ -1,0 +1,95 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [31m❯[39m tests/integration/private-database-changes-postgres.test.ts [2m([22m[2m23 tests[22m[2m | [22m[31m4 failed[39m[2m)[22m[33m 5984[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-PG: explicit ten to eleven seeds current and active/resolved candidates, preserves receipts/history/key and durable epoch[33m 422[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-PG migration history corruption: rollback leaves version10 and old data unchanged[32m 208[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-PG migration candidate corruption: rollback leaves version10 and old data unchanged[32m 208[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-PG migration resolution corruption: rollback leaves version10 and old data unchanged[32m 192[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-PG migration ddl corruption: rollback leaves version10 and old data unchanged[32m 179[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-PG: empty Sources have durable epoch/head, missing head is not repaired and Source ledger failure rolls everything back[32m 192[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-PG: Record mixed patch and remote no-op resolution emit candidates once; unchanged/rejected/exact replay emit none[32m 220[2mms[22m[39m
+[31m   [31m×[31m DB-CHANGES-PG: View ordered settings, multiple candidates and new resolution operations share coherent snapshots[39m[32m 223[2mms[22m[39m
+[31m   [31m×[31m DB-CHANGES-PG: 101 numeric events paginate100; fresh head growth stays on the next cursor[39m[32m 227[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-PG: deleted Page/Record/View raw windows advance without deletion ACK or ledger consumption[32m 197[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-PG: actual PostgreSQL UTF8 JSON sizing splits byte-bounded windows and oversized first row fails closed[32m 208[2mms[22m[39m
+[31m   [31m×[31m DB-CHANGES-PG lookahead corruption: fail closed without cursor advance or repairing storage[39m[32m 187[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-PG gap corruption: fail closed without cursor advance or repairing storage[32m 169[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-PG head corruption: fail closed without cursor advance or repairing storage[32m 166[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-PG history corruption: fail closed without cursor advance or repairing storage[32m 175[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-PG ledger corruption: fail closed without cursor advance or repairing storage[32m 169[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-PG: observed-head race uses Page-before-Source lock order and next pull includes concurrent committed writer[32m 186[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-PG: migration drains an in-flight schema10 writer then blocks new transactions until atomic schema11 publication[32m 176[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-PG: owner/device/Source/epoch/purpose/client cursor and expired lock wait deny without success[32m 231[2mms[22m[39m
+   [32m✓[39m DB-CHANGES-PG: journal event/ledger failure rolls back current/head/history/candidate and retry remains exact[32m 180[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-SIGKILL record-create: before and after COMMIT recover journal/current/history/candidates/ledger exactly once[33m 697[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-SIGKILL view-resolution: before and after COMMIT recover journal/current/history/candidates/ledger exactly once[33m 750[2mms[22m[39m
+[31m   [31m×[31m DB-CHANGES-PG: signed actual schema11 HTTP protects pull and retains old Source/Record/View/Page/Task routes without Auth profile storage[39m[33m 418[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 4 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-changes-postgres.test.ts[2m > [22mDB-CHANGES-PG: View ordered settings, multiple candidates and new resolution operations share coherent snapshots
+[31m[1mAssertionError[22m: expected [ { …(12) } ] to have a length of 2 but got 1[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 2[39m
+[31m+ 1[39m
+
+[36m [2m❯[22m tests/integration/private-database-changes-postgres.test.ts:[2m50:1089[22m[39m
+
+[90m [2m❯[22m isolated tests/integration/private-database-changes-postgres.test.ts:[2m35:727[22m[39m
+[90m [2m❯[22m tests/integration/private-database-changes-postgres.test.ts:[2m50:131[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/4]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-changes-postgres.test.ts[2m > [22mDB-CHANGES-PG: 101 numeric events paginate100; fresh head growth stays on the next cursor
+[31m[1mError[22m: Private transaction unavailable[39m
+[36m [2m❯[22m PostgresPrivateTransactions.run apps/api/src/private-transactions.ts:[2m123:13[22m[39m
+    [90m121|[39m       try { await client?.query('ROLLBACK'); } catch { destroy = true;…
+    [90m122|[39m       if (error instanceof SessionVerificationError || error instanceo…
+    [90m123|[39m       throw new PrivateTransactionUnavailable();
+    [90m   |[39m             [31m^[39m
+    [90m124|[39m     } finally { client?.release(destroy); }
+    [90m125|[39m   }
+[90m [2m❯[22m Object.writeView tests/integration/private-database-changes-postgres.test.ts:[2m39:1403[22m[39m
+[90m [2m❯[22m tests/integration/private-database-changes-postgres.test.ts:[2m51:201[22m[39m
+[90m [2m❯[22m isolated tests/integration/private-database-changes-postgres.test.ts:[2m35:727[22m[39m
+[90m [2m❯[22m tests/integration/private-database-changes-postgres.test.ts:[2m51:108[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/4]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-changes-postgres.test.ts[2m > [22mDB-CHANGES-PG lookahead corruption: fail closed without cursor advance or repairing storage
+[31m[1merror[22m: could not determine data type of parameter $1[39m
+[90m [2m❯[22m node_modules/pg-pool/index.js:[2m45:11[22m[39m
+[36m [2m❯[22m tests/integration/private-database-changes-postgres.test.ts:[2m54:288[22m[39m
+
+[90m [2m❯[22m isolated tests/integration/private-database-changes-postgres.test.ts:[2m35:727[22m[39m
+[90m [2m❯[22m tests/integration/private-database-changes-postgres.test.ts:[2m54:168[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/4]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-changes-postgres.test.ts[2m > [22mDB-CHANGES-PG: signed actual schema11 HTTP protects pull and retains old Source/Record/View/Page/Task routes without Auth profile storage
+[31m[1mAssertionError[22m: expected 404 to be 200 // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- 200[39m
+[31m+ 404[39m
+
+[36m [2m❯[22m tests/integration/private-database-changes-postgres.test.ts:[2m60:2281[22m[39m
+
+[90m [2m❯[22m isolated tests/integration/private-database-changes-postgres.test.ts:[2m35:727[22m[39m
+[90m [2m❯[22m tests/integration/private-database-changes-postgres.test.ts:[2m60:156[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/4]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m4 failed[39m[22m[2m | [22m[1m[32m19 passed[39m[22m[90m (23)[39m
+[2m   Start at [22m 03:03:08
+[2m   Duration [22m 7.31s[2m (tests 83%, import 10%, transform 6%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v50/initial-journal-pg/vitest.json

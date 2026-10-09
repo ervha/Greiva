@@ -1,3 +1,4 @@
+import {appendDatabaseChange} from './private-database-changes-journal.js';
 import type pg from 'pg';
 import {isDeepStrictEqual} from 'node:util';
 import {idSchema,newId} from '@greiva/shared';
@@ -54,6 +55,7 @@ export class PostgresPrivateDatabaseRecordStore implements PrivateDatabaseRecord
     const inserted=await tx.query(`INSERT INTO "${this.schema}".private_database_records(id,workspace_id,source_id,page_id,version,snapshot${creationOrder?',creation_order':''}) VALUES($1,$2,$3,$4,1,$5${creationOrder?',$6':''}) ON CONFLICT(id) DO NOTHING RETURNING id`,[intent.recordId,workspaceId,sourceId,intent.pageId,JSON.stringify(current),...(creationOrder?[creationOrder]:[])]);
     if(inserted.rowCount!==1)throw new PrivateWorkspaceAccessDenied();
     await this.history(tx,current);
+    await appendDatabaseChange(tx,this.schema,source,{kind:'record',record:current,conflict:null});
    }else{
     current=await this.current(tx,source,intent.recordId,intent.pageId);
     const baseRows=await tx.query(`SELECT snapshot FROM "${this.schema}".private_database_record_history WHERE record_id=$1 AND version=$2`,[current.id,intent.baseVersion]);
@@ -78,7 +80,9 @@ export class PostgresPrivateDatabaseRecordStore implements PrivateDatabaseRecord
        await tx.query(`UPDATE "${this.schema}".private_database_records SET version=$3,snapshot=$4 WHERE workspace_id=$1 AND id=$2`,[workspaceId,current.id,current.version,JSON.stringify(current)]);
        await this.history(tx,current);
       }
-      if(intent.resolution)await tx.query(`UPDATE "${this.schema}".private_database_record_conflicts SET resolved_by=$3 WHERE record_id=$1 AND id=$2 AND resolved_by IS NULL`,[current.id,intent.resolution.conflictId,request.operationId]);
+      if(intent.resolution){const resolved=await tx.query(`UPDATE "${this.schema}".private_database_record_conflicts SET resolved_by=$3 WHERE record_id=$1 AND id=$2 AND resolved_by IS NULL RETURNING id`,[current.id,intent.resolution.conflictId,request.operationId]);if(resolved.rowCount!==1)throw new PrivateTransactionUnavailable();await appendDatabaseChange(tx,this.schema,source,{kind:'record',record:current,conflict:{...active!,resolvedBy:request.operationId}});}
+      else if(conflicts.length){for(const conflict of conflicts)await appendDatabaseChange(tx,this.schema,source,{kind:'record',record:current,conflict});}
+      else if(plan.changedPropertyIds.length)await appendDatabaseChange(tx,this.schema,source,{kind:'record',record:current,conflict:null});
      }
     }
    }
@@ -100,7 +104,7 @@ export class PostgresPrivateDatabaseRecordStore implements PrivateDatabaseRecord
  }
  private scope(tx:PrivateTransaction,source:DatabaseSource){return{protocolVersion:1 as const,workspaceId:tx.context.workspaceId,workspaceEpoch:tx.context.epoch,clientId:tx.context.clientId,sourceId:source.id,schemaVersion:source.schemaVersion};}
  private async source(tx:PrivateTransaction,id:string,write:boolean){
-  const gate=await tx.query(`SELECT version FROM "${this.schema}".private_schema_version WHERE singleton=true`);if(gate.rowCount!==1||![7,8,9,10].includes(gate.rows[0]!.version))throw new PrivateTransactionUnavailable();
+  const gate=await tx.query(`SELECT version FROM "${this.schema}".private_schema_version WHERE singleton=true`);if(gate.rowCount!==1||![7,8,9,10,11].includes(gate.rows[0]!.version))throw new PrivateTransactionUnavailable();
   const rows=await tx.query(`SELECT id,workspace_id,definition,version::text,creation_order::text,deleted FROM "${this.schema}".private_database_sources WHERE workspace_id=$1 AND id=$2 FOR ${write?'UPDATE':'SHARE'}`,[tx.context.workspaceId,id]);
   if(rows.rowCount!==1||rows.rows[0]!.deleted)throw new PrivateWorkspaceAccessDenied();const row=rows.rows[0]!,parsed=privateDatabaseSourceSnapshotSchema.safeParse({source:row.definition,version:Number(row.version),creationOrder:row.creation_order});
   if(!parsed.success||parsed.data.source.id!==id||parsed.data.source.workspaceId!==tx.context.workspaceId)throw new PrivateTransactionUnavailable();return parsed.data.source;

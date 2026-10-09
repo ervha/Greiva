@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+最新v0.50.0：[DB変更履歴/差分取得](../development/PRIVATE_DATABASE_CHANGES.md)で明示server11、Source別永続世代/head、current・候補seed、writer/解決/ledgerとの原子event保存と認証付きbounded pullを実装。[証拠](../../tests/evidence/private-database-changes-20261009/SUMMARY.md)。PG23の移行待機/分割/競合/COMMIT前後killを確認し、元Failを保持。native8/既存APIは保持。端末DB replica/queue/runtimeとTable/List画面へ続行する。
+
 最新v0.49.0：[DB変更パケット/cursor](../development/PRIVATE_DATABASE_CHANGES_CONTRACT.md)でRecord/View snapshot＋三値/解決状態、Source-bound検証、bounded raw進捗とgdb1署名を追加。[証拠](../../tests/evidence/private-database-changes-contract-20261009/SUMMARY.md)。portable契約とcodecで、server10/native8は未変更。actual journal/schema11/取得API、端末DB同期/Table/List画面は後続。
 
 最新v0.48.0：[Viewヘッダー一覧](../development/PRIVATE_DATABASE_VIEW_CATALOG.md)でmax100/name/layout/現在version、Source/device/head固定gdv1 cursor、filtered raw進捗を追加。[証拠](../../tests/evidence/private-database-view-catalog-20261009/SUMMARY.md)。明示server10、旧ViewのID seedと新規位置の原子保存を実装し、native8/既存APIを保持する。Record/View変更受信、端末DB同期/Table/List画面と実Auth/native/配備暗号化は後続。

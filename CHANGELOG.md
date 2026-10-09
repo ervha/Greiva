@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.50.0 — 2026-10-09
+
+- Source別のRecord/View変更journalと永続世代/head、認証付き差分取得APIを追加する。明示server10→11でcurrent/既知候補を検証seedし、writer/解決/ledgerと原子追記する。
+- 取得をmax100とraw64MiBへ区切り、Page先行lock・観測head固定・history/ledger/lookahead照合・filtered空進捗を実装する。再送やunchangedでeventを増やさない。
+- 専用PG23とCOMMIT前後の実SIGKILL4試行、全回帰/build/help版表示を検証する。初回19Pass/4Failを保持し、numeric順不具合とfixtureを修正。native8/既存API保持。端末DB同期・画面と全DB/native Gateは後続。
+
 ## 0.49.0 — 2026-10-09
 
 - Record/Viewの増分受信に使うtyped snapshot/三値候補・解決状態、Source-bound型/参照検証、bounded raw進捗のportable契約を追加する。

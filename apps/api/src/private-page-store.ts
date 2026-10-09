@@ -86,7 +86,7 @@ export class PostgresPrivatePageStore implements PrivatePageDocuments {
       finally{restored.document.destroy();}
     });
   }
-  private async version(tx:PrivateTransaction) {const rows=await tx.query(`SELECT version FROM "${this.schema}".private_schema_version WHERE singleton=true`);if(rows.rowCount!==1 || ![3,4,5,6,7,8,9,10].includes(rows.rows[0]!.version))throw new PrivateTransactionUnavailable();return rows.rows[0]!.version as number;}
+  private async version(tx:PrivateTransaction) {const rows=await tx.query(`SELECT version FROM "${this.schema}".private_schema_version WHERE singleton=true`);if(rows.rowCount!==1 || ![3,4,5,6,7,8,9,10,11].includes(rows.rows[0]!.version))throw new PrivateTransactionUnavailable();return rows.rows[0]!.version as number;}
   private async document(tx:PrivateTransaction,id:string,write:boolean):Promise<StoredDocument> {
     const rows=await tx.query<StoredDocument>(`SELECT head_order,editor_schema_version,metadata,creation_request FROM "${this.schema}".private_page_documents WHERE workspace_id=$1 AND page_id=$2 FOR ${write?'UPDATE':'SHARE'}`,[tx.context.workspaceId,id]);
     const row=rows.rows[0];if(rows.rowCount!==1 || !row || row.editor_schema_version!==1)throw new PrivateTransactionUnavailable();

@@ -1,0 +1,10 @@
+{
+  "npmExternalUnchanged": true,
+  "checkpoint": "0.50.0",
+  "npmExternalEntries": 315,
+  "cargoExternalUnchanged": true,
+  "cargoExternalCounts": {
+    "apps/client/src-tauri/Cargo.lock": 501,
+    "apps/client/src-tauri/crates/page-store/Cargo.lock": 118
+  }
+}

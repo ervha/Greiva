@@ -18,6 +18,8 @@
 
 2026-10-09 / v0.49.0：[DB変更packet/cursor契約](../development/PRIVATE_DATABASE_CHANGES_CONTRACT.md)でtyped Record/View snapshot/候補解決状態、Source-bound検証、bounded raw進捗/gdb1を追加。server10/native8保持。actual journal/schema11/API/端末適用と画面は後続。
 
+2026-10-09 / v0.50.0：[DB変更履歴/取得](../development/PRIVATE_DATABASE_CHANGES.md)で明示server11、永続Source journal/current・候補seed、atomic追記、認証付きbounded差分APIを追加。native8保持。端末DB適用/queue/runtime/Table/List画面は後続。
+
 ## 1. 要求と適用範囲
 
 ユーザー指定:
