@@ -1,0 +1,62 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/private-database-record-create-store.test.ts [2m([22m[2m23 tests[22m[2m)[22m[33m 5322[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-CREATE-SIGKILL-enqueue: COMMIT before/after keeps intent/wire/confirmation atomic across actual process death[33m 464[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-CREATE-SIGKILL-prepare: COMMIT before/after keeps intent/wire/confirmation atomic across actual process death[33m 421[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-CREATE-SIGKILL-ack: COMMIT before/after keeps intent/wire/confirmation atomic across actual process death[33m 433[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-CREATE: actual over8MiB UTF8 wire rejects enqueue without persisting an unsendable intent[33m 861[2mms[22m[39m
+ [31m❯[39m tests/integration/private-database-record-update-store.test.ts [2m([22m[2m27 tests[22m[2m | [22m[31m2 failed[39m[2m)[22m[33m 5778[2mms[22m[39m
+   [32m✓[39m DB-RECORD-UPDATE: original base and intent survive restart, known busy never overwrites, ACK preserves original write receipt without Page body[32m 230[2mms[22m[39m
+   [32m✓[39m DB-RECORD-UPDATE read-first: observations do not consume queue; original ACK never rewinds new projection[32m 142[2mms[22m[39m
+   [32m✓[39m DB-RECORD-UPDATE late-ack: observations do not consume queue; original ACK never rewinds new projection[32m 188[2mms[22m[39m
+   [32m✓[39m DB-RECORD-UPDATE: conflict ACK retains typed base/local/remote plus partial merge and permits later original-candidate resolution[32m 247[2mms[22m[39m
+   [32m✓[39m DB-RECORD-RESOLUTION local: original candidate/new operation/ACK and resolved proof commit together, including no-change remote choice[32m 189[2mms[22m[39m
+   [32m✓[39m DB-RECORD-RESOLUTION remote: original candidate/new operation/ACK and resolved proof commit together, including no-change remote choice[32m 178[2mms[22m[39m
+   [32m✓[39m DB-RECORD-REJECTED base_unknown: original rejection is known ACK, values and candidate remain untouched[32m 170[2mms[22m[39m
+   [32m✓[39m DB-RECORD-REJECTED resolution_invalid: original rejection is known ACK, values and candidate remain untouched[32m 173[2mms[22m[39m
+   [32m✓[39m DB-RECORD-REJECTED resolution_stale: original rejection is known ACK, values and candidate remain untouched[32m 187[2mms[22m[39m
+   [32m✓[39m DB-RECORD-UPDATE: raw/portable malformed Source/type/Name/scope/canonical IDs reject without persistence; unknown baseline/binding/schema is not invented[32m 124[2mms[22m[39m
+   [32m✓[39m DB-RECORD-UPDATE: reject stale/unknown/resolved or mismatched resolution intent, retain original choice after later remote arrival[32m 150[2mms[22m[39m
+   [32m✓[39m DB-RECORD-UPDATE: original wire/ACK scope and meaningful field checks; trigger failure rolls ACK/history/candidate resolution back[32m 188[2mms[22m[39m
+   [32m✓[39m DB-RECORD-UPDATE base corruption: fail closed; exact replay does not repair missing proof[32m 117[2mms[22m[39m
+   [32m✓[39m DB-RECORD-UPDATE candidate corruption: fail closed; exact replay does not repair missing proof[32m 117[2mms[22m[39m
+   [32m✓[39m DB-RECORD-UPDATE index corruption: fail closed; exact replay does not repair missing proof[32m 116[2mms[22m[39m
+   [32m✓[39m DB-RECORD-UPDATE wire corruption: fail closed; exact replay does not repair missing proof[32m 124[2mms[22m[39m
+   [32m✓[39m DB-RECORD-UPDATE hash corruption: fail closed; exact replay does not repair missing proof[32m 129[2mms[22m[39m
+   [32m✓[39m DB-RECORD-UPDATE ack corruption: fail closed; exact replay does not repair missing proof[32m 151[2mms[22m[39m
+[31m   [31m×[31m DB-RECORD-UPDATE history corruption: fail closed; exact replay does not repair missing proof[39m[32m 142[2mms[22m[39m
+[31m   [31m×[31m DB-RECORD-UPDATE projection corruption: fail closed; exact replay does not repair missing proof[39m[32m 131[2mms[22m[39m
+   [32m✓[39m DB-RECORD-UPDATE lookahead corruption: fail closed; exact replay does not repair missing proof[32m 147[2mms[22m[39m
+   [32m✓[39m DB-RECORD-UPDATE: high sequence/pendingOnly and original key format survive metadata change, strict IPC refuses ambiguous filters[32m 158[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-UPDATE: actual oversized UTF8 wire rejects before enqueue; missing/null/false/zero stay distinct[33m 684[2mms[22m[39m
+   [32m✓[39m DB-RECORD-UPDATE: concurrent exact enqueue/ACK is idempotent; Auth refresh invalidates mutation methods and reopen retains confirmation[32m 136[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-UPDATE-SIGKILL-enqueue: before/after COMMIT keeps original intent/wire/resolution atomic across process death[33m 483[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-UPDATE-SIGKILL-prepare: before/after COMMIT keeps original intent/wire/resolution atomic across process death[33m 471[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-UPDATE-SIGKILL-ack: before/after COMMIT keeps original intent/wire/resolution atomic across process death[33m 505[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 2 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-record-update-store.test.ts[2m > [22mDB-RECORD-UPDATE history corruption: fail closed; exact replay does not repair missing proof
+[31m[1mError[22m: FOREIGN KEY constraint failed[39m
+[36m [2m❯[22m Object.exec tests/integration/private-database-record-update-store.test.ts:[2m17:467[22m[39m
+
+[90m [2m❯[22m tests/integration/private-database-record-update-store.test.ts:[2m39:1263[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/2]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-record-update-store.test.ts[2m > [22mDB-RECORD-UPDATE projection corruption: fail closed; exact replay does not repair missing proof
+[31m[1mError[22m: FOREIGN KEY constraint failed[39m
+[36m [2m❯[22m Object.exec tests/integration/private-database-record-update-store.test.ts:[2m17:467[22m[39m
+
+[90m [2m❯[22m tests/integration/private-database-record-update-store.test.ts:[2m39:1359[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/2]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m1 passed[39m[22m[90m (2)[39m
+[2m      Tests [22m [1m[31m2 failed[39m[22m[2m | [22m[1m[32m48 passed[39m[22m[90m (50)[39m
+[2m   Start at [22m 06:59:12
+[2m   Duration [22m 12.17s[2m (tests 93%, transform 4%, import 3%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v62/record-update-store-initial/vitest.json

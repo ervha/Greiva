@@ -49,6 +49,7 @@ pub(super) async fn initialize(tx:&mut Transaction<'_,Sqlite>,context:&Workspace
     super::private_database_changes::initialize(tx,version).await?;
     super::private_database_source_queue::initialize(tx,version).await?;
     super::private_database_record_create::initialize(tx,version).await?;
+    super::private_database_record_update::initialize(tx,version).await?;
     Ok(())
 }
 #[derive(Deserialize)]
@@ -138,6 +139,10 @@ impl WorkspaceStore {
     pub async fn page_prepare(&self,id:&str)->StoreResult<Value> {safe(self.inner.private_page_prepare(&self.context.client_id,id).await)}
     pub async fn page_ack(&self,id:&str,sequence:&str,wire:&str,response:Value)->StoreResult<()> {safe(self.inner.private_page_ack(&self.context.client_id,&self.context.workspace_id,id,sequence,wire,response).await)}
     pub async fn page_receive(&self,id:&str,response:Value)->StoreResult<()> {safe(self.inner.private_page_receive(&self.context.workspace_id,id,response).await)}
+    pub async fn database_record_update_enqueue(&self,intent:Value)->StoreResult<Value> {safe(self.inner.database_record_update_enqueue(&self.context,intent).await)}
+    pub async fn database_record_update_prepare(&self)->StoreResult<Value> {safe(self.inner.database_record_update_prepare(&self.context).await)}
+    pub async fn database_record_update_ack(&self,sequence:&str,wire:&str,response:Value)->StoreResult<()> {safe(self.inner.database_record_update_ack(&self.context,sequence,wire,response).await)}
+    pub async fn database_record_update_queue(&self,after:Option<&str>,limit:usize,pending_only:bool)->StoreResult<Value> {safe(self.inner.database_record_update_queue(&self.context,after,limit,pending_only).await)}
     pub async fn database_record_create_enqueue(&self,intent:Value)->StoreResult<()> {safe(self.inner.database_record_create_enqueue(&self.context,intent).await)}
     pub async fn database_record_create_prepare(&self)->StoreResult<Value> {safe(self.inner.database_record_create_prepare(&self.context).await)}
     pub async fn database_record_create_ack(&self,sequence:&str,wire:&str,response:Value)->StoreResult<()> {safe(self.inner.database_record_create_ack(&self.context,sequence,wire,response).await)}

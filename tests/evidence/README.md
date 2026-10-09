@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-09 / v0.62.0 / [Record更新・解決queue](private-database-record-update-queue-20261009/SUMMARY.md): native15/元base・候補/busy/元wire/原ACK-cache-解決原子確認、read/delta・非補修replay・byte window。新native33/SIGKILL6/通常647/全PG199/help12/型/build。元fixture2 Fail保持、server11、Record HTTP/runtime・View queue・画面は後続。
+
 - 2026-10-09 / v0.61.0 / [Record作成queue](private-database-record-create-queue-20261009/SUMMARY.md): native14/Source・Page待ち/元wire/原ACK-cache原子確認、read/delta分離・非補修replay。新native23/SIGKILL6/通常614/全PG199/help12/型/build。元canonical ID Fail保持、server11、update/View queue・HTTP/runtime・画面は後続。
 - 2026-10-09 / v0.60.0 / [DB作成送信/状態管理](private-database-source-write-20261009/SUMMARY.md): captured Auth/元wire・unknown enqueue/HTTP/ACK同操作retry、pending-only/catalogFresh・遅着除外。portable20/追加native2/actual HTTP-native PG3/通常591/全PG199/help12/型/build。server11/native13、Record/View queue・画面は後続。
 - 2026-10-09 / v0.59.0 / [DB作成queue](private-database-source-queue-20261009/SUMMARY.md): native13/pending定義・元wire/checksum・原ACK/cache原子確認。専用21＋旧126/SIGKILL6/通常569/全PG196/help12/型/build。server11、送信session/runtime・Record/View queue・画面は後続。

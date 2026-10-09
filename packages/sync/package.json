@@ -1,6 +1,6 @@
 {
   "name": "@greiva/sync",
-  "version": "0.61.0",
+  "version": "0.62.0",
   "private": true,
   "type": "module",
   "exports": {
@@ -14,9 +14,9 @@
     "typecheck": "tsc -p tsconfig.json --noEmit"
   },
   "dependencies": {
-    "@greiva/protocol": "0.61.0",
-    "@greiva/shared": "0.61.0",
+    "@greiva/protocol": "0.62.0",
+    "@greiva/shared": "0.62.0",
     "yjs": "13.6.33",
-    "@greiva/domain": "0.61.0"
+    "@greiva/domain": "0.62.0"
   }
 }

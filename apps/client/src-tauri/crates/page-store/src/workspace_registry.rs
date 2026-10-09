@@ -47,6 +47,10 @@ impl WorkspaceRegistry {
         // admitted operations; a late old handle never resolves a current store.
         let state=self.state.lock().await;let active=state.active.as_ref().filter(|active|active.handle==handle).ok_or(REJECTED)?;let store=&active.store;
         match text(&request,"command")? {
+            "database_record_update_enqueue"=>{exact(&request,&["command","intent"])?;store.database_record_update_enqueue(request["intent"].clone()).await},
+            "database_record_update_prepare"=>{exact(&request,&["command"])?;store.database_record_update_prepare().await},
+            "database_record_update_ack"=>{exact(&request,&["command","sequence","wire","response"])?;store.database_record_update_ack(text(&request,"sequence")?,text(&request,"wire")?,request["response"].clone()).await?;Ok(Value::Null)},
+            "database_record_update_queue"=>{exact(&request,&["command","after","limit","pendingOnly"])?;let after=if request["after"].is_null(){None}else{Some(text(&request,"after")?)};let limit=request["limit"].as_u64().filter(|n|*n<=100).ok_or(REJECTED)? as usize;store.database_record_update_queue(after,limit,request["pendingOnly"].as_bool().ok_or(REJECTED)?).await},
             "database_record_create_enqueue"=>{exact(&request,&["command","intent"])?;store.database_record_create_enqueue(request["intent"].clone()).await?;Ok(Value::Null)},
             "database_record_create_prepare"=>{exact(&request,&["command"])?;store.database_record_create_prepare().await},
             "database_record_create_ack"=>{exact(&request,&["command","sequence","wire","response"])?;store.database_record_create_ack(text(&request,"sequence")?,text(&request,"wire")?,request["response"].clone()).await?;Ok(Value::Null)},

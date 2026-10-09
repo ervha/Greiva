@@ -14,6 +14,7 @@ mod private_database_view;
 mod private_database_changes;
 mod private_database_source_queue;
 mod private_database_record_create;
+mod private_database_record_update;
 mod workspace_registry;
 mod workspace_device;
 pub use workspace_device::{WorkspaceOwner, WorkspaceDevice};
@@ -45,7 +46,7 @@ impl PageStore {
             .foreign_keys(true).busy_timeout(Duration::from_secs(5));
         let pool = SqlitePoolOptions::new().max_connections(1).connect_with(options).await.map_err(|e| e.to_string())?;
         let version: i64 = sqlx::query_scalar("PRAGMA user_version").fetch_one(&pool).await.map_err(|e| e.to_string())?;
-        if !(if workspace.is_some() { [0,5,6,7,8,9,10,11,12,13,14].contains(&version) } else { [0,1,2,3,4].contains(&version) }) { return Err(format!("Unsupported local schema version: {version}")); }
+        if !(if workspace.is_some() { [0,5,6,7,8,9,10,11,12,13,14,15].contains(&version) } else { [0,1,2,3,4].contains(&version) }) { return Err(format!("Unsupported local schema version: {version}")); }
         if workspace.is_some() && version==0 {
             let count:i64=sqlx::query_scalar("SELECT count(*) FROM sqlite_master WHERE name NOT LIKE 'sqlite_%'").fetch_one(&pool).await.map_err(|e|e.to_string())?;
             if count!=0 {return Err("Private workspace requires an empty database".into());}

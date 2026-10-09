@@ -1,5 +1,7 @@
 # 汎用データベース・ビュー・プロパティ 設計案 v0.1
 
+2026-10-09 / v0.62.0：[Record更新・競合解決queue](../development/PRIVATE_DATABASE_RECORD_UPDATE_QUEUE.md)で確認済みbase/元候補・busy・原ACK原子確認とnative15を追加する。server11保持。View queue・Record HTTP/runtime・Table/List画面と本書の全受入は後続。
+
 更新: 2026-10-01。製品の追加要求と実装前の詳細案。現在のPoCに実装済みの機能を示す文書ではない。
 
 2026-10-08 / v0.41.0：[基本DB基盤](../development/BASIC_DATABASE_FOUNDATION.md)として6型のSource/Record検証とTable/Listのlocal queryを部分実装する。plain Text/date-onlyの初期subsetで、物理保存・同期・DB操作画面・全ビュー/型・本書の全受入は未完了。[証拠](../../tests/evidence/basic-database-foundation-20261008/SUMMARY.md)。

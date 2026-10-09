@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.62.0 — 2026-10-09
+
+- native15へRecord update/競合解決queueを追加し、確認済みの元baseとintent/候補を保持する。同Record未ACKは1件とし、別保存は元操作を守るbusyで返す。
+- 元wireとapplied/conflict/rejected原ACKを保持し、cache/history/解決proofを原子確定する。read/delta先行、no-change解決、late ACKと非補修replay、UTF8上限とbyte windowを検証する。
+- 実SQLite/実SIGKILL6・移行/破損/全回帰/build/help版表示を確認。server11保持。View queue、Record HTTP/runtime、6型Table/List画面とnative Gateは後続。
+
 ## 0.61.0 — 2026-10-09
 
 - native14へRecord作成の独立queueを追加し、typed intentをconfirmed snapshotと分けて保持する。未送信Source/Pageに依存する作成は確認まで明示的に待ち、bootstrap後の未送信本文とは区別する。
