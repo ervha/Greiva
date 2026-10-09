@@ -1,5 +1,10 @@
 # 変更履歴
 
+## 0.65.0 — 2026-10-09
+
+- native16へView create/update/既知候補解決queueを追加し、Source待ち・元base/設定/三値・同View busy・immutable wireを保存する。
+- 原ACK/cache/history/解決proofを原子確認し、read/delta先行、遅着、欠損非補修replayとbounded byte/keyset一覧を検査する。既存データをbound移行しserver11を保持する。
+- 新native29/SIGKILL6と全回帰/build/helpを検証。元fixture Failと不足importの型check Failを保存する。View実HTTP/runtime、6型Table/Listとnative Gateは後続。
 ## 0.64.0 — 2026-10-09
 
 - Record保存・送信の画面用runtimeへlocal opening、create/update未送信window、種類別鮮度、unknown enqueue/ACK retry、known busy/blocked/原applied-conflict-rejected結果を接続する。

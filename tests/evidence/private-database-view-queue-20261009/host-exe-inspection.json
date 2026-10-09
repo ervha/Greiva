@@ -1,0 +1,8 @@
+{
+  "dockerSha256Matches": true,
+  "nativeImeTested": false,
+  "productVersion": "0.65.0",
+  "fileVersion": "0.65.0",
+  "sha256": "9ddad49dea706d951026dab0655eaa45159f80ca99552cd56f7d345a2f503691",
+  "hostLaunched": false
+}

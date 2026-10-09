@@ -1,5 +1,7 @@
 # 汎用データベース・ビュー・プロパティ 設計案 v0.1
 
+最新v0.65.0：[View端末queue](../development/PRIVATE_DATABASE_VIEW_QUEUE.md)で作成・更新・既知候補解決の元capture/immutable wire/原ACK-cache-history-解決proofを接続。native16/server11。read/delta先行・遅着・byte window・移行/SIGKILLを確認し、元fixture Failを別保存。[証拠](../../tests/evidence/private-database-view-queue-20261009/SUMMARY.md)。View実HTTP/runtimeと6型Table/Listへ続行する。
+
 2026-10-09 / v0.64.0：[Record画面用runtime](../development/PRIVATE_DATABASE_RECORD_WRITE_RUNTIME.md)へ未送信一覧/unknown retry/known busy/blocked/原結果と鮮度を接続する。native15/server11保持。View queue・6型Table/List操作画面と本書の全受入は後続。
 
 2026-10-09 / v0.63.0：[Record実HTTP送信](../development/PRIVATE_DATABASE_RECORD_WRITE.md)でtyped原capture/wire/ACKをcaptured Authへ接続する。native15/server11保持。画面用runtime・View queue・6型Table/Listと本書の全受入は後続。

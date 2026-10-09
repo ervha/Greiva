@@ -1,0 +1,105 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [31m❯[39m tests/integration/private-database-view-queue-store.test.ts [2m([22m[2m22 tests[22m[2m | [22m[31m8 failed[39m[2m)[22m[33m 4562[2mms[22m[39m
+   [32m✓[39m DB-VIEW-QUEUE: offline create is separate from confirmed projection; original wire, all settings and ACK survive restart/replay[32m 221[2mms[22m[39m
+[31m   [31m×[31m DB-VIEW-QUEUE: pending Source blocks create without fake wire or View; confirmed Source unlocks exact intent[39m[32m 105[2mms[22m[39m
+   [32m✓[39m DB-VIEW-QUEUE: actual original base survives newer observation; same View busy does not overwrite either intent[32m 170[2mms[22m[39m
+   [32m✓[39m DB-VIEW-QUEUE local resolution: known triad/base captured, applied choice consumes candidate in same transaction, remote no-change allowed[32m 218[2mms[22m[39m
+   [32m✓[39m DB-VIEW-QUEUE remote resolution: known triad/base captured, applied choice consumes candidate in same transaction, remote no-change allowed[32m 211[2mms[22m[39m
+   [32m✓[39m DB-VIEW-QUEUE: partial merge conflict preserves original triad, rejected resolution never consumes it; later explicit fresh choice uses new operation[32m 225[2mms[22m[39m
+   [32m✓[39m DB-VIEW-QUEUE: malformed ACK scope/settings/triad/applied-version rejects without consuming pending or receipts[32m 143[2mms[22m[39m
+   [32m✓[39m DB-VIEW-QUEUE intent corruption: exact replay/list fails without repair[32m 151[2mms[22m[39m
+   [32m✓[39m DB-VIEW-QUEUE base corruption: exact replay/list fails without repair[32m 140[2mms[22m[39m
+   [32m✓[39m DB-VIEW-QUEUE candidate corruption: exact replay/list fails without repair[32m 140[2mms[22m[39m
+   [32m✓[39m DB-VIEW-QUEUE wire corruption: exact replay/list fails without repair[32m 129[2mms[22m[39m
+   [32m✓[39m DB-VIEW-QUEUE index corruption: exact replay/list fails without repair[32m 147[2mms[22m[39m
+[31m   [31m×[31m DB-VIEW-QUEUE history corruption: exact replay/list fails without repair[39m[32m 135[2mms[22m[39m
+[31m   [31m×[31m DB-VIEW-QUEUE projection corruption: exact replay/list fails without repair[39m[32m 119[2mms[22m[39m
+[31m   [31m×[31m DB-VIEW-QUEUE receipt corruption: exact replay/list fails without repair[39m[32m 114[2mms[22m[39m
+[31m   [31m×[31m DB-VIEW-QUEUE: resolution projection failure rolls back original ACK, history, receipt and resolvedBy together[39m[32m 153[2mms[22m[39m
+   [32m✓[39m DB-VIEW-QUEUE: pending-only/keyset/exact i64 sequence and corrupt lookahead are bounded and never report fake empty[32m 111[2mms[22m[39m
+   [32m✓[39m DB-VIEW-QUEUE: create/update ID reuse, unknown baseline, invalid whole-field/filter refs and unobserved candidates never persist[32m 112[2mms[22m[39m
+[31m   [31m×[31m DB-VIEW-QUEUE-SIGKILL-enqueue: before/after COMMIT retains original resolution, wire, ACK and choice atomically[39m[32m 208[2mms[22m[39m
+[31m   [31m×[31m DB-VIEW-QUEUE-SIGKILL-prepare: before/after COMMIT retains original resolution, wire, ACK and choice atomically[39m[32m 239[2mms[22m[39m
+[31m   [31m×[31m DB-VIEW-QUEUE-SIGKILL-ack: before/after COMMIT retains original resolution, wire, ACK and choice atomically[39m[33m 1134[2mms[22m[39m
+   [32m✓[39m DB-VIEW-QUEUE: bound schema15 migration keeps Source/Record queues, read replicas and Page/Task pending; foreign/partial DDL rolls back[32m 235[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 8 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-view-queue-store.test.ts[2m > [22mDB-VIEW-QUEUE: pending Source blocks create without fake wire or View; confirmed Source unlocks exact intent
+[31m[1mNativeWorkspaceError[22m: Native workspace protocol[39m
+[36m [2m❯[22m NativeWorkspaceStore.databaseSourceAcknowledge apps/client/src/workspace/native-workspace-store.ts:[2m80:901[22m[39m
+
+[90m [2m❯[22m tests/integration/private-database-view-queue-store.test.ts:[2m18:638[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/8]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-view-queue-store.test.ts[2m > [22mDB-VIEW-QUEUE history corruption: exact replay/list fails without repair
+[31m[1mError[22m: FOREIGN KEY constraint failed[39m
+[36m [2m❯[22m Object.exec tests/integration/private-database-view-queue-store.test.ts:[2m8:467[22m[39m
+
+[90m [2m❯[22m tests/integration/private-database-view-queue-store.test.ts:[2m23:1009[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/8]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-view-queue-store.test.ts[2m > [22mDB-VIEW-QUEUE projection corruption: exact replay/list fails without repair
+[31m[1mError[22m: FOREIGN KEY constraint failed[39m
+[36m [2m❯[22m Object.exec tests/integration/private-database-view-queue-store.test.ts:[2m8:467[22m[39m
+
+[90m [2m❯[22m tests/integration/private-database-view-queue-store.test.ts:[2m23:1103[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/8]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-view-queue-store.test.ts[2m > [22mDB-VIEW-QUEUE receipt corruption: exact replay/list fails without repair
+[31m[1mNativeWorkspaceError[22m: Native workspace storage[39m
+[36m [2m❯[22m NativeWorkspaceStore.execute apps/client/src/workspace/native-workspace-store.ts:[2m55:180[22m[39m
+
+[90m [2m❯[22m NativeWorkspaceStore.databaseViewAcknowledge apps/client/src/workspace/native-workspace-store.ts:[2m68:1097[22m[39m
+[90m [2m❯[22m tests/integration/private-database-view-queue-store.test.ts:[2m23:381[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/8]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-view-queue-store.test.ts[2m > [22mDB-VIEW-QUEUE: resolution projection failure rolls back original ACK, history, receipt and resolvedBy together
+[31m[1mNativeWorkspaceError[22m: Native workspace storage[39m
+[36m [2m❯[22m NativeWorkspaceStore.execute apps/client/src/workspace/native-workspace-store.ts:[2m55:180[22m[39m
+
+[90m [2m❯[22m NativeWorkspaceStore.databaseViewAcknowledge apps/client/src/workspace/native-workspace-store.ts:[2m68:1097[22m[39m
+[90m [2m❯[22m tests/integration/private-database-view-queue-store.test.ts:[2m24:844[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/8]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-view-queue-store.test.ts[2m > [22mDB-VIEW-QUEUE-SIGKILL-enqueue: before/after COMMIT retains original resolution, wire, ACK and choice atomically
+[41m[1m FAIL [22m[49m tests/integration/private-database-view-queue-store.test.ts[2m > [22mDB-VIEW-QUEUE-SIGKILL-prepare: before/after COMMIT retains original resolution, wire, ACK and choice atomically
+[31m[1mNativeWorkspaceError[22m: Native workspace storage[39m
+[36m [2m❯[22m NativeWorkspaceStore.execute apps/client/src/workspace/native-workspace-store.ts:[2m55:180[22m[39m
+
+[90m [2m❯[22m NativeWorkspaceStore.databaseViewAcknowledge apps/client/src/workspace/native-workspace-store.ts:[2m68:1097[22m[39m
+[90m [2m❯[22m tests/integration/private-database-view-queue-store.test.ts:[2m27:1492[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[6/8]⎯[22m[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-view-queue-store.test.ts[2m > [22mDB-VIEW-QUEUE-SIGKILL-ack: before/after COMMIT retains original resolution, wire, ACK and choice atomically
+[31m[1mAssertionError[22m: expected false to be true // Object.is equality[39m
+
+[32m- Expected[39m
+[31m+ Received[39m
+
+[32m- true[39m
+[31m+ false[39m
+
+[36m [2m❯[22m tests/integration/private-database-view-queue-store.test.ts:[2m27:825[22m[39m
+
+
+[31m[1mCaused by: Error[22m: Matcher did not succeed in time.[39m
+[36m [2m❯[22m tests/integration/private-database-view-queue-store.test.ts:[2m27:774[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[7/8]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m8 failed[39m[22m[2m | [22m[1m[32m14 passed[39m[22m[90m (22)[39m
+[2m   Start at [22m 08:12:37
+[2m   Duration [22m 5.33s[2m (tests 88%, transform 7%, import 5%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v65/focused-initial/vitest.json

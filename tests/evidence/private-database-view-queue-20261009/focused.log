@@ -1,0 +1,16 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/private-database-view-queue-store.test.ts [2m([22m[2m29 tests[22m[2m)[22m[33m 48864[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-QUEUE-SIGKILL-enqueue: before/after COMMIT retains original resolution, wire, ACK and choice atomically[33m 493[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-QUEUE-SIGKILL-prepare: before/after COMMIT retains original resolution, wire, ACK and choice atomically[33m 516[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-QUEUE-SIGKILL-ack: before/after COMMIT retains original resolution, wire, ACK and choice atomically[33m 495[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-QUEUE: actual large base and ACK filters split byte windows with validated lookahead and global pending[33m 43075[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-QUEUE: oversized valid filter wire is rejected before durable insert, exact i64 sequence beyond JS safe integer stays intact[33m 572[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m29 passed[39m[22m[90m (29)[39m
+[2m   Start at [22m 08:14:00
+[2m   Duration [22m 49.65s[2m (tests 99%, transform 1%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v65/focused/vitest.json
