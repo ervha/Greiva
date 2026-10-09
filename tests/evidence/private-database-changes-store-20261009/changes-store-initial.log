@@ -1,0 +1,31 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/private-database-changes-store.test.ts [2m([22m[2m25 tests[22m[2m)[22m[33m 7453[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-STORE: remote resolution has immutable proof; older null/read/replay never clears it or rewinds cursor[33m 441[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-STORE: changed resolution/core and late contradictory baseline reject whole window including earlier View update/cursor[33m 387[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-STORE: raw compact event budget rejects over64MiB before saving any window; no test-only size override exists[33m 2199[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-STORE-SIGKILL-after-commit: native death preserves Record/View/candidates/receipt/events/cursor together, restart exact retry is idempotent[33m 303[2mms[22m[39m
+ [32m✓[39m tests/integration/private-database-view-store.test.ts [2m([22m[2m22 tests[22m[2m)[22m[33m 4272[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-STORE: 21 known candidates paginate20; read absence and limit completion do not infer resolution[33m 427[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-STORE: 101 headers paginate100 with current name/layout/version and reject lookahead corruption[33m 1034[2mms[22m[39m
+ [32m✓[39m tests/integration/private-database-record-store.test.ts [2m([22m[2m17 tests[22m[2m)[22m[33m 3451[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-STORE: 21 observed candidates paginate20, empty/newer read does not infer resolution and stale candidates remain observed[33m 444[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-STORE: 101 local headers paginate100 and validate lookahead without copying values/title/body[33m 991[2mms[22m[39m
+ [32m✓[39m tests/integration/private-page-store.test.ts [2m([22m[2m13 tests[22m[2m)[22m[33m 2654[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-PAGE-STORE: bound schema5 upgrade preserves structured data and rejects orphan/partial/foreign binding without mutation[33m 424[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-PAGE-STORE: input bounds and prepared corruption reject; combined large remote binary survives restart without an input-frame cap[33m 762[2mms[22m[39m
+ [32m✓[39m tests/integration/private-title-store.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 2263[2mms[22m[39m
+   [33m[2m✓[22m[39m TITLE-STORE: bound schema6 upgrade preserves Page/structured data, keeps baseline unknown and rolls back partial schema[33m 357[2mms[22m[39m
+ [32m✓[39m tests/integration/private-database-source-store.test.ts [2m([22m[2m13 tests[22m[2m)[22m[33m 2159[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-SOURCE-STORE: 101 UUID-keyset rows bound to100 and duplicate creation positions roll back without history leaks[33m 774[2mms[22m[39m
+ [32m✓[39m tests/integration/workspace-store.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 1554[2mms[22m[39m
+ [32m✓[39m tests/integration/private-page-changes-store.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 1471[2mms[22m[39m
+   [33m[2m✓[22m[39m PAGE-CHANGES-STORE: bound schema7 migration preserves binary/queue and rejects wrong identity/partial DDL atomically[33m 378[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m8 passed[39m[22m[90m (8)[39m
+[2m      Tests [22m [1m[32m126 passed[39m[22m[90m (126)[39m
+[2m   Start at [22m 04:40:57
+[2m   Duration [22m 27.64s[2m (tests 94%, import 4%, transform 2%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261009/v56/changes-store-initial/vitest.json

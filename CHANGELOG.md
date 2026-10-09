@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.56.0 — 2026-10-09
+
+- native12へDB差分受信を追加し、mixed Record/View history・候補/解決・元window/event/progressを原子保存する。server11と旧read cache/Page/queueを保持する。
+- native strict scope/gdb1/型/max100/compact64MiBを検査し、saved cursorからだけ前進する。古いread/deltaで最新版・解決状態を戻さず、replayで欠損を補修しない。local候補へresolvedByを返す。
+- native25＋旧101・実COMMIT前後SIGKILL2と全回帰/build/help版表示を検証する。差分HTTP/session/runtime・作成/更新queue・Table/List画面と全DB/native Gateは後続。
+
 ## 0.55.0 — 2026-10-09
 
 - captured Source/AuthのRecord/View catalog/readを端末cacheへ接続する。header観測と内容保存を分け、型・対象・候補・raw進捗を検査する。

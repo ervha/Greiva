@@ -1,7 +1,7 @@
 import {z} from 'zod';
 import {idSchema} from '@greiva/shared';
 import {databaseSourceSchema,parseDatabaseRecord,parseDatabaseRecordConflict,parseDatabaseViewSnapshot,parseDatabaseViewConflict,type DatabaseSource} from '@greiva/domain';
-import {structuredOrderSchema} from './workspace.js';
+import {workspaceLocalContextSchema,structuredOrderSchema} from './workspace.js';
 import {privateDatabaseRecordSnapshotSchema,privateDatabaseRecordConflictSchema} from './private-database-record.js';
 import {privateDatabaseViewSnapshotSchema,privateDatabaseViewConflictSchema} from './private-database-view.js';
 const id=idSchema.refine(value=>value===value.toLowerCase(),'Canonical ID required');
@@ -41,3 +41,4 @@ export function parsePrivateDatabaseChangesResponse(source:DatabaseSource,candid
  if(response.workspaceId!==definition.workspaceId||response.sourceId!==definition.id||response.schemaVersion!==definition.schemaVersion)throw Error('Database change definition mismatch');
  return freeze({...response,events:response.events.map(event=>parsePrivateDatabaseChange(definition,event))});
 }
+export const privateDatabaseChangesLocalProgressSchema=z.strictObject({context:workspaceLocalContextSchema,sourceId:id,schemaVersion:version,journalEpoch:id.nullable(),order:structuredOrderSchema,cursor:z.string().min(1).max(1024).nullable(),headOrder:structuredOrderSchema,hasMore:z.boolean(),received:z.boolean()}).superRefine((v,ctx)=>{if(v.received){if(v.cursor===null||v.journalEpoch===null||BigInt(v.order)>BigInt(v.headOrder)||v.hasMore!==(BigInt(v.order)<BigInt(v.headOrder)))ctx.addIssue({code:'custom',message:'Invalid saved database progress'});}else if(v.cursor!==null||v.journalEpoch!==null||v.order!=='0'||v.headOrder!=='0'||v.hasMore)ctx.addIssue({code:'custom',message:'Invalid unreceived database progress'});});

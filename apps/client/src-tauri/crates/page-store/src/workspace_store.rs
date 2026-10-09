@@ -46,6 +46,7 @@ pub(super) async fn initialize(tx:&mut Transaction<'_,Sqlite>,context:&Workspace
     super::private_database::initialize(tx,version).await?;
     super::private_database_record::initialize(tx,version).await?;
     super::private_database_view::initialize(tx,version).await?;
+    super::private_database_changes::initialize(tx,version).await?;
     Ok(())
 }
 #[derive(Deserialize)]
@@ -135,6 +136,8 @@ impl WorkspaceStore {
     pub async fn page_prepare(&self,id:&str)->StoreResult<Value> {safe(self.inner.private_page_prepare(&self.context.client_id,id).await)}
     pub async fn page_ack(&self,id:&str,sequence:&str,wire:&str,response:Value)->StoreResult<()> {safe(self.inner.private_page_ack(&self.context.client_id,&self.context.workspace_id,id,sequence,wire,response).await)}
     pub async fn page_receive(&self,id:&str,response:Value)->StoreResult<()> {safe(self.inner.private_page_receive(&self.context.workspace_id,id,response).await)}
+    pub async fn database_changes_receive(&self,source:&str,request:Value,response:Value)->StoreResult<()> {safe(self.inner.database_changes_receive(&self.context,source,request,response).await)}
+    pub async fn database_changes_load(&self,source:&str)->StoreResult<Value> {safe(self.inner.database_changes_load(&self.context,source).await)}
     pub async fn database_view_receive(&self,source:&str,id:&str,request:Value,response:Value)->StoreResult<()> {safe(self.inner.database_view_receive(&self.context,source,id,request,response).await)}
     pub async fn database_view_load(&self,source:&str,id:&str,after:Option<&str>,limit:usize)->StoreResult<Value> {safe(self.inner.database_view_load(&self.context,source,id,after,limit).await)}
     pub async fn database_view_list(&self,source:&str,after:Option<&str>,limit:usize)->StoreResult<Value> {safe(self.inner.database_view_list(&self.context,source,after,limit).await)}

@@ -1,5 +1,6 @@
 # 試験証拠の索引
 
+- 2026-10-09 / v0.56.0 / [DB差分端末保存](private-database-changes-store-20261009/SUMMARY.md): native12/mixed原子保存・候補/解決/cursor、gdb1/型/compact64MiB/非補修replay。native25＋旧101/SIGKILL2/通常524/全PG190/help12/型/build。server11、差分HTTP・queue・画面は後続。
 - 2026-10-09 / v0.55.0 / [DB内容取得session](private-database-content-session-20261009/SUMMARY.md): captured Source/Auth/Record・View read→cache、immutable同応答retry、headers/raw進捗/store close。専用13/actual HTTP-native PG3/通常499/全PG190/help12/型/build。server11/native11、delta・queue・画面は後続。
 - 2026-10-09 / v0.54.0 / [View端末保存](private-database-view-cache-20261009/SUMMARY.md): native11/typed設定・whole-field候補/原子履歴、filter境界・遅着版保護・bounded読取。View22＋旧native79/SIGKILL2/通常486/全PG187/help12/型/build。元compile/移行fixture5 Fail保持、server11/queue・delta・画面は後続。
 - 2026-10-09 / v0.53.0 / [Record端末保存](private-database-record-cache-20261009/SUMMARY.md): native10/typed履歴・receipt・既知候補、late baseline/最新版保護、bounded読取。専用17/旧native62/SIGKILL2/通常464/全PG187/help12/型/build。元fixture Fail保持、server11/queue・delta・View・画面は後続。
