@@ -1,3 +1,4 @@
+import {privateClientOrigins} from './private-cors.js';
 import {PostgresPrivateDatabaseChangesStore} from './private-database-changes-store.js';
 import {PostgresPrivateDatabaseViewCatalogStore} from './private-database-view-catalog-store.js';
 import {PostgresPrivateDatabaseViewStore} from './private-database-view-store.js';
@@ -22,7 +23,7 @@ export class PrivateRuntimeError extends Error {
   }
 }
 export type PrivateRuntimeConfiguration = Readonly<{
-  projectUrl: string; algorithm: 'ES256' | 'RS256'; databaseUrl: string; schema: string; host: '127.0.0.1' | '0.0.0.0'; port: number;
+  projectUrl: string; algorithm: 'ES256' | 'RS256'; databaseUrl: string; schema: string; host: '127.0.0.1' | '0.0.0.0'; port: number; clientOrigins?:readonly string[];
 }>;
 // No provider, schema, DB or externally reachable listener is guessed. DSN is
 // private configuration and must never be logged with this object.
@@ -37,7 +38,8 @@ export function privateRuntimeConfiguration(env: Readonly<Record<string, string 
     if (!['postgres:', 'postgresql:'].includes(database.protocol) || !database.hostname || database.pathname.length < 2 || database.hash) throw new Error();
     const host = env.GREIVA_PRIVATE_HOST ?? '127.0.0.1', portText = env.GREIVA_PRIVATE_PORT ?? '3001';
     if (!['127.0.0.1', '0.0.0.0'].includes(host) || !/^[1-9]\d{0,4}$/.test(portText) || Number(portText) > 65535) throw new Error();
-    return Object.freeze({ projectUrl, algorithm, databaseUrl, schema, host: host as PrivateRuntimeConfiguration['host'], port: Number(portText) });
+    const clientOrigins=privateClientOrigins(env.GREIVA_PRIVATE_CLIENT_ORIGINS===undefined?undefined:JSON.parse(env.GREIVA_PRIVATE_CLIENT_ORIGINS));
+    return Object.freeze({ ...(clientOrigins.length?{clientOrigins}:{}), projectUrl, algorithm, databaseUrl, schema, host: host as PrivateRuntimeConfiguration['host'], port: Number(portText) });
   } catch { throw new PrivateRuntimeError('configuration'); }
 }
 // Owns its pool and app; injected ports are trusted infrastructure for tests.
@@ -46,7 +48,7 @@ export async function startPrivateApi(configuration: PrivateRuntimeConfiguration
   poolFactory?: (dsn: string) => pg.Pool; fetchJwks?: typeof fetch;
 }> = {}) {
   const config = privateRuntimeConfiguration({ GREIVA_SUPABASE_URL: configuration.projectUrl, GREIVA_SUPABASE_ALGORITHM: configuration.algorithm,
-    DATABASE_URL: configuration.databaseUrl, GREIVA_PRIVATE_SCHEMA: configuration.schema, GREIVA_PRIVATE_HOST: configuration.host, GREIVA_PRIVATE_PORT: String(configuration.port) });
+    DATABASE_URL: configuration.databaseUrl, GREIVA_PRIVATE_SCHEMA: configuration.schema, GREIVA_PRIVATE_HOST: configuration.host, GREIVA_PRIVATE_PORT: String(configuration.port),GREIVA_PRIVATE_CLIENT_ORIGINS:configuration.clientOrigins===undefined?undefined:JSON.stringify(configuration.clientOrigins) });
   const makePool = options.poolFactory ?? (dsn => new pg.Pool({ connectionString: dsn, max: 5, connectionTimeoutMillis: 5_000, statement_timeout: 10_000 }));
   const fetchJwks = options.fetchJwks;
   let pool: pg.Pool | undefined, app: Awaited<ReturnType<typeof createSupabasePrivateApp>> | undefined, stage: PrivateRuntimeError['stage'] = 'schema';
@@ -56,7 +58,7 @@ export async function startPrivateApi(configuration: PrivateRuntimeConfiguration
     pool.on('error', () => { /* active operations still fail closed */ });
     const schemaVersion = await verifyPrivateWorkspaceSchema(pool, config.schema);
     stage = 'listen';
-    app = await createSupabasePrivateApp({ projectUrl: config.projectUrl, algorithm: config.algorithm },
+    app = await createSupabasePrivateApp({ projectUrl: config.projectUrl, algorithm: config.algorithm,...(config.clientOrigins?{clientOrigins:config.clientOrigins}:{}) },
       new PostgresPrivateAccessStore(pool, config.schema), new PostgresPrivateBootstrapStore(pool, config.schema), fetchJwks, new PostgresPrivateTransactions(pool, config.schema),
       schemaVersion>=2?new PostgresPrivateStructuredStore(pool,config.schema):undefined,
       schemaVersion>=3?new PostgresPrivatePageStore(pool,config.schema):undefined,

@@ -1,0 +1,9 @@
+{
+  "unauthenticated": 401,
+  "realLogin": false,
+  "hostLoopbackOnly": true,
+  "unconfiguredOrigin": 403,
+  "preflight": 204,
+  "nativeCors": "http://tauri.localhost",
+  "at": "2026-10-12T11:08:33.7258549Z"
+}

@@ -1,0 +1,11 @@
+{
+  "schema": "greiva_private_native_preview_20261012_v75",
+  "projectUrl": "https://lfvipbtayyfhxtprenme.supabase.co",
+  "apiOrigin": "http://127.0.0.1:1443",
+  "version": 11,
+  "clientOrigins": [
+    "http://tauri.localhost"
+  ],
+  "configuredWithFixture": false,
+  "realLogin": false
+}

@@ -1,3 +1,9 @@
+import {installPrivateDatabaseSourceSchema} from './private-database-source-schema.js';
+import {installPrivateDatabaseRecordSchema} from './private-database-record-schema.js';
+import {installPrivateDatabaseRecordCatalogSchema} from './private-database-record-catalog-schema.js';
+import {installPrivateDatabaseViewSchema} from './private-database-view-schema.js';
+import {installPrivateDatabaseViewCatalogSchema} from './private-database-view-catalog-schema.js';
+import {installPrivateDatabaseChangesSchema} from './private-database-changes-schema.js';
 import pg from 'pg';
 import { installPrivateWorkspaceSchema, privateSchemaName } from './private-workspace-schema.js';
 import { installPrivateStructuredSchema } from './private-structured-schema.js';
@@ -19,9 +25,15 @@ try {
   else if(mode==='--page-metadata')await installPrivatePageMetadataSchema(pool,schema);
   else if(mode==='--page-changes')await installPrivatePageChangesSchema(pool,schema);
   else if(mode==='--pages')await installPrivatePageSchema(pool,schema);
+    else if(mode==='--database-sources')await installPrivateDatabaseSourceSchema(pool,schema);
+  else if(mode==='--database-records')await installPrivateDatabaseRecordSchema(pool,schema);
+  else if(mode==='--database-record-catalog')await installPrivateDatabaseRecordCatalogSchema(pool,schema);
+  else if(mode==='--database-views')await installPrivateDatabaseViewSchema(pool,schema);
+  else if(mode==='--database-view-catalog')await installPrivateDatabaseViewCatalogSchema(pool,schema);
+  else if(mode==='--database-changes')await installPrivateDatabaseChangesSchema(pool,schema);
   else if(mode===undefined)await installPrivateWorkspaceSchema(pool,schema);
   else throw new Error();
-  console.log(JSON.stringify({ service: 'private-api', event: mode==='--page-changes'?'page_changes_schema_installed':mode==='--page-metadata'?'page_metadata_schema_installed':mode==='--structured'?'structured_schema_installed':mode==='--pages'?'page_schema_installed':'schema_created' }));
+  console.log(JSON.stringify({ service: 'private-api', event: mode?.startsWith('--database-')?mode.slice(2).replaceAll('-','_')+'_schema_installed':mode==='--page-changes'?'page_changes_schema_installed':mode==='--page-metadata'?'page_metadata_schema_installed':mode==='--structured'?'structured_schema_installed':mode==='--pages'?'page_schema_installed':'schema_created' }));
 } catch {
   console.error(JSON.stringify({ service: 'private-api', event: 'schema_install_failed' })); process.exitCode = 1;
 } finally { try { await pool?.end(); } catch { process.exitCode = 1; } }

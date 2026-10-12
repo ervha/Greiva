@@ -1,5 +1,6 @@
 # 試験証拠の索引
 
+- 2026-10-12 / v0.75.0 / [個人API Windows接続準備](private-api-native-startup-20261012/SUMMARY.md): 明示CORS/schema11 CLI、通常781/PG225/画面98/型/build。実公開JWKS・無効署名拒否・専用schema/loopback確認。実Auth正常系/GUI/IME・実接続候補未確認。利用者指示で停止。
 - 2026-10-12 / v0.74.0 / [個人workspace Windows候補profile](private-preview-profile-20261012/SUMMARY.md): 公開設定/出力path拒否・専用identifier/起動画面/CSP、test hooks0、Docker exe/CLIとmetadata/hash。全unit474/CSP実browser2/出力拒否4、Windows compiled config/PE/SHA照合。元CLI型Fail/icon warning保持。fixture構成、GUI/実Auth/native Gate未確認。回収済み公開設定・専用APIへ続行。
 - 2026-10-12 / v0.73.0 / [基本DBの同梱ヘルプ](basic-database-help-20261012/SUMMARY.md): 3記事/カテゴリ/入口（全12）、読み込み範囲と未取得/独立確認/元retryを案内。unknown View入力・選択・元操作を保全、offline検索。全unit471/ヘルプ16/全workspace98/型/build。元selector2 Fail保持、PG/保存層変更なし。P4候補起動設定へ続行。
 - 2026-10-12 / v0.72.0 / [基本DB View作成・設定・競合解決画面](private-database-view-screen-20261012/SUMMARY.md): typed条件/列順/partial設定と複合filter/multisort保持、unknown元retry/known busy、三値/new-op/候補1件/原拒否とconfirmed open。新unit6/actual1/画面12、通常775/全PG223/全workspace94/型/build。元型/二重mount10 Fail保持、native16/server11、DBヘルプとP4準備へ続行。

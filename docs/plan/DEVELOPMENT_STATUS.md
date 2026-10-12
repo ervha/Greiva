@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+最新v0.75.0：[個人API Windows接続準備](../development/PRIVATE_API_NATIVE_STARTUP.md)に明示CORS・schema11までのCLIを追加。通常781/全PG225/画面98と型/buildを確認。実公開JWKS・無効署名拒否・専用schema/loopback APIを確認したが、正常ログイン/Windows GUI/IMEと実接続用候補buildは未実施。[証拠](../../tests/evidence/private-api-native-startup-20261012/SUMMARY.md)。利用者指示で一旦停止し、今回用API/forwarderも停止。[進捗と再開計画](CHECKPOINT_20261012.md)。
+
 最新v0.74.0：[個人workspace Windows候補profile](../development/PRIVATE_PREVIEW_PROFILE.md)を追加。専用identifier/起動画面/限定CSP、公開設定と出力path検査、test hooks0、metadata/hashとcompiled config CLIを接続する。全unit474/CSP実browser2/出力拒否4と型/build、Windows CLIの設定・PE/SHAを照合。[証拠](../../tests/evidence/private-preview-profile-20261012/SUMMARY.md)。元CLI型Failとicon warningを保持。GUI/実Auth/native Gateは別条件。回収した公開設定と専用APIの確認・実接続用候補へ続行する。
 
 最新v0.73.0：[基本DBの同梱ヘルプ](../development/BASIC_DATABASE_HELP.md)へ作成/表示・行編集・View設定の3記事/カテゴリ/入口を追加（計12記事）。未取得/読み込み範囲、元保存の再確認・原拒否を案内し、unknown View入力/選択を保全する。全unit471/ヘルプ16/全workspace98と型/buildを確認。[証拠](../../tests/evidence/basic-database-help-20261012/SUMMARY.md)。元selector2 Failを保持。PG/保存層は変更せず直前v0.72.0の証拠を保持し、P4の候補起動・隔離成果物の準備へ続行する。

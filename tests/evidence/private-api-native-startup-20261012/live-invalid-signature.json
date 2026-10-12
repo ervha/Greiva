@@ -1,0 +1,8 @@
+{
+  "at": "2026-10-12T11:08:35.883Z",
+  "signatureRejected": true,
+  "actualProviderJwks": true,
+  "nativeCors": "http://tauri.localhost",
+  "workspaces": 0,
+  "realLogin": false
+}

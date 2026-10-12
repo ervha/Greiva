@@ -1,0 +1,82 @@
+{
+  "schema": "greiva_private_native_preview_20261012_v75",
+  "version": 11,
+  "steps": [
+    {
+      "args": [],
+      "status": 0,
+      "event": "{\"service\":\"private-api\",\"event\":\"schema_created\"}"
+    },
+    {
+      "args": [
+        "--structured"
+      ],
+      "status": 0,
+      "event": "{\"service\":\"private-api\",\"event\":\"structured_schema_installed\"}"
+    },
+    {
+      "args": [
+        "--pages"
+      ],
+      "status": 0,
+      "event": "{\"service\":\"private-api\",\"event\":\"page_schema_installed\"}"
+    },
+    {
+      "args": [
+        "--page-metadata"
+      ],
+      "status": 0,
+      "event": "{\"service\":\"private-api\",\"event\":\"page_metadata_schema_installed\"}"
+    },
+    {
+      "args": [
+        "--page-changes"
+      ],
+      "status": 0,
+      "event": "{\"service\":\"private-api\",\"event\":\"page_changes_schema_installed\"}"
+    },
+    {
+      "args": [
+        "--database-sources"
+      ],
+      "status": 0,
+      "event": "{\"service\":\"private-api\",\"event\":\"database_sources_schema_installed\"}"
+    },
+    {
+      "args": [
+        "--database-records"
+      ],
+      "status": 0,
+      "event": "{\"service\":\"private-api\",\"event\":\"database_records_schema_installed\"}"
+    },
+    {
+      "args": [
+        "--database-record-catalog"
+      ],
+      "status": 0,
+      "event": "{\"service\":\"private-api\",\"event\":\"database_record_catalog_schema_installed\"}"
+    },
+    {
+      "args": [
+        "--database-views"
+      ],
+      "status": 0,
+      "event": "{\"service\":\"private-api\",\"event\":\"database_views_schema_installed\"}"
+    },
+    {
+      "args": [
+        "--database-view-catalog"
+      ],
+      "status": 0,
+      "event": "{\"service\":\"private-api\",\"event\":\"database_view_catalog_schema_installed\"}"
+    },
+    {
+      "args": [
+        "--database-changes"
+      ],
+      "status": 0,
+      "event": "{\"service\":\"private-api\",\"event\":\"database_changes_schema_installed\"}"
+    }
+  ],
+  "existingSchemaReplaced": false
+}

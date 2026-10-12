@@ -1,0 +1,17 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/private-runtime-postgres.test.ts [2m([22m[2m7 tests[22m[2m)[22m[33m 7123[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-RUNTIME-PG: signed session/bootstrap uses actual startup/read-only schema; old aliases absent and close coalesced[33m 315[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-RUNTIME-PG: CLI initializer is explicit/non-destructive; missing or unknown schema prevents listening without credentials in output[33m 2164[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-RUNTIME-PG: actual process listens without legacy routes and SIGTERM closes listener/pool without schema mutation[33m 565[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-RUNTIME-SYNC-PG: explicit CLI upgrade mounts signed private sync; restart preserves cursor and refuses missing key without repair[33m 552[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-RUNTIME-PAGE-PG: explicit schema3 CLI exposes signed binary routes, preserves structured stream and restores after restart[33m 969[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-DB-CLI-PG: explicit ordered CLI upgrades reach schema11; wrong order/repeat preserve existing schema and fixed failure output[33m 2471[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m7 passed[39m[22m[90m (7)[39m
+[2m   Start at [22m 10:54:46
+[2m   Duration [22m 8.19s[2m (tests 88%, transform 7%, import 5%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261012/v75/runtime-pg/vitest.json

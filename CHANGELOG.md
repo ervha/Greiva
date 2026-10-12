@@ -1,5 +1,12 @@
 # 変更履歴
 
+## 0.75.0 — 2026-10-12
+
+- 個人APIへ明示OriginのCORSを追加。限定preflightをAuth/DB前で処理し、実要求は既存JWT/owner/device認可を維持する。未設定は従来の非CORS動作を保持する。
+- 基本DBの明示CLIをschema6–11へ追加。実PGで全段階、順序違反/再実行rollback、起動時の非DDLを確認。Windows専用profileのHTTP Originを明示する。
+- 通常781/全PG225/画面98と型/build・通常Windows版/SHA照合を確認。実公開JWKS/無効署名拒否と専用schema/loopback APIを確認したが、実Auth正常系/GUI/IMEは未確認。
+- 利用者指示で停止。今回用API/forwarderを停止し、実設定Windows候補の追加buildは停止指示後の範囲外として自動承認審査に拒否されたため延期。進捗・未確認事項・再開計画を記録。
+
 ## 0.74.0 — 2026-10-12
 
 - 個人workspace専用Windows検証候補のDocker builderを追加。公開設定を検査し、専用アプリ識別子・workspace画面・限定した通信先で起動する構成を作る。test hooks/SQLite bridgeを0に固定し、既存PoCの起動と保存処理を保持する。
