@@ -1,0 +1,66 @@
+
+> greiva-poc@0.72.0 typecheck
+> npm run build:packages && npm run typecheck --workspaces --if-present && tsc -p tsconfig.tests.json
+
+
+> greiva-poc@0.72.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application
+
+
+> @greiva/shared@0.72.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/domain@0.72.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.72.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.72.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.72.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.72.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/domain@0.72.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/protocol@0.72.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/shared@0.72.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/sync@0.72.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/api@0.72.0 typecheck
+> tsc --noEmit
+
+
+> @greiva/client@0.72.0 typecheck
+> tsc --noEmit
+
+
+> @greiva/collaboration@0.72.0 typecheck
+> tsc --noEmit
+
+tests/unit/database-view-settings-fields.test.ts(2,75): error TS2835: Relative import paths need explicit file extensions in ECMAScript imports when '--moduleResolution' is 'node16' or 'nodenext'. Did you mean '../../apps/client/src/workspace/DatabaseViewSettingsFields.js'?
+tests/unit/database-view-write-session.test.ts(30,1033): error TS2322: Type 'Mock<() => Promise<{ context: { issuer: string; subjectId: string; workspaceId: string; clientId: string; streamEpoch: string; }; sourceId: string; schemaVersion: number; snapshot: { view: { name: string; layout: string; ... 4 more ...; sourceId: string; }; version: number; }; conflicts: never[]; nextAfter: null; }>>' is not assignable to type '(sourceId: string, viewId: string, candidate?: unknown) => Promise<{ context: { issuer: string; subjectId: string; workspaceId: string; clientId: string; streamEpoch: string; }; sourceId: string; schemaVersion: number; snapshot: { ...; } | null; conflicts: { ...; }[]; nextAfter: string | null; }>'.
+  Type 'Promise<{ context: { issuer: string; subjectId: string; workspaceId: string; clientId: string; streamEpoch: string; }; sourceId: string; schemaVersion: number; snapshot: { view: { name: string; layout: string; ... 4 more ...; sourceId: string; }; version: number; }; conflicts: never[]; nextAfter: null; }>' is not assignable to type 'Promise<{ context: { issuer: string; subjectId: string; workspaceId: string; clientId: string; streamEpoch: string; }; sourceId: string; schemaVersion: number; snapshot: { view: { id: string; sourceId: string; ... 4 more ...; sorts: { ...; }[]; }; version: number; } | null; conflicts: { ...; }[]; nextAfter: string |...'.
+    Type '{ context: { issuer: string; subjectId: string; workspaceId: string; clientId: string; streamEpoch: string; }; sourceId: string; schemaVersion: number; snapshot: { view: { name: string; layout: string; visiblePropertyIds: string[]; filter: { kind: string; propertyId: string; operator: string; value: number; }; sorts...' is not assignable to type '{ context: { issuer: string; subjectId: string; workspaceId: string; clientId: string; streamEpoch: string; }; sourceId: string; schemaVersion: number; snapshot: { view: { id: string; sourceId: string; ... 4 more ...; sorts: { ...; }[]; }; version: number; } | null; conflicts: { ...; }[]; nextAfter: string | null; }'.
+      The types of 'snapshot.view.layout' are incompatible between these types.
+        Type 'string' is not assignable to type '"list" | "table"'.

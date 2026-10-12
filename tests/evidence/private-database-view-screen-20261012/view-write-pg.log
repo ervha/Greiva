@@ -1,0 +1,21 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/private-database-view-write-postgres.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 4759[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-WRITE-PG: Source wait invokes no View HTTP; original create survives lost HTTP/native ACK and restart without Page dependency[33m 615[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-WRITE-PG: all five settings original update survives lost HTTP/native ACK with exact arrays/filter/null and write proof[33m 475[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-WRITE-PG: partial merge/name conflict and local/remote explicit choices cross actual HTTP and native atomic proof[33m 652[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-WRITE-PG: stale choice remains original rejection, newer remote settings survive and candidate stays unresolved[33m 456[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-WRITE-PG: replacement/Auth refresh/native close discard late committed reply; renewed sender reconciles durable original wire[33m 460[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-WRITE-PG: revoked device closes generation with durable pending and renewal can send same operation[33m 323[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-RUNTIME-PG: unknown enqueue persists through local reload; exact retry and unknown ACK retry require no extra HTTP[33m 302[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-RUNTIME-PG: known busy keeps first update, HTTP loss/restart keeps exact body, known ACK/list failure keeps original result[33m 391[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-RUNTIME-PG: Auth refresh closes private runtime during committed HTTP and reopening retrieves exact pending without old state[33m 316[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-SCREEN-PG: partial name keeps compound settings; two bounded candidates resolve with new operations and survive restart[33m 766[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m10 passed[39m[22m[90m (10)[39m
+[2m   Start at [22m 09:43:38
+[2m   Duration [22m 5.97s[2m (tests 81%, import 11%, transform 8%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261012/v72/view-write-pg/vitest.json

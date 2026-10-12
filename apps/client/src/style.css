@@ -137,3 +137,7 @@ kbd { font: inherit; font-size: 11px; padding: 1px 4px; background: var(--surfac
 @media (max-width: 600px) { .database-record-create-panel { padding: 12px; } }
 
 .database-record-create-panel dd { margin-inline-start: 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+
+.database-panel h3, .database-record-create-panel h3, .database-record-create-panel h4, .database-record-create-panel h5 { overflow-wrap: anywhere; }
+.database-record-create-panel .view-column-toggle { display: flex; align-items: center; gap: 8px; min-height: 44px; }
+.workspace-shell .view-column-toggle input[type=checkbox] { width: 20px; min-height: 20px; height: 20px; }

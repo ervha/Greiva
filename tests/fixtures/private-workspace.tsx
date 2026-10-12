@@ -9,7 +9,10 @@ if(import.meta.env.VITE_GREIVA_TEST_HOOKS!=='1')throw Error('Test fixture disabl
 const f=privateWorkspaceFixture(),login=new PrivateLoginController(f.configuration,f.fetchPort,(identity,signal)=>nativeWorkspaceDevice(identity,signal,f.invoke)),workspace=new PrivateWorkspaceController(f.invoke);
 createRoot(document.getElementById('root')!).render(<PrivateWorkspaceScreen login={login} workspace={workspace} nativeAvailable/>);
 let resume=()=>{};
-const test={
+const test={seedRichView:(id:string)=>f.database.seedRichView(id),
+ viewSnapshot:()=>({state:workspace.databaseViews?.snapshot??null,queue:f.database.viewQueue,wires:f.database.viewState.wires.slice(),acks:f.database.viewState.acks.slice(),browser:workspace.database?.snapshot??null}),
+ remoteView:(id:string,patch:Partial<import('@greiva/domain').DatabaseView>)=>f.database.remoteView(id,patch),
+ loseViewEnqueue:()=>{f.database.viewState.loseEnqueue=true;},loseViewHttp:()=>{f.database.viewState.loseHttp=true;},loseViewAck:()=>{f.database.viewState.loseAck=true;},failViewQueueAfterAck:()=>{f.database.viewState.failQueueAfterAck=true;},failViewDetails:()=>{f.database.state.failRead='database_view_load';},restoreViewRead:()=>{f.database.state.failRead=null;},
  databaseCreationSnapshot:()=>({state:workspace.databaseCreation?.snapshot??null,queue:f.database.sourceQueue,wires:f.database.state.sourceSentWires.slice(),acks:f.database.state.sourceAcks.slice(),browser:workspace.database?.snapshot??null}),
  bindHiddenRecordPage:(pageId:string)=>{const source=workspace.database?.snapshot.selected?.source;if(!source)throw Error("Select Source first");const id="ffffffff-ffff-7fff-8fff-ffffffffffff";f.database.records.set(id,{id,workspaceId:source.workspaceId,sourceId:source.id,pageId,version:1,values:{}});},
  failRecordDetails:()=>{f.database.state.failRead="database_record_load";},

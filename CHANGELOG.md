@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.72.0 — 2026-10-12
+
+- 基本DBのView作成・設定変更画面を追加。名前/Table/List/表示列順/型付き条件/並べ替えを明示保存し、変更しない複合条件・複数sortをそのまま保持する。既存Viewは変更fieldだけを元版付きで保存し、行・Page本文を複製しない。
+- 設定の三値比較、候補/履歴の1件継続読取、新operationの解決・原拒否、unknown元intent/wire/pair、known busy/ACKと旧一覧を区別する。header範囲外の確認済みView open、composition/navigationを保護する。
+- 新unit6/actual1/画面12、通常775/実PG223/全workspace94と型/buildを確認。元型Fail/二重mount画面10 Failを保持。native16/server11と外部依存・旧rootを保持し、DBヘルプとP4提供/復旧準備へ続行する。実native Gateは別条件。
+
 ## 0.71.0 — 2026-10-12
 
 - 確認済みDB行の型付き更新画面と作成/編集切替を追加。元Record/version/Pageを捕捉し、「変更しない」/null/指定値を区別してpartial intentを保存する。known busyとunknown入力/原wire/pair、原確認結果を保持する。

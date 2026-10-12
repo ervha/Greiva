@@ -1,0 +1,17 @@
+
+Running 12 tests using 1 worker
+
+  ✓   1 [desktop] › tests/e2e/private-workspace.spec.ts:157:1 › WORKSPACE-DB-VIEW: typed settings explicit local save and confirmed open reuse rows without duplicating Page body (3.0s)
+  ✓   2 [desktop] › tests/e2e/private-workspace.spec.ts:164:1 › WORKSPACE-DB-VIEW: unknown enqueue, HTTP and ACK reuse original operation bytes and pair; zero pending never clears unknown (2.5s)
+  ✓   3 [desktop] › tests/e2e/private-workspace.spec.ts:168:1 › WORKSPACE-DB-VIEW: conflicting settings show base/local/remote, new operation resolution and bounded durable history (2.7s)
+  ✓   4 [desktop] › tests/e2e/private-workspace.spec.ts:171:1 › WORKSPACE-DB-VIEW: stale saved resolution remains known rejected; two candidate windows replace and stale choice disables (2.7s)
+  ✓   5 [desktop] › tests/e2e/private-workspace.spec.ts:174:1 › WORKSPACE-DB-VIEW: composition stays editable; busy retains draft; known ACK plus failed list and failed detail keep evidence distinct (2.8s)
+  ✓   6 [desktop] › tests/e2e/private-workspace.spec.ts:176:4 › WORKSPACE-DB-VIEW: name-only UI patch preserves nested filter, multiple sorts and column order without changing body or overflow (2.3s)
+  ✓   7 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:157:1 › WORKSPACE-DB-VIEW: typed settings explicit local save and confirmed open reuse rows without duplicating Page body (2.6s)
+  ✓   8 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:164:1 › WORKSPACE-DB-VIEW: unknown enqueue, HTTP and ACK reuse original operation bytes and pair; zero pending never clears unknown (2.3s)
+  ✓   9 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:168:1 › WORKSPACE-DB-VIEW: conflicting settings show base/local/remote, new operation resolution and bounded durable history (2.5s)
+  ✓  10 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:171:1 › WORKSPACE-DB-VIEW: stale saved resolution remains known rejected; two candidate windows replace and stale choice disables (2.5s)
+  ✓  11 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:174:1 › WORKSPACE-DB-VIEW: composition stays editable; busy retains draft; known ACK plus failed list and failed detail keep evidence distinct (2.6s)
+  ✓  12 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:176:4 › WORKSPACE-DB-VIEW: name-only UI patch preserves nested filter, multiple sorts and column order without changing body or overflow (2.2s)
+
+  12 passed (33.3s)

@@ -1,5 +1,7 @@
 # 初期提供範囲・PoCとの差・残る判断
 
+最新v0.72.0：[基本DBのView作成・設定・競合解決画面](../development/PRIVATE_DATABASE_VIEW_SCREEN.md)を接続。型付き条件/列順/Table-List、未変更の複合filter/multisort保持、partial patch・unknown元intent/wire/pair、候補1件の三値/new-op/原拒否と確認済みView openを扱う。通常775/全PG223/全workspace94と型/buildを確認。[証拠](../../tests/evidence/private-database-view-screen-20261012/SUMMARY.md)。元型/二重mount10 Failを保持。native16/server11・旧root保持、基本DBヘルプとP4提供/復旧準備へ続行する。
+
 最新v0.71.0：[確認済みRecordの行更新・競合解決画面](../development/PRIVATE_DATABASE_RECORD_EDIT_SCREEN.md)を接続。5型のpartial update/元base、known busyとcopy可能なunknown元intent/pair、三値・新operation解決/原拒否、候補1件の継続読取を扱う。長い値の折り返しを修正。通常769/全PG222/最終全workspace82と型/buildを確認。[証拠](../../tests/evidence/private-database-record-edit-screen-20261012/SUMMARY.md)。元type fixture/長値Failを別保存し、native16/server11・旧root保持。保存済みView設定・作成/解決へ続行する。
 
 最新v0.70.0：[基本DBの行作成画面](../development/PRIVATE_DATABASE_RECORD_CREATE_SCREEN.md)を接続。既存Pageへのbinding、5型の値/未設定/null、独立保存・送信とunknown元intent/pair再確認、一覧外bindingの索引preflight、known busy/ACKと旧一覧を区別する。通常766/全PG221/全workspace72と型/buildを確認。[証拠](../../tests/evidence/private-database-record-create-screen-20261012/SUMMARY.md)。native16/server11・旧rootを保持し、確認済みRecordの更新/Conflict解決とView設定へ続行する。
