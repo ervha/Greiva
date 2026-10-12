@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+最新v0.73.0：[基本DBの同梱ヘルプ](../development/BASIC_DATABASE_HELP.md)へ作成/表示・行編集・View設定の3記事/カテゴリ/入口を追加（計12記事）。未取得/読み込み範囲、元保存の再確認・原拒否を案内し、unknown View入力/選択を保全する。全unit471/ヘルプ16/全workspace98と型/buildを確認。[証拠](../../tests/evidence/basic-database-help-20261012/SUMMARY.md)。元selector2 Failを保持。PG/保存層は変更せず直前v0.72.0の証拠を保持し、P4の候補起動・隔離成果物の準備へ続行する。
+
 最新v0.72.0：[基本DBのView作成・設定・競合解決画面](../development/PRIVATE_DATABASE_VIEW_SCREEN.md)を接続。型付き条件/列順/Table-List、未変更の複合filter/multisort保持、partial patch・unknown元intent/wire/pair、候補1件の三値/new-op/原拒否と確認済みView openを扱う。通常775/全PG223/全workspace94と型/buildを確認。[証拠](../../tests/evidence/private-database-view-screen-20261012/SUMMARY.md)。元型/二重mount10 Failを保持。native16/server11・旧root保持、基本DBヘルプとP4提供/復旧準備へ続行する。
 
 最新v0.71.0：[確認済みRecordの行更新・競合解決画面](../development/PRIVATE_DATABASE_RECORD_EDIT_SCREEN.md)を接続。5型のpartial update/元base、known busyとcopy可能なunknown元intent/pair、三値・新operation解決/原拒否、候補1件の継続読取を扱う。長い値の折り返しを修正。通常769/全PG222/最終全workspace82と型/buildを確認。[証拠](../../tests/evidence/private-database-record-edit-screen-20261012/SUMMARY.md)。元type fixture/長値Failを別保存し、native16/server11・旧root保持。保存済みView設定・作成/解決へ続行する。

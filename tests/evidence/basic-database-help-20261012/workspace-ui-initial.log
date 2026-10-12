@@ -1,0 +1,81 @@
+
+Running 16 tests using 1 worker
+
+  ✓   1 [desktop] › tests/e2e/private-workspace.spec.ts:90:1 › WORKSPACE-HELP: unsigned-in offline local search, categories, related articles and manifest version do not send queries (1.8s)
+  ✓   2 [desktop] › tests/e2e/private-workspace.spec.ts:96:1 › WORKSPACE-HELP: dirty title and Task drafts retain selection, focus and immutable unsent records (1.7s)
+  ✓   3 [desktop] › tests/e2e/private-workspace.spec.ts:100:1 › WORKSPACE-HELP: Page body remains mounted and its selection returns without a sync or local mutation (1.6s)
+  ✓   4 [desktop] › tests/e2e/private-workspace.spec.ts:103:1 › WORKSPACE-HELP: composition guards entry, Enter and Escape; keyboard dismissal returns to its launcher (1.3s)
+  ✓   5 [desktop] › tests/e2e/private-workspace.spec.ts:106:1 › WORKSPACE-HELP: contextual unknown title-save guidance leaves exact retry and copyable draft untouched (1.9s)
+  ✓   6 [desktop] › tests/e2e/private-workspace.spec.ts:109:1 › WORKSPACE-HELP: metadata context explains cached progress without fetching or acknowledging pending body (1.6s)
+  ✘   7 [desktop] › tests/e2e/private-workspace.spec.ts:179:1 › WORKSPACE-DB-HELP: bundled DB category and typed guidance work offline before login without querying user data (30.2s)
+  ✓   8 [desktop] › tests/e2e/private-workspace.spec.ts:182:1 › WORKSPACE-DB-HELP: unknown View draft remains copyable with original operation and input selection; help never retries or sends (2.4s)
+  ✓   9 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:90:1 › WORKSPACE-HELP: unsigned-in offline local search, categories, related articles and manifest version do not send queries (1.5s)
+  ✓  10 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:96:1 › WORKSPACE-HELP: dirty title and Task drafts retain selection, focus and immutable unsent records (1.6s)
+  ✓  11 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:100:1 › WORKSPACE-HELP: Page body remains mounted and its selection returns without a sync or local mutation (1.6s)
+  ✓  12 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:103:1 › WORKSPACE-HELP: composition guards entry, Enter and Escape; keyboard dismissal returns to its launcher (1.3s)
+  ✓  13 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:106:1 › WORKSPACE-HELP: contextual unknown title-save guidance leaves exact retry and copyable draft untouched (1.8s)
+  ✓  14 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:109:1 › WORKSPACE-HELP: metadata context explains cached progress without fetching or acknowledging pending body (1.4s)
+  ✘  15 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:179:1 › WORKSPACE-DB-HELP: bundled DB category and typed guidance work offline before login without querying user data (30.2s)
+  ✓  16 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:182:1 › WORKSPACE-DB-HELP: unknown View draft remains copyable with original operation and input selection; help never retries or sends (2.3s)
+
+
+  1) [desktop] › tests/e2e/private-workspace.spec.ts:179:1 › WORKSPACE-DB-HELP: bundled DB category and typed guidance work offline before login without querying user data
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.fill: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByRole('dialog', { name: 'ヘルプ・アプリ情報', exact: true }).getByRole('textbox', { name: 'ヘルプ内を検索', exact: true })
+
+
+      178 | });
+      179 | test('WORKSPACE-DB-HELP: bundled DB category and typed guidance work offline before login without querying user data',async({page},info)=>{
+    > 180 |  await page.goto('/private-workspace.fixture.html');const requests:string[]=[];page.on('request',request=>requests.push(request.url()));await page.context().setOffline(true);await page.getByRole('button',{name:'ヘルプ・アプリ情報',exact:true}).click();const dialog=page.getByRole('dialog',{name:'ヘルプ・アプリ情報',exact:true});await dialog.getByRole('combobox',{name:'ヘルプカテゴリ',exact:true}).selectOption('databases');await expect(dialog.getByLabel('ヘルプ検索結果',{exact:true})).toHaveText('3件の記事');await dialog.getByRole('textbox',{name:'ヘルプ内を検索',exact:true}).fill('ＶＩＥＷ');await dialog.getByRole('navigation',{name:'ヘルプの記事'}).getByRole('button',{name:'DBのView設定を保存・解決する',exact:true}).click();await expect(dialog.getByRole('article',{name:'ヘルプ本文',exact:true})).toContainText('未確認件数が0でも応答保存の再確認が必要');await expect(dialog.getByRole('article',{name:'ヘルプ本文',exact:true})).toContainText('読み込んだ行の範囲');await info.attach('workspace-db-help-'+info.project.name,{body:await dialog.screenshot(),contentType:'image/png'});await dialog.getByRole('textbox',{name:'ヘルプ内を検索',exact:true}).fill('private-record-body-7349');await expect(dialog.getByLabel('ヘルプ検索結果',{exact:true})).toHaveText('0件の記事');expect(requests).toEqual([]);await dialog.getByRole('button',{name:'ヘルプを閉じる',exact:true}).click();await expect(page.getByLabel('認証状態',{exact:true})).toHaveText('ログインしていません');
+          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+      181 | });
+      182 | test('WORKSPACE-DB-HELP: unknown View draft remains copyable with original operation and input selection; help never retries or sends',async({page})=>{
+      183 |  const {panel}=await openViewSettings(page);const input=panel.getByRole('textbox',{name:'View名',exact:true});await input.fill('copyable unknown View');await input.dispatchEvent('compositionstart',{data:'に'});await expect(page.getByRole('button',{name:'DBのView設定の説明を読む',exact:true})).toBeDisabled();await input.dispatchEvent('compositionend',{data:'に'});await page.evaluate(()=>window.workspaceTest.loseViewEnqueue());await panel.getByRole('button',{name:'View設定を端末に保存',exact:true}).click();const retry=panel.getByRole('button',{name:'同じView設定の保存を再確認',exact:true});await expect(retry).toBeEnabled();await input.focus();await input.evaluate(node=>(node as HTMLInputElement).setSelectionRange(2,8));const before=await page.evaluate(()=>({view:window.workspaceTest.viewSnapshot(),page:window.workspaceTest.snapshot()})),requests:string[]=[];page.on('request',request=>requests.push(request.url()));await page.context().setOffline(true);await page.getByRole('button',{name:'DBのView設定の説明を読む',exact:true}).click();const dialog=page.getByRole('dialog',{name:'ヘルプ・アプリ情報',exact:true});await expect(dialog.getByRole('heading',{name:'DBのView設定を保存・解決する',exact:true})).toBeFocused();await dialog.getByRole('region',{name:'関連するヘルプ',exact:true}).getByRole('button',{name:'DBの行を作成・編集する',exact:true}).click();await expect(dialog.getByRole('heading',{name:'DBの行を作成・編集する',exact:true})).toBeFocused();await dialog.getByRole('button',{name:'ヘルプを閉じる',exact:true}).click();await expect(input).toBeFocused();await expect(input).toHaveValue('copyable unknown View');expect(await input.evaluate(node=>[(node as HTMLInputElement).selectionStart,(node as HTMLInputElement).selectionEnd])).toEqual([2,8]);expect(await page.evaluate(()=>({view:window.workspaceTest.viewSnapshot(),page:window.workspaceTest.snapshot()}))).toEqual(before);expect(requests).toEqual([]);await expect(retry).toBeEnabled();await retry.click();expect((await page.evaluate(()=>window.workspaceTest.viewSnapshot())).queue).toHaveLength(1);
+        at /workspace/tests/e2e/private-workspace.spec.ts:180:539
+
+    Error Context: .data/autonomous-20261012/v73/workspace-ui-focused/artifacts/private-workspace-WORKSPAC-2db5b--without-querying-user-data-desktop/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261012/v73/workspace-ui-focused/artifacts/private-workspace-WORKSPAC-2db5b--without-querying-user-data-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261012/v73/workspace-ui-focused/artifacts/private-workspace-WORKSPAC-2db5b--without-querying-user-data-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:179:1 › WORKSPACE-DB-HELP: bundled DB category and typed guidance work offline before login without querying user data
+
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.fill: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for getByRole('dialog', { name: 'ヘルプ・アプリ情報', exact: true }).getByRole('textbox', { name: 'ヘルプ内を検索', exact: true })
+
+
+      178 | });
+      179 | test('WORKSPACE-DB-HELP: bundled DB category and typed guidance work offline before login without querying user data',async({page},info)=>{
+    > 180 |  await page.goto('/private-workspace.fixture.html');const requests:string[]=[];page.on('request',request=>requests.push(request.url()));await page.context().setOffline(true);await page.getByRole('button',{name:'ヘルプ・アプリ情報',exact:true}).click();const dialog=page.getByRole('dialog',{name:'ヘルプ・アプリ情報',exact:true});await dialog.getByRole('combobox',{name:'ヘルプカテゴリ',exact:true}).selectOption('databases');await expect(dialog.getByLabel('ヘルプ検索結果',{exact:true})).toHaveText('3件の記事');await dialog.getByRole('textbox',{name:'ヘルプ内を検索',exact:true}).fill('ＶＩＥＷ');await dialog.getByRole('navigation',{name:'ヘルプの記事'}).getByRole('button',{name:'DBのView設定を保存・解決する',exact:true}).click();await expect(dialog.getByRole('article',{name:'ヘルプ本文',exact:true})).toContainText('未確認件数が0でも応答保存の再確認が必要');await expect(dialog.getByRole('article',{name:'ヘルプ本文',exact:true})).toContainText('読み込んだ行の範囲');await info.attach('workspace-db-help-'+info.project.name,{body:await dialog.screenshot(),contentType:'image/png'});await dialog.getByRole('textbox',{name:'ヘルプ内を検索',exact:true}).fill('private-record-body-7349');await expect(dialog.getByLabel('ヘルプ検索結果',{exact:true})).toHaveText('0件の記事');expect(requests).toEqual([]);await dialog.getByRole('button',{name:'ヘルプを閉じる',exact:true}).click();await expect(page.getByLabel('認証状態',{exact:true})).toHaveText('ログインしていません');
+          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ^
+      181 | });
+      182 | test('WORKSPACE-DB-HELP: unknown View draft remains copyable with original operation and input selection; help never retries or sends',async({page})=>{
+      183 |  const {panel}=await openViewSettings(page);const input=panel.getByRole('textbox',{name:'View名',exact:true});await input.fill('copyable unknown View');await input.dispatchEvent('compositionstart',{data:'に'});await expect(page.getByRole('button',{name:'DBのView設定の説明を読む',exact:true})).toBeDisabled();await input.dispatchEvent('compositionend',{data:'に'});await page.evaluate(()=>window.workspaceTest.loseViewEnqueue());await panel.getByRole('button',{name:'View設定を端末に保存',exact:true}).click();const retry=panel.getByRole('button',{name:'同じView設定の保存を再確認',exact:true});await expect(retry).toBeEnabled();await input.focus();await input.evaluate(node=>(node as HTMLInputElement).setSelectionRange(2,8));const before=await page.evaluate(()=>({view:window.workspaceTest.viewSnapshot(),page:window.workspaceTest.snapshot()})),requests:string[]=[];page.on('request',request=>requests.push(request.url()));await page.context().setOffline(true);await page.getByRole('button',{name:'DBのView設定の説明を読む',exact:true}).click();const dialog=page.getByRole('dialog',{name:'ヘルプ・アプリ情報',exact:true});await expect(dialog.getByRole('heading',{name:'DBのView設定を保存・解決する',exact:true})).toBeFocused();await dialog.getByRole('region',{name:'関連するヘルプ',exact:true}).getByRole('button',{name:'DBの行を作成・編集する',exact:true}).click();await expect(dialog.getByRole('heading',{name:'DBの行を作成・編集する',exact:true})).toBeFocused();await dialog.getByRole('button',{name:'ヘルプを閉じる',exact:true}).click();await expect(input).toBeFocused();await expect(input).toHaveValue('copyable unknown View');expect(await input.evaluate(node=>[(node as HTMLInputElement).selectionStart,(node as HTMLInputElement).selectionEnd])).toEqual([2,8]);expect(await page.evaluate(()=>({view:window.workspaceTest.viewSnapshot(),page:window.workspaceTest.snapshot()}))).toEqual(before);expect(requests).toEqual([]);await expect(retry).toBeEnabled();await retry.click();expect((await page.evaluate(()=>window.workspaceTest.viewSnapshot())).queue).toHaveLength(1);
+        at /workspace/tests/e2e/private-workspace.spec.ts:180:539
+
+    Error Context: .data/autonomous-20261012/v73/workspace-ui-focused/artifacts/private-workspace-WORKSPAC-2db5b--without-querying-user-data-mobile-dark-reduced-motion/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261012/v73/workspace-ui-focused/artifacts/private-workspace-WORKSPAC-2db5b--without-querying-user-data-mobile-dark-reduced-motion/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261012/v73/workspace-ui-focused/artifacts/private-workspace-WORKSPAC-2db5b--without-querying-user-data-mobile-dark-reduced-motion/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [desktop] › tests/e2e/private-workspace.spec.ts:179:1 › WORKSPACE-DB-HELP: bundled DB category and typed guidance work offline before login without querying user data
+    [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:179:1 › WORKSPACE-DB-HELP: bundled DB category and typed guidance work offline before login without querying user data
+  14 passed (1.5m)

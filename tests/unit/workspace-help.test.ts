@@ -1,9 +1,9 @@
 import {it,expect} from 'vitest';
 import {helpArticle,helpArticles,helpCategories,searchHelp} from '../../apps/client/src/help/articles.js';
 it('HELP-CONTENT: stable IDs resolve related articles and declare only bundled preview availability',()=>{
- expect(helpArticles.map(row=>row.id)).toEqual(['start','page-info','title','tasks','save-sync','local-save','connection','conflict','shortcuts']);
+ expect(helpArticles.map(row=>row.id)).toEqual(['start','page-info','title','tasks','save-sync','local-save','connection','conflict','database','database-records','database-views','shortcuts']);
  expect(new Set(helpArticles.map(row=>row.id)).size).toBe(helpArticles.length);
- for(const row of helpArticles){expect(helpCategories.some(category=>category.id===row.category)).toBe(true);expect(row).toMatchObject({locale:'ja',revision:1,availability:'workspace-preview',platforms:['desktop','touch']});expect(row.sections.some(section=>section.steps?.length||section.paragraphs?.length)).toBe(true);for(const related of row.related)expect(helpArticle(related)).not.toBeNull();expect(Object.isFrozen(row.sections)).toBe(true);}
+ for(const row of helpArticles){expect(helpCategories.some(category=>category.id===row.category)).toBe(true);expect(row).toMatchObject({locale:'ja',availability:'workspace-preview',platforms:['desktop','touch']});expect(row.sections.some(section=>section.steps?.length||section.paragraphs?.length)).toBe(true);for(const related of row.related)expect(helpArticle(related)).not.toBeNull();expect(Number.isSafeInteger(row.revision)&&row.revision>0).toBe(true);expect(Object.isFrozen(row.sections)).toBe(true);}
  expect(helpArticle('unknown-id')).toBeNull();expect(Object.isFrozen(helpArticles)).toBe(true);
 });
 it('HELP-SEARCH: aliases, Japanese/ASCII width and case normalization rank stable results',()=>{
@@ -13,7 +13,7 @@ it('HELP-SEARCH: aliases, Japanese/ASCII width and case normalization rank stabl
 });
 it('HELP-SEARCH: all terms match bundled fields, category filtering and no results retain source articles',()=>{
  expect(searchHelp('タイトル コピー').map(row=>row.id)).toContain('local-save');expect(searchHelp('タイトル コピー','pages')).toEqual([]);
- expect(searchHelp('','tasks').map(row=>row.id)).toEqual(['tasks']);expect(searchHelp('user-private-content-4d085b')).toEqual([]);expect(helpArticles).toHaveLength(9);
+ expect(searchHelp('','tasks').map(row=>row.id)).toEqual(['tasks']);expect(searchHelp('user-private-content-4d085b')).toEqual([]);expect(helpArticles).toHaveLength(12);
 });
 it('HELP-CONTENT: unknown save and metadata progress guidance do not label unsent bodies as synced',()=>{
  const local=JSON.stringify(helpArticle('local-save')),metadata=JSON.stringify(helpArticle('page-info'));

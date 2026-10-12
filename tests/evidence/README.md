@@ -1,5 +1,6 @@
 # 試験証拠の索引
 
+- 2026-10-12 / v0.73.0 / [基本DBの同梱ヘルプ](basic-database-help-20261012/SUMMARY.md): 3記事/カテゴリ/入口（全12）、読み込み範囲と未取得/独立確認/元retryを案内。unknown View入力・選択・元操作を保全、offline検索。全unit471/ヘルプ16/全workspace98/型/build。元selector2 Fail保持、PG/保存層変更なし。P4候補起動設定へ続行。
 - 2026-10-12 / v0.72.0 / [基本DB View作成・設定・競合解決画面](private-database-view-screen-20261012/SUMMARY.md): typed条件/列順/partial設定と複合filter/multisort保持、unknown元retry/known busy、三値/new-op/候補1件/原拒否とconfirmed open。新unit6/actual1/画面12、通常775/全PG223/全workspace94/型/build。元型/二重mount10 Fail保持、native16/server11、DBヘルプとP4準備へ続行。
 - 2026-10-12 / v0.71.0 / [基本DB行更新・競合解決画面](private-database-record-edit-screen-20261012/SUMMARY.md): 元base/partial update・known busy/unknown元retry、三値/new-op解決/原拒否、候補1件継続と長値wrap。新unit3/actual1/編集10、通常769/全PG222/最終全workspace82。元fixture型/長値2 Fail保持、native16/server11、View設定へ続行。
 - 2026-10-12 / v0.70.0 / [基本DB行作成画面](private-database-record-create-screen-20261012/SUMMARY.md): 既存Page/5型の値・独立保存・FIFO送信、window外binding原proof/known busy、unknown元intent/pair、known ACK/旧一覧とIME/Enter。新unit5/actual1/画面8、通常766/全PG221/全workspace72/型/build。元fixture Fail保持、native16/server11、行更新/Conflict・Viewへ続行。
