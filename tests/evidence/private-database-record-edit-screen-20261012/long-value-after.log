@@ -1,0 +1,7 @@
+
+Running 2 tests using 1 worker
+
+  ✓  1 [desktop] › tests/e2e/private-workspace.spec.ts:155:1 › WORKSPACE-DB-RECORD-EDIT: known busy keeps editable new draft, composition stays active and failed detail read retains confirmed values (2.2s)
+  ✓  2 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:155:1 › WORKSPACE-DB-RECORD-EDIT: known busy keeps editable new draft, composition stays active and failed detail read retains confirmed values (2.1s)
+
+  2 passed (5.6s)

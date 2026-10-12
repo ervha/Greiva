@@ -1,0 +1,147 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/authenticated-access-postgres.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 76[2mms[22m[39m
+ [32m✓[39m tests/integration/postgres.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 19[2mms[22m[39m
+ [32m✓[39m tests/integration/private-access-postgres.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 64[2mms[22m[39m
+ [32m✓[39m tests/integration/private-bootstrap-postgres.test.ts [2m([22m[2m3 tests[22m[2m)[22m[32m 268[2mms[22m[39m
+ [32m✓[39m tests/integration/private-database-changes-client-postgres.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 1987[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-CLIENT-PG: captured signed HTTP resumes two actual SQLite replicas; lost commit return retries exact response without HTTP and restart retains cursor/cache[33m 632[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-CLIENT-PG: read-ahead snapshots retain versions while delta fills histories/candidates; remote resolution survives stale read/restart and progress never rewinds[33m 628[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-CLIENT-PG: filtered empty windows advance without deleting cached entities; denied Source closes old sessions and reconnect retains cursor/data[33m 374[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-CLIENT-PG: replacement/refresh/native-close exclude late signed pulls; invalid replacement keeps old session; local opening never fetches changes[33m 352[2mms[22m[39m
+ [32m✓[39m tests/integration/private-database-changes-postgres.test.ts [2m([22m[2m23 tests[22m[2m)[22m[33m 5875[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-PG: explicit ten to eleven seeds current and active/resolved candidates, preserves receipts/history/key and durable epoch[33m 342[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-PG: 101 numeric events paginate100; fresh head growth stays on the next cursor[33m 865[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-SIGKILL record-create: before and after COMMIT recover journal/current/history/candidates/ledger exactly once[33m 615[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-SIGKILL view-resolution: before and after COMMIT recover journal/current/history/candidates/ledger exactly once[33m 659[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-PG: signed actual schema11 HTTP protects pull and retains old Source/Record/View/Page/Task routes without Auth profile storage[33m 340[2mms[22m[39m
+ [32m✓[39m tests/integration/private-database-changes-runtime-postgres.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 9932[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-RUNTIME-PG: offline local opening/reload never fetch; one explicit sync is max100 and observed head changes do not imply full sync or consume Page pending[33m 8519[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-RUNTIME-PG: lost native return remains unknown across local reload; exact retry/restart retains progress and Auth or native close cancels late HTTP[33m 416[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-BROWSER-PG: explicit signed catalog/definition/delta reaches actual SQLite and offline Table/List cache never consumes Page pending[33m 369[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-BROWSER-PG: unknown Source/delta save retries captured bytes without network; actual Record/View candidates survive and Auth refresh rejects late reads[33m 627[2mms[22m[39m
+ [32m✓[39m tests/integration/private-database-content-client-postgres.test.ts [2m([22m[2m3 tests[22m[2m)[22m[33m 1393[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CONTENT-CLIENT-PG: signed HTTP catalogs/read commit typed Record/View snapshots; lost native returns retry exact response without network and restart retains values/settings[33m 518[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CONTENT-CLIENT-PG: actual server conflicts survive cache restart; read absence after remote resolution does not infer local resolution; denied Source retains saved data[33m 527[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CONTENT-CLIENT-PG: replacement/Auth refresh/native close discard late signed read; closed native factories stop Source and content HTTP[33m 347[2mms[22m[39m
+ [32m✓[39m tests/integration/private-database-record-catalog-postgres.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 3438[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-CATALOG-PG: 101 headers use numeric order/fixed head and omit values/title/body; updates are fresh observations[33m 1443[2mms[22m[39m
+ [32m✓[39m tests/integration/private-database-record-postgres.test.ts [2m([22m[2m18 tests[22m[2m)[22m[33m 2971[2mms[22m[39m
+ [32m✓[39m tests/integration/private-database-record-write-postgres.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 5368[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-WRITE-PG: Source/Page waits perform no Record HTTP; lost HTTP and unknown native create ACK reconcile original operation across restart[33m 499[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-WRITE-PG: original update wire survives lost HTTP/native ACK; explicit null/zero/false and exact write receipt remain durable[33m 412[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-WRITE-PG: partial merge/three-value conflict and local/remote new-operation resolution cross actual HTTP and native proof atomically[33m 695[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-WRITE-PG: stale resolution is original known rejection; server/current history retained and candidate remains unresolved[33m 476[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-WRITE-PG: replacement/Auth refresh/native close discard late committed HTTP; new captured sender reconciles exact original bytes[33m 550[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-WRITE-PG: denied device closes old generation while retaining exact queued operation for renewed bootstrap[33m 333[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-RUNTIME-PG: offline enqueue return loss stays unknown across reload; exact enqueue and original ACK retry make no extra HTTP[33m 321[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-RUNTIME-PG: known busy preserves first update, lost HTTP retains old display and restart sends exact original operation[33m 399[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-RUNTIME-PG: known ACK/list failure keeps original outcome, then Auth refresh closes late HTTP without adopting old private state[33m 391[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-BINDING-PG: indexed Page proof covers pending outside five-row window, immutable retry, confirmed receipt and scope rejection[33m 681[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-RECORD-DETAILS-PG: one-candidate native windows preserve both field conflicts, remote/local new-operation resolution and durable history without read HTTP[33m 609[2mms[22m[39m
+ [32m✓[39m tests/integration/private-database-source-client-postgres.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 680[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-SOURCE-CLIENT-PG: signed actual HTTP catalog/read commits six-type native cache, unknown result retries same response without network and server denies retain local data[33m 403[2mms[22m[39m
+ [32m✓[39m tests/integration/private-database-source-postgres.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 2364[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-SOURCE-PG: catalog is bounded/signed/header-only and retains its observed head across new creation[33m 606[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-SOURCE-PG: filtered deleted windows advance without returning definitions or acting as delete ACK[33m 573[2mms[22m[39m
+ [32m✓[39m tests/integration/private-database-source-write-postgres.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 1393[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-SOURCE-WRITE-PG: denied device closes generation without losing unsent local Source; renewed bootstrap can reconcile exact pending operation[33m 395[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-SOURCE-WRITE-PG: offline durable enqueue, lost server HTTP and unknown native ACK retry preserve original operation and proof across restart[33m 308[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-SOURCE-WRITE-PG: replacement, Auth refresh and native close discard late committed HTTP; original saved bytes reconcile through a new session[33m 428[2mms[22m[39m
+ [32m✓[39m tests/integration/private-database-view-catalog-postgres.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 2713[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-CATALOG-PG: 101 numeric positions paginate at100, freeze membership head and observe current labels/versions[33m 731[2mms[22m[39m
+ [32m✓[39m tests/integration/private-database-view-postgres.test.ts [2m([22m[2m16 tests[22m[2m)[22m[33m 2953[2mms[22m[39m
+ [32m✓[39m tests/integration/private-database-view-write-postgres.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 3701[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-WRITE-PG: Source wait invokes no View HTTP; original create survives lost HTTP/native ACK and restart without Page dependency[33m 469[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-WRITE-PG: all five settings original update survives lost HTTP/native ACK with exact arrays/filter/null and write proof[33m 437[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-WRITE-PG: partial merge/name conflict and local/remote explicit choices cross actual HTTP and native atomic proof[33m 669[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-WRITE-PG: stale choice remains original rejection, newer remote settings survive and candidate stays unresolved[33m 431[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-WRITE-PG: replacement/Auth refresh/native close discard late committed reply; renewed sender reconciles durable original wire[33m 458[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-VIEW-RUNTIME-PG: known busy keeps first update, HTTP loss/restart keeps exact body, known ACK/list failure keeps original result[33m 361[2mms[22m[39m
+ [32m✓[39m tests/integration/private-http-postgres.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 171[2mms[22m[39m
+ [32m✓[39m tests/integration/private-page-changes-client-postgres.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 748[2mms[22m[39m
+   [33m[2m✓[22m[39m CHANGES-CLIENT-PG: signed HTTP/two actual SQLite stores preserve catalog, pending/conflicts, no-op resolution, restart, filtered progress and revoked cancellation[33m 747[2mms[22m[39m
+ [32m✓[39m tests/integration/private-page-changes-postgres.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 1720[2mms[22m[39m
+   [33m[2m✓[22m[39m PAGE-CHANGES-PG: CLI/readiness and protected HTTP map fixed errors and preserve existing routes[33m 366[2mms[22m[39m
+ [32m✓[39m tests/integration/private-page-client-postgres.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 1207[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-PAGE-CLIENT-PG: signed fixture HTTP and two actual SQLite stores recover lost ACKs, offline restart, concurrent edits and revoked pending without duplicate binary[33m 1206[2mms[22m[39m
+ [32m✓[39m tests/integration/private-page-crash-postgres.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 532[2mms[22m[39m
+ [32m✓[39m tests/integration/private-page-metadata-postgres.test.ts [2m([22m[2m12 tests[22m[2m)[22m[33m 2102[2mms[22m[39m
+   [33m[2m✓[22m[39m TITLE-RUNTIME-PG: explicit CLI upgrade, signed HTTP owner isolation and missing-table startup refusal[33m 455[2mms[22m[39m
+ [32m✓[39m tests/integration/private-page-postgres.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 988[2mms[22m[39m
+ [32m✓[39m tests/integration/private-runtime-postgres.test.ts [2m([22m[2m5 tests[22m[2m)[22m[33m 3457[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-RUNTIME-PG: CLI initializer is explicit/non-destructive; missing or unknown schema prevents listening without credentials in output[33m 1657[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-RUNTIME-PG: actual process listens without legacy routes and SIGTERM closes listener/pool without schema mutation[33m 429[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-RUNTIME-SYNC-PG: explicit CLI upgrade mounts signed private sync; restart preserves cursor and refuses missing key without repair[33m 441[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-RUNTIME-PAGE-PG: explicit schema3 CLI exposes signed binary routes, preserves structured stream and restores after restart[33m 764[2mms[22m[39m
+ [32m✓[39m tests/integration/private-stream-client-postgres.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 1187[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-STREAM-CLIENT-PG: signed HTTP and two actual SQLite stores recover lost ACK/restart, paginate and retain revoked pending[33m 470[2mms[22m[39m
+   [33m[2m✓[22m[39m PRIVATE-STRUCTURED-RUNTIME-PG: signed HTTP/native stores preserve conflict triples, explicit resolution, lost ACK/restart, rejection and revoked pending[33m 716[2mms[22m[39m
+ [32m✓[39m tests/integration/private-stream-crash-postgres.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 476[2mms[22m[39m
+ [32m✓[39m tests/integration/private-structured-postgres.test.ts [2m([22m[2m9 tests[22m[2m)[22m[33m 854[2mms[22m[39m
+ [32m✓[39m tests/integration/private-title-client-postgres.test.ts [2m([22m[2m1 test[22m[2m)[22m[33m 707[2mms[22m[39m
+   [33m[2m✓[22m[39m TITLE-CLIENT-PG: signed fixture HTTP and two native SQLite stores preserve offline chain/lost ACK, conflict resolution, late body metadata and revoked pending[33m 706[2mms[22m[39m
+ [32m✓[39m tests/integration/private-transactions-postgres.test.ts [2m([22m[2m11 tests[22m[2m)[22m[33m 735[2mms[22m[39m
+ [32m✓[39m tests/integration/structured-postgres.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 226[2mms[22m[39m
+ [32m✓[39m tests/integration/structured-process-crash.test.ts [2m([22m[2m2 tests[22m[2m)[22m[33m 3182[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP7-API-SIGKILL-before-commit: an actual API process crash preserves immutable wire, cursor and exactly one final operation[33m 1662[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP7-API-SIGKILL-after-commit: an actual API process crash preserves immutable wire, cursor and exactly one final operation[33m 1519[2mms[22m[39m
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-HTTP: offline Task/Relation chains survive SIGKILL and converge through restore/pull/push/pull in creation order
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a12ec2-7380-77b4-91e2-4537573a21c9","clientId":"01a12ec2-732e-7681-accf-abf52b7b0ba5","serverOrder":"1","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-HTTP: offline Task/Relation chains survive SIGKILL and converge through restore/pull/push/pull in creation order
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a12ec2-7380-77b4-91e2-4954f8187141","clientId":"01a12ec2-732e-7681-accf-abf52b7b0ba5","serverOrder":"2","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-HTTP: offline Task/Relation chains survive SIGKILL and converge through restore/pull/push/pull in creation order
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a12ec2-738d-754e-bc1b-f3cd3b1f587d","clientId":"01a12ec2-732e-7681-accf-abf52b7b0ba5","serverOrder":"3","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-ACK-LOSS: commit followed by dropped HTTP ACK and API/store restart is recovered once through durable pull
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a12ec2-74cb-71d7-b28f-d16ad6a57637","clientId":"01a12ec2-74a7-7291-be32-bfdd9d9a831c","serverOrder":"1","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a12ec2-7602-7687-aa4a-5e1ce0a7ff3c","clientId":"01a12ec2-759b-76d7-9693-a434b365a1c8","serverOrder":"2","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a12ec2-75fa-747d-80aa-84c7e9055dab","clientId":"01a12ec2-7575-7289-9c0f-4d12f00c84cf","serverOrder":"3","status":"conflict","conflicts":1}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a12ec2-7672-73f4-9504-762b75eea460","clientId":"01a12ec2-7575-7289-9c0f-4d12f00c84cf","serverOrder":"4","status":"acknowledged","conflicts":1}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a12ec2-7819-7081-924e-ce3ddfa5662a","clientId":"01a12ec2-77bd-7741-beb0-c98ea020d763","serverOrder":"1","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a12ec2-7a5f-7504-8851-d8024680331b","clientId":"01a12ec2-77bd-7741-beb0-c98ea020d763","serverOrder":"2","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a12ec2-8291-70a8-8be3-0bfd9b82e019","clientId":"01a12ec2-77bd-7741-beb0-c98ea020d763","serverOrder":"3","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a12ec2-9664-76d0-9449-9008a6e8fbd7","clientId":"01a12ec2-77bd-7741-beb0-c98ea020d763","serverOrder":"4","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-client.test.ts[2m > [22m[2mSTEP7-CLIENT-REJECTED: create collision stops the affected causal chain, retains both original payloads and never displays synced
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a12ec2-96f9-70d3-8027-3f615eb65422","clientId":"01a12ec2-96cc-72f8-96b8-dffde6e4e185","serverOrder":"2","status":"rejected","conflicts":0}
+
+ [32m✓[39m tests/integration/structured-sync-client.test.ts [2m([22m[2m6 tests[22m[2m)[22m[33m 9384[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP7-CLIENT-HTTP: offline Task/Relation chains survive SIGKILL and converge through restore/pull/push/pull in creation order[33m 433[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP7-CLIENT-CONFLICT: actual HTTP plus Rust stores preserve peer fields, expose both values, and converge after explicit new resolution[33m 364[2mms[22m[39m
+   [33m[2m✓[22m[39m STEP7-CLIENT-LATENCY: 500ms, 2s and 5s HTTP ACK delays never report pending edits as synced; repeated pause/resume keeps intent[33m 7949[2mms[22m[39m
+[90mstdout[2m | tests/integration/structured-sync-server.test.ts[2m > [22m[2mSTEP7-SERVER-IDEMPOTENCY: concurrent replays, ID collisions, malformed payloads and API recreation retain immutable results
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a12ec2-9a07-74ed-8382-9ca8ece2fd96","clientId":"01a12ec2-9a07-74ed-8382-956596394c59","serverOrder":"1","status":"acknowledged","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-server.test.ts[2m > [22m[2mSTEP7-SERVER-IDEMPOTENCY: concurrent replays, ID collisions, malformed payloads and API recreation retain immutable results
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a12ec2-9a3e-775d-8cba-59d1344f5fb2","clientId":"01a12ec2-9a07-74ed-8382-956596394c59","serverOrder":"5","status":"rejected","conflicts":0}
+
+[90mstdout[2m | tests/integration/structured-sync-server.test.ts[2m > [22m[2mSTEP7-SERVER-IDEMPOTENCY: concurrent replays, ID collisions, malformed payloads and API recreation retain immutable results
+[22m[39m{"service":"api","event":"structured-push","operationId":"01a12ec2-9a07-74ed-8382-9ca8ece2fd96","clientId":"01a12ec2-9a07-74ed-8382-956596394c59","serverOrder":"1","status":"acknowledged","conflicts":0}
+
+ [32m✓[39m tests/integration/structured-sync-server.test.ts [2m([22m[2m10 tests[22m[2m)[22m[33m 998[2mms[22m[39m
+ [32m✓[39m tests/integration/supabase-auth-bootstrap-postgres.test.ts [2m([22m[2m1 test[22m[2m)[22m[32m 287[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m35 passed[39m[22m[90m (35)[39m
+[2m      Tests [22m [1m[32m222 passed[39m[22m[90m (222)[39m
+[2m   Start at [22m 06:16:21
+[2m   Duration [22m 87.89s[2m (tests 87%, import 12%, transform 1%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261012/v71/postgres/vitest.json

@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.71.0 — 2026-10-12
+
+- 確認済みDB行の型付き更新画面と作成/編集切替を追加。元Record/version/Pageを捕捉し、「変更しない」/null/指定値を区別してpartial intentを保存する。known busyとunknown入力/原wire/pair、原確認結果を保持する。
+- 競合のbase/local/remoteとpresentを比較し、新operationでlocal/remoteを解決する。候補/履歴は1件ずつ継続読取し、解決済み履歴の次も表示する。stale候補や原拒否を反映済みにせず、長い値を折り返す。
+- 新unit3/actual1/編集画面10、通常769/実PG222/全workspace82と型/buildを確認。元fixture型Failと長値幅2 Failを保持し、修正後2/全82 Pass。native16/server11・Page本文/旧root保持。View設定画面とnative Gateは後続。
+
 ## 0.70.0 — 2026-10-12
 
 - 確認済みDBへ既存Pageを関連付ける行作成画面を追加。NameはPageタイトルを参照し、5型の未設定/null/値、0/false/空文字を区別する。独立した端末保存と明示送信、unknown入力/元intent/ACK pair再確認、Page待ちとknown ACK/旧一覧を扱う。

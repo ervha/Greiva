@@ -1,16 +1,9 @@
 import {useEffect,useRef,useState} from 'react';
+import {DatabaseValueFields,readDatabaseValueDraft,type DatabaseValueDraft as Draft} from './DatabaseValueFields';
 import {newId} from '@greiva/shared';
-import {parseDatabaseValue,parseDatabaseRecordIntent,type DatabaseSource,type DatabaseProperty,type DatabaseValue} from '@greiva/domain';
+import {parseDatabaseRecordIntent,type DatabaseSource,type DatabaseValue} from '@greiva/domain';
 import type {Page} from '@greiva/protocol';
 import type {PrivateDatabaseRecordWriteSession} from './private-database-record-write-session.js';
-type Draft=Readonly<{mode:'omit'|'null'|'value';text:string}>;
-function value(property:DatabaseProperty,draft:Draft):DatabaseValue{
- if(draft.mode==='null')return null;
- let candidate:unknown=draft.text;
- if(property.type==='number'){if(!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i.test(draft.text.trim()))throw Error();candidate=Number(draft.text);}
- if(property.type==='checkbox'){if(draft.text!=='true'&&draft.text!=='false')throw Error();candidate=draft.text==='true';}
- return parseDatabaseValue(property,candidate);
-}
 export function PrivateDatabaseRecordCreatePanel({session,source,pages,existingPageIds,onDraftChange,onReadRows,blocked,compositionActive}:{session:PrivateDatabaseRecordWriteSession;source:DatabaseSource;pages:readonly Page[];existingPageIds:readonly string[];onDraftChange:(blocked:boolean)=>void;onReadRows:()=>void;blocked:boolean;compositionActive:boolean}){
  const [state,setState]=useState(session.snapshot),[pageId,setPageId]=useState(''),[drafts,setDrafts]=useState<Record<string,Draft>>({}),[message,setMessage]=useState<string|null>(null),[composing,setComposing]=useState(false);
  const composition=useRef(false),captured=useRef(false);useEffect(()=>session.subscribe(setState),[session]);
@@ -23,7 +16,7 @@ export function PrivateDatabaseRecordCreatePanel({session,source,pages,existingP
  const save=async()=>{
   if(readOnly||compositionActive||composition.current||captured.current)return;
   let candidate;
-  try{if(!choices.some(page=>page.id===pageId))throw Error();const values:Record<string,DatabaseValue>={};for(const property of fields){const draft=drafts[property.id];if(draft&&draft.mode!=='omit')values[property.id]=value(property,draft);}candidate={operationId:newId(),source,intent:parseDatabaseRecordIntent(source,{kind:'create',sourceId:source.id,schemaVersion:source.schemaVersion,recordId:newId(),pageId,baseVersion:null,values})};}catch{setMessage('Pageと各プロパティの値を確認してください。数値・日付・選択肢は型に合う値で入力します。');return;}
+  try{if(!choices.some(page=>page.id===pageId))throw Error();const values:Record<string,DatabaseValue>={};for(const property of fields){const draft=drafts[property.id];if(draft&&draft.mode!=='omit')values[property.id]=readDatabaseValueDraft(property,draft);}candidate={operationId:newId(),source,intent:parseDatabaseRecordIntent(source,{kind:'create',sourceId:source.id,schemaVersion:source.schemaVersion,recordId:newId(),pageId,baseVersion:null,values})};}catch{setMessage('Pageと各プロパティの値を確認してください。数値・日付・選択肢は型に合う値で入力します。');return;}
   captured.current=true;setMessage(null);try{const result=await session.enqueueCreate(candidate);if(result.status==="busy"){captured.current=false;setMessage("このPageはすでにこのDBの行または保存操作に関連付いています。入力を保持しています。別のPageを選んでください。");return;}clear();}catch{if(!session.snapshot.retryEnqueue)captured.current=false;setMessage('行の端末保存を確認できませんでした。入力を保持しています。');}
  };
  const retrySave=async()=>{if(blocked||state.busy||compositionActive||composition.current)return;try{const result=await session.retryEnqueue();if(result.status==="busy"){captured.current=false;setMessage("このPageは別の行に関連付いているため保存できません。入力を保持しています。");return;}clear();}catch{setMessage('同じ行の保存を確認できませんでした。入力を保持しています。');}};
@@ -33,7 +26,7 @@ export function PrivateDatabaseRecordCreatePanel({session,source,pages,existingP
   <output aria-label="DB行保存状態" aria-live="polite">{state.busy?'行の保存・送信を確認中…':state.retryEnqueue?'行の保存結果が不明です。同じ操作で再確認してください。':state.retryAck?'応答の保存結果が不明です。同じ応答で再確認してください。':dirty?'入力内容はまだ保存していません。':'行の端末保存と送信確認は別に行います。'}</output>
   <form onSubmit={event=>{event.preventDefault();void save();}}>
    <label>行のPage<select value={pageId} disabled={readOnly||compositionActive} onChange={event=>setPageId(event.target.value)}><option value="">Pageを選択</option>{pageId&&!choices.some(page=>page.id===pageId)&&<option value={pageId}>{pages.find(page=>page.id===pageId)?.title||'選択中のPage'}</option>}{choices.map(page=><option key={page.id} value={page.id}>{page.title||'無題のPage'}</option>)}</select></label>
-   {fields.map(property=>{const draft=drafts[property.id]??{mode:'omit' as const,text:property.type==='checkbox'?'false':''};return <fieldset key={property.id}><legend>{property.name}</legend><label>{property.name}の保存方法<select value={draft.mode} disabled={readOnly||compositionActive} onChange={event=>set(property.id,{...draft,mode:event.target.value as Draft['mode']})}><option value="omit">値なし（未設定）</option><option value="null">空値（null）</option><option value="value">値を入力</option></select></label>{draft.mode==='value'&&(property.type==='checkbox'?<label>{property.name}の値<select value={draft.text} disabled={readOnly||compositionActive} onChange={event=>set(property.id,{...draft,text:event.target.value})}><option value="false">チェックなし</option><option value="true">チェックあり</option></select></label>:property.type==='select'?<label>{property.name}の値<select value={draft.text} disabled={readOnly||compositionActive} onChange={event=>set(property.id,{...draft,text:event.target.value})}><option value="" disabled>選択肢を選ぶ</option>{property.options.map(option=><option key={option.id} value={option.id}>{option.name}</option>)}</select></label>:<label>{property.name}の値<input type={property.type==='date'?'date':'text'} inputMode={property.type==='number'?'decimal':undefined} value={draft.text} maxLength={property.type==='text'?131072:100} readOnly={readOnly} onChange={event=>set(property.id,{...draft,text:event.target.value})}/></label>)}</fieldset>;})}
+   <DatabaseValueFields properties={fields} drafts={drafts} onChange={set} readOnly={readOnly} compositionActive={compositionActive} unchangedLabel="値なし（未設定）"/>
    {message&&<p role="alert">{message}</p>}
    <div className="connection-tools"><button disabled={readOnly||compositionActive||composing||!pageId}>行を端末に保存</button><button type="button" disabled={readOnly||compositionActive||composing||!dirty} onClick={()=>{if(!composition.current)clear();}}>行入力を取り消す</button>{state.retryEnqueue&&<button type="button" disabled={blocked||state.busy||compositionActive||composing} onClick={()=>{void retrySave();}}>同じ行の保存を再確認</button>}</div>
   </form>

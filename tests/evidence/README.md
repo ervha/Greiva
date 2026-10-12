@@ -1,5 +1,6 @@
 # 試験証拠の索引
 
+- 2026-10-12 / v0.71.0 / [基本DB行更新・競合解決画面](private-database-record-edit-screen-20261012/SUMMARY.md): 元base/partial update・known busy/unknown元retry、三値/new-op解決/原拒否、候補1件継続と長値wrap。新unit3/actual1/編集10、通常769/全PG222/最終全workspace82。元fixture型/長値2 Fail保持、native16/server11、View設定へ続行。
 - 2026-10-12 / v0.70.0 / [基本DB行作成画面](private-database-record-create-screen-20261012/SUMMARY.md): 既存Page/5型の値・独立保存・FIFO送信、window外binding原proof/known busy、unknown元intent/pair、known ACK/旧一覧とIME/Enter。新unit5/actual1/画面8、通常766/全PG221/全workspace72/型/build。元fixture Fail保持、native16/server11、行更新/Conflict・Viewへ続行。
 - 2026-10-12 / v0.69.0 / [基本DB作成画面](private-database-create-screen-20261012/SUMMARY.md): 6型/Unicode名/選択肢、明示保存・FIFO送信、unknown元intent/ACK pair retry、known ACK/旧一覧と確認済みSource。新単独3/actual1/画面6、通常761/全PG220/全workspace64/型/build。元fixture Fail保持、native16/server11、行・View編集へ続行。
 

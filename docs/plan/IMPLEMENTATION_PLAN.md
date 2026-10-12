@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.71.0：[確認済みRecordの行更新・競合解決画面](../development/PRIVATE_DATABASE_RECORD_EDIT_SCREEN.md)を接続。5型のpartial update/元base、known busyとcopy可能なunknown元intent/pair、三値・新operation解決/原拒否、候補1件の継続読取を扱う。長い値の折り返しを修正。通常769/全PG222/最終全workspace82と型/buildを確認。[証拠](../../tests/evidence/private-database-record-edit-screen-20261012/SUMMARY.md)。元type fixture/長値Failを別保存し、native16/server11・旧root保持。保存済みView設定・作成/解決へ続行する。
+
 最新v0.70.0：[基本DBの行作成画面](../development/PRIVATE_DATABASE_RECORD_CREATE_SCREEN.md)を接続。既存Pageへのbinding、5型の値/未設定/null、独立保存・送信とunknown元intent/pair再確認、一覧外bindingの索引preflight、known busy/ACKと旧一覧を区別する。通常766/全PG221/全workspace72と型/buildを確認。[証拠](../../tests/evidence/private-database-record-create-screen-20261012/SUMMARY.md)。native16/server11・旧rootを保持し、確認済みRecordの更新/Conflict解決とView設定へ続行する。
 
 最新v0.69.0：[基本DB作成画面](../development/PRIVATE_DATABASE_CREATE_SCREEN.md)を接続。6型定義・Unicode名/選択肢の明示端末保存、copy可能なunknown draftと元intent再確認、FIFO送信/同wire/ACK pair再保存、known ACKと一覧失敗の分離、確認済みSourceを開く操作を追加。通常761/全PG220/全workspace64とbuildを確認。[証拠](../../tests/evidence/private-database-create-screen-20261012/SUMMARY.md)。native16/server11・旧rootを保持し、型付き行とView設定の編集へ続行する。

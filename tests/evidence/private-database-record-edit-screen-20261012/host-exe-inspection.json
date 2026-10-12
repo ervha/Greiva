@@ -1,0 +1,9 @@
+{
+  "version": "0.71.0",
+  "matchesDocker": true,
+  "nativeImeTested": false,
+  "sha256": "edf3d36d749834c77c8a06fdd2d264d79fedef5d9efb05c86f88a2ec60d66bef",
+  "fileVersion": "0.71.0",
+  "hostLaunched": false,
+  "productVersion": "0.71.0"
+}

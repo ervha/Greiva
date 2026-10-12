@@ -1,0 +1,12 @@
+import {parseDatabaseValue,type DatabaseProperty,type DatabaseValue} from '@greiva/domain';
+export type DatabaseValueDraft=Readonly<{mode:'omit'|'null'|'value';text:string}>;
+export function readDatabaseValueDraft(property:DatabaseProperty,draft:DatabaseValueDraft):DatabaseValue{
+ if(draft.mode==='null')return null;
+ let candidate:unknown=draft.text;
+ if(property.type==='number'){if(!/^[+-]?(?:\d+(?:\.\d*)?|\.\d+)(?:e[+-]?\d+)?$/i.test(draft.text.trim()))throw Error();candidate=Number(draft.text);}
+ if(property.type==='checkbox'){if(draft.text!=='true'&&draft.text!=='false')throw Error();candidate=draft.text==='true';}
+ return parseDatabaseValue(property,candidate);
+}
+export function DatabaseValueFields({properties,drafts,onChange,readOnly,compositionActive,unchangedLabel}:{properties:readonly DatabaseProperty[];drafts:Readonly<Record<string,DatabaseValueDraft>>;onChange:(id:string,draft:DatabaseValueDraft)=>void;readOnly:boolean;compositionActive:boolean;unchangedLabel:string}){
+ return <>{properties.map(property=>{const draft=drafts[property.id]??{mode:'omit' as const,text:property.type==='checkbox'?'false':''};return <fieldset key={property.id}><legend>{property.name}</legend><label>{property.name}の保存方法<select value={draft.mode} disabled={readOnly||compositionActive} onChange={event=>onChange(property.id,{...draft,mode:event.target.value as DatabaseValueDraft['mode']})}><option value="omit">{unchangedLabel}</option><option value="null">空値（null）</option><option value="value">値を入力</option></select></label>{draft.mode==='value'&&(property.type==='checkbox'?<label>{property.name}の値<select value={draft.text} disabled={readOnly||compositionActive} onChange={event=>onChange(property.id,{...draft,text:event.target.value})}><option value="false">チェックなし</option><option value="true">チェックあり</option></select></label>:property.type==='select'?<label>{property.name}の値<select value={draft.text} disabled={readOnly||compositionActive} onChange={event=>onChange(property.id,{...draft,text:event.target.value})}><option value="" disabled>選択肢を選ぶ</option>{property.options.map(option=><option key={option.id} value={option.id}>{option.name}</option>)}</select></label>:<label>{property.name}の値<input type={property.type==='date'?'date':'text'} inputMode={property.type==='number'?'decimal':undefined} value={draft.text} maxLength={property.type==='text'?131072:100} readOnly={readOnly} onChange={event=>onChange(property.id,{...draft,text:event.target.value})}/></label>)}</fieldset>;})}</>;
+}

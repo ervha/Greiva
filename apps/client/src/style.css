@@ -135,3 +135,5 @@ kbd { font: inherit; font-size: 11px; padding: 1px 4px; background: var(--surfac
 .database-record-create-panel select { width: 100%; min-width: 0; min-height: 44px; padding: 8px 12px; color: var(--text); background: var(--surface); border: 1px solid var(--border-control); border-radius: 8px; font: inherit; color-scheme: light dark; }
 .database-record-create-panel p, .database-record-create-panel li { overflow-wrap: anywhere; }
 @media (max-width: 600px) { .database-record-create-panel { padding: 12px; } }
+
+.database-record-create-panel dd { margin-inline-start: 0; white-space: pre-wrap; overflow-wrap: anywhere; }

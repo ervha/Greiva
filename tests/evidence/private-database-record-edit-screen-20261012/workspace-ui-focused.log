@@ -1,0 +1,23 @@
+
+Running 18 tests using 1 worker
+
+  ✓   1 [desktop] › tests/e2e/private-workspace.spec.ts:145:1 › WORKSPACE-DB-RECORD-CREATE: typed empty/null/zero/false/date save separately from confirmed rows and preserve Page body (2.0s)
+  ✓   2 [desktop] › tests/e2e/private-workspace.spec.ts:146:1 › WORKSPACE-DB-RECORD-CREATE: unknown save keeps input and original identity; lost HTTP and ACK use immutable exact retries (1.8s)
+  ✓   3 [desktop] › tests/e2e/private-workspace.spec.ts:147:1 › WORKSPACE-DB-RECORD-CREATE: composition stays editable; Page wait and known ACK/list failure retain honest status (1.7s)
+  ✓   4 [desktop] › tests/e2e/private-workspace.spec.ts:148:1 › WORKSPACE-DB-RECORD-CREATE: hidden existing binding beyond 20 headers is known no-write with editable draft (1.5s)
+  ✓   5 [desktop] › tests/e2e/private-workspace.spec.ts:151:1 › WORKSPACE-DB-RECORD-EDIT: typed partial update captures confirmed base and preserves Page/body until explicit send/read (2.0s)
+  ✓   6 [desktop] › tests/e2e/private-workspace.spec.ts:152:1 › WORKSPACE-DB-RECORD-EDIT: unknown save/HTTP/ACK preserve readonly input and original intent/wire/pair across zero-pending reload (1.9s)
+  ✓   7 [desktop] › tests/e2e/private-workspace.spec.ts:153:1 › WORKSPACE-DB-RECORD-EDIT: three-value conflict resolves as a new operation and remains visible as durable history (2.0s)
+  ✓   8 [desktop] › tests/e2e/private-workspace.spec.ts:154:1 › WORKSPACE-DB-RECORD-EDIT: bounded next candidate survives remote-choice history; stale original resolution is known rejected and never relabeled applied (2.2s)
+  ✓   9 [desktop] › tests/e2e/private-workspace.spec.ts:155:1 › WORKSPACE-DB-RECORD-EDIT: known busy keeps editable new draft, composition stays active and failed detail read retains confirmed values (2.0s)
+  ✓  10 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:145:1 › WORKSPACE-DB-RECORD-CREATE: typed empty/null/zero/false/date save separately from confirmed rows and preserve Page body (1.8s)
+  ✓  11 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:146:1 › WORKSPACE-DB-RECORD-CREATE: unknown save keeps input and original identity; lost HTTP and ACK use immutable exact retries (1.8s)
+  ✓  12 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:147:1 › WORKSPACE-DB-RECORD-CREATE: composition stays editable; Page wait and known ACK/list failure retain honest status (1.6s)
+  ✓  13 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:148:1 › WORKSPACE-DB-RECORD-CREATE: hidden existing binding beyond 20 headers is known no-write with editable draft (1.5s)
+  ✓  14 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:151:1 › WORKSPACE-DB-RECORD-EDIT: typed partial update captures confirmed base and preserves Page/body until explicit send/read (1.8s)
+  ✓  15 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:152:1 › WORKSPACE-DB-RECORD-EDIT: unknown save/HTTP/ACK preserve readonly input and original intent/wire/pair across zero-pending reload (1.9s)
+  ✓  16 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:153:1 › WORKSPACE-DB-RECORD-EDIT: three-value conflict resolves as a new operation and remains visible as durable history (1.9s)
+  ✓  17 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:154:1 › WORKSPACE-DB-RECORD-EDIT: bounded next candidate survives remote-choice history; stale original resolution is known rejected and never relabeled applied (2.1s)
+  ✓  18 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:155:1 › WORKSPACE-DB-RECORD-EDIT: known busy keeps editable new draft, composition stays active and failed detail read retains confirmed values (1.9s)
+
+  18 passed (35.4s)

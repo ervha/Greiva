@@ -1,0 +1,70 @@
+
+> greiva-poc@0.71.0 typecheck
+> npm run build:packages && npm run typecheck --workspaces --if-present && tsc -p tsconfig.tests.json
+
+
+> greiva-poc@0.71.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application
+
+
+> @greiva/shared@0.71.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/domain@0.71.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.71.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.71.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.71.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.71.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/domain@0.71.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/protocol@0.71.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/shared@0.71.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/sync@0.71.0 typecheck
+> tsc -p tsconfig.json --noEmit
+
+
+> @greiva/api@0.71.0 typecheck
+> tsc --noEmit
+
+
+> @greiva/client@0.71.0 typecheck
+> tsc --noEmit
+
+
+> @greiva/collaboration@0.71.0 typecheck
+> tsc --noEmit
+
+tests/support/private-database-fixture.ts(69,759): error TS2339: Property 'resolution' does not exist on type '{ sourceId: string; schemaVersion: number; recordId: string; pageId: string; kind: "create"; baseVersion: null; values: Record<string, string | number | boolean | null>; } & { sourceId: string; ... 5 more ...; values: Record<...>; }'.
+  Property 'resolution' does not exist on type '{ sourceId: string; schemaVersion: number; recordId: string; pageId: string; kind: "create"; baseVersion: null; values: Record<string, string | number | boolean | null>; } & { sourceId: string; ... 5 more ...; values: Record<...>; }'.
+tests/support/private-database-fixture.ts(69,834): error TS2339: Property 'resolution' does not exist on type '{ sourceId: string; schemaVersion: number; recordId: string; pageId: string; kind: "create"; baseVersion: null; values: Record<string, string | number | boolean | null>; } & { sourceId: string; ... 5 more ...; values: Record<...>; }'.
+  Property 'resolution' does not exist on type '{ sourceId: string; schemaVersion: number; recordId: string; pageId: string; kind: "create"; baseVersion: null; values: Record<string, string | number | boolean | null>; } & { sourceId: string; ... 5 more ...; values: Record<...>; }'.
+tests/support/private-database-fixture.ts(69,939): error TS2339: Property 'resolution' does not exist on type '{ sourceId: string; schemaVersion: number; recordId: string; pageId: string; kind: "create"; baseVersion: null; values: Record<string, string | number | boolean | null>; } & { sourceId: string; ... 5 more ...; values: Record<...>; }'.
+  Property 'resolution' does not exist on type '{ sourceId: string; schemaVersion: number; recordId: string; pageId: string; kind: "create"; baseVersion: null; values: Record<string, string | number | boolean | null>; } & { sourceId: string; ... 5 more ...; values: Record<...>; }'.
+tests/support/private-database-fixture.ts(69,1723): error TS2339: Property 'resolution' does not exist on type '{ sourceId: string; schemaVersion: number; recordId: string; pageId: string; kind: "create"; baseVersion: null; values: Record<string, string | number | boolean | null>; } & { sourceId: string; ... 5 more ...; values: Record<...>; }'.
+  Property 'resolution' does not exist on type '{ sourceId: string; schemaVersion: number; recordId: string; pageId: string; kind: "create"; baseVersion: null; values: Record<string, string | number | boolean | null>; } & { sourceId: string; ... 5 more ...; values: Record<...>; }'.
+tests/support/private-database-fixture.ts(69,1828): error TS2339: Property 'resolution' does not exist on type '{ sourceId: string; schemaVersion: number; recordId: string; pageId: string; kind: "create"; baseVersion: null; values: Record<string, string | number | boolean | null>; } & { sourceId: string; ... 5 more ...; values: Record<...>; }'.
+  Property 'resolution' does not exist on type '{ sourceId: string; schemaVersion: number; recordId: string; pageId: string; kind: "create"; baseVersion: null; values: Record<string, string | number | boolean | null>; } & { sourceId: string; ... 5 more ...; values: Record<...>; }'.
