@@ -1,5 +1,7 @@
 # 汎用データベース・ビュー・プロパティ 設計案 v0.1
 
+最新v0.68.0：個人workspaceへ[基本DBのTable/List読取画面](../development/PRIVATE_DATABASE_BROWSER.md)を接続。確認済みcacheのbounded表示、明示catalog/定義/変更取得、保存済みfilter/sort、Name未取得/未判定と失敗・unknown再確認を扱う。通常758/全PG219/全workspace画面58とbuildを確認。[証拠](../../tests/evidence/private-database-browser-20261012/SUMMARY.md)。2026-10-12の再開指示で過去v0.67.0の停止を解除。DB作成・行編集・View設定保存へ続行する。native16/server11・旧rootを保持し、実Auth/native Gateは別条件。
+
 最新v0.67.0：[読み込み済み行の検索](../development/BASIC_DATABASE_LOADED_QUERY.md)で未取得Nameと空タイトル、AND/ORの未判定、Name sortの未確定行を区別する。[証拠](../../tests/evidence/basic-database-loaded-query-20261009/SUMMARY.md)。利用者指示でこのcheckpointにて一旦停止。進捗・再開順は[まとめ](CHECKPOINT_20261009.md)。Table/List操作画面は次工程。
 
 最新v0.66.0：[View実HTTP/runtime](../development/PRIVATE_DATABASE_VIEW_WRITE.md)で元queue capture/wireをcaptured Authの固定write HTTPへ接続。HTTP unknownの同操作再送、ACK unknownの元pair/networkless retryとlocal opening/queueFresh/busy/原結果/閉鎖を検証。[証拠](../../tests/evidence/private-database-view-write-20261009/SUMMARY.md)。native16/server11保持。6型Table/List操作画面へ続行する。

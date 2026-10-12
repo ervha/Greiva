@@ -1,0 +1,51 @@
+import {it,expect} from 'vitest';
+import {newId} from '@greiva/shared';
+import {databaseSourceSchema,parseDatabaseRecord} from '@greiva/domain';
+import {PrivateLoginController} from '../../apps/client/src/auth/private-login.js';
+import {nativeWorkspaceDevice} from '../../apps/client/src/workspace/native-workspace-device.js';
+import {NativeWorkspaceStore} from '../../apps/client/src/workspace/native-workspace-store.js';
+import {PrivateDatabaseBrowser} from '../../apps/client/src/workspace/private-database-browser.js';
+import {PrivateWorkspaceController} from '../../apps/client/src/workspace/private-workspace-controller.js';
+import {privateWorkspaceFixture} from '../support/private-workspace-fixture.js';
+async function fixture(){const f=privateWorkspaceFixture(),login=new PrivateLoginController(f.configuration,f.fetchPort,(identity,signal)=>nativeWorkspaceDevice(identity,signal,f.invoke));await login.login('fixture@example.invalid','fixture-password');await login.register();const connection=login.activeConnection!,store=await NativeWorkspaceStore.open(connection,f.invoke);return{...f,login,connection,store,async dispose(){await store.close();login.dispose();f.cleanup();}};}
+it('DB-BROWSER local: explicit opening sends no HTTP, windows replace instead of accumulating and never acknowledge edits',async()=>{
+ const f=await fixture();try{const seed=f.database.seed(35);for(let i=0;i<6;i++)f.database.seed(0);const browser=await PrivateDatabaseBrowser.open(f.connection,f.store);
+ expect(browser.snapshot.sources).toHaveLength(5);expect(browser.snapshot.sourceAfter).not.toBeNull();expect(browser.snapshot.selected).toBeNull();expect(f.database.state.fetchCalls).toEqual([]);
+ await browser.reloadSources(true);expect(browser.snapshot.sources).toHaveLength(2);await browser.reloadSources();
+ if(!browser.snapshot.sources.some(row=>row.source.id===seed.source.id))await browser.reloadSources(true);await browser.selectSource(seed.source.id);
+ const first=browser.snapshot.records.map(row=>row.record!.id);expect(first).toHaveLength(20);expect(browser.snapshot.recordAfter).toBe(first.at(-1));await browser.reloadRecords(true);const second=browser.snapshot.records.map(row=>row.record!.id);expect(second).toHaveLength(15);expect(new Set([...first,...second]).size).toBe(35);expect(browser.snapshot.recordAfter).toBeNull();expect(f.database.state.fetchCalls).toEqual([]);
+ expect(f.calls.some(row=>String(row.request?.command).includes('ack'))).toBe(false);await browser.close();expect((await f.store.listPages()).pages).toEqual([]);
+ }finally{await f.dispose();}
+});
+it('DB-BROWSER Source unknown: explicit catalog does not save definitions; exact receive retry is networkless and holds selection',async()=>{
+ const f=await fixture();try{const seed=f.database.seed(3,false),browser=await PrivateDatabaseBrowser.open(f.connection,f.store);await browser.catalog();expect(browser.snapshot.sources).toEqual([]);expect(browser.snapshot.catalog?.sources[0]?.id).toBe(seed.source.id);f.database.state.loseSourceReply=true;
+ await expect(browser.receiveSource(seed.source.id)).rejects.toMatchObject({stage:'storage'});expect(browser.snapshot).toMatchObject({selected:null,retrySource:true,selectionLocked:true});expect(f.database.sources.has(seed.source.id)).toBe(true);await expect(browser.catalog()).rejects.toMatchObject({stage:'busy'});const http=f.database.state.fetchCalls.slice();await browser.retrySource();expect(f.database.state.fetchCalls).toEqual(http);expect(f.database.state.sourceReceives[0]).toEqual(f.database.state.sourceReceives[1]);expect(browser.snapshot.selected?.source.id).toBe(seed.source.id);expect(browser.snapshot.retrySource).toBe(false);await browser.close();
+ }finally{await f.dispose();}
+});
+it('DB-BROWSER delta unknown: original response survives committed/lost reply and retry consumes no HTTP; selected cache follows actual progress',async()=>{
+ const f=await fixture();try{const seed=f.database.seed(3,false);f.database.sources.set(seed.source.id,f.database.serverSources.get(seed.source.id)!);const browser=await PrivateDatabaseBrowser.open(f.connection,f.store);await browser.selectSource(seed.source.id);expect(browser.snapshot.records).toEqual([]);f.database.state.loseChangesReply=true;
+ await expect(browser.sync()).rejects.toMatchObject({stage:'storage'});expect(browser.snapshot.selectionLocked).toBe(true);expect(browser.snapshot.records).toEqual([]);expect(f.database.records.size).toBe(3);await expect(browser.selectView(null)).rejects.toMatchObject({stage:'busy'});const calls=f.database.state.fetchCalls.slice();await browser.sync(true);expect(f.database.state.fetchCalls).toEqual(calls);expect(f.database.state.changeReceives[0]).toEqual(f.database.state.changeReceives[1]);expect(browser.snapshot.records).toHaveLength(3);expect(browser.snapshot.views).toHaveLength(2);expect(browser.snapshot.changes?.data).toMatchObject({received:true,order:'5',hasMore:false});await browser.close();
+ }finally{await f.dispose();}
+});
+it('DB-BROWSER read failure: keeps previous rows and View rather than reporting empty/fresh; local reload recovers without network',async()=>{
+ const f=await fixture();try{const seed=f.database.seed(),browser=await PrivateDatabaseBrowser.open(f.connection,f.store);await browser.selectSource(seed.source.id);await browser.selectView(seed.savedViews[0]!.id);const rows=browser.snapshot.records,view=browser.snapshot.view;f.database.state.failRead='database_record_list';await expect(browser.reloadRecords()).rejects.toMatchObject({stage:'storage'});expect(browser.snapshot.records).toBe(rows);expect(browser.snapshot.recordFresh).toBe(false);expect(browser.snapshot.view).toBe(view);f.database.state.failRead=null;await browser.reloadRecords();expect(browser.snapshot.recordFresh).toBe(true);expect(f.database.state.fetchCalls).toEqual([]);await browser.close();
+ }finally{await f.dispose();}
+});
+it('DB-BROWSER catalog failure: retains original observation and private causes do not reach state or observers',async()=>{
+ const f=await fixture();try{f.database.seed();const browser=await PrivateDatabaseBrowser.open(f.connection,f.store);browser.subscribe(()=>{throw Error('observer');});await browser.catalog();const catalog=browser.snapshot.catalog;f.database.state.failCatalog=true;await expect(browser.catalog()).rejects.toMatchObject({stage:'transport'});expect(browser.snapshot.catalog).toBe(catalog);expect(browser.snapshot.catalogFresh).toBe(false);expect(JSON.stringify(browser.snapshot)).not.toContain('fixture DB network');await browser.close();
+ }finally{await f.dispose();}
+});
+it('DB-BROWSER closure: late local read cannot populate the closed browser; it closes owned readers but retains the shared store',async()=>{
+ const f=await fixture();try{const seed=f.database.seed(),browser=await PrivateDatabaseBrowser.open(f.connection,f.store);let release!:()=>void,started!:()=>void;const wait=new Promise<void>(yes=>{release=yes;}),entered=new Promise<void>(yes=>{started=yes;});f.state.nativeHook=async(_kind,request)=>{if(request?.command==='database_record_load'){started();await wait;}};
+ const pending=browser.selectSource(seed.source.id);await entered;const closed=browser.close();release();await expect(pending).rejects.toMatchObject({stage:'closed'});await closed;expect(browser.snapshot).toMatchObject({phase:'closed',selected:null,records:[],sources:[]});expect((await f.store.listPages()).pages).toEqual([]);
+ }finally{await f.dispose();}
+});
+it('DB-BROWSER byte window: large typed records split below the 20-row limit and preserve exact keyset continuation',async()=>{
+ const f=await fixture();try{const seed=f.database.seed(25),extra=Array.from({length:30},()=>({id:newId(),type:'text' as const,name:'large'})),source=databaseSourceSchema.parse({...seed.source,properties:[...seed.source.properties,...extra]});f.database.sources.set(source.id,{source,version:1,creationOrder:'1'});
+ for(const row of seed.rows)f.database.records.set(row.id,parseDatabaseRecord(source,{...row,values:{...row.values,...Object.fromEntries(extra.map(property=>[property.id,'x'.repeat(65536)]))}}));const browser=await PrivateDatabaseBrowser.open(f.connection,f.store);await browser.selectSource(source.id);const first=browser.snapshot.records.map(row=>row.record!.id);expect(first).toHaveLength(17);expect(browser.snapshot.recordAfter).toBe(first.at(-1));await browser.reloadRecords(true);const second=browser.snapshot.records.map(row=>row.record!.id);expect(second).toHaveLength(8);expect(new Set([...first,...second]).size).toBe(25);expect(browser.snapshot.recordAfter).toBeNull();await browser.close();
+ }finally{await f.dispose();}
+},30000);
+it('DB-BROWSER workspace composition: lazy opening failure does not replace the Page store; delta unknown blocks navigation until retry and closes with the owner',async()=>{
+ const f=privateWorkspaceFixture(),login=new PrivateLoginController(f.configuration,f.fetchPort,(identity,signal)=>nativeWorkspaceDevice(identity,signal,f.invoke)),workspace=new PrivateWorkspaceController(f.invoke);try{await login.login('fixture@example.invalid','fixture-password');await login.register();await workspace.connect(login.activeConnection!);expect(f.calls.some(row=>String(row.request?.command).startsWith('database_'))).toBe(false);await workspace.createPage('Page');const editor=workspace.editor!;const seed=f.database.seed();f.database.state.failRead='database_source_list';await workspace.openDatabase();expect(workspace.snapshot).toMatchObject({phase:'ready',error:null,databaseError:'storage'});expect(workspace.editor).toBe(editor);f.database.state.failRead=null;await workspace.openDatabase();const browser=workspace.database!;await browser.selectSource(seed.source.id);f.database.state.loseChangesReply=true;await expect(browser.sync()).rejects.toMatchObject({stage:'storage'});expect(workspace.snapshot.navigationBlocked).toBe(true);await workspace.createPage('should not create');expect(workspace.editor).toBe(editor);await browser.sync(true);expect(workspace.snapshot.navigationBlocked).toBe(false);await workspace.close();expect(browser.snapshot.phase).toBe('closed');expect(workspace.database).toBeNull();
+ }finally{await workspace.dispose();login.dispose();f.cleanup();}
+});

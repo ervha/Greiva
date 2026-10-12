@@ -1,0 +1,51 @@
+import {newId} from '@greiva/shared';
+import {databaseSourceSchema,parseDatabaseRecord,parseDatabaseView,type DatabaseRecord} from '@greiva/domain';
+import type {WorkspaceSyncContext} from '@greiva/sync';
+import type {PrivateDatabaseSourceSnapshot} from '@greiva/protocol/private-database-source';
+import {privateDatabaseChangesLocalProgressSchema,type PrivateDatabaseChangesResponse} from '@greiva/protocol/private-database-changes';
+import {privateDatabaseViewLocalLoadSchema} from '@greiva/protocol/private-database-view';
+import {privateDatabaseRecordLocalLoadSchema} from '@greiva/protocol/private-database-record';
+type PrivateDatabaseChangesLocalProgress=ReturnType<typeof privateDatabaseChangesLocalProgressSchema.parse>;
+// Typed UI/native-command double only. No SQL or real authentication evidence.
+export function privateDatabaseFixture(context:WorkspaceSyncContext){
+ type RecordConflict=ReturnType<typeof privateDatabaseRecordLocalLoadSchema.parse>['conflicts'][number];
+ type ViewConflict=ReturnType<typeof privateDatabaseViewLocalLoadSchema.parse>['conflicts'][number];
+ const sources=new Map<string,PrivateDatabaseSourceSnapshot>(),serverSources=new Map<string,PrivateDatabaseSourceSnapshot>(),records=new Map<string,DatabaseRecord>(),views=new Map<string,{view:ReturnType<typeof parseDatabaseView>;version:number}>(),recordConflicts=new Map<string,RecordConflict[]>(),viewConflicts=new Map<string,ViewConflict[]>();
+ const events=new Map<string,PrivateDatabaseChangesResponse['events']>(),progress=new Map<string,PrivateDatabaseChangesLocalProgress>(),epochs=new Map<string,string>();
+ const state={loseSourceReply:false,loseChangesReply:false,failRead:null as string|null,failCatalog:false,fetchCalls:[] as string[],sourceReceives:[] as unknown[],changeReceives:[] as unknown[]};
+ const clone=<T>(value:T):T=>structuredClone(value);
+ const initial=(sourceId:string):PrivateDatabaseChangesLocalProgress=>({context,sourceId,schemaVersion:1,journalEpoch:null,order:'0',cursor:null,headOrder:'0',hasMore:false,received:false});
+ const window=<T>(rows:T[],after:string|null,limit:number,id:(row:T)=>string)=>{const remaining=rows.sort((a,b)=>id(a).localeCompare(id(b))).filter(row=>after===null||id(row)>after),values=remaining.slice(0,limit);return{values,nextAfter:remaining.length>limit?id(values.at(-1)!):null};};
+ function seed(count=3,cache=true){
+  const ids={name:newId(),text:newId(),number:newId(),checkbox:newId(),select:newId(),date:newId()},option=newId();
+  const source=databaseSourceSchema.parse({id:newId(),workspaceId:context.workspaceId,name:'基本DB',schemaVersion:1,properties:Object.entries(ids).map(([type,id])=>({id,name:type,type,...(type==='select'?{options:[{id:option,name:'選択肢'}]}:{})}))});
+  const snapshot={source,version:1,creationOrder:String(serverSources.size+1)};serverSources.set(source.id,snapshot);if(cache)sources.set(source.id,snapshot);
+  const rows=Array.from({length:count},(_,i)=>parseDatabaseRecord(source,{id:newId(),sourceId:source.id,workspaceId:context.workspaceId,pageId:newId(),version:1,values:{[ids.text]:i===0?'':'text '+i,[ids.number]:i,[ids.checkbox]:i!==0,[ids.select]:i===0?option:null,[ids.date]:i===0?'2028-02-29':null}}));
+  const savedViews=[parseDatabaseView(source,{id:newId(),sourceId:source.id,name:'Number降順',layout:'table',visiblePropertyIds:Object.values(ids),filter:null,sorts:[{propertyId:ids.number,direction:'desc'}]}),parseDatabaseView(source,{id:newId(),sourceId:source.id,name:'Name条件',layout:'list',visiblePropertyIds:[ids.name,ids.number],filter:{kind:'predicate',propertyId:ids.name,operator:'contains',value:'既知'},sorts:[]})];
+  const stream:PrivateDatabaseChangesResponse['events']=[...rows.map((record,i)=>({kind:'record' as const,order:String(i+1),record,conflict:null})),...savedViews.map((view,i)=>({kind:'view' as const,order:String(rows.length+i+1),snapshot:{view,version:1},conflict:null}))];
+  events.set(source.id,stream);epochs.set(source.id,newId());if(cache){for(const record of rows)records.set(record.id,record);for(const view of savedViews)views.set(view.id,{view,version:1});}
+  return{source,ids,option,rows,savedViews};
+ }
+ function execute(request:Record<string,unknown>):unknown|undefined{
+  const kind=String(request.command);if(!kind.startsWith('database_'))return undefined;if(state.failRead===kind)throw Error('fixture DB storage');const sourceId=String(request.sourceId),after=request.after as string|null,limit=Number(request.limit),definition=sources.get(sourceId)?.source;
+  if(kind==='database_source_list'){const page=window([...sources.values()],after,limit,row=>row.source.id);return clone({context,sources:page.values,nextAfter:page.nextAfter});}
+  if(kind==='database_source_load')return clone({context,snapshot:sources.get(sourceId)??null});
+  if(kind==='database_source_receive'){const reply=request.response as {snapshot:PrivateDatabaseSourceSnapshot};state.sourceReceives.push(clone(request));sources.set(reply.snapshot.source.id,clone(reply.snapshot));if(state.loseSourceReply){state.loseSourceReply=false;throw Error('fixture DB reply lost');}return null;}
+  if(!definition)throw Error('fixture DB source missing');
+  const scope={context,sourceId,schemaVersion:definition.schemaVersion};
+  if(kind==='database_record_list'){const page=window([...records.values()].filter(row=>row.sourceId===sourceId),after,limit,row=>row.id);return clone({...scope,records:page.values.map(({id,pageId,version})=>({id,pageId,version})),nextAfter:page.nextAfter});}
+  if(kind==='database_record_load'){const id=String(request.recordId),page=window(recordConflicts.get(id)??[],request.afterConflict as string|null,limit,row=>row.id);return clone({...scope,record:records.get(id)??null,conflicts:page.values,nextAfter:page.nextAfter});}
+  if(kind==='database_view_list'){const page=window([...views.values()].filter(row=>row.view.sourceId===sourceId),after,limit,row=>row.view.id);return clone({...scope,views:page.values.map(({view,version})=>({id:view.id,name:view.name,layout:view.layout,version})),nextAfter:page.nextAfter});}
+  if(kind==='database_view_load'){const id=String(request.viewId),page=window(viewConflicts.get(id)??[],request.afterConflict as string|null,limit,row=>row.id);return clone({...scope,snapshot:views.get(id)??null,conflicts:page.values,nextAfter:page.nextAfter});}
+  if(kind==='database_changes_load')return clone(progress.get(sourceId)??initial(sourceId));
+  if(kind==='database_changes_receive'){const reply=request.response as PrivateDatabaseChangesResponse;state.changeReceives.push(clone(request));for(const event of reply.events){if(event.kind==='record'){records.set(event.record.id,clone(event.record));if(event.conflict)recordConflicts.set(event.record.id,[clone(event.conflict)]);}else{views.set(event.snapshot.view.id,clone(event.snapshot));if(event.conflict)viewConflicts.set(event.snapshot.view.id,[clone(event.conflict)]);}}progress.set(sourceId,{...initial(sourceId),journalEpoch:reply.journalEpoch,order:reply.readOrder,cursor:reply.cursor,headOrder:reply.headOrder,hasMore:reply.hasMore,received:true});if(state.loseChangesReply){state.loseChangesReply=false;throw Error('fixture DB reply lost');}return null;}
+  throw Error('Unexpected fixture DB command');
+ }
+ function fetchResponse(url:string,body:Record<string,unknown>):Response|null{
+  if(!url.includes('/databases/'))return null;state.fetchCalls.push(url);const scope={protocolVersion:1,workspaceId:context.workspaceId,workspaceEpoch:context.streamEpoch,clientId:context.clientId};
+  if(url.endsWith('/databases/catalog')){if(state.failCatalog)throw Error('fixture DB network');const all=[...serverSources.values()].sort((a,b)=>Number(a.creationOrder)-Number(b.creationOrder)),after=body.cursor?Number(String(body.cursor).split('-').at(-1)):0,limit=Number(body.limit),selected=all.slice(after,after+limit),read=after+selected.length,hasMore=read<all.length;return Response.json({...scope,afterOrder:String(after),throughOrder:String(read),headOrder:String(all.length),sources:selected.map(({source,version,creationOrder})=>({id:source.id,workspaceId:source.workspaceId,name:source.name,schemaVersion:source.schemaVersion,version,creationOrder,propertyCount:source.properties.length})),hasMore,cursor:hasMore?'fixture-source-'+read:null});}
+  const match=url.match(/\/databases\/([^/]+)\/(read|changes\/pull)$/);if(!match)return null;const sourceId=match[1]!,snapshot=serverSources.get(sourceId);if(!snapshot)throw Error('fixture DB source missing');if(match[2]==='read')return Response.json({...scope,snapshot});
+  const saved=progress.get(sourceId)??initial(sourceId),all=events.get(sourceId)??[],after=BigInt(saved.order),selected=all.filter(event=>BigInt(event.order)>after).slice(0,Number(body.limit)),read=selected.at(-1)?.order??saved.order,head=all.at(-1)?.order??'0';return Response.json({...scope,sourceId,schemaVersion:snapshot.source.schemaVersion,journalEpoch:epochs.get(sourceId),afterOrder:saved.order,readOrder:read,headOrder:head,events:selected,hasMore:BigInt(read)<BigInt(head),cursor:'fixture-db-'+sourceId+'-'+read});
+ }
+ return{seed,execute,fetchResponse,sources,serverSources,records,views,recordConflicts,viewConflicts,events,progress,state};
+}

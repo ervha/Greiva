@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.68.0 — 2026-10-12
+
+- 基本DBのTable/List読取画面を個人workspaceへ接続。確認済み端末cacheを件数/容量で区切り、サーバー一覧・定義・変更を明示取得する。保存済みViewのfilter/sort/列、Name未取得/未判定、型付き値と競合・履歴の続き、保存結果不明の同応答再確認を表示する。
+- DB読取失敗でPage storeや元表示を置換せず、owner閉鎖・遅着・observerをguardする。controlled selectの遅延event値不備を修正し、keyboard/mobile-dark/selection/compositionをDockerで確認する。
+- 新browser8/actual HTTP-native2、通常758/実PG219/全workspace画面58と型/buildを検証。元UI6 Fail、public guard2 Fail、fixture型/View payload Failと並行負荷timeoutを保存する。native16/server11保持。DB作成・編集/設定保存画面とnative Gateは後続。
+
 ## 0.67.0 — 2026-10-09
 
 - 読み込み済みDB行のqueryへ未取得Nameと空タイトルの区別を追加。AND/ORの確定可能な条件を評価し、不明なfilter/Name sortは理由付きの未判定行として返す。既存の型・範囲・件数検査とquery契約を保持する。

@@ -1,0 +1,11 @@
+{
+  "recordIdsUnchanged": true,
+  "mode": "UI fixture",
+  "pageBindingMatches": true,
+  "servedInDocker": true,
+  "surface": "T3 collaborative browser",
+  "actualSupabase": false,
+  "actualNativeInvoke": false,
+  "version": "0.68.0",
+  "bodyObserved": true
+}

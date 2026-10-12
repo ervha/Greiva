@@ -10,6 +10,11 @@ const f=privateWorkspaceFixture(),login=new PrivateLoginController(f.configurati
 createRoot(document.getElementById('root')!).render(<PrivateWorkspaceScreen login={login} workspace={workspace} nativeAvailable/>);
 let resume=()=>{};
 const test={
+ seedDatabase:async()=>{const seeded=f.database.seed();f.seedRemote('既知のPage','known body',seeded.rows[0]!.pageId);f.seedRemote('','blank title body',seeded.rows[1]!.pageId);await workspace.loadRemote();return{sourceId:seeded.source.id,recordIds:seeded.rows.map(row=>row.id),pageIds:seeded.rows.map(row=>row.pageId),views:seeded.savedViews.map(row=>({id:row.id,name:row.name}))};},
+ databaseSnapshot:()=>({state:workspace.database?.snapshot??null,calls:f.database.state.fetchCalls.slice(),receives:f.database.state.changeReceives.slice(),sources:f.database.state.sourceReceives.slice()}),
+ loseDatabaseChangesReply:()=>{f.database.state.loseChangesReply=true;},
+ failDatabaseRecords:()=>{f.database.state.failRead='database_record_list';},restoreDatabaseRecords:()=>{f.database.state.failRead=null;},
+ failDatabaseCatalog:()=>{f.database.state.failCatalog=true;},restoreDatabaseCatalog:()=>{f.database.state.failCatalog=false;},
  snapshot:()=>({state:workspace.snapshot,pages:[...f.local.values()].map(page=>({id:page.metadata.id,title:page.metadata.title,wires:page.queue.map(frame=>frame.wire)})),reads:f.state.readCalls.slice(),calls:f.calls,sent:f.state.sentWires.slice(),composing:workspace.editor?.isComposing??false}),
  durable:()=>workspace.editor?.durable(),refreshLocal:()=>workspace.loadLocal(),
  loseAck:()=>{f.state.loseAck=true;},loseCreateReply:()=>{f.state.loseCreateReply=true;},failStorage:()=>{f.state.storageFailure=true;},failCatalog:()=>{f.state.catalogFailure=true;},

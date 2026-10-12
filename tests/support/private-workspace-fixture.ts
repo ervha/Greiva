@@ -1,3 +1,4 @@
+import {privateDatabaseFixture} from './private-database-fixture.js';
 import * as Y from 'yjs';
 import { newId } from '@greiva/shared';
 import type { Page,PushOperation,PushResult,StructuredSnapshot,Conflict } from '@greiva/protocol';
@@ -12,6 +13,7 @@ import type {PrivatePageChange,PrivatePageChangesResponse} from '@greiva/protoco
 export function privateWorkspaceFixture(){
  const configuration:PrivateLoginConfiguration={projectUrl:'https://project.fixture.invalid',apiUrl:'http://127.0.0.1:1422',algorithm:'ES256',publishableKey:'sb_publishable_fixture'};
  const context={issuer:configuration.projectUrl+'/auth/v1',subjectId:'owner',workspaceId:newId(),clientId:newId(),streamEpoch:newId()};
+ const database=privateDatabaseFixture(context);
  type Local={metadata:Page;updates:number[][];queue:PrivatePagePrepared[];bootstrap:string;head:string|null};
  type Server={metadata:Page;doc:Y.Doc;head:number;digests:Map<string,number>};
  const local=new Map<string,Local>(),server=new Map<string,Server>(),calls:{command:string;request:Record<string,unknown>|null}[]=[];
@@ -36,6 +38,7 @@ export function privateWorkspaceFixture(){
   if(command==='workspace_open'){active='abc-'+(++generation).toString(16)+'-1';return {handle:active,context:args!.context};}
   if(command==='workspace_close'){if(args!.handle!==active)throw Error('Old handle');active=null;return null;}
   if(command!=='workspace_execute'||args!.handle!==active)throw Error('Closed handle');
+  const databaseValue=database.execute(request!);if(databaseValue!==undefined)return databaseValue;
   const kind=String(request!.command),id=String(request!.pageId),entry=local.get(id);
   if(kind.startsWith('title_'))return title.execute(kind,id,request!);
   if(kind==='changes_load'){const limit=Number(request!.limit),after=request!.afterPage as string|null,rows=[...changes.catalog.values()].sort((a,b)=>a.pageId.localeCompare(b.pageId)).filter(row=>after===null||row.pageId>after),pages=rows.slice(0,limit).map(row=>({metadata:clone(row.metadata),version:row.version,lastOrder:row.order}));return{context,order:changes.order,cursor:changes.cursor,headOrder:changes.headOrder,hasMore:changes.hasMore,received:changes.received,pages,nextAfter:rows.length>limit?pages.at(-1)!.metadata.id:null};}
@@ -73,6 +76,7 @@ export function privateWorkspaceFixture(){
  };
  const fetchPort:typeof fetch=async(input,init)=>{
   const url=String(input),body=init?.body?JSON.parse(String(init.body)) as Record<string,string>:{};
+  const databaseResponse=database.fetchResponse(url,body);if(databaseResponse)return databaseResponse;
   if(url.includes('/token?'))return Response.json({access_token:'fixture.access.signature',refresh_token:'fixture-refresh',token_type:'bearer',user:{id:context.subjectId}});
   if(url.endsWith('/v1/session'))return Response.json({issuer:context.issuer,subjectId:context.subjectId,expiresAt:Math.floor(Date.now()/1000)+300});
   if(url.includes('/logout?'))return new Response('');
@@ -108,5 +112,5 @@ export function privateWorkspaceFixture(){
  }
  function edit(doc:Y.Doc,text:string){const block=doc.getXmlFragment('body').get(0) as Y.XmlElement;if(!block.length)block.insert(0,[new Y.XmlText()]);(block.get(0) as Y.XmlText).insert(0,text);}
  function seedConflict(){const task=structured.tasks.find(row=>!row.deletedAt)!;task.title='remote';task.version+=1;const conflict:Conflict={id:newId(),operationId:newId(),entityType:'task',entityId:task.id,field:'title',base:'base',local:'local',remote:'remote',createdAt:time,status:'open',resolvedBy:null};structured.conflicts.push(conflict);return conflict;}
- return {configuration,context,invoke,fetchPort,local,server,calls,state,title,changes,structured,seedConflict,seedLocal,seedRemote,edit,cleanup(){for(const saved of server.values())saved.doc.destroy();}};
+ return {configuration,context,invoke,fetchPort,local,server,calls,state,title,changes,structured,database,seedConflict,seedLocal,seedRemote,edit,cleanup(){for(const saved of server.values())saved.doc.destroy();}};
 }

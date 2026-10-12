@@ -1,0 +1,26 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [31m❯[39m tests/integration/private-database-changes-runtime-postgres.test.ts [2m([22m[2m4 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[33m 16530[2mms[22m[39m
+[31m   [31m×[31m DB-CHANGES-RUNTIME-PG: offline local opening/reload never fetch; one explicit sync is max100 and observed head changes do not imply full sync or consume Page pending[39m[33m 15004[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-CHANGES-RUNTIME-PG: lost native return remains unknown across local reload; exact retry/restart retains progress and Auth or native close cancels late HTTP[33m 422[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-BROWSER-PG: explicit signed catalog/definition/delta reaches actual SQLite and offline Table/List cache never consumes Page pending[33m 372[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-BROWSER-PG: unknown Source/delta save retries captured bytes without network; actual Record/View candidates survive and Auth refresh rejects late reads[33m 731[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/integration/private-database-changes-runtime-postgres.test.ts[2m > [22mDB-CHANGES-RUNTIME-PG: offline local opening/reload never fetch; one explicit sync is max100 and observed head changes do not imply full sync or consume Page pending
+[31m[1mError[22m: Test timed out in 15000ms.
+If this is a long-running test, pass a timeout value as the last argument or configure it globally with "testTimeout".[39m
+[36m [2m❯[22m tests/integration/private-database-changes-runtime-postgres.test.ts:[2m40:1[22m[39m
+
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m3 passed[39m[22m[90m (4)[39m
+[2m   Start at [22m 03:27:19
+[2m   Duration [22m 19.38s[2m (tests 86%, transform 7%, import 7%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261012/v68/browser-pg/vitest.json

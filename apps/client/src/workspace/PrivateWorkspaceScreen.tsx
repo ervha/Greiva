@@ -1,4 +1,5 @@
-import { useCallback,useEffect, useState } from 'react';
+import {PrivateDatabasePanel} from './PrivateDatabasePanel';
+import { useCallback,useEffect,useMemo, useState } from 'react';
 import {PrivateStructuredPanel} from '../structured/PrivateStructuredPanel';
 import { PrivatePageEditor } from '../editor/PrivatePageEditor';
 import type { PrivateLoginController } from '../auth/private-login';
@@ -14,6 +15,7 @@ export function PrivateWorkspaceScreen({login,workspace,nativeAvailable}:{login:
   useEffect(()=>login.subscribe(setAuth),[login]);useEffect(()=>workspace.subscribe(setState),[workspace]);
   const structuredDraft=useCallback((blocked:boolean)=>workspace.setStructuredDraft(blocked),[workspace]);
   const titleDraft=useCallback((blocked:boolean)=>workspace.setTitleDraft(blocked),[workspace]);
+  const databasePages=useMemo(()=>[...new Map([...state.cachedPages.map(row=>row.metadata),...state.remotePages,...state.localPages.map(row=>row.metadata)].map(row=>[row.id,row])).values()],[state.cachedPages,state.remotePages,state.localPages]);
   const connection=login.activeConnection,lease=connection?.generationSignal;
   useEffect(()=>{if(connection)void workspace.connect(connection);else void workspace.close();},[connection,lease,workspace]);
   const busy=auth.busy||state.busy,blocked=busy||state.navigationBlocked;
@@ -71,8 +73,9 @@ export function PrivateWorkspaceScreen({login,workspace,nativeAvailable}:{login:
       </form>
     </aside><section aria-label="Page編集" className="workspace-editor">{workspace.editor?<>{workspace.title&&<PrivateTitlePanel key={workspace.title.pageId} session={workspace.title} onDraftChange={titleDraft} onSync={()=>workspace.syncTitle()} blocked={busy||Boolean(workspace.editor.isComposing||workspace.editor.snapshot.storageError||workspace.editor.snapshot.syncing)}/>}<PrivatePageEditor session={workspace.editor} displayTitle={workspace.title?.snapshot.data?.localTitle}/></>:<p>Pageを選ぶか、新しく作成してください。</p>}</section></div>}
     {state.phase==='ready'&&workspace.structured&&<PrivateStructuredPanel session={workspace.structured} pages={[...new Map([...state.cachedPages.map(row=>row.metadata),...state.remotePages,...state.localPages.map(row=>row.metadata)].map(row=>[row.id,row])).values()]} onDraftChange={structuredDraft}/>}
+    {state.phase==='ready'&&(workspace.database?<PrivateDatabasePanel browser={workspace.database} pages={databasePages} onOpenPage={id=>{void workspace.openPage(id);}} blocked={busy||workspace.databaseInteractionBlocked||composing}/>:<section aria-label="基本DBを開く"><h2>基本DB</h2><button type="button" disabled={blocked||composing} onClick={()=>{void workspace.openDatabase();}}>基本DBを開く</button>{state.databaseError&&<p role="alert">DBの端末情報を確認できませんでした。Pageの保存先を変更せず、もう一度お試しください。</p>}</section>)}
     {state.phase==='ready'&&<div className="connection-tools" aria-label="操作の説明"><button type="button" {...help.entry('save-sync')}>保存・同期の見方を読む</button><button type="button" {...help.entry('title')}>タイトル編集の説明を読む</button><button type="button" {...help.entry('tasks')}>TaskとRelationの説明を読む</button><button type="button" {...help.entry('local-save')}>端末保存に失敗したときの説明を読む</button><button type="button" {...help.entry('conflict')}>競合候補の説明を読む</button></div>}
-    <p className="editor-hint">ログアウトしても、この端末に保存済みのPage・Task・Relationと未送信更新は保持します。ログイン前の閲覧は提供していません。</p>
+    <p className="editor-hint">ログアウトしても、この端末に保存済みのPage・Task・Relation・DBと未送信更新は保持します。ログイン前の閲覧は提供していません。</p>
     {help.panel}
   </main>;
 }

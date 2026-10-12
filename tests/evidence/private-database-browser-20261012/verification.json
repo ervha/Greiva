@@ -1,0 +1,86 @@
+{
+  "version": "0.68.0",
+  "totals": {
+    "browser-pg": {
+      "total": 4,
+      "passed": 4,
+      "failed": 0,
+      "pending": 0
+    },
+    "browser-pg-initial": {
+      "total": 4,
+      "passed": 3,
+      "failed": 1,
+      "pending": 0
+    },
+    "browser-pg-contention": {
+      "total": 4,
+      "passed": 3,
+      "failed": 1,
+      "pending": 0
+    },
+    "workspace-ui-focused": {
+      "startTime": "2026-10-12T03:27:18.824Z",
+      "duration": 14888.853,
+      "expected": 6,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "normal": {
+      "total": 977,
+      "passed": 758,
+      "failed": 0,
+      "pending": 219
+    },
+    "postgres": {
+      "total": 219,
+      "passed": 219,
+      "failed": 0,
+      "pending": 0
+    },
+    "workspace-ui": {
+      "startTime": "2026-10-12T03:36:51.013Z",
+      "duration": 100198.05200000001,
+      "expected": 58,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "initial-focused": {
+      "total": 23,
+      "passed": 21,
+      "failed": 2,
+      "pending": 0
+    },
+    "focused": {
+      "total": 23,
+      "passed": 23,
+      "failed": 0,
+      "pending": 0
+    },
+    "initial-workspace-ui": {
+      "startTime": "2026-10-12T03:24:33.383Z",
+      "duration": 42844.066999999995,
+      "expected": 0,
+      "skipped": 0,
+      "unexpected": 6,
+      "flaky": 0
+    }
+  },
+  "source": {
+    "count": 359,
+    "rawMatches": 349,
+    "textOnly": 10,
+    "excluded": [
+      "playwright.performance.config.ts",
+      "playwright.render-diagnostic.config.ts",
+      "tests/diagnostics/render-isolation.spec.ts",
+      "tests/native/windows-store-fixture.json",
+      "tests/performance/workloads.spec.ts"
+    ]
+  },
+  "realAuth": false,
+  "windowsLaunch": false,
+  "nativeIme": false
+}

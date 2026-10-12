@@ -1,0 +1,11 @@
+
+Running 6 tests using 1 worker
+
+  ✓  1 [desktop] › tests/e2e/private-workspace.spec.ts:113:1 › WORKSPACE-DB: six typed cells, saved filter/sort and keyboard Table/List switching keep one loaded record window and unknown Name (2.1s)
+  ✓  2 [desktop] › tests/e2e/private-workspace.spec.ts:121:1 › WORKSPACE-DB: local/HTTP failures keep rows and unknown receive retry remains enabled while navigation is blocked (1.9s)
+  ✓  3 [desktop] › tests/e2e/private-workspace.spec.ts:127:1 › WORKSPACE-DB: Page selection survives DB reads and composition blocks view/layout/navigation without cancelling the editor (2.1s)
+  ✓  4 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:113:1 › WORKSPACE-DB: six typed cells, saved filter/sort and keyboard Table/List switching keep one loaded record window and unknown Name (2.0s)
+  ✓  5 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:121:1 › WORKSPACE-DB: local/HTTP failures keep rows and unknown receive retry remains enabled while navigation is blocked (2.1s)
+  ✓  6 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:127:1 › WORKSPACE-DB: Page selection survives DB reads and composition blocks view/layout/navigation without cancelling the editor (1.9s)
+
+  6 passed (14.9s)

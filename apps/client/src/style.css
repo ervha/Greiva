@@ -107,3 +107,18 @@ kbd { font: inherit; font-size: 11px; padding: 1px 4px; background: var(--surfac
 .conflict-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
 .structured-errors pre { white-space: pre-wrap; overflow-wrap: anywhere; }
 @media (max-width: 600px) { .conflict-card dl { grid-template-columns: 1fr; } }
+
+.database-panel { margin-top: 24px; padding: 20px; border: 1px solid var(--border); border-radius: 18px; background: var(--surface); min-width: 0; }
+.database-panel > label { display: grid; gap: 6px; max-width: 420px; margin: 16px 0; }
+.database-panel select { width: 100%; min-width: 0; min-height: 44px; padding: 8px 12px; color: var(--text); background: var(--surface); border: 1px solid var(--border-control); border-radius: 8px; font: inherit; color-scheme: light dark; }
+.database-panel li { overflow-wrap: anywhere; }
+.database-table-scroll { max-width: 100%; overflow-x: auto; border: 1px solid var(--border); border-radius: 12px; }
+.database-table-scroll table { border-collapse: collapse; width: 100%; font-size: 13px; }
+.database-table-scroll th, .database-table-scroll td { min-width: 110px; max-width: 320px; padding: 12px; text-align: left; vertical-align: top; border-bottom: 1px solid var(--border); white-space: pre-wrap; overflow-wrap: anywhere; }
+.database-table-scroll th { background: var(--surface-soft); }
+.database-cards { list-style: none; padding: 0; display: grid; gap: 12px; }
+.database-cards li { padding: 16px; border: 1px solid var(--border); border-radius: 12px; }
+.database-cards dl { display: grid; grid-template-columns: repeat(auto-fit,minmax(150px,1fr)); gap: 12px; margin: 0; }
+.database-cards dt { color: var(--muted); font-size: 12px; }
+.database-cards dd { margin: 4px 0 0; overflow-wrap: anywhere; white-space: pre-wrap; }
+@media (max-width: 600px) { .database-panel { padding: 12px; } }

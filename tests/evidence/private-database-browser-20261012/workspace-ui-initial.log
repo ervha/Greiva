@@ -1,0 +1,224 @@
+
+Running 6 tests using 1 worker
+
+  ✘  1 [desktop] › tests/e2e/private-workspace.spec.ts:113:1 › WORKSPACE-DB: six typed cells, saved filter/sort and keyboard Table/List switching keep one loaded record window and unknown Name (6.4s)
+  ✘  2 [desktop] › tests/e2e/private-workspace.spec.ts:121:1 › WORKSPACE-DB: local/HTTP failures keep rows and unknown receive retry remains enabled while navigation is blocked (6.3s)
+  ✘  3 [desktop] › tests/e2e/private-workspace.spec.ts:127:1 › WORKSPACE-DB: Page selection survives DB reads and composition blocks view/layout/navigation without cancelling the editor (6.5s)
+  ✘  4 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:113:1 › WORKSPACE-DB: six typed cells, saved filter/sort and keyboard Table/List switching keep one loaded record window and unknown Name (6.5s)
+  ✘  5 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:121:1 › WORKSPACE-DB: local/HTTP failures keep rows and unknown receive retry remains enabled while navigation is blocked (6.3s)
+  ✘  6 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:127:1 › WORKSPACE-DB: Page selection survives DB reads and composition blocks view/layout/navigation without cancelling the editor (6.4s)
+
+
+  1) [desktop] › tests/e2e/private-workspace.spec.ts:113:1 › WORKSPACE-DB: six typed cells, saved filter/sort and keyboard Table/List switching keep one loaded record window and unknown Name
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('region', { name: '基本DB', exact: true }).getByText('この読み込み範囲の結果 3件。全件の検索結果ではありません。', { exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('region', { name: '基本DB', exact: true }).getByText('この読み込み範囲の結果 3件。全件の検索結果ではありません。', { exact: true }) with timeout 5000ms
+      - waiting for getByRole('region', { name: '基本DB', exact: true }).getByText('この読み込み範囲の結果 3件。全件の検索結果ではありません。', { exact: true })
+
+
+      112 |
+      113 | test('WORKSPACE-DB: six typed cells, saved filter/sort and keyboard Table/List switching keep one loaded record window and unknown Name',async({page},info)=>{
+    > 114 |  await page.goto('/private-workspace.fixture.html');await login(page);const seed=await page.evaluate(()=>window.workspaceTest.seedDatabase());await page.getByRole('button',{name:'基本DBを開く',exact:true}).click();const panel=page.getByRole('region',{name:'基本DB',exact:true});await panel.getByRole('combobox',{name:'端末のDB',exact:true}).selectOption(seed.sourceId);await expect(panel.getByText('この読み込み範囲の結果 3件。全件の検索結果ではありません。',{exact:true})).toBeVisible();
+          |                                                                                                                                                                                                                                                                                                                                                                                                                                                     ^
+      115 |  await expect(panel.getByText('空のテキスト',{exact:true})).toBeVisible();await expect(panel.getByText('チェックなし',{exact:true})).toBeVisible();await expect(panel.getByText('2028-02-29',{exact:true})).toBeVisible();await expect(panel.getByText('選択肢',{exact:true})).toBeVisible();await expect(panel.getByText('Name未取得',{exact:true})).toBeVisible();await expect(panel.getByRole('button',{name:'無題のPage',exact:true})).toBeVisible();
+      116 |  await panel.getByRole('combobox',{name:'保存済みビュー',exact:true}).selectOption(seed.views.find(row=>row.name==='Number降順')!.id);await expect(panel.locator('tbody tr td:nth-child(3)')).toHaveText(['2','1','0']);const list=panel.getByRole('button',{name:'List表示',exact:true});await list.focus();await page.keyboard.press('Enter');await expect(panel.getByRole('list',{name:'読み込み範囲の行',exact:true}).getByRole('listitem')).toHaveCount(3);await expect(list).toBeFocused();
+      117 |  expect((await page.evaluate(()=>window.workspaceTest.databaseSnapshot())).calls).toEqual([]);
+        at /workspace/tests/e2e/private-workspace.spec.ts:114:437
+
+    Error Context: .data/autonomous-20261012/v68/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-b7ce6-ord-window-and-unknown-Name-desktop/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261012/v68/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-b7ce6-ord-window-and-unknown-Name-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261012/v68/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-b7ce6-ord-window-and-unknown-Name-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [desktop] › tests/e2e/private-workspace.spec.ts:121:1 › WORKSPACE-DB: local/HTTP failures keep rows and unknown receive retry remains enabled while navigation is blocked
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByRole('region', { name: '基本DB', exact: true }).locator('tbody tr')
+    Expected: 3
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" getByRole('region', { name: '基本DB', exact: true }).locator('tbody tr') with timeout 5000ms
+      - waiting for getByRole('region', { name: '基本DB', exact: true }).locator('tbody tr')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      120 | });
+      121 | test('WORKSPACE-DB: local/HTTP failures keep rows and unknown receive retry remains enabled while navigation is blocked',async({page})=>{
+    > 122 |  await page.goto('/private-workspace.fixture.html');await login(page);const seed=await page.evaluate(()=>window.workspaceTest.seedDatabase());await page.getByRole('button',{name:'基本DBを開く',exact:true}).click();const panel=page.getByRole('region',{name:'基本DB',exact:true});await panel.getByRole('combobox',{name:'端末のDB',exact:true}).selectOption(seed.sourceId);await expect(panel.locator('tbody tr')).toHaveCount(3);
+          |                                                                                                                                                                                                                                                                                                                                                                                                                ^
+      123 |  await page.evaluate(()=>window.workspaceTest.failDatabaseRecords());await panel.getByRole('button',{name:'行の読み込みを先頭へ',exact:true}).click();await expect(panel.getByText('行またはビューは以前の読取結果です。',{exact:true})).toBeVisible();await expect(panel.locator('tbody tr')).toHaveCount(3);await page.evaluate(()=>window.workspaceTest.restoreDatabaseRecords());await panel.getByRole('button',{name:'行の読み込みを先頭へ',exact:true}).click();await expect(panel.getByText('行またはビューは以前の読取結果です。',{exact:true})).toHaveCount(0);
+      124 |  await page.evaluate(()=>window.workspaceTest.loseDatabaseChangesReply());await panel.getByRole('button',{name:'DB変更を取得',exact:true}).click();const retry=panel.getByRole('button',{name:'DB変更の保存を再確認',exact:true});await expect(retry).toBeEnabled();await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeDisabled();await expect(panel.getByRole('combobox',{name:'保存済みビュー',exact:true})).toBeDisabled();const before=await page.evaluate(()=>window.workspaceTest.databaseSnapshot());await retry.click();await expect(retry).toHaveCount(0);await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeEnabled();const after=await page.evaluate(()=>window.workspaceTest.databaseSnapshot());expect(after.calls).toEqual(before.calls);expect(after.receives[0]).toEqual(after.receives[1]);await expect(panel.locator('tbody tr')).toHaveCount(3);
+      125 |  await panel.getByRole('button',{name:'サーバーDB一覧を取得',exact:true}).click();await expect(panel.getByRole('button',{name:'基本DBの定義を取得',exact:true})).toBeVisible();await page.evaluate(()=>window.workspaceTest.failDatabaseCatalog());await panel.getByRole('button',{name:'サーバーDB一覧を取得',exact:true}).click();await expect(panel.getByText(/以前取得した一覧です/)).toBeVisible();await expect(panel.locator('tbody tr')).toHaveCount(3);
+        at /workspace/tests/e2e/private-workspace.spec.ts:122:400
+
+    Error Context: .data/autonomous-20261012/v68/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-6b680-while-navigation-is-blocked-desktop/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261012/v68/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-6b680-while-navigation-is-blocked-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261012/v68/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-6b680-while-navigation-is-blocked-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [desktop] › tests/e2e/private-workspace.spec.ts:127:1 › WORKSPACE-DB: Page selection survives DB reads and composition blocks view/layout/navigation without cancelling the editor
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByRole('region', { name: '基本DB', exact: true }).locator('tbody tr')
+    Expected: 3
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" getByRole('region', { name: '基本DB', exact: true }).locator('tbody tr') with timeout 5000ms
+      - waiting for getByRole('region', { name: '基本DB', exact: true }).locator('tbody tr')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      126 | });
+      127 | test('WORKSPACE-DB: Page selection survives DB reads and composition blocks view/layout/navigation without cancelling the editor',async({page})=>{
+    > 128 |  await page.goto('/private-workspace.fixture.html');await login(page);await create(page,'編集中のPage');const body=page.getByRole('textbox',{name:'Page本文',exact:true});await body.fill('selection stays');await page.evaluate(()=>window.workspaceTest.durable());const seed=await page.evaluate(()=>window.workspaceTest.seedDatabase());await page.getByRole('button',{name:'基本DBを開く',exact:true}).click();const panel=page.getByRole('region',{name:'基本DB',exact:true});await panel.getByRole('combobox',{name:'端末のDB',exact:true}).selectOption(seed.sourceId);await expect(panel.locator('tbody tr')).toHaveCount(3);
+          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ^
+      129 |  await body.click();await page.keyboard.press('Home');await page.keyboard.press('Shift+ArrowRight');const selected=await body.evaluate(()=>getSelection()?.toString());await panel.getByRole('button',{name:'行の読み込みを先頭へ',exact:true}).click();expect(await body.evaluate(()=>getSelection()?.toString())).toBe(selected);await expect(body).toContainText('selection stays');
+      130 |  await body.dispatchEvent('compositionstart',{data:'か'});await expect(panel.getByRole('button',{name:'List表示',exact:true})).toBeDisabled();await expect(panel.getByRole('combobox',{name:'端末のDB',exact:true})).toBeDisabled();await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeDisabled();await body.dispatchEvent('compositionend',{data:'か'});await expect(panel.getByRole('button',{name:'List表示',exact:true})).toBeEnabled();await expect(body).toContainText('selection stays');
+      131 | });
+        at /workspace/tests/e2e/private-workspace.spec.ts:128:585
+
+    Error Context: .data/autonomous-20261012/v68/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-36a3e-thout-cancelling-the-editor-desktop/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261012/v68/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-36a3e-thout-cancelling-the-editor-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261012/v68/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-36a3e-thout-cancelling-the-editor-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:113:1 › WORKSPACE-DB: six typed cells, saved filter/sort and keyboard Table/List switching keep one loaded record window and unknown Name
+
+    Error: expect(locator).toBeVisible() failed
+
+    Locator: getByRole('region', { name: '基本DB', exact: true }).getByText('この読み込み範囲の結果 3件。全件の検索結果ではありません。', { exact: true })
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeVisible" getByRole('region', { name: '基本DB', exact: true }).getByText('この読み込み範囲の結果 3件。全件の検索結果ではありません。', { exact: true }) with timeout 5000ms
+      - waiting for getByRole('region', { name: '基本DB', exact: true }).getByText('この読み込み範囲の結果 3件。全件の検索結果ではありません。', { exact: true })
+
+
+      112 |
+      113 | test('WORKSPACE-DB: six typed cells, saved filter/sort and keyboard Table/List switching keep one loaded record window and unknown Name',async({page},info)=>{
+    > 114 |  await page.goto('/private-workspace.fixture.html');await login(page);const seed=await page.evaluate(()=>window.workspaceTest.seedDatabase());await page.getByRole('button',{name:'基本DBを開く',exact:true}).click();const panel=page.getByRole('region',{name:'基本DB',exact:true});await panel.getByRole('combobox',{name:'端末のDB',exact:true}).selectOption(seed.sourceId);await expect(panel.getByText('この読み込み範囲の結果 3件。全件の検索結果ではありません。',{exact:true})).toBeVisible();
+          |                                                                                                                                                                                                                                                                                                                                                                                                                                                     ^
+      115 |  await expect(panel.getByText('空のテキスト',{exact:true})).toBeVisible();await expect(panel.getByText('チェックなし',{exact:true})).toBeVisible();await expect(panel.getByText('2028-02-29',{exact:true})).toBeVisible();await expect(panel.getByText('選択肢',{exact:true})).toBeVisible();await expect(panel.getByText('Name未取得',{exact:true})).toBeVisible();await expect(panel.getByRole('button',{name:'無題のPage',exact:true})).toBeVisible();
+      116 |  await panel.getByRole('combobox',{name:'保存済みビュー',exact:true}).selectOption(seed.views.find(row=>row.name==='Number降順')!.id);await expect(panel.locator('tbody tr td:nth-child(3)')).toHaveText(['2','1','0']);const list=panel.getByRole('button',{name:'List表示',exact:true});await list.focus();await page.keyboard.press('Enter');await expect(panel.getByRole('list',{name:'読み込み範囲の行',exact:true}).getByRole('listitem')).toHaveCount(3);await expect(list).toBeFocused();
+      117 |  expect((await page.evaluate(()=>window.workspaceTest.databaseSnapshot())).calls).toEqual([]);
+        at /workspace/tests/e2e/private-workspace.spec.ts:114:437
+
+    Error Context: .data/autonomous-20261012/v68/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-b7ce6-ord-window-and-unknown-Name-mobile-dark-reduced-motion/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261012/v68/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-b7ce6-ord-window-and-unknown-Name-mobile-dark-reduced-motion/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261012/v68/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-b7ce6-ord-window-and-unknown-Name-mobile-dark-reduced-motion/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:121:1 › WORKSPACE-DB: local/HTTP failures keep rows and unknown receive retry remains enabled while navigation is blocked
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByRole('region', { name: '基本DB', exact: true }).locator('tbody tr')
+    Expected: 3
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" getByRole('region', { name: '基本DB', exact: true }).locator('tbody tr') with timeout 5000ms
+      - waiting for getByRole('region', { name: '基本DB', exact: true }).locator('tbody tr')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      120 | });
+      121 | test('WORKSPACE-DB: local/HTTP failures keep rows and unknown receive retry remains enabled while navigation is blocked',async({page})=>{
+    > 122 |  await page.goto('/private-workspace.fixture.html');await login(page);const seed=await page.evaluate(()=>window.workspaceTest.seedDatabase());await page.getByRole('button',{name:'基本DBを開く',exact:true}).click();const panel=page.getByRole('region',{name:'基本DB',exact:true});await panel.getByRole('combobox',{name:'端末のDB',exact:true}).selectOption(seed.sourceId);await expect(panel.locator('tbody tr')).toHaveCount(3);
+          |                                                                                                                                                                                                                                                                                                                                                                                                                ^
+      123 |  await page.evaluate(()=>window.workspaceTest.failDatabaseRecords());await panel.getByRole('button',{name:'行の読み込みを先頭へ',exact:true}).click();await expect(panel.getByText('行またはビューは以前の読取結果です。',{exact:true})).toBeVisible();await expect(panel.locator('tbody tr')).toHaveCount(3);await page.evaluate(()=>window.workspaceTest.restoreDatabaseRecords());await panel.getByRole('button',{name:'行の読み込みを先頭へ',exact:true}).click();await expect(panel.getByText('行またはビューは以前の読取結果です。',{exact:true})).toHaveCount(0);
+      124 |  await page.evaluate(()=>window.workspaceTest.loseDatabaseChangesReply());await panel.getByRole('button',{name:'DB変更を取得',exact:true}).click();const retry=panel.getByRole('button',{name:'DB変更の保存を再確認',exact:true});await expect(retry).toBeEnabled();await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeDisabled();await expect(panel.getByRole('combobox',{name:'保存済みビュー',exact:true})).toBeDisabled();const before=await page.evaluate(()=>window.workspaceTest.databaseSnapshot());await retry.click();await expect(retry).toHaveCount(0);await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeEnabled();const after=await page.evaluate(()=>window.workspaceTest.databaseSnapshot());expect(after.calls).toEqual(before.calls);expect(after.receives[0]).toEqual(after.receives[1]);await expect(panel.locator('tbody tr')).toHaveCount(3);
+      125 |  await panel.getByRole('button',{name:'サーバーDB一覧を取得',exact:true}).click();await expect(panel.getByRole('button',{name:'基本DBの定義を取得',exact:true})).toBeVisible();await page.evaluate(()=>window.workspaceTest.failDatabaseCatalog());await panel.getByRole('button',{name:'サーバーDB一覧を取得',exact:true}).click();await expect(panel.getByText(/以前取得した一覧です/)).toBeVisible();await expect(panel.locator('tbody tr')).toHaveCount(3);
+        at /workspace/tests/e2e/private-workspace.spec.ts:122:400
+
+    Error Context: .data/autonomous-20261012/v68/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-6b680-while-navigation-is-blocked-mobile-dark-reduced-motion/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261012/v68/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-6b680-while-navigation-is-blocked-mobile-dark-reduced-motion/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261012/v68/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-6b680-while-navigation-is-blocked-mobile-dark-reduced-motion/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:127:1 › WORKSPACE-DB: Page selection survives DB reads and composition blocks view/layout/navigation without cancelling the editor
+
+    Error: expect(locator).toHaveCount(expected) failed
+
+    Locator:  getByRole('region', { name: '基本DB', exact: true }).locator('tbody tr')
+    Expected: 3
+    Received: 0
+    Timeout:  5000ms
+
+    Call log:
+      - Expect "toHaveCount" getByRole('region', { name: '基本DB', exact: true }).locator('tbody tr') with timeout 5000ms
+      - waiting for getByRole('region', { name: '基本DB', exact: true }).locator('tbody tr')
+        14 × locator resolved to 0 elements
+           - unexpected value "0"
+
+
+      126 | });
+      127 | test('WORKSPACE-DB: Page selection survives DB reads and composition blocks view/layout/navigation without cancelling the editor',async({page})=>{
+    > 128 |  await page.goto('/private-workspace.fixture.html');await login(page);await create(page,'編集中のPage');const body=page.getByRole('textbox',{name:'Page本文',exact:true});await body.fill('selection stays');await page.evaluate(()=>window.workspaceTest.durable());const seed=await page.evaluate(()=>window.workspaceTest.seedDatabase());await page.getByRole('button',{name:'基本DBを開く',exact:true}).click();const panel=page.getByRole('region',{name:'基本DB',exact:true});await panel.getByRole('combobox',{name:'端末のDB',exact:true}).selectOption(seed.sourceId);await expect(panel.locator('tbody tr')).toHaveCount(3);
+          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ^
+      129 |  await body.click();await page.keyboard.press('Home');await page.keyboard.press('Shift+ArrowRight');const selected=await body.evaluate(()=>getSelection()?.toString());await panel.getByRole('button',{name:'行の読み込みを先頭へ',exact:true}).click();expect(await body.evaluate(()=>getSelection()?.toString())).toBe(selected);await expect(body).toContainText('selection stays');
+      130 |  await body.dispatchEvent('compositionstart',{data:'か'});await expect(panel.getByRole('button',{name:'List表示',exact:true})).toBeDisabled();await expect(panel.getByRole('combobox',{name:'端末のDB',exact:true})).toBeDisabled();await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeDisabled();await body.dispatchEvent('compositionend',{data:'か'});await expect(panel.getByRole('button',{name:'List表示',exact:true})).toBeEnabled();await expect(body).toContainText('selection stays');
+      131 | });
+        at /workspace/tests/e2e/private-workspace.spec.ts:128:585
+
+    Error Context: .data/autonomous-20261012/v68/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-36a3e-thout-cancelling-the-editor-mobile-dark-reduced-motion/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261012/v68/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-36a3e-thout-cancelling-the-editor-mobile-dark-reduced-motion/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261012/v68/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-36a3e-thout-cancelling-the-editor-mobile-dark-reduced-motion/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6 failed
+    [desktop] › tests/e2e/private-workspace.spec.ts:113:1 › WORKSPACE-DB: six typed cells, saved filter/sort and keyboard Table/List switching keep one loaded record window and unknown Name
+    [desktop] › tests/e2e/private-workspace.spec.ts:121:1 › WORKSPACE-DB: local/HTTP failures keep rows and unknown receive retry remains enabled while navigation is blocked
+    [desktop] › tests/e2e/private-workspace.spec.ts:127:1 › WORKSPACE-DB: Page selection survives DB reads and composition blocks view/layout/navigation without cancelling the editor
+    [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:113:1 › WORKSPACE-DB: six typed cells, saved filter/sort and keyboard Table/List switching keep one loaded record window and unknown Name
+    [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:121:1 › WORKSPACE-DB: local/HTTP failures keep rows and unknown receive retry remains enabled while navigation is blocked
+    [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:127:1 › WORKSPACE-DB: Page selection survives DB reads and composition blocks view/layout/navigation without cancelling the editor
