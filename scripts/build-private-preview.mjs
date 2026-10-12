@@ -1,0 +1,21 @@
+import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import {spawnSync} from 'node:child_process';import {createHash} from 'node:crypto';import {loadEnv} from 'vite';
+import {privatePreviewProfile} from './private-preview-profile.ts';
+assert(fs.existsSync('/.dockerenv'),'Build private preview in Docker');
+const root=process.cwd(),environment={...loadEnv('production',root,'VITE_GREIVA_'),...Object.fromEntries(Object.entries(process.env).filter(([key])=>key.startsWith('VITE_GREIVA_')))};
+// Validate public configuration before creating output or invoking a compiler.
+const profile=privatePreviewProfile(environment),version=fs.readFileSync('VERSION','utf8').trim(),base=JSON.parse(fs.readFileSync('apps/client/src-tauri/tauri.conf.json'));
+assert.equal(base.version,version,'Owned version mismatch');assert.equal(JSON.parse(fs.readFileSync('apps/client/package.json')).version,version,'Owned version mismatch');
+const out=path.resolve(process.argv[2]??`.data/private-preview/${version}`),relative=path.relative(root,out);
+assert(relative.startsWith('.data'+path.sep)&&!relative.split(path.sep).includes('..'),'Output must stay in workspace .data');assert(!fs.existsSync(out),'Refusing existing private preview output');
+let ancestor=path.dirname(out);while(!fs.existsSync(ancestor))ancestor=path.dirname(ancestor);const realRoot=fs.realpathSync(root),realAncestor=fs.realpathSync(ancestor);assert(realAncestor===realRoot||realAncestor.startsWith(realRoot+path.sep),'Output parent resolves outside workspace');
+fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'tauri-override.json'),JSON.stringify(profile.override,null,2)+'\n');
+const env={...process.env,...profile.publicEnvironment,TAURI_CONFIG:JSON.stringify(profile.override)};
+const results=[];function run(step,command,args){const result=spawnSync(command,args,{cwd:root,env,encoding:'utf8',maxBuffer:32*1024*1024});fs.writeFileSync(path.join(out,step+'.log'),(result.stdout??'')+(result.stderr??''));results.push({step,status:result.status,signal:result.signal});fs.writeFileSync(path.join(out,'steps.json'),JSON.stringify(results,null,2));if(result.status!==0)throw Error('Private preview '+step+' failed; see private output log');}
+run('frontend','npm',['run','build']);
+const dist='apps/client/dist';assert(fs.existsSync(dist+'/workspace.html'),'Missing workspace frontend');assert(!fs.readdirSync(dist).some(name=>name.endsWith('.fixture.html')),'Fixture HTML in production assets');
+run('windows','/opt/cargo/bin/cargo',['xwin','build','--locked','--manifest-path','apps/client/src-tauri/Cargo.toml','--target','x86_64-pc-windows-msvc','--features','custom-protocol','--target-dir','.data/windows-target','--bin','greiva-poc','--example','private-profile-inspect']);
+for(const [from,to] of [['.data/windows-target/x86_64-pc-windows-msvc/debug/greiva-poc.exe','greiva-private-preview.exe'],['.data/windows-target/x86_64-pc-windows-msvc/debug/examples/private-profile-inspect.exe','private-profile-inspect.exe']])fs.copyFileSync(from,path.join(out,to));
+const sha=file=>createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+const artifacts=['greiva-private-preview.exe','private-profile-inspect.exe'].map(file=>({file,sha256:sha(path.join(out,file)),bytes:fs.statSync(path.join(out,file)).size}));
+const metadata={version,identifier:profile.override.identifier,productName:profile.override.productName,entry:'workspace.html',origins:profile.origins,target:'x86_64-pc-windows-msvc',profile:'debug',features:['custom-protocol'],testHooks:false,testSqlite:false,crashHooks:false,builtInDocker:true,hostLaunched:false,nativeImeTested:false,installer:false,signed:false,overrideSha256:sha(path.join(out,'tauri-override.json')),workspaceHtmlSha256:sha(dist+'/workspace.html'),artifacts};
+fs.writeFileSync(path.join(out,'artifact.json'),JSON.stringify(metadata,null,2)+'\n');process.stdout.write(JSON.stringify({version,identifier:metadata.identifier,entry:metadata.entry,artifacts})+'\n');

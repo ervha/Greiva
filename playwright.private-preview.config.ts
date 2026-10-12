@@ -1,0 +1,3 @@
+import {defineConfig,devices} from '@playwright/test';
+const evidence=process.env.GREIVA_EVIDENCE_DIR??'tests/evidence/runs/private-preview';
+export default defineConfig({testDir:'./tests/e2e',testMatch:'private-preview-csp.spec.ts',fullyParallel:false,workers:1,retries:0,reporter:[['list'],['json',{outputFile:evidence+'/playwright.json'}]],outputDir:evidence+'/artifacts',use:{baseURL:'http://127.0.0.1:1441',trace:'retain-on-failure'},projects:[{name:'desktop',use:{...devices['Desktop Chrome'],viewport:{width:1280,height:900}}},{name:'mobile',use:{...devices['Desktop Chrome'],viewport:{width:360,height:780},colorScheme:'dark'}}],webServer:{command:'node tests/support/private-preview-server.mjs',url:'http://127.0.0.1:1441/workspace.html',reuseExistingServer:false}});

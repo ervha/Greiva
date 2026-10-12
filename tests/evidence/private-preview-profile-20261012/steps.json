@@ -1,0 +1,12 @@
+[
+  {
+    "step": "frontend",
+    "status": 0,
+    "signal": null
+  },
+  {
+    "step": "windows",
+    "status": 0,
+    "signal": null
+  }
+]

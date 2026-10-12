@@ -1,0 +1,48 @@
+{
+  "version": "0.74.0",
+  "totals": {
+    "csp-initial": {
+      "startTime": "2026-10-12T10:32:39.801Z",
+      "duration": 1868.511,
+      "expected": 2,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "csp-final": {
+      "startTime": "2026-10-12T10:37:23.217Z",
+      "duration": 1915.6970000000001,
+      "expected": 2,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "normal": {
+      "total": 474,
+      "passed": 474,
+      "failed": 0,
+      "pending": 0
+    },
+    "focused": {
+      "total": 3,
+      "passed": 3,
+      "failed": 0,
+      "pending": 0
+    }
+  },
+  "source": {
+    "count": 376,
+    "rawMatches": 366,
+    "textOnly": 10,
+    "excluded": [
+      "playwright.performance.config.ts",
+      "playwright.render-diagnostic.config.ts",
+      "tests/diagnostics/render-isolation.spec.ts",
+      "tests/native/windows-store-fixture.json",
+      "tests/performance/workloads.spec.ts"
+    ]
+  },
+  "realAuth": false,
+  "windowsLaunch": false,
+  "nativeIme": false
+}

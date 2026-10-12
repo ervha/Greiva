@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.74.0 — 2026-10-12
+
+- 個人workspace専用Windows検証候補のDocker builderを追加。公開設定を検査し、専用アプリ識別子・workspace画面・限定した通信先で起動する構成を作る。test hooks/SQLite bridgeを0に固定し、既存PoCの起動と保存処理を保持する。
+- workspace内の新規出力だけを許可し、設定不足/既存出力/外path/親symlinkによる脱出を拒否する。exe/metadata/hashとGUI・DBを開かないcompiled config検査CLIを生成する。
+- 全unit474、実ブラウザーCSP2、出力拒否4、型/build・Windows CLIの設定/PE/SHA照合を確認。元CLI型Fail/icon warningを保持。fixture構成の検証であり、GUI/実Auth/native IME・installer公開とはしない。回収した公開設定と専用APIの確認へ続行する。
+
 ## 0.73.0 — 2026-10-12
 
 - 基本DBの作成・確認済み表示、行の型付き編集、View設定と候補解決の3記事・基本DBカテゴリ・操作付近の入口を追加（計12記事）。未取得Name/読み込み範囲、独立した保存・確認状態、元保存の再確認と原拒否を案内する。

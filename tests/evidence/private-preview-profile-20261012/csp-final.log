@@ -1,0 +1,7 @@
+
+Running 2 tests using 1 worker
+
+  ✓  1 [desktop] › tests/e2e/private-preview-csp.spec.ts:2:1 › PRIVATE-PREVIEW-CSP: actual built workspace loads with policy; allowed API is reached and unconfigured origin is blocked before HTTP (390ms)
+  ✓  2 [mobile] › tests/e2e/private-preview-csp.spec.ts:2:1 › PRIVATE-PREVIEW-CSP: actual built workspace loads with policy; allowed API is reached and unconfigured origin is blocked before HTTP (348ms)
+
+  2 passed (1.9s)

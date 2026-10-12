@@ -1,0 +1,37 @@
+{
+  "version": "0.74.0",
+  "identifier": "dev.greiva.private.preview",
+  "productName": "Greiva Private Preview",
+  "entry": "workspace.html",
+  "origins": [
+    "https://project.fixture.invalid",
+    "http://127.0.0.1:1439"
+  ],
+  "target": "x86_64-pc-windows-msvc",
+  "profile": "debug",
+  "features": [
+    "custom-protocol"
+  ],
+  "testHooks": false,
+  "testSqlite": false,
+  "crashHooks": false,
+  "builtInDocker": true,
+  "hostLaunched": false,
+  "nativeImeTested": false,
+  "installer": false,
+  "signed": false,
+  "overrideSha256": "370aa818d55bf5f89c34e0c1e11694dd1c953de3bc08e7b56ce56b4f653bbb55",
+  "workspaceHtmlSha256": "68a7f945592c34b5fe0d7b48c90e33710e0fa2ec2bd4baed83fab262f484ad16",
+  "artifacts": [
+    {
+      "file": "greiva-private-preview.exe",
+      "sha256": "adec9dd79f825c405a9cbd91dcfc1e055e9dd3b50b6ee1851e4f0fca91338032",
+      "bytes": 21069312
+    },
+    {
+      "file": "private-profile-inspect.exe",
+      "sha256": "157fa4509afb38c0f0df68abf934bcb18921f6ae0b1168272fff0f81e2efaea2",
+      "bytes": 3125248
+    }
+  ]
+}

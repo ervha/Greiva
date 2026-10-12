@@ -1,0 +1,13 @@
+file:///workspace/scripts/build-private-preview.mjs:12
+const results=[];function run(step,command,args){const result=spawnSync(command,args,{cwd:root,env,encoding:'utf8',maxBuffer:32*1024*1024});fs.writeFileSync(path.join(out,step+'.log'),(result.stdout??'')+(result.stderr??''));results.push({step,status:result.status,signal:result.signal});fs.writeFileSync(path.join(out,'steps.json'),JSON.stringify(results,null,2));if(result.status!==0)throw Error('Private preview '+step+' failed; see private output log');}
+                                                                                                                                                                                                                                                                                                                                                                                                        ^
+
+Error: Private preview windows failed; see private output log
+    at run (file:///workspace/scripts/build-private-preview.mjs:12:393)
+    at file:///workspace/scripts/build-private-preview.mjs:15:1
+    at ModuleJob.run (node:internal/modules/esm/module_job:439:25)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async node:internal/modules/esm/loader:643:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.19.0

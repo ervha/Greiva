@@ -1,0 +1,13 @@
+{
+  "guiLaunched": false,
+  "identifier": "dev.greiva.private.preview",
+  "hostConfigCliRun": true,
+  "productVersion": "0.74.0",
+  "compiledConfigMatches": true,
+  "fileVersion": "0.74.0",
+  "version": "0.74.0",
+  "nativeImeTested": false,
+  "entry": "workspace.html",
+  "configuredWithFixture": true,
+  "sha256": "adec9dd79f825c405a9cbd91dcfc1e055e9dd3b50b6ee1851e4f0fca91338032"
+}

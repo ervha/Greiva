@@ -1,0 +1,22 @@
+{
+  "checks": [
+    {
+      "id": "existing",
+      "rejected": true
+    },
+    {
+      "id": "outside",
+      "rejected": true
+    },
+    {
+      "id": "symlink",
+      "rejected": true
+    },
+    {
+      "id": "missing",
+      "rejected": true
+    }
+  ],
+  "existingArtifactUnchanged": true,
+  "symlinkTargetUnchanged": true
+}

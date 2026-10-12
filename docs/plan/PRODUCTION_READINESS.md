@@ -1,5 +1,7 @@
 # 初期提供範囲・PoCとの差・残る判断
 
+最新v0.74.0：[個人workspace Windows候補profile](../development/PRIVATE_PREVIEW_PROFILE.md)を追加。専用identifier/起動画面/限定CSP、公開設定と出力path検査、test hooks0、metadata/hashとcompiled config CLIを接続する。全unit474/CSP実browser2/出力拒否4と型/build、Windows CLIの設定・PE/SHAを照合。[証拠](../../tests/evidence/private-preview-profile-20261012/SUMMARY.md)。元CLI型Failとicon warningを保持。GUI/実Auth/native Gateは別条件。回収した公開設定と専用APIの確認・実接続用候補へ続行する。
+
 最新v0.73.0：[基本DBの同梱ヘルプ](../development/BASIC_DATABASE_HELP.md)へ作成/表示・行編集・View設定の3記事/カテゴリ/入口を追加（計12記事）。未取得/読み込み範囲、元保存の再確認・原拒否を案内し、unknown View入力/選択を保全する。全unit471/ヘルプ16/全workspace98と型/buildを確認。[証拠](../../tests/evidence/basic-database-help-20261012/SUMMARY.md)。元selector2 Failを保持。PG/保存層は変更せず直前v0.72.0の証拠を保持し、P4の候補起動・隔離成果物の準備へ続行する。
 
 最新v0.72.0：[基本DBのView作成・設定・競合解決画面](../development/PRIVATE_DATABASE_VIEW_SCREEN.md)を接続。型付き条件/列順/Table-List、未変更の複合filter/multisort保持、partial patch・unknown元intent/wire/pair、候補1件の三値/new-op/原拒否と確認済みView openを扱う。通常775/全PG223/全workspace94と型/buildを確認。[証拠](../../tests/evidence/private-database-view-screen-20261012/SUMMARY.md)。元型/二重mount10 Failを保持。native16/server11・旧root保持、基本DBヘルプとP4提供/復旧準備へ続行する。
