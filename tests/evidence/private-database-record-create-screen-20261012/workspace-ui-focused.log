@@ -1,0 +1,13 @@
+
+Running 8 tests using 1 worker
+
+  ✓  1 [desktop] › tests/e2e/private-workspace.spec.ts:145:1 › WORKSPACE-DB-RECORD-CREATE: typed empty/null/zero/false/date save separately from confirmed rows and preserve Page body (2.5s)
+  ✓  2 [desktop] › tests/e2e/private-workspace.spec.ts:146:1 › WORKSPACE-DB-RECORD-CREATE: unknown save keeps input and original identity; lost HTTP and ACK use immutable exact retries (2.2s)
+  ✓  3 [desktop] › tests/e2e/private-workspace.spec.ts:147:1 › WORKSPACE-DB-RECORD-CREATE: composition stays editable; Page wait and known ACK/list failure retain honest status (2.2s)
+  ✓  4 [desktop] › tests/e2e/private-workspace.spec.ts:148:1 › WORKSPACE-DB-RECORD-CREATE: hidden existing binding beyond 20 headers is known no-write with editable draft (1.8s)
+  ✓  5 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:145:1 › WORKSPACE-DB-RECORD-CREATE: typed empty/null/zero/false/date save separately from confirmed rows and preserve Page body (2.0s)
+  ✓  6 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:146:1 › WORKSPACE-DB-RECORD-CREATE: unknown save keeps input and original identity; lost HTTP and ACK use immutable exact retries (2.0s)
+  ✓  7 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:147:1 › WORKSPACE-DB-RECORD-CREATE: composition stays editable; Page wait and known ACK/list failure retain honest status (1.9s)
+  ✓  8 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:148:1 › WORKSPACE-DB-RECORD-CREATE: hidden existing binding beyond 20 headers is known no-write with editable draft (1.7s)
+
+  8 passed (19.7s)

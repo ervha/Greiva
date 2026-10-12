@@ -55,6 +55,7 @@ impl WorkspaceRegistry {
             "database_view_prepare"=>{exact(&request,&["command"])?;store.database_view_prepare().await},
             "database_view_ack"=>{exact(&request,&["command","sequence","wire","response"])?;store.database_view_ack(text(&request,"sequence")?,text(&request,"wire")?,request["response"].clone()).await?;Ok(Value::Null)},
             "database_view_queue"=>{exact(&request,&["command","after","limit","pendingOnly"])?;let after=if request["after"].is_null(){None}else{Some(text(&request,"after")?)};let limit=request["limit"].as_u64().filter(|n|*n<=100).ok_or(REJECTED)? as usize;store.database_view_queue(after,limit,request["pendingOnly"].as_bool().ok_or(REJECTED)?).await},
+            "database_record_page_binding"=>{exact(&request,&["command","sourceId","pageId"])?;store.database_record_page_binding(text(&request,"sourceId")?,text(&request,"pageId")?).await},
             "database_record_create_enqueue"=>{exact(&request,&["command","intent"])?;store.database_record_create_enqueue(request["intent"].clone()).await?;Ok(Value::Null)},
             "database_record_create_prepare"=>{exact(&request,&["command"])?;store.database_record_create_prepare().await},
             "database_record_create_ack"=>{exact(&request,&["command","sequence","wire","response"])?;store.database_record_create_ack(text(&request,"sequence")?,text(&request,"wire")?,request["response"].clone()).await?;Ok(Value::Null)},

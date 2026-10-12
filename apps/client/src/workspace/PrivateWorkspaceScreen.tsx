@@ -1,3 +1,4 @@
+import {PrivateDatabaseRecordCreatePanel} from './PrivateDatabaseRecordCreatePanel';
 import {PrivateDatabaseCreatePanel} from './PrivateDatabaseCreatePanel';
 import {PrivateDatabasePanel} from './PrivateDatabasePanel';
 import { useCallback,useEffect,useMemo, useState } from 'react';
@@ -15,6 +16,7 @@ export function PrivateWorkspaceScreen({login,workspace,nativeAvailable}:{login:
   const help=useWorkspaceHelp(composing||Boolean(workspace.editor?.isComposing));
   useEffect(()=>login.subscribe(setAuth),[login]);useEffect(()=>workspace.subscribe(setState),[workspace]);
   const structuredDraft=useCallback((blocked:boolean)=>workspace.setStructuredDraft(blocked),[workspace]);
+  const databaseRecordDraft=useCallback((blocked:boolean)=>workspace.setDatabaseRecordDraft(blocked),[workspace]);
   const databaseDraft=useCallback((blocked:boolean)=>workspace.setDatabaseDraft(blocked),[workspace]);
   const titleDraft=useCallback((blocked:boolean)=>workspace.setTitleDraft(blocked),[workspace]);
   const databasePages=useMemo(()=>[...new Map([...state.cachedPages.map(row=>row.metadata),...state.remotePages,...state.localPages.map(row=>row.metadata)].map(row=>[row.id,row])).values()],[state.cachedPages,state.remotePages,state.localPages]);
@@ -77,6 +79,7 @@ export function PrivateWorkspaceScreen({login,workspace,nativeAvailable}:{login:
     {state.phase==='ready'&&workspace.structured&&<PrivateStructuredPanel session={workspace.structured} pages={[...new Map([...state.cachedPages.map(row=>row.metadata),...state.remotePages,...state.localPages.map(row=>row.metadata)].map(row=>[row.id,row])).values()]} onDraftChange={structuredDraft}/>}
     {state.phase==='ready'&&(workspace.database?<PrivateDatabasePanel browser={workspace.database} pages={databasePages} onOpenPage={id=>{void workspace.openPage(id);}} blocked={busy||workspace.databaseInteractionBlocked||composing}/>:<section aria-label="基本DBを開く"><h2>基本DB</h2><button type="button" disabled={blocked||composing} onClick={()=>{void workspace.openDatabase();}}>基本DBを開く</button>{state.databaseError&&<p role="alert">DBの端末情報を確認できませんでした。Pageの保存先を変更せず、もう一度お試しください。</p>}</section>)}
     {state.phase==='ready'&&(workspace.databaseCreation?<PrivateDatabaseCreatePanel session={workspace.databaseCreation} onDraftChange={databaseDraft} onOpenCreated={id=>{void workspace.openCreatedDatabase(id);}} blocked={busy||workspace.databaseCreationInteractionBlocked} compositionActive={composing}/>:<section aria-label="DB作成を開く"><button type="button" disabled={blocked||composing} onClick={()=>{void workspace.openDatabaseCreation();}}>新しいDBの作成を開く</button>{state.databaseCreationError&&<p role="alert">DB作成の端末情報を確認できませんでした。保存先を変更せず、もう一度お試しください。</p>}</section>)}
+    {state.phase==='ready'&&workspace.database?.snapshot.selected&&(workspace.databaseRecords?<PrivateDatabaseRecordCreatePanel key={workspace.database.snapshot.selected.source.id} session={workspace.databaseRecords} source={workspace.database.snapshot.selected.source} pages={state.localPages.map(row=>row.metadata)} existingPageIds={workspace.database.snapshot.records.map(row=>row.record!.pageId)} onDraftChange={databaseRecordDraft} onReadRows={()=>{void workspace.database?.reloadRecords().catch(()=>{});}} blocked={busy||workspace.databaseRecordInteractionBlocked} compositionActive={composing}/>:<section aria-label="DB行作成を開く"><button type="button" disabled={blocked||composing} onClick={()=>{void workspace.openDatabaseRecords();}}>選択したDBの行作成を開く</button>{state.databaseRecordError&&<p role="alert">行作成の端末情報を確認できませんでした。Pageと保存先は保持しています。</p>}</section>)}
     {state.phase==='ready'&&<div className="connection-tools" aria-label="操作の説明"><button type="button" {...help.entry('save-sync')}>保存・同期の見方を読む</button><button type="button" {...help.entry('title')}>タイトル編集の説明を読む</button><button type="button" {...help.entry('tasks')}>TaskとRelationの説明を読む</button><button type="button" {...help.entry('local-save')}>端末保存に失敗したときの説明を読む</button><button type="button" {...help.entry('conflict')}>競合候補の説明を読む</button></div>}
     <p className="editor-hint">ログアウトしても、この端末に保存済みのPage・Task・Relation・DBと未送信更新は保持します。ログイン前の閲覧は提供していません。</p>
     {help.panel}

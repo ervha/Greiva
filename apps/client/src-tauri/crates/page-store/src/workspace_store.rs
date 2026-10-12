@@ -148,6 +148,7 @@ impl WorkspaceStore {
     pub async fn database_view_prepare(&self)->StoreResult<Value> {safe(self.inner.database_view_prepare(&self.context).await)}
     pub async fn database_view_ack(&self,sequence:&str,wire:&str,response:Value)->StoreResult<()> {safe(self.inner.database_view_ack(&self.context,sequence,wire,response).await)}
     pub async fn database_view_queue(&self,after:Option<&str>,limit:usize,pending_only:bool)->StoreResult<Value> {safe(self.inner.database_view_queue(&self.context,after,limit,pending_only).await)}
+    pub async fn database_record_page_binding(&self,source:&str,page:&str)->StoreResult<Value>{safe(self.inner.database_record_page_binding(&self.context,source,page).await)}
     pub async fn database_record_create_enqueue(&self,intent:Value)->StoreResult<()> {safe(self.inner.database_record_create_enqueue(&self.context,intent).await)}
     pub async fn database_record_create_prepare(&self)->StoreResult<Value> {safe(self.inner.database_record_create_prepare(&self.context).await)}
     pub async fn database_record_create_ack(&self,sequence:&str,wire:&str,response:Value)->StoreResult<()> {safe(self.inner.database_record_create_ack(&self.context,sequence,wire,response).await)}

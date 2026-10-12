@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.70.0 — 2026-10-12
+
+- 確認済みDBへ既存Pageを関連付ける行作成画面を追加。NameはPageタイトルを参照し、5型の未設定/null/値、0/false/空文字を区別する。独立した端末保存と明示送信、unknown入力/元intent/ACK pair再確認、Page待ちとknown ACK/旧一覧を扱う。
+- 表示20行・queue5件の外にあるbindingも索引読取で原proofを検証し、重複を保存前に検出する。元操作再確認・known busy・read failureを区別し、Page本文とnavigation/IMEを保護する。native16/server11保持。
+- 新unit5/actual1/画面8（Enter保存含む）、通常766/実PG221/全workspace72と型/buildを確認。元fixture v4 UUIDのFailを保持する。行更新/Conflict解決・View設定と実native Gateは後続。
+
 ## 0.69.0 — 2026-10-12
 
 - 6型のDB定義を明示作成する画面を追加。DB名/Selectの選択肢をvalidationし、端末保存と送信・確認を分離する。Unicode120 codepointを扱い、unknown入力はcopy可能なまま元intent/pairで再確認する。

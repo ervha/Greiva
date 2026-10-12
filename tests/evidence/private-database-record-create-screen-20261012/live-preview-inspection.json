@@ -1,0 +1,1 @@
+{"version":"0.70.0","mockFixture":true,"beforeSend":{"pending":1,"queued":1,"httpWrites":0,"confirmedRows":3,"numberValue":0},"afterSend":{"pending":0,"queued":1,"httpWrites":1,"lastSend":"ack","outcome":"applied","horizontalOverflow":false},"realAuth":false,"nativeInvoke":false,"nativeImeTested":false}
