@@ -1,0 +1,12 @@
+{
+  "pendingAfterConfirmation": 0,
+  "actualSupabase": false,
+  "liveServerRestartedForStaleFixtureTransform": true,
+  "servedInDocker": true,
+  "confirmedNameObserved": true,
+  "surface": "T3 collaborative browser",
+  "version": "0.69.0",
+  "sixTypesObserved": true,
+  "actualNativeInvoke": false,
+  "mode": "UI fixture"
+}

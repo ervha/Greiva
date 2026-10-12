@@ -1,5 +1,7 @@
 # 初期提供範囲・PoCとの差・残る判断
 
+最新v0.69.0：[基本DB作成画面](../development/PRIVATE_DATABASE_CREATE_SCREEN.md)を接続。6型定義・Unicode名/選択肢の明示端末保存、copy可能なunknown draftと元intent再確認、FIFO送信/同wire/ACK pair再保存、known ACKと一覧失敗の分離、確認済みSourceを開く操作を追加。通常761/全PG220/全workspace64とbuildを確認。[証拠](../../tests/evidence/private-database-create-screen-20261012/SUMMARY.md)。native16/server11・旧rootを保持し、型付き行とView設定の編集へ続行する。
+
 最新v0.68.0：個人workspaceへ[基本DBのTable/List読取画面](../development/PRIVATE_DATABASE_BROWSER.md)を接続。確認済みcacheのbounded表示、明示catalog/定義/変更取得、保存済みfilter/sort、Name未取得/未判定と失敗・unknown再確認を扱う。通常758/全PG219/全workspace画面58とbuildを確認。[証拠](../../tests/evidence/private-database-browser-20261012/SUMMARY.md)。2026-10-12の再開指示で過去v0.67.0の停止を解除。DB作成・行編集・View設定保存へ続行する。native16/server11・旧rootを保持し、実Auth/native Gateは別条件。
 
 2026-10-09 / v0.67.0：個人workspaceの日常編集画面・ヘルプ、基本DB6型のserver/native保存・差分・queue・HTTP/runtimeと読み込み済み検索まで進んだ。Table/List操作画面は未接続。実Auth/最新native/配備暗号化/提供Gateの残条件は継続する。[現在の進捗と再開順](CHECKPOINT_20261009.md)。以下の各版・初期比較表は当時の記録として保持する。

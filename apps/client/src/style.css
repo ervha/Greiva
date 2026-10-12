@@ -122,3 +122,9 @@ kbd { font: inherit; font-size: 11px; padding: 1px 4px; background: var(--surfac
 .database-cards dt { color: var(--muted); font-size: 12px; }
 .database-cards dd { margin: 4px 0 0; overflow-wrap: anywhere; white-space: pre-wrap; }
 @media (max-width: 600px) { .database-panel { padding: 12px; } }
+
+.database-create-panel { margin-top: 20px; padding: 20px; border: 1px solid var(--border); border-radius: 18px; background: var(--surface); }
+.database-create-panel form { display: grid; gap: 12px; max-width: 560px; margin-block: 16px; }
+.database-create-panel textarea { min-width: 0; max-width: 100%; padding: 10px; color: var(--text); background: var(--surface); border: 1px solid var(--border-control); border-radius: 8px; font: inherit; resize: vertical; }
+.database-create-panel p, .database-create-panel li { overflow-wrap: anywhere; }
+@media (max-width: 600px) { .database-create-panel { padding: 12px; } }

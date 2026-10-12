@@ -1,0 +1,218 @@
+
+Running 6 tests using 1 worker
+
+  ✘  1 [desktop] › tests/e2e/private-workspace.spec.ts:133:1 › WORKSPACE-DB-CREATE: six definitions, 120 codepoint name and custom options save offline then open a confirmed empty DB (6.5s)
+  ✘  2 [desktop] › tests/e2e/private-workspace.spec.ts:136:1 › WORKSPACE-DB-CREATE: unknown local save holds copyable draft and original intent; unknown HTTP resends exact wire without another DB (6.5s)
+  ✘  3 [desktop] › tests/e2e/private-workspace.spec.ts:139:1 › WORKSPACE-DB-CREATE: composition keeps editable input; ACK unknown networkless retry and known ACK/list failure remain distinct (1.4s)
+  ✘  4 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:133:1 › WORKSPACE-DB-CREATE: six definitions, 120 codepoint name and custom options save offline then open a confirmed empty DB (6.3s)
+  ✘  5 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:136:1 › WORKSPACE-DB-CREATE: unknown local save holds copyable draft and original intent; unknown HTTP resends exact wire without another DB (6.5s)
+  ✘  6 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:139:1 › WORKSPACE-DB-CREATE: composition keeps editable input; ACK unknown networkless retry and known ACK/list failure remain distinct (1.4s)
+
+
+  1) [desktop] › tests/e2e/private-workspace.spec.ts:133:1 › WORKSPACE-DB-CREATE: six definitions, 120 codepoint name and custom options save offline then open a confirmed empty DB
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('region', { name: 'DB作成', exact: true }).getByRole('button', { name: '確認済みのDBを開く', exact: true })
+    Expected: enabled
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" getByRole('region', { name: 'DB作成', exact: true }).getByRole('button', { name: '確認済みのDBを開く', exact: true }) with timeout 5000ms
+      - waiting for getByRole('region', { name: 'DB作成', exact: true }).getByRole('button', { name: '確認済みのDBを開く', exact: true })
+
+
+      132 |
+      133 | test('WORKSPACE-DB-CREATE: six definitions, 120 codepoint name and custom options save offline then open a confirmed empty DB',async({page},info)=>{
+    > 134 |  await page.goto('/private-workspace.fixture.html');await login(page);await page.getByRole('button',{name:'新しいDBの作成を開く',exact:true}).click();const panel=page.getByRole('region',{name:'DB作成',exact:true}),name=panel.getByRole('textbox',{name:'DB名',exact:true}),label='😀'.repeat(120);await name.fill(label);await panel.getByRole('textbox',{name:'Selectの選択肢（1行に1つ）',exact:true}).fill('A\nB');await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeDisabled();await panel.getByRole('button',{name:'DBを端末に保存',exact:true}).click();await expect(name).toHaveValue('');const saved=await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot());expect(saved.wires).toEqual([]);expect(saved.queue).toHaveLength(1);expect(saved.queue[0]!.response).toBeNull();const source=saved.queue[0]!.intent.source;expect(source.name).toBe(label);expect(source.properties.map(property=>property.type)).toEqual(['name','text','number','checkbox','select','date']);expect(source.properties.find(property=>property.type==='select')!.options.map(option=>option.name)).toEqual(['A','B']);await expect(panel.getByText(/未確認のDB作成 1件/)).toBeVisible();await panel.getByRole('button',{name:'DB作成を送信・確認',exact:true}).click();await expect(panel.getByRole('button',{name:'確認済みのDBを開く',exact:true})).toBeEnabled();await panel.getByRole('button',{name:'確認済みのDBを開く',exact:true}).click();await expect(page.getByRole('region',{name:'基本DB',exact:true}).getByRole('combobox',{name:'端末のDB',exact:true})).toHaveValue(source.id);expect((await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot())).browser?.records).toEqual([]);await info.attach('workspace-db-create-'+info.project.name,{body:await panel.screenshot(),contentType:'image/png'});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ^
+      135 | });
+      136 | test('WORKSPACE-DB-CREATE: unknown local save holds copyable draft and original intent; unknown HTTP resends exact wire without another DB',async({page})=>{
+      137 |  await page.goto('/private-workspace.fixture.html');await login(page);await page.getByRole('button',{name:'新しいDBの作成を開く',exact:true}).click();const panel=page.getByRole('region',{name:'DB作成',exact:true}),name=panel.getByRole('textbox',{name:'DB名',exact:true});await name.fill('再送DB');await page.evaluate(()=>window.workspaceTest.loseDatabaseCreationEnqueue());await panel.getByRole('button',{name:'DBを端末に保存',exact:true}).click();await expect(panel.getByRole('button',{name:'同じDBの保存を再確認',exact:true})).toBeEnabled();await expect(name).toHaveValue('再送DB');await expect(name).toHaveJSProperty('readOnly',true);await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeDisabled();const before=await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot());await panel.getByRole('button',{name:'同じDBの保存を再確認',exact:true}).click();await expect(name).toHaveValue('');const after=await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot());expect(after.queue).toHaveLength(1);expect(after.queue[0]!.intent).toEqual(before.queue[0]!.intent);await page.evaluate(()=>window.workspaceTest.loseDatabaseCreationHttp());await panel.getByRole('button',{name:'DB作成を送信・確認',exact:true}).click();await expect(panel.getByText('サーバーへ接続できませんでした。作成操作は端末に残っています。',{exact:true})).toBeVisible();await panel.getByRole('button',{name:'DB作成を送信・確認',exact:true}).click();await expect(panel.getByRole('button',{name:'確認済みのDBを開く',exact:true})).toBeEnabled();const final=await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot());expect(final.wires).toHaveLength(2);expect(final.wires[0]).toBe(final.wires[1]);expect(final.queue).toHaveLength(1);expect(final.state?.data?.pending).toBe(0);
+        at /workspace/tests/e2e/private-workspace.spec.ts:134:1283
+
+    Error Context: .data/autonomous-20261012/v69/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-fb273-n-open-a-confirmed-empty-DB-desktop/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261012/v69/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-fb273-n-open-a-confirmed-empty-DB-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261012/v69/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-fb273-n-open-a-confirmed-empty-DB-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [desktop] › tests/e2e/private-workspace.spec.ts:136:1 › WORKSPACE-DB-CREATE: unknown local save holds copyable draft and original intent; unknown HTTP resends exact wire without another DB
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('region', { name: 'DB作成', exact: true }).getByRole('button', { name: '確認済みのDBを開く', exact: true })
+    Expected: enabled
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" getByRole('region', { name: 'DB作成', exact: true }).getByRole('button', { name: '確認済みのDBを開く', exact: true }) with timeout 5000ms
+      - waiting for getByRole('region', { name: 'DB作成', exact: true }).getByRole('button', { name: '確認済みのDBを開く', exact: true })
+
+
+      135 | });
+      136 | test('WORKSPACE-DB-CREATE: unknown local save holds copyable draft and original intent; unknown HTTP resends exact wire without another DB',async({page})=>{
+    > 137 |  await page.goto('/private-workspace.fixture.html');await login(page);await page.getByRole('button',{name:'新しいDBの作成を開く',exact:true}).click();const panel=page.getByRole('region',{name:'DB作成',exact:true}),name=panel.getByRole('textbox',{name:'DB名',exact:true});await name.fill('再送DB');await page.evaluate(()=>window.workspaceTest.loseDatabaseCreationEnqueue());await panel.getByRole('button',{name:'DBを端末に保存',exact:true}).click();await expect(panel.getByRole('button',{name:'同じDBの保存を再確認',exact:true})).toBeEnabled();await expect(name).toHaveValue('再送DB');await expect(name).toHaveJSProperty('readOnly',true);await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeDisabled();const before=await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot());await panel.getByRole('button',{name:'同じDBの保存を再確認',exact:true}).click();await expect(name).toHaveValue('');const after=await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot());expect(after.queue).toHaveLength(1);expect(after.queue[0]!.intent).toEqual(before.queue[0]!.intent);await page.evaluate(()=>window.workspaceTest.loseDatabaseCreationHttp());await panel.getByRole('button',{name:'DB作成を送信・確認',exact:true}).click();await expect(panel.getByText('サーバーへ接続できませんでした。作成操作は端末に残っています。',{exact:true})).toBeVisible();await panel.getByRole('button',{name:'DB作成を送信・確認',exact:true}).click();await expect(panel.getByRole('button',{name:'確認済みのDBを開く',exact:true})).toBeEnabled();const final=await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot());expect(final.wires).toHaveLength(2);expect(final.wires[0]).toBe(final.wires[1]);expect(final.queue).toHaveLength(1);expect(final.state?.data?.pending).toBe(0);
+          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ^
+      138 | });
+      139 | test('WORKSPACE-DB-CREATE: composition keeps editable input; ACK unknown networkless retry and known ACK/list failure remain distinct',async({page})=>{
+      140 |  await page.goto('/private-workspace.fixture.html');await login(page);await page.getByRole('button',{name:'新しいDBの作成を開く',exact:true}).click();const panel=page.getByRole('region',{name:'DB作成',exact:true}),name=panel.getByRole('textbox',{name:'DB名',exact:true});await name.fill('確認DB');await name.dispatchEvent('compositionstart',{data:'か'});await expect(name).toBeEditable();await expect(panel.getByRole('button',{name:'DBを端末に保存',exact:true})).toBeDisabled();await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeDisabled();await name.dispatchEvent('compositionend',{data:'か'});await panel.getByRole('button',{name:'DBを端末に保存',exact:true}).click();await expect(name).toHaveValue('');await page.evaluate(()=>window.workspaceTest.loseDatabaseCreationAck());await panel.getByRole('button',{name:'DB作成を送信・確認',exact:true}).click();const retry=panel.getByRole('button',{name:'作成応答の保存を再確認',exact:true});await expect(retry).toBeEnabled();await panel.getByRole('button',{name:'DB作成一覧を先頭へ',exact:true}).click();expect((await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot())).state).toMatchObject({retryAck:true,data:{pending:0}});await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeDisabled();const before=await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot());await retry.click();await expect(retry).toHaveCount(0);const after=await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot());expect(after.wires).toEqual(before.wires);expect(after.acks[0]).toEqual(after.acks[1]);await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeEnabled();
+        at /workspace/tests/e2e/private-workspace.spec.ts:137:1443
+
+    Error Context: .data/autonomous-20261012/v69/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-a2eb3-act-wire-without-another-DB-desktop/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261012/v69/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-a2eb3-act-wire-without-another-DB-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261012/v69/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-a2eb3-act-wire-without-another-DB-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  3) [desktop] › tests/e2e/private-workspace.spec.ts:139:1 › WORKSPACE-DB-CREATE: composition keeps editable input; ACK unknown networkless retry and known ACK/list failure remain distinct
+
+    Error: expect(received).toMatchObject(expected)
+
+    - Expected  - 1
+    + Received  + 1
+
+      Object {
+        "data": Object {
+    -     "pending": 0,
+    +     "pending": 1,
+        },
+        "retryAck": true,
+      }
+
+      138 | });
+      139 | test('WORKSPACE-DB-CREATE: composition keeps editable input; ACK unknown networkless retry and known ACK/list failure remain distinct',async({page})=>{
+    > 140 |  await page.goto('/private-workspace.fixture.html');await login(page);await page.getByRole('button',{name:'新しいDBの作成を開く',exact:true}).click();const panel=page.getByRole('region',{name:'DB作成',exact:true}),name=panel.getByRole('textbox',{name:'DB名',exact:true});await name.fill('確認DB');await name.dispatchEvent('compositionstart',{data:'か'});await expect(name).toBeEditable();await expect(panel.getByRole('button',{name:'DBを端末に保存',exact:true})).toBeDisabled();await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeDisabled();await name.dispatchEvent('compositionend',{data:'か'});await panel.getByRole('button',{name:'DBを端末に保存',exact:true}).click();await expect(name).toHaveValue('');await page.evaluate(()=>window.workspaceTest.loseDatabaseCreationAck());await panel.getByRole('button',{name:'DB作成を送信・確認',exact:true}).click();const retry=panel.getByRole('button',{name:'作成応答の保存を再確認',exact:true});await expect(retry).toBeEnabled();await panel.getByRole('button',{name:'DB作成一覧を先頭へ',exact:true}).click();expect((await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot())).state).toMatchObject({retryAck:true,data:{pending:0}});await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeDisabled();const before=await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot());await retry.click();await expect(retry).toHaveCount(0);const after=await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot());expect(after.wires).toEqual(before.wires);expect(after.acks[0]).toEqual(after.acks[1]);await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeEnabled();
+          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ^
+      141 |  await name.fill('一覧失敗DB');await panel.getByRole('button',{name:'DBを端末に保存',exact:true}).click();await expect(name).toHaveValue('');await page.evaluate(()=>window.workspaceTest.failDatabaseCreationQueueAfterAck());await panel.getByRole('button',{name:'DB作成を送信・確認',exact:true}).click();await expect(panel.getByText(/作成を確認済み・一覧の再読取待ち/)).toBeVisible();await expect(panel.getByRole('button',{name:'作成応答の保存を再確認',exact:true})).toHaveCount(0);expect((await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot())).state).toMatchObject({retryAck:false,catalogFresh:false,lastSend:{snapshot:{source:{name:'一覧失敗DB'}}}});await page.evaluate(()=>window.workspaceTest.restoreDatabaseCreationQueue());await panel.getByRole('button',{name:'DB作成一覧を先頭へ',exact:true}).click();await expect(panel.getByText(/未確認のDB作成 0件/)).toBeVisible();
+      142 | });
+      143 |
+        at /workspace/tests/e2e/private-workspace.spec.ts:140:1103
+
+    Error Context: .data/autonomous-20261012/v69/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-3e695-ist-failure-remain-distinct-desktop/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261012/v69/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-3e695-ist-failure-remain-distinct-desktop/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261012/v69/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-3e695-ist-failure-remain-distinct-desktop/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  4) [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:133:1 › WORKSPACE-DB-CREATE: six definitions, 120 codepoint name and custom options save offline then open a confirmed empty DB
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('region', { name: 'DB作成', exact: true }).getByRole('button', { name: '確認済みのDBを開く', exact: true })
+    Expected: enabled
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" getByRole('region', { name: 'DB作成', exact: true }).getByRole('button', { name: '確認済みのDBを開く', exact: true }) with timeout 5000ms
+      - waiting for getByRole('region', { name: 'DB作成', exact: true }).getByRole('button', { name: '確認済みのDBを開く', exact: true })
+
+
+      132 |
+      133 | test('WORKSPACE-DB-CREATE: six definitions, 120 codepoint name and custom options save offline then open a confirmed empty DB',async({page},info)=>{
+    > 134 |  await page.goto('/private-workspace.fixture.html');await login(page);await page.getByRole('button',{name:'新しいDBの作成を開く',exact:true}).click();const panel=page.getByRole('region',{name:'DB作成',exact:true}),name=panel.getByRole('textbox',{name:'DB名',exact:true}),label='😀'.repeat(120);await name.fill(label);await panel.getByRole('textbox',{name:'Selectの選択肢（1行に1つ）',exact:true}).fill('A\nB');await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeDisabled();await panel.getByRole('button',{name:'DBを端末に保存',exact:true}).click();await expect(name).toHaveValue('');const saved=await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot());expect(saved.wires).toEqual([]);expect(saved.queue).toHaveLength(1);expect(saved.queue[0]!.response).toBeNull();const source=saved.queue[0]!.intent.source;expect(source.name).toBe(label);expect(source.properties.map(property=>property.type)).toEqual(['name','text','number','checkbox','select','date']);expect(source.properties.find(property=>property.type==='select')!.options.map(option=>option.name)).toEqual(['A','B']);await expect(panel.getByText(/未確認のDB作成 1件/)).toBeVisible();await panel.getByRole('button',{name:'DB作成を送信・確認',exact:true}).click();await expect(panel.getByRole('button',{name:'確認済みのDBを開く',exact:true})).toBeEnabled();await panel.getByRole('button',{name:'確認済みのDBを開く',exact:true}).click();await expect(page.getByRole('region',{name:'基本DB',exact:true}).getByRole('combobox',{name:'端末のDB',exact:true})).toHaveValue(source.id);expect((await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot())).browser?.records).toEqual([]);await info.attach('workspace-db-create-'+info.project.name,{body:await panel.screenshot(),contentType:'image/png'});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
+          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ^
+      135 | });
+      136 | test('WORKSPACE-DB-CREATE: unknown local save holds copyable draft and original intent; unknown HTTP resends exact wire without another DB',async({page})=>{
+      137 |  await page.goto('/private-workspace.fixture.html');await login(page);await page.getByRole('button',{name:'新しいDBの作成を開く',exact:true}).click();const panel=page.getByRole('region',{name:'DB作成',exact:true}),name=panel.getByRole('textbox',{name:'DB名',exact:true});await name.fill('再送DB');await page.evaluate(()=>window.workspaceTest.loseDatabaseCreationEnqueue());await panel.getByRole('button',{name:'DBを端末に保存',exact:true}).click();await expect(panel.getByRole('button',{name:'同じDBの保存を再確認',exact:true})).toBeEnabled();await expect(name).toHaveValue('再送DB');await expect(name).toHaveJSProperty('readOnly',true);await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeDisabled();const before=await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot());await panel.getByRole('button',{name:'同じDBの保存を再確認',exact:true}).click();await expect(name).toHaveValue('');const after=await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot());expect(after.queue).toHaveLength(1);expect(after.queue[0]!.intent).toEqual(before.queue[0]!.intent);await page.evaluate(()=>window.workspaceTest.loseDatabaseCreationHttp());await panel.getByRole('button',{name:'DB作成を送信・確認',exact:true}).click();await expect(panel.getByText('サーバーへ接続できませんでした。作成操作は端末に残っています。',{exact:true})).toBeVisible();await panel.getByRole('button',{name:'DB作成を送信・確認',exact:true}).click();await expect(panel.getByRole('button',{name:'確認済みのDBを開く',exact:true})).toBeEnabled();const final=await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot());expect(final.wires).toHaveLength(2);expect(final.wires[0]).toBe(final.wires[1]);expect(final.queue).toHaveLength(1);expect(final.state?.data?.pending).toBe(0);
+        at /workspace/tests/e2e/private-workspace.spec.ts:134:1283
+
+    Error Context: .data/autonomous-20261012/v69/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-fb273-n-open-a-confirmed-empty-DB-mobile-dark-reduced-motion/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261012/v69/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-fb273-n-open-a-confirmed-empty-DB-mobile-dark-reduced-motion/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261012/v69/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-fb273-n-open-a-confirmed-empty-DB-mobile-dark-reduced-motion/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  5) [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:136:1 › WORKSPACE-DB-CREATE: unknown local save holds copyable draft and original intent; unknown HTTP resends exact wire without another DB
+
+    Error: expect(locator).toBeEnabled() failed
+
+    Locator: getByRole('region', { name: 'DB作成', exact: true }).getByRole('button', { name: '確認済みのDBを開く', exact: true })
+    Expected: enabled
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+      - Expect "toBeEnabled" getByRole('region', { name: 'DB作成', exact: true }).getByRole('button', { name: '確認済みのDBを開く', exact: true }) with timeout 5000ms
+      - waiting for getByRole('region', { name: 'DB作成', exact: true }).getByRole('button', { name: '確認済みのDBを開く', exact: true })
+
+
+      135 | });
+      136 | test('WORKSPACE-DB-CREATE: unknown local save holds copyable draft and original intent; unknown HTTP resends exact wire without another DB',async({page})=>{
+    > 137 |  await page.goto('/private-workspace.fixture.html');await login(page);await page.getByRole('button',{name:'新しいDBの作成を開く',exact:true}).click();const panel=page.getByRole('region',{name:'DB作成',exact:true}),name=panel.getByRole('textbox',{name:'DB名',exact:true});await name.fill('再送DB');await page.evaluate(()=>window.workspaceTest.loseDatabaseCreationEnqueue());await panel.getByRole('button',{name:'DBを端末に保存',exact:true}).click();await expect(panel.getByRole('button',{name:'同じDBの保存を再確認',exact:true})).toBeEnabled();await expect(name).toHaveValue('再送DB');await expect(name).toHaveJSProperty('readOnly',true);await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeDisabled();const before=await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot());await panel.getByRole('button',{name:'同じDBの保存を再確認',exact:true}).click();await expect(name).toHaveValue('');const after=await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot());expect(after.queue).toHaveLength(1);expect(after.queue[0]!.intent).toEqual(before.queue[0]!.intent);await page.evaluate(()=>window.workspaceTest.loseDatabaseCreationHttp());await panel.getByRole('button',{name:'DB作成を送信・確認',exact:true}).click();await expect(panel.getByText('サーバーへ接続できませんでした。作成操作は端末に残っています。',{exact:true})).toBeVisible();await panel.getByRole('button',{name:'DB作成を送信・確認',exact:true}).click();await expect(panel.getByRole('button',{name:'確認済みのDBを開く',exact:true})).toBeEnabled();const final=await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot());expect(final.wires).toHaveLength(2);expect(final.wires[0]).toBe(final.wires[1]);expect(final.queue).toHaveLength(1);expect(final.state?.data?.pending).toBe(0);
+          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ^
+      138 | });
+      139 | test('WORKSPACE-DB-CREATE: composition keeps editable input; ACK unknown networkless retry and known ACK/list failure remain distinct',async({page})=>{
+      140 |  await page.goto('/private-workspace.fixture.html');await login(page);await page.getByRole('button',{name:'新しいDBの作成を開く',exact:true}).click();const panel=page.getByRole('region',{name:'DB作成',exact:true}),name=panel.getByRole('textbox',{name:'DB名',exact:true});await name.fill('確認DB');await name.dispatchEvent('compositionstart',{data:'か'});await expect(name).toBeEditable();await expect(panel.getByRole('button',{name:'DBを端末に保存',exact:true})).toBeDisabled();await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeDisabled();await name.dispatchEvent('compositionend',{data:'か'});await panel.getByRole('button',{name:'DBを端末に保存',exact:true}).click();await expect(name).toHaveValue('');await page.evaluate(()=>window.workspaceTest.loseDatabaseCreationAck());await panel.getByRole('button',{name:'DB作成を送信・確認',exact:true}).click();const retry=panel.getByRole('button',{name:'作成応答の保存を再確認',exact:true});await expect(retry).toBeEnabled();await panel.getByRole('button',{name:'DB作成一覧を先頭へ',exact:true}).click();expect((await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot())).state).toMatchObject({retryAck:true,data:{pending:0}});await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeDisabled();const before=await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot());await retry.click();await expect(retry).toHaveCount(0);const after=await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot());expect(after.wires).toEqual(before.wires);expect(after.acks[0]).toEqual(after.acks[1]);await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeEnabled();
+        at /workspace/tests/e2e/private-workspace.spec.ts:137:1443
+
+    Error Context: .data/autonomous-20261012/v69/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-a2eb3-act-wire-without-another-DB-mobile-dark-reduced-motion/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261012/v69/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-a2eb3-act-wire-without-another-DB-mobile-dark-reduced-motion/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261012/v69/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-a2eb3-act-wire-without-another-DB-mobile-dark-reduced-motion/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6) [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:139:1 › WORKSPACE-DB-CREATE: composition keeps editable input; ACK unknown networkless retry and known ACK/list failure remain distinct
+
+    Error: expect(received).toMatchObject(expected)
+
+    - Expected  - 1
+    + Received  + 1
+
+      Object {
+        "data": Object {
+    -     "pending": 0,
+    +     "pending": 1,
+        },
+        "retryAck": true,
+      }
+
+      138 | });
+      139 | test('WORKSPACE-DB-CREATE: composition keeps editable input; ACK unknown networkless retry and known ACK/list failure remain distinct',async({page})=>{
+    > 140 |  await page.goto('/private-workspace.fixture.html');await login(page);await page.getByRole('button',{name:'新しいDBの作成を開く',exact:true}).click();const panel=page.getByRole('region',{name:'DB作成',exact:true}),name=panel.getByRole('textbox',{name:'DB名',exact:true});await name.fill('確認DB');await name.dispatchEvent('compositionstart',{data:'か'});await expect(name).toBeEditable();await expect(panel.getByRole('button',{name:'DBを端末に保存',exact:true})).toBeDisabled();await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeDisabled();await name.dispatchEvent('compositionend',{data:'か'});await panel.getByRole('button',{name:'DBを端末に保存',exact:true}).click();await expect(name).toHaveValue('');await page.evaluate(()=>window.workspaceTest.loseDatabaseCreationAck());await panel.getByRole('button',{name:'DB作成を送信・確認',exact:true}).click();const retry=panel.getByRole('button',{name:'作成応答の保存を再確認',exact:true});await expect(retry).toBeEnabled();await panel.getByRole('button',{name:'DB作成一覧を先頭へ',exact:true}).click();expect((await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot())).state).toMatchObject({retryAck:true,data:{pending:0}});await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeDisabled();const before=await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot());await retry.click();await expect(retry).toHaveCount(0);const after=await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot());expect(after.wires).toEqual(before.wires);expect(after.acks[0]).toEqual(after.acks[1]);await expect(page.getByRole('button',{name:'ログアウト',exact:true})).toBeEnabled();
+          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               ^
+      141 |  await name.fill('一覧失敗DB');await panel.getByRole('button',{name:'DBを端末に保存',exact:true}).click();await expect(name).toHaveValue('');await page.evaluate(()=>window.workspaceTest.failDatabaseCreationQueueAfterAck());await panel.getByRole('button',{name:'DB作成を送信・確認',exact:true}).click();await expect(panel.getByText(/作成を確認済み・一覧の再読取待ち/)).toBeVisible();await expect(panel.getByRole('button',{name:'作成応答の保存を再確認',exact:true})).toHaveCount(0);expect((await page.evaluate(()=>window.workspaceTest.databaseCreationSnapshot())).state).toMatchObject({retryAck:false,catalogFresh:false,lastSend:{snapshot:{source:{name:'一覧失敗DB'}}}});await page.evaluate(()=>window.workspaceTest.restoreDatabaseCreationQueue());await panel.getByRole('button',{name:'DB作成一覧を先頭へ',exact:true}).click();await expect(panel.getByText(/未確認のDB作成 0件/)).toBeVisible();
+      142 | });
+      143 |
+        at /workspace/tests/e2e/private-workspace.spec.ts:140:1103
+
+    Error Context: .data/autonomous-20261012/v69/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-3e695-ist-failure-remain-distinct-mobile-dark-reduced-motion/error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    .data/autonomous-20261012/v69/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-3e695-ist-failure-remain-distinct-mobile-dark-reduced-motion/trace.zip
+    Usage:
+
+        npx playwright show-trace .data/autonomous-20261012/v69/workspace-ui-initial/artifacts/private-workspace-WORKSPAC-3e695-ist-failure-remain-distinct-mobile-dark-reduced-motion/trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  6 failed
+    [desktop] › tests/e2e/private-workspace.spec.ts:133:1 › WORKSPACE-DB-CREATE: six definitions, 120 codepoint name and custom options save offline then open a confirmed empty DB
+    [desktop] › tests/e2e/private-workspace.spec.ts:136:1 › WORKSPACE-DB-CREATE: unknown local save holds copyable draft and original intent; unknown HTTP resends exact wire without another DB
+    [desktop] › tests/e2e/private-workspace.spec.ts:139:1 › WORKSPACE-DB-CREATE: composition keeps editable input; ACK unknown networkless retry and known ACK/list failure remain distinct
+    [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:133:1 › WORKSPACE-DB-CREATE: six definitions, 120 codepoint name and custom options save offline then open a confirmed empty DB
+    [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:136:1 › WORKSPACE-DB-CREATE: unknown local save holds copyable draft and original intent; unknown HTTP resends exact wire without another DB
+    [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:139:1 › WORKSPACE-DB-CREATE: composition keeps editable input; ACK unknown networkless retry and known ACK/list failure remain distinct

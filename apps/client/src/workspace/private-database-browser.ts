@@ -53,6 +53,7 @@ export class PrivateDatabaseBrowser{
  async receiveSource(id:string){return this.run(async()=>{if(!this.data.catalog?.sources.some(row=>row.id===id))throw new PrivateDatabaseBrowserError('protocol');await this.reader.read(id);this.check();await this.readSources(null);await this.select(id);});}
  async retrySource(){return this.run(async()=>{if(!this.reader.retryReceive)throw new PrivateDatabaseBrowserError('protocol');const reply=await this.reader.retry();this.check();await this.readSources(null);await this.select(reply.snapshot.source.id);},true);}
  async selectSource(id:string){return this.run(async()=>{if(!this.data.sources.some(row=>row.source.id===id)&&this.data.selected?.source.id!==id)throw new PrivateDatabaseBrowserError('protocol');await this.select(id);});}
+ async openSavedSource(id:string){return this.run(()=>this.select(id));}
  private async select(id:string){
   const loaded=await this.store.databaseSourceLoad(id);this.check();if(!loaded.snapshot)throw new PrivateDatabaseBrowserError('protocol');
   this.detachChanges();this.detachChanges=()=>{};const previous=this.changes;this.changes=null;await previous?.close();this.check();

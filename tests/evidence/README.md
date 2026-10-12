@@ -1,5 +1,7 @@
 # 試験証拠の索引
 
+- 2026-10-12 / v0.69.0 / [基本DB作成画面](private-database-create-screen-20261012/SUMMARY.md): 6型/Unicode名/選択肢、明示保存・FIFO送信、unknown元intent/ACK pair retry、known ACK/旧一覧と確認済みSource。新単独3/actual1/画面6、通常761/全PG220/全workspace64/型/build。元fixture Fail保持、native16/server11、行・View編集へ続行。
+
 - 2026-10-12 / v0.68.0 / [基本DB Table/List読取画面](private-database-browser-20261012/SUMMARY.md): bounded confirmed cache/明示取得/保存済みfilter-sort/未取得Name/unknown retryとPage入力保護。新browser8/actual HTTP-native2、通常758/全PG219/全workspace58/型/build。原Fail・timeout保持。native16/server11、作成・編集画面へ続行。
 
 - 2026-10-09 / v0.67.0 / [読み込み済みDB検索](basic-database-loaded-query-20261009/SUMMARY.md): 未取得Name/空タイトル、AND/OR未判定、Name sortの未確定行を分離。追加7/DB22、通常750/型/native/features/frontend/Windows build。UI/PGは今回は再実施せず、native16/server11を保持。利用者指示で一旦停止。

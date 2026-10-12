@@ -1,0 +1,11 @@
+
+Running 6 tests using 1 worker
+
+  ✓  1 [desktop] › tests/e2e/private-workspace.spec.ts:133:1 › WORKSPACE-DB-CREATE: six definitions, 120 codepoint name and custom options save offline then open a confirmed empty DB (1.6s)
+  ✓  2 [desktop] › tests/e2e/private-workspace.spec.ts:136:1 › WORKSPACE-DB-CREATE: unknown local save holds copyable draft and original intent; unknown HTTP resends exact wire without another DB (1.4s)
+  ✓  3 [desktop] › tests/e2e/private-workspace.spec.ts:139:1 › WORKSPACE-DB-CREATE: composition keeps editable input; ACK unknown networkless retry and known ACK/list failure remain distinct (1.6s)
+  ✓  4 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:133:1 › WORKSPACE-DB-CREATE: six definitions, 120 codepoint name and custom options save offline then open a confirmed empty DB (1.5s)
+  ✓  5 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:136:1 › WORKSPACE-DB-CREATE: unknown local save holds copyable draft and original intent; unknown HTTP resends exact wire without another DB (1.3s)
+  ✓  6 [mobile-dark-reduced-motion] › tests/e2e/private-workspace.spec.ts:139:1 › WORKSPACE-DB-CREATE: composition keeps editable input; ACK unknown networkless retry and known ACK/list failure remain distinct (1.6s)
+
+  6 passed (10.6s)

@@ -10,6 +10,8 @@ const f=privateWorkspaceFixture(),login=new PrivateLoginController(f.configurati
 createRoot(document.getElementById('root')!).render(<PrivateWorkspaceScreen login={login} workspace={workspace} nativeAvailable/>);
 let resume=()=>{};
 const test={
+ databaseCreationSnapshot:()=>({state:workspace.databaseCreation?.snapshot??null,queue:f.database.sourceQueue,wires:f.database.state.sourceSentWires.slice(),acks:f.database.state.sourceAcks.slice(),browser:workspace.database?.snapshot??null}),
+ loseDatabaseCreationEnqueue:()=>{f.database.state.loseSourceEnqueueReply=true;},loseDatabaseCreationHttp:()=>{f.database.state.loseSourceHttp=true;},loseDatabaseCreationAck:()=>{f.database.state.loseSourceAckReply=true;},failDatabaseCreationQueueAfterAck:()=>{f.database.state.failQueueAfterAck=true;},restoreDatabaseCreationQueue:()=>{f.database.state.failRead=null;},
  seedDatabase:async()=>{const seeded=f.database.seed();f.seedRemote('既知のPage','known body',seeded.rows[0]!.pageId);f.seedRemote('','blank title body',seeded.rows[1]!.pageId);await workspace.loadRemote();return{sourceId:seeded.source.id,recordIds:seeded.rows.map(row=>row.id),pageIds:seeded.rows.map(row=>row.pageId),views:seeded.savedViews.map(row=>({id:row.id,name:row.name}))};},
  databaseSnapshot:()=>({state:workspace.database?.snapshot??null,calls:f.database.state.fetchCalls.slice(),receives:f.database.state.changeReceives.slice(),sources:f.database.state.sourceReceives.slice()}),
  loseDatabaseChangesReply:()=>{f.database.state.loseChangesReply=true;},

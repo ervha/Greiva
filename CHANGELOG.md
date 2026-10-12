@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.69.0 — 2026-10-12
+
+- 6型のDB定義を明示作成する画面を追加。DB名/Selectの選択肢をvalidationし、端末保存と送信・確認を分離する。Unicode120 codepointを扱い、unknown入力はcopy可能なまま元intent/pairで再確認する。
+- Source runtimeのUI queueを5件に制限し、known ACK/一覧失敗・empty観測と原結果を保持する。確認済みSourceを一覧外からもnative cacheへ照合して開く。dirty/IME/navigationとPage保存層を保護する。
+- 新3単独/actual1/画面6、通常761/実PG220/全workspace64と型/buildを確認。元fixture URL/ACK形式のFailを保持する。native16/server11、行・View設定の編集とnative Gateは後続。
+
 ## 0.68.0 — 2026-10-12
 
 - 基本DBのTable/List読取画面を個人workspaceへ接続。確認済み端末cacheを件数/容量で区切り、サーバー一覧・定義・変更を明示取得する。保存済みViewのfilter/sort/列、Name未取得/未判定、型付き値と競合・履歴の続き、保存結果不明の同応答再確認を表示する。

@@ -1,0 +1,33 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/unit/private-workspace-controller.test.ts [2m([22m[2m15 tests[22m[2m)[22m[33m 325[2mms[22m[39m
+ [31m❯[39m tests/unit/private-database-browser.test.ts [2m([22m[2m9 tests[22m[2m | [22m[31m1 failed[39m[2m)[22m[32m 266[2mms[22m[39m
+   [32m✓[39m DB-BROWSER local: explicit opening sends no HTTP, windows replace instead of accumulating and never acknowledge edits[32m 66[2mms[22m[39m
+   [32m✓[39m DB-BROWSER Source unknown: explicit catalog does not save definitions; exact receive retry is networkless and holds selection[32m 7[2mms[22m[39m
+   [32m✓[39m DB-BROWSER delta unknown: original response survives committed/lost reply and retry consumes no HTTP; selected cache follows actual progress[32m 10[2mms[22m[39m
+   [32m✓[39m DB-BROWSER read failure: keeps previous rows and View rather than reporting empty/fresh; local reload recovers without network[32m 5[2mms[22m[39m
+   [32m✓[39m DB-BROWSER catalog failure: retains original observation and private causes do not reach state or observers[32m 3[2mms[22m[39m
+   [32m✓[39m DB-BROWSER closure: late local read cannot populate the closed browser; it closes owned readers but retains the shared store[32m 3[2mms[22m[39m
+   [32m✓[39m DB-BROWSER byte window: large typed records split below the 20-row limit and preserve exact keyset continuation[32m 133[2mms[22m[39m
+   [32m✓[39m DB-BROWSER workspace composition: lazy opening failure does not replace the Page store; delta unknown blocks navigation until retry and closes with the owner[32m 24[2mms[22m[39m
+[31m   [31m×[31m DB-SOURCE-CREATE composition: lazy creator keeps Page store, holds draft/navigation and opens an ACK-confirmed Source outside the visible window[39m[32m 12[2mms[22m[39m
+ [32m✓[39m tests/unit/private-database-source-write-runtime.test.ts [2m([22m[2m12 tests[22m[2m)[22m[32m 30[2mms[22m[39m
+
+[31m⎯⎯⎯⎯⎯⎯⎯[39m[1m[41m Failed Tests 1 [49m[22m[31m⎯⎯⎯⎯⎯⎯⎯[39m
+
+[41m[1m FAIL [22m[49m tests/unit/private-database-browser.test.ts[2m > [22mDB-SOURCE-CREATE composition: lazy creator keeps Page store, holds draft/navigation and opens an ACK-confirmed Source outside the visible window
+[31m[1mPrivateDatabaseSourceWriteError[22m: Private database Source write transport[39m
+[36m [2m❯[22m PrivateDatabaseSourceWriteSession.failure apps/client/src/workspace/private-database-source-write-session.ts:[2m23:314[22m[39m
+
+[90m [2m❯[22m apps/client/src/workspace/private-database-source-write-session.ts:[2m27:349[22m[39m
+
+[31m[2m⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/1]⎯[22m[39m
+
+
+[2m Test Files [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m2 passed[39m[22m[90m (3)[39m
+[2m      Tests [22m [1m[31m1 failed[39m[22m[2m | [22m[1m[32m35 passed[39m[22m[90m (36)[39m
+[2m   Start at [22m 04:14:35
+[2m   Duration [22m 1.66s[2m (tests 43%, import 29%, transform 26%, worker 1%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261012/v69/focused/vitest.json

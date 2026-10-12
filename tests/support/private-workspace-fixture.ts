@@ -76,7 +76,7 @@ export function privateWorkspaceFixture(){
  };
  const fetchPort:typeof fetch=async(input,init)=>{
   const url=String(input),body=init?.body?JSON.parse(String(init.body)) as Record<string,string>:{};
-  const databaseResponse=database.fetchResponse(url,body);if(databaseResponse)return databaseResponse;
+  const databaseResponse=database.fetchResponse(url,body,init?.body?String(init.body):undefined);if(databaseResponse)return databaseResponse;
   if(url.includes('/token?'))return Response.json({access_token:'fixture.access.signature',refresh_token:'fixture-refresh',token_type:'bearer',user:{id:context.subjectId}});
   if(url.endsWith('/v1/session'))return Response.json({issuer:context.issuer,subjectId:context.subjectId,expiresAt:Math.floor(Date.now()/1000)+300});
   if(url.includes('/logout?'))return new Response('');

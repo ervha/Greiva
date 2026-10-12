@@ -1,0 +1,14 @@
+
+[1m[30m[46m RUN [49m[39m[22m [36mv5.0.2 [39m[90m/workspace[39m
+
+ [32m✓[39m tests/integration/private-database-source-write-postgres.test.ts [2m([22m[2m4 tests[22m[2m)[22m[33m 1515[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-SOURCE-WRITE-PG: denied device closes generation without losing unsent local Source; renewed bootstrap can reconcile exact pending operation[33m 525[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-SOURCE-WRITE-PG: offline durable enqueue, lost server HTTP and unknown native ACK retry preserve original operation and proof across restart[33m 330[2mms[22m[39m
+   [33m[2m✓[22m[39m DB-SOURCE-WRITE-PG: replacement, Auth refresh and native close discard late committed HTTP; original saved bytes reconcile through a new session[33m 430[2mms[22m[39m
+
+[2m Test Files [22m [1m[32m1 passed[39m[22m[90m (1)[39m
+[2m      Tests [22m [1m[32m4 passed[39m[22m[90m (4)[39m
+[2m   Start at [22m 04:23:05
+[2m   Duration [22m 2.78s[2m (tests 56%, import 24%, transform 19%)[22m
+
+JSON report written to /workspace/.data/autonomous-20261012/v69/source-create-pg/vitest.json
