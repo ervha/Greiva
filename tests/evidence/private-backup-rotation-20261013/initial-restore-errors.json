@@ -1,0 +1,11 @@
+{
+  "syntheticOnly": true,
+  "attempts": [
+    { "attempt": 1, "result": "failed", "stage": "pg_restore input open", "reason": "postgres OS user could not traverse root-owned 0700 directory" },
+    { "attempt": 2, "result": "failed", "stage": "pg_restore input open", "reason": "changing file ownership alone did not resolve parent directory permission" }
+  ],
+  "failedDatabasesRemoved": true,
+  "failedDatabaseRemainingCount": 0,
+  "correction": "Keep archive mode 0600; read using owning OS user and connect with development greiva database role",
+  "successfulRecheck": "restore.json"
+}

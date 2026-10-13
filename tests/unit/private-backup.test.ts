@@ -1,5 +1,5 @@
 import { it, expect } from 'vitest';
-import { randomBytes } from 'node:crypto';
+import { randomBytes, createHash } from 'node:crypto';
 import { CompactEncrypt } from 'jose';
 import { mkdtemp, mkdir, writeFile, readFile, stat, readdir, symlink, rm, chmod } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
@@ -46,7 +46,7 @@ it('BACKUP-CLI: private files, no overwrite, no output on wrong key/tampering, s
     const saved=await readFile(encrypted);expect(run('encrypt',input,encrypted).status).toBe(1);expect(await readFile(encrypted)).toEqual(saved);
     const failed=run('decrypt',encrypted,restored,wrong);expect(failed.status).toBe(1);expect(failed.stdout).toBe('');expect(failed.stderr.trim()).toBe('{"service":"private-backup","event":"failed"}');expect(await readdir(path.dirname(restored))).toEqual([]);
     expect(run('decrypt',encrypted,restored).status).toBe(0);expect(await readFile(restored)).toEqual(archive());
-    const tampered=path.join(root,'damaged.jwe'), parts=saved.toString().split('.');const ciphertext=Buffer.from(parts[3]!,'base64url');ciphertext[0]=ciphertext[0]!^1;parts[3]=ciphertext.toString('base64url');await writeFile(tampered,parts.join('.'));
+    const tampered=path.join(root,'archives','damaged.jwe'), parts=saved.toString().split('.');const ciphertext=Buffer.from(parts[3]!,'base64url');ciphertext[0]=ciphertext[0]!^1;parts[3]=ciphertext.toString('base64url');await writeFile(tampered,parts.join('.'));
     expect(run('decrypt',tampered,path.join(root,'restore','bad.dump')).status).toBe(1);expect(await readdir(path.join(root,'restore'))).toEqual(['restored.dump']);
     const link=path.join(root,'input-link');await symlink(input,link);expect(run('encrypt',link,path.join(root,'archives','linked.jwe')).status).toBe(1);
     const targetLink=path.join(root,'archives','target-link');await symlink(input,targetLink);expect(run('encrypt',input,targetLink).status).toBe(1);expect(await readFile(input)).toEqual(archive());
@@ -54,6 +54,46 @@ it('BACKUP-CLI: private files, no overwrite, no output on wrong key/tampering, s
     await mkdir(path.join(root,'public'),{mode:0o755});expect(run('encrypt',input,path.join(root,'public','exposed.jwe')).status).toBe(1);
     const keyLink=path.join(root,'keys','link');await symlink(secret,keyLink);expect(run('encrypt',input,path.join(root,'archives','key-link.jwe'),keyLink).status).toBe(1);
     await chmod(secret,0o644);expect(run('encrypt',input,path.join(root,'archives','public-key.jwe')).status).toBe(1);
-    expect((await readdir(path.join(root,'archives'))).sort()).toEqual(['backup.jwe','target-link']);
+    expect((await readdir(path.join(root,'archives'))).sort()).toEqual(['backup.jwe','damaged.jwe','target-link']);
+  } finally { await rm(root,{recursive:true,force:true}); }
+},30000);
+
+it('BACKUP-CLI: read-only verification and non-destructive key rotation authenticate the complete archive', async () => {
+  const root=await mkdtemp(path.join(tmpdir(),'greiva-backup-rotate-'));
+  try {
+    for(const dir of ['keys','archives','rotated','restore']) await mkdir(path.join(root,dir),{mode:0o700});
+    const oldKey=path.join(root,'keys','old'),newKey=path.join(root,'keys','new'),source=path.join(root,'archives','source.jwe'),target=path.join(root,'rotated','new.jwe');
+    const oldBytes=key(),newBytes=key(),data=archive(),original=await encryptPrivateBackup(data,oldBytes);
+    await writeFile(oldKey,oldBytes,{mode:0o600});await writeFile(newKey,newBytes,{mode:0o600});await writeFile(source,original,{mode:0o600});
+    const run=(...args:string[])=>spawnSync(process.execPath,['scripts/private-backup.mjs',...args],{encoding:'utf8'});
+    const hash=(value:string)=>createHash('sha256').update(value).digest('hex');
+    const verified=run('verify',source,oldKey);expect(verified.status,verified.stderr).toBe(0);
+    expect(JSON.parse(verified.stdout)).toEqual({service:'private-backup',event:'verified',format:1,encryptedBytes:Buffer.byteLength(original),archiveBytes:data.length,sha256:hash(original)});
+    expect(await readdir(path.join(root,'archives'))).toEqual(['source.jwe']);expect(await readdir(path.join(root,'rotated'))).toEqual([]);
+    const rotated=run('rotate',source,target,oldKey,newKey);expect(rotated.status,rotated.stderr).toBe(0);
+    const encoded=await readFile(target,'utf8');expect(await readFile(source,'utf8')).toBe(original);expect((await stat(target)).mode&0o777).toBe(0o600);
+    expect(JSON.parse(rotated.stdout)).toEqual({service:'private-backup',event:'rotated',format:1,bytes:Buffer.byteLength(encoded),sourceSha256:hash(original),sha256:hash(encoded)});
+    expect(encoded.split('.')[2]).not.toBe(original.split('.')[2]);expect(Buffer.from(await decryptPrivateBackup(encoded,newBytes))).toEqual(data);
+    expect(run('verify',target,newKey).status).toBe(0);expect(run('verify',target,oldKey).status).toBe(1);
+    expect(run('decrypt',target,path.join(root,'restore','restored.dump'),newKey).status).toBe(0);expect(await readFile(path.join(root,'restore','restored.dump'))).toEqual(data);
+    expect(run('rotate',source,target,oldKey,newKey).status).toBe(1);expect(await readFile(target,'utf8')).toBe(encoded);
+    expect(await readFile(oldKey)).toEqual(oldBytes);expect(await readFile(newKey)).toEqual(newBytes);
+    expect(await readdir(path.join(root,'rotated'))).toEqual(['new.jwe']);
+  } finally { await rm(root,{recursive:true,force:true}); }
+},30000);
+
+it('BACKUP-CLI: verification/rotation failures leave original backups and output directories intact', async () => {
+  const root=await mkdtemp(path.join(tmpdir(),'greiva-backup-refusal-'));
+  try {
+    for(const dir of ['keys','archives','rotated'])await mkdir(path.join(root,dir),{mode:0o700});
+    const secret=key(),oldKey=path.join(root,'keys','old'),newKey=path.join(root,'keys','new'),copyKey=path.join(root,'keys','copy'),badKey=path.join(root,'keys','short'),linkKey=path.join(root,'keys','link');
+    const source=path.join(root,'archives','source.jwe'),target=path.join(root,'rotated','new.jwe'),original=await encryptPrivateBackup(archive(),secret);
+    for(const [file,bytes] of [[oldKey,secret],[newKey,key()],[copyKey,secret],[badKey,randomBytes(31)]] as const)await writeFile(file,bytes,{mode:0o600});
+    await symlink(newKey,linkKey);await writeFile(source,original,{mode:0o600});
+    const damaged=path.join(root,'archives','damaged.jwe'),parts=original.split('.'),tag=Buffer.from(parts[4]!,'base64url');tag[0]=tag[0]!^1;parts[4]=tag.toString('base64url');await writeFile(damaged,parts.join('.'),{mode:0o600});
+    const colocated=path.join(root,'archives','key');await writeFile(colocated,secret,{mode:0o600});
+    const cases=[['verify',source,newKey],['verify',damaged,oldKey],['verify',source,colocated],['verify',source,oldKey,target],['rotate',damaged,target,oldKey,newKey],['rotate',source,target,newKey,oldKey],['rotate',source,target,oldKey,oldKey],['rotate',source,target,oldKey,copyKey],['rotate',source,target,oldKey,badKey],['rotate',source,target,oldKey,linkKey],['rotate',source,target,oldKey,colocated],['rotate',source,source,oldKey,newKey],['rotate',source,target,oldKey],['rotate',source,path.join(root,'keys','new.jwe'),oldKey,newKey]];
+    for(const args of cases){const result=spawnSync(process.execPath,['scripts/private-backup.mjs',...args],{encoding:'utf8'});expect(result.status,args[0]).toBe(1);expect(result.stdout).toBe('');expect(result.stderr.trim()).toBe('{"service":"private-backup","event":"failed"}');expect(await readdir(path.join(root,'rotated'))).toEqual([]);expect(await readFile(source,'utf8')).toBe(original);}
+    await chmod(newKey,0o644);expect(spawnSync(process.execPath,['scripts/private-backup.mjs','rotate',source,target,oldKey,newKey]).status).toBe(1);expect(await readdir(path.join(root,'rotated'))).toEqual([]);
   } finally { await rm(root,{recursive:true,force:true}); }
 },30000);

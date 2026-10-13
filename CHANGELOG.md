@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.77.0 — 2026-10-13
+
+- バックアップCLIへ平文fileを作らない整合性確認と、元archiveを保持した別fileへの暗号鍵更新を追加。新nonce、異なるkey byte、入力/出力からのkey分離と非上書きを検証する。暗号文hashで更新前後を照合できる。
+- 前版v0.76.0の架空archiveを新keyへ更新し、別空DBで33 table・6操作の元結果・差分cursorを復元確認。旧key拒否と元dump byte一致を確認した。復元準備の権限エラー2回は別記録で保持。
+- 対象7/全unit484、型/build、通常Windows0.77.0のPE/SHAを確認。本番KMS/自動rotation/保持廃棄・実Auth/native Gateは後続。
+
 ## 0.76.0 — 2026-10-13
 
 - 個人APIのPostgreSQL custom archiveを固定JWEで暗号化/復号するoperator用Docker CLIを追加。鍵は別保管、64 MiB上限、認証成功後だけ書込み、既存出力/危険pathを拒否し、ログへ本文/keyを出さない。

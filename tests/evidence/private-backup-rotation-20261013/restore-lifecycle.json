@@ -1,0 +1,8 @@
+{
+  "syntheticOnly": true,
+  "createdNewEmptyDatabase": true,
+  "existingDatabasesModified": false,
+  "run": "c2587234b6a8",
+  "ownedDatabaseDropped": true,
+  "restoredWith": "pg_restore --exit-on-error --single-transaction"
+}

@@ -1,0 +1,50 @@
+{
+  "syntheticOnly": true,
+  "sourceVersion": "0.76.0",
+  "cliVersion": "0.77.0",
+  "archiveBytes": 92918,
+  "archiveSha256": "e1a073ec53cf4e9028e43044d3a0d916436d0fc9961f9f384b8e73e0cae4b642",
+  "sourceSha256": "157c726ed080a60302d0dc19aebbf3e881992021e149e05c4269a3c5f6217a38",
+  "rotatedSha256": "f706e37d03d05dbc88d849ff2e8496eeadf9a09bc6d2b89b2a2e79e30d4dfaa3",
+  "sourceUnchanged": true,
+  "restoredBytesMatch": true,
+  "freshNonce": true,
+  "keyExported": false,
+  "commands": [
+    {
+      "mode": "verify",
+      "expectedStatus": 0,
+      "status": 0,
+      "stdout": "{\"service\":\"private-backup\",\"event\":\"verified\",\"format\":1,\"encryptedBytes\":124015,\"archiveBytes\":92918,\"sha256\":\"157c726ed080a60302d0dc19aebbf3e881992021e149e05c4269a3c5f6217a38\"}",
+      "stderr": ""
+    },
+    {
+      "mode": "rotate",
+      "expectedStatus": 0,
+      "status": 0,
+      "stdout": "{\"service\":\"private-backup\",\"event\":\"rotated\",\"format\":1,\"bytes\":124015,\"sourceSha256\":\"157c726ed080a60302d0dc19aebbf3e881992021e149e05c4269a3c5f6217a38\",\"sha256\":\"f706e37d03d05dbc88d849ff2e8496eeadf9a09bc6d2b89b2a2e79e30d4dfaa3\"}",
+      "stderr": ""
+    },
+    {
+      "mode": "verify",
+      "expectedStatus": 0,
+      "status": 0,
+      "stdout": "{\"service\":\"private-backup\",\"event\":\"verified\",\"format\":1,\"encryptedBytes\":124015,\"archiveBytes\":92918,\"sha256\":\"f706e37d03d05dbc88d849ff2e8496eeadf9a09bc6d2b89b2a2e79e30d4dfaa3\"}",
+      "stderr": ""
+    },
+    {
+      "mode": "verify",
+      "expectedStatus": 1,
+      "status": 1,
+      "stdout": "",
+      "stderr": "{\"service\":\"private-backup\",\"event\":\"failed\"}"
+    },
+    {
+      "mode": "decrypt",
+      "expectedStatus": 0,
+      "status": 0,
+      "stdout": "{\"service\":\"private-backup\",\"event\":\"decrypted\",\"format\":1,\"bytes\":92918}",
+      "stderr": ""
+    }
+  ]
+}

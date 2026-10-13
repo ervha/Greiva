@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.77.0：[backup検査・鍵更新](../development/PRIVATE_BACKUP_REHEARSAL.md)を追加。平文fileなしのverify、元archiveを保持するrotate、同一key/改ざん/上書き拒否。旧v0.76.0 archiveの互換と実PG33 table・6操作/cursor復元、対象7/全unit484・型/build/Windows PE/SHAを確認。[証拠](../../tests/evidence/private-backup-rotation-20261013/SUMMARY.md)。実Authは保留。次は採用済み[Native session方針](NATIVE_SESSION_POLICY.md)に沿う資格情報adapter/端末ロックの独立実装と、実機確認が可能な時点での正常ログイン・IME受入。KMS/backupの自動運用は残る。
+
 最新v0.76.0：[暗号化backup CLIと復元リハーサル](../development/PRIVATE_BACKUP_REHEARSAL.md)を実装。固定JWE/外部key/非上書き出力、実PG33 tableとreceipt/cursorの別DB復元、切断dumpのrollbackを確認。対象5/全unit482/型/build・通常WindowsPE/SHA。[証拠](../../tests/evidence/private-backup-20261013/SUMMARY.md)。本番KMS/backup運用/native端末復旧は別工程。利用者の依頼により実Auth操作を保留し、独立開発を進めた。
 
 最新v0.75.1：実公開設定のv0.75.0 Windows専用候補を生成し、hash/PE/compiled config、実provider拒否経路とWindows未ログイン/ヘルプ起動を確認。[証拠](../../tests/evidence/private-preview-live-20261013/SUMMARY.md)。3項目全Aを[Native session方針](NATIVE_SESSION_POLICY.md)へ反映。実Auth操作は利用者都合で保留し、認証以外の独立開発を継続する。2026-10-13の再開指示により前日の停止を解除。
