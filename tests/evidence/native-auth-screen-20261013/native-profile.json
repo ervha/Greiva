@@ -1,0 +1,1 @@
+{"bundleActive":false,"csp":"default-src 'self'; connect-src 'self' ipc: http://ipc.localhost https://project.fixture.invalid; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'","identifier":"dev.greiva.private.preview","productName":"Greiva Native Preview","version":"0.87.0","windows":[{"label":"main","url":"native.html","useHttpsScheme":false}]}

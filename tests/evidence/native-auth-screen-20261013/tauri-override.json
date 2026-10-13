@@ -1,0 +1,23 @@
+{
+  "productName": "Greiva Native Preview",
+  "identifier": "dev.greiva.private.preview",
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Greiva — 端末workspace 接続プレビュー",
+        "url": "native.html",
+        "useHttpsScheme": false,
+        "width": 1000,
+        "height": 700,
+        "dragDropEnabled": false
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; connect-src 'self' ipc: http://ipc.localhost https://project.fixture.invalid; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'"
+    }
+  },
+  "bundle": {
+    "active": false
+  }
+}

@@ -20,7 +20,7 @@ export default defineConfig(({ mode }) => {
   envDir,
   plugins: [react(), ...(sqlite ? [sqlite] : [])],
   server: { port: 1420, strictPort: true, watch: { ignored: ['**/src-tauri/**'] }, ...(privateTarget ? { proxy: { '/v1': { target: privateTarget, changeOrigin: true } } } : {}) },
-  build: { rollupOptions: { input: { main: resolve(import.meta.dirname, 'index.html'), auth: resolve(import.meta.dirname, 'auth.html'), workspace:resolve(import.meta.dirname,'workspace.html') } } },
+  build: { rollupOptions: { input: { main: resolve(import.meta.dirname, 'index.html'), auth: resolve(import.meta.dirname, 'auth.html'), workspace:resolve(import.meta.dirname,'workspace.html'),native:resolve(import.meta.dirname,'native.html') } } },
   clearScreen: false,
   };
 });

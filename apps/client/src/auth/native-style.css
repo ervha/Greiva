@@ -1,0 +1,6 @@
+.native-actions { display:flex; flex-wrap:wrap; gap:12px; margin:18px 0; }
+.auth-card > form + button { margin-top:12px; }
+.native-page-list { list-style:none; padding:0; margin:16px 0; }
+.native-page-list li { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:8px; padding:12px 0; border-bottom:1px solid var(--border); overflow-wrap:anywhere; }
+.native-page-list .auth-help { flex-shrink:0; }
+@media (max-width:420px) { .native-actions button { flex:1 1 120px; } }

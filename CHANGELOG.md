@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.87.0 — 2026-10-13
+
+- native.htmlへ自動復元・native login/refresh・workspace開閉・端末一覧・logoutを接続。復元の自動再送をせず、別context/期限切れ・遅い応答を表示しない。登録responseを認証成功にしない。
+- 固定native設定と専用entryを同時にbuildするDocker CLIを追加。旧command/SQL pluginとWeb fallbackを閉じ、既存候補を上書きしない。
+- controller5/全unit507、画面10・型、Windows候補/host inspector/版/SHA、desktop/mobile-darkの視覚確認を実施。初回controller試験の待機race Failを保持。本文editor・native remote sync/7日offline/実Windows受入は次工程。
+
 ## 0.86.0 — 2026-10-13
 
 - build固定native設定と認証/restore/local workspace IPC、tokenを返さないclient portを追加。設定ありmodeは旧command/SQL pluginを登録しない。不完全設定はbuildで拒否。

@@ -1,5 +1,7 @@
 # Native認証IPCとclient port
 
+v0.87.0で[専用接続画面](NATIVE_AUTH_SCREEN.md)へmountした。復元/ログイン/開閉/端末一覧を確認し、本文editor/remote sync/offline lease結合は引き続き次工程。
+
 v0.86.0。[verified workspace admission](NATIVE_WORKSPACE_ADMISSION.md)をWindows Tauri commandへ接続し、`NativeSessionPort`を追加した。既存previewへはまだmountせず、専用native画面の次工程で使用する。
 
 ## deployment mode

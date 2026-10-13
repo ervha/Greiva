@@ -1,0 +1,9 @@
+{
+  "entry": "native.html",
+  "productVersion": "0.87.0",
+  "sha256": "39e938095acc596b189a3ca5572ae7fcc0549873db1885f6dca3006ac7df6baf",
+  "version": "0.87.0",
+  "matchesDocker": true,
+  "guiLaunched": false,
+  "nativeImeTested": false
+}

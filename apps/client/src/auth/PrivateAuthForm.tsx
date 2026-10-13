@@ -1,7 +1,7 @@
 import {useEffect,useRef,useState} from 'react';
-import type {PrivateLoginController} from './private-login';
+export type AuthFormController={subscribe(listener:(snapshot:{phase:string})=>void):()=>void;login(email:string,password:string):unknown;signup(email:string,password:string):unknown};
 
-export function PrivateAuthForm({controller,disabled,loginLabel='ログイン'}:{controller:PrivateLoginController;disabled:boolean;loginLabel?:string}) {
+export function PrivateAuthForm({controller,disabled,loginLabel='ログイン'}:{controller:AuthFormController;disabled:boolean;loginLabel?:string}) {
   const [signup,setSignup]=useState(false),form=useRef<HTMLFormElement>(null),composing=useRef(false);
   const clear=()=>{const input=form.current?.elements.namedItem('password');if(input instanceof HTMLInputElement)input.value='';};
   useEffect(()=>{const leaving=()=>form.current?.reset();window.addEventListener('pagehide',leaving);return()=>window.removeEventListener('pagehide',leaving);},[]);
