@@ -19,6 +19,7 @@ mod private_database_view_queue;
 mod workspace_registry;
 mod workspace_device;
 pub mod native_credentials;
+pub mod native_session;
 pub mod offline_grant;
 pub mod offline_lease;
 pub use workspace_device::{WorkspaceOwner, WorkspaceDevice};

@@ -1355,7 +1355,7 @@ dependencies = [
 
 [[package]]
 name = "greiva-page-store"
-version = "0.82.0"
+version = "0.83.0"
 dependencies = [
  "base64 0.22.1",
  "ed25519-dalek",
@@ -1371,7 +1371,7 @@ dependencies = [
 
 [[package]]
 name = "greiva-poc"
-version = "0.82.0"
+version = "0.83.0"
 dependencies = [
  "greiva-page-store",
  "serde_json",

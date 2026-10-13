@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.83.0：[native session coordinator](../development/NATIVE_SESSION_COORDINATOR.md)をOS資格情報保管へ接続。issuer/owner/期限・永続世代照合、復元/rotation、応答不明後の再利用拒否、logoutキャンセル、古いinstanceのcleanupから新sessionを保護する。実SQLite＋provider/OS doubleのRust24・型/build・通常Windows cross-buildを確認。[証拠](../../tests/evidence/native-session-20261013/SUMMARY.md)。実HTTP provider/署名検証adapter、通常IPC/UI、offline lease/handleとの接続は次工程で、現行previewの自動ログインを実装済みにしない。
+
 最新v0.82.1（証拠・文書）：実行物0.82.0で[通常Microsoft IMEの限定実機確認](../../tests/evidence/windows-ms-ime-20261013/SUMMARY.md)を補完。実キー変換/確定後の正確な2段落・native/server全文/vector、未ACK0/ACK76、元wire/DB整合性を確認した。再変換原Fail、remote composition/再接続、性能/offlineとnative provider/UI接続は残す。完成版UIの整理は別工程。
 
 最新v0.82.0：[新規登録](../development/PRIVATE_SIGNUP.md)を認証/個人workspaceプレビューへ追加。利用者の手動登録・確認メール・正常ログインとnative workspaceを確認。単体494/認証画面18/workspace98・型/build、実Windows保存→強制終了→手動再認証→pending2復帰→同期pending0を独立SQLite/Yjs/PGで照合。[証拠](../../tests/evidence/private-signup-20261013/SUMMARY.md)。localhostの確認完了導線、最新版IME、native自動復元/provider・offline/UI接続は残る。画面の全面整理は別工程で、手動操作可能との再開指示により検証を継続する。

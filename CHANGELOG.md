@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.83.0 — 2026-10-13
+
+- native sessionの検証・復元・refresh・local logoutをOS資格情報保管へ接続するcoordinatorを追加。issuer/owner/期限/clock/永続世代を照合し、保存応答不明やtimeout後のrefresh再利用、logout後の遅着を拒否する。
+- 古いinstanceの失敗cleanupが別instanceの新sessionを解除しない世代付きlockを追加。実SQLiteのRust24、型/build、通常Windows cross-buildを確認。
+- trusted HTTP provider/署名session検証adapter、provider revoke、通常IPC/UI・offline lease/handle接続と実自動復元は次工程。現行previewのmemory-only認証と既知のIME再変換Failを変更しない。
+
 ## 0.82.1 — 2026-10-13
 
 - 実行物0.82.0で、利用者のMicrosoft IME実キー入力・変換・確定後の日本語をnative画面と独立SQLite/Yjs/PGで確認。元の英語＋指定日本語の正確な2段落、全文/vector一致、未ACK0/ACK76、元wire保持、DB正常を記録。

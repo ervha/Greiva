@@ -29,6 +29,10 @@ pub trait CredentialStore: Send + Sync {
     fn delete(&self, target: &str) -> Result<()>;
 }
 pub struct Ticket { generation: i64, slot: String, scope: String, owner: Option<String> }
+impl Ticket {
+    /// Native session's durable fence; not an authentication proof or IPC value.
+    pub fn generation(&self) -> i64 { self.generation }
+}
 pub struct RefreshLease { pub ticket: Ticket, pub secret: Secret }
 #[derive(Debug, PartialEq, Eq)]
 pub struct LogoutResult { pub locked: bool, pub cleanup_pending: bool }
@@ -67,9 +71,10 @@ impl<S: CredentialStore> CredentialVault<S> {
         if !marker(slot) { return Err(CredentialError); }
         Ok(format!("Greiva/native-session/v1/{}/{}", self.scope, slot))
     }
-    async fn transition(&self, restore: bool) -> Result<(Ticket, Option<String>)> {
+    async fn transition(&self, restore: bool, expected:Option<i64>) -> Result<(Ticket, Option<String>)> {
         let mut tx = self.pool.begin_with("BEGIN IMMEDIATE").await.map_err(|_| CredentialError)?;
         let row = sqlx::query("SELECT generation,slot,owner,active FROM session_marker WHERE id=1 AND scope=?").bind(&self.scope).fetch_one(&mut *tx).await.map_err(|_| CredentialError)?;
+        if expected.is_some_and(|g|g!=row.get::<i64,_>("generation")) {return Err(CredentialError)}
         let active: i64 = row.get("active");
         let old: String = row.get("slot"); self.target(&old)?;
         let owner: Option<String> = row.get("owner");
@@ -88,11 +93,11 @@ impl<S: CredentialStore> CredentialVault<S> {
         crate::structured_sync::crash_barrier("credential-lock-after-commit").map_err(|_| CredentialError)?;
         Ok((Ticket { generation, slot, scope:self.scope.clone(), owner:pinned }, if restore { Some(old) } else { None }))
     }
-    pub async fn begin_login(&self) -> Result<Ticket> { self.transition(false).await.map(|(ticket,_)|ticket) }
+    pub async fn begin_login(&self) -> Result<Ticket> { self.transition(false,None).await.map(|(ticket,_)|ticket) }
     /// Locks the durable marker before reading. A refresh failure/crash requires
     /// an explicit login; never retry a potentially consumed rotating token.
     pub async fn begin_restore(&self) -> Result<RefreshLease> {
-        let (ticket, old) = self.transition(true).await?;
+        let (ticket, old) = self.transition(true,None).await?;
         let secret = self.store.read(&self.target(&old.ok_or(CredentialError)?)?)?.ok_or(CredentialError)?;
         Ok(RefreshLease { ticket, secret })
     }
@@ -117,15 +122,32 @@ impl<S: CredentialStore> CredentialVault<S> {
         Ok(())
     }
     pub async fn logout(&self) -> Result<LogoutResult> {
-        self.transition(false).await?;
+        self.transition(false,None).await?;
         Ok(LogoutResult { locked:true, cleanup_pending:self.cleanup().await.is_err() })
+    }
+    /// Automatic failure cleanup may lock only its own durable generation.
+    /// It must not invalidate another instance's newer authenticated session.
+    pub async fn logout_generation(&self,generation:i64)->Result<LogoutResult> {
+        if generation<=0 {return Err(CredentialError)}
+        self.transition(false,Some(generation)).await?;
+        Ok(LogoutResult {locked:true,cleanup_pending:self.cleanup().await.is_err()})
     }
     /// Native-only read/check/update under the same cross-process logout gate.
     /// OS write must succeed before returning a local access result. A failed
     /// read/validation/write durably locks the marker; no credential is returned.
     pub async fn update_active<T>(&self, subject:&str, work:impl FnOnce(&Secret)->Result<(Secret,T)>)->Result<T> {
+        self.update_scoped(subject,None,work).await
+    }
+    /// A native online session must also match the generation that persisted
+    /// its rotated token, even when another instance logs in as the same owner.
+    pub async fn update_generation<T>(&self, subject:&str, generation:i64, work:impl FnOnce(&Secret)->Result<(Secret,T)>)->Result<T> {
+        if generation<=0 {return Err(CredentialError)}
+        self.update_scoped(subject,Some(generation),work).await
+    }
+    async fn update_scoped<T>(&self, subject:&str, generation:Option<i64>, work:impl FnOnce(&Secret)->Result<(Secret,T)>)->Result<T> {
         let mut tx=self.pool.begin_with("BEGIN IMMEDIATE").await.map_err(|_|CredentialError)?;
-        let row=sqlx::query("SELECT slot,owner,active FROM session_marker WHERE id=1 AND scope=?").bind(&self.scope).fetch_one(&mut *tx).await.map_err(|_|CredentialError)?;
+        let row=sqlx::query("SELECT generation,slot,owner,active FROM session_marker WHERE id=1 AND scope=?").bind(&self.scope).fetch_one(&mut *tx).await.map_err(|_|CredentialError)?;
+        if generation.is_some_and(|g|g!=row.get::<i64,_>("generation")) {return Err(CredentialError)}
         if row.get::<i64,_>("active")!=1 || row.get::<Option<String>,_>("owner").as_deref()!=Some(hash(subject.as_bytes()).as_str()){return Err(CredentialError)}
         let slot:String=row.get("slot");
         let result=(||{let target=self.target(&slot)?;let stored=self.store.read(&target)?.ok_or(CredentialError)?;let (updated,result)=work(&stored)?;self.store.write(&target,&updated)?;Ok(result)})();
