@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+最新checkpoint v0.82.1、実行物0.82.0：[短い通常Microsoft IME入力の保存・同期](../../tests/evidence/windows-ms-ime-20261013/SUMMARY.md)を実機と独立SQLite/Yjs/PGで確認。正確な英語＋日本語2段落、全文/vector一致、未ACK0/ACK76。再変換Failと未実施のremote composition・性能・offlineを維持する。以下のv0.82.0は機能checkpoint。
+
 現在のcheckpoint/アプリ版はv0.82.0。[新規登録](../development/PRIVATE_SIGNUP.md)と[実登録・正常ログイン・native保存/強制終了/同期の限定証拠](../../tests/evidence/private-signup-20261013/SUMMARY.md)を追加した。確認メール後のlocalhost導線、最新版IME、自動復元/offlineと完成版UIは残る。[未合格事項](TEST_REVIEW_20261013.md)も参照。手動操作可能との利用者指示で開発/検証を再開した。以下の各版は過去の記録。
 
 最新v0.76.0：[暗号化backup CLIと復元リハーサル](../development/PRIVATE_BACKUP_REHEARSAL.md)を実装。固定JWE/外部key/非上書き出力、実PG33 tableとreceipt/cursorの別DB復元、切断dumpのrollbackを確認。対象5/全unit482/型/build・通常WindowsPE/SHA。[証拠](../../tests/evidence/private-backup-20261013/SUMMARY.md)。本番KMS/backup運用/native端末復旧は別工程。利用者の依頼により実Auth操作を保留し、独立開発を進めた。

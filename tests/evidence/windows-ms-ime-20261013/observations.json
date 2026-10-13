@@ -1,0 +1,18 @@
+{
+  "artifactVersion": "0.82.0",
+  "manualReport": "Microsoft IMEで入力・確定できた",
+  "fixtureOnly": true,
+  "literalInjectionUsedForJapanese": false,
+  "nativeTwoParagraphsObserved": true,
+  "localSaveCompleteObserved": true,
+  "pendingBeforeSync": 74,
+  "initialSyncRejectedByAutoReview": true,
+  "explicitSyncApprovedByUser": true,
+  "inputDetectedAtSyncAttempt": true,
+  "syncedStateObservedAfterRefresh": true,
+  "duplicateSyncNotIssued": true,
+  "candidateProcessEndedBeforeCopy": true,
+  "independentAuditPassed": true,
+  "sensitiveValuesRecorded": false,
+  "scope": "short local conversion/commit, durable result and explicit synchronization only"
+}

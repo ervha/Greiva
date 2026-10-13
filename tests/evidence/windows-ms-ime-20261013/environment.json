@@ -1,0 +1,14 @@
+{
+  "artifactVersion": "0.82.0",
+  "artifactSha256": "9ecf16dd9c19e83f581f162f965af624fced7b223be8ebedba6a3d649a629cfb",
+  "osCaption": "Microsoft Windows 11 Home",
+  "osVersion": "10.0.26300",
+  "osBuild": "26300",
+  "webViewDirectChildCount": 1,
+  "webViewVersions": [
+    "154.0.4258.62"
+  ],
+  "imeProviderSource": "user-confirmed Microsoft IME",
+  "testHooks": false,
+  "testSqlite": false
+}

@@ -1,0 +1,24 @@
+{
+  "artifactVersion": "0.82.0",
+  "provider": "Microsoft IME (user confirmed)",
+  "inputMethod": "physical key input, conversion and commit reported by user",
+  "exactTwoParagraphs": true,
+  "originalEnglishUnchanged": true,
+  "expectedJapaneseExact": true,
+  "nativeServerXmlEqual": true,
+  "stateVectorsEqual": true,
+  "localUpdates": 78,
+  "serverUpdates": 76,
+  "ackHistory": 76,
+  "pending": 0,
+  "originalWireHistoryUnchanged": true,
+  "serverDigestsUnique": true,
+  "bodyXmlSha256": "b77843242c229ba99a7863fffe15b4c5d356ccdfcc8064906d6b6def6a2fcc96",
+  "sqliteIntegrity": "ok",
+  "scope": {
+    "remoteDuringComposition": false,
+    "reconversion": false,
+    "offlineRestart": false,
+    "performance": false
+  }
+}

@@ -1,5 +1,7 @@
 # テスト項目と未合格事項の整理
 
+v0.82.1追記：[最新候補の通常Microsoft IME入力](../../tests/evidence/windows-ms-ime-20261013/SUMMARY.md)を利用者の実キー入力/確定とnative保存/実同期で限定確認。正確な2段落、全文/vector一致、未ACK0・ACK履歴76を確認した。再変換Fail・受入例外、remote composition/再接続、長時間/native性能とoffline未確認は消さない。
+
 v0.82.0追記：[新規登録と実Windows検証](../../tests/evidence/private-signup-20261013/SUMMARY.md)で実Supabase正常ログインとworkspace開通、保存済みPage/pending2の強制終了復元、実同期pending0/receipt2・全文/vector一致を確認した。N-02の正常loginは補完したが、refresh/失効は未実施。N-05はオンライン手動再認証を伴う保存完了後の1境界だけを補い、offline無認証復元や内部全停止点をPassにしない。確認メール後のlocalhost接続エラーは[新しい未整備事項](../failures/private-signup-confirmation-redirect.md)。以下はv0.81.0時点の整理として保持する。
 
 2026-10-13。対象ソースv0.81.0（8b43799）。利用者の「通るテストじゃなくて、通らないテストはない？」に対する確認。成功件数、既知の失敗、未実装、未実施、受入例外を区別する。

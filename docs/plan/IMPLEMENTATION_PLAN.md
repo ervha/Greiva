@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.82.1（証拠・文書）：実行物0.82.0で[通常Microsoft IMEの限定実機確認](../../tests/evidence/windows-ms-ime-20261013/SUMMARY.md)を補完。実キー変換/確定後の正確な2段落・native/server全文/vector、未ACK0/ACK76、元wire/DB整合性を確認した。再変換原Fail、remote composition/再接続、性能/offlineとnative provider/UI接続は残す。完成版UIの整理は別工程。
+
 最新v0.82.0：[新規登録](../development/PRIVATE_SIGNUP.md)を認証/個人workspaceプレビューへ追加。利用者の手動登録・確認メール・正常ログインとnative workspaceを確認。単体494/認証画面18/workspace98・型/build、実Windows保存→強制終了→手動再認証→pending2復帰→同期pending0を独立SQLite/Yjs/PGで照合。[証拠](../../tests/evidence/private-signup-20261013/SUMMARY.md)。localhostの確認完了導線、最新版IME、native自動復元/provider・offline/UI接続は残る。画面の全面整理は別工程で、手動操作可能との再開指示により検証を継続する。
 
 最新v0.81.1（文書・検証）：[テスト項目と未合格事項](TEST_REVIEW_20261013.md)を整理。既知のIME再変換Fail/受入例外、native接続の未実装、実Auth/GUI/性能/他OSの未確認を明記。ソースv0.81.0の全Vitest124 filesを実PG付きで再確認し1,027 Pass・Fail/skip 0。[証拠](../../tests/evidence/test-review-20261013/SUMMARY.md)。アプリ版は0.81.0、機能開発は停止を維持。

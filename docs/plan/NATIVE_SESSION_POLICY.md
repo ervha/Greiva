@@ -40,4 +40,4 @@ workspace/device metadata、本文、queue、Conflict、元wire/receiptは保持
 4. 7日直前/ちょうど期限、offline編集→再接続、失効、同account復帰、異account拒否、pending保全をDockerとWindows実機で別々に検証する。
 5. Android OS保管とlifecycleを同契約で受入し、本番入口の昇格を判断する。
 
-実ログインは利用者が現在操作できないため保留する。認証以外の独立開発を続ける。[個人情報/暗号化方針](ACCOUNT_PRIVACY_ENCRYPTION_SPEC.md) と [Native IPCの現状](../development/NATIVE_WORKSPACE_IPC.md) を併せて参照。
+2026-10-13、利用者が手動操作可能となり、v0.82.0で[実登録・正常ログイン・native保存/強制終了/同期](../../tests/evidence/private-signup-20261013/SUMMARY.md)、v0.82.1で[通常IMEの限定結果・保存/同期](../../tests/evidence/windows-ms-ime-20261013/SUMMARY.md)を確認した。native provider/自動復元/refresh/7日offline/UIの接続と実失効受入は残る。[個人情報/暗号化方針](ACCOUNT_PRIVACY_ENCRYPTION_SPEC.md) と [Native IPCの現状](../development/NATIVE_WORKSPACE_IPC.md) を併せて参照。
