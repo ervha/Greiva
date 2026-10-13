@@ -15,12 +15,13 @@ export default defineConfig(({ mode }) => {
   if (key && (key.length > 512 || !/^sb_publishable_[A-Za-z0-9_-]+$/.test(key))) throw new Error('Invalid public authentication configuration');
   const target = process.env.GREIVA_PRIVATE_PROXY_TARGET ?? loadEnv(mode, envDir, 'GREIVA_PRIVATE_PROXY_TARGET').GREIVA_PRIVATE_PROXY_TARGET;
   const privateTarget = target ? privateApiOrigin(target) : null;
+  const nativeOnly=process.env.GREIVA_NATIVE_FRONTEND_ONLY==='1';
   return {
   define:{__GREIVA_VERSION__:JSON.stringify(JSON.parse(readFileSync(new URL('./package.json',import.meta.url),'utf8')).version)},
   envDir,
   plugins: [react(), ...(sqlite ? [sqlite] : [])],
   server: { port: 1420, strictPort: true, watch: { ignored: ['**/src-tauri/**'] }, ...(privateTarget ? { proxy: { '/v1': { target: privateTarget, changeOrigin: true } } } : {}) },
-  build: { rollupOptions: { input: { main: resolve(import.meta.dirname, 'index.html'), auth: resolve(import.meta.dirname, 'auth.html'), workspace:resolve(import.meta.dirname,'workspace.html'),native:resolve(import.meta.dirname,'native.html') } } },
+  build: { rollupOptions: { input: nativeOnly?{native:resolve(import.meta.dirname,'native.html')}:{ main: resolve(import.meta.dirname, 'index.html'), auth: resolve(import.meta.dirname, 'auth.html'), workspace:resolve(import.meta.dirname,'workspace.html'),native:resolve(import.meta.dirname,'native.html') } } },
   clearScreen: false,
   };
 });

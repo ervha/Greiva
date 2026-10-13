@@ -4,3 +4,12 @@
 .native-page-list li { display:flex; flex-wrap:wrap; align-items:baseline; justify-content:space-between; gap:8px; padding:12px 0; border-bottom:1px solid var(--border); overflow-wrap:anywhere; }
 .native-page-list .auth-help { flex-shrink:0; }
 @media (max-width:420px) { .native-actions button { flex:1 1 120px; } }
+.auth-shell.native-workspace-shell { width:min(100%,1200px); }
+.native-workspace-layout { display:grid; grid-template-columns:minmax(0,240px) minmax(0,1fr); gap:24px; }
+.native-workspace-layout:has(> section) { margin-top:24px; }
+.native-workspace-layout:not(:has(> section)) { grid-template-columns:minmax(0,1fr); }
+.native-editor-wrap { position:relative; min-width:0; }
+.native-editor-lock { position:absolute; inset:0; background:var(--surface); color:var(--text); display:flex; align-items:center; justify-content:center; padding:24px; z-index:20; pointer-events:none; }
+.native-page-list button { max-width:100%; overflow-wrap:anywhere; text-align:left; }
+.native-workspace-layout .editor-panel { padding:20px; box-shadow:none; }
+@media (max-width:780px) { .native-workspace-layout { grid-template-columns:minmax(0,1fr); } }

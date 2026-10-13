@@ -1,0 +1,6 @@
+{
+  "version": "0.89.0",
+  "sha256": "8e884b745787f7372123e825d9c72450086664d397bae89763815547e00cc2ce",
+  "identifier": "dev.greiva.native.fixture",
+  "matchesDocker": true
+}

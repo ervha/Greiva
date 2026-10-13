@@ -1,19 +1,19 @@
 import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import {spawnSync} from 'node:child_process';import {createHash} from 'node:crypto';import {loadEnv} from 'vite';
 import {privatePreviewProfile} from './private-preview-profile.ts';
+import {nativePreviewProfile} from './native-preview-profile.ts';
 assert(fs.existsSync('/.dockerenv'),'Build native preview in Docker');
 const root=process.cwd(),environment={...loadEnv('production',root,'VITE_GREIVA_'),...Object.fromEntries(Object.entries(process.env).filter(([key])=>key.startsWith('VITE_GREIVA_')))};
-const profile=privatePreviewProfile(environment),version=fs.readFileSync('VERSION','utf8').trim(),base=JSON.parse(fs.readFileSync('apps/client/src-tauri/tauri.conf.json'));
+const profile=nativePreviewProfile(privatePreviewProfile(environment),process.argv.includes('--isolated-fixture')),version=fs.readFileSync('VERSION','utf8').trim(),base=JSON.parse(fs.readFileSync('apps/client/src-tauri/tauri.conf.json'));
 assert.equal(base.version,version);assert.equal(JSON.parse(fs.readFileSync('apps/client/package.json')).version,version);
-const override=structuredClone(profile.override);override.productName='Greiva Native Preview';override.app.windows[0].url='native.html';override.app.windows[0].title='Greiva — 端末workspace 接続プレビュー';
-override.app.security.csp="default-src 'self'; connect-src 'self' ipc: http://ipc.localhost "+profile.publicEnvironment.VITE_GREIVA_SUPABASE_URL+"; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'";
+const override=profile.override;
 const out=path.resolve(process.argv[2]??`.data/native-preview/${version}`),relative=path.relative(root,out);
 assert(relative.startsWith('.data'+path.sep)&&!relative.split(path.sep).includes('..'),'Output must stay in workspace .data');assert(!fs.existsSync(out),'Refusing existing native preview output');
 let ancestor=path.dirname(out);while(!fs.existsSync(ancestor))ancestor=path.dirname(ancestor);const realRoot=fs.realpathSync(root),realAncestor=fs.realpathSync(ancestor);assert(realAncestor===realRoot||realAncestor.startsWith(realRoot+path.sep),'Output parent resolves outside workspace');
 fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'tauri-override.json'),JSON.stringify(override,null,2)+'\n');
-const env={...process.env,...profile.publicEnvironment,TAURI_CONFIG:JSON.stringify(override),GREIVA_NATIVE_PROJECT_URL:profile.publicEnvironment.VITE_GREIVA_SUPABASE_URL,GREIVA_NATIVE_API_ORIGIN:profile.publicEnvironment.VITE_GREIVA_PRIVATE_API_ORIGIN,GREIVA_NATIVE_PUBLISHABLE_KEY:profile.publicEnvironment.VITE_GREIVA_SUPABASE_PUBLISHABLE_KEY};
+const env={...process.env,...profile.publicEnvironment,...profile.nativeEnvironment,TAURI_CONFIG:JSON.stringify(override)};
 const steps=[];function run(step,command,args){const result=spawnSync(command,args,{cwd:root,env,encoding:'utf8',maxBuffer:32*1024*1024});fs.writeFileSync(path.join(out,step+'.log'),(result.stdout??'')+(result.stderr??''));steps.push({step,status:result.status,signal:result.signal});fs.writeFileSync(path.join(out,'steps.json'),JSON.stringify(steps,null,2));if(result.status!==0)throw Error('Native preview '+step+' failed; see private output log');}
 run('frontend','npm',['run','build']);
-assert(fs.existsSync('apps/client/dist/native.html'));assert(!fs.readdirSync('apps/client/dist').some(name=>name.endsWith('.fixture.html')),'Fixture HTML in production assets');
+assert(fs.existsSync('apps/client/dist/native.html'));assert.deepEqual(fs.readdirSync('apps/client/dist').filter(name=>name.endsWith('.html')),['native.html'],'Only native HTML may ship in native-auth mode');
 run('windows','/opt/cargo/bin/cargo',['xwin','build','--locked','--offline','--manifest-path','apps/client/src-tauri/Cargo.toml','--target','x86_64-pc-windows-msvc','--features','custom-protocol','--target-dir','.data/windows-target','--bin','greiva-poc','--example','private-profile-inspect','--example','native-auth-profile-inspect']);
 for(const [from,to] of [['.data/windows-target/x86_64-pc-windows-msvc/debug/greiva-poc.exe','greiva-native-preview.exe'],['.data/windows-target/x86_64-pc-windows-msvc/debug/examples/private-profile-inspect.exe','private-profile-inspect.exe'],['.data/windows-target/x86_64-pc-windows-msvc/debug/examples/native-auth-profile-inspect.exe','native-auth-profile-inspect.exe']])fs.copyFileSync(from,path.join(out,to));
 const sha=file=>createHash('sha256').update(fs.readFileSync(file)).digest('hex');

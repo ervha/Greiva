@@ -1,0 +1,11 @@
+{
+  "result": "Pass: signed-out screen rendered",
+  "retry": "Authorized by user; running window observed",
+  "entry": "http://tauri.localhost/native.html",
+  "realImeVerified": false,
+  "identifier": "dev.greiva.native.fixture",
+  "windowTitle": "Greiva — 端末workspace 隔離検証",
+  "initialLaunch": "App approval timed out",
+  "version": "0.89.0",
+  "nativePageInvokeVerified": false
+}

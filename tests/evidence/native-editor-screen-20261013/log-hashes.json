@@ -1,0 +1,42 @@
+[
+  {
+    "rawSha256": "3099af14114f7893c4d1c80a2bc60cac96680159e8d7e7e0758cea528cf7195c",
+    "file": "windows.log.gz"
+  },
+  {
+    "rawSha256": "4c91a5dc6d68f24d382bc3939fe4f680e44930ff227cc2dbcd163511279b12fa",
+    "file": "normal-build.log.gz"
+  },
+  {
+    "rawSha256": "8d2ec81fd8955e1aed23d6aed7b32a07637154925f0cb1f9f2fa76d64931d7cd",
+    "file": "isolated.log.gz"
+  },
+  {
+    "rawSha256": "3070d543bcd60f0e022216667b702c86c77a3ea5d3e0b54d6afea947566dc6d9",
+    "file": "target.log.gz"
+  },
+  {
+    "rawSha256": "62bd2bce26ebb3b7773277e3cf9300e9e465de34c624dd25fb0102b6eb59c707",
+    "file": "unit.log.gz"
+  },
+  {
+    "rawSha256": "1a8efa6b1a03b8b25636f2a94f2d86867604956db71b0faed9f996fecc57853a",
+    "file": "frontend.log.gz"
+  },
+  {
+    "rawSha256": "8b8c478eadf34a2c2bf0d11c873202f34d510d0ccec00ef4c7a9df023dcc8f45",
+    "file": "preview.log.gz"
+  },
+  {
+    "rawSha256": "41f74f733b8f3da120f745a013fd6ad4673f4674544e3e67c303fd19b9c55d6f",
+    "file": "type.log.gz"
+  },
+  {
+    "rawSha256": "6511c5974a9ae2f7a92beb7aa88b8d8abd0531855895caaea05cb2aa908f9af0",
+    "file": "e2e.log.gz"
+  },
+  {
+    "rawSha256": "d5f53440c7f6718ee680c2f2fbf4bd6c4a5791674eaf2edb6a3c1122af82b7d9",
+    "file": "legacy-assets-rejected.log.gz"
+  }
+]

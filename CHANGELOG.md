@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.89.0 — 2026-10-13
+
+- native専用画面にPage作成・本文編集・直列端末保存を接続。保存未確認入力の同scope復帰、composition中の操作保留と失効時の遮蔽を追加。
+- native-only frontendをbuildで要求し、browser token通信をCSPで拒否。別identifierの隔離fixture候補を追加。
+- 全unit518・画面20・型とWindows候補の版/SHAを確認。Windowsで隔離候補の未ログイン画面を確認。実本文invoke/IME・native HTTP同期/offline leaseは別工程。
+
 ## 0.88.0 — 2026-10-13
 
 - native本文sessionへhandle固定・更新byteのcopy・直列local保存、strict loadと保存未確認状態を追加。unknown結果を自動再送せず、別handleへ遅い保存を転送しない。

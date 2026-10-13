@@ -46,6 +46,7 @@ export class NativePageSession {
  };
  pendingUpdates=()=>this.#state.pending;
  setComposing=(value:boolean)=>{this.#patch({composing:value});};
+ lock(){if(this.#state.phase==='ready')this.#patch({storageError:'closed'});}
  durable(){return this.#tail;}
  draft():NativePageDraft|null {
   if(this.#state.unsaved===0)return null;

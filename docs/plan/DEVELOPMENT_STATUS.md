@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+最新checkpoint v0.89.0：[native本文編集画面](../development/NATIVE_EDITOR_SCREEN.md)に作成・端末保存・scope固定下書き復帰を接続。全unit518/画面20・型・Windows隔離候補buildと起動表示を確認。[証拠](../../tests/evidence/native-editor-screen-20261013/SUMMARY.md)。native HTTP同期/ACK、offline lease、実Windows本文invoke/IMEへ続行。以下は過去のcheckpoint記録。
+
 最新checkpoint v0.82.1、実行物0.82.0：[短い通常Microsoft IME入力の保存・同期](../../tests/evidence/windows-ms-ime-20261013/SUMMARY.md)を実機と独立SQLite/Yjs/PGで確認。正確な英語＋日本語2段落、全文/vector一致、未ACK0/ACK76。再変換Failと未実施のremote composition・性能・offlineを維持する。以下のv0.82.0は機能checkpoint。
 
 現在のcheckpoint/アプリ版はv0.82.0。[新規登録](../development/PRIVATE_SIGNUP.md)と[実登録・正常ログイン・native保存/強制終了/同期の限定証拠](../../tests/evidence/private-signup-20261013/SUMMARY.md)を追加した。確認メール後のlocalhost導線、最新版IME、自動復元/offlineと完成版UIは残る。[未合格事項](TEST_REVIEW_20261013.md)も参照。手動操作可能との利用者指示で開発/検証を再開した。以下の各版は過去の記録。

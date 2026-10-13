@@ -3,6 +3,7 @@ import {isTauri} from '@tauri-apps/api/core';
 import {NativeAuthScreen} from './NativeAuthScreen';
 import {NativeSessionPort} from './native-session-port';
 import {NativeLoginController} from './native-login-controller';
+import '../style.css';
 import './style.css';
 import './native-style.css';
 const configuration={projectUrl:import.meta.env.VITE_GREIVA_SUPABASE_URL??'',publishableKey:import.meta.env.VITE_GREIVA_SUPABASE_PUBLISHABLE_KEY??'',algorithm:import.meta.env.VITE_GREIVA_SUPABASE_ALGORITHM==='RS256'?'RS256':'ES256'} as const;

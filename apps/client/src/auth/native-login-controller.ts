@@ -2,27 +2,38 @@ import {newId} from '@greiva/shared';
 import {supabaseSignup} from '@greiva/sync';
 import {privateLocalPageCatalogResponseSchema,type PrivateLocalPageCatalogResponse} from '@greiva/protocol/private-page-catalog';
 import {NativeSessionPort,type NativeAuthSnapshot} from './native-session-port.js';
+import {NativePageSession,type NativePageDraft} from '../editor/native-page-session.js';
+import * as Y from 'yjs';
 type Phase='checking'|'signed_out'|'restoring'|'logging_in'|'verified'|'opening'|'ready'|'loading'|'signing_out'|'unavailable'|'signing_up'|'signup_requested';
-export type NativeLoginSnapshot=Readonly<{phase:Phase;busy:boolean;message:string|null;notice:boolean;pages:PrivateLocalPageCatalogResponse['pages'];hasMore:boolean;logoutUnconfirmed:boolean}>;
+export type NativeLoginSnapshot=Readonly<{phase:Phase;busy:boolean;message:string|null;notice:boolean;pages:PrivateLocalPageCatalogResponse['pages'];hasMore:boolean;logoutUnconfirmed:boolean;composing:boolean;saving:number;editorLocked:boolean;hasDraft:boolean}>;
 const busy=['checking','restoring','logging_in','opening','loading','signing_out','signing_up'];
 export class NativeLoginController {
  #phase:Phase='checking';#message:string|null=null;#notice=false;#revision=0;#started=false;#disposed=false;#pages:PrivateLocalPageCatalogResponse['pages']=[];#after:string|null=null;#logoutUnconfirmed=false;
  #listeners=new Set<(state:NativeLoginSnapshot)=>void>();#expiry:ReturnType<typeof setTimeout>|undefined;#signup:AbortController|undefined;
+ #editor:NativePageSession|null=null;#detachEditor:(()=>void)|undefined;#drafts:NativePageDraft[]=[];#pageBusy=false;#editorLocked=false;#endingEditor:Promise<void>|null=null;
  constructor(private readonly port:NativeSessionPort,private readonly registration:Parameters<typeof supabaseSignup>[0],private readonly fetchPort:typeof fetch=globalThis.fetch){}
- get snapshot():NativeLoginSnapshot{return Object.freeze({phase:this.#phase,busy:busy.includes(this.#phase),message:this.#message,notice:this.#notice,pages:['ready','loading'].includes(this.#phase)?this.#pages:[],hasMore:this.#after!==null,logoutUnconfirmed:this.#logoutUnconfirmed});}
+ get editor(){return this.#editor;}
+ get snapshot():NativeLoginSnapshot{return Object.freeze({phase:this.#phase,busy:busy.includes(this.#phase)||this.#pageBusy||Boolean(this.#editor?.isComposing)||Boolean(this.#editor?.snapshot.saving),message:this.#message,notice:this.#notice,pages:['ready','loading'].includes(this.#phase)?this.#pages:[],hasMore:this.#after!==null,logoutUnconfirmed:this.#logoutUnconfirmed,composing:Boolean(this.#editor?.isComposing),saving:this.#editor?.snapshot.saving??0,editorLocked:this.#editorLocked,hasDraft:this.#editor!==null&&this.#drafts.some(d=>this.#sameDraft(d,this.#editor!))});}
  subscribe(listener:(state:NativeLoginSnapshot)=>void){this.#listeners.add(listener);listener(this.snapshot);return()=>{this.#listeners.delete(listener);};}
  #publish(){for(const listener of this.#listeners){try{listener(this.snapshot);}catch{/* Observer cannot alter authentication. */}}}
  #current(revision:number){return !this.#disposed && revision===this.#revision;}
- #begin(phase:Phase){if(this.#disposed)return null;clearTimeout(this.#expiry);this.#signup?.abort();this.#phase=phase;this.#message=null;this.#notice=false;const revision=++this.#revision;this.#publish();return revision;}
+ #begin(phase:Phase){if(this.#disposed)return null;clearTimeout(this.#expiry);this.#signup?.abort();this.#pageBusy=false;this.#phase=phase;this.#message=null;this.#notice=false;const revision=++this.#revision;this.#publish();return revision;}
+ #sameDraft(draft:NativePageDraft,editor:NativePageSession){return draft.pageId===editor.pageId&&Object.entries(editor.bound.context).every(([key,value])=>draft.context[key as keyof typeof draft.context]===value);}
+ #keepDraft(draft:NativePageDraft|null){if(!draft||this.#disposed)return;const current=draft;let stored=current;const old=this.#drafts.find(d=>d.pageId===current.pageId&&Object.entries(current.context).every(([key,value])=>d.context[key as keyof typeof d.context]===value));if(old){this.#drafts=this.#drafts.filter(d=>d!==old);stored=Object.freeze({...current,update:Y.mergeUpdates([old.update,current.update])});}this.#drafts.push(stored);}
+ async #endEditor(){if(this.#endingEditor)return this.#endingEditor;const editor=this.#editor;if(!editor||editor.isComposing)return;this.#editor=null;this.#detachEditor?.();this.#detachEditor=undefined;this.#editorLocked=false;this.#publish();const work:Promise<void>=editor.close().then(draft=>{this.#keepDraft(draft);if(!this.#disposed)this.#publish();}).finally(()=>{if(this.#endingEditor===work)this.#endingEditor=null;});this.#endingEditor=work;return work;}
+ #adopt(editor:NativePageSession){this.#editor=editor;this.#editorLocked=false;let checked=false;this.#detachEditor=editor.subscribe(state=>{if(this.#editor!==editor)return;this.#pages=this.#pages.map(page=>page.metadata.id===editor.pageId?{...page,pending:state.pending}:page);if(this.#editorLocked&&!state.composing){void this.#endEditor();return;}if(!this.#editorLocked&&state.storageError&&!checked){checked=true;void this.#verifyPagePermission(editor);}this.#publish();});}
+ async #verifyPagePermission(editor:NativePageSession){const revision=this.#revision;try{const status=await this.port.status();if(!this.#current(revision)||this.#editor!==editor)return;if(status.phase==='verified'){this.#watch(status);return;}}catch{if(!this.#current(revision)||this.#editor!==editor)return;}clearTimeout(this.#expiry);this.#clear();this.#phase='signed_out';this.#message='接続を確認できなくなりました。ログインし直してください。';await this.#invalidateEditor();this.#publish();}
+ async #invalidateEditor(){const editor=this.#editor;if(!editor)return;this.#editorLocked=true;editor.lock();if(!editor.isComposing)await this.#endEditor();}
  #clear(){this.#pages=[];this.#after=null;}
  #watch(auth:NativeAuthSnapshot){
   clearTimeout(this.#expiry);if(auth.phase!=='verified' || auth.expiresAt===null)return;const revision=this.#revision;
   this.#expiry=setTimeout(()=>{void this.#checkExpiry(revision);},Math.min(2147483647,Math.max(1,auth.expiresAt*1000-Date.now())));
  }
  async #checkExpiry(revision:number){
+  if(!this.#current(revision))return;
   try{const status=await this.port.status();if(!this.#current(revision))return;if(status.phase==='verified'){this.#watch(status);return;}}
   catch{if(!this.#current(revision))return;}
-  this.#clear();this.#phase='signed_out';this.#message='接続を確認できなくなりました。ログインし直してください。';this.#publish();
+  this.#clear();this.#phase='signed_out';this.#message='接続を確認できなくなりました。ログインし直してください。';await this.#invalidateEditor();this.#publish();
  }
  async start(){
   if(this.#started || this.#disposed)return;this.#started=true;const revision=this.#revision;
@@ -33,7 +44,7 @@ export class NativeLoginController {
  }
  async #authenticate(command:'login'|'restore',email='',password='',automatic=false){
   if(this.snapshot.busy && this.#phase!=='checking')return;const revision=this.#begin(command==='login'?'logging_in':'restoring');if(revision===null)return;this.#clear();this.#logoutUnconfirmed=false;
-  try{const status=await (command==='login'?this.port.login(email,password):this.port.restore());if(!this.#current(revision))return;this.#phase='verified';this.#watch(status);}
+  try{await this.#endEditor();if(!this.#current(revision))return;const status=await (command==='login'?this.port.login(email,password):this.port.restore());if(!this.#current(revision))return;this.#phase='verified';this.#watch(status);}
   catch{if(!this.#current(revision))return;this.#phase='signed_out';this.#notice=automatic;this.#message=automatic?'ログインして端末のworkspaceを開いてください。':'接続を確認できませんでした。入力内容とネットワークを確認してください。';}
   this.#publish();
  }
@@ -57,20 +68,31 @@ export class NativeLoginController {
   this.#publish();
  }
  async more(){
-  if(this.#phase!=='ready' || this.#after===null)return;const after=this.#after;const revision=this.#begin('loading');if(revision===null)return;
+  if(this.snapshot.busy || this.#phase!=='ready' || this.#after===null)return;const after=this.#after;const revision=this.#begin('loading');if(revision===null)return;
   try{const response=await this.#list(after);if(!this.#current(revision))return;this.#pages=[...this.#pages,...response.pages];this.#after=response.nextAfter;this.#phase='ready';}
-  catch{if(!this.#current(revision))return;if(this.port.current.phase==='verified'){this.#phase='ready';this.#message='続きの一覧を確認できませんでした。表示済みの一覧は保持しています。';}else{this.#clear();this.#phase='signed_out';this.#message='接続を確認できなくなりました。ログインし直してください。';}}
+  catch{if(!this.#current(revision))return;if(this.port.current.phase==='verified'){this.#phase='ready';this.#message='続きの一覧を確認できませんでした。表示済みの一覧は保持しています。';}else{this.#clear();this.#phase='signed_out';this.#message='接続を確認できなくなりました。ログインし直してください。';await this.#invalidateEditor();}}
   this.#watch(this.port.current);this.#publish();
  }
  async close(){
-  const revision=this.#begin('verified');if(revision===null)return;this.#clear();await this.port.cancel().catch(()=>{});if(!this.#current(revision))return;this.#phase=this.port.current.phase==='verified'?'verified':'signed_out';this.#watch(this.port.current);this.#publish();
+  if(this.snapshot.composing||this.snapshot.saving)return;const revision=this.#begin('verified');if(revision===null)return;this.#clear();await this.#endEditor();if(!this.#current(revision))return;await this.port.cancel().catch(()=>{});if(!this.#current(revision))return;this.#phase=this.port.current.phase==='verified'?'verified':'signed_out';this.#watch(this.port.current);this.#publish();
  }
+ async #page(pageId:string,source:{kind:'local'}|{kind:'create';title:string}):Promise<boolean>{
+  if(this.snapshot.busy||this.#phase!=='ready')return false;clearTimeout(this.#expiry);const revision=++this.#revision;this.#pageBusy=true;this.#message=null;this.#publish();
+  try{await this.#endEditor();if(!this.#current(revision))return false;const editor=await NativePageSession.open(this.port,pageId,source);if(!this.#current(revision)){this.#keepDraft(await editor.close());return false;}this.#adopt(editor);
+   if(source.kind==='create'){try{const rows=await this.#list(null);if(!this.#current(revision))return false;this.#pages=rows.pages;this.#after=rows.nextAfter;}catch{if(this.#current(revision))this.#message='Pageは端末に保存しました。一覧の更新は確認できませんでした。';}}
+   return true;
+  }catch{if(this.#current(revision))this.#message=source.kind==='create'?'Pageの作成結果を確認できませんでした。保存済み一覧を確認してください。':'本文の保存先を確認できませんでした。保持した入力はこの画面に残しています。';return false;}
+  finally{if(this.#current(revision)){this.#pageBusy=false;this.#watch(this.port.current);this.#publish();}}
+ }
+ async selectPage(pageId:string){return this.#page(pageId,{kind:'local'});}
+ async createPage(title:string){return this.#page(newId(),{kind:'create',title});}
+ async restoreInput(){const editor=this.#editor;if(!editor||this.snapshot.busy||editor.snapshot.storageError)return;const draft=this.#drafts.find(d=>this.#sameDraft(d,editor));if(!draft)return;const revision=this.#revision;this.#pageBusy=true;this.#publish();try{await editor.restoreDraft(draft);if(this.#current(revision)&&this.#editor===editor)this.#drafts=this.#drafts.filter(d=>d!==draft);}catch{if(this.#current(revision))this.#message='保持した入力の保存を確認できませんでした。入力はこの画面に残しています。';}finally{if(this.#current(revision)){this.#pageBusy=false;this.#publish();}}}
  async logout(){
-  const revision=this.#begin('signing_out');if(revision===null)return;this.#clear();this.#logoutUnconfirmed=false;
-  try{const result=await this.port.logout();if(!this.#current(revision))return;this.#phase='signed_out';this.#logoutUnconfirmed=!result.persistentLocked;
+  if(this.snapshot.composing||this.#phase==='signing_out')return;const revision=this.#begin('signing_out');if(revision===null)return;this.#clear();this.#logoutUnconfirmed=false;
+  try{const ending=this.#endEditor(),closing=this.port.logout();await ending;const result=await closing;if(!this.#current(revision))return;this.#phase='signed_out';this.#logoutUnconfirmed=!result.persistentLocked;
    this.#message=!result.persistentLocked?'端末へのログアウト記録を確認できませんでした。再起動前にもう一度ログアウトを確認してください。':!result.providerConfirmed?'この端末の接続を閉じました。サーバーへのログアウト結果は確認できていません。':'ログアウトしました。端末の保存済みデータは保持しています。';
   }catch{if(!this.#current(revision))return;this.#phase='signed_out';this.#logoutUnconfirmed=true;this.#message='ログアウト結果を確認できませんでした。再起動前にもう一度ログアウトを確認してください。';}
   this.#publish();
  }
- dispose(){if(this.#disposed)return;this.#disposed=true;++this.#revision;clearTimeout(this.#expiry);this.#signup?.abort();this.#clear();this.port.dispose();this.#listeners.clear();}
+ dispose(){if(this.#disposed)return;this.#disposed=true;++this.#revision;clearTimeout(this.#expiry);this.#signup?.abort();this.#clear();this.#detachEditor?.();void this.#editor?.close().catch(()=>{});this.#editor=null;this.#drafts=[];this.port.dispose();this.#listeners.clear();}
 }

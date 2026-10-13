@@ -1,0 +1,9 @@
+{
+  "matchesDocker": true,
+  "nativeOnlyAssets": true,
+  "nativeImeTested": false,
+  "sha256": "73c75c2b46342190c40fdb0e61af5324f5ba1a6dbe79e5417da60c2afec78e52",
+  "version": "0.89.0",
+  "entry": "native.html",
+  "nativeGuiVerified": false
+}

@@ -6,6 +6,12 @@ fn main() {
         if values.iter().any(|value|value.as_ref().is_none_or(String::is_empty)){panic!("Complete explicit native authentication configuration required");}
         format!("Some(({:?},{:?},{:?}))",values[0].as_ref().unwrap(),values[1].as_ref().unwrap(),values[2].as_ref().unwrap())
     };
+    if values.iter().any(Option::is_some) {
+        let dist=std::path::Path::new("../dist");
+        if !dist.join("native.html").is_file() || std::fs::read_dir(dist).map(|files|files.filter_map(Result::ok).any(|file|file.path().extension().is_some_and(|ext|ext=="html")&&file.file_name()!="native.html")).unwrap_or(true) {
+            panic!("Native authentication requires native-only frontend assets");
+        }
+    }
     std::fs::write(std::path::PathBuf::from(std::env::var_os("OUT_DIR").unwrap()).join("native-auth-config.rs"),format!("pub(crate) const CONFIG:Option<(&str,&str,&str)>={expression};\n")).unwrap();
     tauri_build::build()
 }

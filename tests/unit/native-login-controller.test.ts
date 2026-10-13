@@ -1,6 +1,7 @@
 import {it,expect,vi} from 'vitest';
 import {NativeSessionPort} from '../../apps/client/src/auth/native-session-port.js';
 import {NativeLoginController} from '../../apps/client/src/auth/native-login-controller.js';
+import * as Y from 'yjs';import {emptyPageUpdate} from '@greiva/sync';
 const config={projectUrl:'https://fixture.invalid',publishableKey:'sb_publishable_fixture',algorithm:'ES256'} as const;
 const context={issuer:'https://fixture.invalid/auth/v1',subjectId:'owner-A',workspaceId:'01900000-0000-7000-8000-000000000001',clientId:'01900000-0000-7000-8000-000000000002',streamEpoch:'01900000-0000-7000-8000-000000000003'};
 const id='01900000-0000-7000-8000-000000000004';const pages=[{metadata:{id,title:'retained Page',yDocId:`page:${id}`,createdAt:'2026-10-13T00:00:00.000Z',updatedAt:'2026-10-13T00:00:00.000Z'},pending:2}];
@@ -27,4 +28,27 @@ it('NATIVE-LOGIN: expiry removes local catalog, with no automatic refresh or res
   const invoke=vi.fn(async command=>command==='native_auth_status'?Date.now()<200000?{available:true,phase:'verified',expiresAt:200}:{available:true,phase:'locked',expiresAt:null}:command==='native_workspace_open'?{handle:'native',context}:command==='native_workspace_execute'?{context,pages,nextAfter:null}:null);
   const c=new NativeLoginController(new NativeSessionPort(invoke),config);await c.start();await c.open();expect(c.snapshot.pages).toHaveLength(1);await vi.advanceTimersByTimeAsync(100001);expect(c.snapshot.phase).toBe('signed_out');expect(c.snapshot.pages).toEqual([]);expect(invoke.mock.calls.some(call=>call[0]==='native_auth_restore')).toBe(false);c.dispose();
  }finally{vi.useRealTimers();}
+});
+async function editorFixture(){
+ let owner='A',fail=false,held=false,entered!:()=>void,release!:(value:unknown)=>void;let waiting:Promise<void>|undefined;const updates={A:[Array.from(emptyPageUpdate())],B:[Array.from(emptyPageUpdate())]};
+ const bound=()=>owner==='A'?context:{...context,subjectId:'owner-B',workspaceId:'01900000-0000-7000-8000-000000000009',clientId:'01900000-0000-7000-8000-000000000007'};
+ const loaded=()=>({page:{metadata:pages[0]!.metadata,updates:updates[owner as 'A'|'B'].map(bytes=>bytes.slice())},pending:updates[owner as 'A'|'B'].length,serverHead:null});
+ const invoke=vi.fn(async(command:string,args?:Record<string,unknown>)=>{
+  if(command==='native_auth_status'||command==='native_auth_restore'||command==='native_auth_login')return verified();if(command==='native_workspace_open')return{handle:'native-'+owner,context:bound()};if(command==='native_auth_logout')return{localLocked:true,persistentLocked:true,cleanupPending:false,providerConfirmed:true};
+  if(command!=='native_workspace_execute')return null;const r=args!.request as {command:string;update:number[]};
+  if(r.command==='page_list')return{context:bound(),pages,nextAfter:null};if(r.command==='page_load'){if(held){held=false;entered();return new Promise(done=>{release=done;});}return loaded();}
+  if(r.command==='page_append'){if(fail)throw Error('private path');updates[owner as 'A'|'B'].push(r.update.slice());return null;}throw Error('unexpected command');
+ });
+ const c=new NativeLoginController(new NativeSessionPort(invoke),config);await c.start();await c.open();
+ return{c,invoke,owner(value:string){owner=value;},fail(value=true){fail=value;},hold(){held=true;waiting=new Promise(done=>{entered=done;});},wait:()=>waiting!,release:()=>release(loaded())};
+}
+it('NATIVE-EDITOR: late Page load after logout never activates its editor or publishes old catalog',async()=>{
+ const f=await editorFixture();f.hold();const opening=f.c.selectPage(id);await f.wait();await f.c.logout();f.release();expect(await opening).toBe(false);expect(f.c.editor).toBeNull();expect(f.c.snapshot.phase).toBe('signed_out');expect(f.c.snapshot.pages).toEqual([]);f.c.dispose();
+});
+it('NATIVE-EDITOR: logout while closing defeats an old refresh before it can consume a credential',async()=>{
+ const f=await editorFixture();await f.c.selectPage(id);const close=f.c.close(),restore=f.c.restore(),logout=f.c.logout();await Promise.all([close,restore,logout]);expect(f.invoke.mock.calls.some(call=>call[0]==='native_auth_restore')).toBe(false);expect(f.c.snapshot.phase).toBe('signed_out');expect(f.c.editor).toBeNull();f.c.dispose();
+});
+it('NATIVE-EDITOR: held draft is hidden from another account and restored only after same-context reconnect',async()=>{
+ const f=await editorFixture();await f.c.selectPage(id);f.fail();const editor=f.c.editor!;editor.document.getText('fixture').insert(0,'owner-A held input');await expect(editor.durable()).rejects.toMatchObject({stage:'storage'});await f.c.logout();f.fail(false);f.owner('B');await f.c.login('other@example.invalid','fixture-password');await f.c.open();await f.c.selectPage(id);expect(f.c.snapshot.hasDraft).toBe(false);await f.c.restoreInput();expect(f.c.editor!.document.getText('fixture').toString()).toBe('');
+ await f.c.logout();f.owner('A');await f.c.login('fixture@example.invalid','fixture-password');await f.c.open();await f.c.selectPage(id);expect(f.c.snapshot.hasDraft).toBe(true);await f.c.restoreInput();expect(f.c.editor!.document.getText('fixture').toString()).toBe('owner-A held input');expect(f.c.snapshot.hasDraft).toBe(false);f.c.dispose();
 });
