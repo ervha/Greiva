@@ -1,0 +1,1042 @@
+{
+  "testedSourceVersion": "0.81.0",
+  "commit": "8b4379998065c6268727d5d6451407c9c318ba3c",
+  "command": "GREIVA_TEST_POSTGRES=1 npm exec -- vitest run --no-file-parallelism",
+  "passed": 1027,
+  "failed": 0,
+  "pending": 0,
+  "total": 1027,
+  "files": 124,
+  "groups": {
+    "unit": {
+      "files": 57,
+      "passed": 487,
+      "failed": 0,
+      "skipped": 0
+    },
+    "postgres": {
+      "files": 37,
+      "passed": 229,
+      "failed": 0,
+      "skipped": 0
+    },
+    "integration": {
+      "files": 30,
+      "passed": 311,
+      "failed": 0,
+      "skipped": 0
+    }
+  },
+  "source": {
+    "raw": 385,
+    "text": 10,
+    "excluded": [
+      "playwright.performance.config.ts",
+      "playwright.render-diagnostic.config.ts",
+      "tests/diagnostics/render-isolation.spec.ts",
+      "tests/native/windows-store-fixture.json",
+      "tests/performance/workloads.spec.ts"
+    ]
+  },
+  "suites": [
+    {
+      "path": "tests/integration/api.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/authenticated-access-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/collaboration-restart.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/collaboration.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/native-credentials.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/page-store.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-access-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-bootstrap-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-bootstrap.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-database-changes-client-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-database-changes-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 23,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-database-changes-runtime-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-database-changes-store.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 25,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-database-content-client-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-database-record-catalog-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-database-record-create-store.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 24,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-database-record-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-database-record-store.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 17,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-database-record-update-store.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 34,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-database-record-write-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-database-source-client-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-database-source-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-database-source-queue-store.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 23,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-database-source-store.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-database-source-write-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-database-view-catalog-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-database-view-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-database-view-queue-store.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 30,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-database-view-store.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 22,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-database-view-write-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-http-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-http.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-offline-grant-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-offline-runtime-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-page-changes-client-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-page-changes-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-page-changes-runtime.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-page-changes-store.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-page-client-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-page-crash-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-page-metadata-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-page-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-page-store.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-runtime-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-stream-client-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-stream-crash-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-structured-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-structured-session.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-title-client-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-title-session.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-title-store.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/private-transactions-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/sqlite-bridge-stream.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/sqlite.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/structured-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/structured-process-crash.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/structured-progress.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/structured-store.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/structured-sync-client.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/structured-sync-server.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/structured-sync-store.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/supabase-auth-bootstrap-postgres.test.ts",
+      "status": "passed",
+      "kind": "postgres",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/supabase-auth-session.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/workspace-device.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/workspace-registry.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/integration/workspace-store.test.ts",
+      "status": "passed",
+      "kind": "integration",
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/auth-session.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 14,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/block-move-availability.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/block-move.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/database-changes-session.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/database-content-session.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/database-mutation.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 19,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/database-record-write-session.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/database-source-session.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/database-source-write-session.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/database-view-mutation.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/database-view-settings-fields.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/database-view-write-session.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 30,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/database.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 22,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/durability-boundary.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/native-navigation.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 5,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/native-workspace-device.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/native-workspace-store.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/page-changes-session.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/page-session.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/page-title-session.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/page-writes.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-access.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-backup.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 7,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-cors.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-database-browser.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-database-changes-runtime.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 11,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-database-changes.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-database-record-catalog.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-database-record-write-runtime.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 24,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-database-record.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-database-source-write-runtime.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-database-source.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-database-view-catalog.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-database-view.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-login-configuration.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-login.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-offline-configuration.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-page-catalog.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-page-changes.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-page-codec.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-page-editor.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-page-metadata.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-preview-profile.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-runtime.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-structured.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-transactions.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-workspace-connection.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 19,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/private-workspace-controller.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/protocol.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 12,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/session-verifier.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 14,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/shared.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 1,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/structured-commands.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/structured-device.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 2,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/structured-transport.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 3,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/workspace-help.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 4,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/workspace-session.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "path": "tests/unit/workspace-sync.test.ts",
+      "status": "passed",
+      "kind": "unit",
+      "passed": 16,
+      "failed": 0,
+      "skipped": 0
+    }
+  ],
+  "scope": {
+    "browserE2e": false,
+    "rustUnitRerun": false,
+    "windowsNative": false,
+    "realAuth": false,
+    "performance": false
+  }
+}

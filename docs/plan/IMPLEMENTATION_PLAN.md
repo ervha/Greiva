@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.81.1（文書・検証）：[テスト項目と未合格事項](TEST_REVIEW_20261013.md)を整理。既知のIME再変換Fail/受入例外、native接続の未実装、実Auth/GUI/性能/他OSの未確認を明記。ソースv0.81.0の全Vitest124 filesを実PG付きで再確認し1,027 Pass・Fail/skip 0。[証拠](../../tests/evidence/test-review-20261013/SUMMARY.md)。アプリ版は0.81.0、機能開発は停止を維持。
+
 最新v0.81.0：[offline grantの明示起動設定](../development/PRIVATE_OFFLINE_STARTUP.md)を通常APIへ接続。設定不足/鍵file/鍵ペアをDB接続前に検査し、未設定時は発行を無効にする。対象4/全unit487/全PG229・型/build/Windows PE・SHAを確認。[証拠](../../tests/evidence/private-offline-startup-20261013/SUMMARY.md)。利用者の停止指示に従い、このcheckpointで一旦停止。[進捗と再開計画](CHECKPOINT_20261013.md)。native provider/refresh・UI/IPC接続は次回。
 
 最新v0.80.0：[OS offline lease・保存gate](../development/NATIVE_OFFLINE_LEASE.md)を追加。署名scope/7日期限/high-waterをOS保管し、実保存のopen/read/editごとに検査、logout/失効後は閉鎖・pending保持。Rust12/全unit484とWindows3プロセスのOS保存・復元・lockを確認。[証拠](../../tests/evidence/native-offline-lease-20261013/SUMMARY.md)。native provider/refreshとUI/IPC、runtime明示署名設定へ続行する。
