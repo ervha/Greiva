@@ -372,10 +372,11 @@ dependencies = [
 
 [[package]]
 name = "greiva-page-store"
-version = "0.79.0"
+version = "0.80.0"
 dependencies = [
  "base64",
  "ed25519-dalek",
+ "getrandom",
  "serde",
  "serde_json",
  "sha2",

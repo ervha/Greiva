@@ -20,6 +20,7 @@ mod workspace_registry;
 mod workspace_device;
 pub mod native_credentials;
 pub mod offline_grant;
+pub mod offline_lease;
 pub use workspace_device::{WorkspaceOwner, WorkspaceDevice};
 pub use workspace_registry::{WorkspaceRegistry,WorkspaceHandle};
 pub use workspace_store::{WorkspaceContext, WorkspaceStore};

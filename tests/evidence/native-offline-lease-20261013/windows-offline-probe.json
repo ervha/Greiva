@@ -1,0 +1,25 @@
+{
+  "exeSha256": "422e9defe48f3c4d9be19b6240f2bb8648e44127c6c092d3dfc1fbe62017b4fc",
+  "pendingPreserved": true,
+  "realAuth": false,
+  "syntheticOnly": true,
+  "actualWindows": true,
+  "nativeIme": false,
+  "phases": [
+    {
+      "pendingSha256": "20f4b7257b725939f3f3ea007702a4b4599167699c069c6bbfe4438753ecbff4",
+      "phase": "install"
+    },
+    {
+      "cleanupConfirmed": true,
+      "locked": true,
+      "pendingSha256": "20f4b7257b725939f3f3ea007702a4b4599167699c069c6bbfe4438753ecbff4",
+      "phase": "resume"
+    },
+    {
+      "phase": "locked",
+      "restartRemainsLocked": true
+    }
+  ],
+  "separateProcesses": 3
+}

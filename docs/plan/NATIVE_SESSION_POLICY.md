@@ -6,6 +6,8 @@ v0.78.0：[native資格情報保管・永続ログアウト基盤](../developmen
 
 v0.79.0：[server発行とnative署名検証](../development/NATIVE_OFFLINE_GRANT.md)を実装。署名/全scope/nonce・固定7日・時計逆行の検査をDocker実PG/HTTP/Rustで確認。OS保管・永続clock/store/UIとの接続は残る。
 
+v0.80.0：[OS grant/clock保管とlocal保存gate](../development/NATIVE_OFFLINE_LEASE.md)を実装。実SQLiteとWindows別processでpending復帰・logout lockを確認。native provider/表示/通常IPCへの接続は後続。
+
 ## 採用した動作
 
 | 項目 | 採用内容 |

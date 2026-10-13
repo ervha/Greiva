@@ -1,0 +1,65 @@
+
+> greiva-poc@0.80.0 build
+> npm run build:packages && npm run build --workspace=@greiva/api && npm run build --workspace=@greiva/collaboration && npm run build --workspace=@greiva/client
+
+
+> greiva-poc@0.80.0 build:packages
+> npm run build --workspace=@greiva/shared && npm run build --workspace=@greiva/domain && npm run build --workspace=@greiva/protocol && npm run build --workspace=@greiva/sync && npm run build --workspace=@greiva/application
+
+
+> @greiva/shared@0.80.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/domain@0.80.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/protocol@0.80.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/sync@0.80.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/application@0.80.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/api@0.80.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/collaboration@0.80.0 build
+> tsc -p tsconfig.json
+
+
+> @greiva/client@0.80.0 build
+> tsc --noEmit && vite build
+
+vite v8.3.1 building client environment for production...
+transforming...
+✓ 328 modules transformed.
+rendering chunks...
+computing gzip size...
+dist/index.html                             0.58 kB │ gzip:   0.32 kB
+dist/auth.html                              0.60 kB │ gzip:   0.35 kB
+dist/workspace.html                         0.75 kB │ gzip:   0.35 kB
+dist/assets/auth-BOcUK2r9.css               4.49 kB │ gzip:   1.59 kB
+dist/assets/workspace-DC9t4shx.css          5.72 kB │ gzip:   1.61 kB
+dist/assets/style-DF9v33Wt.css             15.24 kB │ gzip:   3.56 kB
+dist/assets/rolldown-runtime-CbXtAM7H.js    0.58 kB │ gzip:   0.36 kB
+dist/assets/auth-B7BUOGL0.js                4.77 kB │ gzip:   1.97 kB
+dist/assets/private-login-lX-84zXw.js       4.92 kB │ gzip:   2.00 kB
+dist/assets/main-C0a9HlOQ.js               45.69 kB │ gzip:  13.36 kB
+dist/assets/workspace-B8CjU5zU.js         202.98 kB │ gzip:  41.51 kB
+dist/assets/style-C9HLX3it.js             477.93 kB │ gzip: 153.80 kB
+dist/assets/core-D8-xlUfD.js              503.96 kB │ gzip: 142.63 kB
+
+[plugin builtin:vite-reporter]
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rolldownOptions.output.codeSplitting to improve chunking: https://rolldown.rs/reference/OutputOptions.codeSplitting
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+✓ built in 618ms

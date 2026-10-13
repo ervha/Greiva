@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.80.0 — 2026-10-13
+
+- 署名offline grantと最終確認時刻をOSに保持し、native時刻・scope・期限・永続lockを毎回確認するleaseを実装。破損/clock逆行/期限/保管失敗後はロックを維持する。
+- 実WorkspaceRegistryのlocal操作へgateを追加。logout/期限後の操作とoffline ACKを拒否し、同account再認証で元pending wireを保持する。
+- Docker Rust12/全unit484・型/build、Windows3プロセスでOS保管→pending復元→logout後のlockを確認。provider/UI/IPCへの接続は後続で、実Auth/IMEの代替証拠にしない。
+
 ## 0.79.0 — 2026-10-13
 
 - 明示signerを渡すprivate APIへ、認証/owner/device/epoch認可に基づく7日固定のoffline grantを追加。署名形式とnative公開鍵pinを分離し、時刻・scope・nonce・header・署名を厳密検証する。

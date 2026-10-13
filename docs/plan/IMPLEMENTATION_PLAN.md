@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.80.0：[OS offline lease・保存gate](../development/NATIVE_OFFLINE_LEASE.md)を追加。署名scope/7日期限/high-waterをOS保管し、実保存のopen/read/editごとに検査、logout/失効後は閉鎖・pending保持。Rust12/全unit484とWindows3プロセスのOS保存・復元・lockを確認。[証拠](../../tests/evidence/native-offline-lease-20261013/SUMMARY.md)。native provider/refreshとUI/IPC、runtime明示署名設定へ続行する。
+
 最新v0.79.0：[署名offline grant](../development/NATIVE_OFFLINE_GRANT.md)の明示HTTP発行・Rust検証を追加。固定7日、scope/nonce/署名/時刻検査、実PG/native相互運用と全PG228/全unit484/Rust8・型/buildを確認。[証拠](../../tests/evidence/native-offline-grant-20261013/SUMMARY.md)。PG検証の固定一覧漏れ5群を修正。OS grant/clock保管とnative session/store/UIへの接続へ続行する。
 
 最新v0.78.0：[native資格情報保管](../development/NATIVE_CREDENTIAL_CUSTODY.md)へWindows Credential Manager adapterとSQLite世代marker、先行永続lock、遅着拒否・廃棄待ちslotを追加。Docker Rust5/SIGKILL7と通常unit484、型/build、Windowsの架空OS credential write/read/replace/deleteを確認。[証拠](../../tests/evidence/native-credential-20261013/SUMMARY.md)。native provider/署名grantと表示/store lockへ続行し、実Auth/IMEは保留。

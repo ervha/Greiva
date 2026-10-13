@@ -1,0 +1,25 @@
+   Compiling greiva-page-store v0.80.0 (/workspace/apps/client/src-tauri/crates/page-store)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 5.07s
+     Running unittests src/lib.rs (.data/native-target/debug/deps/greiva_page_store-aea05e248b7f8322)
+
+running 12 tests
+test native_credentials::tests::corrupt_or_wrong_scope_metadata_and_bad_secrets_refuse ... ok
+test native_credentials::tests::independent_connections_cannot_accept_old_login_or_foreign_ticket ... ok
+test native_credentials::tests::logout_persists_before_failed_delete_and_stale_response ... ok
+test native_credentials::tests::restore_rotation_pins_owner_and_never_puts_secret_in_sqlite ... ok
+test offline_grant::tests::exact_expiry_clock_rollback_and_challenge_are_checked ... ok
+test native_credentials::tests::unknown_os_write_read_failure_and_interrupted_refresh_stay_locked ... ok
+test offline_grant::tests::signature_algorithm_headers_and_duplicate_claims_refuse ... ok
+test offline_grant::tests::scope_every_field_and_signed_ttl_cannot_be_overridden ... ok
+test offline_lease::tests::exact_expiry_and_logout_persist_even_when_os_cleanup_fails ... ok
+test offline_lease::tests::old_challenge_foreign_scope_corrupt_os_and_unknown_clock_write_deny ... ok
+test offline_lease::tests::restart_keeps_signed_scope_and_durable_high_water_without_sqlite_grant ... ok
+test offline_lease::tests::real_workspace_pending_survives_logout_and_expiry_without_remote_ack ... ok
+
+test result: ok. 12 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.94s
+
+   Doc-tests greiva_page_store
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s

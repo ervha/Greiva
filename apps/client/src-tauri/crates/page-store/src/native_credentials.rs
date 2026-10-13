@@ -120,6 +120,21 @@ impl<S: CredentialStore> CredentialVault<S> {
         self.transition(false).await?;
         Ok(LogoutResult { locked:true, cleanup_pending:self.cleanup().await.is_err() })
     }
+    /// Native-only read/check/update under the same cross-process logout gate.
+    /// OS write must succeed before returning a local access result. A failed
+    /// read/validation/write durably locks the marker; no credential is returned.
+    pub async fn update_active<T>(&self, subject:&str, work:impl FnOnce(&Secret)->Result<(Secret,T)>)->Result<T> {
+        let mut tx=self.pool.begin_with("BEGIN IMMEDIATE").await.map_err(|_|CredentialError)?;
+        let row=sqlx::query("SELECT slot,owner,active FROM session_marker WHERE id=1 AND scope=?").bind(&self.scope).fetch_one(&mut *tx).await.map_err(|_|CredentialError)?;
+        if row.get::<i64,_>("active")!=1 || row.get::<Option<String>,_>("owner").as_deref()!=Some(hash(subject.as_bytes()).as_str()){return Err(CredentialError)}
+        let slot:String=row.get("slot");
+        let result=(||{let target=self.target(&slot)?;let stored=self.store.read(&target)?.ok_or(CredentialError)?;let (updated,result)=work(&stored)?;self.store.write(&target,&updated)?;Ok(result)})();
+        if result.is_err(){sqlx::query("UPDATE session_marker SET active=0 WHERE id=1").execute(&mut *tx).await.map_err(|_|CredentialError)?;}
+        #[cfg(feature="crash-test-hooks")]
+        crate::structured_sync::crash_barrier("credential-check-before-commit").map_err(|_|CredentialError)?;
+        tx.commit().await.map_err(|_|CredentialError)?;
+        result
+    }
     pub async fn cleanup(&self) -> Result<()> {
         let mut tx = self.pool.begin_with("BEGIN IMMEDIATE").await.map_err(|_| CredentialError)?;
         // This gate also serializes complete across processes. Never delete an
