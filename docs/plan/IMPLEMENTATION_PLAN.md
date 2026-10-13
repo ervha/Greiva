@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.85.0：[native workspace admission](../development/NATIVE_WORKSPACE_ADMISSION.md)を追加。verified owner→stable device→HTTP bootstrap→instance/generation固定のlocal gateを接続し、callerのraw context/ACK/pullを新入口では受けない。Rust通常29＋専用TLS/署名HTTP/PG2、型/build・Windows buildを確認。[証拠](../../tests/evidence/native-workspace-admission-20261013/SUMMARY.md)。実通し試験で発見した余分なbootstrap request fieldを修正し、原Failを保持。次は固定設定のnative認証IPCとclient port、native sync/lease/UIの接続へ進む。
+
 最新v0.84.0：[native実HTTP provider](../development/NATIVE_HTTP_PROVIDER.md)とlocal-first revokeを追加。固定HTTPS/loopback API、redirect/retry拒否、response上限、署名API照合、OS復元/rotation、local永続lockとprovider確認を分離。Rust通常25＋TLS/署名HTTPの専用1（13条件＋TLS拒否）、型/build・Windows cross-buildを確認。[証拠](../../tests/evidence/native-http-provider-20261013/SUMMARY.md)。実ユーザーrefresh・通常IPC/UI・workspace/offlineの接続は残す。次はnative verified owner/generationをlocal workspace admissionへ固定する。
 
 最新v0.83.0：[native session coordinator](../development/NATIVE_SESSION_COORDINATOR.md)をOS資格情報保管へ接続。issuer/owner/期限・永続世代照合、復元/rotation、応答不明後の再利用拒否、logoutキャンセル、古いinstanceのcleanupから新sessionを保護する。実SQLite＋provider/OS doubleのRust24・型/build・通常Windows cross-buildを確認。[証拠](../../tests/evidence/native-session-20261013/SUMMARY.md)。実HTTP provider/署名検証adapter、通常IPC/UI、offline lease/handleとの接続は次工程で、現行previewの自動ログインを実装済みにしない。

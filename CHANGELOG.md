@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.85.0 — 2026-10-13
+
+- native verified owner・stable device・server bootstrapを実SQLiteのworkspace gateへ接続。admissionをinstance/generationへ固定し、遅いopen・期限切れ・別account・logoutから旧handleを閉鎖する。
+- local commandのwhitelistをoffline gateと共有。callerのACK/pull/receiveを新入口で拒否し、restart/logout/再認証で元pending/wireを保持する。
+- 通常Rust29＋専用TLS/署名HTTP/PG2、型/frontend/Windows buildを確認。実APIに拒否された余分なbootstrap request fieldを修正し、元Failと回復Passを分けた。通常IPC/UI・native remote sync・7日offlineの接続は後続。
+
 ## 0.84.0 — 2026-10-13
 
 - 固定設定のnative HTTP password/refreshと署名session API照合、local先行logout/provider確認を追加。redirect/retry/cookie保存を無効化し、非2xx/response上限/不正schemaを秘密情報なしで拒否。

@@ -21,6 +21,7 @@ mod workspace_device;
 pub mod native_credentials;
 pub mod native_session;
 pub mod native_http_provider;
+pub mod native_workspace_gate;
 pub mod offline_grant;
 pub mod offline_lease;
 pub use workspace_device::{WorkspaceOwner, WorkspaceDevice};

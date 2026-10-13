@@ -1,5 +1,5 @@
 //! Fixed native deployment HTTP provider. No UI-supplied origin or token proof.
-use crate::{native_credentials::{CredentialError, Secret}, native_session::{AccessSecret, NativeProvider, ProviderFuture, TokenPair, VerifiedIdentity}};
+use crate::{native_credentials::{CredentialError, Secret}, native_session::{AccessSecret, NativeProvider, ProviderFuture, TokenPair, VerifiedIdentity,WorkspaceRegistration}};
 use reqwest::{Client, Method, header::{HeaderValue, AUTHORIZATION, CONTENT_TYPE, CACHE_CONTROL}};
 use serde::{Deserialize, Serialize};
 use std::time::Duration;
@@ -80,6 +80,9 @@ struct TokenResponse<'a> {
 #[derive(Deserialize)]
 #[serde(deny_unknown_fields,rename_all="camelCase")]
 struct SessionResponse<'a> { #[serde(borrow)] issuer:&'a str, #[serde(borrow)] subject_id:&'a str, expires_at:u64 }
+#[derive(Deserialize)]
+#[serde(deny_unknown_fields,rename_all="camelCase")]
+struct BootstrapResponse {protocol_version:u8,workspace_id:String,client_id:String,epoch:String}
 impl NativeProvider for NativeHttpProvider {
     fn password<'a>(&'a self,email:&'a str,password:&'a [u8])->ProviderFuture<'a,TokenPair> {
         Box::pin(async move {
@@ -106,6 +109,17 @@ impl NativeProvider for NativeHttpProvider {
         })
     }
     fn revoke<'a>(&'a self,access:&'a AccessSecret)->ProviderFuture<'a,()> {Box::pin(NativeHttpProvider::revoke(self,access))}
+    fn bootstrap<'a>(&'a self,access:&'a AccessSecret,client:&'a str)->ProviderFuture<'a,WorkspaceRegistration> {
+        Box::pin(async move {
+            if !crate::structured::uuid_v7(client){return Err(CredentialError)}
+            #[derive(Serialize)]#[serde(rename_all="camelCase")]struct Body<'a>{client_id:&'a str}
+            let body=Zeroizing::new(serde_json::to_vec(&Body{client_id:client}).map_err(|_|CredentialError)?);
+            let bytes=self.call(Method::POST,format!("{}/v1/workspaces/bootstrap",self.api),Some(access),Some(body),false).await?;
+            let value:BootstrapResponse=serde_json::from_slice(&bytes).map_err(|_|CredentialError)?;
+            if value.protocol_version!=1 || value.client_id!=client || !crate::structured::uuid_v7(&value.workspace_id) || !crate::structured::uuid_v7(&value.epoch){return Err(CredentialError)}
+            Ok(WorkspaceRegistration{protocol_version:value.protocol_version,workspace_id:value.workspace_id,client_id:value.client_id,epoch:value.epoch})
+        })
+    }
 }
 
 #[cfg(test)]
@@ -113,6 +127,7 @@ mod tests {
     use super::*;
     use crate::{native_credentials::{CredentialStore,CredentialVault},native_session::{NativeSession,Phase},offline_lease::SystemClock};
     use std::{collections::HashMap,sync::{Arc,Mutex}};
+    use sha2::Digest;
     #[derive(Clone,Default)]struct Os(Arc<Mutex<HashMap<String,Vec<u8>>>>);
     impl CredentialStore for Os {
         fn read(&self,t:&str)->Result<Option<Secret>>{self.0.lock().unwrap().get(t).map(|b|Secret::new(b.clone())).transpose()}
@@ -155,5 +170,23 @@ mod tests {
             } else {assert!(result.is_err(),"fixture mode {mode} accepted");assert_eq!(session.snapshot().await.phase,Phase::Locked);assert!(session.restore().await.is_err());}
             session.close().await;for suffix in ["","-wal","-shm"] {let _=std::fs::remove_file(format!("{}{suffix}",path.display()));}
         }
+    }
+    #[tokio::test]
+    #[ignore="run scripts/test-native-http-provider.mjs --workspace for TLS/API/PG fixture"]
+    async fn native_http_actual_workspace_bootstrap_restart_pending_and_revoked_device() {
+        use crate::native_workspace_gate::NativeWorkspaceGate;
+        use serde_json::json;
+        let project=std::env::var("GREIVA_FIXTURE_PROJECT").unwrap();let api=std::env::var("GREIVA_FIXTURE_API").unwrap();let cert=std::fs::read(std::env::var("GREIVA_FIXTURE_CA").unwrap()).unwrap();
+        let mut nonce=[0u8;16];getrandom::getrandom(&mut nonce).unwrap();let root=std::env::temp_dir().join(format!("greiva-http-gate-{:x}",u128::from_le_bytes(nonce)));std::fs::create_dir(&root).unwrap();let os=Os::default();
+        let make=||async {let p=trusted_fixture(&project,&api,&cert);let issuer=p.issuer().into();let scope=p.deployment_scope("dev.greiva.fixture").unwrap();let vault=CredentialVault::open(&root.join("session.sqlite"),&scope,os.clone()).await.unwrap();NativeWorkspaceGate::new(NativeSession::new(vault,p,SystemClock::new().unwrap(),issuer).unwrap(),root.join("workspaces"))};
+        let client="01900000-0000-7000-8000-000000000052";let page="01900000-0000-7000-8000-000000000053";
+        let gate=make().await;gate.login("workspace@example.invalid",b"fixture-password".to_vec()).await.unwrap();let first=gate.open(client).await.unwrap();
+        gate.execute(&first.handle,json!({"command":"page_create","pageId":page,"title":"TLS authenticated pending","update":[0,0]})).await.unwrap();let request=json!({"command":"page_prepare","pageId":page});let wire=gate.execute(&first.handle,request.clone()).await.unwrap();assert!(!wire.is_null());gate.shutdown().await;
+        let gate=make().await;gate.restore().await.unwrap();let next=gate.open(page).await.unwrap();assert_eq!(first.context,next.context);assert_eq!(gate.execute(&next.handle,request.clone()).await.unwrap(),wire);
+        let result=gate.logout().await;assert!(result.local_locked && result.persistent_locked && result.provider_confirmed);assert!(gate.execute(&next.handle,request.clone()).await.is_err());
+        gate.login("workspace-revoked@example.invalid",b"fixture-password".to_vec()).await.unwrap();assert!(gate.open(client).await.is_err());assert!(gate.execute(&next.handle,request).await.is_err());gate.shutdown().await;
+        // The rejected bootstrap never mutates or removes already saved wires.
+        let store=crate::WorkspaceStore::open(&root.join("workspaces").join(format!("{:x}.sqlite",sha2::Sha256::digest(serde_json::to_vec(&first.context).unwrap()))),first.context).await.unwrap();
+        assert_eq!(store.page_prepare(page).await.unwrap(),wire);drop(store);std::fs::remove_dir_all(root).unwrap();
     }
 }

@@ -8,6 +8,12 @@ import http from 'node:http';
 import {spawn,spawnSync} from 'node:child_process';
 import {generateKeyPair,exportJWK,SignJWT} from 'jose';
 import {createSupabasePrivateApp} from '../apps/api/dist/supabase-private-app.js';
+import pg from 'pg';
+import {installPrivateWorkspaceSchema} from '../apps/api/dist/private-workspace-schema.js';
+import {PostgresPrivateBootstrapStore} from '../apps/api/dist/private-bootstrap-store.js';
+const withWorkspace=process.argv.includes('--workspace');
+const schema='greiva_private_native_'+crypto.randomUUID().replaceAll('-','');
+const pool=withWorkspace?new pg.Pool({connectionString:process.env.DATABASE_URL}):undefined;
 const temp=fs.mkdtempSync(path.join(os.tmpdir(),'greiva-native-http-'));
 const keyFile=path.join(temp,'key.pem'),certFile=path.join(temp,'cert.pem');
 const generated=spawnSync('openssl',['req','-x509','-newkey','rsa:2048','-nodes','-keyout',keyFile,'-out',certFile,'-days','1','-subj','/CN=localhost','-addext','subjectAltName=DNS:localhost','-addext','basicConstraints=critical,CA:TRUE'],{stdio:'ignore'});
@@ -16,7 +22,7 @@ const keys=await generateKeyPair('ES256');const jwk={...await exportJWK(keys.pub
 let project,issuer,privateApp,nestApi,api;
 const modes=new Map(),refreshes=new Map(),counts={},violations=[];
 let trap=0;
-const count=(mode,operation)=>{counts[mode]??={password:0,refresh:0,verify:0,revoke:0};counts[mode][operation]++;};
+const count=(mode,operation)=>{counts[mode]??={password:0,refresh:0,verify:0,revoke:0,bootstrap:0};counts[mode][operation]++;};
 const json=(response,value,status=200)=>{response.writeHead(status,{'content-type':'application/json','cache-control':'no-store'});response.end(JSON.stringify(value));};
 async function token(mode){
  let jwt=await new SignJWT({sub:mode==='mismatch'?'owner-B':'owner-A',iss:issuer,aud:'authenticated',exp:Math.floor(Date.now()/1000)+(mode==='expired'?-30:300)})
@@ -54,9 +60,17 @@ const provider=https.createServer({key:fs.readFileSync(keyFile),cert:fs.readFile
 const proxy=http.createServer(async(request,response)=>{
  try {
   if(request.url==='/trap'){trap++;json(response,{});return;}
-  if(request.method!=='GET' || request.url!=='/v1/session')throw Error();
+  const bootstrap=request.method==='POST' && request.url==='/v1/workspaces/bootstrap';
+  if(!bootstrap && (request.method!=='GET' || request.url!=='/v1/session'))throw Error();
   if(request.headers.apikey || request.headers.cookie || request.headers.referer)violations.push('api-headers');
-  const mode=modes.get(request.headers.authorization?.slice(7));if(!mode)throw Error();count(mode,'verify');
+  const mode=modes.get(request.headers.authorization?.slice(7));if(!mode)throw Error();count(mode,bootstrap?'bootstrap':'verify');
+  if(bootstrap){
+   if(!pool)throw Error();let body='';for await(const chunk of request)body+=chunk;
+   const value=JSON.parse(body);assert.deepEqual(Object.keys(value).sort(),['clientId']);
+   if(mode==='workspace-revoked')await pool.query(`UPDATE "${schema}".private_devices SET revoked=true WHERE id=$1`,[value.clientId]);
+   const result=await fetch(nestApi+request.url,{method:'POST',headers:{authorization:request.headers.authorization,'content-type':'application/json'},body,redirect:'error'});
+   json(response,await result.json(),result.status);return;
+  }
   if(mode==='foreign-issuer'){json(response,{issuer:'https://other.invalid/auth/v1',subjectId:'owner-A',expiresAt:Math.floor(Date.now()/1000)+300});return;}
   if(mode==='bad-session'){json(response,{issuer,subjectId:'owner-A',expiresAt:1.5});return;}
   if(mode==='extra-session'){json(response,{issuer,subjectId:'owner-A',expiresAt:Math.floor(Date.now()/1000)+300,profile:'unexpected'});return;}
@@ -67,20 +81,24 @@ const proxy=http.createServer(async(request,response)=>{
 let exit=1;
 try {
  await new Promise(resolve=>provider.listen(0,'127.0.0.1',resolve));project=`https://localhost:${provider.address().port}`;issuer=project+'/auth/v1';
- privateApp=await createSupabasePrivateApp({projectUrl:project,algorithm:'ES256'},{read:async()=>{throw Error('unexpected workspace query');}},undefined,async()=>new Response(JSON.stringify({keys:[jwk]})));
+ if(pool)await installPrivateWorkspaceSchema(pool,schema);
+ privateApp=await createSupabasePrivateApp({projectUrl:project,algorithm:'ES256'},{read:async()=>{throw Error('unexpected workspace query');}},pool?new PostgresPrivateBootstrapStore(pool,schema):undefined,async()=>new Response(JSON.stringify({keys:[jwk]})));
  await privateApp.listen(0,'127.0.0.1');nestApi=await privateApp.getUrl();
  await new Promise(resolve=>proxy.listen(0,'127.0.0.1',resolve));api=`http://127.0.0.1:${proxy.address().port}`;
- const child=spawn('/opt/cargo/bin/cargo',['test','--locked','--offline','--manifest-path','apps/client/src-tauri/crates/page-store/Cargo.toml','--lib','--target-dir','.data/native-target','native_http_actual_tls_signed_session_and_failure_boundaries','--','--ignored'],{
+ const child=spawn('/opt/cargo/bin/cargo',['test','--locked','--offline','--manifest-path','apps/client/src-tauri/crates/page-store/Cargo.toml','--lib','--target-dir','.data/native-target',withWorkspace?'native_http_actual_':'native_http_actual_tls_signed_session_and_failure_boundaries','--','--ignored'],{
   stdio:'inherit',env:{...process.env,GREIVA_FIXTURE_PROJECT:project,GREIVA_FIXTURE_API:api,GREIVA_FIXTURE_CA:certFile}});
  const code=await new Promise(resolve=>child.once('exit',resolve));assert.equal(code,0,'native HTTP Rust acceptance');
  assert.equal(trap,0,'redirect must never send credential to trap');assert.deepEqual(violations,[],'route/header contract violations');assert.equal(counts['tls-untrusted'],undefined,'untrusted TLS must reject before sending password');
  for(const [mode,value] of Object.entries(counts)){
-  assert.equal(value.password,1,'no automatic password retry');assert.equal(value.refresh,['normal','revoke-fail','refresh-fail'].includes(mode)?1:0,'no automatic refresh retry');
-  assert.equal(value.revoke,['normal','revoke-fail'].includes(mode)?1:0,'revoke once after local lock');
+  assert.equal(value.password,1,'no automatic password retry');assert.equal(value.refresh,['normal','revoke-fail','refresh-fail','workspace'].includes(mode)?1:0,'no automatic refresh retry');
+  assert.equal(value.revoke,['normal','revoke-fail','workspace'].includes(mode)?1:0,'revoke once after local lock');
  }
- console.log(JSON.stringify({result:'Pass',fixtureOnly:true,actualTls:true,actualApiSignedVerification:true,jwks:'public fixture transport',redirectTrapRequests:trap,untrustedTlsSent:false,counts},null,2));exit=0;
+ let registration;
+ if(pool){const rows=await pool.query(`SELECT (SELECT count(*)::int FROM "${schema}".private_workspaces) AS workspaces,count(*)::int AS devices,count(*) FILTER (WHERE revoked)::int AS revoked FROM "${schema}".private_devices`);registration=rows.rows[0];assert.deepEqual(registration,{workspaces:1,devices:1,revoked:1});assert.equal(counts.workspace.bootstrap,2);assert.equal(counts['workspace-revoked'].bootstrap,1);}
+ console.log(JSON.stringify({result:'Pass',fixtureOnly:true,actualTls:true,actualApiSignedVerification:true,jwks:'public fixture transport',redirectTrapRequests:trap,untrustedTlsSent:false,registration,counts},null,2));exit=0;
 }finally{
  provider.closeAllConnections();proxy.closeAllConnections();await Promise.all([new Promise(r=>provider.close(r)),new Promise(r=>proxy.close(r)),privateApp?.close()]);
+ if(pool){await pool.query(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);await pool.end();}
  fs.rmSync(temp,{recursive:true,force:true});
 }
 process.exitCode=exit;

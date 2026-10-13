@@ -80,13 +80,7 @@ impl<S:CredentialStore,C:NativeClock> OfflineWorkspaceRegistry<S,C> {
         if self.lease.check_access(&context).await.is_err(){let _=self.close_active(&mut active).await;return Err(CredentialError)}
         // Local queues/immutable prepared wires may be created offline. Remote
         // receive/ACK/pull paths require a separate authenticated transport.
-        if !matches!(request["command"].as_str(),Some("database_record_update_enqueue"|"database_record_update_prepare"|"database_record_update_queue"|
-            "database_view_enqueue"|"database_view_prepare"|"database_view_queue"|"database_record_page_binding"|
-            "database_record_create_enqueue"|"database_record_create_prepare"|"database_record_create_queue"|
-            "database_source_enqueue"|"database_source_prepare"|"database_source_queue"|"database_changes_load"|
-            "database_view_load"|"database_view_list"|"database_record_load"|"database_record_list"|"database_source_load"|"database_source_list"|
-            "snapshot"|"mutate"|"prepare"|"title_enqueue"|"changes_load"|"title_prepare"|"title_load"|
-            "page_create"|"page_append"|"page_load"|"page_exists"|"page_list"|"page_prepare")){return Err(CredentialError)}
+        if !crate::workspace_registry::local_command(&request){return Err(CredentialError)}
         // Serialize through the existing SQLite commit. Logout waits for
         // admitted work, then closes the handle without deleting its data.
         self.registry.execute(handle,request).await.map_err(|_|CredentialError)

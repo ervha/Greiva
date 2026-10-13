@@ -20,6 +20,10 @@ impl AccessSecret {
 }
 pub struct TokenPair { pub access: AccessSecret, pub refresh: Secret, pub subject: String }
 pub struct VerifiedIdentity { pub issuer: String, pub subject: String, pub expires_at: u64 }
+pub struct WorkspaceRegistration { pub protocol_version:u8, pub workspace_id:String, pub client_id:String, pub epoch:String }
+/// Native-only admission; no public constructor or Deserialize/Serialize.
+pub struct WorkspaceAdmission { instance:[u8;32], generation:u64, context:crate::WorkspaceContext }
+impl WorkspaceAdmission { pub fn context(&self)->&crate::WorkspaceContext {&self.context} }
 pub trait NativeProvider: Send + Sync {
     fn password<'a>(&'a self, email: &'a str, password: &'a [u8]) -> ProviderFuture<'a, TokenPair>;
     fn refresh<'a>(&'a self, refresh: &'a Secret) -> ProviderFuture<'a, TokenPair>;
@@ -27,6 +31,7 @@ pub trait NativeProvider: Send + Sync {
     fn revoke<'a>(&'a self, _access: &'a AccessSecret) -> ProviderFuture<'a, ()> {
         Box::pin(async { Err(CredentialError) })
     }
+    fn bootstrap<'a>(&'a self,_access:&'a AccessSecret,_client:&'a str)->ProviderFuture<'a,WorkspaceRegistration> {Box::pin(async {Err(CredentialError)})}
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Phase { Locked, Authenticating, Refreshing, Verified }
@@ -39,13 +44,15 @@ struct State { generation: u64, phase: Phase, active: Option<Active>, high_water
 pub struct NativeSession<S: CredentialStore, P: NativeProvider, C: NativeClock> {
     vault: CredentialVault<S>, provider: P, clock: C, issuer: String,
     state: Mutex<State>, changed: watch::Sender<u64>,
+    instance:[u8;32],
 }
 impl<S: CredentialStore, P: NativeProvider, C: NativeClock> NativeSession<S, P, C> {
     /// issuer is trusted deployment configuration, never a WebView parameter.
     pub fn new(vault: CredentialVault<S>, provider: P, clock: C, issuer: String) -> Result<Self> {
         if issuer.is_empty() || issuer.len() > 2048 || issuer.chars().any(char::is_control) { return Err(CredentialError); }
         let (changed, _) = watch::channel(0);
-        Ok(Self { vault, provider, clock, issuer, changed, state: Mutex::new(State { generation:0, phase:Phase::Locked, active:None, high_water:0, durable_generation:None }) })
+        let mut instance=[0u8;32];getrandom::getrandom(&mut instance).map_err(|_|CredentialError)?;
+        Ok(Self { vault, provider, clock, issuer, changed, instance, state: Mutex::new(State { generation:0, phase:Phase::Locked, active:None, high_water:0, durable_generation:None }) })
     }
     fn advance(&self, state: &mut State, phase: Phase) -> Result<u64> {
         state.active = None; state.phase = Phase::Locked;
@@ -169,6 +176,33 @@ impl<S: CredentialStore, P: NativeProvider, C: NativeClock> NativeSession<S, P, 
         let mut state=self.state.lock().await;
         self.advance(&mut state, Phase::Locked)?;
         self.vault.logout().await
+    }
+    pub async fn bootstrap(&self,client:&str)->Result<WorkspaceAdmission> {
+        if !crate::structured::uuid_v7(client){return Err(CredentialError)}
+        let mut state=self.state.lock().await;
+        if self.admit(&mut state).await.is_err(){let _=self.advance(&mut state,Phase::Locked);self.lock_owned(&state).await;return Err(CredentialError)}
+        let generation=state.generation;let active=state.active.as_ref().ok_or(CredentialError)?;
+        let access=AccessSecret::new(active.access.expose().to_vec())?;
+        let issuer=active.identity.issuer.clone();let subject_id=active.identity.subject.clone();drop(state);
+        let result=self.bounded(generation,self.provider.bootstrap(&access,client)).await;
+        let mut state=self.state.lock().await;
+        if state.generation!=generation{return Err(CredentialError)}
+        if self.admit(&mut state).await.is_err(){let _=self.advance(&mut state,Phase::Locked);self.lock_owned(&state).await;return Err(CredentialError)}
+        let response=result?;
+        if response.protocol_version!=1 || response.client_id!=client || !crate::structured::uuid_v7(&response.workspace_id) || !crate::structured::uuid_v7(&response.epoch){return Err(CredentialError)}
+        Ok(WorkspaceAdmission {instance:self.instance,generation,context:crate::WorkspaceContext{issuer,subject_id,workspace_id:response.workspace_id,client_id:response.client_id,stream_epoch:response.epoch}})
+    }
+    /// Trusted local SQLite work only, under the session gate through commit.
+    /// A commit already admitted can finish before logout; late success after
+    /// expiry is withheld without deleting durable pending data.
+    pub async fn local<T>(&self,admission:Option<&WorkspaceAdmission>,work:impl for<'a> FnOnce(&'a VerifiedIdentity)->ProviderFuture<'a,T>)->Result<T> {
+        let mut state=self.state.lock().await;
+        if self.admit(&mut state).await.is_err(){let _=self.advance(&mut state,Phase::Locked);self.lock_owned(&state).await;return Err(CredentialError)}
+        let identity=&state.active.as_ref().ok_or(CredentialError)?.identity;
+        if admission.is_some_and(|a|a.instance!=self.instance || a.generation!=state.generation || a.context.issuer!=identity.issuer || a.context.subject_id!=identity.subject){return Err(CredentialError)}
+        let result=work(identity).await;
+        if self.admit(&mut state).await.is_err(){let _=self.advance(&mut state,Phase::Locked);self.lock_owned(&state).await;return Err(CredentialError)}
+        result
     }
     /// Local lock precedes remote revocation. An unknown durable commit or
     /// remote result is reported separately; neither reopens the session.

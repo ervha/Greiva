@@ -17,7 +17,17 @@ pub struct WorkspaceRegistry {root:PathBuf,instance:String,state:Mutex<State>}
 const REJECTED:&str="Private workspace command rejected or unavailable";
 fn exact(request:&Value,fields:&[&str])->StoreResult<()> {let object=request.as_object().ok_or(REJECTED)?;if object.len()!=fields.len() || fields.iter().any(|field|!object.contains_key(*field)){return Err(REJECTED.into());}Ok(())}
 fn text<'a>(request:&'a Value,key:&str)->StoreResult<&'a str> {request[key].as_str().ok_or_else(||REJECTED.into())}
+pub(crate) fn local_command(request:&Value)->bool {
+    matches!(request["command"].as_str(),Some("database_record_update_enqueue"|"database_record_update_prepare"|"database_record_update_queue"|
+        "database_view_enqueue"|"database_view_prepare"|"database_view_queue"|"database_record_page_binding"|
+        "database_record_create_enqueue"|"database_record_create_prepare"|"database_record_create_queue"|
+        "database_source_enqueue"|"database_source_prepare"|"database_source_queue"|"database_changes_load"|
+        "database_view_load"|"database_view_list"|"database_record_load"|"database_record_list"|"database_source_load"|"database_source_list"|
+        "snapshot"|"mutate"|"prepare"|"title_enqueue"|"changes_load"|"title_prepare"|"title_load"|
+        "page_create"|"page_append"|"page_load"|"page_exists"|"page_list"|"page_prepare"))
+}
 impl WorkspaceRegistry {
+    pub(crate) async fn close_all(&self){self.state.lock().await.active=None;}
     pub async fn device(&self,owner:crate::WorkspaceOwner,candidate:&str)->StoreResult<crate::WorkspaceDevice> {
         // Device lookup must not close or rebind an already active workspace.
         crate::workspace_device::resolve(&self.root,owner,candidate).await
