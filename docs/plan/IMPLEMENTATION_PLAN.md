@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.81.0：[offline grantの明示起動設定](../development/PRIVATE_OFFLINE_STARTUP.md)を通常APIへ接続。設定不足/鍵file/鍵ペアをDB接続前に検査し、未設定時は発行を無効にする。対象4/全unit487/全PG229・型/build/Windows PE・SHAを確認。[証拠](../../tests/evidence/private-offline-startup-20261013/SUMMARY.md)。利用者の停止指示に従い、このcheckpointで一旦停止。[進捗と再開計画](CHECKPOINT_20261013.md)。native provider/refresh・UI/IPC接続は次回。
+
 最新v0.80.0：[OS offline lease・保存gate](../development/NATIVE_OFFLINE_LEASE.md)を追加。署名scope/7日期限/high-waterをOS保管し、実保存のopen/read/editごとに検査、logout/失効後は閉鎖・pending保持。Rust12/全unit484とWindows3プロセスのOS保存・復元・lockを確認。[証拠](../../tests/evidence/native-offline-lease-20261013/SUMMARY.md)。native provider/refreshとUI/IPC、runtime明示署名設定へ続行する。
 
 最新v0.79.0：[署名offline grant](../development/NATIVE_OFFLINE_GRANT.md)の明示HTTP発行・Rust検証を追加。固定7日、scope/nonce/署名/時刻検査、実PG/native相互運用と全PG228/全unit484/Rust8・型/buildを確認。[証拠](../../tests/evidence/native-offline-grant-20261013/SUMMARY.md)。PG検証の固定一覧漏れ5群を修正。OS grant/clock保管とnative session/store/UIへの接続へ続行する。

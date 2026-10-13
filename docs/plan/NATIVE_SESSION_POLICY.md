@@ -10,6 +10,8 @@ v0.80.0：[OS grant/clock保管とlocal保存gate](../development/NATIVE_OFFLINE
 
 ## 採用した動作
 
+v0.81.0：[明示署名設定](../development/PRIVATE_OFFLINE_STARTUP.md)を通常API起動へ接続。実runtime/PGで発行と未設定時の無効化を確認した。native provider/表示/通常IPC、配備時の鍵供給・公開鍵pinは残る。利用者指示で[checkpoint](CHECKPOINT_20261013.md)にて一旦停止。
+
 | 項目 | 採用内容 |
 | --- | --- |
 | 起動時のログイン復元 | OSの安全な資格情報保管を使って自動復元する。保存できない場合、平文ファイル/localStorageへfallbackしない |

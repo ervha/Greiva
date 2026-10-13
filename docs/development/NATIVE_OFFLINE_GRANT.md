@@ -8,7 +8,7 @@ v0.79.0。[Native session方針](../plan/NATIVE_SESSION_POLICY.md)に沿うserve
 
 既存SessionVerifierの署名検証後、PostgresPrivateTransactionsで現在のowner/workspace/deviceをSHARE lockし、epoch一致とsession期限を検査して署名する。署名後も時刻/認証期限、commit前の認可leaseを確認してから応答する。device失効/別owner・issuer/epoch違いは拒否する。返却は `protocolVersion:1, grant` と `Cache-Control:no-store`。schema変更、DBへのgrant保存、本文/profileログはない。
 
-署名鍵はtrusted server compositionへ渡す専用Ed25519 private CryptoKeyで、生成や既定値へのfallbackはしない。現行 `private-runtime` はkey設定をまだ接続していないため、通常起動ではこのrouteを提供しない。配備用秘密鍵・native公開鍵pinの配布は別工程。
+署名鍵はtrusted server compositionへ渡す専用Ed25519 private CryptoKeyで、生成や既定値へのfallbackはしない。v0.81.0で[通常runtimeへの明示key設定](PRIVATE_OFFLINE_STARTUP.md)を接続した。未設定の起動ではこのrouteを提供しない。配備用秘密鍵・native公開鍵pinの配布は別工程。
 
 ## 形式とnative検証
 

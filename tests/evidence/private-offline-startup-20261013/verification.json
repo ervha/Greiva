@@ -1,0 +1,35 @@
+{
+  "checkpoint": "0.81.0",
+  "results": {
+    "offline-runtime": {
+      "passed": 4,
+      "failed": 0,
+      "pending": 0
+    },
+    "all-unit": {
+      "passed": 487,
+      "failed": 0,
+      "pending": 0
+    },
+    "all-postgres": {
+      "passed": 229,
+      "failed": 0,
+      "pending": 0
+    }
+  },
+  "source": {
+    "raw": 385,
+    "text": 10,
+    "excluded": [
+      "playwright.performance.config.ts",
+      "playwright.render-diagnostic.config.ts",
+      "tests/diagnostics/render-isolation.spec.ts",
+      "tests/native/windows-store-fixture.json",
+      "tests/performance/workloads.spec.ts"
+    ]
+  },
+  "nativeIme": false,
+  "realAuth": false,
+  "productionBackup": false,
+  "nativeCredentialUi": false
+}

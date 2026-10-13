@@ -1,4 +1,6 @@
 import {privateClientOrigins} from './private-cors.js';
+import {offlineConfiguration,loadOfflineSigningKey,type OfflineConfiguration} from './private-offline-configuration.js';
+import {PostgresPrivateOfflineGrants} from './private-offline-grant.js';
 import {PostgresPrivateDatabaseChangesStore} from './private-database-changes-store.js';
 import {PostgresPrivateDatabaseViewCatalogStore} from './private-database-view-catalog-store.js';
 import {PostgresPrivateDatabaseViewStore} from './private-database-view-store.js';
@@ -23,7 +25,7 @@ export class PrivateRuntimeError extends Error {
   }
 }
 export type PrivateRuntimeConfiguration = Readonly<{
-  projectUrl: string; algorithm: 'ES256' | 'RS256'; databaseUrl: string; schema: string; host: '127.0.0.1' | '0.0.0.0'; port: number; clientOrigins?:readonly string[];
+  projectUrl: string; algorithm: 'ES256' | 'RS256'; databaseUrl: string; schema: string; host: '127.0.0.1' | '0.0.0.0'; port: number; clientOrigins?:readonly string[];offlineGrant?:OfflineConfiguration;
 }>;
 // No provider, schema, DB or externally reachable listener is guessed. DSN is
 // private configuration and must never be logged with this object.
@@ -39,7 +41,8 @@ export function privateRuntimeConfiguration(env: Readonly<Record<string, string 
     const host = env.GREIVA_PRIVATE_HOST ?? '127.0.0.1', portText = env.GREIVA_PRIVATE_PORT ?? '3001';
     if (!['127.0.0.1', '0.0.0.0'].includes(host) || !/^[1-9]\d{0,4}$/.test(portText) || Number(portText) > 65535) throw new Error();
     const clientOrigins=privateClientOrigins(env.GREIVA_PRIVATE_CLIENT_ORIGINS===undefined?undefined:JSON.parse(env.GREIVA_PRIVATE_CLIENT_ORIGINS));
-    return Object.freeze({ ...(clientOrigins.length?{clientOrigins}:{}), projectUrl, algorithm, databaseUrl, schema, host: host as PrivateRuntimeConfiguration['host'], port: Number(portText) });
+    const offlineGrant=offlineConfiguration(env);
+    return Object.freeze({ ...(offlineGrant?{offlineGrant}:{}),...(clientOrigins.length?{clientOrigins}:{}), projectUrl, algorithm, databaseUrl, schema, host: host as PrivateRuntimeConfiguration['host'], port: Number(portText) });
   } catch { throw new PrivateRuntimeError('configuration'); }
 }
 // Owns its pool and app; injected ports are trusted infrastructure for tests.
@@ -48,11 +51,13 @@ export async function startPrivateApi(configuration: PrivateRuntimeConfiguration
   poolFactory?: (dsn: string) => pg.Pool; fetchJwks?: typeof fetch;
 }> = {}) {
   const config = privateRuntimeConfiguration({ GREIVA_SUPABASE_URL: configuration.projectUrl, GREIVA_SUPABASE_ALGORITHM: configuration.algorithm,
-    DATABASE_URL: configuration.databaseUrl, GREIVA_PRIVATE_SCHEMA: configuration.schema, GREIVA_PRIVATE_HOST: configuration.host, GREIVA_PRIVATE_PORT: String(configuration.port),GREIVA_PRIVATE_CLIENT_ORIGINS:configuration.clientOrigins===undefined?undefined:JSON.stringify(configuration.clientOrigins) });
+    GREIVA_OFFLINE_ISSUER:configuration.offlineGrant?.issuer,GREIVA_OFFLINE_AUDIENCE:configuration.offlineGrant?.audience,GREIVA_OFFLINE_KID:configuration.offlineGrant?.kid,GREIVA_OFFLINE_KEY_FILE:configuration.offlineGrant?.keyFile, DATABASE_URL: configuration.databaseUrl, GREIVA_PRIVATE_SCHEMA: configuration.schema, GREIVA_PRIVATE_HOST: configuration.host, GREIVA_PRIVATE_PORT: String(configuration.port),GREIVA_PRIVATE_CLIENT_ORIGINS:configuration.clientOrigins===undefined?undefined:JSON.stringify(configuration.clientOrigins) });
   const makePool = options.poolFactory ?? (dsn => new pg.Pool({ connectionString: dsn, max: 5, connectionTimeoutMillis: 5_000, statement_timeout: 10_000 }));
   const fetchJwks = options.fetchJwks;
-  let pool: pg.Pool | undefined, app: Awaited<ReturnType<typeof createSupabasePrivateApp>> | undefined, stage: PrivateRuntimeError['stage'] = 'schema';
+  let pool: pg.Pool | undefined, app: Awaited<ReturnType<typeof createSupabasePrivateApp>> | undefined, stage: PrivateRuntimeError['stage'] = 'configuration';
   try {
+    const signingKey=config.offlineGrant?await loadOfflineSigningKey(config.offlineGrant):undefined;
+    stage='schema';
     pool = makePool(config.databaseUrl);
     // Idle pool errors must not become an uncaught exception or print a DSN.
     pool.on('error', () => { /* active operations still fail closed */ });
@@ -69,7 +74,7 @@ export async function startPrivateApi(configuration: PrivateRuntimeConfiguration
       schemaVersion>=8?new PostgresPrivateDatabaseRecordCatalogStore(pool,config.schema):undefined,
       schemaVersion>=9?new PostgresPrivateDatabaseViewStore(pool,config.schema):undefined,
       schemaVersion>=10?new PostgresPrivateDatabaseViewCatalogStore(pool,config.schema):undefined,
-      schemaVersion>=11?new PostgresPrivateDatabaseChangesStore(pool,config.schema):undefined);
+      schemaVersion>=11?new PostgresPrivateDatabaseChangesStore(pool,config.schema):undefined,config.offlineGrant&&signingKey?new PostgresPrivateOfflineGrants(new PostgresPrivateTransactions(pool,config.schema),{...config.offlineGrant,key:signingKey}):undefined);
     await app.listen(config.port, config.host);
     const address = await app.getUrl(), capturedApp = app, capturedPool = pool;
     let closing: Promise<void> | undefined;

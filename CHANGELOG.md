@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.81.0 — 2026-10-13
+
+- 個人APIの通常起動へoffline grantの明示署名設定を接続。4項目すべて未設定なら無効、部分設定や不正な専用鍵はDB接続前に拒否する。
+- 鍵fileの権限・容量・symlink・JWK形式と鍵ペアを検査し、秘密鍵をnon-extractableで保持。固定エラーでpath/keyをログに出さない。
+- 対象4/全unit487/全PG229、型/server/frontend/Windows buildとPE/SHA照合を確認。利用者指示で停止し、再開計画を記録。native provider/UI接続、実Auth/IME、鍵配布・運用は残る。
+
 ## 0.80.0 — 2026-10-13
 
 - 署名offline grantと最終確認時刻をOSに保持し、native時刻・scope・期限・永続lockを毎回確認するleaseを実装。破損/clock逆行/期限/保管失敗後はロックを維持する。
