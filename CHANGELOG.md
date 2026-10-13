@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.86.0 — 2026-10-13
+
+- build固定native設定と認証/restore/local workspace IPC、tokenを返さないclient portを追加。設定ありmodeは旧command/SQL pluginを登録しない。不完全設定はbuildで拒否。
+- 余計なsecret/profile field・期限切れ・遅いlogin/open/executeをstrict検査とrevisionで拒否。logoutのlocal閉鎖・永続lock・provider確認を分離し、disposeでworkspaceだけ閉じる。
+- 追加8/通常unit502・型/build/Rust29、通常/設定ありWindows buildと非GUI inspectorを確認。実WebView invoke/画面接続、native remote sync/7日offlineは次工程。
+
 ## 0.85.0 — 2026-10-13
 
 - native verified owner・stable device・server bootstrapを実SQLiteのworkspace gateへ接続。admissionをinstance/generationへ固定し、遅いopen・期限切れ・別account・logoutから旧handleを閉鎖する。
@@ -34,7 +40,7 @@
 ## 0.81.1 — 2026-10-13
 
 - テスト項目を層別に整理し、既知Failの受入例外、未実装の受入経路、未実施・性能残条件を一覧化。過去のGateを最新版の全機能合格として扱わない。
-- ソースv0.81.0の全Vitest124 filesを実PG付きDockerで再確認。単体487/非PG統合311/PG229、計1,027 Pass・Fail/skip 0。画面/native/実Auth/性能は今回未実行。
+- ソースv0.81.0の全Vitest124 filesを実PG付きDockerで再確認。単体487/非PG統合311/PG229、計1,028 Pass・Fail/skip 0。画面/native/実Auth/性能は今回未実行。
 - 文書・証拠のみのPATCH。アプリmanifest/実行物は実際の0.81.0を保持し、新機能開発は停止中。
 
 ## 0.81.0 — 2026-10-13

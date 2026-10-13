@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.86.0：[native認証IPC/client port](../development/NATIVE_AUTH_IPC.md)を追加。build固定設定、native認証/restore/local workspace command、raw tokenなしのstrict snapshot、revision/期限で遅着拒否を接続。設定ありbuildは旧command/SQL pluginを登録しない。8追加/全unit502・型/build/Rust29、通常/設定ありWindows buildとcompiled mode inspectorを確認。[証拠](../../tests/evidence/native-auth-ipc-20261013/SUMMARY.md)。実WebView invoke/画面mount・native remote sync/offline leaseは次工程。
+
 最新v0.85.0：[native workspace admission](../development/NATIVE_WORKSPACE_ADMISSION.md)を追加。verified owner→stable device→HTTP bootstrap→instance/generation固定のlocal gateを接続し、callerのraw context/ACK/pullを新入口では受けない。Rust通常29＋専用TLS/署名HTTP/PG2、型/build・Windows buildを確認。[証拠](../../tests/evidence/native-workspace-admission-20261013/SUMMARY.md)。実通し試験で発見した余分なbootstrap request fieldを修正し、原Failを保持。次は固定設定のnative認証IPCとclient port、native sync/lease/UIの接続へ進む。
 
 最新v0.84.0：[native実HTTP provider](../development/NATIVE_HTTP_PROVIDER.md)とlocal-first revokeを追加。固定HTTPS/loopback API、redirect/retry拒否、response上限、署名API照合、OS復元/rotation、local永続lockとprovider確認を分離。Rust通常25＋TLS/署名HTTPの専用1（13条件＋TLS拒否）、型/build・Windows cross-buildを確認。[証拠](../../tests/evidence/native-http-provider-20261013/SUMMARY.md)。実ユーザーrefresh・通常IPC/UI・workspace/offlineの接続は残す。次はnative verified owner/generationをlocal workspace admissionへ固定する。
@@ -10,7 +12,7 @@
 
 最新v0.82.0：[新規登録](../development/PRIVATE_SIGNUP.md)を認証/個人workspaceプレビューへ追加。利用者の手動登録・確認メール・正常ログインとnative workspaceを確認。単体494/認証画面18/workspace98・型/build、実Windows保存→強制終了→手動再認証→pending2復帰→同期pending0を独立SQLite/Yjs/PGで照合。[証拠](../../tests/evidence/private-signup-20261013/SUMMARY.md)。localhostの確認完了導線、最新版IME、native自動復元/provider・offline/UI接続は残る。画面の全面整理は別工程で、手動操作可能との再開指示により検証を継続する。
 
-最新v0.81.1（文書・検証）：[テスト項目と未合格事項](TEST_REVIEW_20261013.md)を整理。既知のIME再変換Fail/受入例外、native接続の未実装、実Auth/GUI/性能/他OSの未確認を明記。ソースv0.81.0の全Vitest124 filesを実PG付きで再確認し1,027 Pass・Fail/skip 0。[証拠](../../tests/evidence/test-review-20261013/SUMMARY.md)。アプリ版は0.81.0、機能開発は停止を維持。
+最新v0.81.1（文書・検証）：[テスト項目と未合格事項](TEST_REVIEW_20261013.md)を整理。既知のIME再変換Fail/受入例外、native接続の未実装、実Auth/GUI/性能/他OSの未確認を明記。ソースv0.81.0の全Vitest124 filesを実PG付きで再確認し1,028 Pass・Fail/skip 0。[証拠](../../tests/evidence/test-review-20261013/SUMMARY.md)。アプリ版は0.81.0、機能開発は停止を維持。
 
 最新v0.81.0：[offline grantの明示起動設定](../development/PRIVATE_OFFLINE_STARTUP.md)を通常APIへ接続。設定不足/鍵file/鍵ペアをDB接続前に検査し、未設定時は発行を無効にする。対象4/全unit487/全PG229・型/build/Windows PE・SHAを確認。[証拠](../../tests/evidence/private-offline-startup-20261013/SUMMARY.md)。利用者の停止指示に従い、このcheckpointで一旦停止。[進捗と再開計画](CHECKPOINT_20261013.md)。native provider/refresh・UI/IPC接続は次回。
 

@@ -1,0 +1,239 @@
+{
+  "version": "0.86.0",
+  "sha256": "046d51622b4152abc65e797225383800bba2752e830638a8a802b8b7a7d81597",
+  "bytes": 23742976,
+  "peMachine": "x86_64",
+  "builtInDocker": true,
+  "hostLaunched": false,
+  "nativeImeTested": false,
+  "features": [
+    "custom-protocol"
+  ],
+  "crashHooks": false,
+  "sourceComparison": [
+    {
+      "path": "apps/api/package.json",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/package.json",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/build.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/capabilities/default.json",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/Cargo.lock",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/Cargo.toml",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/Cargo.lock",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/Cargo.toml",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/examples/credential-crash-driver.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/examples/credential-probe.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/examples/offline-grant-driver.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/examples/offline-lease-probe.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/examples/store-driver.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/examples/workspace-driver.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/examples/workspace-registry-driver.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/schema.sql",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/lib.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/native_credentials.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/native_http_provider.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/native_session.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/native_workspace_gate.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/offline_grant.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/offline_lease.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/private_changes.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/private_database_changes.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/private_database_record_create.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/private_database_record_update.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/private_database_record.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/private_database_source_queue.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/private_database_view_queue.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/private_database_view.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/private_database.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/private_page.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/private_title.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/structured_sync.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/structured.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/workspace_device.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/workspace_registry.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/workspace_store.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/structured-sync.sql",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/structured.sql",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/examples/native-auth-profile-inspect.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/examples/private-profile-inspect.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/src/lib.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/src/main.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/src/native_auth.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/tauri.conf.json",
+      "match": "raw"
+    },
+    {
+      "path": "apps/collaboration/package.json",
+      "match": "raw"
+    },
+    {
+      "path": "package-lock.json",
+      "match": "raw"
+    },
+    {
+      "path": "package.json",
+      "match": "raw"
+    },
+    {
+      "path": "packages/application/package.json",
+      "match": "raw"
+    },
+    {
+      "path": "packages/domain/package.json",
+      "match": "raw"
+    },
+    {
+      "path": "packages/protocol/package.json",
+      "match": "raw"
+    },
+    {
+      "path": "packages/shared/package.json",
+      "match": "raw"
+    },
+    {
+      "path": "packages/sync/package.json",
+      "match": "raw"
+    },
+    {
+      "path": "VERSION",
+      "match": "raw"
+    }
+  ]
+}

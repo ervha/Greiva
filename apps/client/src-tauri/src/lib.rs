@@ -3,6 +3,8 @@ use std::path::PathBuf;
 use tauri::Manager;
 use greiva_page_store::{WorkspaceRegistry,WorkspaceHandle,WorkspaceContext,WorkspaceOwner,WorkspaceDevice};
 use tokio::sync::OnceCell;
+mod native_auth;
+pub fn native_auth_profile()->serde_json::Value {serde_json::json!({"version":env!("CARGO_PKG_VERSION"),"configured":native_auth::enabled(),"legacyCommandsBlocked":native_auth::enabled(),"sqlPluginEnabled":!native_auth::enabled(),"windowsAdapter":cfg!(windows)})}
 
 struct LocalStore { path: PathBuf, store: OnceCell<PageStore> }
 impl LocalStore {
@@ -63,8 +65,9 @@ async fn workspace_execute(handle:String,request:serde_json::Value,state:tauri::
 pub fn run() {
     #[cfg(debug_assertions)]
     eprintln!("Greiva native startup: constructing application");
-    let application = tauri::Builder::default()
-        .plugin(tauri_plugin_sql::Builder::default().build())
+    let builder=tauri::Builder::default();
+    let builder=if native_auth::enabled(){builder}else{builder.plugin(tauri_plugin_sql::Builder::default().build())};
+    let builder=builder
         .setup(|app| {
             #[cfg(debug_assertions)]
             eprintln!("Greiva native startup: setup entered");
@@ -73,14 +76,17 @@ pub fn run() {
             #[cfg(debug_assertions)]
             if let Some(path) = std::env::var_os("GREIVA_TEST_DATA_DIR") { directory = PathBuf::from(path); }
             std::fs::create_dir_all(&directory)?;
+            app.manage(native_auth::Runtime::new(directory.clone(),app.config().identifier.clone()));
             app.manage(WorkspaceRegistry::new(directory.join("private-workspaces")));
             app.manage(LocalStore { path: directory.join("greiva.sqlite"), store: OnceCell::new() });
             #[cfg(debug_assertions)]
             eprintln!("Greiva native startup: local store configured");
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![page_list, page_load, page_append, page_set_title, structured_snapshot, structured_mutate, structured_client_id, structured_prepare, structured_ack, structured_pull, workspace_device, workspace_open, workspace_close, workspace_execute])
-        .build(tauri::generate_context!())
+        ;
+    let builder=if native_auth::enabled(){builder.invoke_handler(tauri::generate_handler![native_auth::native_auth_status,native_auth::native_auth_login,native_auth::native_auth_restore,native_auth::native_auth_logout,native_auth::native_workspace_open,native_auth::native_workspace_execute,native_auth::native_workspace_close,native_auth::native_workspace_cancel])}
+        else{builder.invoke_handler(tauri::generate_handler![page_list, page_load, page_append, page_set_title, structured_snapshot, structured_mutate, structured_client_id, structured_prepare, structured_ack, structured_pull, workspace_device, workspace_open, workspace_close, workspace_execute,native_auth::native_auth_status])};
+    let application=builder.build(tauri::generate_context!())
         .expect("Greiva PoC failed to start");
     #[cfg(debug_assertions)]
     eprintln!("Greiva native startup: application built; entering event loop");

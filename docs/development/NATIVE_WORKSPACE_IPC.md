@@ -1,5 +1,7 @@
 # Native workspace保存先のIPC境界
 
+v0.86.0：[新しいnative認証IPC](NATIVE_AUTH_IPC.md)を追加。明示native設定のbuildでは以下の旧command/SQL pluginを登録せず、verified admissionとlocal commandだけへ限定する。未設定の既存PoC/preview modeは従来経路を保持し、新portの画面mountは次工程。
+
 v0.29.0：strict `page_exists(pageId)` を追加。サーバー一覧から選んだPageもbound store内の存在を確かめ、pagination外のlocal pendingを優先する。load失敗をdownloadへfallbackしない。[画面契約](PRIVATE_WORKSPACE_SCREEN.md)。
 
 v0.28.0：workspace_execute whitelistへ strict `page_list(after, limit)` を追加。[端末Page一覧](LOCAL_PAGE_CATALOG.md)はmetadata/pendingだけを返し、queue/本文を変更しない。
