@@ -6,7 +6,8 @@ export type NativeAuthSnapshot=Readonly<{available:boolean;phase:'unavailable'|'
 export type NativeLogout=Readonly<{localLocked:true;persistentLocked:boolean;cleanupPending:boolean|null;providerConfirmed:boolean}>;
 export class NativeSessionPortError extends Error {constructor(readonly stage:'configuration'|'closed'|'busy'|'credentials'|'protocol'|'unavailable'){super(`Native session ${stage}`);this.name='NativeSessionPortError';}}
 type InvokePort=(command:string,args?:Record<string,unknown>)=>Promise<unknown>;
-type Handle=Readonly<{handle:string;context:WorkspaceSyncContext}>;
+export type NativeWorkspaceHandle=Readonly<{handle:string;context:WorkspaceSyncContext}>;
+type Handle=NativeWorkspaceHandle;
 function object(value:unknown,keys:readonly string[]):Record<string,unknown>{
  if(!value || typeof value!=='object' || Array.isArray(value))throw new NativeSessionPortError('protocol');
  const row=value as Record<string,unknown>;if(Object.keys(row).length!==keys.length || keys.some(key=>!Object.hasOwn(row,key)))throw new NativeSessionPortError('protocol');return row;
@@ -54,7 +55,10 @@ export class NativeSessionPort {
   this.#handle=Object.freeze({handle:row.handle,context:Object.freeze({...parsed.data})});return this.#handle;
  }
  async execute(request:Record<string,unknown>):Promise<unknown>{
-  this.#check();const handle=this.handle;if(!handle)throw new NativeSessionPortError('unavailable');const revision=this.#revision;
+  this.#check();const handle=this.handle;if(!handle)throw new NativeSessionPortError('unavailable');return this.executeFor(handle,request);
+ }
+ async executeFor(handle:NativeWorkspaceHandle,request:Record<string,unknown>):Promise<unknown>{
+  this.#check();if(this.handle!==handle)throw new NativeSessionPortError('closed');const revision=this.#revision;
   let captured:Record<string,unknown>;try{captured=JSON.parse(JSON.stringify(request)) as Record<string,unknown>;}catch{throw new NativeSessionPortError('protocol');}
   const result=await this.#call('native_workspace_execute',{handle:handle.handle,request:captured},revision);
   if(this.handle!==handle)throw new NativeSessionPortError('closed');return result;

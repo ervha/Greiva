@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.88.0：[native本文保存session](../development/NATIVE_PAGE_SESSION.md)を追加。original handleと更新byteを固定した直列append、strict load、unknown結果の再送停止、composition中の破棄拒否、scope付きmemory下書き返却/復帰を実装。追加6/対象14・全unit513・型、Windows候補build/版/SHAを確認。[証拠](../../tests/evidence/native-page-session-20261013/SUMMARY.md)。本文/vectorは実Yjs、IPCはjournal double。次は専用画面へeditorをmountし、native remote sync/ACK・offline lease結合へ続ける。
+
 最新v0.87.0：[native認証の専用画面](../development/NATIVE_AUTH_SCREEN.md)を追加。起動復元を一度だけ試し、native login/refresh・workspace開閉・strict端末一覧・期限/ログアウト表示を接続。controller5/全unit507、desktop/mobile画面10・型、native.htmlを埋めたWindows候補とhost mode/版/SHAを確認。[証拠](../../tests/evidence/native-auth-screen-20261013/SUMMARY.md)。実GUI/実account/IMEは未確認。次は同native handleに本文editorのlocal保存を接続し、native remote sync/ACKとoffline leaseの結合へ続ける。
 
 最新v0.86.0：[native認証IPC/client port](../development/NATIVE_AUTH_IPC.md)を追加。build固定設定、native認証/restore/local workspace command、raw tokenなしのstrict snapshot、revision/期限で遅着拒否を接続。設定ありbuildは旧command/SQL pluginを登録しない。8追加/全unit502・型/build/Rust29、通常/設定ありWindows buildとcompiled mode inspectorを確認。[証拠](../../tests/evidence/native-auth-ipc-20261013/SUMMARY.md)。実WebView invoke/画面mount・native remote sync/offline leaseは次工程。

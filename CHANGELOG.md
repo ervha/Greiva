@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.88.0 — 2026-10-13
+
+- native本文sessionへhandle固定・更新byteのcopy・直列local保存、strict loadと保存未確認状態を追加。unknown結果を自動再送せず、別handleへ遅い保存を転送しない。
+- composition中のcloseを拒否し、保存未確認の入力をscope付きmemory下書きとして呼出し元へ返す。同scopeの明示復帰で既commitのYjsとmergeする。
+- 実Yjs/IPC journal doubleの追加6/対象14・全unit513・型、Windows候補build/版/SHAを確認。画面mount、実Windows invoke/IME、remote sync/7日offlineは次工程。
+
 ## 0.87.0 — 2026-10-13
 
 - native.htmlへ自動復元・native login/refresh・workspace開閉・端末一覧・logoutを接続。復元の自動再送をせず、別context/期限切れ・遅い応答を表示しない。登録responseを認証成功にしない。
