@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.78.0 — 2026-10-13
+
+- Native-onlyの資格情報portとWindows Credential Manager adapterを追加。平文fallbackなし、秘密値をSQLite/IPC/ログへ出さず、署名確認後のnative providerからだけ受け取る構成。
+- 独立SQLite markerでlogin/restore/logoutの世代と永続lockを管理。OS書込み応答喪失・削除失敗・旧account遅着・強制終了後も、未確定credentialを自動復元しない。
+- Docker Rust5/実SIGKILL7/通常unit484、型/build、通常Windows版照合と架空OS credentialの実機write/read/replace/deleteを確認。previewの認証UI、native provider、offline grantは未接続で、実Auth/IMEの合格とはしない。
+
 ## 0.77.0 — 2026-10-13
 
 - バックアップCLIへ平文fileを作らない整合性確認と、元archiveを保持した別fileへの暗号鍵更新を追加。新nonce、異なるkey byte、入力/出力からのkey分離と非上書きを検証する。暗号文hashで更新前後を照合できる。

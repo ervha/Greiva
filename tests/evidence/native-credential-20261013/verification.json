@@ -1,0 +1,30 @@
+{
+  "checkpoint": "0.78.0",
+  "results": {
+    "credential-crash": {
+      "passed": 7,
+      "failed": 0,
+      "pending": 0
+    },
+    "all-unit": {
+      "passed": 484,
+      "failed": 0,
+      "pending": 0
+    }
+  },
+  "source": {
+    "raw": 376,
+    "text": 10,
+    "excluded": [
+      "playwright.performance.config.ts",
+      "playwright.render-diagnostic.config.ts",
+      "tests/diagnostics/render-isolation.spec.ts",
+      "tests/native/windows-store-fixture.json",
+      "tests/performance/workloads.spec.ts"
+    ]
+  },
+  "nativeIme": false,
+  "realAuth": false,
+  "productionBackup": false,
+  "nativeCredentialUi": false
+}

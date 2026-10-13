@@ -1,0 +1,5 @@
+     Locking 1 package to latest compatible version
+      Adding zeroize v1.9.0
+   Compiling zeroize v1.9.0
+   Compiling greiva-page-store v0.78.0 (/workspace/apps/client/src-tauri/crates/page-store)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 5.25s

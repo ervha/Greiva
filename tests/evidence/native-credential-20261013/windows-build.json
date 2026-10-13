@@ -1,0 +1,10 @@
+{
+  "version": "0.78.0",
+  "sha256": "e68f3d3858c9e3c659f9b587b1b4cddc27d533b60fb00000caabf8bacae20bc5",
+  "builtInDocker": true,
+  "hostLaunched": false,
+  "testHooks": false,
+  "appFeatures": [
+    "custom-protocol"
+  ]
+}

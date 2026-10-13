@@ -18,6 +18,7 @@ mod private_database_record_update;
 mod private_database_view_queue;
 mod workspace_registry;
 mod workspace_device;
+pub mod native_credentials;
 pub use workspace_device::{WorkspaceOwner, WorkspaceDevice};
 pub use workspace_registry::{WorkspaceRegistry,WorkspaceHandle};
 pub use workspace_store::{WorkspaceContext, WorkspaceStore};

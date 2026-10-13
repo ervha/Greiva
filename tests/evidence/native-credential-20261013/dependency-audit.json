@@ -1,0 +1,23 @@
+{
+  "npmExternalUnchanged": true,
+  "cargo": [
+    {
+      "existingEntriesUnchanged": true,
+      "added": [],
+      "currentCount": 501,
+      "file": "apps/client/src-tauri/Cargo.lock",
+      "previousCount": 501
+    },
+    {
+      "existingEntriesUnchanged": true,
+      "added": [
+        "zeroize@1.9.0"
+      ],
+      "currentCount": 119,
+      "file": "apps/client/src-tauri/crates/page-store/Cargo.lock",
+      "previousCount": 118
+    }
+  ],
+  "npmExternalEntries": 315,
+  "checkpoint": "0.78.0"
+}

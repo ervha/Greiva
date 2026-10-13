@@ -2,6 +2,8 @@
 
 2026-10-13。利用者は3項目ともAを選択した。本書は採用した製品契約であり、資格情報保管/offline grantが実装済みという記録ではない。
 
+v0.78.0：[native資格情報保管・永続ログアウト基盤](../development/NATIVE_CREDENTIAL_CUSTODY.md)を実装。Windows OS adapterを架空値で実機確認し、実SQLite/強制終了の失敗境界を検証した。native provider/ログイン復元UI/offline grantは未接続。
+
 ## 採用した動作
 
 | 項目 | 採用内容 |
