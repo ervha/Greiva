@@ -1,0 +1,7 @@
+{
+  "fixtureSeedFirstAttempt": "Explicit private schema name required",
+  "restoreFirstAttempt": "pg_restore: too many command-line arguments",
+  "recovered": true,
+  "restoreCause": "PowerShell argument construction corrected to separate --dbname and value; rejected before DB changes",
+  "cause": "Fixture schema missed required greiva_private_ prefix; rejected before writes"
+}

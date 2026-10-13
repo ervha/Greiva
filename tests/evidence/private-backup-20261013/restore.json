@@ -1,0 +1,176 @@
+{
+  "mode": "verify",
+  "schemaVersion": 11,
+  "syntheticOnly": true,
+  "tables": [
+    {
+      "table": "private_database_change_events",
+      "count": 4,
+      "sha256": "1ae386d97f330f856e9a4d1fc6735ce03be5ea125343aea702f6255db859822c"
+    },
+    {
+      "table": "private_database_change_heads",
+      "count": 1,
+      "sha256": "5761a372c08af50cc8a20d8c3269222b0a69ba7e32a2f8c7e522ecbbf5b82aa2"
+    },
+    {
+      "table": "private_database_record_conflicts",
+      "count": 1,
+      "sha256": "61f529d91fb672df4ccb37655197fac3d3e67edd1a38db9fd7a70f78d56dd95c"
+    },
+    {
+      "table": "private_database_record_heads",
+      "count": 1,
+      "sha256": "21d5dab4dc4c5beb6892c46ad987296ca046e57c2800d6caafe031414cc39cce"
+    },
+    {
+      "table": "private_database_record_history",
+      "count": 2,
+      "sha256": "e20ef3cd22c068d0aa4c5c8eced0edeed79d75a7d0a60cd8d1027b5b9e31c01a"
+    },
+    {
+      "table": "private_database_record_operations",
+      "count": 3,
+      "sha256": "c920c9237846f5f3d945e199ab26f750a76fe782e9167f3b9fa13ff7ce751ca7"
+    },
+    {
+      "table": "private_database_records",
+      "count": 1,
+      "sha256": "987bfd8e33e517978ab5f5ceec332841580476f84a00849d541badbcd1b018b4"
+    },
+    {
+      "table": "private_database_source_heads",
+      "count": 1,
+      "sha256": "1463e4d11940b694a46e64f35cef0d65b7245eb3d3497e7cd04299cd8c451cdc"
+    },
+    {
+      "table": "private_database_source_operations",
+      "count": 1,
+      "sha256": "795f98be3f82afc2be3d611bbb204f05ae420f445b81aba7f5c8495fdd8df910"
+    },
+    {
+      "table": "private_database_sources",
+      "count": 1,
+      "sha256": "25528ed82fd2878a02e51119a834d6ee3ab8a86703002960cbce18add47cdfbb"
+    },
+    {
+      "table": "private_database_view_conflicts",
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "table": "private_database_view_heads",
+      "count": 1,
+      "sha256": "21d5dab4dc4c5beb6892c46ad987296ca046e57c2800d6caafe031414cc39cce"
+    },
+    {
+      "table": "private_database_view_history",
+      "count": 1,
+      "sha256": "163fce496ecd0d7814d207d94b0f4770f515763a2169b74fcfbb064bc73e8ec6"
+    },
+    {
+      "table": "private_database_view_operations",
+      "count": 1,
+      "sha256": "a53b252a2d2ef8de4aa4f624083ee06a7dd58f94724e71e95643eeab12118ef1"
+    },
+    {
+      "table": "private_database_views",
+      "count": 1,
+      "sha256": "55254cfaa676191d8bc866e64ff88baee67acc6cedbf7e044a2775063ad8594b"
+    },
+    {
+      "table": "private_devices",
+      "count": 1,
+      "sha256": "e05888d201e8abb8e17b5f1c407fcc7f1a1376714154aba0b60f7549434fbaee"
+    },
+    {
+      "table": "private_page_documents",
+      "count": 1,
+      "sha256": "e78ae60394a825491a9ae866a1aff1dff8cb49cb245fcbc15421f8351b156696"
+    },
+    {
+      "table": "private_page_metadata_events",
+      "count": 1,
+      "sha256": "fb396994f6ac2dd0e31db6419c71811b5ffcb9900d0d06044081b09f22e535da"
+    },
+    {
+      "table": "private_page_metadata_heads",
+      "count": 1,
+      "sha256": "1463e4d11940b694a46e64f35cef0d65b7245eb3d3497e7cd04299cd8c451cdc"
+    },
+    {
+      "table": "private_page_title_conflicts",
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "table": "private_page_title_history",
+      "count": 1,
+      "sha256": "6c5e1039cf0e1fc42d65e2b969301579d5188acc385b064ec820ac59b3b61821"
+    },
+    {
+      "table": "private_page_title_operations",
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "table": "private_page_title_state",
+      "count": 1,
+      "sha256": "2d7a8d77a4e16258d317f0e9efb952b7d42a0d9f3d4a43f57e68b0f59a19d704"
+    },
+    {
+      "table": "private_page_updates",
+      "count": 1,
+      "sha256": "8beae7d6a4ea4ceafd5e01370ee29e70619a7e30b8d9791a47b9852452156b7c"
+    },
+    {
+      "table": "private_resources",
+      "count": 2,
+      "sha256": "92487927441e99c45320fbd6fd954918ad3d41f88189e929bf8415a8c3b4b8b8"
+    },
+    {
+      "table": "private_schema_version",
+      "count": 1,
+      "sha256": "1fd73d4094708c413e49e29465f5b5fdd6975a9e0ce988ab17e58f4e0b280fd0"
+    },
+    {
+      "table": "private_structured_config",
+      "count": 1,
+      "sha256": "9abede0755f0ab3085332856269c1cee988580cda1d9ec30518e5fc72480346b"
+    },
+    {
+      "table": "private_structured_conflicts",
+      "count": 0,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "table": "private_structured_entities",
+      "count": 1,
+      "sha256": "c515d88bc2862fbc935da1aa99a6727caa418a70318c819276bf62bd8a1db018"
+    },
+    {
+      "table": "private_structured_history",
+      "count": 1,
+      "sha256": "c515d88bc2862fbc935da1aa99a6727caa418a70318c819276bf62bd8a1db018"
+    },
+    {
+      "table": "private_structured_operations",
+      "count": 1,
+      "sha256": "ee76f4c716ff640e0262ba1e0c19776250d0f490511259058eb4bd5ced3edf28"
+    },
+    {
+      "table": "private_structured_streams",
+      "count": 1,
+      "sha256": "2a9c0863a6b1b24f28b1b8107e09be1e508dc6a2c3fc34b53943539a7c18c336"
+    },
+    {
+      "table": "private_workspaces",
+      "count": 1,
+      "sha256": "771576b119eb98c7503024da3b72b82e8f37bbd2441e2f4b543381ebf8a600b1"
+    }
+  ],
+  "immutableReceipts": 6,
+  "replayChecked": true,
+  "preBackupCursorContinues": true,
+  "databaseNamesLogged": false
+}

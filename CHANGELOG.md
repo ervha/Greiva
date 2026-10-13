@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.76.0 — 2026-10-13
+
+- 個人APIのPostgreSQL custom archiveを固定JWEで暗号化/復号するoperator用Docker CLIを追加。鍵は別保管、64 MiB上限、認証成功後だけ書込み、既存出力/危険pathを拒否し、ログへ本文/keyを出さない。
+- 架空schema11の33 tableを暗号化backupから別空DBへ復元し、本文/競合/履歴・6操作の元結果・差分cursorを確認。壊れたdumpは単一transactionでrollbackする。
+- 対象5/全unit482、型/build、通常Windows0.76.0のPE/SHAを確認。fixture初回のschema名/コマンド引数失敗は別記録で保持。本番KMS/保管運用/native端末backup/復旧UIの完成とはしない。実Authは利用者の操作可能な時点まで保留する。
+
 ## 0.75.1 — 2026-10-13
 
 - 実公開設定でv0.75.0 Windows専用候補を生成し、SHA/PE/compiled config、実provider公開鍵・拒否経路、Windows実画面の未ログイン/ヘルプを確認した証拠を追加。実Auth正常系/保存invoke/IMEは未確認。既存実行物とowned manifestsは実際の0.75.0を保持する。

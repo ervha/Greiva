@@ -1,0 +1,34 @@
+{
+  "checkpoint": "0.76.0",
+  "results": {
+    "backup-unit": {
+      "passed": 5,
+      "failed": 0,
+      "pending": 0
+    },
+    "backup-final": {
+      "passed": 5,
+      "failed": 0,
+      "pending": 0
+    },
+    "all-unit": {
+      "passed": 482,
+      "failed": 0,
+      "pending": 0
+    }
+  },
+  "source": {
+    "raw": 372,
+    "text": 10,
+    "excluded": [
+      "playwright.performance.config.ts",
+      "playwright.render-diagnostic.config.ts",
+      "tests/diagnostics/render-isolation.spec.ts",
+      "tests/native/windows-store-fixture.json",
+      "tests/performance/workloads.spec.ts"
+    ]
+  },
+  "nativeIme": false,
+  "realAuth": false,
+  "productionBackup": false
+}

@@ -1,5 +1,6 @@
 # 試験証拠の索引
 
+- 2026-10-13 / v0.76.0 / [暗号化backup/復元](private-backup-20261013/SUMMARY.md): 固定JWE/外部key/出力保全、対象5/全unit482/型/build。実PG33 table/receipt/cursor復元、壊れたdump rollback。初回fixture手順Failを保持。本番/端末backup運用は未完成。
 - 2026-10-13 / v0.75.1 / [実公開設定Windows候補](private-preview-live-20261013/SUMMARY.md): 実行物0.75.0のbuild/hash/PE/configと実Windows未ログイン/ヘルプ起動。実JWKS/拒否経路を確認。正常login/invoke/IME未確認。全A方針を仕様へ反映。
 - 2026-10-12 / v0.75.0 / [個人API Windows接続準備](private-api-native-startup-20261012/SUMMARY.md): 明示CORS/schema11 CLI、通常781/PG225/画面98/型/build。実公開JWKS・無効署名拒否・専用schema/loopback確認。実Auth正常系/GUI/IME・実接続候補未確認。利用者指示で停止。
 - 2026-10-12 / v0.74.0 / [個人workspace Windows候補profile](private-preview-profile-20261012/SUMMARY.md): 公開設定/出力path拒否・専用identifier/起動画面/CSP、test hooks0、Docker exe/CLIとmetadata/hash。全unit474/CSP実browser2/出力拒否4、Windows compiled config/PE/SHA照合。元CLI型Fail/icon warning保持。fixture構成、GUI/実Auth/native Gate未確認。回収済み公開設定・専用APIへ続行。
