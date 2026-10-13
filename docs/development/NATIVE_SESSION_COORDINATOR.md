@@ -22,6 +22,8 @@ login/restore/refresh開始時に以前のmemory sessionを閉じる。provider�
 
 ## 検証と次工程
 
+v0.84.0で[固定HTTP providerとlocal-first revoke](NATIVE_HTTP_PROVIDER.md)を接続した。以下はv0.83.0時点の検証境界で、通常IPC/UIとworkspace/lease接続は引き続き未完了。
+
 [証拠](../../tests/evidence/native-session-20261013/SUMMARY.md)。実SQLite＋OS/provider doubleで復元、rotation、失敗・遅着・別instance・期限・clock・秘密値不在を検査した。HTTPや実Supabaseのrefresh/失効、Windowsの自動ログイン、7日offline、handle/表示のlockを通した証拠ではない。
 
 次はtrusted config固定のnative HTTP providerと署名session検証、provider revokeの確認/未確認を接続する。その後にworkspace admission/ACK・offline lease・通常IPC/UIを接続し、実Windowsで自動復元/refresh/再接続とpending保全を受入する。Android OS保管と既知のMicrosoft IME再変換Failは別の残項目。

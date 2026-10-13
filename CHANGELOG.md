@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.84.0 — 2026-10-13
+
+- 固定設定のnative HTTP password/refreshと署名session API照合、local先行logout/provider確認を追加。redirect/retry/cookie保存を無効化し、非2xx/response上限/不正schemaを秘密情報なしで拒否。
+- 実TLS fixture→native Rust→Greiva署名APIで正常復元/rotationと不正署名・期限切れ・owner不一致・redirect・再送なしを確認。通常Rust25＋専用HTTP1、型/build・通常Windows cross-buildがPass。
+- reqwest0.13.5/native TLS依存を追加し、既存外部依存版を保持。実Supabase refresh/失効・Windows実起動・通常UI/IPC/workspace/7日offlineの接続は別工程。
+
 ## 0.83.0 — 2026-10-13
 
 - native sessionの検証・復元・refresh・local logoutをOS資格情報保管へ接続するcoordinatorを追加。issuer/owner/期限/clock/永続世代を照合し、保存応答不明やtimeout後のrefresh再利用、logout後の遅着を拒否する。

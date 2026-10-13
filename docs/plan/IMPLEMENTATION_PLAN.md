@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.84.0：[native実HTTP provider](../development/NATIVE_HTTP_PROVIDER.md)とlocal-first revokeを追加。固定HTTPS/loopback API、redirect/retry拒否、response上限、署名API照合、OS復元/rotation、local永続lockとprovider確認を分離。Rust通常25＋TLS/署名HTTPの専用1（13条件＋TLS拒否）、型/build・Windows cross-buildを確認。[証拠](../../tests/evidence/native-http-provider-20261013/SUMMARY.md)。実ユーザーrefresh・通常IPC/UI・workspace/offlineの接続は残す。次はnative verified owner/generationをlocal workspace admissionへ固定する。
+
 最新v0.83.0：[native session coordinator](../development/NATIVE_SESSION_COORDINATOR.md)をOS資格情報保管へ接続。issuer/owner/期限・永続世代照合、復元/rotation、応答不明後の再利用拒否、logoutキャンセル、古いinstanceのcleanupから新sessionを保護する。実SQLite＋provider/OS doubleのRust24・型/build・通常Windows cross-buildを確認。[証拠](../../tests/evidence/native-session-20261013/SUMMARY.md)。実HTTP provider/署名検証adapter、通常IPC/UI、offline lease/handleとの接続は次工程で、現行previewの自動ログインを実装済みにしない。
 
 最新v0.82.1（証拠・文書）：実行物0.82.0で[通常Microsoft IMEの限定実機確認](../../tests/evidence/windows-ms-ime-20261013/SUMMARY.md)を補完。実キー変換/確定後の正確な2段落・native/server全文/vector、未ACK0/ACK76、元wire/DB整合性を確認した。再変換原Fail、remote composition/再接続、性能/offlineとnative provider/UI接続は残す。完成版UIの整理は別工程。

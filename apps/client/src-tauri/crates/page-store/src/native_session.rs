@@ -24,11 +24,16 @@ pub trait NativeProvider: Send + Sync {
     fn password<'a>(&'a self, email: &'a str, password: &'a [u8]) -> ProviderFuture<'a, TokenPair>;
     fn refresh<'a>(&'a self, refresh: &'a Secret) -> ProviderFuture<'a, TokenPair>;
     fn verify<'a>(&'a self, access: &'a AccessSecret) -> ProviderFuture<'a, VerifiedIdentity>;
+    fn revoke<'a>(&'a self, _access: &'a AccessSecret) -> ProviderFuture<'a, ()> {
+        Box::pin(async { Err(CredentialError) })
+    }
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Phase { Locked, Authenticating, Refreshing, Verified }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub struct SessionSnapshot { pub phase: Phase, pub expires_at: Option<u64> }
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub struct SessionLogout { pub local_locked:bool, pub persistent_locked:bool, pub cleanup_pending:Option<bool>, pub provider_confirmed:bool }
 struct Active { access: AccessSecret, identity: VerifiedIdentity, durable_generation:i64 }
 struct State { generation: u64, phase: Phase, active: Option<Active>, high_water: u64, durable_generation:Option<i64> }
 pub struct NativeSession<S: CredentialStore, P: NativeProvider, C: NativeClock> {
@@ -164,6 +169,17 @@ impl<S: CredentialStore, P: NativeProvider, C: NativeClock> NativeSession<S, P, 
         let mut state=self.state.lock().await;
         self.advance(&mut state, Phase::Locked)?;
         self.vault.logout().await
+    }
+    /// Local lock precedes remote revocation. An unknown durable commit or
+    /// remote result is reported separately; neither reopens the session.
+    pub async fn logout_with_revoke(&self)->SessionLogout {
+        let mut state=self.state.lock().await;
+        let access=state.active.take().map(|a|a.access);
+        let generation=match self.advance(&mut state,Phase::Locked) {Ok(g)=>g,Err(_)=>return SessionLogout {local_locked:true,persistent_locked:false,cleanup_pending:None,provider_confirmed:false}};
+        let persistent=self.vault.logout().await;
+        drop(state);
+        let confirmed=if let Some(access)=access {self.bounded(generation,self.provider.revoke(&access)).await.is_ok()}else{false};
+        SessionLogout {local_locked:true,persistent_locked:persistent.is_ok(),cleanup_pending:persistent.ok().map(|r|r.cleanup_pending),provider_confirmed:confirmed}
     }
     pub async fn close(self) { self.vault.close().await; }
 }
