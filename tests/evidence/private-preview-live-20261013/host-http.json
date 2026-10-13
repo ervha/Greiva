@@ -1,0 +1,30 @@
+{
+  "realLogin": false,
+  "checks": [
+    {
+      "method": "GET",
+      "status": 401,
+      "allowOrigin": [
+        "http://tauri.localhost"
+      ],
+      "origin": "http://tauri.localhost"
+    },
+    {
+      "method": "OPTIONS",
+      "status": 204,
+      "allowOrigin": [
+        "http://tauri.localhost"
+      ],
+      "origin": "http://tauri.localhost"
+    },
+    {
+      "method": "GET",
+      "status": 403,
+      "allowOrigin": [
+        null
+      ],
+      "origin": "https://unapproved.invalid"
+    }
+  ],
+  "checkedAt": "2026-10-13T03:42:27.1320068Z"
+}

@@ -42,7 +42,7 @@ v0.12.0で[正本owner/device/resource metadataとbootstrap](../../tests/evidenc
 
 tokenをCRDT、sync operation、本文projection、logへ入れない。native token保管とWeb session保管はplatformごとに設計し、平文local settingsへrefresh tokenを保存しない。account切替後に前accountのpending/draftを新accountへ送らない。
 
-offlineで既存端末データを読む/編集する権利、logout/device失効時の保持/消去/再ログイン、期限切れtokenと端末保存の関係は未決定。権限再確認中に「同期済み」を表示せず、保存済みpendingを勝手に削除しない。これらは[提供前の確認](PRODUCTION_READINESS.md)として扱う。
+2026-10-13、利用者の全A回答により、OS資格情報保管で起動復元、最後のオンライン認証から7日間のoffline閲覧/編集、logoutはデータ/pendingを保持してロックする方針を確定した。[Native session方針](NATIVE_SESSION_POLICY.md)。同じissuer＋subjectの再認証で復帰し、期限/失効で新操作を閉じる。OS adapter・署名grant・時刻保護・kill/restartは未実装/未受入。権限再確認中に「同期済み」を表示せず、保存済みpendingを削除しない。
 
 ## 受入
 

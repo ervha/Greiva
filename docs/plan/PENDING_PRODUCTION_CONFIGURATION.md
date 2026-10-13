@@ -52,7 +52,7 @@ v0.13.0までの[継続開発118判断のまとめ](AUTONOMOUS_DECISIONS.md)を�
 | --- | --- | --- |
 | 実Auth検証 | 検証ユーザーのbrowser入力、後続native UI/OS credential保存 | 専用auth.htmlと保護proxyを実装。公開設定/不正署名拒否は確認済み、正常実login/失効/端末間同期は未確認。後で操作をまとめる。今は操作依頼なし、password/tokenをチャットへ求めない |
 | 本番接続/配布 | API/collaboration/Auth endpoint、署名/配布先/credential管理 | 未設定。public deploy/課金/ホストglobal toolchain追加をしない |
-| offline/logout/失効 | 端末保存データへのoffline権限、logout/device失効時の保持/消去/再ログイン | 未決定。期限や自動削除を仮定せず、保存済みpendingを保持する |
+| offline/logout/失効 | OS保管/7日offline/同account復帰 | 2026-10-13全Aで[方針確定](NATIVE_SESSION_POLICY.md)。logoutはデータ/pending保持・ロック。native adapter/grantの実装と受入が残る |
 | 旧PoC取り込み | 初期提供の有無、workspace帰属、旧pending/ACK/cursor/titleの扱い | 未決定。旧DBを移行・消去せず新contract/fixtureを先行 |
 | Android通常アプリ/最終native | build環境・実SQLite/lifecycle、必要時のPixel 7接続 | browserの旧試験をNative合格へ転用しない。今は追加手操作を依頼しない |
 | 規約/ポリシーの公開条件 | 運営者/窓口、年齢/料金/適用時点、責任/紛争、Provider/取扱国、保持/削除/backup | 日本先行は回答済み。[公開計画](TERMS_PRIVACY_POLICY_PLAN.md)で未確定値を明示し、実装と文言を公開前に照合 |

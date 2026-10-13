@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.75.1 — 2026-10-13
+
+- 実公開設定でv0.75.0 Windows専用候補を生成し、SHA/PE/compiled config、実provider公開鍵・拒否経路、Windows実画面の未ログイン/ヘルプを確認した証拠を追加。実Auth正常系/保存invoke/IMEは未確認。既存実行物とowned manifestsは実際の0.75.0を保持する。
+- 利用者の全A回答を仕様へ反映。OS資格情報保管でログイン復元、オンライン認証から7日間のoffline利用、logout後はデータ/未送信操作を保持してロックする。adapter/grantの実装完了とはしない。
+- 利用者は現在認証操作できないため、実ログイン検証を保留し、認証以外の独立開発を続ける。
+
 ## 0.75.0 — 2026-10-12
 
 - 個人APIへ明示OriginのCORSを追加。限定preflightをAuth/DB前で処理し、実要求は既存JWT/owner/device認可を維持する。未設定は従来の非CORS動作を保持する。

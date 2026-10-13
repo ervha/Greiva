@@ -1,0 +1,38 @@
+{
+  "version": "0.75.0",
+  "identifier": "dev.greiva.private.preview",
+  "productName": "Greiva Private Preview",
+  "entry": "workspace.html",
+  "frontendOrigin": "http://tauri.localhost",
+  "origins": [
+    "https://lfvipbtayyfhxtprenme.supabase.co",
+    "http://127.0.0.1:1443"
+  ],
+  "target": "x86_64-pc-windows-msvc",
+  "profile": "debug",
+  "features": [
+    "custom-protocol"
+  ],
+  "testHooks": false,
+  "testSqlite": false,
+  "crashHooks": false,
+  "builtInDocker": true,
+  "hostLaunched": false,
+  "nativeImeTested": false,
+  "installer": false,
+  "signed": false,
+  "overrideSha256": "0a45cc7e9f8b9edf8bd8be91b902fdbcc278749b676f0e849066ca684772fdd9",
+  "workspaceHtmlSha256": "329510af7e25c6fa94d3f0da9970d5d00049689e6679b5bacb21cb1855e8f748",
+  "artifacts": [
+    {
+      "file": "greiva-private-preview.exe",
+      "sha256": "11b30bc6a5793b34d0bacc84b00c17164078fa5613d280454627ae451f7165a2",
+      "bytes": 21069312
+    },
+    {
+      "file": "private-profile-inspect.exe",
+      "sha256": "868ffdcfd63485e20a32dc9123619938252de918559bae88a98a6af04f52c06c",
+      "bytes": 3125248
+    }
+  ]
+}

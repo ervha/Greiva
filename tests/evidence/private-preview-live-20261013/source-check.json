@@ -1,0 +1,12 @@
+{
+  "version": "0.75.0",
+  "raw": 368,
+  "text": 10,
+  "excluded": [
+    "playwright.performance.config.ts",
+    "playwright.render-diagnostic.config.ts",
+    "tests/diagnostics/render-isolation.spec.ts",
+    "tests/native/windows-store-fixture.json",
+    "tests/performance/workloads.spec.ts"
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "realLogin": false,
+  "host": "Windows",
+  "workspaceInvokeTested": false,
+  "helpArticles": 12,
+  "workspaceOrigin": "http://tauri.localhost/workspace.html",
+  "guiLaunched": true,
+  "signedOutScreen": true,
+  "helpClosedByEscape": true,
+  "helpOpenedByPointer": true,
+  "retry": "User approved retry; launch succeeded",
+  "initialLaunch": "Computer Use app approval timed out",
+  "recordedAt": "2026-10-13T03:45:48.7911296Z",
+  "nativeImeTested": false,
+  "artifactVersion": "0.75.0"
+}

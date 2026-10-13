@@ -1,0 +1,55 @@
+Window: "Greiva — 個人workspace 接続プレビュー", App: greiva-private-preview.exe.
+	0 ウィンドウ Greiva — 個人workspace 接続プレビュー Secondary Actions: Raise
+		1 ウィンドウ
+			8 ウィンドウ Greiva workspace
+				9 ウィンドウ (disabled)
+				10 領域 Greiva workspace - Web コンテンツ
+					11 領域
+						12 領域
+							13 領域
+								14 領域
+								15 領域
+									16 領域
+										17 領域
+											18 領域
+												19 領域
+												23 ドキュメント Greiva workspace Value: http://tauri.localhost/workspace.html ID: RootWebArea
+													24 グループ ID: root
+														25 メイン
+															26 セクション ヘッダー
+																27 見出し Greiva
+																28 テキスト 個人workspace 接続プレビュー
+																29 ボタン ヘルプ・アプリ情報
+															30 セクション アカウント
+																31 状態 認証状態
+																	32 テキスト ログインしていません
+																33 テキスト メールアドレス
+																34 編集 (settable, string) メールアドレス
+																35 テキスト パスワード
+																36 編集 (settable, string) パスワード
+																37 ボタン ログイン
+																38 ボタン 接続を閉じる
+															39 テキスト ログアウトしても、この端末に保存済みのPage・Task・Relation・DBと未送信更新は保持します。ログイン前の閲覧は提供していません。
+								20 領域
+						21 領域
+						22 領域
+		2 タイトル バー (settable, string) Value: Greiva — 個人workspace 接続プレビュー
+			3 メニュー バー システム ID: MenuBar
+				4 メニュー項目 システム
+			5 ボタン 最小化
+			6 ボタン 最大化
+			7 ボタン 閉じる
+
+Document text: ```
+Greiva
+個人workspace 接続プレビュー
+ヘルプ・アプリ情報
+ログインしていません
+メールアドレス
+￼
+パスワード
+￼
+ログイン
+接続を閉じる
+ログアウトしても、この端末に保存済みのPage・Task・Relation・DBと未送信更新は保持します。ログイン前の閲覧は提供していません。
+```

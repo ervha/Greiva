@@ -1,0 +1,10 @@
+{
+  "shaMatches": true,
+  "realLogin": false,
+  "appPeVersionMatches": true,
+  "version": "0.75.0",
+  "guiLaunched": false,
+  "compiledConfigMatches": true,
+  "initialVerifierFailure": "Expected PE version on helper CLI; helper has no PE version resource; app PE and both SHA plus compiled config checked separately",
+  "configuredWithFixture": false
+}

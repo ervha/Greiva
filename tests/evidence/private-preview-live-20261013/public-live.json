@@ -1,0 +1,19 @@
+{
+  "checkedAt": "2026-10-13T03:42:25.032Z",
+  "projectUrl": "https://lfvipbtayyfhxtprenme.supabase.co",
+  "algorithm": "ES256",
+  "checks": [
+    {
+      "name": "public-jwks",
+      "status": 200,
+      "keys": 2,
+      "algorithmMatched": true
+    },
+    {
+      "name": "no-user-session",
+      "status": 401
+    }
+  ],
+  "realLogin": false,
+  "userDataRequested": false
+}

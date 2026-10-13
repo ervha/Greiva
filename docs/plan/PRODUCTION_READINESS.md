@@ -1,5 +1,7 @@
 # 初期提供範囲・PoCとの差・残る判断
 
+最新v0.75.1：実公開設定のv0.75.0 Windows専用候補を生成し、hash/PE/compiled config、実provider拒否経路とWindows未ログイン/ヘルプ起動を確認。[証拠](../../tests/evidence/private-preview-live-20261013/SUMMARY.md)。3項目全Aを[Native session方針](NATIVE_SESSION_POLICY.md)へ反映。実Auth操作は利用者都合で保留し、認証以外の独立開発を継続する。2026-10-13の再開指示により前日の停止を解除。
+
 最新v0.75.0：[個人API Windows接続準備](../development/PRIVATE_API_NATIVE_STARTUP.md)に明示CORS・schema11までのCLIを追加。通常781/全PG225/画面98と型/buildを確認。実公開JWKS・無効署名拒否・専用schema/loopback APIを確認したが、正常ログイン/Windows GUI/IMEと実接続用候補buildは未実施。[証拠](../../tests/evidence/private-api-native-startup-20261012/SUMMARY.md)。利用者指示で一旦停止し、今回用API/forwarderも停止。[進捗と再開計画](CHECKPOINT_20261012.md)。
 
 最新v0.74.0：[個人workspace Windows候補profile](../development/PRIVATE_PREVIEW_PROFILE.md)を追加。専用identifier/起動画面/限定CSP、公開設定と出力path検査、test hooks0、metadata/hashとcompiled config CLIを接続する。全unit474/CSP実browser2/出力拒否4と型/build、Windows CLIの設定・PE/SHAを照合。[証拠](../../tests/evidence/private-preview-profile-20261012/SUMMARY.md)。元CLI型Failとicon warningを保持。GUI/実Auth/native Gateは別条件。回収した公開設定と専用APIの確認・実接続用候補へ続行する。

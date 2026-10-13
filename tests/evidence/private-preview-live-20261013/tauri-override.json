@@ -1,0 +1,23 @@
+{
+  "productName": "Greiva Private Preview",
+  "identifier": "dev.greiva.private.preview",
+  "app": {
+    "windows": [
+      {
+        "label": "main",
+        "title": "Greiva — 個人workspace 接続プレビュー",
+        "url": "workspace.html",
+        "useHttpsScheme": false,
+        "width": 1000,
+        "height": 700,
+        "dragDropEnabled": false
+      }
+    ],
+    "security": {
+      "csp": "default-src 'self'; connect-src 'self' ipc: http://ipc.localhost https://lfvipbtayyfhxtprenme.supabase.co http://127.0.0.1:1443; style-src 'self' 'unsafe-inline'; object-src 'none'; base-uri 'self'"
+    }
+  },
+  "bundle": {
+    "active": false
+  }
+}
