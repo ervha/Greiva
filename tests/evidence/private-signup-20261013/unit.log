@@ -1,0 +1,78 @@
+
+ RUN  v5.0.2 /workspace
+
+ ✓ tests/unit/private-backup.test.ts (7 tests) 9011ms
+   ✓ BACKUP-CLI: private files, no overwrite, no output on wrong key/tampering, strict paths and safe diagnostics 2813ms
+   ✓ BACKUP-CLI: read-only verification and non-destructive key rotation authenticate the complete archive 1891ms
+   ✓ BACKUP-CLI: verification/rotation failures leave original backups and output directories intact 4200ms
+ ✓ tests/unit/page-session.test.ts (13 tests) 4661ms
+   ✓ PAGE-SESSION: combined large binary and unknown block attrs remain intact without JSON projection or input frame bound 4083ms
+ ✓ tests/unit/private-database-browser.test.ts (11 tests) 1313ms
+   ✓ DB-BROWSER byte window: large typed records split below the 20-row limit and preserve exact keyset continuation 572ms
+ ✓ tests/unit/private-workspace-controller.test.ts (15 tests) 690ms
+ ✓ tests/unit/database-view-write-session.test.ts (30 tests) 416ms
+ ✓ tests/unit/database-record-write-session.test.ts (18 tests) 392ms
+ ✓ tests/unit/database-changes-session.test.ts (13 tests) 271ms
+ ✓ tests/unit/private-database-changes-runtime.test.ts (11 tests) 137ms
+ ✓ tests/unit/private-database-record-write-runtime.test.ts (24 tests) 111ms
+ ✓ tests/unit/private-login.test.ts (9 tests) 87ms
+ ✓ tests/unit/private-page-editor.test.ts (10 tests) 89ms
+ ✓ tests/unit/session-verifier.test.ts (14 tests) 100ms
+ ✓ tests/unit/private-workspace-connection.test.ts (19 tests) 81ms
+ ✓ tests/unit/database-source-write-session.test.ts (10 tests) 80ms
+ ✓ tests/unit/native-workspace-store.test.ts (15 tests) 67ms
+ ✓ tests/unit/structured-commands.test.ts (9 tests) 68ms
+ ✓ tests/unit/database-content-session.test.ts (13 tests) 65ms
+ ✓ tests/unit/database.test.ts (22 tests) 50ms
+ ✓ tests/unit/private-cors.test.ts (3 tests) 82ms
+ ✓ tests/unit/database-mutation.test.ts (19 tests) 40ms
+ ✓ tests/unit/private-database-changes.test.ts (8 tests) 40ms
+ ✓ tests/unit/private-database-source-write-runtime.test.ts (12 tests) 31ms
+ ✓ tests/unit/database-view-mutation.test.ts (11 tests) 33ms
+ ✓ tests/unit/auth-session.test.ts (14 tests) 35ms
+ ✓ tests/unit/private-signup.test.ts (7 tests) 27ms
+ ✓ tests/unit/structured-transport.test.ts (3 tests) 30ms
+ ✓ tests/unit/page-writes.test.ts (3 tests) 24ms
+ ✓ tests/unit/page-title-session.test.ts (8 tests) 24ms
+ ✓ tests/unit/workspace-session.test.ts (9 tests) 24ms
+ ✓ tests/unit/private-offline-configuration.test.ts (3 tests) 23ms
+ ✓ tests/unit/workspace-sync.test.ts (16 tests) 23ms
+ ✓ tests/unit/private-database-view.test.ts (3 tests) 19ms
+ ✓ tests/unit/database-source-session.test.ts (8 tests) 23ms
+ ✓ tests/unit/page-changes-session.test.ts (8 tests) 20ms
+ ✓ tests/unit/private-database-record-catalog.test.ts (4 tests) 13ms
+ ✓ tests/unit/private-database-record.test.ts (4 tests) 13ms
+ ✓ tests/unit/private-database-source.test.ts (8 tests) 18ms
+ ✓ tests/unit/private-page-metadata.test.ts (4 tests) 20ms
+ ✓ tests/unit/private-database-view-catalog.test.ts (4 tests) 16ms
+ ✓ tests/unit/private-page-codec.test.ts (3 tests) 16ms
+ ✓ tests/unit/database-view-settings-fields.test.ts (3 tests) 17ms
+ ✓ tests/unit/private-access.test.ts (11 tests) 14ms
+ ✓ tests/unit/private-page-catalog.test.ts (2 tests) 14ms
+ ✓ tests/unit/private-transactions.test.ts (4 tests) 16ms
+ ✓ tests/unit/durability-boundary.test.ts (2 tests) 8ms
+ ✓ tests/unit/private-page-changes.test.ts (4 tests) 11ms
+ ✓ tests/unit/native-workspace-device.test.ts (3 tests) 8ms
+ ✓ tests/unit/protocol.test.ts (12 tests) 10ms
+ ✓ tests/unit/block-move.test.ts (4 tests) 7ms
+ ✓ tests/unit/private-structured.test.ts (2 tests) 10ms
+ ✓ tests/unit/block-move-availability.test.ts (2 tests) 7ms
+ ✓ tests/unit/private-runtime.test.ts (3 tests) 7ms
+ ✓ tests/unit/native-navigation.test.ts (5 tests) 6ms
+ ✓ tests/unit/workspace-help.test.ts (4 tests) 9ms
+ ✓ tests/unit/private-preview-profile.test.ts (3 tests) 6ms
+ ✓ tests/unit/private-login-configuration.test.ts (2 tests) 6ms
+ ✓ tests/unit/structured-device.test.ts (2 tests) 6ms
+ ✓ tests/unit/shared.test.ts (1 test) 4ms
+
+ Test Files  58 passed (58)
+      Tests  494 passed (494)
+   Start at  06:23:37
+   Duration  35.15s (tests 63%, import 27%, transform 9%, worker 1%)
+
+     Import  188 modules were evaluated 255 times · 8.07s total, 27% of tracked time
+             ~2.12s faster with isolate: false — shared modules are evaluated once per worker instead of once per file
+             learn more: https://vitest.dev/guide/improving-performance#test-isolation
+
+JSON report written to /workspace/.data/signup-20261013/unit/vitest.json
+JUNIT report written to /workspace/.data/signup-20261013/unit/vitest.xml

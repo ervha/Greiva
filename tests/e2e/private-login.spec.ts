@@ -23,6 +23,30 @@ async function login(page: Page) {
   await page.getByLabel('パスワード', { exact: true }).fill('fixture-password'); await page.getByRole('button', { name: 'ログインを確認', exact: true }).click();
 }
 const status = (page: Page) => page.getByLabel('接続確認の状態', { exact: true });
+
+test('SIGNUP-UI: request is not verified login; password clears and explicit login follows confirmation',async({page})=>{
+  const f=await fixture(page);await page.goto('/auth.html');await page.getByRole('button',{name:'アカウントを新規登録',exact:true}).click();
+  await page.getByLabel('メールアドレス',{exact:true}).fill('fixture@example.invalid');await page.getByLabel('パスワード',{exact:true}).fill('fixture-password');
+  await page.getByRole('button',{name:'確認メールを送って登録',exact:true}).click();await expect(status(page)).toHaveText('登録依頼を受け付けました');
+  await expect(page.getByLabel('パスワード',{exact:true})).toHaveValue('');await expect(page.getByRole('button',{name:'workspace登録を確認',exact:true})).toHaveCount(0);
+  expect(f.requests).toEqual([{path:'/auth/v1/signup',body:{email:'fixture@example.invalid',password:'fixture-password'}}]);
+  await expect(page.getByRole('status').filter({hasText:'確認メールが届いた場合'})).toBeVisible();
+  await page.getByRole('button',{name:'ログインに戻る',exact:true}).click();await expect(page.getByLabel('メールアドレス',{exact:true})).toHaveValue('fixture@example.invalid');
+  await login(page);await expect(status(page)).toHaveText('認証を確認しました');
+});
+test('SIGNUP-UI: rejected request has honest error and blank password, no private provider details',async({page})=>{
+  const f=await fixture(page);f.loginStatus(429);await page.goto('/auth.html');await page.getByRole('button',{name:'アカウントを新規登録',exact:true}).click();
+  await page.getByLabel('メールアドレス',{exact:true}).fill('fixture@example.invalid');await page.getByLabel('パスワード',{exact:true}).fill('fixture-password');await page.getByRole('button',{name:'確認メールを送って登録',exact:true}).click();
+  await expect(page.getByRole('alert')).toContainText('一時的に制限');await expect(page.getByLabel('パスワード',{exact:true})).toHaveValue('');await expect(status(page)).toHaveText('ログインしていません');
+  await expect(page.locator('body')).not.toContainText('fixture-private-error-body');expect(f.requests).toHaveLength(1);
+});
+test('SIGNUP-UI: composition blocks submit and mode switch without clearing input or transmitting',async({page})=>{
+  const f=await fixture(page);await page.goto('/auth.html');await page.getByLabel('メールアドレス',{exact:true}).fill('fixture@example.invalid');const password=page.getByLabel('パスワード',{exact:true});await password.fill('fixture-password');
+  await password.dispatchEvent('compositionstart');await page.getByRole('button',{name:'アカウントを新規登録',exact:true}).click();await page.getByRole('button',{name:'ログインを確認',exact:true}).click();
+  expect(f.requests).toHaveLength(0);await expect(password).toHaveValue('fixture-password');await expect(page.getByRole('form',{name:'ログイン',exact:true})).toBeVisible();
+  await password.dispatchEvent('compositionend');await page.getByRole('button',{name:'アカウントを新規登録',exact:true}).click();await expect(password).toHaveValue('');await expect(password).toHaveAttribute('autocomplete','new-password');
+  await password.fill('fixture-password');await page.getByRole('button',{name:'接続を閉じる',exact:true}).click();await expect(password).toHaveValue('');expect(f.requests).toHaveLength(0);
+});
 test('PRIVATE-LOGIN-UI: native device port supplies same registration ID across logout/reload; no email/token reaches invoke', async ({ page }) => {
   const f = await fixture(page), clientId = '01a10240-0000-7000-8000-000000000103';
   await page.addInitScript(({ clientId }) => {

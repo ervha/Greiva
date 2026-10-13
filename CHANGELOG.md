@@ -1,5 +1,12 @@
 # 変更履歴
 
+## 0.82.0 — 2026-10-13
+
+- 認証確認/個人workspaceプレビューへ新規登録と確認メール案内を追加。端末からSupabaseへ直接送信し、登録responseを認証に使わず、秘密情報を保存・公開しない。取消・二重送信・遅着・compositionを扱う。
+- 単体494/認証画面18/workspace98、型/build・Windows候補の版/SHAを確認。元画面Fail2＋再読み込みFail1を保持した。
+- 利用者の実登録/確認メール/ログイン後、Windows nativeでPage保存→強制終了→手動再認証→pending2復元→実同期を確認。端末/PGの全文・state vector一致、pending0/receipt2と元wire保持を独立照合。
+- 確認メール後のlocalhost接続エラーを未整備の導線として記録。完成版UI、自動ログイン復元/7日offline接続、実refresh/IME/全Gateは別工程。
+
 ## 0.81.1 — 2026-10-13
 
 - テスト項目を層別に整理し、既知Failの受入例外、未実装の受入経路、未実施・性能残条件を一覧化。過去のGateを最新版の全機能合格として扱わない。

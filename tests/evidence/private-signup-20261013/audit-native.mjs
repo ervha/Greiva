@@ -1,0 +1,10 @@
+import fs from 'node:fs';import crypto from 'node:crypto';import {DatabaseSync} from 'node:sqlite';import * as Y from 'yjs';
+const [input,output]=process.argv.slice(2);if(!input||!output)throw Error('Explicit copy and report path required');
+const db=new DatabaseSync(input),title='Native signup check 2026-10-13',body='Native local save and sync check.';
+const page=db.prepare('SELECT id,title FROM pages WHERE title=?').get(title);if(!page)throw Error('Missing synthetic Page');
+const rows=db.prepare('SELECT update_bytes,digest FROM page_updates WHERE page_id=? ORDER BY seq').all(page.id),doc=new Y.Doc();
+for(const row of rows)Y.applyUpdate(doc,row.update_bytes);const xml=doc.getXmlFragment('body').toString();if(!xml.includes(body))throw Error('Synthetic body not retained');
+const hash=v=>crypto.createHash('sha256').update(v).digest('hex');
+const history=db.prepare('SELECT p.kind,p.digest,p.wire,r.response FROM workspace_page_pending p LEFT JOIN workspace_page_receipts r ON r.pending_seq=p.seq WHERE p.page_id=? ORDER BY p.seq').all(page.id);
+const value={syntheticPageId:page.id,expectedTitleMatched:true,expectedBodyMatched:true,bodyXmlSha256:hash(xml),updates:rows.length,updateDigests:rows.map(r=>r.digest),operationHistory:history.map(r=>({kind:r.kind,digest:r.digest,wireSha256:hash(r.wire),acknowledged:r.response!==null})),pendingUnacknowledged:history.filter(r=>r.response===null).length,receiptCount:history.filter(r=>r.response!==null).length,integrity:db.prepare('PRAGMA integrity_check').get().integrity_check};
+fs.writeFileSync(output,JSON.stringify(value,null,2)+'\n');console.log(JSON.stringify({expectedBodyMatched:true,updates:value.updates,pendingUnacknowledged:value.pendingUnacknowledged,receiptCount:value.receiptCount,integrity:value.integrity}));doc.destroy();db.close();

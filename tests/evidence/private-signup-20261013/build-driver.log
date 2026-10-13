@@ -1,0 +1,1 @@
+{"version":"0.82.0","identifier":"dev.greiva.private.preview","entry":"workspace.html","artifacts":[{"file":"greiva-private-preview.exe","sha256":"9ecf16dd9c19e83f581f162f965af624fced7b223be8ebedba6a3d649a629cfb","bytes":21073920},{"file":"private-profile-inspect.exe","sha256":"e0b9c9f421449c81736f74ec24e6cbd9f72cd2f2219678f429c715ceae83f925","bytes":3126272}]}

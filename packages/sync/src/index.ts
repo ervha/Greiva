@@ -35,3 +35,4 @@ export type {DatabaseRecordWriteKind,DatabaseRecordWriteTransport,DatabaseRecord
 
 export {DatabaseViewWriteSyncSession,DatabaseViewWriteSessionError} from './database-view-write-session.js';
 export type {DatabaseViewWriteTransport,DatabaseViewWriteStore} from './database-view-write-session.js';
+export {supabaseSignup,SignupError} from './supabase-signup.js';

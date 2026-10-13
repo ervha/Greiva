@@ -1,6 +1,6 @@
 # Greiva 開発計画・状況・セットアップ
 
-現在のcheckpointはv0.81.1（文書・検証）、アプリ版は0.81.0。直近の機能実装は[2026-10-13停止まとめ](CHECKPOINT_20261013.md)、未合格/未実装/未実施とテスト層別結果は[テスト整理](TEST_REVIEW_20261013.md)。全Vitest1,027件の成功は画面/native/実Auth/性能の合格を含まない。以下の各版の記述は過去の記録として保持する。
+現在のcheckpoint/アプリ版はv0.82.0。[新規登録](../development/PRIVATE_SIGNUP.md)と[実登録・正常ログイン・native保存/強制終了/同期の限定証拠](../../tests/evidence/private-signup-20261013/SUMMARY.md)を追加した。確認メール後のlocalhost導線、最新版IME、自動復元/offlineと完成版UIは残る。[未合格事項](TEST_REVIEW_20261013.md)も参照。手動操作可能との利用者指示で開発/検証を再開した。以下の各版は過去の記録。
 
 最新v0.76.0：[暗号化backup CLIと復元リハーサル](../development/PRIVATE_BACKUP_REHEARSAL.md)を実装。固定JWE/外部key/非上書き出力、実PG33 tableとreceipt/cursorの別DB復元、切断dumpのrollbackを確認。対象5/全unit482/型/build・通常WindowsPE/SHA。[証拠](../../tests/evidence/private-backup-20261013/SUMMARY.md)。本番KMS/backup運用/native端末復旧は別工程。利用者の依頼により実Auth操作を保留し、独立開発を進めた。
 

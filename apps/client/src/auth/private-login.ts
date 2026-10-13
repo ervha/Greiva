@@ -1,11 +1,11 @@
 import { newId, idSchema } from '@greiva/shared';
 import { NativeWorkspaceDeviceError } from '../workspace/native-workspace-device.js';
-import { supabaseAuthSession, PrivateWorkspaceConnection, PrivateConnectionError, type AuthIdentity, type AuthSession, type WorkspaceSyncContext } from '@greiva/sync';
+import { supabaseAuthSession, supabaseSignup, SignupError, PrivateWorkspaceConnection, PrivateConnectionError, type AuthIdentity, type AuthSession, type WorkspaceSyncContext } from '@greiva/sync';
 
 export type PrivateLoginConfiguration = Readonly<{ projectUrl: string; publishableKey: string; algorithm: 'ES256' | 'RS256'; apiUrl: string }>;
-export type LoginPhase = 'signed_out' | 'logging_in' | 'preparing_device' | 'verified' | 'registering' | 'ready' | 'refreshing' | 'expired' | 'signing_out' | 'configuration';
+export type LoginPhase = 'signed_out' | 'signing_up' | 'signup_requested' | 'logging_in' | 'preparing_device' | 'verified' | 'registering' | 'ready' | 'refreshing' | 'expired' | 'signing_out' | 'configuration';
 export type LoginSnapshot = Readonly<{ phase: LoginPhase; busy: boolean; identity: AuthIdentity | null; context: WorkspaceSyncContext | null; message: string | null }>;
-const busyPhases: readonly LoginPhase[] = ['logging_in', 'preparing_device', 'registering', 'refreshing', 'signing_out'];
+const busyPhases: readonly LoginPhase[] = ['logging_in', 'signing_up', 'preparing_device', 'registering', 'refreshing', 'signing_out'];
 export type PrivateDeviceIdentityPort = (identity: AuthIdentity, signal: AbortSignal) => Promise<string>;
 
 // Verification screen only: no content store, offline grant, token storage or
@@ -22,6 +22,7 @@ export class PrivateLoginController {
   #disposed = false;
   #listeners = new Set<(snapshot: LoginSnapshot) => void>();
   #expiry: ReturnType<typeof setTimeout> | undefined;
+  #signupAbort:AbortController|undefined;
   constructor(configuration: PrivateLoginConfiguration, fetchPort: typeof fetch = globalThis.fetch, private readonly deviceIdentity: PrivateDeviceIdentityPort = async () => newId()) {
     this.#config = Object.freeze({ ...configuration }); this.#fetch = fetchPort;
     try { const probe = supabaseAuthSession(this.#config, fetchPort); probe.close(); }
@@ -50,9 +51,23 @@ export class PrivateLoginController {
     this.#clearTimer(); this.#phase = phase; this.#message = null; const revision = ++this.#revision; this.#publish(); return revision;
   }
   #current(revision: number) { return !this.#disposed && revision === this.#revision; }
-  #release() { this.#clearTimer(); this.#connection?.close(); this.#auth?.close(); this.#connection = null; this.#auth = null; }
+  #release() { this.#clearTimer(); this.#signupAbort?.abort();this.#signupAbort=undefined; this.#connection?.close(); this.#auth?.close(); this.#connection = null; this.#auth = null; }
   close() { if (this.#disposed || this.#phase === 'configuration') return; ++this.#revision; this.#release(); this.#phase = 'signed_out'; this.#message = 'この画面の接続を閉じました。'; this.#publish(); }
   dispose() { this.#disposed = true; ++this.#revision; this.#release(); this.#listeners.clear(); }
+  async signup(email:string,password:string) {
+    if(!['signed_out','signup_requested'].includes(this.#phase))return;
+    const revision=this.#begin('signing_up');if(revision===null)return;
+    this.#release();const abort=new AbortController();this.#signupAbort=abort;
+    try {
+      await supabaseSignup(this.#config,email,password,abort.signal,this.#fetch);if(!this.#current(revision))return;
+      this.#phase='signup_requested';this.#message='登録依頼を受け付けました。確認メールが届いた場合はリンクでメールアドレスを確認し、この画面でログインしてください。既に登録済みの場合もログインできます。';
+    } catch(error) {
+      if(!this.#current(revision))return;this.#phase='signed_out';
+      this.#message=error instanceof SignupError&&error.stage==='credentials'?'メールアドレスと8文字以上のパスワードを入力してください。':error instanceof SignupError&&error.stage==='rate_limited'?'登録の受付が一時的に制限されています。時間を置いてお試しください。':
+        '登録の結果を確認できませんでした。確認メールが届いていれば確認後にログインしてください。届いていなければ、時間を置いて入力内容・接続を確認してお試しください。';
+    }
+    if(this.#signupAbort===abort)this.#signupAbort=undefined;this.#publish();
+  }
   async login(email: string, password: string) {
     const revision = this.#begin('logging_in'); if (revision === null) return;
     this.#release();

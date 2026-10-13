@@ -1,0 +1,51 @@
+{
+  "version": "0.82.0",
+  "results": {
+    "unit": {
+      "passed": 494,
+      "failed": 0,
+      "skipped": 0
+    },
+    "auth": {
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0,
+      "flaky": 0
+    },
+    "workspace": {
+      "passed": 98,
+      "failed": 0,
+      "skipped": 0,
+      "flaky": 0
+    },
+    "initial-auth": {
+      "passed": 16,
+      "failed": 2,
+      "skipped": 0,
+      "flaky": 0
+    },
+    "initial-workspace": {
+      "passed": 97,
+      "failed": 1,
+      "skipped": 0,
+      "flaky": 0
+    }
+  },
+  "source": {
+    "raw": 388,
+    "text": 10,
+    "excluded": [
+      "playwright.performance.config.ts",
+      "playwright.render-diagnostic.config.ts",
+      "tests/diagnostics/render-isolation.spec.ts",
+      "tests/native/windows-store-fixture.json",
+      "tests/performance/workloads.spec.ts"
+    ]
+  },
+  "realSignup": false,
+  "realLogin": false,
+  "nativeGuiNewCandidate": false,
+  "nativeIme": false,
+  "postgresRerun": false,
+  "rustUnitRerun": false
+}

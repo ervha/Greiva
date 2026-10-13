@@ -9,10 +9,11 @@ import type { PrivateLoginController } from '../auth/private-login';
 import type { PrivateWorkspaceController } from './private-workspace-controller';
 import {PrivateTitlePanel} from './PrivateTitlePanel';
 import {useWorkspaceHelp} from '../help/WorkspaceHelp';
+import {PrivateAuthForm} from '../auth/PrivateAuthForm';
 
 export function PrivateWorkspaceScreen({login,workspace,nativeAvailable}:{login:PrivateLoginController;workspace:PrivateWorkspaceController;nativeAvailable:boolean}){
   const [auth,setAuth]=useState(login.snapshot),[state,setState]=useState(workspace.snapshot);
-  const [email,setEmail]=useState(''),[password,setPassword]=useState(''),[title,setTitle]=useState('');
+  const [title,setTitle]=useState('');
   const [composing,setComposing]=useState(false);
   const help=useWorkspaceHelp(composing||Boolean(workspace.editor?.isComposing));
   useEffect(()=>login.subscribe(setAuth),[login]);useEffect(()=>workspace.subscribe(setState),[workspace]);
@@ -27,23 +28,19 @@ export function PrivateWorkspaceScreen({login,workspace,nativeAvailable}:{login:
   const busy=auth.busy||state.busy,blocked=busy||state.navigationBlocked;
   const changes=state.changes,changesFailure=state.changesError||changes?.error;
   const changesStatus=changes?.busy?'Page情報を取得・保存中…':changes?.retryReceive?'受信した情報の保存を再確認してください':changesFailure?'Page情報を取得できませんでした':changes?.hasMoreRemote?'取得した変更に続きがあります':changes?.readComplete?'前回取得した範囲の末尾まで保存しました':changes?.data?.received?'以前取得した情報を表示しています':'Page情報はまだ取得していません';
-  const labels={signed_out:'ログインしていません',logging_in:'ログインを確認中…',preparing_device:'端末の登録情報を確認中…',verified:'認証を確認しました',registering:'workspaceを確認中…',ready:'ログイン済み',refreshing:'認証を更新中…',expired:'認証の有効期限が切れました',signing_out:'ログアウト中…',configuration:'接続設定を確認してください'};
-  const logout=async()=>{await workspace.close();await login.logout();setEmail('');setTitle('');};
+  const labels={signed_out:'ログインしていません',signing_up:'登録の受付を確認中…',signup_requested:'登録依頼を受け付けました',logging_in:'ログインを確認中…',preparing_device:'端末の登録情報を確認中…',verified:'認証を確認しました',registering:'workspaceを確認中…',ready:'ログイン済み',refreshing:'認証を更新中…',expired:'認証の有効期限が切れました',signing_out:'ログアウト中…',configuration:'接続設定を確認してください'};
+  const logout=async()=>{await workspace.close();await login.logout();setTitle('');};
   const refresh=async()=>{await workspace.close();await login.refresh();if(login.snapshot.phase==='verified')await login.register();};
   return <main className="workspace-shell" onCompositionStartCapture={()=>setComposing(true)} onCompositionEndCapture={()=>setComposing(false)}><header><h1>Greiva</h1><span className="scope-note">個人workspace 接続プレビュー</span><button ref={help.launcherRef} type="button" {...help.entry()}>ヘルプ・アプリ情報</button></header>
     <section aria-label="アカウント" className="workspace-account"><output aria-label="認証状態" aria-live="polite">{labels[auth.phase]}</output>
       {!nativeAvailable&&<p role="status">端末への保存に対応したアプリで開いてください。</p>}
-      {auth.message&&<p role="alert">{auth.message}</p>}
-      {auth.phase!=='ready'&&auth.phase!=='expired'&&<form onSubmit={event=>{event.preventDefault();const secret=password;setPassword('');void login.login(email,secret);}}>
-        <label>メールアドレス<input type="email" autoComplete="username" value={email} onChange={event=>setEmail(event.target.value)} disabled={!nativeAvailable||auth.busy||auth.phase==='configuration'} required/></label>
-        <label>パスワード<input type="password" autoComplete="current-password" value={password} onChange={event=>setPassword(event.target.value)} disabled={!nativeAvailable||auth.busy||auth.phase==='configuration'} required/></label>
-        <button disabled={!nativeAvailable||auth.busy||auth.phase==='configuration'}>ログイン</button>
-      </form>}
+      {auth.message&&<p role={auth.phase==='signup_requested'?'status':'alert'}>{auth.message}</p>}
+      {!auth.identity&&auth.phase!=='expired'&&<PrivateAuthForm controller={login} disabled={!nativeAvailable||auth.busy||auth.phase==='configuration'}/>}
       <div className="connection-tools">
         {auth.phase==='verified'&&<button type="button" disabled={busy} onClick={()=>{void login.register();}}>workspaceを開く</button>}
         {(auth.phase==='ready'||auth.phase==='expired')&&<button type="button" disabled={blocked} onClick={()=>{void refresh();}}>認証を更新</button>}
         {(auth.identity||auth.phase==='expired')&&<button type="button" disabled={blocked} onClick={()=>{void logout();}}>ログアウト</button>}
-        <button type="button" disabled={state.navigationBlocked} onClick={()=>{login.close();void workspace.close();setPassword('');}}>接続を閉じる</button>
+        <button type="button" disabled={state.navigationBlocked} onClick={()=>{login.close();void workspace.close();}}>接続を閉じる</button>
       </div>
     </section>
     {state.phase==='opening'&&<p role="status">端末のworkspaceを開いています…</p>}

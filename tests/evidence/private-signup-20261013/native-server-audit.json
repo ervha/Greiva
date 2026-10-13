@@ -1,0 +1,13 @@
+{
+  "version": "0.82.0",
+  "nativeServerXmlEqual": true,
+  "stateVectorsEqual": true,
+  "expectedBodyMatched": true,
+  "serverUpdates": 2,
+  "serverDigestsUnique": true,
+  "pendingBefore": 2,
+  "pendingAfter": 0,
+  "receiptsAfter": 2,
+  "originalWireHashesPreserved": true,
+  "bodyXmlSha256": "2d165f75ea6d17e01a1aa153b880c1aab6ebf789a5b93f9abd59892c5c63be68"
+}
