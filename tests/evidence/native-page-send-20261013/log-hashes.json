@@ -1,0 +1,47 @@
+[
+  {
+    "decompressedMatches": true,
+    "file": "http.log.gz",
+    "rawSha256": "ae71b83feb1cdf85b593c2cb16668ac297d507f748b73dddda299de4e6283451"
+  },
+  {
+    "decompressedMatches": true,
+    "file": "windows.log.gz",
+    "rawSha256": "5dde7c4a8ebaaf69ad89301c8c0ae2163a9c01d91f05d831f5fa7e7e59a79c87"
+  },
+  {
+    "decompressedMatches": true,
+    "file": "rust.log.gz",
+    "rawSha256": "a765596ad5953bdfcd9e47d40d07600a7786a87a8fba35fff96a4dd6dc749278"
+  },
+  {
+    "decompressedMatches": true,
+    "file": "preview.log.gz",
+    "rawSha256": "aee813e2766b674e316992965fe3da1d1f647740269cb107261e40aa88b4b06a"
+  },
+  {
+    "decompressedMatches": true,
+    "file": "frontend.log.gz",
+    "rawSha256": "4920e0bf546c7823b59888dc6f91dcf16ffe48ee8ba87937a8a84b958efadcf7"
+  },
+  {
+    "decompressedMatches": true,
+    "file": "build.log.gz",
+    "rawSha256": "0e526b8eb989bd5c821b1158de0ec3de80960ebcb2cc981cd1269de52f6395c6"
+  },
+  {
+    "decompressedMatches": true,
+    "file": "http-original-fail.log.gz",
+    "rawSha256": "0806eeaa19035c6fcedf4194c4f03b3af0bbc1b5a268b36391895b0f35fc1f9e"
+  },
+  {
+    "decompressedMatches": true,
+    "file": "build-config-original-fail.log.gz",
+    "rawSha256": "67b33954a95eea12f999a30db1e23c39fcf256154d79604ea18fc02366ad15e4"
+  },
+  {
+    "decompressedMatches": true,
+    "file": "windows-path-original-fail.log.gz",
+    "rawSha256": "ba504fedc6f81b79579969080c09e9b34ec900e082bb741ae87ad16b24ef8728"
+  }
+]

@@ -10,8 +10,15 @@ import {generateKeyPair,exportJWK,SignJWT} from 'jose';
 import {createSupabasePrivateApp} from '../apps/api/dist/supabase-private-app.js';
 import pg from 'pg';
 import {installPrivateWorkspaceSchema} from '../apps/api/dist/private-workspace-schema.js';
+import {installPrivateStructuredSchema} from '../apps/api/dist/private-structured-schema.js';
+import {installPrivatePageSchema} from '../apps/api/dist/private-page-schema.js';
 import {PostgresPrivateBootstrapStore} from '../apps/api/dist/private-bootstrap-store.js';
-const withWorkspace=process.argv.includes('--workspace');
+import {PostgresPrivatePageStore} from '../apps/api/dist/private-page-store.js';
+import * as Y from 'yjs';
+const withPages=process.argv.includes('--pages');
+const withWorkspace=process.argv.includes('--workspace')||withPages;
+const pageFrames=[];const pageDoc=new Y.Doc();pageDoc.on('update',bytes=>pageFrames.push(Array.from(bytes)));pageDoc.getText('fixture').insert(0,'native HTTP saved');pageDoc.getText('fixture').insert(17,' and appended');
+const pageRequests=[];
 const schema='greiva_private_native_'+crypto.randomUUID().replaceAll('-','');
 const pool=withWorkspace?new pg.Pool({connectionString:process.env.DATABASE_URL}):undefined;
 const temp=fs.mkdtempSync(path.join(os.tmpdir(),'greiva-native-http-'));
@@ -61,6 +68,15 @@ const proxy=http.createServer(async(request,response)=>{
  try {
   if(request.url==='/trap'){trap++;json(response,{});return;}
   const bootstrap=request.method==='POST' && request.url==='/v1/workspaces/bootstrap';
+  const pageSend=withPages && request.method==='POST' && /^\/v1\/workspaces\/[0-9a-f-]+\/pages\/[0-9a-f-]+\/document\/(bootstrap|append)$/.test(request.url);
+  if(pageSend){
+   assert.equal(modes.get(request.headers.authorization?.slice(7)),'page-sync');assert.equal(request.headers.apikey,undefined);assert.equal(request.headers.cookie,undefined);assert.equal(request.headers.referer,undefined);
+   let body='';for await(const chunk of request)body+=chunk;pageRequests.push({route:request.url,body});
+   const result=await fetch(nestApi+request.url,{method:'POST',headers:{authorization:request.headers.authorization,'content-type':'application/json'},body,redirect:'error'});assert.equal(result.status,200);const receipt=await result.json();
+   if(pageRequests.length===1){receipt.workspaceId='01900000-0000-7000-8000-000000000099';json(response,receipt);return;}
+   if(pageRequests.length===2){response.destroy();return;}
+   json(response,receipt);return;
+  }
   if(!bootstrap && (request.method!=='GET' || request.url!=='/v1/session'))throw Error();
   if(request.headers.apikey || request.headers.cookie || request.headers.referer)violations.push('api-headers');
   const mode=modes.get(request.headers.authorization?.slice(7));if(!mode)throw Error();count(mode,bootstrap?'bootstrap':'verify');
@@ -82,11 +98,12 @@ let exit=1;
 try {
  await new Promise(resolve=>provider.listen(0,'127.0.0.1',resolve));project=`https://localhost:${provider.address().port}`;issuer=project+'/auth/v1';
  if(pool)await installPrivateWorkspaceSchema(pool,schema);
- privateApp=await createSupabasePrivateApp({projectUrl:project,algorithm:'ES256'},{read:async()=>{throw Error('unexpected workspace query');}},pool?new PostgresPrivateBootstrapStore(pool,schema):undefined,async()=>new Response(JSON.stringify({keys:[jwk]})));
+ if(withPages){await installPrivateStructuredSchema(pool,schema);await installPrivatePageSchema(pool,schema);}
+ privateApp=await createSupabasePrivateApp({projectUrl:project,algorithm:'ES256'},{read:async()=>{throw Error('unexpected workspace query');}},pool?new PostgresPrivateBootstrapStore(pool,schema):undefined,async()=>new Response(JSON.stringify({keys:[jwk]})),undefined,undefined,withPages?new PostgresPrivatePageStore(pool,schema):undefined);
  await privateApp.listen(0,'127.0.0.1');nestApi=await privateApp.getUrl();
  await new Promise(resolve=>proxy.listen(0,'127.0.0.1',resolve));api=`http://127.0.0.1:${proxy.address().port}`;
- const child=spawn('/opt/cargo/bin/cargo',['test','--locked','--offline','--manifest-path','apps/client/src-tauri/crates/page-store/Cargo.toml','--lib','--target-dir','.data/native-target',withWorkspace?'native_http_actual_':'native_http_actual_tls_signed_session_and_failure_boundaries','--','--ignored'],{
-  stdio:'inherit',env:{...process.env,GREIVA_FIXTURE_PROJECT:project,GREIVA_FIXTURE_API:api,GREIVA_FIXTURE_CA:certFile}});
+ const child=spawn('/opt/cargo/bin/cargo',['test','--locked','--offline','--manifest-path','apps/client/src-tauri/crates/page-store/Cargo.toml','--lib','--target-dir','.data/native-target',withWorkspace?'native_http_actual_':'native_http_actual_tls_signed_session_and_failure_boundaries','--','--ignored',...(!withPages?['--skip','native_http_actual_page_send_unknown_receipt_retry_and_durable_ack']:[])],{
+  stdio:'inherit',env:{...process.env,GREIVA_FIXTURE_PROJECT:project,GREIVA_FIXTURE_API:api,GREIVA_FIXTURE_CA:certFile,...(withPages?{GREIVA_FIXTURE_PAGE_FRAMES:JSON.stringify(pageFrames)}:{})}});
  const code=await new Promise(resolve=>child.once('exit',resolve));assert.equal(code,0,'native HTTP Rust acceptance');
  assert.equal(trap,0,'redirect must never send credential to trap');assert.deepEqual(violations,[],'route/header contract violations');assert.equal(counts['tls-untrusted'],undefined,'untrusted TLS must reject before sending password');
  for(const [mode,value] of Object.entries(counts)){
@@ -94,11 +111,13 @@ try {
   assert.equal(value.revoke,['normal','revoke-fail','workspace'].includes(mode)?1:0,'revoke once after local lock');
  }
  let registration;
- if(pool){const rows=await pool.query(`SELECT (SELECT count(*)::int FROM "${schema}".private_workspaces) AS workspaces,count(*)::int AS devices,count(*) FILTER (WHERE revoked)::int AS revoked FROM "${schema}".private_devices`);registration=rows.rows[0];assert.deepEqual(registration,{workspaces:1,devices:1,revoked:1});assert.equal(counts.workspace.bootstrap,2);assert.equal(counts['workspace-revoked'].bootstrap,1);}
+ if(pool){const rows=await pool.query(`SELECT (SELECT count(*)::int FROM "${schema}".private_workspaces) AS workspaces,count(*)::int AS devices,count(*) FILTER (WHERE revoked)::int AS revoked FROM "${schema}".private_devices`);registration=rows.rows[0];assert.deepEqual(registration,{workspaces:1,devices:withPages?2:1,revoked:1});assert.equal(counts.workspace.bootstrap,2);assert.equal(counts['workspace-revoked'].bootstrap,1);}
+ if(withPages){assert.equal(pageRequests.length,4);assert.deepEqual(pageRequests[0],pageRequests[1]);assert.deepEqual(pageRequests[1],pageRequests[2]);assert.ok(pageRequests[3].route.endsWith('/append'));const rows=await pool.query(`SELECT update FROM "${schema}".private_page_updates ORDER BY server_order`);assert.equal(rows.rowCount,2);const replay=new Y.Doc();for(const row of rows.rows)Y.applyUpdate(replay,row.update);assert.equal(replay.getText('fixture').toString(),pageDoc.getText('fixture').toString());assert.deepEqual(Y.encodeStateVector(replay),Y.encodeStateVector(pageDoc));replay.destroy();console.log(JSON.stringify({nativePageSend:'Pass',wrongScopeReceiptRefused:true,lostResponseSameWireRetry:true,httpRequests:4,durableServerFrames:2,bodyAndVectorEqual:true}));}
  console.log(JSON.stringify({result:'Pass',fixtureOnly:true,actualTls:true,actualApiSignedVerification:true,jwks:'public fixture transport',redirectTrapRequests:trap,untrustedTlsSent:false,registration,counts},null,2));exit=0;
 }finally{
  provider.closeAllConnections();proxy.closeAllConnections();await Promise.all([new Promise(r=>provider.close(r)),new Promise(r=>proxy.close(r)),privateApp?.close()]);
  if(pool){await pool.query(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);await pool.end();}
  fs.rmSync(temp,{recursive:true,force:true});
+ pageDoc.destroy();
 }
 process.exitCode=exit;

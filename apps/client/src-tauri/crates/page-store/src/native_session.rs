@@ -22,6 +22,7 @@ pub struct TokenPair { pub access: AccessSecret, pub refresh: Secret, pub subjec
 pub struct VerifiedIdentity { pub issuer: String, pub subject: String, pub expires_at: u64 }
 pub struct WorkspaceRegistration { pub protocol_version:u8, pub workspace_id:String, pub client_id:String, pub epoch:String }
 /// Native-only admission; no public constructor or Deserialize/Serialize.
+#[derive(Clone)]
 pub struct WorkspaceAdmission { instance:[u8;32], generation:u64, context:crate::WorkspaceContext }
 impl WorkspaceAdmission { pub fn context(&self)->&crate::WorkspaceContext {&self.context} }
 pub trait NativeProvider: Send + Sync {
@@ -32,6 +33,7 @@ pub trait NativeProvider: Send + Sync {
         Box::pin(async { Err(CredentialError) })
     }
     fn bootstrap<'a>(&'a self,_access:&'a AccessSecret,_client:&'a str)->ProviderFuture<'a,WorkspaceRegistration> {Box::pin(async {Err(CredentialError)})}
+    fn page_send<'a>(&'a self,_access:&'a AccessSecret,_context:&'a crate::WorkspaceContext,_page:&'a str,_kind:&'a str,_wire:&'a str)->ProviderFuture<'a,serde_json::Value> {Box::pin(async {Err(CredentialError)})}
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Phase { Locked, Authenticating, Refreshing, Verified }
@@ -191,6 +193,20 @@ impl<S: CredentialStore, P: NativeProvider, C: NativeClock> NativeSession<S, P, 
         let response=result?;
         if response.protocol_version!=1 || response.client_id!=client || !crate::structured::uuid_v7(&response.workspace_id) || !crate::structured::uuid_v7(&response.epoch){return Err(CredentialError)}
         Ok(WorkspaceAdmission {instance:self.instance,generation,context:crate::WorkspaceContext{issuer,subject_id,workspace_id:response.workspace_id,client_id:response.client_id,stream_epoch:response.epoch}})
+    }
+    /// Send native-prepared bytes only under the original admission. Never
+    /// reuse a newly authenticated account's token for an old workspace frame.
+    pub(crate) async fn page_send(&self,admission:&WorkspaceAdmission,page:&str,kind:&str,wire:&str)->Result<serde_json::Value> {
+        let mut state=self.state.lock().await;
+        if self.admit(&mut state).await.is_err(){let _=self.advance(&mut state,Phase::Locked);self.lock_owned(&state).await;return Err(CredentialError)}
+        let active=state.active.as_ref().ok_or(CredentialError)?;
+        if admission.instance!=self.instance || admission.generation!=state.generation || admission.context.issuer!=active.identity.issuer || admission.context.subject_id!=active.identity.subject {return Err(CredentialError)}
+        let generation=state.generation;let access=AccessSecret::new(active.access.expose().to_vec())?;drop(state);
+        let result=self.bounded(generation,self.provider.page_send(&access,admission.context(),page,kind,wire)).await;
+        let mut state=self.state.lock().await;
+        if state.generation!=generation{return Err(CredentialError)}
+        if self.admit(&mut state).await.is_err(){let _=self.advance(&mut state,Phase::Locked);self.lock_owned(&state).await;return Err(CredentialError)}
+        result
     }
     /// Trusted local SQLite work only, under the session gate through commit.
     /// A commit already admitted can finish before logout; late success after

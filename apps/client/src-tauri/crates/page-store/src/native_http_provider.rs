@@ -38,17 +38,20 @@ impl NativeHttpProvider {
         Ok(format!("{app_id}\n{}\n{}",self.issuer,self.api))
     }
     async fn call(&self,method:Method,url:String,access:Option<&AccessSecret>,body:Option<Zeroizing<Vec<u8>>>,provider:bool)->Result<Zeroizing<Vec<u8>>> {
+        self.call_limited(method,url,access,body,provider,MAX_RESPONSE).await
+    }
+    async fn call_limited(&self,method:Method,url:String,access:Option<&AccessSecret>,body:Option<Zeroizing<Vec<u8>>>,provider:bool,max_response:usize)->Result<Zeroizing<Vec<u8>>> {
         let mut request=self.client.request(method,url).header(CACHE_CONTROL,"no-store").header("accept","application/json");
         if provider {request=request.header("apikey",self.key.clone());}
         if let Some(access)=access {request=request.header(AUTHORIZATION,bearer(access)?);}
         if let Some(body)=body {request=request.header(CONTENT_TYPE,"application/json").body(body.to_vec());}
         let mut response=request.send().await.map_err(|_|CredentialError)?;
-        if !response.status().is_success() || response.content_length().is_some_and(|n|n>MAX_RESPONSE as u64) {return Err(CredentialError)}
+        if !response.status().is_success() || response.content_length().is_some_and(|n|n>max_response as u64) {return Err(CredentialError)}
         let content=response.headers().get(CONTENT_TYPE).and_then(|h|h.to_str().ok()).ok_or(CredentialError)?;
         if !content.split(';').next().is_some_and(|s|s.trim().eq_ignore_ascii_case("application/json")) {return Err(CredentialError)}
         let mut bytes=Zeroizing::new(Vec::new());
         while let Some(chunk)=response.chunk().await.map_err(|_|CredentialError)? {
-            if chunk.len()>MAX_RESPONSE-bytes.len(){return Err(CredentialError)}bytes.extend_from_slice(&chunk);
+            if chunk.len()>max_response-bytes.len(){return Err(CredentialError)}bytes.extend_from_slice(&chunk);
         }
         Ok(bytes)
     }
@@ -120,6 +123,17 @@ impl NativeProvider for NativeHttpProvider {
             Ok(WorkspaceRegistration{protocol_version:value.protocol_version,workspace_id:value.workspace_id,client_id:value.client_id,epoch:value.epoch})
         })
     }
+    fn page_send<'a>(&'a self,access:&'a AccessSecret,context:&'a crate::WorkspaceContext,page:&'a str,kind:&'a str,wire:&'a str)->ProviderFuture<'a,serde_json::Value> {
+        Box::pin(async move {
+            // Includes JSON-escaped title plus a maximum-size binary frame.
+            // Receipt vectors can grow beyond the 64 KiB auth response bound.
+            if context.issuer!=self.issuer || !crate::structured::uuid_v7(&context.workspace_id) || !crate::structured::uuid_v7(page) || !matches!(kind,"bootstrap"|"append") || wire.is_empty() || wire.len()>2*1024*1024 {return Err(CredentialError)}
+            let bytes=self.call_limited(Method::POST,format!("{}/v1/workspaces/{}/pages/{}/document/{kind}",self.api,context.workspace_id,page),Some(access),Some(Zeroizing::new(wire.as_bytes().to_vec())),false,8*1024*1024).await?;
+            // Scope/digest/order/metadata validation is performed by the
+            // original native SQLite ACK transaction, never by the WebView.
+            serde_json::from_slice(&bytes).map_err(|_|CredentialError)
+        })
+    }
 }
 
 #[cfg(test)]
@@ -188,5 +202,24 @@ mod tests {
         // The rejected bootstrap never mutates or removes already saved wires.
         let store=crate::WorkspaceStore::open(&root.join("workspaces").join(format!("{:x}.sqlite",sha2::Sha256::digest(serde_json::to_vec(&first.context).unwrap()))),first.context).await.unwrap();
         assert_eq!(store.page_prepare(page).await.unwrap(),wire);drop(store);std::fs::remove_dir_all(root).unwrap();
+    }
+    #[tokio::test]
+    #[ignore="run scripts/test-native-http-provider.mjs --pages for native Page TLS/API/PG fixture"]
+    async fn native_http_actual_page_send_unknown_receipt_retry_and_durable_ack() {
+        let frames=std::env::var("GREIVA_FIXTURE_PAGE_FRAMES").expect("--pages fixture required");
+        let frames:Vec<Vec<u8>>=serde_json::from_str(&frames).unwrap();assert_eq!(frames.len(),2);
+        let project=std::env::var("GREIVA_FIXTURE_PROJECT").unwrap();let api=std::env::var("GREIVA_FIXTURE_API").unwrap();let cert=std::fs::read(std::env::var("GREIVA_FIXTURE_CA").unwrap()).unwrap();
+        let root=std::env::temp_dir().join(format!("greiva-page-http-{}",std::process::id()));std::fs::create_dir(&root).unwrap();
+        let provider=trusted_fixture(&project,&api,&cert);let issuer=provider.issuer().to_string();let vault=CredentialVault::open(&root.join("session.sqlite"),"page-http-fixture",Os::default()).await.unwrap();
+        let gate=crate::native_workspace_gate::NativeWorkspaceGate::new(NativeSession::new(vault,provider,SystemClock::new().unwrap(),issuer).unwrap(),root.join("workspaces"));
+        gate.login("page-sync@example.invalid",b"fixture-password".to_vec()).await.unwrap();let handle=gate.open("01900000-0000-7000-8000-000000000060").await.unwrap();let page="01900000-0000-7000-8000-000000000061";
+        gate.execute(&handle.handle,serde_json::json!({"command":"page_create","pageId":page,"title":"synthetic HTTP Page","update":frames[0]})).await.unwrap();
+        let request=serde_json::json!({"command":"page_prepare","pageId":page});let before=gate.execute(&handle.handle,request.clone()).await.unwrap();
+        assert!(gate.send_page(&handle.handle,page).await.is_err());assert_eq!(gate.execute(&handle.handle,request.clone()).await.unwrap(),before);
+        assert!(gate.send_page(&handle.handle,page).await.is_err());assert_eq!(gate.execute(&handle.handle,request.clone()).await.unwrap(),before);
+        assert!(gate.send_page(&handle.handle,page).await.unwrap());
+        gate.execute(&handle.handle,serde_json::json!({"command":"page_append","pageId":page,"update":frames[1]})).await.unwrap();assert!(gate.send_page(&handle.handle,page).await.unwrap());assert!(!gate.send_page(&handle.handle,page).await.unwrap());
+        let local=gate.execute(&handle.handle,serde_json::json!({"command":"page_load","pageId":page})).await.unwrap();assert_eq!(local["pending"],0);assert_eq!(local["page"]["updates"],serde_json::json!(frames));gate.shutdown().await;
+        let store=crate::WorkspaceStore::open(&root.join("workspaces").join(format!("{:x}.sqlite",sha2::Sha256::digest(serde_json::to_vec(&handle.context).unwrap()))),handle.context).await.unwrap();assert_eq!(store.page_prepare(page).await.unwrap(),serde_json::Value::Null);drop(store);std::fs::remove_dir_all(root).unwrap();
     }
 }

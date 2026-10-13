@@ -8,9 +8,10 @@ struct GateState {generation:u64,active:Option<(WorkspaceHandle,WorkspaceAdmissi
 pub struct NativeWorkspaceGate<S:CredentialStore,P:NativeProvider,C:NativeClock> {
     session:NativeSession<S,P,C>,registry:Arc<WorkspaceRegistry>,
     active:Mutex<GateState>,
+    page_send:Mutex<()>,
 }
 impl<S:CredentialStore,P:NativeProvider,C:NativeClock> NativeWorkspaceGate<S,P,C> {
-    pub fn new(session:NativeSession<S,P,C>,root:PathBuf)->Self {Self {session,registry:Arc::new(WorkspaceRegistry::new(root)),active:Mutex::new(GateState{generation:0,active:None})}}
+    pub fn new(session:NativeSession<S,P,C>,root:PathBuf)->Self {Self {session,registry:Arc::new(WorkspaceRegistry::new(root)),active:Mutex::new(GateState{generation:0,active:None}),page_send:Mutex::new(())}}
     async fn close_active(&self,state:&mut GateState){state.active=None;state.generation=state.generation.checked_add(1).unwrap_or(u64::MAX);self.registry.close_all().await;}
     pub async fn login(&self,email:&str,password:Vec<u8>)->Result<SessionSnapshot>{
         {let mut active=self.active.lock().await;self.close_active(&mut active).await;}
@@ -57,6 +58,29 @@ impl<S:CredentialStore,P:NativeProvider,C:NativeClock> NativeWorkspaceGate<S,P,C
     pub async fn logout(&self)->SessionLogout {
         let mut active=self.active.lock().await;self.close_active(&mut active).await;self.session.logout_with_revoke().await
     }
+    /// One explicit FIFO frame. Caller supplies no wire, receipt, identity or
+    /// bearer. False means no pending frame; true follows durable native ACK.
+    /// Error is unknown delivery/ACK, not proof that the server rejected it.
+    pub async fn send_page(&self,handle:&str,page:&str)->Result<bool> {
+        if !crate::structured::uuid_v7(page){return Err(CredentialError)}
+        let _send=self.page_send.lock().await;
+        let (generation,admission,prepared)={
+            let active=self.active.lock().await;
+            let (_,admission)=active.active.as_ref().filter(|(h,_)|h.handle==handle).ok_or(CredentialError)?;
+            let registry=self.registry.clone();let h=handle.to_string();let p=page.to_string();
+            let prepared=self.session.local(Some(admission),|_|Box::pin(async move {registry.execute(&h,serde_json::json!({"command":"page_prepare","pageId":p})).await.map_err(|_|CredentialError)})).await?;
+            (active.generation,admission.clone(),prepared)
+        };
+        if prepared.is_null(){return Ok(false)}
+        let kind=prepared["kind"].as_str().ok_or(CredentialError)?;
+        let wire=prepared["wire"].as_str().ok_or(CredentialError)?;
+        let response=self.session.page_send(&admission,page,kind,wire).await?;
+        let active=self.active.lock().await;
+        if active.generation!=generation || active.active.as_ref().is_none_or(|(h,_)|h.handle!=handle){return Err(CredentialError)}
+        let registry=self.registry.clone();let h=handle.to_string();let p=page.to_string();let wire=wire.to_string();let sequence=prepared["sequence"].clone();
+        self.session.local(Some(&admission),|_|Box::pin(async move {registry.execute(&h,serde_json::json!({"command":"page_ack","pageId":p,"sequence":sequence,"wire":wire,"response":response})).await.map_err(|_|CredentialError)})).await?;
+        Ok(true)
+    }
     pub async fn cancel_open(&self){let mut active=self.active.lock().await;self.close_active(&mut active).await;}
     pub async fn shutdown(self){self.registry.close_all().await;self.session.close().await;}
 }
@@ -78,7 +102,7 @@ mod tests {
     }
     #[derive(Clone)]struct Clock(Arc<AtomicU64>);impl NativeClock for Clock {fn now(&self)->Result<u64>{Ok(self.0.load(Ordering::SeqCst))}}
     struct ProviderState {owner:String,bad_client:bool}
-    struct Inner {state:StdMutex<ProviderState>,hold:AtomicBool,entered:Notify,release:Notify}
+    struct Inner {state:StdMutex<ProviderState>,hold:AtomicBool,entered:Notify,release:Notify,send_hold:AtomicBool,bad_receipt:AtomicBool,sends:StdMutex<Vec<String>>}
     #[derive(Clone)]struct Provider(Arc<Inner>);
     impl NativeProvider for Provider {
         fn password<'a>(&'a self,_:&'a str,_:&'a [u8])->ProviderFuture<'a,TokenPair>{Box::pin(async {Ok(TokenPair{access:AccessSecret::new(b"fixture-access".to_vec())?,refresh:Secret::new(b"fixture-refresh".to_vec())?,subject:self.0.state.lock().unwrap().owner.clone()})})}
@@ -88,11 +112,20 @@ mod tests {
             if self.0.hold.swap(false,Ordering::SeqCst){self.0.entered.notify_one();self.0.release.notified().await;}
             let s=self.0.state.lock().unwrap();Ok(WorkspaceRegistration{protocol_version:1,workspace_id:if s.owner=="owner-A"{"01900000-0000-7000-8000-000000000001"}else{"01900000-0000-7000-8000-000000000009"}.into(),client_id:if s.bad_client {PAGE}else{client}.into(),epoch:"01900000-0000-7000-8000-000000000003".into()})
         })}
+        fn page_send<'a>(&'a self,_:&'a AccessSecret,c:&'a crate::WorkspaceContext,page:&'a str,kind:&'a str,wire:&'a str)->ProviderFuture<'a,serde_json::Value>{Box::pin(async move {
+            self.0.sends.lock().unwrap().push(wire.to_string());
+            if self.0.send_hold.swap(false,Ordering::SeqCst){self.0.entered.notify_one();self.0.release.notified().await;}
+            let request:serde_json::Value=serde_json::from_str(wire).unwrap();let update=crate::private_page::decode(request[if kind=="bootstrap"{"initialUpdate"}else{"update"}].as_str().unwrap()).unwrap();
+            use sha2::Digest;let digest=format!("{:x}",sha2::Sha256::digest(update));
+            let mut receipt=json!({"protocolVersion":1,"workspaceId":c.workspace_id,"pageId":page,"documentName":format!("page:{page}"),"editorSchemaVersion":1});
+            if kind=="bootstrap"{receipt["metadata"]=json!({"id":page,"title":request["title"],"yDocId":format!("page:{page}"),"createdAt":"2026-10-13T00:00:00.000Z","updatedAt":"2026-10-13T00:00:00.000Z"});receipt["initialDigest"]=json!(digest);}else{receipt["digest"]=json!(digest);receipt["serverOrder"]=json!("2");receipt["headOrder"]=json!("2");receipt["stateVector"]=json!("AA");}
+            if self.0.bad_receipt.swap(false,Ordering::SeqCst){receipt["workspaceId"]=json!(PAGE);}Ok(receipt)
+        })}
     }
     type Gate=NativeWorkspaceGate<Os,Provider,Clock>;
     struct Fixture {root:PathBuf,os:Os,provider:Provider,clock:Clock}
     impl Fixture {
-        fn new()->Self {let mut b=[0u8;16];getrandom::getrandom(&mut b).unwrap();let root=std::env::temp_dir().join(format!("greiva-gate-{:x}",u128::from_le_bytes(b)));std::fs::create_dir(&root).unwrap();Self{root,os:Os::default(),provider:Provider(Arc::new(Inner{state:StdMutex::new(ProviderState{owner:"owner-A".into(),bad_client:false}),hold:AtomicBool::new(false),entered:Notify::new(),release:Notify::new()})),clock:Clock(Arc::new(AtomicU64::new(100)))}}
+        fn new()->Self {let mut b=[0u8;16];getrandom::getrandom(&mut b).unwrap();let root=std::env::temp_dir().join(format!("greiva-gate-{:x}",u128::from_le_bytes(b)));std::fs::create_dir(&root).unwrap();Self{root,os:Os::default(),provider:Provider(Arc::new(Inner{state:StdMutex::new(ProviderState{owner:"owner-A".into(),bad_client:false}),hold:AtomicBool::new(false),entered:Notify::new(),release:Notify::new(),send_hold:AtomicBool::new(false),bad_receipt:AtomicBool::new(false),sends:StdMutex::new(Vec::new())})),clock:Clock(Arc::new(AtomicU64::new(100)))}}
         async fn open(&self)->Arc<Gate>{let vault=CredentialVault::open(&self.root.join("session.sqlite"),"fixture-gate",self.os.clone()).await.unwrap();Arc::new(Gate::new(NativeSession::new(vault,self.provider.clone(),self.clock.clone(),"https://auth.invalid/auth/v1".into()).unwrap(),self.root.join("workspaces")))}
     }
     impl Drop for Fixture {fn drop(&mut self){let _=std::fs::remove_dir_all(&self.root);}}
@@ -133,5 +166,31 @@ mod tests {
         let f=Fixture::new();let g=f.open().await;login(&g).await;f.provider.0.hold.store(true,Ordering::SeqCst);
         let copy=g.clone();let task=tokio::spawn(async move {copy.open(CLIENT).await});f.provider.0.entered.notified().await;g.logout().await;
         assert!(task.await.unwrap().is_err());f.provider.0.release.notify_one();assert_eq!(g.snapshot().await.phase,Phase::Locked);assert!(g.open(CLIENT).await.is_err());shutdown(g).await;
+    }
+    async fn page_fixture(f:&Fixture)->(Arc<Gate>,WorkspaceHandle,serde_json::Value){let g=f.open().await;login(&g).await;let h=g.open(CLIENT).await.unwrap();g.execute(&h.handle,json!({"command":"page_create","pageId":PAGE,"title":"synthetic send","update":[0,0]})).await.unwrap();let original=g.execute(&h.handle,json!({"command":"page_prepare","pageId":PAGE})).await.unwrap();(g,h,original)}
+    #[tokio::test]
+    async fn native_page_fifo_and_wrong_receipt_retains_original_wire(){
+        let f=Fixture::new();let (g,h,original)=page_fixture(&f).await;f.provider.0.bad_receipt.store(true,Ordering::SeqCst);assert!(g.send_page(&h.handle,PAGE).await.is_err());assert_eq!(g.execute(&h.handle,json!({"command":"page_prepare","pageId":PAGE})).await.unwrap(),original);
+        assert!(g.send_page(&h.handle,PAGE).await.unwrap());g.execute(&h.handle,json!({"command":"page_append","pageId":PAGE,"update":[0,1]})).await.unwrap();assert!(g.send_page(&h.handle,PAGE).await.unwrap());assert!(!g.send_page(&h.handle,PAGE).await.unwrap());let calls=f.provider.0.sends.lock().unwrap().clone();assert_eq!(calls.len(),3);assert_eq!(calls[0],calls[1]);assert_ne!(calls[1],calls[2]);assert_eq!(g.execute(&h.handle,json!({"command":"page_load","pageId":PAGE})).await.unwrap()["pending"],0);shutdown(g).await;
+    }
+    #[tokio::test]
+    async fn native_page_close_while_remote_waiting_refuses_late_ack(){
+        let f=Fixture::new();let (g,h,original)=page_fixture(&f).await;f.provider.0.send_hold.store(true,Ordering::SeqCst);let copy=g.clone();let old=h.handle.clone();let task=tokio::spawn(async move{copy.send_page(&old,PAGE).await});f.provider.0.entered.notified().await;
+        g.cancel_open().await;let next=g.open(CLIENT).await.unwrap();f.provider.0.release.notify_one();assert!(task.await.unwrap().is_err());assert_eq!(g.execute(&next.handle,json!({"command":"page_prepare","pageId":PAGE})).await.unwrap(),original);assert!(g.send_page(&next.handle,PAGE).await.unwrap());shutdown(g).await;
+    }
+    #[tokio::test]
+    async fn native_page_logout_cancels_remote_wait_and_preserves_pending(){
+        let f=Fixture::new();let (g,h,original)=page_fixture(&f).await;f.provider.0.send_hold.store(true,Ordering::SeqCst);let copy=g.clone();let old=h.handle.clone();let task=tokio::spawn(async move{copy.send_page(&old,PAGE).await});f.provider.0.entered.notified().await;
+        let locked=g.logout().await;assert!(locked.local_locked && locked.persistent_locked);assert!(task.await.unwrap().is_err());login(&g).await;let next=g.open(CLIENT).await.unwrap();assert_eq!(g.execute(&next.handle,json!({"command":"page_prepare","pageId":PAGE})).await.unwrap(),original);assert_eq!(f.provider.0.sends.lock().unwrap().len(),1);shutdown(g).await;
+    }
+    #[tokio::test]
+    async fn native_page_expiry_during_send_withholds_ack(){
+        let f=Fixture::new();let (g,h,original)=page_fixture(&f).await;f.provider.0.send_hold.store(true,Ordering::SeqCst);let copy=g.clone();let old=h.handle.clone();let task=tokio::spawn(async move{copy.send_page(&old,PAGE).await});f.provider.0.entered.notified().await;f.clock.0.store(200,Ordering::SeqCst);f.provider.0.release.notify_one();assert!(task.await.unwrap().is_err());assert_eq!(g.snapshot().await.phase,Phase::Locked);shutdown(g).await;
+        f.clock.0.store(100,Ordering::SeqCst);let g=f.open().await;login(&g).await;let next=g.open(CLIENT).await.unwrap();assert_eq!(g.execute(&next.handle,json!({"command":"page_prepare","pageId":PAGE})).await.unwrap(),original);shutdown(g).await;
+    }
+    #[tokio::test]
+    async fn native_page_concurrent_sends_keep_fifo_without_blocking_local_input(){
+        let f=Fixture::new();let (g,h,_)=page_fixture(&f).await;f.provider.0.send_hold.store(true,Ordering::SeqCst);let copy=g.clone();let first=h.handle.clone();let one=tokio::spawn(async move{copy.send_page(&first,PAGE).await});f.provider.0.entered.notified().await;
+        g.execute(&h.handle,json!({"command":"page_append","pageId":PAGE,"update":[0,1]})).await.unwrap();let copy=g.clone();let second=h.handle.clone();let two=tokio::spawn(async move{copy.send_page(&second,PAGE).await});f.provider.0.release.notify_one();assert!(one.await.unwrap().unwrap());assert!(two.await.unwrap().unwrap());assert_eq!(f.provider.0.sends.lock().unwrap().len(),2);assert_eq!(g.execute(&h.handle,json!({"command":"page_load","pageId":PAGE})).await.unwrap()["pending"],0);shutdown(g).await;
     }
 }

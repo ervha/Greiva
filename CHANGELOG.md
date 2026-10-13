@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.90.0 — 2026-10-13
+
+- native verified admissionから元Page wireを固定APIへ送信し、元sequence/wireのreceiptをSQLiteへACK保存する基盤を追加。close/logout/expiry後のlate ACKを拒否し、HTTP待機中もlocal入力を保持。
+- 不正scope receipt・server commit後の応答喪失で元pendingを保持。実署名API/PGの同wire再送で重複保存せず、本文/vector一致とSQLite再openを確認。
+- 通常Rust34・専用TLS/API/PG3、Windows候補build/版/SHA/sourceを確認。元fixture migration/build設定・PATH Failを保持。IPC/画面同期、remote読取/offline leaseと最新実機受入は次工程。利用者指示でcheckpoint後に一時停止。
+
 ## 0.89.0 — 2026-10-13
 
 - native専用画面にPage作成・本文編集・直列端末保存を接続。保存未確認入力の同scope復帰、composition中の操作保留と失効時の遮蔽を追加。
