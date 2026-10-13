@@ -1,3 +1,11 @@
 import { spawnSync } from 'node:child_process';
-const result = spawnSync(process.platform === 'win32' ? 'npm.cmd' : 'npm', ['exec', '--', 'vitest', 'run', 'tests/integration/postgres.test.ts', 'tests/integration/structured-postgres.test.ts', 'tests/integration/structured-sync-server.test.ts', 'tests/integration/structured-sync-client.test.ts', 'tests/integration/structured-process-crash.test.ts', 'tests/integration/private-access-postgres.test.ts', 'tests/integration/authenticated-access-postgres.test.ts', 'tests/integration/private-http-postgres.test.ts', 'tests/integration/private-bootstrap-postgres.test.ts', 'tests/integration/supabase-auth-bootstrap-postgres.test.ts', 'tests/integration/private-runtime-postgres.test.ts', 'tests/integration/private-transactions-postgres.test.ts', 'tests/integration/private-structured-postgres.test.ts', 'tests/integration/private-stream-crash-postgres.test.ts', 'tests/integration/private-stream-client-postgres.test.ts', 'tests/integration/private-title-client-postgres.test.ts', 'tests/integration/private-page-metadata-postgres.test.ts', 'tests/integration/private-page-changes-postgres.test.ts', 'tests/integration/private-page-changes-client-postgres.test.ts', 'tests/integration/private-database-source-postgres.test.ts', 'tests/integration/private-database-record-postgres.test.ts', 'tests/integration/private-database-record-catalog-postgres.test.ts','tests/integration/private-database-view-postgres.test.ts','tests/integration/private-database-view-catalog-postgres.test.ts','tests/integration/private-database-changes-postgres.test.ts','tests/integration/private-database-source-client-postgres.test.ts','tests/integration/private-database-content-client-postgres.test.ts', 'tests/integration/private-page-postgres.test.ts', 'tests/integration/private-page-crash-postgres.test.ts', 'tests/integration/private-page-client-postgres.test.ts'], { stdio: 'inherit', env: { ...process.env, GREIVA_TEST_POSTGRES: '1' }, shell: process.platform === 'win32' });
-process.exit(result.status ?? 1);
+import { readdirSync,readFileSync } from 'node:fs';
+// Discover every integration suite guarded by the explicit PostgreSQL flag.
+// A static list had omitted five later client/runtime/write suites.
+const files=readdirSync('tests/integration').filter(name=>name.endsWith('.test.ts'))
+  .map(name=>'tests/integration/'+name).filter(file=>readFileSync(file,'utf8').includes('GREIVA_TEST_POSTGRES')).sort();
+if(!files.length)throw new Error('No PostgreSQL suites found');
+const result=spawnSync(process.platform==='win32'?'npm.cmd':'npm',['exec','--','vitest','run',...files],{
+  stdio:'inherit',env:{...process.env,GREIVA_TEST_POSTGRES:'1'},shell:process.platform==='win32',
+});
+process.exit(result.status??1);

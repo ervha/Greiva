@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新v0.79.0：[署名offline grant](../development/NATIVE_OFFLINE_GRANT.md)の明示HTTP発行・Rust検証を追加。固定7日、scope/nonce/署名/時刻検査、実PG/native相互運用と全PG228/全unit484/Rust8・型/buildを確認。[証拠](../../tests/evidence/native-offline-grant-20261013/SUMMARY.md)。PG検証の固定一覧漏れ5群を修正。OS grant/clock保管とnative session/store/UIへの接続へ続行する。
+
 最新v0.78.0：[native資格情報保管](../development/NATIVE_CREDENTIAL_CUSTODY.md)へWindows Credential Manager adapterとSQLite世代marker、先行永続lock、遅着拒否・廃棄待ちslotを追加。Docker Rust5/SIGKILL7と通常unit484、型/build、Windowsの架空OS credential write/read/replace/deleteを確認。[証拠](../../tests/evidence/native-credential-20261013/SUMMARY.md)。native provider/署名grantと表示/store lockへ続行し、実Auth/IMEは保留。
 
 最新v0.77.0：[backup検査・鍵更新](../development/PRIVATE_BACKUP_REHEARSAL.md)を追加。平文fileなしのverify、元archiveを保持するrotate、同一key/改ざん/上書き拒否。旧v0.76.0 archiveの互換と実PG33 table・6操作/cursor復元、対象7/全unit484・型/build/Windows PE/SHAを確認。[証拠](../../tests/evidence/private-backup-rotation-20261013/SUMMARY.md)。実Authは保留。次は採用済み[Native session方針](NATIVE_SESSION_POLICY.md)に沿う資格情報adapter/端末ロックの独立実装と、実機確認が可能な時点での正常ログイン・IME受入。KMS/backupの自動運用は残る。

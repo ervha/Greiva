@@ -4,6 +4,8 @@
 
 v0.78.0：[native資格情報保管・永続ログアウト基盤](../development/NATIVE_CREDENTIAL_CUSTODY.md)を実装。Windows OS adapterを架空値で実機確認し、実SQLite/強制終了の失敗境界を検証した。native provider/ログイン復元UI/offline grantは未接続。
 
+v0.79.0：[server発行とnative署名検証](../development/NATIVE_OFFLINE_GRANT.md)を実装。署名/全scope/nonce・固定7日・時計逆行の検査をDocker実PG/HTTP/Rustで確認。OS保管・永続clock/store/UIとの接続は残る。
+
 ## 採用した動作
 
 | 項目 | 採用内容 |

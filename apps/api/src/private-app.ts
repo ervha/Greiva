@@ -1,9 +1,10 @@
 import {installPrivateCors} from './private-cors.js';
+import type {PrivateOfflineGrants} from './private-offline-grant.js';
 import type {PrivateDatabaseChanges} from './private-database-changes-store.js';
 import type {PrivateDatabaseViewCatalog} from './private-database-view-catalog-store.js';
 import {PrivateDatabaseViewInvalidRequest,type PrivateDatabaseViews} from './private-database-view-store.js';
 import 'reflect-metadata';
-import { type ArgumentsHost, Body, Catch, Controller, type ExceptionFilter, Get, Headers, HttpCode, HttpException, Inject, Module, Param, Post } from '@nestjs/common';
+import { type ArgumentsHost, Body, Catch, Controller, type ExceptionFilter, Get, Header, Headers, HttpCode, HttpException, Inject, Module, Param, Post } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import {PrivateDatabaseSourceInvalidRequest,type PrivateDatabaseSources} from './private-database-source-store.js';
 import {PrivateDatabaseRecordInvalidRequest,type PrivateDatabaseRecords} from './private-database-record-store.js';
@@ -24,6 +25,7 @@ import type {PrivatePageChanges} from './private-page-changes-store.js';
 
 const SESSION = Symbol('private-session'), ACCESS = Symbol('private-access');
 const BOOTSTRAP = Symbol('private-bootstrap');
+const OFFLINE = Symbol('private-offline-grant');
 const DEVICE = Symbol('private-device');
 const SYNC = Symbol('private-structured-sync');
 const PAGE = Symbol('private-page-document'), METADATA=Symbol('private-page-metadata');
@@ -139,6 +141,12 @@ class PrivateAccessController {
     return this.access.pageDocument(authorization, workspaceId, `page:${pageId}`);
   }
 }
+@Controller('v1/workspaces/:workspaceId/offline-grant')
+class PrivateOfflineGrantController {
+  constructor(@Inject(SESSION) private readonly verifier:SessionVerifier,@Inject(OFFLINE) private readonly grants:PrivateOfflineGrants){}
+  @Post() @HttpCode(200) @Header('Cache-Control','no-store')
+  async issue(@Headers('authorization') authorization:unknown,@Param('workspaceId') workspaceId:string,@Body() body:unknown){return this.grants.issue(await this.verifier.verify(authorization),workspaceId,body);}
+}
 @Controller('v1/workspaces')
 class PrivateBootstrapController {
   constructor(@Inject(SESSION) private readonly verifier: SessionVerifier, @Inject(BOOTSTRAP) private readonly bootstrap: PrivateWorkspaceBootstrap) {}
@@ -172,9 +180,9 @@ class PrivateAccessErrors implements ExceptionFilter {
 }
 // Independent protected API factory. Does not mount or expose old PoC routes,
 // listen automatically, create a test identity, or migrate a caller's database.
-export async function createPrivateApp(verifier: SessionVerifier, store: PrivateWorkspaceAccessStore, bootstrap?: PrivateWorkspaceBootstrap, device?: PrivateDeviceAccess, sync?: PrivateStructuredSync, page?: PrivatePageDocuments, metadata?:PrivatePageMetadata, changes?:PrivatePageChanges,sources?:PrivateDatabaseSources,records?:PrivateDatabaseRecords,recordCatalog?:PrivateDatabaseRecordCatalog,views?:PrivateDatabaseViews,viewCatalog?:PrivateDatabaseViewCatalog,databaseChanges?:PrivateDatabaseChanges,clientOrigins:readonly string[]=[]) {
-  @Module({ controllers: [PrivateAccessController, ...(databaseChanges?[PrivateDatabaseChangesController]:[]), ...(viewCatalog?[PrivateDatabaseViewCatalogController]:[]), ...(views?[PrivateDatabaseViewController]:[]), ...(recordCatalog?[PrivateDatabaseRecordCatalogController]:[]), ...(records?[PrivateDatabaseRecordController]:[]), ...(sources?[PrivateDatabaseSourceController]:[]), ...(changes?[PrivatePageChangesController]:[]), ...(metadata?[PrivatePageMetadataController]:[]), ...(bootstrap ? [PrivateBootstrapController] : []), ...(device ? [PrivateDeviceController] : []), ...(sync ? [PrivateStructuredController] : []), ...(page ? [PrivatePageController,PrivatePageCatalogController] : [])], providers: [
-    { provide: SESSION, useValue: verifier }, { provide: ACCESS, useValue: authenticatedPrivateAccess(verifier, store) },
+export async function createPrivateApp(verifier: SessionVerifier, store: PrivateWorkspaceAccessStore, bootstrap?: PrivateWorkspaceBootstrap, device?: PrivateDeviceAccess, sync?: PrivateStructuredSync, page?: PrivatePageDocuments, metadata?:PrivatePageMetadata, changes?:PrivatePageChanges,sources?:PrivateDatabaseSources,records?:PrivateDatabaseRecords,recordCatalog?:PrivateDatabaseRecordCatalog,views?:PrivateDatabaseViews,viewCatalog?:PrivateDatabaseViewCatalog,databaseChanges?:PrivateDatabaseChanges,clientOrigins:readonly string[]=[],offline?:PrivateOfflineGrants) {
+  @Module({ controllers: [PrivateAccessController, ...(offline?[PrivateOfflineGrantController]:[]), ...(databaseChanges?[PrivateDatabaseChangesController]:[]), ...(viewCatalog?[PrivateDatabaseViewCatalogController]:[]), ...(views?[PrivateDatabaseViewController]:[]), ...(recordCatalog?[PrivateDatabaseRecordCatalogController]:[]), ...(records?[PrivateDatabaseRecordController]:[]), ...(sources?[PrivateDatabaseSourceController]:[]), ...(changes?[PrivatePageChangesController]:[]), ...(metadata?[PrivatePageMetadataController]:[]), ...(bootstrap ? [PrivateBootstrapController] : []), ...(device ? [PrivateDeviceController] : []), ...(sync ? [PrivateStructuredController] : []), ...(page ? [PrivatePageController,PrivatePageCatalogController] : [])], providers: [
+    ...(offline?[{provide:OFFLINE,useValue:offline}]:[]), { provide: SESSION, useValue: verifier }, { provide: ACCESS, useValue: authenticatedPrivateAccess(verifier, store) },
     ...(bootstrap ? [{ provide: BOOTSTRAP, useValue: bootstrap }] : []),
     ...(device ? [{ provide: DEVICE, useValue: device }] : []),
     ...(sync ? [{ provide: SYNC, useValue: sync }] : []),

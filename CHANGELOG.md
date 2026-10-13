@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.79.0 — 2026-10-13
+
+- 明示signerを渡すprivate APIへ、認証/owner/device/epoch認可に基づく7日固定のoffline grantを追加。署名形式とnative公開鍵pinを分離し、時刻・scope・nonce・header・署名を厳密検証する。
+- Docker Rust8、対象HTTP/実PG/native相互運用3、全unit484、全PG228、型/build・Windows版/SHAを確認。PG検証コマンドの一覧漏れ5群を修正し、自動検出へ変更した。初回fixture型エラーを別記録で保持。
+- 通常runtimeの署名鍵設定、OSに保持するoffline許可/時刻、UI/store lockは未接続。実Auth/IMEを合格扱いにしない。
+
 ## 0.78.0 — 2026-10-13
 
 - Native-onlyの資格情報portとWindows Credential Manager adapterを追加。平文fallbackなし、秘密値をSQLite/IPC/ログへ出さず、署名確認後のnative providerからだけ受け取る構成。

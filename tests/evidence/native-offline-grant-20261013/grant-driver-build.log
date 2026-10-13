@@ -1,0 +1,19 @@
+     Locking 16 packages to latest compatible versions
+      Adding base64ct v1.8.3
+      Adding const-oid v0.9.6
+      Adding curve25519-dalek v4.1.3
+      Adding curve25519-dalek-derive v0.1.1
+      Adding der v0.7.10
+      Adding ed25519 v2.2.3
+      Adding ed25519-dalek v2.2.0
+      Adding fiat-crypto v0.2.9
+      Adding getrandom v0.2.17
+      Adding pkcs8 v0.10.2
+      Adding rand_core v0.6.4
+      Adding rustc_version v0.4.1
+      Adding semver v1.0.28
+      Adding signature v2.2.0
+      Adding spki v0.7.3
+      Adding subtle v2.6.1
+   Compiling greiva-page-store v0.79.0 (/workspace/apps/client/src-tauri/crates/page-store)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.42s

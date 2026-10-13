@@ -1,0 +1,40 @@
+{
+  "checkpoint": "0.79.0",
+  "results": {
+    "grant-postgres": {
+      "passed": 3,
+      "failed": 0,
+      "pending": 0
+    },
+    "grant-final": {
+      "passed": 3,
+      "failed": 0,
+      "pending": 0
+    },
+    "all-unit": {
+      "passed": 484,
+      "failed": 0,
+      "pending": 0
+    },
+    "all-postgres": {
+      "passed": 228,
+      "failed": 0,
+      "pending": 0
+    }
+  },
+  "source": {
+    "raw": 380,
+    "text": 10,
+    "excluded": [
+      "playwright.performance.config.ts",
+      "playwright.render-diagnostic.config.ts",
+      "tests/diagnostics/render-isolation.spec.ts",
+      "tests/native/windows-store-fixture.json",
+      "tests/performance/workloads.spec.ts"
+    ]
+  },
+  "nativeIme": false,
+  "realAuth": false,
+  "productionBackup": false,
+  "nativeCredentialUi": false
+}
