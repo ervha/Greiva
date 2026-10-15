@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.94.0 — 2026-10-15
+
+- native側に限定したPage一覧取得とcursor管理を追加。workspace/epoch・metadata・順序を検証し、続きの失敗は同じcursorで明示再試行、先頭再取得時は旧cursorを無効化する。
+- 一覧画面から本文を明示取得し、端末保存・journal検証後に開く。取得/保存未確認で空Pageへfallbackせず、接続終了・失効後の一覧と遅着結果を破棄する。
+- 最終unit538・通常Rust45・実TLS/署名API/PG5・画面38・型・Windows候補buildを確認。実API21件のページングを検証。初回のテスト指定誤りと並行buildによるVite再読込干渉を保持し、build終了後に画面を再検証。実Windows/IME、再接続・offline lease受入は残る。
+
 ## 0.93.0 — 2026-10-15
 
 - 選択したPageの明示取得をnative readへ接続し、保存確認後にjournalを検証して同じY.Docへmerge。受信更新をlocal appendへechoせず、local入力/未送信を保持する。

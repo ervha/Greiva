@@ -1,0 +1,46 @@
+{
+  "typing": [
+    {
+      "startTime": 53258.436,
+      "params": {
+        "text": " local edit"
+      }
+    }
+  ],
+  "scope": "Synthetic fixture only",
+  "cause": "Concurrent candidate build and typecheck rebuild shared packages while Vite E2E is running; browser reload interferes with pending saves. Run builds/typecheck before E2E.",
+  "viteConnections": [
+    {
+      "time": 50042.686,
+      "text": "[vite] connecting..."
+    },
+    {
+      "time": 50142.219,
+      "text": "[vite] connected."
+    },
+    {
+      "time": 53940.906,
+      "text": "[vite] connecting..."
+    },
+    {
+      "time": 54436.135,
+      "text": "[vite] connected."
+    },
+    {
+      "time": 55244.8,
+      "text": "[vite] connecting..."
+    },
+    {
+      "time": 55339.275,
+      "text": "[vite] connected."
+    },
+    {
+      "time": 57532.423,
+      "text": "[vite] connecting..."
+    },
+    {
+      "time": 57636.71,
+      "text": "[vite] connected."
+    }
+  ]
+}

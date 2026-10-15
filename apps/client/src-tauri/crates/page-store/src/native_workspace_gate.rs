@@ -6,7 +6,19 @@ use tokio::sync::Mutex;
 type Result<T>=std::result::Result<T,CredentialError>;
 #[derive(Clone)]
 struct PendingPageAck {prepared:serde_json::Value,response:serde_json::Value}
-struct GateState {generation:u64,active:Option<(WorkspaceHandle,WorkspaceAdmission)>,receipts:std::collections::HashMap<String,PendingPageAck>,reads:std::collections::HashMap<String,serde_json::Value>}
+struct CatalogProgress {cursor:Option<String>,last:Option<String>}
+struct GateState {generation:u64,active:Option<(WorkspaceHandle,WorkspaceAdmission)>,receipts:std::collections::HashMap<String,PendingPageAck>,reads:std::collections::HashMap<String,serde_json::Value>,catalog:Option<CatalogProgress>}
+#[derive(serde::Serialize)]
+#[serde(rename_all="camelCase")]
+pub struct NativePageCatalog {pub pages:Vec<crate::PageMetadata>,pub has_more:bool}
+fn catalog_response(context:&crate::WorkspaceContext,value:&serde_json::Value,after:Option<&str>)->Result<(NativePageCatalog,CatalogProgress)>{
+    let keys=["protocolVersion","workspaceId","workspaceEpoch","pages","nextCursor","hasMore"];let object=value.as_object().ok_or(CredentialError)?;
+    if object.len()!=keys.len()||keys.iter().any(|key|!object.contains_key(*key))||value["protocolVersion"]!=1||value["workspaceId"]!=context.workspace_id||value["workspaceEpoch"]!=context.stream_epoch{return Err(CredentialError)}
+    let raw=value["pages"].as_array().filter(|p|p.len()<=20).ok_or(CredentialError)?;let mut pages=Vec::new();let mut last=after.map(str::to_string);
+    for row in raw{let id=row["id"].as_str().ok_or(CredentialError)?;if !crate::structured::uuid_v7(id)||last.as_ref().is_some_and(|old|id<=old.as_str()){return Err(CredentialError)}pages.push(crate::private_page::metadata(row,id).map_err(|_|CredentialError)?);last=Some(id.into());}
+    let cursor=if value["nextCursor"].is_null(){None}else{let cursor=value["nextCursor"].as_str().filter(|c|!c.is_empty()&&c.len()<=8192&&!c.chars().any(char::is_control)).ok_or(CredentialError)?;Some(cursor.into())};let has_more=value["hasMore"].as_bool().ok_or(CredentialError)?;
+    if has_more!=cursor.is_some()||has_more&&pages.is_empty(){return Err(CredentialError)}Ok((NativePageCatalog{pages,has_more},CatalogProgress{cursor,last}))
+}
 #[derive(Clone,Copy,Debug,PartialEq,Eq,serde::Serialize)]
 #[serde(rename_all="snake_case")]
 pub enum PageSendStatus {Idle,Acked,SendUnknown,AckPending}
@@ -18,12 +30,13 @@ pub struct NativeWorkspaceGate<S:CredentialStore,P:NativeProvider,C:NativeClock>
     active:Mutex<GateState>,
     page_send:Mutex<()>,
     page_read:Mutex<()>,
+    page_catalog:Mutex<()>,
     #[cfg(test)]ack_failure:std::sync::atomic::AtomicU8,
     #[cfg(test)]read_failure:std::sync::atomic::AtomicU8,
 }
 impl<S:CredentialStore,P:NativeProvider,C:NativeClock> NativeWorkspaceGate<S,P,C> {
-    pub fn new(session:NativeSession<S,P,C>,root:PathBuf)->Self {Self {session,registry:Arc::new(WorkspaceRegistry::new(root)),active:Mutex::new(GateState{generation:0,active:None,receipts:std::collections::HashMap::new(),reads:std::collections::HashMap::new()}),page_send:Mutex::new(()),page_read:Mutex::new(()),#[cfg(test)]ack_failure:std::sync::atomic::AtomicU8::new(0),#[cfg(test)]read_failure:std::sync::atomic::AtomicU8::new(0)}}
-    async fn close_active(&self,state:&mut GateState){state.active=None;state.receipts.clear();state.reads.clear();state.generation=state.generation.checked_add(1).unwrap_or(u64::MAX);self.registry.close_all().await;}
+    pub fn new(session:NativeSession<S,P,C>,root:PathBuf)->Self {Self {session,registry:Arc::new(WorkspaceRegistry::new(root)),active:Mutex::new(GateState{generation:0,active:None,receipts:std::collections::HashMap::new(),reads:std::collections::HashMap::new(),catalog:None}),page_send:Mutex::new(()),page_read:Mutex::new(()),page_catalog:Mutex::new(()),#[cfg(test)]ack_failure:std::sync::atomic::AtomicU8::new(0),#[cfg(test)]read_failure:std::sync::atomic::AtomicU8::new(0)}}
+    async fn close_active(&self,state:&mut GateState){state.active=None;state.receipts.clear();state.reads.clear();state.catalog=None;state.generation=state.generation.checked_add(1).unwrap_or(u64::MAX);self.registry.close_all().await;}
     pub async fn login(&self,email:&str,password:Vec<u8>)->Result<SessionSnapshot>{
         {let mut active=self.active.lock().await;self.close_active(&mut active).await;}
         self.session.login(email,password).await
@@ -137,6 +150,20 @@ impl<S:CredentialStore,P:NativeProvider,C:NativeClock> NativeWorkspaceGate<S,P,C
         if result.is_err(){return Ok(PageReadStatus::StorePending)}
         active.reads.remove(page);Ok(PageReadStatus::Received)
     }
+    /// Read-only query. Cursor stays native and never becomes a receive/ACK.
+    pub async fn catalog_pages(&self,handle:&str,more:bool)->Result<NativePageCatalog>{
+        let _query=self.page_catalog.try_lock().map_err(|_|CredentialError)?;
+        let (generation,admission,cursor,after)={let mut active=self.active.lock().await;
+            if active.active.as_ref().is_none_or(|(h,_)|h.handle!=handle){return Err(CredentialError)}
+            if !more{active.catalog=None;}
+            let (cursor,after)=if more{let progress=active.catalog.as_ref().ok_or(CredentialError)?;(Some(progress.cursor.clone().ok_or(CredentialError)?),progress.last.clone())}else{(None,None)};
+            (active.generation,active.active.as_ref().unwrap().1.clone(),cursor,after)
+        };
+        let value=self.session.page_catalog(&admission,cursor.as_deref()).await?;let (response,progress)=catalog_response(admission.context(),&value,after.as_deref())?;
+        if cursor.is_some()&&cursor==progress.cursor{return Err(CredentialError)}
+        let mut active=self.active.lock().await;if active.generation!=generation||active.active.as_ref().is_none_or(|(h,_)|h.handle!=handle){return Err(CredentialError)}
+        self.session.local(Some(&admission),|_|Box::pin(async{Ok(())})).await?;active.catalog=Some(progress);Ok(response)
+    }
     pub async fn shutdown(self){self.registry.close_all().await;self.session.close().await;}
 }
 
@@ -157,7 +184,7 @@ mod tests {
     }
     #[derive(Clone)]struct Clock(Arc<AtomicU64>);impl NativeClock for Clock {fn now(&self)->Result<u64>{Ok(self.0.load(Ordering::SeqCst))}}
     struct ProviderState {owner:String,bad_client:bool}
-    struct Inner {state:StdMutex<ProviderState>,hold:AtomicBool,entered:Notify,release:Notify,send_hold:AtomicBool,bad_receipt:AtomicBool,sends:StdMutex<Vec<String>>,read_hold:AtomicBool,read_mutation:std::sync::atomic::AtomicU8,reads:std::sync::atomic::AtomicUsize}
+    struct Inner {state:StdMutex<ProviderState>,hold:AtomicBool,entered:Notify,release:Notify,send_hold:AtomicBool,bad_receipt:AtomicBool,sends:StdMutex<Vec<String>>,read_hold:AtomicBool,read_mutation:std::sync::atomic::AtomicU8,reads:std::sync::atomic::AtomicUsize,catalog_hold:AtomicBool,catalog_mutation:std::sync::atomic::AtomicU8,catalog_calls:StdMutex<Vec<Option<String>>>}
     #[derive(Clone)]struct Provider(Arc<Inner>);
     impl NativeProvider for Provider {
         fn password<'a>(&'a self,_:&'a str,_:&'a [u8])->ProviderFuture<'a,TokenPair>{Box::pin(async {Ok(TokenPair{access:AccessSecret::new(b"fixture-access".to_vec())?,refresh:Secret::new(b"fixture-refresh".to_vec())?,subject:self.0.state.lock().unwrap().owner.clone()})})}
@@ -176,6 +203,12 @@ mod tests {
             if kind=="bootstrap"{receipt["metadata"]=json!({"id":page,"title":request["title"],"yDocId":format!("page:{page}"),"createdAt":"2026-10-13T00:00:00.000Z","updatedAt":"2026-10-13T00:00:00.000Z"});receipt["initialDigest"]=json!(digest);}else{receipt["digest"]=json!(digest);receipt["serverOrder"]=json!("2");receipt["headOrder"]=json!("2");receipt["stateVector"]=json!("AA");}
             if self.0.bad_receipt.swap(false,Ordering::SeqCst){receipt["workspaceId"]=json!(PAGE);}Ok(receipt)
         })}
+        fn page_catalog<'a>(&'a self,_:&'a AccessSecret,c:&'a crate::WorkspaceContext,cursor:Option<&'a str>)->ProviderFuture<'a,serde_json::Value>{Box::pin(async move{
+            self.0.catalog_calls.lock().unwrap().push(cursor.map(str::to_owned));if self.0.catalog_hold.swap(false,Ordering::SeqCst){self.0.entered.notify_one();self.0.release.notified().await;}
+            let mutation=self.0.catalog_mutation.swap(0,Ordering::SeqCst);if mutation==9{return Err(CredentialError)}
+            let id=if cursor.is_some(){"01900000-0000-7000-8000-000000000005"}else{PAGE};let mut response=json!({"protocolVersion":1,"workspaceId":c.workspace_id,"workspaceEpoch":c.stream_epoch,"pages":[{"id":id,"title":"catalog fixture","yDocId":format!("page:{id}"),"createdAt":"2026-10-15T00:00:00.000Z","updatedAt":"2026-10-15T00:00:00.000Z"}],"nextCursor":if cursor.is_some(){None}else{Some("fixture-next")},"hasMore":cursor.is_none()});
+            match mutation{1=>response["workspaceId"]=json!(PAGE),2=>response["workspaceEpoch"]=json!(PAGE),3=>response["pages"][0]["yDocId"]=json!("page:foreign"),4=>response["extra"]=json!(true),5=>{response["pages"]=json!([]);response["hasMore"]=json!(true);response["nextCursor"]=json!("other");},6=>{response["nextCursor"]=json!("fixture-next");response["hasMore"]=json!(true);},7=>{response["pages"][0]["id"]=json!(PAGE);response["pages"][0]["yDocId"]=json!(format!("page:{PAGE}"));},8=>response["pages"]=json!([response["pages"][0].clone(),response["pages"][0].clone()]),_=>{}}Ok(response)
+        })}
         fn page_read<'a>(&'a self,_:&'a AccessSecret,c:&'a crate::WorkspaceContext,page:&'a str)->ProviderFuture<'a,serde_json::Value>{Box::pin(self.read(c,page))}
     }
     impl Provider {
@@ -189,7 +222,7 @@ mod tests {
     type Gate=NativeWorkspaceGate<Os,Provider,Clock>;
     struct Fixture {root:PathBuf,os:Os,provider:Provider,clock:Clock}
     impl Fixture {
-        fn new()->Self {let mut b=[0u8;16];getrandom::getrandom(&mut b).unwrap();let root=std::env::temp_dir().join(format!("greiva-gate-{:x}",u128::from_le_bytes(b)));std::fs::create_dir(&root).unwrap();Self{root,os:Os::default(),provider:Provider(Arc::new(Inner{state:StdMutex::new(ProviderState{owner:"owner-A".into(),bad_client:false}),hold:AtomicBool::new(false),entered:Notify::new(),release:Notify::new(),send_hold:AtomicBool::new(false),bad_receipt:AtomicBool::new(false),sends:StdMutex::new(Vec::new()),read_hold:AtomicBool::new(false),read_mutation:std::sync::atomic::AtomicU8::new(0),reads:std::sync::atomic::AtomicUsize::new(0)})),clock:Clock(Arc::new(AtomicU64::new(100)))}}
+        fn new()->Self {let mut b=[0u8;16];getrandom::getrandom(&mut b).unwrap();let root=std::env::temp_dir().join(format!("greiva-gate-{:x}",u128::from_le_bytes(b)));std::fs::create_dir(&root).unwrap();Self{root,os:Os::default(),provider:Provider(Arc::new(Inner{state:StdMutex::new(ProviderState{owner:"owner-A".into(),bad_client:false}),hold:AtomicBool::new(false),entered:Notify::new(),release:Notify::new(),send_hold:AtomicBool::new(false),bad_receipt:AtomicBool::new(false),sends:StdMutex::new(Vec::new()),read_hold:AtomicBool::new(false),read_mutation:std::sync::atomic::AtomicU8::new(0),reads:std::sync::atomic::AtomicUsize::new(0),catalog_hold:AtomicBool::new(false),catalog_mutation:std::sync::atomic::AtomicU8::new(0),catalog_calls:StdMutex::new(Vec::new())})),clock:Clock(Arc::new(AtomicU64::new(100)))}}
         async fn open(&self)->Arc<Gate>{let vault=CredentialVault::open(&self.root.join("session.sqlite"),"fixture-gate",self.os.clone()).await.unwrap();Arc::new(Gate::new(NativeSession::new(vault,self.provider.clone(),self.clock.clone(),"https://auth.invalid/auth/v1".into()).unwrap(),self.root.join("workspaces")))}
     }
     impl Drop for Fixture {fn drop(&mut self){let _=std::fs::remove_dir_all(&self.root);}}
@@ -305,4 +338,26 @@ mod tests {
     async fn native_page_read_cached_response_does_not_cross_admission(){
         let f=Fixture::new();let g=f.open().await;login(&g).await;let h=g.open(CLIENT).await.unwrap();g.read_failure.store(1,Ordering::SeqCst);assert_eq!(g.read_page(&h.handle,PAGE).await.unwrap(),PageReadStatus::StorePending);g.cancel_open().await;assert!(g.active.lock().await.reads.is_empty());let next=g.open(CLIENT).await.unwrap();assert_eq!(g.read_page(&next.handle,PAGE).await.unwrap(),PageReadStatus::Received);assert_eq!(f.provider.0.reads.load(Ordering::SeqCst),2);shutdown(g).await;
     }
-}
+    #[tokio::test]
+    async fn native_catalog_is_read_only_and_cursor_stays_in_current_admission(){
+        let f=Fixture::new();let g=f.open().await;login(&g).await;let h=g.open(CLIENT).await.unwrap();
+        assert!(g.catalog_pages(&h.handle,true).await.is_err());let first=g.catalog_pages(&h.handle,false).await.unwrap();assert_eq!(first.pages.len(),1);assert!(first.has_more);
+        assert_eq!(g.execute(&h.handle,json!({"command":"page_exists","pageId":PAGE})).await.unwrap(),false);
+        let next=g.catalog_pages(&h.handle,true).await.unwrap();assert!(!next.has_more);assert!(next.pages[0].id>first.pages[0].id);assert!(g.catalog_pages(&h.handle,true).await.is_err());
+        assert_eq!(*f.provider.0.catalog_calls.lock().unwrap(),vec![None,Some("fixture-next".into())]);g.cancel_open().await;let next=g.open(CLIENT).await.unwrap();assert!(g.catalog_pages(&next.handle,true).await.is_err());shutdown(g).await;
+    }
+    #[tokio::test]
+    async fn native_catalog_failure_retries_same_cursor_and_failed_refresh_invalidates_it(){
+        let f=Fixture::new();let g=f.open().await;login(&g).await;let h=g.open(CLIENT).await.unwrap();g.catalog_pages(&h.handle,false).await.unwrap();
+        for mutation in [1,2,3,4,5,6,7,8,9]{f.provider.0.catalog_mutation.store(mutation,Ordering::SeqCst);assert!(g.catalog_pages(&h.handle,true).await.is_err());}
+        assert!(!g.catalog_pages(&h.handle,true).await.unwrap().has_more);assert!(f.provider.0.catalog_calls.lock().unwrap()[1..].iter().all(|c|c.as_deref()==Some("fixture-next")));
+        g.catalog_pages(&h.handle,false).await.unwrap();f.provider.0.catalog_mutation.store(9,Ordering::SeqCst);assert!(g.catalog_pages(&h.handle,false).await.is_err());let calls=f.provider.0.catalog_calls.lock().unwrap().len();assert!(g.catalog_pages(&h.handle,true).await.is_err());assert_eq!(f.provider.0.catalog_calls.lock().unwrap().len(),calls);shutdown(g).await;
+    }
+    #[tokio::test]
+    async fn native_catalog_late_results_and_concurrent_queries_refuse(){
+        for action in ["close","logout","expiry","account"]{let f=Fixture::new();let g=f.open().await;login(&g).await;let h=g.open(CLIENT).await.unwrap();f.provider.0.catalog_hold.store(true,Ordering::SeqCst);let copy=g.clone();let old=h.handle.clone();let task=tokio::spawn(async move{copy.catalog_pages(&old,false).await});f.provider.0.entered.notified().await;
+            assert!(g.catalog_pages(&h.handle,false).await.is_err());if action=="close"{g.cancel_open().await;}else if action=="expiry"{f.clock.0.store(200,Ordering::SeqCst);}else{g.logout().await;}
+            if action=="account"{f.provider.0.state.lock().unwrap().owner="owner-B".into();login(&g).await;g.open("01900000-0000-7000-8000-000000000007").await.unwrap();}
+            f.provider.0.release.notify_one();assert!(task.await.unwrap().is_err());assert!(g.active.lock().await.catalog.is_none());shutdown(g).await;
+        }
+    }}

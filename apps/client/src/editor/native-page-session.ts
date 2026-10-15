@@ -3,7 +3,7 @@ import {idSchema} from '@greiva/shared';
 import {emptyPageUpdate} from '@greiva/sync';
 import {privatePageLocalLoadSchema} from '@greiva/protocol/private-page';
 import {NativeSessionPort,NativeSessionPortError,type NativeWorkspaceHandle,type NativePageSendStatus,type NativePageReadStatus} from '../auth/native-session-port.js';
-export class NativePageError extends Error {constructor(readonly stage:'closed'|'busy'|'protocol'|'storage'){super(`Native Page ${stage}`);this.name='NativePageError';}}
+export class NativePageError extends Error {constructor(readonly stage:'closed'|'busy'|'protocol'|'storage'|'read_unknown'|'store_pending'){super(`Native Page ${stage}`);this.name='NativePageError';}}
 export type NativePageState=Readonly<{phase:'opening'|'ready'|'closed';title:string;saving:number;pending:number;pendingFresh:boolean;sending:boolean;sendStatus:NativePageSendStatus|null;reading:boolean;readStatus:NativePageReadStatus|null;readError:'load'|'protocol'|null;remoteWaiting:boolean;unsaved:number;composing:boolean;storageError:'storage'|'protocol'|'closed'|null}>;
 export type NativePageDraft=Readonly<{context:NativeWorkspaceHandle['context'];pageId:string;title:string;update:Uint8Array}>;
 // All operations capture the original handle. Remote replay never echoes into
@@ -21,11 +21,12 @@ export class NativePageSession {
  #patch(patch:Partial<NativePageState>){this.#state=Object.freeze({...this.#state,...patch});for(const listener of this.#listeners){try{listener(this.#state);}catch{/* Never interrupt a write. */}}}
  #check(){if(this.#state.phase==='closed' || this.port.handle!==this.bound)throw new NativePageError('closed');}
  #failure(error:unknown):NativePageError {return error instanceof NativePageError?error:new NativePageError(error instanceof NativeSessionPortError && error.stage==='closed'?'closed':'storage');}
- static async open(port:NativeSessionPort,pageId:string,source:{kind:'local'}|{kind:'create';title:string}={kind:'local'}):Promise<NativePageSession>{
+ static async open(port:NativeSessionPort,pageId:string,source:{kind:'local'}|{kind:'remote'}|{kind:'create';title:string}={kind:'local'}):Promise<NativePageSession>{
   const bound=port.handle;if(!bound)throw new NativePageError('closed');try{idSchema.parse(pageId);if(source.kind==='create' && (!source.title.trim() || source.title.length>4096))throw Error();}catch{throw new NativePageError('protocol');}
   const session=new NativePageSession(port,bound,pageId);
   try{
    if(source.kind==='create'){const result=await port.executeFor(bound,{command:'page_create',pageId,title:source.title,update:Array.from(emptyPageUpdate())});if(result!==null)throw new NativePageError('protocol');session.#check();}
+   if(source.kind==='remote'){const status=await port.readPageFor(bound,pageId);session.#check();if(status!=='received')throw new NativePageError(status);}
    const parsed=privatePageLocalLoadSchema.safeParse(await port.executeFor(bound,{command:'page_load',pageId}));session.#check();
    if(!parsed.success || parsed.data.page.metadata.id!==pageId)throw new NativePageError('protocol');
    try{for(const update of parsed.data.page.updates)Y.applyUpdate(session.document,Uint8Array.from(update),session.#loadOrigin);}catch{throw new NativePageError('protocol');}

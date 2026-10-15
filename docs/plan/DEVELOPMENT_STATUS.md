@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+最新checkpoint v0.94.0：[native Page一覧と明示取得](../development/NATIVE_PAGE_CATALOG.md)を接続。native内のcursor保持・20件ずつの明示取得・同一cursor再試行、一覧から本文を保存確認後に開く操作を追加。最終unit538/通常Rust45/実TLS・署名API・PG5/画面38・型・Windows候補buildを確認。[証拠](../../tests/evidence/native-page-catalog-20261015/SUMMARY.md)。次は再接続の整合性、その後offline leaseと実機受入。以下は過去の記録。
+
 最新checkpoint v0.93.0：[native Page取得画面](../development/NATIVE_PAGE_READ_SCREEN.md)を接続。保存済みjournalのprobe検証・同じDocへのmerge、無echo、composition保留と失効後の反映拒否、取得/保存/表示の別状態を追加。全unit533/画面34・型・Windows候補buildを確認。[証拠](../../tests/evidence/native-page-read-screen-20261015/SUMMARY.md)。次はremote一覧/catalog・再接続、その後offline leaseと実機受入。以下は過去の記録。
 
 最新checkpoint v0.92.0：[native Page取得・保存基盤](../development/NATIVE_PAGE_READ.md)と専用IPC/client portを追加。通常Rust42/専用TLS・署名API・PG4、全unit527＋Page保存/registry統合22・型・Windows候補buildを確認。[証拠](../../tests/evidence/native-page-read-20261015/SUMMARY.md)。別native sessionの取得・改ざん/応答喪失拒否・local pending保持と本文/vector一致を検証。次は取得操作とeditor merge、remote一覧・再接続、その後offline leaseと実機受入。以下は過去の記録。

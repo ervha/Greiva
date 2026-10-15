@@ -77,6 +77,11 @@ pub(crate) async fn native_page_read(handle:String,page_id:String,state:tauri::S
     #[cfg(not(windows))]{let _=(handle,page_id,state);Err(REJECTED.into())}
 }
 #[tauri::command]
+pub(crate) async fn native_page_catalog(handle:String,more:bool,state:tauri::State<'_,Runtime>)->Result<Value>{
+    #[cfg(windows)]{serde_json::to_value(state.get().await?.catalog_pages(&handle,more).await.map_err(|_|REJECTED)?).map_err(|_|REJECTED.into())}
+    #[cfg(not(windows))]{let _=(handle,more,state);Err(REJECTED.into())}
+}
+#[tauri::command]
 pub(crate) async fn native_workspace_close(handle:String,state:tauri::State<'_,Runtime>)->Result<()>{
     #[cfg(windows)]{state.get().await?.close(&handle).await.map_err(|_|REJECTED.into())}
     #[cfg(not(windows))]{let _=(handle,state);Err(REJECTED.into())}

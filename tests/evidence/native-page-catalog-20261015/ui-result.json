@@ -1,0 +1,13 @@
+{
+  "interferedRecheckPassed": 35,
+  "passed": 38,
+  "realIme": false,
+  "initialPassed": 35,
+  "desktopMobileTests": 38,
+  "failed": 0,
+  "initialFailed": 3,
+  "interferedRecheckFailed": 3,
+  "nativeGui": false,
+  "isolatedReadRechecks": 6,
+  "scope": "Docker synthetic native IPC double"
+}

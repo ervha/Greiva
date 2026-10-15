@@ -144,8 +144,18 @@ impl NativeProvider for NativeHttpProvider {
             serde_json::from_slice(&bytes).map_err(|_|CredentialError)
         })
     }
+    fn page_catalog<'a>(&'a self,access:&'a AccessSecret,context:&'a crate::WorkspaceContext,cursor:Option<&'a str>)->ProviderFuture<'a,serde_json::Value>{Box::pin(self.catalog(access,context,cursor))}
+
 }
 
+impl NativeHttpProvider {
+    async fn catalog(&self,access:&AccessSecret,context:&crate::WorkspaceContext,cursor:Option<&str>)->Result<serde_json::Value>{
+        if context.issuer!=self.issuer||!crate::structured::uuid_v7(&context.workspace_id)||!crate::structured::uuid_v7(&context.client_id)||cursor.is_some_and(|c|c.is_empty()||c.len()>8192||c.chars().any(char::is_control)){return Err(CredentialError)}
+        let body=Zeroizing::new(serde_json::to_vec(&serde_json::json!({"protocolVersion":1,"clientId":context.client_id,"cursor":cursor,"limit":20})).map_err(|_|CredentialError)?);
+        let bytes=self.call_limited(Method::POST,format!("{}/v1/workspaces/{}/pages/query",self.api,context.workspace_id),Some(access),Some(body),false,8*1024*1024).await?;
+        serde_json::from_slice(&bytes).map_err(|_|CredentialError)
+    }
+}
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -247,4 +257,11 @@ mod tests {
         let loaded=reader.execute(&r.handle,json!({"command":"page_load","pageId":page})).await.unwrap();assert_eq!(loaded["pending"],1);assert_eq!(loaded["page"]["updates"].as_array().unwrap().len(),2);std::fs::write(std::env::var("GREIVA_FIXTURE_READ_RESULT").unwrap(),serde_json::to_vec(&loaded["page"]["updates"]).unwrap()).unwrap();writer.shutdown().await;reader.shutdown().await;
         let store=crate::WorkspaceStore::open(&root.join("reader").join(format!("{:x}.sqlite",sha2::Sha256::digest(serde_json::to_vec(&r.context).unwrap()))),r.context).await.unwrap();assert_eq!(store.page_load(page).await.unwrap(),loaded);assert_eq!(store.page_prepare(page).await.unwrap(),before);drop(store);std::fs::remove_dir_all(root).unwrap();
     }
-}
+    #[tokio::test]
+    #[ignore="run scripts/test-native-http-provider.mjs --catalog for native catalog TLS/API/PG fixture"]
+    async fn native_http_actual_page_catalog_paginates_without_receiving_body(){
+        use crate::native_workspace_gate::NativeWorkspaceGate;use serde_json::json;
+        let project=std::env::var("GREIVA_FIXTURE_PROJECT").unwrap();let api=std::env::var("GREIVA_FIXTURE_API").unwrap();let cert=std::fs::read(std::env::var("GREIVA_FIXTURE_CA").unwrap()).unwrap();let root=std::env::temp_dir().join(format!("greiva-catalog-http-{}",std::process::id()));std::fs::create_dir(&root).unwrap();
+        let provider=trusted_fixture(&project,&api,&cert);let issuer=provider.issuer().to_string();let vault=CredentialVault::open(&root.join("session.sqlite"),"catalog-http-fixture",Os::default()).await.unwrap();let gate=NativeWorkspaceGate::new(NativeSession::new(vault,provider,SystemClock::new().unwrap(),issuer).unwrap(),root.join("workspaces"));gate.login("catalog-reader@example.invalid",b"fixture-password".to_vec()).await.unwrap();let h=gate.open("01900000-0000-7000-8000-000000000080").await.unwrap();
+        assert!(gate.catalog_pages(&h.handle,false).await.is_err());assert!(gate.catalog_pages(&h.handle,true).await.is_err());let first=gate.catalog_pages(&h.handle,false).await.unwrap();assert_eq!(first.pages.len(),20);assert!(first.has_more);assert!(gate.catalog_pages(&h.handle,true).await.is_err());let next=gate.catalog_pages(&h.handle,true).await.unwrap();assert!(!next.has_more);let ids:Vec<String>=first.pages.into_iter().chain(next.pages).map(|p|p.id).collect();assert!(ids.windows(2).all(|w|w[0]<w[1]));for i in 100..121{assert!(ids.contains(&format!("01900000-0000-7000-8000-{i:012}")));}let rows=gate.execute(&h.handle,json!({"command":"page_list","after":null,"limit":50})).await.unwrap();assert_eq!(rows["pages"],json!([]));gate.shutdown().await;std::fs::remove_dir_all(root).unwrap();
+    }}

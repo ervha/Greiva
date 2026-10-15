@@ -26,7 +26,15 @@ function Connected({controller}:{controller:NativeLoginController}){
      <label>新しいPageのタイトル<input name="title" maxLength={4096} required disabled={state.busy}/></label><button type="submit" disabled={state.busy}>Pageを作成</button></form>
     {state.pages.length===0?<p>この端末に保存済みのPageはありません。</p>:<ul className="native-page-list">{state.pages.map(page=><li key={page.metadata.id}><button type="button" disabled={state.busy||titleComposing} onClick={()=>{void controller.selectPage(page.metadata.id);}}>{page.metadata.title||'無題のPage'}</button><span className="auth-help">{page.metadata.id===controller.editor?.pageId&&controller.editor.snapshot.storageError?'保存未確認':page.metadata.id===controller.editor?.pageId&&!controller.editor.snapshot.pendingFresh?'未送信数を再確認':page.pending>0?`未送信 ${page.pending}件`:'端末に保存済み'}</span></li>)}</ul>}
     {state.hasMore&&<button type="button" disabled={state.busy||titleComposing} onClick={()=>{void controller.more();}}>さらに表示</button>}<button type="button" disabled={state.busy||titleComposing} onClick={()=>{void controller.close();}}>workspaceを閉じる</button>
-    <p className="auth-help">本文は端末へ保存します。選択したPageの保存済み変更を最大32件ずつ送信できます。選択したPageは他端末の変更も取得できます。一覧の取得は準備中です。</p></section>}
+    <p className="auth-help">本文は端末へ保存します。選択したPageの保存済み変更を最大32件ずつ送信できます。選択したPageは他端末の変更も取得できます。サーバー一覧から選ぶと、本文を取得して端末に保存してから開きます。</p><section aria-label="サーバーPage一覧"><h2>サーバーのPage</h2>
+     <button type="button" disabled={state.busy||titleComposing} onClick={()=>{void controller.loadRemote();}}>サーバーの一覧を取得</button>
+     {state.remoteBusy&&<p role="status">一覧を取得中…</p>}
+     {state.remoteError&&<p role="alert">一覧の取得結果を確認できませんでした。表示済みの一覧は保持しています。本文の保存・同期状況とは別です。</p>}
+     {!state.remoteLoaded?<p>一覧はまだ取得していません。</p>:<p>取得した範囲：{state.remotePages.length}件。取得の途中でサーバーが更新されることがあります。</p>}
+     {state.remoteLoaded&&!state.remoteError&&state.remotePages.length===0&&<p>取得した一覧にPageはありません。</p>}
+     <ul className="native-page-list">{state.remotePages.map(page=><li key={page.id}><button type="button" disabled={state.busy||titleComposing} onClick={()=>{void controller.selectRemotePage(page.id);}}>取得して開く：{page.title||'無題のPage'}</button></li>)}</ul>
+     {state.remoteHasMore&&<button type="button" disabled={state.busy||titleComposing} onClick={()=>{void controller.loadRemote(true);}}>一覧の続きを取得</button>}
+    </section></section>}
     <div>{controller.editor&&<>{state.hasDraft&&<button type="button" disabled={state.busy||Boolean(controller.editor.snapshot.storageError)} onClick={()=>{void controller.restoreInput();}}>保持した入力を戻す</button>}<NativeLocalPageEditor key={controller.editor.document.guid} session={controller.editor} locked={state.editorLocked} onSend={()=>{void controller.sendPage();}} onRead={()=>{void controller.readPage();}}/></>}</div>
    </div>
   </section>

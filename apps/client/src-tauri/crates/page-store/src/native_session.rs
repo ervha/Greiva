@@ -35,6 +35,7 @@ pub trait NativeProvider: Send + Sync {
     fn bootstrap<'a>(&'a self,_access:&'a AccessSecret,_client:&'a str)->ProviderFuture<'a,WorkspaceRegistration> {Box::pin(async {Err(CredentialError)})}
     fn page_send<'a>(&'a self,_access:&'a AccessSecret,_context:&'a crate::WorkspaceContext,_page:&'a str,_kind:&'a str,_wire:&'a str)->ProviderFuture<'a,serde_json::Value> {Box::pin(async {Err(CredentialError)})}
     fn page_read<'a>(&'a self,_access:&'a AccessSecret,_context:&'a crate::WorkspaceContext,_page:&'a str)->ProviderFuture<'a,serde_json::Value> {Box::pin(async {Err(CredentialError)})}
+    fn page_catalog<'a>(&'a self,_access:&'a AccessSecret,_context:&'a crate::WorkspaceContext,_cursor:Option<&'a str>)->ProviderFuture<'a,serde_json::Value> {Box::pin(async {Err(CredentialError)})}
 }
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Phase { Locked, Authenticating, Refreshing, Verified }
@@ -217,6 +218,18 @@ impl<S: CredentialStore, P: NativeProvider, C: NativeClock> NativeSession<S, P, 
         if admission.instance!=self.instance || admission.generation!=state.generation || admission.context.issuer!=active.identity.issuer || admission.context.subject_id!=active.identity.subject {return Err(CredentialError)}
         let generation=state.generation;let access=AccessSecret::new(active.access.expose().to_vec())?;drop(state);
         let result=self.bounded(generation,self.provider.page_read(&access,admission.context(),page)).await;
+        let mut state=self.state.lock().await;
+        if state.generation!=generation{return Err(CredentialError)}
+        if self.admit(&mut state).await.is_err(){let _=self.advance(&mut state,Phase::Locked);self.lock_owned(&state).await;return Err(CredentialError)}
+        result
+    }
+    pub(crate) async fn page_catalog(&self,admission:&WorkspaceAdmission,cursor:Option<&str>)->Result<serde_json::Value> {
+        let mut state=self.state.lock().await;
+        if self.admit(&mut state).await.is_err(){let _=self.advance(&mut state,Phase::Locked);self.lock_owned(&state).await;return Err(CredentialError)}
+        let active=state.active.as_ref().ok_or(CredentialError)?;
+        if admission.instance!=self.instance || admission.generation!=state.generation || admission.context.issuer!=active.identity.issuer || admission.context.subject_id!=active.identity.subject {return Err(CredentialError)}
+        let generation=state.generation;let access=AccessSecret::new(active.access.expose().to_vec())?;drop(state);
+        let result=self.bounded(generation,self.provider.page_catalog(&access,admission.context(),cursor)).await;
         let mut state=self.state.lock().await;
         if state.generation!=generation{return Err(CredentialError)}
         if self.admit(&mut state).await.is_err(){let _=self.advance(&mut state,Phase::Locked);self.lock_owned(&state).await;return Err(CredentialError)}

@@ -1,6 +1,7 @@
 import {invoke,isTauri} from '@tauri-apps/api/core';
 import {idSchema} from '@greiva/shared';
 import {workspaceLocalContextSchema} from '@greiva/protocol/workspace';
+import {pageSchema} from '@greiva/protocol';
 import type {WorkspaceSyncContext} from '@greiva/sync';
 export type NativeAuthSnapshot=Readonly<{available:boolean;phase:'unavailable'|'locked'|'authenticating'|'refreshing'|'verified';expiresAt:number|null}>;
 export type NativeLogout=Readonly<{localLocked:true;persistentLocked:boolean;cleanupPending:boolean|null;providerConfirmed:boolean}>;
@@ -9,6 +10,7 @@ type InvokePort=(command:string,args?:Record<string,unknown>)=>Promise<unknown>;
 export type NativeWorkspaceHandle=Readonly<{handle:string;context:WorkspaceSyncContext}>;
 export type NativePageSendStatus='idle'|'acked'|'send_unknown'|'ack_pending';
 export type NativePageReadStatus='received'|'read_unknown'|'store_pending';
+export type NativePageCatalog=Readonly<{pages:readonly ReturnType<typeof pageSchema.parse>[];hasMore:boolean}>;
 type Handle=NativeWorkspaceHandle;
 function object(value:unknown,keys:readonly string[]):Record<string,unknown>{
  if(!value || typeof value!=='object' || Array.isArray(value))throw new NativeSessionPortError('protocol');
@@ -25,6 +27,7 @@ function snapshot(value:unknown):NativeAuthSnapshot {
 // endpoint, raw token/identity or caller-owned context enters the command wire.
 export class NativeSessionPort {
  #revision=0;#disposed=false;#busy=false;#handle:Handle|null=null;
+ #catalogBusy=false;#catalogRevision=0;
  #snapshot:NativeAuthSnapshot=Object.freeze({available:false,phase:'unavailable',expiresAt:null});
  constructor(private readonly invokePort:InvokePort=invoke,private readonly now=()=>Math.floor(Date.now()/1000)){
   if(invokePort===invoke && !isTauri())throw new NativeSessionPortError('configuration');
@@ -32,7 +35,7 @@ export class NativeSessionPort {
  get current():NativeAuthSnapshot {return this.#snapshot.phase==='verified' && this.#snapshot.expiresAt!<=this.now()?Object.freeze({available:true,phase:'locked',expiresAt:null}):this.#snapshot;}
  get handle():Handle|null {return this.current.phase==='verified'?this.#handle:null;}
  #check(revision=this.#revision){if(this.#disposed || revision!==this.#revision)throw new NativeSessionPortError('closed');}
- #begin(){this.#check();const revision=++this.#revision;this.#handle=null;return revision;}
+ #begin(){this.#check();const revision=++this.#revision;this.#handle=null;this.#catalogBusy=false;++this.#catalogRevision;return revision;}
  async #call(command:string,args:Record<string,unknown>|undefined,revision:number){
   this.#check(revision);let value:unknown;try{const port=this.invokePort;value=await port(command,args);}catch{this.#check(revision);throw new NativeSessionPortError('unavailable');}this.#check(revision);return value;
  }
@@ -75,6 +78,12 @@ export class NativeSessionPort {
   this.#check();if(this.handle!==handle)throw new NativeSessionPortError('closed');try{idSchema.parse(pageId);}catch{throw new NativeSessionPortError('protocol');}const revision=this.#revision;
   const row=object(await this.#call('native_page_read',{handle:handle.handle,pageId},revision),['status']);
   if(this.handle!==handle)throw new NativeSessionPortError('closed');if(typeof row.status!=='string'||!['received','read_unknown','store_pending'].includes(row.status))throw new NativeSessionPortError('protocol');return row.status as NativePageReadStatus;
+ }
+ async catalogFor(handle:NativeWorkspaceHandle,more=false):Promise<NativePageCatalog>{
+  this.#check();if(this.handle!==handle)throw new NativeSessionPortError('closed');if(typeof more!=='boolean')throw new NativeSessionPortError('protocol');if(this.#catalogBusy)throw new NativeSessionPortError('busy');const revision=this.#revision,query=++this.#catalogRevision;this.#catalogBusy=true;
+  try{const row=object(await this.#call('native_page_catalog',{handle:handle.handle,more},revision),['pages','hasMore']);if(this.handle!==handle)throw new NativeSessionPortError('closed');const parsed=pageSchema.array().max(20).safeParse(row.pages);
+   if(!parsed.success||typeof row.hasMore!=='boolean'||row.hasMore&&parsed.data.length===0||parsed.data.some((page,index)=>page.yDocId!==`page:${page.id}`||index>0&&parsed.data[index-1]!.id>=page.id))throw new NativeSessionPortError('protocol');return Object.freeze({pages:Object.freeze(parsed.data.map(page=>Object.freeze(page))),hasMore:row.hasMore});
+  }finally{if(query===this.#catalogRevision)this.#catalogBusy=false;}
  }
  async logout():Promise<NativeLogout>{
   const revision=this.#begin();this.#busy=false;this.#snapshot=Object.freeze({available:true,phase:'locked',expiresAt:null});
