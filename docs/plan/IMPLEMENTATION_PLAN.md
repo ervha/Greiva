@@ -1,5 +1,7 @@
 # 個人版の実装順と受入
 
+最新checkpoint v0.96.0：[native offline許可の準備・期限確認](../development/NATIVE_OFFLINE_PREPARATION.md)を新runtimeへ接続。署名grantを元admissionとnative challengeへ固定してOS保管し、再認証/logoutのlease lock・未知結果の通信なし確認を追加。単体560/通常Rust53/実TLS・署名API・PG6/画面50・型・Windows候補buildを確認。[証拠](../../tests/evidence/native-offline-preparation-20261015/SUMMARY.md)。候補はpublic pin未設定・準備無効で、offline起動/編集は未提供。次は保管contextのnative復元とoffline専用handle/local gate、期限時の入力保全、その後実機受入。以下は過去の記録。
+
 最新checkpoint v0.95.0：[native workspaceの明示再接続](../development/NATIVE_WORKSPACE_RECONNECT.md)を追加。refresh/bootstrap後に全contextを照合し、同じPage・pending/wire・scope付き下書きを保持。取得済みremote一覧は先頭から確認し、遅着・接続先変更とfocus喪失を防ぐ。unit556/通常Rust46/実TLS・API・PG5/画面44・型・Windows候補buildを確認。[証拠](../../tests/evidence/native-workspace-reconnect-20261015/SUMMARY.md)。次はoffline leaseの画面接続と失効・復帰、その後Windows実機受入。変更feed/自動同期は別工程。以下は過去の記録。
 
 最新checkpoint v0.94.0：[native Page一覧と明示取得](../development/NATIVE_PAGE_CATALOG.md)を接続。native内のcursor保持・20件ずつの明示取得・同一cursor再試行、一覧から本文を保存確認後に開く操作を追加。最終unit538/通常Rust45/実TLS・署名API・PG5/画面38・型・Windows候補buildを確認。[証拠](../../tests/evidence/native-page-catalog-20261015/SUMMARY.md)。次は再接続の整合性、その後offline leaseと実機受入。以下は過去の記録。

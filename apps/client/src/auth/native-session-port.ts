@@ -11,6 +11,7 @@ export type NativeWorkspaceHandle=Readonly<{handle:string;context:WorkspaceSyncC
 export type NativePageSendStatus='idle'|'acked'|'send_unknown'|'ack_pending';
 export type NativePageReadStatus='received'|'read_unknown'|'store_pending';
 export type NativePageCatalog=Readonly<{pages:readonly ReturnType<typeof pageSchema.parse>[];hasMore:boolean}>;
+export type NativeOfflinePreparation=Readonly<{available:boolean;expiresAt:number|null}>;
 type Handle=NativeWorkspaceHandle;
 function object(value:unknown,keys:readonly string[]):Record<string,unknown>{
  if(!value || typeof value!=='object' || Array.isArray(value))throw new NativeSessionPortError('protocol');
@@ -84,6 +85,11 @@ export class NativeSessionPort {
   try{const row=object(await this.#call('native_page_catalog',{handle:handle.handle,more},revision),['pages','hasMore']);if(this.handle!==handle)throw new NativeSessionPortError('closed');const parsed=pageSchema.array().max(20).safeParse(row.pages);
    if(!parsed.success||typeof row.hasMore!=='boolean'||row.hasMore&&parsed.data.length===0||parsed.data.some((page,index)=>page.yDocId!==`page:${page.id}`||index>0&&parsed.data[index-1]!.id>=page.id))throw new NativeSessionPortError('protocol');return Object.freeze({pages:Object.freeze(parsed.data.map(page=>Object.freeze(page))),hasMore:row.hasMore});
   }finally{if(query===this.#catalogRevision)this.#catalogBusy=false;}
+ }
+ async offlineFor(handle:NativeWorkspaceHandle,prepare=false):Promise<NativeOfflinePreparation>{
+  this.#check();if(this.handle!==handle)throw new NativeSessionPortError('closed');if(typeof prepare!=='boolean')throw new NativeSessionPortError('protocol');const revision=this.#revision;
+  const row=object(await this.#call(prepare?'native_offline_prepare':'native_offline_status',{handle:handle.handle},revision),['available','expiresAt']);if(this.handle!==handle)throw new NativeSessionPortError('closed');
+  if(typeof row.available!=='boolean'||row.expiresAt!==null&&(!row.available||!Number.isSafeInteger(row.expiresAt)||(row.expiresAt as number)<=0||(row.expiresAt as number)>8640000000000)||prepare&&(!row.available||row.expiresAt===null))throw new NativeSessionPortError('protocol');return Object.freeze(row as NativeOfflinePreparation);
  }
  async logout():Promise<NativeLogout>{
   const revision=this.#begin();this.#busy=false;this.#snapshot=Object.freeze({available:true,phase:'locked',expiresAt:null});

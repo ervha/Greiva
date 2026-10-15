@@ -1,0 +1,80 @@
+[
+  {
+    "bytes": 453,
+    "file": "build.log.gz",
+    "decompressedMatch": true,
+    "sha256": "49712bae6f4710f9890ebb27535b9a0ee41221d5441c48a8bbfd178aba0112f0"
+  },
+  {
+    "bytes": 1099,
+    "file": "expiry-first.log.gz",
+    "decompressedMatch": true,
+    "sha256": "fda6d0292b9c0f2b6b8c165a3f67b30d3d4c9759e9c4cc6c67e6a89347032843"
+  },
+  {
+    "bytes": 1620,
+    "file": "frontend.log.gz",
+    "decompressedMatch": true,
+    "sha256": "6622ac029b7233d562aa9e71b224a75b7939986bef049fe0e751de2ed21d8162"
+  },
+  {
+    "bytes": 4440,
+    "file": "http.log.gz",
+    "decompressedMatch": true,
+    "sha256": "322d33fddc0198886748de44847d7e94eee10a19f51eda1a54d3fc147f5c0011"
+  },
+  {
+    "bytes": 940,
+    "file": "partial-config.log.gz",
+    "decompressedMatch": true,
+    "sha256": "29a8ef813681691759057a8e80071252c450d24b573dbd75ad4f269624a69718"
+  },
+  {
+    "bytes": 228,
+    "file": "profile.stderr.log.gz",
+    "decompressedMatch": true,
+    "sha256": "1ef8111a3363827e4c0688943f6f4704d694c74d361a5e1387c0abecdf5e4008"
+  },
+  {
+    "bytes": 5398,
+    "file": "rust-compile-first.log.gz",
+    "decompressedMatch": true,
+    "sha256": "68c74abac26058b010a1f3902b0f1bc3152b2572ff5825dc3e14582a44e1f2dd"
+  },
+  {
+    "bytes": 2797,
+    "file": "rust-compile-second.log.gz",
+    "decompressedMatch": true,
+    "sha256": "fc46c889b296de8002f526b0b98f826772444ab2cd22e65670c87534fbf61192"
+  },
+  {
+    "bytes": 6921,
+    "file": "rust-final.log.gz",
+    "decompressedMatch": true,
+    "sha256": "ec3a340ff3f9365607aa6e4551c54f2dbcc832e0ee6cd6002ea94cb422f65a82"
+  },
+  {
+    "bytes": 1177,
+    "file": "type.log.gz",
+    "decompressedMatch": true,
+    "sha256": "4eddf4dc3ee942270956c3aa9ae14a4ae6670b73a1bfd7d1f92ae6cca0f9917e"
+  },
+  {
+    "bytes": 9174,
+    "file": "ui.log.gz",
+    "decompressedMatch": true,
+    "sha256": "2a1a616359a0ae1a62ee7d2784808b6a71ae292d56229be57afb5d832aa4801a"
+  },
+  {
+    "bytes": 9130,
+    "file": "unit.log.gz",
+    "decompressedMatch": true,
+    "sha256": "9bd89f808bf93f7e8f673eb0060ba653c952e04686a0896969e352f80bd4c264"
+  },
+  {
+    "bytes": 55052,
+    "file": "windows.log.gz",
+    "decompressedMatch": true,
+    "sha256": "5e166e0caf97a3a3f816930f6a8cdff7db9e9dd320049b5e7d42afaba728a73d"
+  }
+]

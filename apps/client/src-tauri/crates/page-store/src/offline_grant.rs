@@ -37,6 +37,12 @@ pub struct OfflineGrantVerifier {issuer:String,audience:String,keys:BTreeMap<Str
 fn text(value:&str,max:usize)->bool{!value.trim().is_empty()&&value.len()<=max&&!value.chars().any(char::is_control)}
 fn nonce(value:&str)->bool{value.len()==64&&value.bytes().all(|b|b.is_ascii_hexdigit()&&!b.is_ascii_uppercase())}
 impl OfflineGrantVerifier {
+    /// Compiled deployment pin. This is public material, never a request/IPC key.
+    pub fn from_public_pin(issuer:&str,audience:&str,kid:&str,hex:&str)->Result<Self>{
+        let url=url::Url::parse(issuer).map_err(|_|OfflineGrantError)?;
+        if url.scheme()!="https"||url.host_str().is_none()||!url.username().is_empty()||url.password().is_some()||url.query().is_some()||url.fragment().is_some()||hex.len()!=64||!hex.bytes().all(|b|b.is_ascii_digit()||(b'a'..=b'f').contains(&b)){return Err(OfflineGrantError)}
+        let mut bytes=[0u8;32];for (index,byte) in bytes.iter_mut().enumerate(){*byte=u8::from_str_radix(&hex[index*2..index*2+2],16).map_err(|_|OfflineGrantError)?;}Self::new(issuer.into(),audience.into(),vec![(kid.into(),bytes)])
+    }
     /// Only trusted native configuration supplies issuer/audience/pinned keys.
     /// No token-provided JWK/URL/algorithm or network key discovery is accepted.
     pub fn new(issuer:String,audience:String,keys:Vec<(String,[u8;32])>)->Result<Self>{
@@ -71,6 +77,8 @@ mod tests {
     fn claims()->Value{let c=context();json!({"iss":"https://api.fixture.invalid","aud":"greiva-private","sub":c.subject_id,"authIssuer":c.issuer,"workspaceId":c.workspace_id,"clientId":c.client_id,"streamEpoch":c.stream_epoch,"iat":1000,"exp":605800,"nonce":"a".repeat(64)})}
     fn signed(payload:&str,header:Value,key:&SigningKey)->String{let input=format!("{}.{}",URL_SAFE_NO_PAD.encode(header.to_string()),URL_SAFE_NO_PAD.encode(payload));format!("{}.{}",input,URL_SAFE_NO_PAD.encode(key.sign(input.as_bytes()).to_bytes()))}
     fn fixture()->(SigningKey,OfflineGrantVerifier){let key=SigningKey::from_bytes(&[42;32]);let verifier=OfflineGrantVerifier::new("https://api.fixture.invalid".into(),"greiva-private".into(),vec![("fixture".into(),key.verifying_key().to_bytes())]).unwrap();(key,verifier)}
+    #[test]
+    fn compiled_public_pin_refuses_weak_keys_noncanonical_hex_and_untrusted_urls(){let (key,_)=fixture();let hex=key.verifying_key().to_bytes().iter().map(|b|format!("{b:02x}")).collect::<String>();assert!(OfflineGrantVerifier::from_public_pin("https://api.fixture.invalid","native","fixture",&hex).is_ok());for issuer in ["http://api.invalid","https://user@api.invalid","https://api.invalid?q=1","https://api.invalid/#key"]{assert!(OfflineGrantVerifier::from_public_pin(issuer,"native","fixture",&hex).is_err());}for bad in ["0".repeat(64),hex.to_uppercase(),"a".repeat(63)]{assert!(OfflineGrantVerifier::from_public_pin("https://api.invalid","native","fixture",&bad).is_err());}}
     fn header()->Value{json!({"alg":"EdDSA","typ":"greiva-offline-v1+jwt","kid":"fixture"})}
     #[test]
     fn exact_expiry_clock_rollback_and_challenge_are_checked(){let(k,v)=fixture();let grant=v.verify(&signed(&claims().to_string(),header(),&k),&context()).unwrap();assert!(grant.check_time(1000,1000).is_ok());assert!(grant.check_time(605799,1000).is_ok());assert!(grant.check_time(605800,1000).is_err());assert!(grant.check_time(999,0).is_err());assert!(grant.check_time(2000,2001).is_err());assert!(grant.check_challenge(&"a".repeat(64)).is_ok());assert!(grant.check_challenge(&"b".repeat(64)).is_err());}

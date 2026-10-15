@@ -1,20 +1,21 @@
 import {newId} from '@greiva/shared';
 import {supabaseSignup} from '@greiva/sync';
 import {privateLocalPageCatalogResponseSchema,type PrivateLocalPageCatalogResponse} from '@greiva/protocol/private-page-catalog';
-import {NativeSessionPort,type NativeAuthSnapshot,type NativePageCatalog} from './native-session-port.js';
+import {NativeSessionPort,type NativeAuthSnapshot,type NativePageCatalog,type NativeOfflinePreparation} from './native-session-port.js';
 import {NativePageSession,NativePageError,type NativePageDraft} from '../editor/native-page-session.js';
 import * as Y from 'yjs';
 type Phase='checking'|'signed_out'|'restoring'|'reconnecting'|'logging_in'|'verified'|'opening'|'ready'|'loading'|'signing_out'|'unavailable'|'signing_up'|'signup_requested';
-export type NativeLoginSnapshot=Readonly<{phase:Phase;busy:boolean;message:string|null;notice:boolean;pages:PrivateLocalPageCatalogResponse['pages'];hasMore:boolean;remotePages:NativePageCatalog['pages'];remoteHasMore:boolean;remoteLoaded:boolean;remoteBusy:boolean;remoteError:boolean;logoutUnconfirmed:boolean;composing:boolean;saving:number;editorLocked:boolean;hasDraft:boolean}>;
+export type NativeLoginSnapshot=Readonly<{phase:Phase;busy:boolean;message:string|null;notice:boolean;pages:PrivateLocalPageCatalogResponse['pages'];hasMore:boolean;remotePages:NativePageCatalog['pages'];remoteHasMore:boolean;remoteLoaded:boolean;remoteBusy:boolean;remoteError:boolean;offline:NativeOfflinePreparation|null;offlineBusy:boolean;offlineUnknown:boolean;logoutUnconfirmed:boolean;composing:boolean;saving:number;editorLocked:boolean;hasDraft:boolean}>;
 const busy=['checking','restoring','reconnecting','logging_in','opening','loading','signing_out','signing_up'];
 export class NativeLoginController {
  #phase:Phase='checking';#message:string|null=null;#notice=false;#revision=0;#started=false;#disposed=false;#pages:PrivateLocalPageCatalogResponse['pages']=[];#after:string|null=null;#logoutUnconfirmed=false;
  #remotePages:NativePageCatalog['pages']=[];#remoteHasMore=false;#remoteLoaded=false;#remoteBusy=false;#remoteError=false;
+ #offline:NativeOfflinePreparation|null=null;#offlineBusy=false;#offlineUnknown=false;
  #listeners=new Set<(state:NativeLoginSnapshot)=>void>();#expiry:ReturnType<typeof setTimeout>|undefined;#signup:AbortController|undefined;
  #editor:NativePageSession|null=null;#detachEditor:(()=>void)|undefined;#drafts:NativePageDraft[]=[];#pageBusy=false;#editorLocked=false;#endingEditor:Promise<void>|null=null;
  constructor(private readonly port:NativeSessionPort,private readonly registration:Parameters<typeof supabaseSignup>[0],private readonly fetchPort:typeof fetch=globalThis.fetch){}
  get editor(){return this.#editor;}
- get snapshot():NativeLoginSnapshot{return Object.freeze({phase:this.#phase,busy:this.#remoteBusy||busy.includes(this.#phase)||this.#pageBusy||Boolean(this.#editor?.isComposing)||Boolean(this.#editor?.snapshot.saving)||Boolean(this.#editor?.snapshot.sending)||Boolean(this.#editor?.snapshot.reading),message:this.#message,notice:this.#notice,pages:['ready','loading'].includes(this.#phase)?this.#pages:[],hasMore:this.#after!==null,remotePages:['ready','loading'].includes(this.#phase)?this.#remotePages:[],remoteHasMore:this.#remoteHasMore,remoteLoaded:this.#remoteLoaded,remoteBusy:this.#remoteBusy,remoteError:this.#remoteError,logoutUnconfirmed:this.#logoutUnconfirmed,composing:Boolean(this.#editor?.isComposing),saving:this.#editor?.snapshot.saving??0,editorLocked:this.#editorLocked,hasDraft:this.#editor!==null&&this.#drafts.some(d=>this.#sameDraft(d,this.#editor!))});}
+ get snapshot():NativeLoginSnapshot{return Object.freeze({phase:this.#phase,busy:this.#offlineBusy||this.#remoteBusy||busy.includes(this.#phase)||this.#pageBusy||Boolean(this.#editor?.isComposing)||Boolean(this.#editor?.snapshot.saving)||Boolean(this.#editor?.snapshot.sending)||Boolean(this.#editor?.snapshot.reading),message:this.#message,notice:this.#notice,pages:['ready','loading'].includes(this.#phase)?this.#pages:[],hasMore:this.#after!==null,remotePages:['ready','loading'].includes(this.#phase)?this.#remotePages:[],remoteHasMore:this.#remoteHasMore,remoteLoaded:this.#remoteLoaded,remoteBusy:this.#remoteBusy,remoteError:this.#remoteError,offline:this.#offline,offlineBusy:this.#offlineBusy,offlineUnknown:this.#offlineUnknown,logoutUnconfirmed:this.#logoutUnconfirmed,composing:Boolean(this.#editor?.isComposing),saving:this.#editor?.snapshot.saving??0,editorLocked:this.#editorLocked,hasDraft:this.#editor!==null&&this.#drafts.some(d=>this.#sameDraft(d,this.#editor!))});}
  subscribe(listener:(state:NativeLoginSnapshot)=>void){this.#listeners.add(listener);listener(this.snapshot);return()=>{this.#listeners.delete(listener);};}
  #publish(){for(const listener of this.#listeners){try{listener(this.snapshot);}catch{/* Observer cannot alter authentication. */}}}
  #current(revision:number){return !this.#disposed && revision===this.#revision;}
@@ -25,7 +26,7 @@ export class NativeLoginController {
  #adopt(editor:NativePageSession){this.#editor=editor;this.#editorLocked=false;let checked=false;this.#detachEditor=editor.subscribe(state=>{if(this.#editor!==editor)return;this.#pages=this.#pages.map(page=>page.metadata.id===editor.pageId?{...page,pending:state.pending}:page);if(this.#editorLocked&&!state.composing){void this.#endEditor();return;}if(!this.#editorLocked&&state.storageError&&!checked){checked=true;void this.#verifyPagePermission(editor);}this.#publish();});}
  async #verifyPagePermission(editor:NativePageSession){const revision=this.#revision;try{const status=await this.port.status();if(!this.#current(revision)||this.#editor!==editor)return;if(status.phase==='verified'){this.#watch(status);return;}}catch{if(!this.#current(revision)||this.#editor!==editor)return;}clearTimeout(this.#expiry);this.#clear();this.#phase='signed_out';this.#message='接続を確認できなくなりました。ログインし直してください。';await this.#invalidateEditor();this.#publish();}
  async #invalidateEditor(){const editor=this.#editor;if(!editor)return;this.#editorLocked=true;editor.lock();if(!editor.isComposing)await this.#endEditor();}
- #clear(){this.#pages=[];this.#after=null;this.#remotePages=[];this.#remoteHasMore=false;this.#remoteLoaded=false;this.#remoteBusy=false;this.#remoteError=false;}
+ #clear(){this.#offline=null;this.#offlineBusy=false;this.#offlineUnknown=false;this.#pages=[];this.#after=null;this.#remotePages=[];this.#remoteHasMore=false;this.#remoteLoaded=false;this.#remoteBusy=false;this.#remoteError=false;}
  #watch(auth:NativeAuthSnapshot){
   clearTimeout(this.#expiry);if(auth.phase!=='verified' || auth.expiresAt===null)return;const revision=this.#revision;
   this.#expiry=setTimeout(()=>{void this.#checkExpiry(revision);},Math.min(2147483647,Math.max(1,auth.expiresAt*1000-Date.now())));
@@ -111,6 +112,12 @@ export class NativeLoginController {
   finally{if(this.#current(revision)){this.#remoteBusy=false;this.#publish();}}
  }
  async selectRemotePage(pageId:string){if(!this.#remotePages.some(page=>page.id===pageId))return false;return this.#page(pageId,{kind:'remote'});}
+ async offline(prepare=false){
+  if(this.snapshot.busy||this.#phase!=='ready'||prepare&&(this.#offline?.available!==true||this.#offlineUnknown))return;const handle=this.port.handle,revision=this.#revision;if(!handle)return;this.#offlineBusy=true;this.#offlineUnknown=false;if(prepare)this.#offline=null;this.#publish();
+  try{const result=await this.port.offlineFor(handle,prepare);if(!this.#current(revision)||this.port.handle!==handle)return;this.#offline=result;}
+  catch{if(this.#current(revision)){this.#offline=null;this.#offlineUnknown=true;await this.#checkExpiry(revision);}}
+  finally{if(this.#current(revision)){this.#offlineBusy=false;this.#publish();}}
+ }
  async selectPage(pageId:string){return this.#page(pageId,{kind:'local'});}
  async sendPage(){const editor=this.#editor;if(!editor||this.snapshot.busy||this.#phase!=='ready')return;const revision=this.#revision;await editor.send();if(this.#current(revision)&&this.#editor===editor&&(editor.snapshot.sendStatus==='send_unknown'||editor.snapshot.sendStatus==='ack_pending'))await this.#verifyPagePermission(editor);}
  async readPage(){const editor=this.#editor;if(!editor||this.snapshot.busy||this.#phase!=='ready')return;const revision=this.#revision;await editor.read();if(this.#current(revision)&&this.#editor===editor&&(editor.snapshot.readStatus==='read_unknown'||editor.snapshot.readStatus==='store_pending'||editor.snapshot.readError))await this.#verifyPagePermission(editor);}

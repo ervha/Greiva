@@ -3,9 +3,11 @@ use std::path::PathBuf;
 use serde_json::{json,Value};
 use greiva_page_store::native_session::{SessionSnapshot,Phase};
 include!(concat!(env!("OUT_DIR"),"/native-auth-config.rs"));
+include!(concat!(env!("OUT_DIR"),"/native-offline-config.rs"));
 const REJECTED:&str="Native authentication rejected or unavailable";
 type Result<T>=std::result::Result<T,String>;
 pub(crate) fn enabled()->bool {CONFIG.is_some()}
+pub(crate) fn offline_configured()->bool {OFFLINE_CONFIG.is_some()}
 fn snapshot(value:SessionSnapshot)->Value {json!({"available":true,"phase":match value.phase {Phase::Locked=>"locked",Phase::Authenticating=>"authenticating",Phase::Refreshing=>"refreshing",Phase::Verified=>"verified"},"expiresAt":value.expires_at})}
 #[cfg(windows)]
 type Gate=greiva_page_store::native_workspace_gate::NativeWorkspaceGate<greiva_page_store::native_credentials::WindowsCredentialStore,greiva_page_store::native_http_provider::NativeHttpProvider,greiva_page_store::offline_lease::SystemClock>;
@@ -30,9 +32,24 @@ impl Runtime {
             let scope=provider.deployment_scope(&self.app_id).map_err(|_|REJECTED)?;
             let vault=CredentialVault::open(&self.root.join("native-session.sqlite"),&scope,WindowsCredentialStore).await.map_err(|_|REJECTED)?;
             let session=NativeSession::new(vault,provider,SystemClock::new().map_err(|_|REJECTED)?,issuer).map_err(|_|REJECTED)?;
-            Ok(NativeWorkspaceGate::new(session,self.root.join("private-workspaces")))
+            let gate=NativeWorkspaceGate::new(session,self.root.join("private-workspaces"));
+            if let Some((issuer,audience,kid,key))=OFFLINE_CONFIG{
+                let verifier=greiva_page_store::offline_grant::OfflineGrantVerifier::from_public_pin(issuer,audience,kid,key).map_err(|_|REJECTED)?;
+                let lease=greiva_page_store::offline_lease::OfflineLeaseStore::open(&self.root.join("native-offline.sqlite"),&format!("{scope}\noffline-v1"),WindowsCredentialStore,verifier,SystemClock::new().map_err(|_|REJECTED)?).await.map_err(|_|REJECTED)?;
+                Ok(gate.with_offline(lease))
+            }else{Ok(gate)}
         }).await
     }
+}
+#[tauri::command]
+pub(crate) async fn native_offline_status(handle:String,state:tauri::State<'_,Runtime>)->Result<Value>{
+    #[cfg(windows)]{serde_json::to_value(state.get().await?.offline_status(&handle).await.map_err(|_|REJECTED)?).map_err(|_|REJECTED.into())}
+    #[cfg(not(windows))]{let _=(handle,state);Err(REJECTED.into())}
+}
+#[tauri::command]
+pub(crate) async fn native_offline_prepare(handle:String,state:tauri::State<'_,Runtime>)->Result<Value>{
+    #[cfg(windows)]{serde_json::to_value(state.get().await?.prepare_offline(&handle).await.map_err(|_|REJECTED)?).map_err(|_|REJECTED.into())}
+    #[cfg(not(windows))]{let _=(handle,state);Err(REJECTED.into())}
 }
 #[tauri::command]
 pub(crate) async fn native_auth_status(state:tauri::State<'_,Runtime>)->Result<Value>{

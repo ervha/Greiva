@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.96.0 — 2026-10-16
+
+- 新native認証runtimeにoffline許可の明示準備・期限確認を追加。固定APIで署名grantを取得し、元admission/nonce/scope/期限を検証してOSへ保管。画面へは可否と期限だけを返す。
+- 再認証/logoutでleaseを無効化し、永続lock失敗を成功扱いしない。未知の準備結果はHTTPなしで再確認する。明示public pinが未設定なら準備無効、部分設定はbuild拒否。
+- 単体560・通常Rust53・実TLS/署名API/PG6・画面50、型・Windows候補buildを確認。初回のRust lifetime境界のcompile失敗と、OS保管中の認証失効でleaseが残る失敗を修正・保持。候補は署名未設定・準備無効。offline起動/編集の画面切替と実Windows/IME受入は次工程。
+
 ## 0.95.0 — 2026-10-15
 
 - 「workspaceへ再接続」を追加。認証更新とbootstrap後に全contextを照合し、同じ端末保存Pageへ復帰する。pending/wireとscope付き下書きを保持し、接続先の変更・途中失敗で空Pageを作成しない。

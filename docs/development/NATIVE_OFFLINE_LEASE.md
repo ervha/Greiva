@@ -1,5 +1,7 @@
 # OSに保管したoffline許可と保存処理のgate
 
+v0.96.0で[新runtimeの準備・期限確認](NATIVE_OFFLINE_PREPARATION.md)を接続した。offline起動/編集を許可する画面切替は引き続き未提供。以下はv0.80.0時点の保存層の記録。
+
 v0.80.0。[署名grant](NATIVE_OFFLINE_GRANT.md)と[資格情報marker](NATIVE_CREDENTIAL_CUSTODY.md)を接続し、local操作のたびに署名・scope・期限・最終確認時刻を検査するnative基盤を追加した。現行previewのUI/IPCへはまだ切り替えない。
 
 `OfflineLeaseStore` はnativeで32-byte random challengeを生成し、署名の正しい同challengeの応答だけを保存する。grant・context・high-water時刻はOS credential内に置き、SQLiteには世代/lock/slot/hashだけを残す。全recordがWindows保管上限2560 byteを超える場合は拒否する。本文・email/profile・平文fileへのfallbackはない。
