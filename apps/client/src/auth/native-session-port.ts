@@ -8,6 +8,7 @@ export class NativeSessionPortError extends Error {constructor(readonly stage:'c
 type InvokePort=(command:string,args?:Record<string,unknown>)=>Promise<unknown>;
 export type NativeWorkspaceHandle=Readonly<{handle:string;context:WorkspaceSyncContext}>;
 export type NativePageSendStatus='idle'|'acked'|'send_unknown'|'ack_pending';
+export type NativePageReadStatus='received'|'read_unknown'|'store_pending';
 type Handle=NativeWorkspaceHandle;
 function object(value:unknown,keys:readonly string[]):Record<string,unknown>{
  if(!value || typeof value!=='object' || Array.isArray(value))throw new NativeSessionPortError('protocol');
@@ -69,6 +70,11 @@ export class NativeSessionPort {
   this.#check();if(this.handle!==handle)throw new NativeSessionPortError('closed');try{idSchema.parse(pageId);}catch{throw new NativeSessionPortError('protocol');}const revision=this.#revision;
   const row=object(await this.#call('native_page_send',{handle:handle.handle,pageId},revision),['status']);
   if(this.handle!==handle)throw new NativeSessionPortError('closed');if(typeof row.status!=='string'||!['idle','acked','send_unknown','ack_pending'].includes(row.status))throw new NativeSessionPortError('protocol');return row.status as NativePageSendStatus;
+ }
+ async readPageFor(handle:NativeWorkspaceHandle,pageId:string):Promise<NativePageReadStatus>{
+  this.#check();if(this.handle!==handle)throw new NativeSessionPortError('closed');try{idSchema.parse(pageId);}catch{throw new NativeSessionPortError('protocol');}const revision=this.#revision;
+  const row=object(await this.#call('native_page_read',{handle:handle.handle,pageId},revision),['status']);
+  if(this.handle!==handle)throw new NativeSessionPortError('closed');if(typeof row.status!=='string'||!['received','read_unknown','store_pending'].includes(row.status))throw new NativeSessionPortError('protocol');return row.status as NativePageReadStatus;
  }
  async logout():Promise<NativeLogout>{
   const revision=this.#begin();this.#busy=false;this.#snapshot=Object.freeze({available:true,phase:'locked',expiresAt:null});

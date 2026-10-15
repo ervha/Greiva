@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.92.0 — 2026-10-15
+
+- 元admissionに固定したnative Page read・SQLite receiveと専用IPC/client portを追加。callerのtoken/context/vector/responseを受けず、固定APIからfull stateを取得する。
+- 不正scope/digest/schema等を保存前に拒否し、検証済み応答の保存未確認は同じ応答を通信なしで再確認。close/logout/expiry/account変更の旧応答を取り込まず、元pending/wireを保持する。
+- 通常Rust42・専用TLS/API/PG4、全unit527＋既存保存層22・型、Windows候補buildを確認。初回device候補fixtureのFailを保持。取得画面/editor merge・remote一覧/再接続と実Windows/IME/offline受入は次工程。
+
 ## 0.91.0 — 2026-10-15
 
 - native Page送信を専用IPC・strict client port・明示送信画面へ接続。端末保存、送信結果不明、サーバー受領後の端末記録未確認を区別する。

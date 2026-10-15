@@ -15,10 +15,12 @@ import {installPrivatePageSchema} from '../apps/api/dist/private-page-schema.js'
 import {PostgresPrivateBootstrapStore} from '../apps/api/dist/private-bootstrap-store.js';
 import {PostgresPrivatePageStore} from '../apps/api/dist/private-page-store.js';
 import * as Y from 'yjs';
-const withPages=process.argv.includes('--pages');
+const withRead=process.argv.includes('--read');
+const withPages=process.argv.includes('--pages')||withRead;
 const withWorkspace=process.argv.includes('--workspace')||withPages;
 const pageFrames=[];const pageDoc=new Y.Doc();pageDoc.on('update',bytes=>pageFrames.push(Array.from(bytes)));pageDoc.getText('fixture').insert(0,'native HTTP saved');pageDoc.getText('fixture').insert(17,' and appended');
 const pageRequests=[];
+const readRequests=[],readSetupRequests=[];const localFrames=[];const localDoc=new Y.Doc();localDoc.on('update',bytes=>localFrames.push(Array.from(bytes)));localDoc.getText('fixture').insert(0,'local retained / ');
 const schema='greiva_private_native_'+crypto.randomUUID().replaceAll('-','');
 const pool=withWorkspace?new pg.Pool({connectionString:process.env.DATABASE_URL}):undefined;
 const temp=fs.mkdtempSync(path.join(os.tmpdir(),'greiva-native-http-'));
@@ -69,12 +71,22 @@ const proxy=http.createServer(async(request,response)=>{
   if(request.url==='/trap'){trap++;json(response,{});return;}
   const bootstrap=request.method==='POST' && request.url==='/v1/workspaces/bootstrap';
   const pageSend=withPages && request.method==='POST' && /^\/v1\/workspaces\/[0-9a-f-]+\/pages\/[0-9a-f-]+\/document\/(bootstrap|append)$/.test(request.url);
+  const pageRead=withRead && request.method==='POST' && /^\/v1\/workspaces\/[0-9a-f-]+\/pages\/[0-9a-f-]+\/document\/read$/.test(request.url);
+  if(pageRead){
+   assert.equal(modes.get(request.headers.authorization?.slice(7)),'read-reader');assert.equal(request.headers.apikey,undefined);assert.equal(request.headers.cookie,undefined);assert.equal(request.headers.referer,undefined);
+   let body='';for await(const chunk of request)body+=chunk;readRequests.push({route:request.url,body});const value=JSON.parse(body);assert.deepEqual(Object.keys(value).sort(),['clientId','editorSchemaVersion','protocolVersion','stateVector']);assert.equal(value.stateVector,'AA');
+   const result=await fetch(nestApi+request.url,{method:'POST',headers:{authorization:request.headers.authorization,'content-type':'application/json'},body,redirect:'error'});assert.equal(result.status,200);const responseValue=await result.json();
+   if(readRequests.length===1)responseValue.workspaceId='01900000-0000-7000-8000-000000000099';
+   if(readRequests.length===2)responseValue.digest='0'.repeat(64);
+   if(readRequests.length===3){response.destroy();return;}
+   json(response,responseValue);return;
+  }
   if(pageSend){
-   assert.equal(modes.get(request.headers.authorization?.slice(7)),'page-sync');assert.equal(request.headers.apikey,undefined);assert.equal(request.headers.cookie,undefined);assert.equal(request.headers.referer,undefined);
-   let body='';for await(const chunk of request)body+=chunk;pageRequests.push({route:request.url,body});
+   const mode=modes.get(request.headers.authorization?.slice(7));assert.ok(mode==='page-sync'||withRead&&mode==='read-writer');assert.equal(request.headers.apikey,undefined);assert.equal(request.headers.cookie,undefined);assert.equal(request.headers.referer,undefined);
+   let body='';for await(const chunk of request)body+=chunk;if(mode==='page-sync')pageRequests.push({route:request.url,body});else readSetupRequests.push({route:request.url,body});
    const result=await fetch(nestApi+request.url,{method:'POST',headers:{authorization:request.headers.authorization,'content-type':'application/json'},body,redirect:'error'});assert.equal(result.status,200);const receipt=await result.json();
-   if(pageRequests.length===1){receipt.workspaceId='01900000-0000-7000-8000-000000000099';json(response,receipt);return;}
-   if(pageRequests.length===2){response.destroy();return;}
+   if(mode==='page-sync'&&pageRequests.length===1){receipt.workspaceId='01900000-0000-7000-8000-000000000099';json(response,receipt);return;}
+   if(mode==='page-sync'&&pageRequests.length===2){response.destroy();return;}
    json(response,receipt);return;
   }
   if(!bootstrap && (request.method!=='GET' || request.url!=='/v1/session'))throw Error();
@@ -102,8 +114,8 @@ try {
  privateApp=await createSupabasePrivateApp({projectUrl:project,algorithm:'ES256'},{read:async()=>{throw Error('unexpected workspace query');}},pool?new PostgresPrivateBootstrapStore(pool,schema):undefined,async()=>new Response(JSON.stringify({keys:[jwk]})),undefined,undefined,withPages?new PostgresPrivatePageStore(pool,schema):undefined);
  await privateApp.listen(0,'127.0.0.1');nestApi=await privateApp.getUrl();
  await new Promise(resolve=>proxy.listen(0,'127.0.0.1',resolve));api=`http://127.0.0.1:${proxy.address().port}`;
- const child=spawn('/opt/cargo/bin/cargo',['test','--locked','--offline','--manifest-path','apps/client/src-tauri/crates/page-store/Cargo.toml','--lib','--target-dir','.data/native-target',withWorkspace?'native_http_actual_':'native_http_actual_tls_signed_session_and_failure_boundaries','--','--ignored',...(!withPages?['--skip','native_http_actual_page_send_unknown_receipt_retry_and_durable_ack']:[])],{
-  stdio:'inherit',env:{...process.env,GREIVA_FIXTURE_PROJECT:project,GREIVA_FIXTURE_API:api,GREIVA_FIXTURE_CA:certFile,...(withPages?{GREIVA_FIXTURE_PAGE_FRAMES:JSON.stringify(pageFrames)}:{})}});
+ const child=spawn('/opt/cargo/bin/cargo',['test','--locked','--offline','--manifest-path','apps/client/src-tauri/crates/page-store/Cargo.toml','--lib','--target-dir','.data/native-target',withWorkspace?'native_http_actual_':'native_http_actual_tls_signed_session_and_failure_boundaries','--','--ignored',...(!withPages?['--skip','native_http_actual_page_send_unknown_receipt_retry_and_durable_ack']:[]),...(!withRead?['--skip','native_http_actual_page_read_adopts_remote_and_keeps_local_pending']:[])],{
+  stdio:'inherit',env:{...process.env,GREIVA_FIXTURE_PROJECT:project,GREIVA_FIXTURE_API:api,GREIVA_FIXTURE_CA:certFile,...(withPages?{GREIVA_FIXTURE_PAGE_FRAMES:JSON.stringify(pageFrames)}:{}),...(withRead?{GREIVA_FIXTURE_LOCAL_FRAME:JSON.stringify(localFrames[0]),GREIVA_FIXTURE_READ_RESULT:path.join(temp,'read-result.json')}:{})}});
  const code=await new Promise(resolve=>child.once('exit',resolve));assert.equal(code,0,'native HTTP Rust acceptance');
  assert.equal(trap,0,'redirect must never send credential to trap');assert.deepEqual(violations,[],'route/header contract violations');assert.equal(counts['tls-untrusted'],undefined,'untrusted TLS must reject before sending password');
  for(const [mode,value] of Object.entries(counts)){
@@ -111,13 +123,15 @@ try {
   assert.equal(value.revoke,['normal','revoke-fail','workspace'].includes(mode)?1:0,'revoke once after local lock');
  }
  let registration;
- if(pool){const rows=await pool.query(`SELECT (SELECT count(*)::int FROM "${schema}".private_workspaces) AS workspaces,count(*)::int AS devices,count(*) FILTER (WHERE revoked)::int AS revoked FROM "${schema}".private_devices`);registration=rows.rows[0];assert.deepEqual(registration,{workspaces:1,devices:withPages?2:1,revoked:1});assert.equal(counts.workspace.bootstrap,2);assert.equal(counts['workspace-revoked'].bootstrap,1);}
- if(withPages){assert.equal(pageRequests.length,4);assert.deepEqual(pageRequests[0],pageRequests[1]);assert.deepEqual(pageRequests[1],pageRequests[2]);assert.ok(pageRequests[3].route.endsWith('/append'));const rows=await pool.query(`SELECT update FROM "${schema}".private_page_updates ORDER BY server_order`);assert.equal(rows.rowCount,2);const replay=new Y.Doc();for(const row of rows.rows)Y.applyUpdate(replay,row.update);assert.equal(replay.getText('fixture').toString(),pageDoc.getText('fixture').toString());assert.deepEqual(Y.encodeStateVector(replay),Y.encodeStateVector(pageDoc));replay.destroy();console.log(JSON.stringify({nativePageSend:'Pass',wrongScopeReceiptRefused:true,lostResponseSameWireRetry:true,httpRequests:4,durableServerFrames:2,bodyAndVectorEqual:true}));}
+ if(pool){const rows=await pool.query(`SELECT (SELECT count(*)::int FROM "${schema}".private_workspaces) AS workspaces,count(*)::int AS devices,count(*) FILTER (WHERE revoked)::int AS revoked FROM "${schema}".private_devices`);registration=rows.rows[0];assert.deepEqual(registration,{workspaces:1,devices:withRead?4:withPages?2:1,revoked:1});assert.equal(counts.workspace.bootstrap,2);assert.equal(counts['workspace-revoked'].bootstrap,1);}
+ if(withPages){assert.equal(pageRequests.length,4);assert.deepEqual(pageRequests[0],pageRequests[1]);assert.deepEqual(pageRequests[1],pageRequests[2]);assert.ok(pageRequests[3].route.endsWith('/append'));const rows=await pool.query(`SELECT update FROM "${schema}".private_page_updates WHERE page_id='01900000-0000-7000-8000-000000000061' ORDER BY server_order`);assert.equal(rows.rowCount,2);const replay=new Y.Doc();for(const row of rows.rows)Y.applyUpdate(replay,row.update);assert.equal(replay.getText('fixture').toString(),pageDoc.getText('fixture').toString());assert.deepEqual(Y.encodeStateVector(replay),Y.encodeStateVector(pageDoc));replay.destroy();console.log(JSON.stringify({nativePageSend:'Pass',wrongScopeReceiptRefused:true,lostResponseSameWireRetry:true,httpRequests:4,durableServerFrames:2,bodyAndVectorEqual:true}));}
+ if(withRead){assert.equal(readSetupRequests.length,2);assert.equal(readRequests.length,5);for(const request of readRequests)assert.deepEqual(request,readRequests[0]);const replay=new Y.Doc(),expected=new Y.Doc();Y.applyUpdate(expected,Y.encodeStateAsUpdate(pageDoc));Y.applyUpdate(expected,Y.encodeStateAsUpdate(localDoc));for(const update of JSON.parse(fs.readFileSync(path.join(temp,'read-result.json'),'utf8')))Y.applyUpdate(replay,Uint8Array.from(update));assert.equal(replay.getText('fixture').toString(),expected.getText('fixture').toString());assert.deepEqual(Y.encodeStateVector(replay),Y.encodeStateVector(expected));replay.destroy();expected.destroy();console.log(JSON.stringify({nativePageRead:'Pass',wrongScopeAndDigestRefused:true,lostReadResponseRetriedExplicitly:true,httpReadRequests:5,localPending:1,bodyAndVectorEqual:true}));}
  console.log(JSON.stringify({result:'Pass',fixtureOnly:true,actualTls:true,actualApiSignedVerification:true,jwks:'public fixture transport',redirectTrapRequests:trap,untrustedTlsSent:false,registration,counts},null,2));exit=0;
 }finally{
  provider.closeAllConnections();proxy.closeAllConnections();await Promise.all([new Promise(r=>provider.close(r)),new Promise(r=>proxy.close(r)),privateApp?.close()]);
  if(pool){await pool.query(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`);await pool.end();}
  fs.rmSync(temp,{recursive:true,force:true});
  pageDoc.destroy();
+ localDoc.destroy();
 }
 process.exitCode=exit;

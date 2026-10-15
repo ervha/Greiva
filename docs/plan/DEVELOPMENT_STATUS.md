@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+最新checkpoint v0.92.0：[native Page取得・保存基盤](../development/NATIVE_PAGE_READ.md)と専用IPC/client portを追加。通常Rust42/専用TLS・署名API・PG4、全unit527＋Page保存/registry統合22・型・Windows候補buildを確認。[証拠](../../tests/evidence/native-page-read-20261015/SUMMARY.md)。別native sessionの取得・改ざん/応答喪失拒否・local pending保持と本文/vector一致を検証。次は取得操作とeditor merge、remote一覧・再接続、その後offline leaseと実機受入。以下は過去の記録。
+
 2026-10-15の再開指示により開発を再開。最新checkpoint v0.91.0：[native Page送信画面](../development/NATIVE_PAGE_SEND_SCREEN.md)と元receiptのnetworkなしACK再確認を接続。全unit525/画面26/通常Rust37/実TLS・署名API・PG3、型・Windows候補buildを確認。[証拠](../../tests/evidence/native-page-send-screen-20261015/SUMMARY.md)。次はnative remote読取/一覧・再接続、その後offline lease接続と実機受入。以下は過去の記録。
 
 最新checkpoint v0.90.0：[native Page送信/ACK基盤](../development/NATIVE_PAGE_SEND.md)を追加。通常Rust34/専用TLS・署名API・PG3、Windows候補build/版/SHA/sourceを確認。[証拠](../../tests/evidence/native-page-send-20261013/SUMMARY.md)。利用者の指示でこのcheckpoint後に一時停止。[進捗と再開計画](CHECKPOINT_20261013_NATIVE.md)。以下は過去の記録。

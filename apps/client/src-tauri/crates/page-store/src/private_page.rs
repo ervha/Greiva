@@ -53,6 +53,11 @@ fn verify_wire(client:&str,kind:&str,wire:&str,hash:&[u8])->StoreResult<Vec<u8>>
     if request["protocolVersion"]!=1 || request["editorSchemaVersion"]!=1 || request["clientId"]!=client{return Err("Prepared binding mismatch".into());}
     let bytes=decode(text(&request,field)?)?;input(&bytes)?;if digest(&bytes)!=hash{return Err("Prepared digest mismatch".into());}Ok(bytes)
 }
+pub(super) fn validate_read_response(workspace:&str,id:&str,response:&Value)->StoreResult<(PageMetadata,i64,Vec<u8>)> {
+    validate_id(id)?;exact(response,&["protocolVersion","workspaceId","pageId","documentName","editorSchemaVersion","metadata","headOrder","update","digest","stateVector"])?;scope(response,workspace,id)?;
+    let page=metadata(&response["metadata"],id)?;let head=order(response,"headOrder")?;let bytes=decode(text(response,"update")?)?;
+    if response["digest"]!=hex(&digest(&bytes)){return Err("Page read digest mismatch".into());}decode(text(response,"stateVector")?)?;Ok((page,head,bytes))
+}
 pub(super) async fn initialize(tx:&mut Transaction<'_,Sqlite>,version:i64)->StoreResult<()> {
     if version==0 || version==5 {
         let pages:i64=sqlx::query_scalar("SELECT count(*) FROM pages").fetch_one(&mut **tx).await.map_err(|e|e.to_string())?;
@@ -179,8 +184,7 @@ impl PageStore {
         crash_barrier("workspace-page-ack-before-commit")?;tx.commit().await.map_err(|e|e.to_string())?;crash_barrier("workspace-page-ack-after-commit")
     }
     pub(super) async fn private_page_receive(&self,workspace:&str,id:&str,response:Value)->StoreResult<()> {
-        validate_id(id)?;exact(&response,&["protocolVersion","workspaceId","pageId","documentName","editorSchemaVersion","metadata","headOrder","update","digest","stateVector"])?;scope(&response,workspace,id)?;let page=metadata(&response["metadata"],id)?;let head=order(&response,"headOrder")?;let bytes=decode(text(&response,"update")?)?;if response["digest"]!=hex(&digest(&bytes)){return Err("Page read digest mismatch".into());}decode(text(&response,"stateVector")?)?;
-        let mut tx=self.pool.begin().await.map_err(|e|e.to_string())?;
+        let (page,head,bytes)=validate_read_response(workspace,id,&response)?;let mut tx=self.pool.begin().await.map_err(|e|e.to_string())?;
         let existing:i64=sqlx::query_scalar("SELECT count(*) FROM workspace_page_documents WHERE page_id=?").bind(id).fetch_one(&mut *tx).await.map_err(|e|e.to_string())?;
         if existing==0 {let orphan:i64=sqlx::query_scalar("SELECT count(*) FROM pages WHERE id=?").bind(id).fetch_one(&mut *tx).await.map_err(|e|e.to_string())?;if orphan!=0{return Err("Orphan Page cannot be adopted".into());}set_metadata(&mut tx,&page).await?;sqlx::query("INSERT INTO workspace_page_documents(page_id) VALUES(?)").bind(id).execute(&mut *tx).await.map_err(|e|e.to_string())?;}
         let current=advance_head(&mut tx,id,head).await?;save(&mut tx,id,&bytes).await?;
