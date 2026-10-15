@@ -1,0 +1,62 @@
+[
+  {
+    "file": "rust.log.gz",
+    "rawSha256": "9e94ce45d8bdc682c125559d5adb83a61bdacd23b512bdecfa917edb7c0f6a21",
+    "decompressedMatches": true
+  },
+  {
+    "file": "windows.log.gz",
+    "rawSha256": "33ece0150116d6ff4b8dace43c9de444227607723daf85ea728c2ff19ea00bcf",
+    "decompressedMatches": true
+  },
+  {
+    "file": "port-final.log.gz",
+    "rawSha256": "f84ec1a8eda2b693652695d1a500de53ea46ba6ce1b442361b44e2d7e0e4b021",
+    "decompressedMatches": true
+  },
+  {
+    "file": "type.log.gz",
+    "rawSha256": "1058dacf8aaf00c769e9d3ba26f3f1cfd0f936feab4582b5fc44067e1b7d495e",
+    "decompressedMatches": true
+  },
+  {
+    "file": "frontend.log.gz",
+    "rawSha256": "16d5bfc224bb192a2c847ac3c9cd6d765877435bb34a7140fd55faccdbef536d",
+    "decompressedMatches": true
+  },
+  {
+    "file": "target.log.gz",
+    "rawSha256": "432b0b2dadb3bbc7c78f4a25807ed22989d9fa5b7268be67f309039cc960b556",
+    "decompressedMatches": true
+  },
+  {
+    "file": "server-build.log.gz",
+    "rawSha256": "3f2d51c201471d6e85101ecd98a01f430cca5a2df54ab8dd9324b61a3b9b4561",
+    "decompressedMatches": true
+  },
+  {
+    "file": "preview.log.gz",
+    "rawSha256": "c68feb98878b2a7caf1ac574f65bbdf70df2d263b73b30aec92f1835b2dd848a",
+    "decompressedMatches": true
+  },
+  {
+    "file": "unit.log.gz",
+    "rawSha256": "fb9f0174ab498d3f2c34f51c94b5fdbf950cc287624afea72e21ac23d5f224ef",
+    "decompressedMatches": true
+  },
+  {
+    "file": "http.log.gz",
+    "rawSha256": "161f70d57754a6ce96cbd5f43c30593faa46244d6db7b9a76c666eaf0cc2773b",
+    "decompressedMatches": true
+  },
+  {
+    "file": "e2e.log.gz",
+    "rawSha256": "a875aba28cb3b0d1058af8c78e805435eac83b0f6aa822c786e6e6bbbeeb7fcc",
+    "decompressedMatches": true
+  },
+  {
+    "file": "inspector.stderr.log.gz",
+    "rawSha256": "1ef8111a3363827e4c0688943f6f4704d694c74d361a5e1387c0abecdf5e4008",
+    "decompressedMatches": true
+  }
+]

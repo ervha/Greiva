@@ -67,6 +67,11 @@ pub(crate) async fn native_workspace_execute(handle:String,request:Value,state:t
     #[cfg(not(windows))]{let _=(handle,request,state);Err(REJECTED.into())}
 }
 #[tauri::command]
+pub(crate) async fn native_page_send(handle:String,page_id:String,state:tauri::State<'_,Runtime>)->Result<Value>{
+    #[cfg(windows)]{let status=state.get().await?.send_page_status(&handle,&page_id).await.map_err(|_|REJECTED)?;Ok(json!({"status":status}))}
+    #[cfg(not(windows))]{let _=(handle,page_id,state);Err(REJECTED.into())}
+}
+#[tauri::command]
 pub(crate) async fn native_workspace_close(handle:String,state:tauri::State<'_,Runtime>)->Result<()>{
     #[cfg(windows)]{state.get().await?.close(&handle).await.map_err(|_|REJECTED.into())}
     #[cfg(not(windows))]{let _=(handle,state);Err(REJECTED.into())}

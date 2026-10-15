@@ -36,6 +36,17 @@ pub(super) fn metadata(value:&Value,id:&str)->StoreResult<PageMetadata> {
 fn scope(value:&Value,workspace:&str,id:&str)->StoreResult<()> {
     if value["protocolVersion"]!=1 || value["workspaceId"]!=workspace || value["pageId"]!=id || value["documentName"]!=format!("page:{id}") || value["editorSchemaVersion"]!=1 {return Err("Page response binding mismatch".into());}Ok(())
 }
+pub(super) fn validate_ack_response(workspace:&str,id:&str,kind:&str,hash:&str,response:&Value)->StoreResult<()> {
+    scope(response,workspace,id)?;
+    if kind=="bootstrap" {
+        exact(response,&["protocolVersion","workspaceId","pageId","documentName","editorSchemaVersion","metadata","initialDigest"])?;
+        if response["initialDigest"]!=hash{return Err("Page bootstrap digest mismatch".into());}metadata(&response["metadata"],id)?;
+    } else if kind=="append" {
+        exact(response,&["protocolVersion","workspaceId","pageId","documentName","editorSchemaVersion","serverOrder","headOrder","digest","stateVector"])?;
+        if order(response,"serverOrder")?>order(response,"headOrder")? || response["digest"]!=hash{return Err("Page ACK digest/order mismatch".into());}decode(text(response,"stateVector")?)?;
+    } else {return Err("Invalid prepared kind".into());}
+    Ok(())
+}
 fn verify_wire(client:&str,kind:&str,wire:&str,hash:&[u8])->StoreResult<Vec<u8>> {
     let request:Value=serde_json::from_str(wire).map_err(|_|"Invalid prepared wire")?;
     let field=if kind=="bootstrap" {exact(&request,&["protocolVersion","clientId","editorSchemaVersion","title","initialUpdate"])?;if text(&request,"title")?.encode_utf16().count()>65536{return Err("Invalid prepared title".into());}"initialUpdate"}else if kind=="append" {exact(&request,&["protocolVersion","clientId","editorSchemaVersion","update"])?;"update"}else{return Err("Invalid prepared kind".into());};

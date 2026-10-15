@@ -7,6 +7,7 @@ export type NativeLogout=Readonly<{localLocked:true;persistentLocked:boolean;cle
 export class NativeSessionPortError extends Error {constructor(readonly stage:'configuration'|'closed'|'busy'|'credentials'|'protocol'|'unavailable'){super(`Native session ${stage}`);this.name='NativeSessionPortError';}}
 type InvokePort=(command:string,args?:Record<string,unknown>)=>Promise<unknown>;
 export type NativeWorkspaceHandle=Readonly<{handle:string;context:WorkspaceSyncContext}>;
+export type NativePageSendStatus='idle'|'acked'|'send_unknown'|'ack_pending';
 type Handle=NativeWorkspaceHandle;
 function object(value:unknown,keys:readonly string[]):Record<string,unknown>{
  if(!value || typeof value!=='object' || Array.isArray(value))throw new NativeSessionPortError('protocol');
@@ -19,7 +20,7 @@ function snapshot(value:unknown):NativeAuthSnapshot {
   || row.available===(row.phase==='unavailable'))throw new NativeSessionPortError('protocol');
  return Object.freeze(row as unknown as NativeAuthSnapshot);
 }
-// Optional native-only port, not mounted into the existing preview yet. No
+// Native-only port. No
 // endpoint, raw token/identity or caller-owned context enters the command wire.
 export class NativeSessionPort {
  #revision=0;#disposed=false;#busy=false;#handle:Handle|null=null;
@@ -64,6 +65,11 @@ export class NativeSessionPort {
   if(this.handle!==handle)throw new NativeSessionPortError('closed');return result;
  }
  async cancel(){const revision=this.#begin();await this.#call('native_workspace_cancel',undefined,revision);}
+ async sendPageFor(handle:NativeWorkspaceHandle,pageId:string):Promise<NativePageSendStatus>{
+  this.#check();if(this.handle!==handle)throw new NativeSessionPortError('closed');try{idSchema.parse(pageId);}catch{throw new NativeSessionPortError('protocol');}const revision=this.#revision;
+  const row=object(await this.#call('native_page_send',{handle:handle.handle,pageId},revision),['status']);
+  if(this.handle!==handle)throw new NativeSessionPortError('closed');if(typeof row.status!=='string'||!['idle','acked','send_unknown','ack_pending'].includes(row.status))throw new NativeSessionPortError('protocol');return row.status as NativePageSendStatus;
+ }
  async logout():Promise<NativeLogout>{
   const revision=this.#begin();this.#busy=false;this.#snapshot=Object.freeze({available:true,phase:'locked',expiresAt:null});
   const row=object(await this.#call('native_auth_logout',undefined,revision),['localLocked','persistentLocked','cleanupPending','providerConfirmed']);

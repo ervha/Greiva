@@ -8,21 +8,31 @@ const id='01900000-0000-7000-8000-000000000004';
 const pageEntry={metadata:{id,title:'端末の検証Page',yDocId:`page:${id}`,createdAt:'2026-10-13T00:00:00.000Z',updatedAt:'2026-10-13T00:00:00.000Z'},pending:2};
 async function fixture(page:Page,restore=false){
  const calls:{command:string;args?:Record<string,unknown>}[]=[];let persistent=true,foreign=false,verified=false,unknown=false;
+ const acknowledged=new Map<string,number>(),cached=new Map<string,boolean>();let sendResult:string|undefined,networkSends=0,holdSend=false,enteredSend!:()=>void,releaseSend!:()=>void,sendWaiting:Promise<void>|undefined;
  const journal=new Map<string,{metadata:typeof pageEntry.metadata;updates:number[][]}>();journal.set(id,{metadata:{...pageEntry.metadata},updates:[Array.from(emptyPageUpdate()),[0,0]]});
  await page.route('**/native-fixture/invoke',async route=>{
   const call=route.request().postDataJSON();calls.push(call);const command=call.command;
   if(command==='native_auth_restore' && !restore){await route.fulfill({status:503,json:{private:'not visible'}});return;}
   if(command==='native_auth_login'||command==='native_auth_restore')verified=true;if(command==='native_auth_logout')verified=false;
+  if(command==='native_auth_logout'||command==='native_workspace_cancel')cached.clear();
+  if(command==='native_page_send'){
+   if(!verified){await route.fulfill({status:503,json:{error:'closed'}});return;}
+   const pageId=call.args.pageId as string;let count=acknowledged.get(pageId)??0;
+   if(cached.has(pageId)){cached.delete(pageId);acknowledged.set(pageId,count+1);await route.fulfill({json:{status:'acked'}});return;}
+   if(count>=journal.get(pageId)!.updates.length){await route.fulfill({json:{status:'idle'}});return;}
+   networkSends++;if(holdSend){holdSend=false;enteredSend();await new Promise<void>(done=>{releaseSend=done;});}
+   const status=sendResult??'acked';sendResult=undefined;if(status==='ack_pending')cached.set(pageId,true);if(status==='acked')acknowledged.set(pageId,++count);await route.fulfill({json:{status}});return;
+  }
   if(command==='native_workspace_execute'){
    if(!verified){await route.fulfill({status:503,json:{error:'closed'}});return;}
    const request=call.args.request;
    if(request.command==='page_create'){journal.set(request.pageId,{metadata:{...pageEntry.metadata,id:request.pageId,yDocId:`page:${request.pageId}`,title:request.title},updates:[request.update]});await route.fulfill({json:null});return;}
    if(request.command==='page_append'){journal.get(request.pageId)!.updates.push(request.update);if(unknown){unknown=false;await route.fulfill({status:503,json:{private:'unknown'}});return;}await route.fulfill({json:null});return;}
-   if(request.command==='page_load'){const entry=journal.get(request.pageId)!;await route.fulfill({json:{page:entry,pending:entry.updates.length,serverHead:null}});return;}
+   if(request.command==='page_load'){const entry=journal.get(request.pageId)!;await route.fulfill({json:{page:entry,pending:entry.updates.length-(acknowledged.get(request.pageId)??0),serverHead:null}});return;}
   }
-  const result=command==='native_auth_status'?{available:true,phase:verified?'verified':'locked',expiresAt:verified?Math.floor(Date.now()/1000)+300:null}:command==='native_auth_login'||command==='native_auth_restore'?{available:true,phase:'verified',expiresAt:Math.floor(Date.now()/1000)+300}:command==='native_workspace_open'?{handle:'native-handle',context}:command==='native_workspace_execute'?{context:foreign?{...context,subjectId:'other-owner'}:context,pages:[...journal.values()].sort((a,b)=>a.metadata.id.localeCompare(b.metadata.id)).map(entry=>({metadata:entry.metadata,pending:entry.metadata.id===id?Math.max(2,entry.updates.length):entry.updates.length})),nextAfter:null}:command==='native_auth_logout'?{localLocked:true,persistentLocked:persistent,cleanupPending:persistent?false:null,providerConfirmed:false}:null;
+  const result=command==='native_auth_status'?{available:true,phase:verified?'verified':'locked',expiresAt:verified?Math.floor(Date.now()/1000)+300:null}:command==='native_auth_login'||command==='native_auth_restore'?{available:true,phase:'verified',expiresAt:Math.floor(Date.now()/1000)+300}:command==='native_workspace_open'?{handle:'native-handle',context}:command==='native_workspace_execute'?{context:foreign?{...context,subjectId:'other-owner'}:context,pages:[...journal.values()].sort((a,b)=>a.metadata.id.localeCompare(b.metadata.id)).map(entry=>({metadata:entry.metadata,pending:entry.updates.length-(acknowledged.get(entry.metadata.id)??0)})),nextAfter:null}:command==='native_auth_logout'?{localLocked:true,persistentLocked:persistent,cleanupPending:persistent?false:null,providerConfirmed:false}:null;
   await route.fulfill({json:result});
- });return{calls,unknownLogout(){persistent=false;},foreign(){foreign=true;},unknownAppend(){unknown=true;},revoke(){verified=false;},body(pageId:string){const doc=new Y.Doc({gc:false});for(const update of journal.get(pageId)!.updates)Y.applyUpdate(doc,Uint8Array.from(update));const body=doc.getXmlFragment('body').toString();doc.destroy();return body;}};
+ });return{calls,get networkSends(){return networkSends;},sendResult(value:string){sendResult=value;},holdSend(){holdSend=true;sendWaiting=new Promise(done=>{enteredSend=done;});},waitSending:()=>sendWaiting!,releaseSend:()=>releaseSend(),unknownLogout(){persistent=false;},foreign(){foreign=true;},unknownAppend(){unknown=true;},revoke(){verified=false;},body(pageId:string){const doc=new Y.Doc({gc:false});for(const update of journal.get(pageId)!.updates)Y.applyUpdate(doc,Uint8Array.from(update));const body=doc.getXmlFragment('body').toString();doc.destroy();return body;}};
 }
 const state=(page:Page)=>page.getByLabel('端末接続の状態',{exact:true});
 async function login(page:Page){await page.getByLabel('メールアドレス',{exact:true}).fill('fixture@example.invalid');await page.getByLabel('パスワード',{exact:true}).fill('fixture-password');await page.getByRole('button',{name:'ログイン',exact:true}).click();}
@@ -80,4 +90,16 @@ test('NATIVE-AUTH-CSP: native profile allows signup but blocks browser token and
  await page.route('https://project.fixture.invalid/auth/v1/**',async route=>{if(new URL(route.request().url()).pathname.endsWith('/signup'))signup++;else token++;await route.fulfill({headers:{'access-control-allow-origin':'*'},json:{accepted:true}});});
  await page.goto('/native-csp-check.html');const result=await page.evaluate(async()=>{const call=async(path:string)=>{try{await fetch('https://project.fixture.invalid/auth/v1/'+path,{method:'POST',body:'{}'});return true;}catch{return false;}};return{signup:await call('signup'),password:await call('token?grant_type=password'),refresh:await call('token?grant_type=refresh_token')};});
  expect(result).toEqual({signup:true,password:false,refresh:false});expect(signup).toBe(1);expect(token).toBe(0);
+});
+
+test('NATIVE-PAGE-SEND-UI: explicit send stops unknown, never retries automatically, and separates local save from ACK',async({page},testInfo)=>{
+ const f=await fixture(page,true);await page.goto('/native-auth.fixture.html');await expect(state(page)).toHaveText('認証を確認しました');await openLocal(page);await page.getByRole('button',{name:'端末の検証Page',exact:true}).click();const editor=page.getByRole('textbox',{name:'Page本文',exact:true});await editor.focus();await editor.dispatchEvent('compositionstart',{data:'変換'});await expect(page.getByRole('button',{name:'このPageを送信',exact:true})).toBeDisabled();expect(f.networkSends).toBe(0);await editor.dispatchEvent('compositionend',{data:'変換'});
+ f.sendResult('send_unknown');await page.getByRole('button',{name:'このPageを送信',exact:true}).click();await expect(page.getByLabel('Pageの送信状態')).toContainText('結果は未確認');await expect(page.getByLabel('本文の保存状態')).toContainText('未送信 2件');expect(f.networkSends).toBe(1);
+ await page.getByRole('button',{name:'送信結果を再確認',exact:true}).click();await expect(page.getByLabel('Pageの送信状態')).toHaveText('送信分の受領記録を端末に保存しました。');await expect(page.getByLabel('本文の保存状態')).toHaveText('端末に保存済み');expect(f.networkSends).toBe(3);for(const call of f.calls.filter(c=>c.command==='native_page_send'))expect(call.args).toEqual({handle:'native-handle',pageId:id});expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);await page.screenshot({path:testInfo.outputPath('native-send.png'),fullPage:true});await page.getByRole('button',{name:'このPageを送信',exact:true}).click();await expect(page.getByLabel('Pageの送信状態')).toHaveText('このPageの未送信変更はありません。');expect(f.networkSends).toBe(3);
+});
+test('NATIVE-PAGE-SEND-UI: known receipt offers local ACK recheck and does not resend its frame',async({page})=>{
+ const f=await fixture(page,true);await page.goto('/native-auth.fixture.html');await expect(state(page)).toHaveText('認証を確認しました');await openLocal(page);await page.getByRole('button',{name:'端末の検証Page',exact:true}).click();f.sendResult('ack_pending');await page.getByRole('button',{name:'このPageを送信',exact:true}).click();await expect(page.getByLabel('Pageの送信状態')).toContainText('端末の受領記録は未確認');expect(f.networkSends).toBe(1);await page.getByRole('button',{name:'受領記録を再確認',exact:true}).click();await expect(page.getByLabel('本文の保存状態')).toHaveText('端末に保存済み');expect(f.networkSends).toBe(2);expect(f.calls.filter(c=>c.command==='native_page_send')).toHaveLength(3);
+});
+test('NATIVE-PAGE-SEND-UI: held HTTP leaves editor editable and durable, logout discards late ACK',async({page})=>{
+ const f=await fixture(page,true);await page.goto('/native-auth.fixture.html');await expect(state(page)).toHaveText('認証を確認しました');await openLocal(page);await page.getByRole('button',{name:'端末の検証Page',exact:true}).click();f.holdSend();await page.getByRole('button',{name:'このPageを送信',exact:true}).click();await f.waitSending();const editor=page.getByRole('textbox',{name:'Page本文',exact:true});await editor.click();await page.keyboard.type('saved during held HTTP');await expect(page.getByLabel('本文の保存状態')).toContainText('未送信数は再確認');expect(f.body(id)).toContain('saved during held HTTP');await expect(editor).toBeFocused();await page.getByRole('button',{name:'ログアウト',exact:true}).click();await expect(state(page)).toHaveText('ログインしていません');f.releaseSend();await expect(page.getByLabel('Pageの送信状態')).toHaveCount(0);await expect(editor).toHaveCount(0);expect(f.networkSends).toBe(1);
 });

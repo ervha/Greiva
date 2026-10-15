@@ -4,15 +4,21 @@ use crate::{native_credentials::{CredentialError,CredentialStore},native_session
 use std::{path::PathBuf,sync::Arc};
 use tokio::sync::Mutex;
 type Result<T>=std::result::Result<T,CredentialError>;
-struct GateState {generation:u64,active:Option<(WorkspaceHandle,WorkspaceAdmission)>}
+#[derive(Clone)]
+struct PendingPageAck {prepared:serde_json::Value,response:serde_json::Value}
+struct GateState {generation:u64,active:Option<(WorkspaceHandle,WorkspaceAdmission)>,receipts:std::collections::HashMap<String,PendingPageAck>}
+#[derive(Clone,Copy,Debug,PartialEq,Eq,serde::Serialize)]
+#[serde(rename_all="snake_case")]
+pub enum PageSendStatus {Idle,Acked,SendUnknown,AckPending}
 pub struct NativeWorkspaceGate<S:CredentialStore,P:NativeProvider,C:NativeClock> {
     session:NativeSession<S,P,C>,registry:Arc<WorkspaceRegistry>,
     active:Mutex<GateState>,
     page_send:Mutex<()>,
+    #[cfg(test)]ack_failure:std::sync::atomic::AtomicU8,
 }
 impl<S:CredentialStore,P:NativeProvider,C:NativeClock> NativeWorkspaceGate<S,P,C> {
-    pub fn new(session:NativeSession<S,P,C>,root:PathBuf)->Self {Self {session,registry:Arc::new(WorkspaceRegistry::new(root)),active:Mutex::new(GateState{generation:0,active:None}),page_send:Mutex::new(())}}
-    async fn close_active(&self,state:&mut GateState){state.active=None;state.generation=state.generation.checked_add(1).unwrap_or(u64::MAX);self.registry.close_all().await;}
+    pub fn new(session:NativeSession<S,P,C>,root:PathBuf)->Self {Self {session,registry:Arc::new(WorkspaceRegistry::new(root)),active:Mutex::new(GateState{generation:0,active:None,receipts:std::collections::HashMap::new()}),page_send:Mutex::new(()),#[cfg(test)]ack_failure:std::sync::atomic::AtomicU8::new(0)}}
+    async fn close_active(&self,state:&mut GateState){state.active=None;state.receipts.clear();state.generation=state.generation.checked_add(1).unwrap_or(u64::MAX);self.registry.close_all().await;}
     pub async fn login(&self,email:&str,password:Vec<u8>)->Result<SessionSnapshot>{
         {let mut active=self.active.lock().await;self.close_active(&mut active).await;}
         self.session.login(email,password).await
@@ -62,24 +68,40 @@ impl<S:CredentialStore,P:NativeProvider,C:NativeClock> NativeWorkspaceGate<S,P,C
     /// bearer. False means no pending frame; true follows durable native ACK.
     /// Error is unknown delivery/ACK, not proof that the server rejected it.
     pub async fn send_page(&self,handle:&str,page:&str)->Result<bool> {
+        match self.send_page_status(handle,page).await? {PageSendStatus::Idle=>Ok(false),PageSendStatus::Acked=>Ok(true),_=>Err(CredentialError)}
+    }
+    /// Sanitized IPC status. A validated receipt stays native in memory until
+    /// its original ACK is confirmed or the handle is closed. No automatic retry.
+    pub async fn send_page_status(&self,handle:&str,page:&str)->Result<PageSendStatus> {
         if !crate::structured::uuid_v7(page){return Err(CredentialError)}
         let _send=self.page_send.lock().await;
-        let (generation,admission,prepared)={
+        let (generation,admission,cached,prepared)={
             let active=self.active.lock().await;
             let (_,admission)=active.active.as_ref().filter(|(h,_)|h.handle==handle).ok_or(CredentialError)?;
             let registry=self.registry.clone();let h=handle.to_string();let p=page.to_string();
-            let prepared=self.session.local(Some(admission),|_|Box::pin(async move {registry.execute(&h,serde_json::json!({"command":"page_prepare","pageId":p})).await.map_err(|_|CredentialError)})).await?;
-            (active.generation,admission.clone(),prepared)
+            let cached=active.receipts.get(page).cloned();
+            if cached.is_none() && active.receipts.len()>=8{return Err(CredentialError)}
+            let prepared=if let Some(receipt)=&cached {receipt.prepared.clone()}else{self.session.local(Some(admission),|_|Box::pin(async move {registry.execute(&h,serde_json::json!({"command":"page_prepare","pageId":p})).await.map_err(|_|CredentialError)})).await?};
+            (active.generation,admission.clone(),cached,prepared)
         };
-        if prepared.is_null(){return Ok(false)}
+        if prepared.is_null(){return Ok(PageSendStatus::Idle)}
         let kind=prepared["kind"].as_str().ok_or(CredentialError)?;
         let wire=prepared["wire"].as_str().ok_or(CredentialError)?;
-        let response=self.session.page_send(&admission,page,kind,wire).await?;
-        let active=self.active.lock().await;
+        let response=if let Some(receipt)=cached {receipt.response}else{match self.session.page_send(&admission,page,kind,wire).await {Ok(response)=>response,Err(_)=>return Ok(PageSendStatus::SendUnknown)}};
+        if crate::private_page::validate_ack_response(&admission.context().workspace_id,page,kind,prepared["digest"].as_str().ok_or(CredentialError)?,&response).is_err(){return Ok(PageSendStatus::SendUnknown)}
+        let mut active=self.active.lock().await;
         if active.generation!=generation || active.active.as_ref().is_none_or(|(h,_)|h.handle!=handle){return Err(CredentialError)}
+        active.receipts.insert(page.into(),PendingPageAck{prepared:prepared.clone(),response:response.clone()});
         let registry=self.registry.clone();let h=handle.to_string();let p=page.to_string();let wire=wire.to_string();let sequence=prepared["sequence"].clone();
-        self.session.local(Some(&admission),|_|Box::pin(async move {registry.execute(&h,serde_json::json!({"command":"page_ack","pageId":p,"sequence":sequence,"wire":wire,"response":response})).await.map_err(|_|CredentialError)})).await?;
-        Ok(true)
+        #[cfg(test)]let failure=self.ack_failure.swap(0,std::sync::atomic::Ordering::SeqCst);
+        let result=self.session.local(Some(&admission),|_|Box::pin(async move {
+            #[cfg(test)]if failure==1{return Err(CredentialError)}
+            let value=registry.execute(&h,serde_json::json!({"command":"page_ack","pageId":p,"sequence":sequence,"wire":wire,"response":response})).await.map_err(|_|CredentialError)?;
+            #[cfg(test)]if failure==2{return Err(CredentialError)}
+            Ok(value)
+        })).await;
+        if result.is_err(){return Ok(PageSendStatus::AckPending)}
+        active.receipts.remove(page);Ok(PageSendStatus::Acked)
     }
     pub async fn cancel_open(&self){let mut active=self.active.lock().await;self.close_active(&mut active).await;}
     pub async fn shutdown(self){self.registry.close_all().await;self.session.close().await;}
@@ -192,5 +214,23 @@ mod tests {
     async fn native_page_concurrent_sends_keep_fifo_without_blocking_local_input(){
         let f=Fixture::new();let (g,h,_)=page_fixture(&f).await;f.provider.0.send_hold.store(true,Ordering::SeqCst);let copy=g.clone();let first=h.handle.clone();let one=tokio::spawn(async move{copy.send_page(&first,PAGE).await});f.provider.0.entered.notified().await;
         g.execute(&h.handle,json!({"command":"page_append","pageId":PAGE,"update":[0,1]})).await.unwrap();let copy=g.clone();let second=h.handle.clone();let two=tokio::spawn(async move{copy.send_page(&second,PAGE).await});f.provider.0.release.notify_one();assert!(one.await.unwrap().unwrap());assert!(two.await.unwrap().unwrap());assert_eq!(f.provider.0.sends.lock().unwrap().len(),2);assert_eq!(g.execute(&h.handle,json!({"command":"page_load","pageId":PAGE})).await.unwrap()["pending"],0);shutdown(g).await;
+    }
+    #[tokio::test]
+    async fn native_page_known_receipt_retries_ack_without_network(){
+        let f=Fixture::new();let (g,h,original)=page_fixture(&f).await;g.ack_failure.store(1,Ordering::SeqCst);
+        assert_eq!(g.send_page_status(&h.handle,PAGE).await.unwrap(),PageSendStatus::AckPending);assert_eq!(g.execute(&h.handle,json!({"command":"page_prepare","pageId":PAGE})).await.unwrap(),original);
+        assert_eq!(g.send_page_status(&h.handle,PAGE).await.unwrap(),PageSendStatus::Acked);assert_eq!(f.provider.0.sends.lock().unwrap().len(),1);assert_eq!(g.send_page_status(&h.handle,PAGE).await.unwrap(),PageSendStatus::Idle);shutdown(g).await;
+    }
+    #[tokio::test]
+    async fn native_page_unknown_ack_commit_rechecks_original_pair_before_new_frame(){
+        let f=Fixture::new();let (g,h,_)=page_fixture(&f).await;g.ack_failure.store(2,Ordering::SeqCst);assert_eq!(g.send_page_status(&h.handle,PAGE).await.unwrap(),PageSendStatus::AckPending);
+        g.execute(&h.handle,json!({"command":"page_append","pageId":PAGE,"update":[0,1]})).await.unwrap();let next=g.execute(&h.handle,json!({"command":"page_prepare","pageId":PAGE})).await.unwrap();assert_eq!(next["kind"],"append");
+        assert_eq!(g.send_page_status(&h.handle,PAGE).await.unwrap(),PageSendStatus::Acked);assert_eq!(f.provider.0.sends.lock().unwrap().len(),1);assert_eq!(g.execute(&h.handle,json!({"command":"page_prepare","pageId":PAGE})).await.unwrap(),next);
+        assert!(g.send_page(&h.handle,PAGE).await.unwrap());assert_eq!(f.provider.0.sends.lock().unwrap().len(),2);shutdown(g).await;
+    }
+    #[tokio::test]
+    async fn native_page_cached_receipt_does_not_cross_closed_admission(){
+        let f=Fixture::new();let (g,h,original)=page_fixture(&f).await;g.ack_failure.store(1,Ordering::SeqCst);assert_eq!(g.send_page_status(&h.handle,PAGE).await.unwrap(),PageSendStatus::AckPending);assert_eq!(g.active.lock().await.receipts.len(),1);
+        g.logout().await;assert!(g.active.lock().await.receipts.is_empty());assert!(g.send_page_status(&h.handle,PAGE).await.is_err());login(&g).await;let next=g.open(CLIENT).await.unwrap();assert_eq!(g.execute(&next.handle,json!({"command":"page_prepare","pageId":PAGE})).await.unwrap(),original);assert!(g.send_page(&next.handle,PAGE).await.unwrap());assert_eq!(f.provider.0.sends.lock().unwrap().len(),2);shutdown(g).await;
     }
 }

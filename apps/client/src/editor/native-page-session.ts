@@ -2,15 +2,15 @@ import * as Y from 'yjs';
 import {idSchema} from '@greiva/shared';
 import {emptyPageUpdate} from '@greiva/sync';
 import {privatePageLocalLoadSchema} from '@greiva/protocol/private-page';
-import {NativeSessionPort,NativeSessionPortError,type NativeWorkspaceHandle} from '../auth/native-session-port.js';
+import {NativeSessionPort,NativeSessionPortError,type NativeWorkspaceHandle,type NativePageSendStatus} from '../auth/native-session-port.js';
 export class NativePageError extends Error {constructor(readonly stage:'closed'|'busy'|'protocol'|'storage'){super(`Native Page ${stage}`);this.name='NativePageError';}}
-export type NativePageState=Readonly<{phase:'opening'|'ready'|'closed';title:string;saving:number;pending:number;unsaved:number;composing:boolean;storageError:'storage'|'protocol'|'closed'|null}>;
+export type NativePageState=Readonly<{phase:'opening'|'ready'|'closed';title:string;saving:number;pending:number;pendingFresh:boolean;sending:boolean;sendStatus:NativePageSendStatus|null;unsaved:number;composing:boolean;storageError:'storage'|'protocol'|'closed'|null}>;
 export type NativePageDraft=Readonly<{context:NativeWorkspaceHandle['context'];pageId:string;title:string;update:Uint8Array}>;
-// Local-only. All writes capture the original handle and immutable update bytes.
-// Never changes the active port's handle, retries unknown appends or reports sync.
+// All writes/sends capture the original handle. Remote reads are not connected.
 export class NativePageSession {
  readonly document=new Y.Doc({gc:false});readonly clientId:string;
- #state:NativePageState={phase:'opening',title:'',saving:0,pending:0,unsaved:0,composing:false,storageError:null};
+ #state:NativePageState={phase:'opening',title:'',saving:0,pending:0,pendingFresh:true,sending:false,sendStatus:null,unsaved:0,composing:false,storageError:null};
+ #editVersion=0;
  #listeners=new Set<(state:NativePageState)=>void>();#tail:Promise<void>=Promise.resolve();#loadOrigin=Symbol('native journal');#closing:Promise<NativePageDraft|null>|undefined;
  private constructor(private readonly port:NativeSessionPort,readonly bound:NativeWorkspaceHandle,readonly pageId:string){this.clientId=bound.context.clientId;}
  get snapshot(){return this.#state;}
@@ -32,7 +32,7 @@ export class NativePageSession {
  }
  #changed=(candidate:Uint8Array,origin:unknown)=>{
   if(origin===this.#loadOrigin || this.#state.phase!=='ready')return;
-  const update=Uint8Array.from(candidate);this.#patch({unsaved:this.#state.unsaved+1});
+  ++this.#editVersion;const update=Uint8Array.from(candidate);this.#patch({unsaved:this.#state.unsaved+1});
   if(this.#state.storageError)return;
   this.#patch({saving:this.#state.saving+1});
   this.#tail=this.#tail.then(async()=>{
@@ -48,6 +48,23 @@ export class NativePageSession {
  setComposing=(value:boolean)=>{this.#patch({composing:value});};
  lock(){if(this.#state.phase==='ready')this.#patch({storageError:'closed'});}
  durable(){return this.#tail;}
+ async send(){
+  this.#check();if(this.isComposing||this.#state.saving||this.#state.sending||this.#state.storageError)throw new NativePageError('busy');
+  const limit=Math.min(32,Math.max(1,this.#state.pending));this.#patch({sending:true,pendingFresh:false,sendStatus:null});
+  try{
+   for(let index=0;index<limit;index++){
+    this.#check();const result=await this.port.sendPageFor(this.bound,this.pageId);this.#check();this.#patch({sendStatus:result});if(result!=='acked')break;
+   }
+  }catch{if(this.#state.phase==='ready')this.#patch({sendStatus:'send_unknown'});}
+  finally{
+   if(this.#state.phase==='ready'){
+    try{await this.durable();this.#check();const version=this.#editVersion;const value=privatePageLocalLoadSchema.parse(await this.port.executeFor(this.bound,{command:'page_load',pageId:this.pageId}));this.#check();if(value.page.metadata.id!==this.pageId)throw new NativePageError('protocol');
+     if(version===this.#editVersion&&this.#state.saving===0)this.#patch({pending:value.pending,pendingFresh:true});
+    }catch{/* Keep the known send result separate from a failed local recheck. */}
+    this.#patch({sending:false});
+   }
+  }
+ }
  draft():NativePageDraft|null {
   if(this.#state.unsaved===0)return null;
   return Object.freeze({context:this.bound.context,pageId:this.pageId,title:this.#state.title,update:Uint8Array.from(Y.encodeStateAsUpdate(this.document))});

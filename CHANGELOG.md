@@ -1,5 +1,12 @@
 # 変更履歴
 
+## 0.91.0 — 2026-10-15
+
+- native Page送信を専用IPC・strict client port・明示送信画面へ接続。端末保存、送信結果不明、サーバー受領後の端末記録未確認を区別する。
+- 検証済みreceiptを元handle内のmemoryへ保持し、元sequence/wireのACKだけを通信なしで再確認。logout/closeで破棄し、古いreceiptを新frameへ付け替えない。
+- 送信は1操作最大32frame。HTTP待機中も同じ本文で端末保存を継続し、未送信数を確定できない場合は再確認表示にする。
+- 全unit525・画面26・通常Rust37・専用TLS/API/PG3、型とWindows候補buildを確認。画面IPCはdouble、最新実Windows本文/IME、remote読取/offline leaseは別工程。開発を再開。
+
 ## 0.90.0 — 2026-10-13
 
 - native verified admissionから元Page wireを固定APIへ送信し、元sequence/wireのreceiptをSQLiteへACK保存する基盤を追加。close/logout/expiry後のlate ACKを拒否し、HTTP待機中もlocal入力を保持。

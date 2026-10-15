@@ -1,5 +1,7 @@
 # Native Page送信基盤
 
+後続v0.91.0で[専用IPC・明示送信画面とreceipt再確認](NATIVE_PAGE_SEND_SCREEN.md)へ接続した。以下はv0.90.0時点の基盤記録。
+
 v0.90.0。native認証を使うPage bootstrap/append transportと、実SQLiteの元queueへACKを保存するgateを追加した。画面/IPCの同期ボタンへの接続とremote読取は次工程。
 
 ## 契約
