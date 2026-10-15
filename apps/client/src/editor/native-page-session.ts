@@ -2,14 +2,16 @@ import * as Y from 'yjs';
 import {idSchema} from '@greiva/shared';
 import {emptyPageUpdate} from '@greiva/sync';
 import {privatePageLocalLoadSchema} from '@greiva/protocol/private-page';
-import {NativeSessionPort,NativeSessionPortError,type NativeWorkspaceHandle,type NativePageSendStatus} from '../auth/native-session-port.js';
+import {NativeSessionPort,NativeSessionPortError,type NativeWorkspaceHandle,type NativePageSendStatus,type NativePageReadStatus} from '../auth/native-session-port.js';
 export class NativePageError extends Error {constructor(readonly stage:'closed'|'busy'|'protocol'|'storage'){super(`Native Page ${stage}`);this.name='NativePageError';}}
-export type NativePageState=Readonly<{phase:'opening'|'ready'|'closed';title:string;saving:number;pending:number;pendingFresh:boolean;sending:boolean;sendStatus:NativePageSendStatus|null;unsaved:number;composing:boolean;storageError:'storage'|'protocol'|'closed'|null}>;
+export type NativePageState=Readonly<{phase:'opening'|'ready'|'closed';title:string;saving:number;pending:number;pendingFresh:boolean;sending:boolean;sendStatus:NativePageSendStatus|null;reading:boolean;readStatus:NativePageReadStatus|null;readError:'load'|'protocol'|null;remoteWaiting:boolean;unsaved:number;composing:boolean;storageError:'storage'|'protocol'|'closed'|null}>;
 export type NativePageDraft=Readonly<{context:NativeWorkspaceHandle['context'];pageId:string;title:string;update:Uint8Array}>;
-// All writes/sends capture the original handle. Remote reads are not connected.
+// All operations capture the original handle. Remote replay never echoes into
+// the local append queue and waits until native composition has finished.
 export class NativePageSession {
  readonly document=new Y.Doc({gc:false});readonly clientId:string;
- #state:NativePageState={phase:'opening',title:'',saving:0,pending:0,pendingFresh:true,sending:false,sendStatus:null,unsaved:0,composing:false,storageError:null};
+ #state:NativePageState={phase:'opening',title:'',saving:0,pending:0,pendingFresh:true,sending:false,sendStatus:null,reading:false,readStatus:null,readError:null,remoteWaiting:false,unsaved:0,composing:false,storageError:null};
+ #remote:{update:Uint8Array;title:string}|null=null;
  #editVersion=0;
  #listeners=new Set<(state:NativePageState)=>void>();#tail:Promise<void>=Promise.resolve();#loadOrigin=Symbol('native journal');#closing:Promise<NativePageDraft|null>|undefined;
  private constructor(private readonly port:NativeSessionPort,readonly bound:NativeWorkspaceHandle,readonly pageId:string){this.clientId=bound.context.clientId;}
@@ -45,11 +47,16 @@ export class NativePageSession {
   void this.#tail.catch(()=>{});
  };
  pendingUpdates=()=>this.#state.pending;
- setComposing=(value:boolean)=>{this.#patch({composing:value});};
+ setComposing=(value:boolean)=>{this.#patch({composing:value});if(!value)this.#flushRemote();};
+ #flushRemote(){
+  if(!this.#remote||this.#state.composing||this.#state.phase!=='ready'||this.#state.storageError)return;
+  try{this.#check();const candidate=this.#remote;this.#remote=null;Y.applyUpdate(this.document,candidate.update,this.#loadOrigin);this.#patch({title:candidate.title,remoteWaiting:false});}
+  catch(error){this.#remote=null;this.#patch({readError:error instanceof NativePageError&&error.stage==='closed'?'load':'protocol',remoteWaiting:false});}
+ }
  lock(){if(this.#state.phase==='ready')this.#patch({storageError:'closed'});}
  durable(){return this.#tail;}
  async send(){
-  this.#check();if(this.isComposing||this.#state.saving||this.#state.sending||this.#state.storageError)throw new NativePageError('busy');
+  this.#check();if(this.isComposing||this.#state.saving||this.#state.sending||this.#state.reading||this.#state.remoteWaiting||this.#state.storageError)throw new NativePageError('busy');
   const limit=Math.min(32,Math.max(1,this.#state.pending));this.#patch({sending:true,pendingFresh:false,sendStatus:null});
   try{
    for(let index=0;index<limit;index++){
@@ -65,6 +72,21 @@ export class NativePageSession {
    }
   }
  }
+ async read(){
+  this.#check();if(this.isComposing||this.#state.saving||this.#state.sending||this.#state.reading||this.#state.remoteWaiting||this.#state.storageError)throw new NativePageError('busy');
+  const localOnly=this.#state.readStatus==='received'&&Boolean(this.#state.readError);this.#patch({reading:true,...(!localOnly?{readStatus:null}:{}),readError:null});
+  try{
+   const result=localOnly?'received':await this.port.readPageFor(this.bound,this.pageId);this.#check();this.#patch({readStatus:result});if(result!=='received')return;
+   await this.durable();this.#check();const version=this.#editVersion;const response=await this.port.executeFor(this.bound,{command:'page_load',pageId:this.pageId});this.#check();
+   const parsed=privatePageLocalLoadSchema.safeParse(response);if(!parsed.success||parsed.data.page.metadata.id!==this.pageId)throw new NativePageError('protocol');
+   const probe=new Y.Doc({gc:false});let update:Uint8Array;
+   try{Y.applyUpdate(probe,Y.encodeStateAsUpdate(this.document));for(const bytes of parsed.data.page.updates)Y.applyUpdate(probe,Uint8Array.from(bytes));update=Y.encodeStateAsUpdate(probe,Y.encodeStateVector(this.document));}
+   catch{throw new NativePageError('protocol');}finally{probe.destroy();}
+   this.#check();this.#remote={update,title:parsed.data.page.metadata.title};
+   this.#patch({remoteWaiting:true,...(version===this.#editVersion&&this.#state.saving===0?{pending:parsed.data.pending,pendingFresh:true}: {pendingFresh:false})});this.#flushRemote();
+  }catch(error){if(this.#state.phase==='ready')this.#patch(this.#state.readStatus==='received'?{readError:error instanceof NativePageError&&error.stage==='protocol'?'protocol':'load'}:{readStatus:'read_unknown'});}
+  finally{if(this.#state.phase==='ready')this.#patch({reading:false});}
+ }
  draft():NativePageDraft|null {
   if(this.#state.unsaved===0)return null;
   return Object.freeze({context:this.bound.context,pageId:this.pageId,title:this.#state.title,update:Uint8Array.from(Y.encodeStateAsUpdate(this.document))});
@@ -76,7 +98,7 @@ export class NativePageSession {
  }
  close():Promise<NativePageDraft|null>{
   if(this.#closing)return this.#closing;if(this.isComposing)return Promise.reject(new NativePageError('busy'));
-  this.#patch({phase:'closed'});this.document.off('update',this.#changed);
+  this.#remote=null;this.#patch({phase:'closed',remoteWaiting:false});this.document.off('update',this.#changed);
   this.#closing=this.#tail.catch(()=>{}).then(()=>{const draft=this.draft();this.document.destroy();this.#listeners.clear();return draft;});return this.#closing;
  }
 }

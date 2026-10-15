@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.93.0 — 2026-10-15
+
+- 選択したPageの明示取得をnative readへ接続し、保存確認後にjournalを検証して同じY.Docへmerge。受信更新をlocal appendへechoせず、local入力/未送信を保持する。
+- composition中に届いた内容は確定後まで反映を保留し、反映直前も元handleを検査。取得/保存未確認と表示検証失敗を区別し、known receive後の表示再確認は通信なしで行う。
+- 全unit533・画面34・型、Windows候補buildを確認。relative selection/focus・Undo・合成compositionを検証し、初回装飾DOM比較の32 Pass/2 Failを保持。実Windows/IME、remote一覧/catalog・offline leaseは残る。
+
 ## 0.92.0 — 2026-10-15
 
 - 元admissionに固定したnative Page read・SQLite receiveと専用IPC/client portを追加。callerのtoken/context/vector/responseを受けず、固定APIからfull stateを取得する。

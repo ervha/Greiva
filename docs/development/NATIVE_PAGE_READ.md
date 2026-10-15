@@ -1,5 +1,7 @@
 # Native Page取得・端末保存基盤
 
+後続v0.93.0で[選択Pageの取得画面とeditor merge](NATIVE_PAGE_READ_SCREEN.md)へ接続した。以下はv0.92.0の基盤記録。
+
 v0.92.0。[native送信](NATIVE_PAGE_SEND_SCREEN.md)と同じverified admissionを使うHTTP read、SQLite receive、専用IPC/client portを追加した。画面の取得ボタン・表示中editorへのmerge・remote一覧/catalogは次工程。
 
 ## 信頼境界

@@ -1,0 +1,47 @@
+[
+  {
+    "file": "windows.log.gz",
+    "decompressedMatches": true,
+    "rawSha256": "d36ec6475dafaf120f73c0a0a1ed0a87a4e436739dd4a41de4a44fd02e20191e"
+  },
+  {
+    "file": "type.log.gz",
+    "decompressedMatches": true,
+    "rawSha256": "d7e8fdf741bff514a8c8eda98cb094e1ba1ae622da1da93ad439a8200bbd4c59"
+  },
+  {
+    "file": "frontend.log.gz",
+    "decompressedMatches": true,
+    "rawSha256": "b8d50d866f422b0090f17248d7b39522fbc55c5d0669772cc977706ba4ce90b5"
+  },
+  {
+    "file": "preview.log.gz",
+    "decompressedMatches": true,
+    "rawSha256": "962b7644cd7e0dd3d78da8b524ac316951362af803b2ca5e6e032217bd881efa"
+  },
+  {
+    "file": "unit.log.gz",
+    "decompressedMatches": true,
+    "rawSha256": "4bb5da6b1c9849a613490f0d2fcfd97bc382bc0180ce4197952748f765277a1c"
+  },
+  {
+    "file": "target.log.gz",
+    "decompressedMatches": true,
+    "rawSha256": "98b8d82a08b6a58843cdd2821983c630ec1c95392b1050e50a93c5772a846bbf"
+  },
+  {
+    "file": "e2e.log.gz",
+    "decompressedMatches": true,
+    "rawSha256": "d18fea3671e79afeb16320d65289734192e94ea185881f903ba7671fe0903743"
+  },
+  {
+    "file": "inspector.stderr.log.gz",
+    "decompressedMatches": true,
+    "rawSha256": "1ef8111a3363827e4c0688943f6f4704d694c74d361a5e1387c0abecdf5e4008"
+  },
+  {
+    "file": "e2e-original-fail.log.gz",
+    "decompressedMatches": true,
+    "rawSha256": "5dc27162c607d9affd061e338ef98e6c170aedd03fe92fea36e821a61e91c44d"
+  }
+]
