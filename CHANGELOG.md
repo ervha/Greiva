@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.97.0 — 2026-10-16
+
+- OS保管の署名許可からcontextを復元し、既存DBだけを開くoffline専用handleとlocal実行gate、専用IPC/client portを追加。送受信・ACK・pullを許可しない。
+- 操作前後に元lease世代/期限を検査。別プロセスの許可再発行で旧handleを拒否し、commit中の期限切れは成功扱いせず確定済みpending/wireを保持する。遅着cleanupが別modeを閉じない。
+- 単体567・通常Rust62・実TLS/署名API/PG6・保存層23・既存画面50、型・Windows候補buildを確認。旧registryの世代追従不具合を再現・修正し失敗ログを保持。offline起動選択/Editor画面は次工程。候補はpin未設定、実Windows GUI/IMEは未確認。
+
 ## 0.96.0 — 2026-10-16
 
 - 新native認証runtimeにoffline許可の明示準備・期限確認を追加。固定APIで署名grantを取得し、元admission/nonce/scope/期限を検証してOSへ保管。画面へは可否と期限だけを返す。

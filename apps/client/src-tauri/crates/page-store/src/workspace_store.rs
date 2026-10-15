@@ -67,6 +67,9 @@ fn barrier(stage:&str) -> StoreResult<()> { super::structured_sync::crash_barrie
 #[cfg(not(feature="crash-test-hooks"))]
 fn barrier(_stage:&str) -> StoreResult<()> { Ok(()) }
 impl WorkspaceStore {
+    pub(crate) async fn open_existing(path:&Path,context:WorkspaceContext)->StoreResult<Self>{
+        safe(async{let inner=PageStore::open_bound_mode(path,Some(&context),false).await?;Ok(Self{inner,context})}.await)
+    }
     pub async fn open(path:&Path,context:WorkspaceContext) -> StoreResult<Self> {
         if !valid(&context) {return Err("Invalid workspace context".into());}
         let inner=safe(PageStore::open_bound(path,Some(&context)).await)?;

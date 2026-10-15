@@ -48,11 +48,15 @@ impl PageStore {
         Self::open_bound(path, None).await
     }
     async fn open_bound(path: &Path, workspace: Option<&WorkspaceContext>) -> StoreResult<Self> {
-        let options = SqliteConnectOptions::new().filename(path).create_if_missing(true)
+        Self::open_bound_mode(path,workspace,true).await
+    }
+    async fn open_bound_mode(path:&Path,workspace:Option<&WorkspaceContext>,create:bool)->StoreResult<Self>{
+        let options = SqliteConnectOptions::new().filename(path).create_if_missing(create)
             .journal_mode(SqliteJournalMode::Wal).synchronous(SqliteSynchronous::Full)
             .foreign_keys(true).busy_timeout(Duration::from_secs(5));
         let pool = SqlitePoolOptions::new().max_connections(1).connect_with(options).await.map_err(|e| e.to_string())?;
         let version: i64 = sqlx::query_scalar("PRAGMA user_version").fetch_one(&pool).await.map_err(|e| e.to_string())?;
+        if !create&&version==0{return Err("Existing workspace binding required".into())}
         if !(if workspace.is_some() { [0,5,6,7,8,9,10,11,12,13,14,15,16].contains(&version) } else { [0,1,2,3,4].contains(&version) }) { return Err(format!("Unsupported local schema version: {version}")); }
         if workspace.is_some() && version==0 {
             let count:i64=sqlx::query_scalar("SELECT count(*) FROM sqlite_master WHERE name NOT LIKE 'sqlite_%'").fetch_one(&pool).await.map_err(|e|e.to_string())?;

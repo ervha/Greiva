@@ -52,6 +52,26 @@ pub(crate) async fn native_offline_prepare(handle:String,state:tauri::State<'_,R
     #[cfg(not(windows))]{let _=(handle,state);Err(REJECTED.into())}
 }
 #[tauri::command]
+pub(crate) async fn native_offline_open(state:tauri::State<'_,Runtime>)->Result<Value>{
+    #[cfg(windows)]{serde_json::to_value(state.get().await?.resume_offline().await.map_err(|_|REJECTED)?).map_err(|_|REJECTED.into())}
+    #[cfg(not(windows))]{let _=state;Err(REJECTED.into())}
+}
+#[tauri::command]
+pub(crate) async fn native_offline_check(handle:String,state:tauri::State<'_,Runtime>)->Result<Value>{
+    #[cfg(windows)]{serde_json::to_value(state.get().await?.check_offline(&handle).await.map_err(|_|REJECTED)?).map_err(|_|REJECTED.into())}
+    #[cfg(not(windows))]{let _=(handle,state);Err(REJECTED.into())}
+}
+#[tauri::command]
+pub(crate) async fn native_offline_execute(handle:String,request:Value,state:tauri::State<'_,Runtime>)->Result<Value>{
+    #[cfg(windows)]{state.get().await?.execute_offline(&handle,request).await.map_err(|_|REJECTED.into())}
+    #[cfg(not(windows))]{let _=(handle,request,state);Err(REJECTED.into())}
+}
+#[tauri::command]
+pub(crate) async fn native_offline_close(handle:String,state:tauri::State<'_,Runtime>)->Result<Value>{
+    #[cfg(windows)]{state.get().await?.close_offline(&handle).await.map_err(|_|REJECTED)?;Ok(Value::Null)}
+    #[cfg(not(windows))]{let _=(handle,state);Err(REJECTED.into())}
+}
+#[tauri::command]
 pub(crate) async fn native_auth_status(state:tauri::State<'_,Runtime>)->Result<Value>{
     if !enabled(){return Ok(json!({"available":false,"phase":"unavailable","expiresAt":null}))}
     #[cfg(windows)]{Ok(snapshot(state.get().await?.snapshot().await))}

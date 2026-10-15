@@ -37,15 +37,17 @@ impl WorkspaceRegistry {
         let time=SystemTime::now().duration_since(UNIX_EPOCH).unwrap_or_default().as_nanos();
         Self{root,instance:format!("{time:x}-{:x}",std::process::id()),state:Mutex::new(State{generation:0,active:None})}
     }
-    pub async fn open(&self,context:WorkspaceContext)->StoreResult<WorkspaceHandle> {self.open_inner(context).await.map_err(|_|REJECTED.into())}
-    async fn open_inner(&self,context:WorkspaceContext)->StoreResult<WorkspaceHandle> {
+    pub async fn open(&self,context:WorkspaceContext)->StoreResult<WorkspaceHandle> {self.open_inner(context,false).await.map_err(|_|REJECTED.into())}
+    pub(crate) async fn open_existing(&self,context:WorkspaceContext)->StoreResult<WorkspaceHandle>{self.open_inner(context,true).await.map_err(|_|REJECTED.into())}
+    async fn open_inner(&self,context:WorkspaceContext,existing:bool)->StoreResult<WorkspaceHandle> {
         let mut state=self.state.lock().await;
         // Account/workspace switch invalidates the previous handle even if the
         // next store cannot open. Existing operations finish on their old store.
         state.active=None;state.generation=state.generation.checked_add(1).ok_or(REJECTED)?;
         let name=Sha256::digest(serde_json::to_vec(&context).map_err(|_|REJECTED)?).iter().map(|byte|format!("{byte:02x}")).collect::<String>();
-        std::fs::create_dir_all(&self.root).map_err(|_|REJECTED)?;
-        let store=WorkspaceStore::open(&self.root.join(format!("{name}.sqlite")),context.clone()).await?;
+        if !existing{std::fs::create_dir_all(&self.root).map_err(|_|REJECTED)?;}
+        let path=self.root.join(format!("{name}.sqlite"));
+        let store=if existing{WorkspaceStore::open_existing(&path,context.clone()).await?}else{WorkspaceStore::open(&path,context.clone()).await?};
         let handle=format!("{}-{:x}",self.instance,state.generation);state.active=Some(Active{handle:handle.clone(),store});Ok(WorkspaceHandle{handle,context})
     }
     pub async fn close(&self,handle:&str)->StoreResult<()> {

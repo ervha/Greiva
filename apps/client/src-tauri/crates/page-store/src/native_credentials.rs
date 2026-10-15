@@ -144,6 +144,21 @@ impl<S: CredentialStore> CredentialVault<S> {
         if generation<=0 {return Err(CredentialError)}
         self.update_scoped(subject,Some(generation),work).await
     }
+    /// Restore native-owned context without trusting a caller-supplied owner.
+    /// The verifier returns its signed subject; compare it to the durable owner
+    /// hash before any OS update or authority leaves this transaction.
+    pub(crate) async fn recover_active<T>(&self,work:impl FnOnce(&Secret)->Result<(Secret,String,T)>)->Result<(T,i64)>{
+        let mut tx=self.pool.begin_with("BEGIN IMMEDIATE").await.map_err(|_|CredentialError)?;
+        let row=sqlx::query("SELECT generation,slot,owner,active FROM session_marker WHERE id=1 AND scope=?").bind(&self.scope).fetch_one(&mut *tx).await.map_err(|_|CredentialError)?;
+        let generation:i64=row.get("generation");if row.get::<i64,_>("active")!=1||generation<=0{return Err(CredentialError)}
+        let result=(||{let slot:String=row.get("slot");let stored=self.store.read(&self.target(&slot)?)?.ok_or(CredentialError)?;let (updated,subject,result)=work(&stored)?;
+            if row.get::<Option<String>,_>("owner").as_deref()!=Some(hash(subject.as_bytes()).as_str()){return Err(CredentialError)}
+            self.store.write(&self.target(&slot)?,&updated)?;Ok((result,generation))})();
+        if result.is_err(){sqlx::query("UPDATE session_marker SET active=0 WHERE id=1").execute(&mut *tx).await.map_err(|_|CredentialError)?;}
+        #[cfg(feature="crash-test-hooks")]
+        crate::structured_sync::crash_barrier("credential-check-before-commit").map_err(|_|CredentialError)?;
+        tx.commit().await.map_err(|_|CredentialError)?;result
+    }
     async fn update_scoped<T>(&self, subject:&str, generation:Option<i64>, work:impl FnOnce(&Secret)->Result<(Secret,T)>)->Result<T> {
         let mut tx=self.pool.begin_with("BEGIN IMMEDIATE").await.map_err(|_|CredentialError)?;
         let row=sqlx::query("SELECT generation,slot,owner,active FROM session_marker WHERE id=1 AND scope=?").bind(&self.scope).fetch_one(&mut *tx).await.map_err(|_|CredentialError)?;

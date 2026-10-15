@@ -52,6 +52,7 @@ pub struct NativeSession<S: CredentialStore, P: NativeProvider, C: NativeClock> 
     instance:[u8;32],
 }
 impl<S: CredentialStore, P: NativeProvider, C: NativeClock> NativeSession<S, P, C> {
+    pub(crate) fn issuer(&self)->&str{&self.issuer}
     /// issuer is trusted deployment configuration, never a WebView parameter.
     pub fn new(vault: CredentialVault<S>, provider: P, clock: C, issuer: String) -> Result<Self> {
         if issuer.is_empty() || issuer.len() > 2048 || issuer.chars().any(char::is_control) { return Err(CredentialError); }

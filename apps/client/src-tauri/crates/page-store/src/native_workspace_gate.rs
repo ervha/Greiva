@@ -7,12 +7,16 @@ type Result<T>=std::result::Result<T,CredentialError>;
 #[derive(Clone)]
 struct PendingPageAck {prepared:serde_json::Value,response:serde_json::Value}
 struct CatalogProgress {cursor:Option<String>,last:Option<String>}
-struct GateState {generation:u64,active:Option<(WorkspaceHandle,WorkspaceAdmission)>,receipts:std::collections::HashMap<String,PendingPageAck>,reads:std::collections::HashMap<String,serde_json::Value>,catalog:Option<CatalogProgress>}
+struct GateState {generation:u64,active:Option<(WorkspaceHandle,WorkspaceAdmission)>,offline_handle:Option<(WorkspaceHandle,crate::offline_lease::LocalAccess)>,receipts:std::collections::HashMap<String,PendingPageAck>,reads:std::collections::HashMap<String,serde_json::Value>,catalog:Option<CatalogProgress>}
 #[derive(serde::Serialize)]
 #[serde(rename_all="camelCase")]
 pub struct NativePageCatalog {pub pages:Vec<crate::PageMetadata>,pub has_more:bool}
 #[derive(serde::Serialize,Debug,PartialEq,Eq)]#[serde(rename_all="camelCase")]
 pub struct OfflinePreparation {pub available:bool,pub expires_at:Option<u64>}
+#[derive(serde::Serialize)]#[serde(rename_all="camelCase")]
+pub struct OfflineWorkspace {pub workspace:WorkspaceHandle,pub expires_at:u64}
+#[derive(serde::Serialize)]#[serde(rename_all="camelCase")]
+pub struct OfflineDeadline {pub expires_at:u64}
 fn catalog_response(context:&crate::WorkspaceContext,value:&serde_json::Value,after:Option<&str>)->Result<(NativePageCatalog,CatalogProgress)>{
     let keys=["protocolVersion","workspaceId","workspaceEpoch","pages","nextCursor","hasMore"];let object=value.as_object().ok_or(CredentialError)?;
     if object.len()!=keys.len()||keys.iter().any(|key|!object.contains_key(*key))||value["protocolVersion"]!=1||value["workspaceId"]!=context.workspace_id||value["workspaceEpoch"]!=context.stream_epoch{return Err(CredentialError)}
@@ -38,8 +42,8 @@ pub struct NativeWorkspaceGate<S:CredentialStore,P:NativeProvider,C:NativeClock>
     #[cfg(test)]read_failure:std::sync::atomic::AtomicU8,
 }
 impl<S:CredentialStore+'static,P:NativeProvider,C:NativeClock+'static> NativeWorkspaceGate<S,P,C> {
-    pub fn new(session:NativeSession<S,P,C>,root:PathBuf)->Self {Self {session,registry:Arc::new(WorkspaceRegistry::new(root)),active:Mutex::new(GateState{generation:0,active:None,receipts:std::collections::HashMap::new(),reads:std::collections::HashMap::new(),catalog:None}),page_send:Mutex::new(()),page_read:Mutex::new(()),page_catalog:Mutex::new(()),offline:None,offline_prepare:Mutex::new(()),#[cfg(test)]ack_failure:std::sync::atomic::AtomicU8::new(0),#[cfg(test)]read_failure:std::sync::atomic::AtomicU8::new(0)}}
-    async fn close_active(&self,state:&mut GateState){state.active=None;state.receipts.clear();state.reads.clear();state.catalog=None;state.generation=state.generation.checked_add(1).unwrap_or(u64::MAX);self.registry.close_all().await;}
+    pub fn new(session:NativeSession<S,P,C>,root:PathBuf)->Self {Self {session,registry:Arc::new(WorkspaceRegistry::new(root)),active:Mutex::new(GateState{generation:0,active:None,offline_handle:None,receipts:std::collections::HashMap::new(),reads:std::collections::HashMap::new(),catalog:None}),page_send:Mutex::new(()),page_read:Mutex::new(()),page_catalog:Mutex::new(()),offline:None,offline_prepare:Mutex::new(()),#[cfg(test)]ack_failure:std::sync::atomic::AtomicU8::new(0),#[cfg(test)]read_failure:std::sync::atomic::AtomicU8::new(0)}}
+    async fn close_active(&self,state:&mut GateState){state.active=None;state.offline_handle=None;state.receipts.clear();state.reads.clear();state.catalog=None;state.generation=state.generation.checked_add(1).unwrap_or(u64::MAX);self.registry.close_all().await;}
     pub fn with_offline(mut self,lease:crate::offline_lease::OfflineLeaseStore<S,C>)->Self{self.offline=Some(Arc::new(lease));self}
     async fn invalidate_offline(&self)->Result<()>{if let Some(lease)=&self.offline{if lease.logout().await.is_err(){let _=self.session.logout().await;return Err(CredentialError)}}Ok(())}
     pub async fn login(&self,email:&str,password:Vec<u8>)->Result<SessionSnapshot>{
@@ -54,7 +58,7 @@ impl<S:CredentialStore+'static,P:NativeProvider,C:NativeClock+'static> NativeWor
     }
     pub async fn snapshot(&self)->SessionSnapshot {
         let mut active=self.active.lock().await;let snapshot=self.session.snapshot().await;
-        if snapshot.phase!=crate::native_session::Phase::Verified{self.close_active(&mut active).await;}snapshot
+        if snapshot.phase!=crate::native_session::Phase::Verified&&active.active.is_some(){self.close_active(&mut active).await;}snapshot
     }
     /// Caller supplies only a UUID candidate. Owner is native verified; the
     /// stable device ID is loaded locally before authenticated server bootstrap.
@@ -130,7 +134,7 @@ impl<S:CredentialStore+'static,P:NativeProvider,C:NativeClock+'static> NativeWor
         if result.is_err(){return Ok(PageSendStatus::AckPending)}
         active.receipts.remove(page);Ok(PageSendStatus::Acked)
     }
-    pub async fn cancel_open(&self){let mut active=self.active.lock().await;self.close_active(&mut active).await;}
+    pub async fn cancel_open(&self){let mut active=self.active.lock().await;if active.offline_handle.is_none(){self.close_active(&mut active).await;}}
     /// Native read and transactional receive. No caller-owned diff/vector or
     /// response enters the gate. Received means local commit was confirmed.
     pub async fn read_page(&self,handle:&str,page:&str)->Result<PageReadStatus> {
@@ -190,6 +194,25 @@ impl<S:CredentialStore+'static,P:NativeProvider,C:NativeClock+'static> NativeWor
         // success alone must not leave that newly saved authority active.
         if result.is_err(){let _=cleanup.logout().await;}result
     }
+    pub async fn resume_offline(&self)->Result<OfflineWorkspace>{
+        let lease=self.offline.as_ref().ok_or(CredentialError)?;let mut active=self.active.lock().await;self.close_active(&mut active).await;
+        let proof=lease.restore_access().await?;if proof.context().issuer!=self.session.issuer(){let _=lease.logout().await;return Err(CredentialError)}
+        let handle=self.registry.open_existing(proof.context().clone()).await.map_err(|_|CredentialError)?;
+        if lease.check_bound(&proof).await.is_err(){self.registry.close_all().await;return Err(CredentialError)}
+        let result=OfflineWorkspace{workspace:handle.clone(),expires_at:proof.expires_at()};active.offline_handle=Some((handle,proof));Ok(result)
+    }
+    pub async fn check_offline(&self,handle:&str)->Result<OfflineDeadline>{
+        let lease=self.offline.as_ref().ok_or(CredentialError)?;let mut active=self.active.lock().await;let (_,proof)=active.offline_handle.as_ref().filter(|(h,_)|h.handle==handle).ok_or(CredentialError)?;
+        let expires_at=proof.expires_at();if lease.check_bound(proof).await.is_err(){self.close_active(&mut active).await;return Err(CredentialError)}Ok(OfflineDeadline{expires_at})
+    }
+    pub async fn execute_offline(&self,handle:&str,request:serde_json::Value)->Result<serde_json::Value>{
+        if !crate::workspace_registry::local_command(&request){return Err(CredentialError)}
+        let lease=self.offline.as_ref().ok_or(CredentialError)?;let mut active=self.active.lock().await;let (_,proof)=active.offline_handle.as_ref().filter(|(h,_)|h.handle==handle).ok_or(CredentialError)?;
+        if lease.check_bound(proof).await.is_err(){self.close_active(&mut active).await;return Err(CredentialError)}
+        let result=self.registry.execute(handle,request).await.map_err(|_|CredentialError);let valid=lease.check_bound(proof).await;
+        if result.is_err()||valid.is_err(){self.close_active(&mut active).await;}valid?;result
+    }
+    pub async fn close_offline(&self,handle:&str)->Result<()>{let mut active=self.active.lock().await;if active.offline_handle.as_ref().is_none_or(|(h,_)|h.handle!=handle){return Err(CredentialError)}self.close_active(&mut active).await;Ok(())}
     pub async fn shutdown(self){self.registry.close_all().await;self.session.close().await;if let Some(lease)=self.offline{if let Ok(lease)=Arc::try_unwrap(lease){lease.close().await;}}}
 }
 
@@ -208,7 +231,7 @@ mod tests {
         fn write(&self,t:&str,s:&Secret)->Result<()>{if s.expose().starts_with(b"{"){if let Some(clock)=self.2.lock().unwrap().as_ref(){clock.0.store(200,Ordering::SeqCst);}}let existed=self.0.lock().unwrap().contains_key(t);self.0.lock().unwrap().insert(t.into(),s.expose().to_vec());if self.1.load(Ordering::SeqCst)&&!existed{Err(CredentialError)}else{Ok(())}}
         fn delete(&self,t:&str)->Result<()>{self.0.lock().unwrap().remove(t);Ok(())}
     }
-    #[derive(Clone)]struct Clock(Arc<AtomicU64>);impl NativeClock for Clock {fn now(&self)->Result<u64>{Ok(self.0.load(Ordering::SeqCst))}}
+    #[derive(Clone)]struct Clock(Arc<AtomicU64>,Arc<AtomicU64>);impl NativeClock for Clock {fn now(&self)->Result<u64>{let count=self.1.load(Ordering::SeqCst);if count!=u64::MAX{if count==0{self.0.store(604900,Ordering::SeqCst);}else{self.1.fetch_sub(1,Ordering::SeqCst);}}Ok(self.0.load(Ordering::SeqCst))}}
     struct ProviderState {owner:String,bad_client:bool}
     struct Inner {state:StdMutex<ProviderState>,hold:AtomicBool,entered:Notify,release:Notify,send_hold:AtomicBool,bad_receipt:AtomicBool,sends:StdMutex<Vec<String>>,read_hold:AtomicBool,read_mutation:std::sync::atomic::AtomicU8,reads:std::sync::atomic::AtomicUsize,catalog_hold:AtomicBool,catalog_mutation:std::sync::atomic::AtomicU8,catalog_calls:StdMutex<Vec<Option<String>>>,grant_hold:AtomicBool,grant_mutation:std::sync::atomic::AtomicU8,grants:std::sync::atomic::AtomicUsize,expires:AtomicU64}
     #[derive(Clone)]struct Provider(Arc<Inner>);
@@ -253,7 +276,7 @@ mod tests {
     type Gate=NativeWorkspaceGate<Os,Provider,Clock>;
     struct Fixture {root:PathBuf,os:Os,provider:Provider,clock:Clock}
     impl Fixture {
-        fn new()->Self {let mut b=[0u8;16];getrandom::getrandom(&mut b).unwrap();let root=std::env::temp_dir().join(format!("greiva-gate-{:x}",u128::from_le_bytes(b)));std::fs::create_dir(&root).unwrap();Self{root,os:Os::default(),provider:Provider(Arc::new(Inner{state:StdMutex::new(ProviderState{owner:"owner-A".into(),bad_client:false}),hold:AtomicBool::new(false),entered:Notify::new(),release:Notify::new(),send_hold:AtomicBool::new(false),bad_receipt:AtomicBool::new(false),sends:StdMutex::new(Vec::new()),read_hold:AtomicBool::new(false),read_mutation:std::sync::atomic::AtomicU8::new(0),reads:std::sync::atomic::AtomicUsize::new(0),catalog_hold:AtomicBool::new(false),catalog_mutation:std::sync::atomic::AtomicU8::new(0),catalog_calls:StdMutex::new(Vec::new()),grant_hold:AtomicBool::new(false),grant_mutation:std::sync::atomic::AtomicU8::new(0),grants:std::sync::atomic::AtomicUsize::new(0),expires:AtomicU64::new(200)})),clock:Clock(Arc::new(AtomicU64::new(100)))}}
+        fn new()->Self {let mut b=[0u8;16];getrandom::getrandom(&mut b).unwrap();let root=std::env::temp_dir().join(format!("greiva-gate-{:x}",u128::from_le_bytes(b)));std::fs::create_dir(&root).unwrap();Self{root,os:Os::default(),provider:Provider(Arc::new(Inner{state:StdMutex::new(ProviderState{owner:"owner-A".into(),bad_client:false}),hold:AtomicBool::new(false),entered:Notify::new(),release:Notify::new(),send_hold:AtomicBool::new(false),bad_receipt:AtomicBool::new(false),sends:StdMutex::new(Vec::new()),read_hold:AtomicBool::new(false),read_mutation:std::sync::atomic::AtomicU8::new(0),reads:std::sync::atomic::AtomicUsize::new(0),catalog_hold:AtomicBool::new(false),catalog_mutation:std::sync::atomic::AtomicU8::new(0),catalog_calls:StdMutex::new(Vec::new()),grant_hold:AtomicBool::new(false),grant_mutation:std::sync::atomic::AtomicU8::new(0),grants:std::sync::atomic::AtomicUsize::new(0),expires:AtomicU64::new(200)})),clock:Clock(Arc::new(AtomicU64::new(100)),Arc::new(AtomicU64::new(u64::MAX)))}}
         async fn open(&self)->Arc<Gate>{let vault=CredentialVault::open(&self.root.join("session.sqlite"),"fixture-gate",self.os.clone()).await.unwrap();Arc::new(Gate::new(NativeSession::new(vault,self.provider.clone(),self.clock.clone(),"https://auth.invalid/auth/v1".into()).unwrap(),self.root.join("workspaces")))}
     }
     impl Fixture{async fn open_offline(&self)->Arc<Gate>{let vault=CredentialVault::open(&self.root.join("session.sqlite"),"fixture-gate",self.os.clone()).await.unwrap();let verifier=crate::offline_grant::OfflineGrantVerifier::new("https://api.invalid".into(),"native".into(),vec![("fixture".into(),ed25519_dalek::SigningKey::from_bytes(&[42;32]).verifying_key().to_bytes())]).unwrap();let lease=crate::offline_lease::OfflineLeaseStore::open(&self.root.join("offline.sqlite"),"fixture-offline",self.os.clone(),verifier,self.clock.clone()).await.unwrap();Arc::new(Gate::new(NativeSession::new(vault,self.provider.clone(),self.clock.clone(),"https://auth.invalid/auth/v1".into()).unwrap(),self.root.join("workspaces")).with_offline(lease))}}
@@ -426,4 +449,31 @@ mod tests {
     #[tokio::test]
     async fn offline_prepare_expiry_during_os_commit_revokes_just_saved_grant(){
         let f=Fixture::new();let g=f.open_offline().await;login(&g).await;let h=g.open(CLIENT).await.unwrap();*f.os.2.lock().unwrap()=Some(f.clock.clone());assert!(g.prepare_offline(&h.handle).await.is_err());assert_eq!(g.snapshot().await.phase,Phase::Locked);assert!(g.offline.as_ref().unwrap().check_access(&h.context).await.is_err());shutdown(g).await;
+    }    async fn offline_fixture(f:&Fixture)->(Arc<Gate>,WorkspaceHandle,serde_json::Value){let g=f.open_offline().await;login(&g).await;let h=g.open(CLIENT).await.unwrap();g.execute(&h.handle,json!({"command":"page_create","pageId":PAGE,"title":"offline retained","update":[0,0]})).await.unwrap();let wire=g.execute(&h.handle,json!({"command":"page_prepare","pageId":PAGE})).await.unwrap();g.prepare_offline(&h.handle).await.unwrap();(g,h,wire)}
+    fn workspace_path(f:&Fixture,c:&crate::WorkspaceContext)->PathBuf{use sha2::Digest;f.root.join("workspaces").join(format!("{:x}.sqlite",sha2::Sha256::digest(serde_json::to_vec(c).unwrap())))}
+    #[tokio::test]
+    async fn offline_restart_recovers_signed_context_pending_and_never_calls_remote(){
+        let f=Fixture::new();let (g,h,wire)=offline_fixture(&f).await;shutdown(g).await;let g=f.open_offline().await;assert_eq!(g.snapshot().await.phase,Phase::Locked);let restored=g.resume_offline().await.unwrap();assert_eq!(restored.workspace.context,h.context);let handle=&restored.workspace.handle;assert_eq!(g.snapshot().await.phase,Phase::Locked);assert_eq!(g.check_offline(handle).await.unwrap().expires_at,604900);
+        assert_eq!(g.execute_offline(handle,json!({"command":"page_prepare","pageId":PAGE})).await.unwrap(),wire);g.execute_offline(handle,json!({"command":"page_append","pageId":PAGE,"update":[0,1]})).await.unwrap();assert_eq!(g.execute_offline(handle,json!({"command":"page_load","pageId":PAGE})).await.unwrap()["pending"],2);
+        for command in ["page_ack","page_receive","ack","pull","changes_receive","database_source_receive"]{assert!(g.execute_offline(handle,json!({"command":command})).await.is_err());}assert!(g.execute(handle,json!({"command":"page_load","pageId":PAGE})).await.is_err());assert!(g.send_page_status(handle,PAGE).await.is_err());assert!(g.read_page(handle,PAGE).await.is_err());assert!(g.catalog_pages(handle,false).await.is_err());assert!(g.prepare_offline(handle).await.is_err());assert_eq!(f.provider.0.grants.load(Ordering::SeqCst),1);assert_eq!(f.provider.0.reads.load(Ordering::SeqCst),0);assert!(f.provider.0.sends.lock().unwrap().is_empty());shutdown(g).await;
+    }
+    #[tokio::test]
+    async fn offline_missing_blank_or_corrupt_store_does_not_initialize_new_workspace(){
+        for kind in ["missing","blank","corrupt"]{let f=Fixture::new();let (g,h,_)=offline_fixture(&f).await;shutdown(g).await;let path=workspace_path(&f,&h.context);if kind=="missing"{std::fs::remove_file(&path).unwrap();}else{std::fs::write(&path,if kind=="blank"{b"".as_slice()}else{b"corrupt".as_slice()}).unwrap();}let g=f.open_offline().await;assert!(g.resume_offline().await.is_err());if kind=="missing"{assert!(!path.exists());}assert!(g.active.lock().await.offline_handle.is_none());shutdown(g).await;}
+    }
+    #[tokio::test]
+    async fn offline_old_handle_does_not_follow_another_process_new_same_owner_lease(){
+        let f=Fixture::new();let (g,_,wire)=offline_fixture(&f).await;let old=g.resume_offline().await.unwrap();let other=f.open_offline().await;login(&other).await;let h=other.open(CLIENT).await.unwrap();other.prepare_offline(&h.handle).await.unwrap();assert!(g.check_offline(&old.workspace.handle).await.is_err());let next=g.resume_offline().await.unwrap();assert_ne!(next.workspace.handle,old.workspace.handle);assert_eq!(g.execute_offline(&next.workspace.handle,json!({"command":"page_prepare","pageId":PAGE})).await.unwrap(),wire);shutdown(g).await;shutdown(other).await;
+    }
+    #[tokio::test]
+    async fn offline_commit_expiry_withholds_success_closes_handle_but_keeps_durable_edit(){
+        let f=Fixture::new();let (g,h,wire)=offline_fixture(&f).await;let restored=g.resume_offline().await.unwrap();f.clock.1.store(1,Ordering::SeqCst);assert!(g.execute_offline(&restored.workspace.handle,json!({"command":"page_append","pageId":PAGE,"update":[0,1]})).await.is_err());assert!(g.active.lock().await.offline_handle.is_none());f.clock.1.store(u64::MAX,Ordering::SeqCst);f.clock.0.store(100,Ordering::SeqCst);assert!(g.resume_offline().await.is_err());shutdown(g).await;let store=crate::WorkspaceStore::open_existing(&workspace_path(&f,&h.context),h.context).await.unwrap();assert_eq!(store.page_load(PAGE).await.unwrap()["pending"],2);assert_eq!(store.page_prepare(PAGE).await.unwrap(),wire);
+    }
+    #[tokio::test]
+    async fn offline_online_cancel_and_stale_close_do_not_cross_mode_or_revive_lease(){
+        let f=Fixture::new();let (g,_,_)=offline_fixture(&f).await;let old=g.resume_offline().await.unwrap();g.cancel_open().await;g.check_offline(&old.workspace.handle).await.unwrap();g.restore().await.unwrap();let next=g.open(CLIENT).await.unwrap();assert!(g.close_offline(&old.workspace.handle).await.is_err());assert!(g.execute(&next.handle,json!({"command":"page_load","pageId":PAGE})).await.is_ok());assert!(g.resume_offline().await.is_err());shutdown(g).await;
+    }
+    #[tokio::test]
+    async fn offline_signed_foreign_auth_issuer_is_refused_and_locked(){
+        let f=Fixture::new();let (g,h,_)=offline_fixture(&f).await;let lease=g.offline.as_ref().unwrap();let challenge=lease.begin_online().await.unwrap();let mut context=h.context;context.issuer="https://other.invalid/auth/v1".into();let access=AccessSecret::new(b"fixture".to_vec()).unwrap();let token=f.provider.offline_grant(&access,&context,challenge.nonce()).await.unwrap();lease.accept_online(challenge,context,token).await.unwrap();assert!(g.resume_offline().await.is_err());assert!(lease.restore_access().await.is_err());shutdown(g).await;
     }}

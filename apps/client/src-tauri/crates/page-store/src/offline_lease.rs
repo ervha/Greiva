@@ -19,7 +19,8 @@ impl NativeClock for SystemClock {
 struct StoredGrant {version:u8,context:WorkspaceContext,grant:String,high_water:u64}
 pub struct OnlineChallenge {ticket:Ticket,nonce:String}
 impl OnlineChallenge {pub fn nonce(&self)->&str{&self.nonce}}
-pub struct LocalAccess {context:WorkspaceContext,expires_at:u64}
+#[derive(Clone)]
+pub struct LocalAccess {context:WorkspaceContext,expires_at:u64,generation:i64}
 impl LocalAccess {pub fn context(&self)->&WorkspaceContext{&self.context}pub fn expires_at(&self)->u64{self.expires_at}}
 pub struct OfflineLeaseStore<S:CredentialStore,C:NativeClock> {vault:CredentialVault<S>,verifier:OfflineGrantVerifier,clock:C}
 impl<S:CredentialStore,C:NativeClock> OfflineLeaseStore<S,C> {
@@ -45,13 +46,27 @@ impl<S:CredentialStore,C:NativeClock> OfflineLeaseStore<S,C> {
     /// Native admission check. Call before each read/edit/open, and couple the
     /// returned proof to a session generation until that operation completes.
     pub async fn check_access(&self,expected:&WorkspaceContext)->Result<LocalAccess>{
-        self.vault.update_active(&expected.subject_id,|secret|{
+        self.access(Some(expected)).await
+    }
+    pub async fn restore_access(&self)->Result<LocalAccess>{self.access(None).await}
+    async fn access(&self,expected:Option<&WorkspaceContext>)->Result<LocalAccess>{
+        let (mut access,generation)=self.vault.recover_active(|secret|{
             let mut stored:StoredGrant=serde_json::from_slice(secret.expose()).map_err(|_|CredentialError)?;
-            if stored.version!=1||stored.context!=*expected{return Err(CredentialError)}
-            let verified=self.verifier.verify(&stored.grant,expected).map_err(|_|CredentialError)?;
+            if stored.version!=1||expected.is_some_and(|c|stored.context!=*c){return Err(CredentialError)}
+            let verified=self.verifier.verify(&stored.grant,&stored.context).map_err(|_|CredentialError)?;
             let now=self.clock.now()?;verified.check_time(now,stored.high_water).map_err(|_|CredentialError)?;
-            stored.high_water=now;let result=LocalAccess{context:expected.clone(),expires_at:verified.expires_at()};
-            Ok((Secret::new(serde_json::to_vec(&stored).map_err(|_|CredentialError)?)?,result))
+            stored.high_water=now;let result=LocalAccess{context:stored.context.clone(),expires_at:verified.expires_at(),generation:0};
+            Ok((Secret::new(serde_json::to_vec(&stored).map_err(|_|CredentialError)?)?,stored.context.subject_id.clone(),result))
+        }).await?;access.generation=generation;Ok(access)
+    }
+    /// Keep an existing handle fenced to the exact durable lease generation.
+    /// Another process's same-owner grant must not revive or extend it.
+    pub async fn check_bound(&self,access:&LocalAccess)->Result<()> {
+        self.vault.update_generation(&access.context.subject_id,access.generation,|secret|{
+            let mut stored:StoredGrant=serde_json::from_slice(secret.expose()).map_err(|_|CredentialError)?;
+            if stored.version!=1||stored.context!=access.context{return Err(CredentialError)}let verified=self.verifier.verify(&stored.grant,&access.context).map_err(|_|CredentialError)?;
+            if verified.expires_at()!=access.expires_at{return Err(CredentialError)}let now=self.clock.now()?;verified.check_time(now,stored.high_water).map_err(|_|CredentialError)?;stored.high_water=now;
+            Ok((Secret::new(serde_json::to_vec(&stored).map_err(|_|CredentialError)?)?,()))
         }).await
     }
     pub async fn logout(&self)->Result<LogoutResult>{self.vault.logout().await}
@@ -63,27 +78,27 @@ impl<S:CredentialStore,C:NativeClock> OfflineLeaseStore<S,C> {
 /// The existing preview registry is not silently promoted to this boundary.
 pub struct OfflineWorkspaceRegistry<S:CredentialStore,C:NativeClock> {
     lease:OfflineLeaseStore<S,C>,registry:crate::WorkspaceRegistry,
-    active:tokio::sync::Mutex<Option<crate::WorkspaceHandle>>,
+    active:tokio::sync::Mutex<Option<(crate::WorkspaceHandle,LocalAccess)>>,
 }
 impl<S:CredentialStore,C:NativeClock> OfflineWorkspaceRegistry<S,C> {
     pub fn new(lease:OfflineLeaseStore<S,C>,workspace_root:std::path::PathBuf)->Self{Self{lease,registry:crate::WorkspaceRegistry::new(workspace_root),active:tokio::sync::Mutex::new(None)}}
-    async fn close_active(&self,active:&mut Option<crate::WorkspaceHandle>)->Result<()>{if let Some(old)=active.take(){self.registry.close(&old.handle).await.map_err(|_|CredentialError)?;}Ok(())}
+    async fn close_active(&self,active:&mut Option<(crate::WorkspaceHandle,LocalAccess)>)->Result<()>{if let Some((old,_))=active.take(){self.registry.close(&old.handle).await.map_err(|_|CredentialError)?;}Ok(())}
     pub async fn begin_online(&self)->Result<OnlineChallenge>{let mut active=self.active.lock().await;self.close_active(&mut active).await?;self.lease.begin_online().await}
     pub async fn accept_online(&self,challenge:OnlineChallenge,context:WorkspaceContext,token:String)->Result<()>{let _gate=self.active.lock().await;self.lease.accept_online(challenge,context,token).await}
-    pub async fn open(&self,context:WorkspaceContext)->Result<crate::WorkspaceHandle>{let mut active=self.active.lock().await;self.close_active(&mut active).await?;self.lease.check_access(&context).await?;
-        let handle=self.registry.open(context).await.map_err(|_|CredentialError)?;*active=Some(handle.clone());Ok(handle)}
-    pub async fn close(&self,handle:&str)->Result<()>{let mut active=self.active.lock().await;if active.as_ref().is_none_or(|a|a.handle!=handle){return Err(CredentialError)}self.close_active(&mut active).await}
-    pub async fn check(&self,handle:&str)->Result<LocalAccess>{let mut active=self.active.lock().await;let context=active.as_ref().filter(|a|a.handle==handle).ok_or(CredentialError)?.context.clone();
-        match self.lease.check_access(&context).await{Ok(access)=>Ok(access),Err(error)=>{let _=self.close_active(&mut active).await;Err(error)}}}
+    pub async fn open(&self,context:WorkspaceContext)->Result<crate::WorkspaceHandle>{let mut active=self.active.lock().await;self.close_active(&mut active).await?;let access=self.lease.check_access(&context).await?;
+        let handle=self.registry.open(context).await.map_err(|_|CredentialError)?;if self.lease.check_bound(&access).await.is_err(){self.registry.close_all().await;return Err(CredentialError)}*active=Some((handle.clone(),access));Ok(handle)}
+    pub async fn close(&self,handle:&str)->Result<()>{let mut active=self.active.lock().await;if active.as_ref().is_none_or(|(h,_)|h.handle!=handle){return Err(CredentialError)}self.close_active(&mut active).await}
+    pub async fn check(&self,handle:&str)->Result<LocalAccess>{let mut active=self.active.lock().await;let access=active.as_ref().filter(|(h,_)|h.handle==handle).ok_or(CredentialError)?.1.clone();
+        match self.lease.check_bound(&access).await{Ok(())=>Ok(access),Err(error)=>{let _=self.close_active(&mut active).await;Err(error)}}}
     pub async fn execute(&self,handle:&str,request:serde_json::Value)->Result<serde_json::Value>{
-        let mut active=self.active.lock().await;let context=active.as_ref().filter(|a|a.handle==handle).ok_or(CredentialError)?.context.clone();
-        if self.lease.check_access(&context).await.is_err(){let _=self.close_active(&mut active).await;return Err(CredentialError)}
+        let mut active=self.active.lock().await;let access=active.as_ref().filter(|(h,_)|h.handle==handle).ok_or(CredentialError)?.1.clone();
+        if self.lease.check_bound(&access).await.is_err(){let _=self.close_active(&mut active).await;return Err(CredentialError)}
         // Local queues/immutable prepared wires may be created offline. Remote
         // receive/ACK/pull paths require a separate authenticated transport.
         if !crate::workspace_registry::local_command(&request){return Err(CredentialError)}
         // Serialize through the existing SQLite commit. Logout waits for
         // admitted work, then closes the handle without deleting its data.
-        self.registry.execute(handle,request).await.map_err(|_|CredentialError)
+        let result=self.registry.execute(handle,request).await.map_err(|_|CredentialError);let valid=self.lease.check_bound(&access).await;if result.is_err()||valid.is_err(){let _=self.close_active(&mut active).await;}valid?;result
     }
     pub async fn logout(&self)->Result<LogoutResult>{let mut active=self.active.lock().await;let closed=self.close_active(&mut active).await;let locked=self.lease.logout().await;closed?;locked}
 }
@@ -142,4 +157,16 @@ mod tests {
         f.clock.0.store(1000,Ordering::SeqCst);assert!(r.open(context()).await.is_err());let c=r.begin_online().await.unwrap();let t=f.token(c.nonce());r.accept_online(c,context(),t).await.unwrap();let last=r.open(context()).await.unwrap();assert_eq!(r.execute(&last.handle,prepare).await.unwrap(),before);
         r.close(&last.handle).await.unwrap();drop(r);
     }
-}
+    #[tokio::test]
+    async fn same_owner_reissued_grant_does_not_revive_old_registry_handle(){
+        let f=Fixture::new();let r=OfflineWorkspaceRegistry::new(f.open().await,f.root.join("workspaces"));let c=r.begin_online().await.unwrap();let t=f.token(c.nonce());r.accept_online(c,context(),t).await.unwrap();let old=r.open(context()).await.unwrap();let other=f.open().await;f.login(&other).await;
+        assert!(r.execute(&old.handle,json!({"command":"page_list","after":null,"limit":20})).await.is_err());let next=r.open(context()).await.unwrap();assert_ne!(next.handle,old.handle);other.close().await;
+    }    #[tokio::test]
+    async fn native_restore_compares_signed_owner_to_marker_before_returning_context(){
+        let f=Fixture::new();let s=f.open().await;f.login(&s).await;{let mut values=f.os.0.lock().unwrap();for bytes in values.entries.values_mut(){let mut stored:serde_json::Value=serde_json::from_slice(bytes).unwrap();let parts:Vec<_>=stored["grant"].as_str().unwrap().split('.').collect();let mut claims:serde_json::Value=serde_json::from_slice(&URL_SAFE_NO_PAD.decode(parts[1]).unwrap()).unwrap();claims["sub"]=json!("other-owner");let input=format!("{}.{}",parts[0],URL_SAFE_NO_PAD.encode(claims.to_string()));stored["grant"]=json!(format!("{}.{}",input,URL_SAFE_NO_PAD.encode(f.key.sign(input.as_bytes()).to_bytes())));stored["context"]["subjectId"]=json!("other-owner");*bytes=serde_json::to_vec(&stored).unwrap();}}
+        assert!(s.restore_access().await.is_err());assert!(s.restore_access().await.is_err());f.login(&s).await;assert_eq!(s.restore_access().await.unwrap().context(),&context());s.close().await;
+    }
+    #[tokio::test]
+    async fn missing_marker_is_not_recovered_from_os_and_unknown_restore_write_stays_locked(){
+        let f=Fixture::new();let s=f.open().await;f.login(&s).await;s.close().await;std::fs::remove_file(f.root.join("marker.sqlite")).unwrap();let s=f.open().await;assert!(s.restore_access().await.is_err());f.login(&s).await;f.os.0.lock().unwrap().fail_write=true;assert!(s.restore_access().await.is_err());f.os.0.lock().unwrap().fail_write=false;assert!(s.restore_access().await.is_err());s.close().await;
+    }}
