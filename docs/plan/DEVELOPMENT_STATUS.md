@@ -1,5 +1,7 @@
 # Greiva 開発計画・状況・セットアップ
 
+最新checkpoint v0.98.0：[offline起動・編集画面](../development/NATIVE_OFFLINE_SCREEN.md)を接続。起動時にonline/offlineを選択し、offlineは端末一覧・Page作成/保存・Editorだけを提供。期限切れのcompositionとscope付き本文/未作成タイトルを保持し、明示online復帰で全contextを照合する。全単体575/最終画面60・型・Windows候補buildを確認。[証拠](../../tests/evidence/native-offline-screen-20261016/SUMMARY.md)。候補はpin未設定で、次は署名設定済み候補の実offline再起動/復帰・Windows GUI/IME受入。初回の選択準備失敗1件は再確認でPassだが根本原因未特定として保持。以下は過去の記録。
+
 最新checkpoint v0.97.0：[native offline復帰の基盤](../development/NATIVE_OFFLINE_RESUME.md)を追加。OS保管の署名contextを復元し、既存DB限定の専用handleとlocal gate・IPC/client portを接続。元lease世代/期限を各操作前後に検査し、旧handleと送受信を拒否、確定済みpending/wireを保持する。単体567/通常Rust62/実TLS・署名API・PG6/保存層23/既存画面50・型・Windows候補buildを確認。[証拠](../../tests/evidence/native-offline-resume-20261016/SUMMARY.md)。offline起動選択とEditor接続は次工程。候補はpin未設定で、実Windows GUI/IMEは未確認。以下は過去の記録。
 
 最新checkpoint v0.96.0：[native offline許可の準備・期限確認](../development/NATIVE_OFFLINE_PREPARATION.md)を新runtimeへ接続。署名grantを元admissionとnative challengeへ固定してOS保管し、再認証/logoutのlease lock・未知結果の通信なし確認を追加。単体560/通常Rust53/実TLS・署名API・PG6/画面50・型・Windows候補buildを確認。[証拠](../../tests/evidence/native-offline-preparation-20261015/SUMMARY.md)。候補はpublic pin未設定・準備無効で、offline起動/編集は未提供。次は保管contextのnative復元とoffline専用handle/local gate、期限時の入力保全、その後実機受入。以下は過去の記録。

@@ -1,5 +1,7 @@
 # Native offline復帰の保存・実行境界
 
+後続v0.98.0：[offline起動・編集画面](NATIVE_OFFLINE_SCREEN.md)を接続。以下のv0.97.0時点の未接続記録を保持し、画面検証と実Windows受入を区別する。
+
 v0.97.0。[許可の準備](NATIVE_OFFLINE_PREPARATION.md)に続き、OS保管済み許可からのcontext復元、offline専用handle、local-only実行をnative/IPC/client portへ接続した。起動時のoffline選択画面とEditorのmode切替は次工程。現行画面のオンライン自動復元を、この実装だけでoffline対応へ読み替えない。
 
 ## 復元と保管

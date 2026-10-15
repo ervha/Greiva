@@ -1,0 +1,42 @@
+{
+  "version": "0.98.0",
+  "identifier": "dev.greiva.native.fixture",
+  "entry": "native.html",
+  "nativeAuth": true,
+  "legacyCommandsBlocked": true,
+  "sqlPluginEnabled": false,
+  "origins": [
+    "https://project.fixture.invalid"
+  ],
+  "target": "x86_64-pc-windows-msvc",
+  "features": [
+    "custom-protocol"
+  ],
+  "testHooks": false,
+  "testSqlite": false,
+  "crashHooks": false,
+  "builtInDocker": true,
+  "hostLaunched": false,
+  "nativeImeTested": false,
+  "installer": false,
+  "signed": false,
+  "htmlSha256": "957fbbb717a9c692f63b85408c4b1f997d7cb39cccf6e170589bb38c208d513b",
+  "overrideSha256": "e83b789b63199b25fd67b2fd3176ba013acd79d32fc32d8cf1e375471e3ae0c4",
+  "artifacts": [
+    {
+      "file": "greiva-native-preview.exe",
+      "sha256": "184f4f5df698449154308b15fe78db32fa7ea71ab7d21702c17414a5a273e75a",
+      "bytes": 24500736
+    },
+    {
+      "file": "private-profile-inspect.exe",
+      "sha256": "43babac1e798e0a491904dc98fbd71e743bc09ea521867020bcb6c921a06190c",
+      "bytes": 3058688
+    },
+    {
+      "file": "native-auth-profile-inspect.exe",
+      "sha256": "c3e72dac5ec2d41fd4317de7e4deef693111baa45b8793d5dc975e71f594ba81",
+      "bytes": 2121728
+    }
+  ]
+}

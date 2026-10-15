@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.98.0 — 2026-10-16
+
+- native起動時のonline/offline選択とoffline専用のPage一覧・作成・端末保存・Editor表示を接続。選択前に認証更新をせず、offline中は送受信/catalogを提供しない。
+- 期限切れや保存未確認でも本文compositionを確定まで保持し、本文と未作成タイトルをscope付きmemory下書きとして保全。明示online復帰で全contextを照合し、同じPage/pendingを保持する。遅着offline復帰はlogout後に採用しない。
+- 単体575・最終画面60・型・Windows候補build/照合を確認。初回画面57 Pass/3 Failを保持し、旧説明2件を更新、選択準備1件は条件を変えず追加3回と最終回帰でPass。根本原因は未特定。候補はpin未設定、実offline GUI/IME受入は残る。
+
 ## 0.97.0 — 2026-10-16
 
 - OS保管の署名許可からcontextを復元し、既存DBだけを開くoffline専用handleとlocal実行gate、専用IPC/client portを追加。送受信・ACK・pullを許可しない。

@@ -1,0 +1,56 @@
+[
+  {
+    "file": "ui-first.log.gz",
+    "sha256": "a11f218fe74a0be0077db4210d173b64036481e46c8ec4c6c16cb03281c0a98b",
+    "bytes": 26047,
+    "decompressedMatch": true
+  },
+  {
+    "file": "type.log.gz",
+    "sha256": "d8c9888fd6244251b84057da94c8c7c774e055f7e4fdfd187c3bf3dd3cce6885",
+    "bytes": 1177,
+    "decompressedMatch": true
+  },
+  {
+    "file": "ui.log.gz",
+    "sha256": "1c4d493490155fca7082abd66784dfd5f27bdc48e2cf1a539147fd57388196ff",
+    "bytes": 10949,
+    "decompressedMatch": true
+  },
+  {
+    "file": "selection.log.gz",
+    "sha256": "7ae4455604e6aab57d76244d8395ba1ce9318ddd359e6920b68c26c7db778480",
+    "bytes": 560,
+    "decompressedMatch": true
+  },
+  {
+    "file": "unit.log.gz",
+    "sha256": "cfc9c7807c2676b9232fb50e2978d07a015ef44d34e2d541bfdf2955c49eb542",
+    "bytes": 9201,
+    "decompressedMatch": true
+  },
+  {
+    "file": "build.log.gz",
+    "sha256": "dc9a8f6eba3af6ef3b3f62cee13dbbac5f14ef1fab71bc0d63c99279afa1448f",
+    "bytes": 453,
+    "decompressedMatch": true
+  },
+  {
+    "file": "frontend.log.gz",
+    "sha256": "2788d9ae7d8ef5cda7640006b22b917f23947f7ae3b6c81869285b4d4379d476",
+    "bytes": 1620,
+    "decompressedMatch": true
+  },
+  {
+    "file": "windows.log.gz",
+    "sha256": "7309b9efb2e1d6fafc9ec0af313fdf044c7ec76feb1abb094f0904fdb2c75fd9",
+    "bytes": 40995,
+    "decompressedMatch": true
+  },
+  {
+    "bytes": 228,
+    "file": "profile-stderr.log.gz",
+    "sha256": "1ef8111a3363827e4c0688943f6f4704d694c74d361a5e1387c0abecdf5e4008",
+    "decompressedMatch": true
+  }
+]

@@ -2,7 +2,8 @@ import * as Y from 'yjs';
 import {idSchema} from '@greiva/shared';
 import {emptyPageUpdate} from '@greiva/sync';
 import {privatePageLocalLoadSchema} from '@greiva/protocol/private-page';
-import {NativeSessionPort,NativeSessionPortError,type NativeWorkspaceHandle,type NativePageSendStatus,type NativePageReadStatus} from '../auth/native-session-port.js';
+import {NativeSessionPortError,type NativeWorkspaceHandle,type NativePageSendStatus,type NativePageReadStatus} from '../auth/native-session-port.js';
+export type NativePagePort={readonly handle:NativeWorkspaceHandle|null;executeFor(handle:NativeWorkspaceHandle,request:Record<string,unknown>):Promise<unknown>;sendPageFor?(handle:NativeWorkspaceHandle,pageId:string):Promise<NativePageSendStatus>;readPageFor?(handle:NativeWorkspaceHandle,pageId:string):Promise<NativePageReadStatus>};
 export class NativePageError extends Error {constructor(readonly stage:'closed'|'busy'|'protocol'|'storage'|'read_unknown'|'store_pending'){super(`Native Page ${stage}`);this.name='NativePageError';}}
 export type NativePageState=Readonly<{phase:'opening'|'ready'|'closed';title:string;saving:number;pending:number;pendingFresh:boolean;sending:boolean;sendStatus:NativePageSendStatus|null;reading:boolean;readStatus:NativePageReadStatus|null;readError:'load'|'protocol'|null;remoteWaiting:boolean;unsaved:number;composing:boolean;storageError:'storage'|'protocol'|'closed'|null}>;
 export type NativePageDraft=Readonly<{context:NativeWorkspaceHandle['context'];pageId:string;title:string;update:Uint8Array}>;
@@ -14,19 +15,19 @@ export class NativePageSession {
  #remote:{update:Uint8Array;title:string}|null=null;
  #editVersion=0;
  #listeners=new Set<(state:NativePageState)=>void>();#tail:Promise<void>=Promise.resolve();#loadOrigin=Symbol('native journal');#closing:Promise<NativePageDraft|null>|undefined;
- private constructor(private readonly port:NativeSessionPort,readonly bound:NativeWorkspaceHandle,readonly pageId:string){this.clientId=bound.context.clientId;}
+ private constructor(private readonly port:NativePagePort,readonly bound:NativeWorkspaceHandle,readonly pageId:string){this.clientId=bound.context.clientId;}
  get snapshot(){return this.#state;}
  get isComposing(){return this.#state.composing;}
  subscribe(listener:(state:NativePageState)=>void){this.#listeners.add(listener);listener(this.#state);return()=>{this.#listeners.delete(listener);};}
  #patch(patch:Partial<NativePageState>){this.#state=Object.freeze({...this.#state,...patch});for(const listener of this.#listeners){try{listener(this.#state);}catch{/* Never interrupt a write. */}}}
  #check(){if(this.#state.phase==='closed' || this.port.handle!==this.bound)throw new NativePageError('closed');}
  #failure(error:unknown):NativePageError {return error instanceof NativePageError?error:new NativePageError(error instanceof NativeSessionPortError && error.stage==='closed'?'closed':'storage');}
- static async open(port:NativeSessionPort,pageId:string,source:{kind:'local'}|{kind:'remote'}|{kind:'create';title:string}={kind:'local'}):Promise<NativePageSession>{
+ static async open(port:NativePagePort,pageId:string,source:{kind:'local'}|{kind:'remote'}|{kind:'create';title:string}={kind:'local'}):Promise<NativePageSession>{
   const bound=port.handle;if(!bound)throw new NativePageError('closed');try{idSchema.parse(pageId);if(source.kind==='create' && (!source.title.trim() || source.title.length>4096))throw Error();}catch{throw new NativePageError('protocol');}
   const session=new NativePageSession(port,bound,pageId);
   try{
    if(source.kind==='create'){const result=await port.executeFor(bound,{command:'page_create',pageId,title:source.title,update:Array.from(emptyPageUpdate())});if(result!==null)throw new NativePageError('protocol');session.#check();}
-   if(source.kind==='remote'){const status=await port.readPageFor(bound,pageId);session.#check();if(status!=='received')throw new NativePageError(status);}
+   if(source.kind==='remote'){if(!port.readPageFor)throw new NativePageError('closed');const status=await port.readPageFor(bound,pageId);session.#check();if(status!=='received')throw new NativePageError(status);}
    const parsed=privatePageLocalLoadSchema.safeParse(await port.executeFor(bound,{command:'page_load',pageId}));session.#check();
    if(!parsed.success || parsed.data.page.metadata.id!==pageId)throw new NativePageError('protocol');
    try{for(const update of parsed.data.page.updates)Y.applyUpdate(session.document,Uint8Array.from(update),session.#loadOrigin);}catch{throw new NativePageError('protocol');}
@@ -57,6 +58,7 @@ export class NativePageSession {
  lock(){if(this.#state.phase==='ready')this.#patch({storageError:'closed'});}
  durable(){return this.#tail;}
  async send(){
+  if(!this.port.sendPageFor)throw new NativePageError('closed');
   this.#check();if(this.isComposing||this.#state.saving||this.#state.sending||this.#state.reading||this.#state.remoteWaiting||this.#state.storageError)throw new NativePageError('busy');
   const limit=Math.min(32,Math.max(1,this.#state.pending));this.#patch({sending:true,pendingFresh:false,sendStatus:null});
   try{
@@ -74,6 +76,7 @@ export class NativePageSession {
   }
  }
  async read(){
+  if(!this.port.readPageFor)throw new NativePageError('closed');
   this.#check();if(this.isComposing||this.#state.saving||this.#state.sending||this.#state.reading||this.#state.remoteWaiting||this.#state.storageError)throw new NativePageError('busy');
   const localOnly=this.#state.readStatus==='received'&&Boolean(this.#state.readError);this.#patch({reading:true,...(!localOnly?{readStatus:null}:{}),readError:null});
   try{
