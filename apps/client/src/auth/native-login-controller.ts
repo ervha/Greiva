@@ -4,9 +4,9 @@ import {privateLocalPageCatalogResponseSchema,type PrivateLocalPageCatalogRespon
 import {NativeSessionPort,type NativeAuthSnapshot,type NativePageCatalog} from './native-session-port.js';
 import {NativePageSession,NativePageError,type NativePageDraft} from '../editor/native-page-session.js';
 import * as Y from 'yjs';
-type Phase='checking'|'signed_out'|'restoring'|'logging_in'|'verified'|'opening'|'ready'|'loading'|'signing_out'|'unavailable'|'signing_up'|'signup_requested';
+type Phase='checking'|'signed_out'|'restoring'|'reconnecting'|'logging_in'|'verified'|'opening'|'ready'|'loading'|'signing_out'|'unavailable'|'signing_up'|'signup_requested';
 export type NativeLoginSnapshot=Readonly<{phase:Phase;busy:boolean;message:string|null;notice:boolean;pages:PrivateLocalPageCatalogResponse['pages'];hasMore:boolean;remotePages:NativePageCatalog['pages'];remoteHasMore:boolean;remoteLoaded:boolean;remoteBusy:boolean;remoteError:boolean;logoutUnconfirmed:boolean;composing:boolean;saving:number;editorLocked:boolean;hasDraft:boolean}>;
-const busy=['checking','restoring','logging_in','opening','loading','signing_out','signing_up'];
+const busy=['checking','restoring','reconnecting','logging_in','opening','loading','signing_out','signing_up'];
 export class NativeLoginController {
  #phase:Phase='checking';#message:string|null=null;#notice=false;#revision=0;#started=false;#disposed=false;#pages:PrivateLocalPageCatalogResponse['pages']=[];#after:string|null=null;#logoutUnconfirmed=false;
  #remotePages:NativePageCatalog['pages']=[];#remoteHasMore=false;#remoteLoaded=false;#remoteBusy=false;#remoteError=false;
@@ -51,6 +51,24 @@ export class NativeLoginController {
  }
  async login(email:string,password:string){await this.#authenticate('login',email,password);}
  async restore(automatic=false){await this.#authenticate('restore','','',automatic);}
+ // Explicit refresh + bootstrap. Pending/drafts stay in their original scope.
+ async reconnect(){
+  if(this.snapshot.busy||this.#phase!=='ready')return;const previous=this.port.handle;if(!previous)return;const selected=this.#editor?.pageId,refreshCatalog=this.#remoteLoaded;const revision=this.#begin('reconnecting');if(revision===null)return;this.#clear();let candidate:NativePageSession|null=null;
+  try{
+   await this.#endEditor();if(!this.#current(revision))return;await this.port.restore();if(!this.#current(revision))return;const handle=await this.port.open(newId());if(!this.#current(revision))return;
+   if(Object.entries(previous.context).some(([key,value])=>handle.context[key as keyof typeof handle.context]!==value)){
+    await this.port.cancel();if(!this.#current(revision))return;this.#phase='verified';this.#message='接続先が変わったため、以前のPageは開き直しませんでした。workspaceを確認して開いてください。';return;
+   }
+   const rows=await this.#list(null);if(!this.#current(revision))return;
+   if(selected){candidate=await NativePageSession.open(this.port,selected);if(!this.#current(revision))return;}
+   let catalog:NativePageCatalog|null=null,catalogError=false;
+   if(refreshCatalog){try{catalog=await this.port.catalogFor(handle,false);}catch{if(!this.#current(revision))return;catalogError=true;const status=await this.port.status();if(status.phase!=='verified')throw Error();}if(!this.#current(revision))return;}
+   if(this.port.handle!==handle)throw Error();this.#pages=rows.pages;this.#after=rows.nextAfter;this.#remotePages=catalog?.pages??[];this.#remoteHasMore=catalog?.hasMore??false;this.#remoteLoaded=catalog!==null;this.#remoteError=catalogError;
+   if(candidate){this.#adopt(candidate);candidate=null;}this.#phase='ready';this.#notice=true;this.#message=selected?'接続を更新し、端末のPageを開き直しました。':'接続を更新し、端末の一覧を開き直しました。';
+  }catch{
+   if(!this.#current(revision))return;await this.port.cancel().catch(()=>{});if(!this.#current(revision))return;this.#clear();this.#phase=this.port.current.phase==='verified'?'verified':'signed_out';this.#message='再接続を確認できませんでした。端末の保存済み変更と保持した入力を残しています。接続を確認して開き直してください。';
+  }finally{if(candidate)await candidate.close();if(this.#current(revision)){this.#watch(this.port.current);this.#publish();}}
+ }
  async signup(email:string,password:string){
   if(!['signed_out','signup_requested'].includes(this.#phase))return;const revision=this.#begin('signing_up');if(revision===null)return;const abort=new AbortController();this.#signup=abort;
   try{await supabaseSignup(this.registration,email,password,abort.signal,this.fetchPort);if(!this.#current(revision))return;this.#phase='signup_requested';this.#message='登録依頼を受け付けました。確認メールが届いた場合はリンクを開き、この画面へ戻ってログインしてください。';}

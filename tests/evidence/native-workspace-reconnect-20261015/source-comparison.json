@@ -1,0 +1,352 @@
+{
+  "version": "0.95.0",
+  "sha256": "b7db149aa88dbb0fe95900d228610357940142305db15fa92e7422b6df7134a4",
+  "peMachine": "x86_64",
+  "scope": "native + auth screen + build script + manifests",
+  "sourceComparison": [
+    {
+      "path": "apps/api/package.json",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/native.html",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/package.json",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/build.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/capabilities/default.json",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/Cargo.lock",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/Cargo.toml",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/Cargo.lock",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/Cargo.toml",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/examples/credential-crash-driver.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/examples/credential-probe.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/examples/offline-grant-driver.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/examples/offline-lease-probe.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/examples/store-driver.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/examples/workspace-driver.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/examples/workspace-registry-driver.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/schema.sql",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/lib.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/native_credentials.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/native_http_provider.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/native_session.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/native_workspace_gate.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/offline_grant.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/offline_lease.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/private_changes.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/private_database_changes.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/private_database_record_create.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/private_database_record_update.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/private_database_record.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/private_database_source_queue.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/private_database_view_queue.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/private_database_view.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/private_database.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/private_page.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/private_title.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/structured_sync.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/structured.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/workspace_device.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/workspace_registry.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/src/workspace_store.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/structured-sync.sql",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/crates/page-store/structured.sql",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/examples/native-auth-profile-inspect.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/examples/private-profile-inspect.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/src/lib.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/src/main.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/src/native_auth.rs",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src-tauri/tauri.conf.json",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/auth/main.tsx",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/auth/native-login-controller.ts",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/auth/native-main.tsx",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/auth/native-session-port.ts",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/auth/native-style.css",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/auth/NativeAuthScreen.tsx",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/auth/private-login.ts",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/auth/PrivateAuthForm.tsx",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/auth/style.css",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/editor/block-drag.ts",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/editor/blocks.ts",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/editor/collaboration-history.ts",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/editor/collaboration-selection.ts",
+      "match": "LF-text"
+    },
+    {
+      "path": "apps/client/src/editor/details-ux.ts",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/editor/extensions.ts",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/editor/local-page-store.ts",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/editor/native-navigation.ts",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/editor/native-page-session.ts",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/editor/NativeLocalPageEditor.tsx",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/editor/page-session.ts",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/editor/PageEditor.tsx",
+      "match": "LF-text"
+    },
+    {
+      "path": "apps/client/src/editor/placeholders.ts",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/editor/private-page-session.ts",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/editor/PrivatePageEditor.tsx",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/src/editor/suggestion-menu.ts",
+      "match": "raw"
+    },
+    {
+      "path": "apps/client/vite.config.ts",
+      "match": "raw"
+    },
+    {
+      "path": "apps/collaboration/package.json",
+      "match": "raw"
+    },
+    {
+      "path": "package-lock.json",
+      "match": "raw"
+    },
+    {
+      "path": "package.json",
+      "match": "raw"
+    },
+    {
+      "path": "packages/application/package.json",
+      "match": "raw"
+    },
+    {
+      "path": "packages/domain/package.json",
+      "match": "raw"
+    },
+    {
+      "path": "packages/protocol/package.json",
+      "match": "raw"
+    },
+    {
+      "path": "packages/shared/package.json",
+      "match": "raw"
+    },
+    {
+      "path": "packages/sync/package.json",
+      "match": "raw"
+    },
+    {
+      "path": "scripts/build-native-preview.mjs",
+      "match": "raw"
+    },
+    {
+      "path": "scripts/native-preview-profile.ts",
+      "match": "raw"
+    },
+    {
+      "path": "scripts/test-native-http-provider.mjs",
+      "match": "raw"
+    },
+    {
+      "path": "VERSION",
+      "match": "raw"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+[
+  {
+    "decompressedMatch": true,
+    "bytes": 8071,
+    "sha256": "82d6927dc0ad59a3e22bdd1cf0d2f2f6f964794f49dc8a83aff7a7756a57a650",
+    "file": "ui-final.log.gz"
+  },
+  {
+    "decompressedMatch": true,
+    "bytes": 8852,
+    "sha256": "2e7a0d105aa15369256a7d3841759a5649a72558076782216858b76557c32e65",
+    "file": "unit-final.log.gz"
+  },
+  {
+    "decompressedMatch": true,
+    "bytes": 5950,
+    "sha256": "34d2038d683d19036cf30afa13b421d62a4fee69e4bf0d14825c06b96eb771a3",
+    "file": "rust.log.gz"
+  },
+  {
+    "decompressedMatch": true,
+    "bytes": 20290,
+    "sha256": "23f2d69995e32caa847499f97ae1f213ddcfa30064faea6b50fdc22ef62a77f3",
+    "file": "ui-first.log.gz"
+  },
+  {
+    "decompressedMatch": true,
+    "bytes": 1620,
+    "sha256": "699ba4f918e17bfdde47af186b0d07d7ef02dbc0b7601de81cf1b266d2cb4a59",
+    "file": "frontend.log.gz"
+  },
+  {
+    "decompressedMatch": true,
+    "bytes": 1250,
+    "sha256": "b8748262c85c417adcaeb78ca5916331f7776b13f091351fc6f18fd8090e5745",
+    "file": "type-first.log.gz"
+  },
+  {
+    "decompressedMatch": true,
+    "bytes": 4027,
+    "sha256": "d3497c30205562c4223e6aaefbc423adb7d5fa583d43a0eaded37238a6d0f25c",
+    "file": "http.log.gz"
+  },
+  {
+    "decompressedMatch": true,
+    "bytes": 54960,
+    "sha256": "4147bde9ad3f6dfa38ded7a367738beefeae26cce8261ed80a8741e01f9f4fa0",
+    "file": "windows.log.gz"
+  },
+  {
+    "decompressedMatch": true,
+    "bytes": 3796,
+    "sha256": "1eb8ee3b20ca8a5878aa06a0bbde0023f2170c6562b4fb21621f83a36b594808",
+    "file": "target-first.log.gz"
+  },
+  {
+    "decompressedMatch": true,
+    "bytes": 453,
+    "sha256": "7bf44db22737ad6e3556d2da0425b7267bb4f251253fe1d0f3abaa973a151876",
+    "file": "build.log.gz"
+  },
+  {
+    "decompressedMatch": true,
+    "bytes": 1177,
+    "sha256": "1d952be838624da1dbb4803489039080ee88fc5ff9b0384a7fed152adeeb9167",
+    "file": "type-final.log.gz"
+  },
+  {
+    "sha256": "1ef8111a3363827e4c0688943f6f4704d694c74d361a5e1387c0abecdf5e4008",
+    "file": "profile.stderr.log.gz",
+    "decompressedMatch": true,
+    "bytes": 228
+  }
+]

@@ -1,0 +1,10 @@
+{
+  "realIme": false,
+  "nativeGui": false,
+  "initialFailed": 2,
+  "failed": 0,
+  "passed": 44,
+  "scope": "Docker synthetic native IPC double",
+  "desktopMobileTests": 44,
+  "initialPassed": 42
+}

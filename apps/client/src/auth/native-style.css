@@ -13,3 +13,4 @@
 .native-page-list button { max-width:100%; overflow-wrap:anywhere; text-align:left; }
 .native-workspace-layout .editor-panel { padding:20px; box-shadow:none; }
 @media (max-width:780px) { .native-workspace-layout { grid-template-columns:minmax(0,1fr); } }
+.native-actions button[aria-disabled="true"] { opacity:.65; cursor:wait; }

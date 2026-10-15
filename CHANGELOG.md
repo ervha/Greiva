@@ -1,5 +1,11 @@
 # 変更履歴
 
+## 0.95.0 — 2026-10-15
+
+- 「workspaceへ再接続」を追加。認証更新とbootstrap後に全contextを照合し、同じ端末保存Pageへ復帰する。pending/wireとscope付き下書きを保持し、接続先の変更・途中失敗で空Pageを作成しない。
+- 取得済みのサーバー一覧だけを新handleで先頭から確認。logout後の遅着を拒否し、取得/受領cacheと旧cursorを持ち越さない。タイトル入力とkeyboard focusを保持し、composition中の実行・二重再接続を防ぐ。
+- unit556・通常Rust46・実TLS/API/PG5・画面44、型とWindows候補buildを確認。初回unit17 Pass/1 Fail、画面42 Pass/2 Failで見つかった遅着処理とfocus喪失を修正し元ログを保持。実Windows/IME、変更feed・自動再接続・offline lease受入は残る。
+
 ## 0.94.0 — 2026-10-15
 
 - native側に限定したPage一覧取得とcursor管理を追加。workspace/epoch・metadata・順序を検証し、続きの失敗は同じcursorで明示再試行、先頭再取得時は旧cursorを無効化する。

@@ -360,4 +360,10 @@ mod tests {
             if action=="account"{f.provider.0.state.lock().unwrap().owner="owner-B".into();login(&g).await;g.open("01900000-0000-7000-8000-000000000007").await.unwrap();}
             f.provider.0.release.notify_one();assert!(task.await.unwrap().is_err());assert!(g.active.lock().await.catalog.is_none());shutdown(g).await;
         }
+    }    #[tokio::test]
+    async fn native_reconnect_keeps_original_pending_but_drops_receipt_read_cache_and_catalog_cursor(){
+        let f=Fixture::new();let (g,h,wire)=page_fixture(&f).await;g.ack_failure.store(1,Ordering::SeqCst);assert_eq!(g.send_page_status(&h.handle,PAGE).await.unwrap(),PageSendStatus::AckPending);g.read_failure.store(1,Ordering::SeqCst);assert_eq!(g.read_page(&h.handle,PAGE).await.unwrap(),PageReadStatus::StorePending);g.catalog_pages(&h.handle,false).await.unwrap();
+        assert_eq!(g.restore().await.unwrap().phase,Phase::Verified);{let active=g.active.lock().await;assert!(active.receipts.is_empty()&&active.reads.is_empty()&&active.catalog.is_none());}
+        let next=g.open(CLIENT).await.unwrap();assert_eq!(next.context,h.context);assert_ne!(next.handle,h.handle);assert!(g.execute(&h.handle,json!({"command":"page_load","pageId":PAGE})).await.is_err());assert!(g.catalog_pages(&next.handle,true).await.is_err());assert_eq!(g.execute(&next.handle,json!({"command":"page_prepare","pageId":PAGE})).await.unwrap(),wire);assert_eq!(g.execute(&next.handle,json!({"command":"page_load","pageId":PAGE})).await.unwrap()["pending"],1);
+        assert_eq!(g.read_page(&next.handle,PAGE).await.unwrap(),PageReadStatus::Received);assert_eq!(f.provider.0.reads.load(Ordering::SeqCst),2);assert_eq!(g.send_page_status(&next.handle,PAGE).await.unwrap(),PageSendStatus::Acked);assert_eq!(*f.provider.0.sends.lock().unwrap(),vec![wire["wire"].as_str().unwrap().to_owned(),wire["wire"].as_str().unwrap().to_owned()]);shutdown(g).await;
     }}
