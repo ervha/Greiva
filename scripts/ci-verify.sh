@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 set -euo pipefail
 cd /workspace
+mkdir -p /evidence
+# A bind mount belongs to the host runner. Restore ownership even on test failure.
+evidence_owner="$(stat -c '%u:%g' /evidence)"
+restore_evidence_owner() {
+  result=$?
+  trap - EXIT
+  chown -R "$evidence_owner" /evidence || exit 1
+  exit "$result"
+}
+trap restore_evidence_owner EXIT
 mkdir -p /evidence/logs
 # The test typecheck imports API dist declarations. A clean checkout has none.
 npm run build:packages 2>&1 | tee /evidence/logs/packages.log
