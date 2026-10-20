@@ -123,6 +123,17 @@ impl NativeProvider for NativeHttpProvider {
             Ok(WorkspaceRegistration{protocol_version:value.protocol_version,workspace_id:value.workspace_id,client_id:value.client_id,epoch:value.epoch})
         })
     }
+    fn title_send<'a>(&'a self,access:&'a AccessSecret,c:&'a crate::WorkspaceContext,page:&'a str,kind:&'a str,wire:&'a str)->ProviderFuture<'a,serde_json::Value>{Box::pin(async move{
+        if kind!="rename"||c.issuer!=self.issuer||!crate::structured::uuid_v7(&c.workspace_id)||!crate::structured::uuid_v7(page)||wire.is_empty()||wire.len()>1024*1024{return Err(CredentialError)}
+        let bytes=self.call_limited(Method::POST,format!("{}/v1/workspaces/{}/pages/{page}/metadata/rename",self.api,c.workspace_id),Some(access),Some(Zeroizing::new(wire.as_bytes().to_vec())),false,1024*1024).await?;
+        serde_json::from_slice(&bytes).map_err(|_|CredentialError)
+    })}
+    fn title_read<'a>(&'a self,access:&'a AccessSecret,c:&'a crate::WorkspaceContext,page:&'a str)->ProviderFuture<'a,serde_json::Value>{Box::pin(async move{
+        if c.issuer!=self.issuer||!crate::structured::uuid_v7(&c.workspace_id)||!crate::structured::uuid_v7(&c.client_id)||!crate::structured::uuid_v7(page){return Err(CredentialError)}
+        let body=Zeroizing::new(serde_json::to_vec(&serde_json::json!({"protocolVersion":1,"clientId":c.client_id,"afterConflict":null,"limit":50})).map_err(|_|CredentialError)?);
+        let bytes=self.call_limited(Method::POST,format!("{}/v1/workspaces/{}/pages/{page}/metadata/read",self.api,c.workspace_id),Some(access),Some(body),false,8*1024*1024).await?;
+        serde_json::from_slice(&bytes).map_err(|_|CredentialError)
+    })}
     fn page_send<'a>(&'a self,access:&'a AccessSecret,context:&'a crate::WorkspaceContext,page:&'a str,kind:&'a str,wire:&'a str)->ProviderFuture<'a,serde_json::Value> {
         Box::pin(async move {
             // Includes JSON-escaped title plus a maximum-size binary frame.
@@ -246,7 +257,15 @@ mod tests {
         assert!(gate.send_page(&handle.handle,page).await.is_err());assert_eq!(gate.execute(&handle.handle,request.clone()).await.unwrap(),before);
         assert!(gate.send_page(&handle.handle,page).await.unwrap());
         gate.execute(&handle.handle,serde_json::json!({"command":"page_append","pageId":page,"update":frames[1]})).await.unwrap();assert!(gate.send_page(&handle.handle,page).await.unwrap());assert!(!gate.send_page(&handle.handle,page).await.unwrap());
-        let local=gate.execute(&handle.handle,serde_json::json!({"command":"page_load","pageId":page})).await.unwrap();assert_eq!(local["pending"],0);assert_eq!(local["page"]["updates"],serde_json::json!(frames));gate.shutdown().await;
+        let local=gate.execute(&handle.handle,serde_json::json!({"command":"page_load","pageId":page})).await.unwrap();assert_eq!(local["pending"],0);assert_eq!(local["page"]["updates"],serde_json::json!(frames));
+        use crate::native_workspace_gate::{TitleSendStatus,PageReadStatus};
+        assert_eq!(gate.read_title(&handle.handle,page).await.unwrap(),PageReadStatus::ReadUnknown);
+        assert_eq!(gate.read_title(&handle.handle,page).await.unwrap(),PageReadStatus::Received);
+        gate.execute(&handle.handle,serde_json::json!({"command":"title_enqueue","pageId":page,"intent":{"operationId":"01900000-0000-7000-8000-000000000062","title":"native HTTP renamed"}})).await.unwrap();
+        let title_request=serde_json::json!({"command":"title_prepare","pageId":page});let original=gate.execute(&handle.handle,title_request.clone()).await.unwrap();
+        for _ in 0..2{assert_eq!(gate.send_title_status(&handle.handle,page).await.unwrap(),TitleSendStatus::SendUnknown);assert_eq!(gate.execute(&handle.handle,title_request.clone()).await.unwrap(),original);}
+        assert_eq!(gate.send_title_status(&handle.handle,page).await.unwrap(),TitleSendStatus::Applied);
+        let title=gate.execute(&handle.handle,serde_json::json!({"command":"title_load","pageId":page,"afterOperation":null,"afterConflict":null,"limit":50})).await.unwrap();assert_eq!(title["pending"],0);assert_eq!(title["localTitle"],"native HTTP renamed");gate.shutdown().await;
         let store=crate::WorkspaceStore::open(&root.join("workspaces").join(format!("{:x}.sqlite",sha2::Sha256::digest(serde_json::to_vec(&handle.context).unwrap()))),handle.context).await.unwrap();assert_eq!(store.page_prepare(page).await.unwrap(),serde_json::Value::Null);drop(store);std::fs::remove_dir_all(root).unwrap();
     }
     #[tokio::test]

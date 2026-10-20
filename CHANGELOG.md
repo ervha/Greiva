@@ -1,14 +1,9 @@
 ## 0.99.0 — 2026-10-20
 
-- native UIおよびPageセッションへのタイトル／メタデータ統合（M2-①）。新機能の実装に基づきリポジトリ規約に従ってMINOR版 0.99.0 へ更新。
-- apps/client/src/editor/native-page-session.ts: setTitle(title) によるタイトル変更API、文字数（4096以下）・UTF-8バイト長（4096以下）・Unicode制御文字（/\p{Control}/u）の厳格検証、#editVersion インクリメントと購読者への状態通知、ローカル #tail への非同期 title_enqueue 保存キュー発行を実装。
-- pre-bootstrap時（未採番・未ACKの初期タイトルベース時）のタイトル編集を保持（#preBootstrapTitle）し、bootstrap受領（send() の ACK）および read() 完了時に自動再送キューイングする機構を導入。真のストレージ／SQLite障害時は確実に storageError を表面化して永続化失敗を通知。
-- read() 実行中に発生した最新のタイトル編集を保護し、非同期 page_load による古いタイトルの上書きを防止。
-- apps/client/src/editor/PageEditor.tsx: タイトル入力欄（<input className="page-title">）へ onCompositionStart / onCompositionEnd を接続し、タイトル入力中のIME合成状態をセッションへ伝播。合成確定前の画面アンマウント・ログアウト・切断処理を防止。
-- docs/plan/NATIVE_INTEGRATION_CONTRACTS.md: title_enqueue のプロトコルスキーマ整合（baseVersion の除外）。
-- apps/client/src/auth/native-login-controller.ts: adopt() によるアクティブエディタのタイトル変更監視とページカタログ（sidebar等）への動的タイトル反映、およびページ切替時におけるドラフトタイトルの保持（keepDraft()）を実装。
-- 単体テストの追加およびCIベースライン更新。全単体テスト、レポート検証、画面回帰、型検査がPassすることを確認。
-- アプリ所有manifest（package.json, 各package, Tauri, Cargo）および package-lock.json を0.99.0へ整合。
+- 新native入口にタイトル編集・Page一覧への反映・context付き下書き復元を接続。空タイトル、保存失敗、保存中の表示、composition中と取得待ちの入力保護を改善。
+- タイトルの明示送信・取得を認証済みRust gateから既存metadata APIへ接続。元wireとadmissionを維持し、結果不明、受領記録未確認、競合、拒否を本文の状態と区別。既知受領の再確認ではHTTPを繰り返さない。
+- 版付きbaseが未取得の編集はメモリ下書きと明示。本文送信後のタイトル取得で保存可能にし、永続化失敗をエラー文言で成功扱いしない。競合候補の表示までを接続し、明示解決UIと履歴全件paginationは未接続。
+- MINOR版へアプリ所有manifest/lockfileを整合。Dockerの型・unit・desktop/mobile回帰に加え、Rustと実HTTP/API/PostgreSQLで関連境界を検証。最新Windows実機/実IME受入・M2全体の完了は主張しない。
 
 ## 0.98.3 — 2026-10-20
 

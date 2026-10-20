@@ -1,6 +1,16 @@
 # Native機能統合契約と未接続箇所一覧（M2）
 
-2026-10-20策定。ロードマップ（`docs/plan/DEVELOPMENT_ROADMAP_20261020.md`）の **M2（native機能統合）** に向け、既存の機能基盤（Rust/SQLite・API/PostgreSQL・TypeScript同期ロジック）を新native入口（`NativeAuthScreen` / `NativeLoginController` / `NativeWorkspaceGate`）へ安全に接続するための統合契約、未接続箇所一覧、および移行順序を定義する。
+2026-10-20策定。ロードマップ（`docs/plan/DEVELOPMENT_ROADMAP_20261020.md`）の **M2（native機能統合）** に向けた契約。以下の一覧は着手時点の差分であり、タイトルの更新状況は次節を正とする。
+
+## 0. v0.99.0の接続範囲
+
+- タイトル編集、一覧への反映、`title_ready` による保存可否確認、SQLiteへの意図の記録を接続。文字数とUTF-8長は0〜4096、制御文字不可。空タイトルも下書き復元の対象。
+- 版付きbaseとbootstrap受領が揃わない場合、タイトルはcontext付きメモリ下書き。画面で未保存を明示し、強制終了を越える保持を保証しない。本文の明示送信後「タイトルを取得」で版を読み、保持した意図を保存する。エラー文言の解析で保存成功を推定しない。
+- 本文とタイトルは独立した明示操作。「タイトルを送信」はnativeが元のwireを準備し、`/v1/workspaces/:workspaceId/pages/:pageId/metadata/rename`へ送信、受領を検証して記録する。「タイトルを取得」は同prefixの`/metadata/read`へnative生成リクエストを送る。callerはhandleとpageIdだけを渡す。
+- HTTPとローカルACKは元のadmission/世代に束縛。結果不明では自動再送せず元wireを保持、既知受領のcommit未確認はnativeキャッシュからHTTPなしで再確認。再認証・logout・closeでキャッシュを破棄する。offlineからのリモート操作は拒否する。
+- 保存中、メモリ下書き、未送信数不明、送信結果不明、受領記録未確認、競合、拒否を分けて表示。タイトル書込みもsavingに数え、失敗したtailはdurableで拒否しつつ未処理rejectionを防ぐ。
+- タイトルと本文のcompositionで移動/送受信を止め、取得待ち中と反映待ち中の両方で新しいタイトルを保護する。合成イベントのDocker回帰は実Microsoft IMEの受入を代替しない。
+- 競合のbase/local/remoteと履歴は保持・表示する。新native画面からの明示解決UI、履歴全件paginationは次の統合単位。Task/Relation、基本DB、M1の最新実機受入は未完了。
 
 ---
 
@@ -30,7 +40,7 @@
 | --- | --- | --- |
 | **Rust / SQLite** | `private_title.rs` に `title_enqueue`, `title_prepare`, `title_ack`, `title_receive`, `title_load` 実装済み。 | 接続済み（`WorkspaceRegistry` / `local_command` で許可済み）。 |
 | **Rust / Gate** | `NativeWorkspaceGate` に `send_page_status`, `read_page`, `catalog_pages` のみ存在。 | タイトルの安全な送信（`title_send`）・受信（`title_read`）または Page 送受信との連動が必要。 |
-| **API / Server** | `/private/workspaces/:workspaceId/pages/:pageId/rename`, `/metadata/read` エンドポイント提供済み。 | 接続可能（既存エンドポイントを再利用）。 |
+| **API / Server** | `/v1/workspaces/:workspaceId/pages/:pageId/metadata/rename`, `/metadata/read` エンドポイント提供済み。 | 接続可能（既存エンドポイントを再利用）。 |
 | **TS / Client** | `NativePageSession` は初期ロード時の title のみ保持。`setTitle` が未実装。 | `NativePageSession.setTitle(title)` を実装し、ローカルへのタイトル変更キューイング（`title_enqueue` または `page_create`/メタデータ更新）を接続。 |
 | **UI / Screen** | `NativeLocalPageEditor` で `session.setTitle` が渡されず、input が readOnly。 | タイトル入力欄を活性化し、ローカル保存・Page一覧（`NativeAuthScreen` の `state.pages`）のタイトル反映を連動。 |
 
@@ -63,7 +73,7 @@ M2-① では、安全境界を維持しつつ最も小さく確実に動作す�
 ### 3.1. ローカル入力とタイトル変更保存
 1. `NativePageSession` に `setTitle(title: string)` を追加。
    - `PageEditor` のタイトル変更ハンドラ（`onChange`）から呼び出し可能にする。
-   - 入力文字数の検証（1〜4096文字、制御文字検証）を行う。
+   - 入力文字数の検証（0〜4096文字、制御文字検証）を行う。
 2. タイトル変更はローカルストアへ即時反映：
    - `executeFor(handle, { command: 'title_enqueue', pageId, intent: { operationId, title } })` を実行。
    - セッションの `snapshot.title` を更新し、リスナーへ通知。

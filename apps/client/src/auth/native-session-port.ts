@@ -9,6 +9,7 @@ export class NativeSessionPortError extends Error {constructor(readonly stage:'c
 type InvokePort=(command:string,args?:Record<string,unknown>)=>Promise<unknown>;
 export type NativeWorkspaceHandle=Readonly<{handle:string;context:WorkspaceSyncContext}>;
 export type NativePageSendStatus='idle'|'acked'|'send_unknown'|'ack_pending';
+export type NativeTitleSendStatus='idle'|'applied'|'conflict'|'rejected'|'send_unknown'|'ack_pending';
 export type NativePageReadStatus='received'|'read_unknown'|'store_pending';
 export type NativePageCatalog=Readonly<{pages:readonly ReturnType<typeof pageSchema.parse>[];hasMore:boolean}>;
 export type NativeOfflinePreparation=Readonly<{available:boolean;expiresAt:number|null}>;
@@ -78,6 +79,16 @@ export class NativeSessionPort {
  async readPageFor(handle:NativeWorkspaceHandle,pageId:string):Promise<NativePageReadStatus>{
   this.#check();if(this.handle!==handle)throw new NativeSessionPortError('closed');try{idSchema.parse(pageId);}catch{throw new NativeSessionPortError('protocol');}const revision=this.#revision;
   const row=object(await this.#call('native_page_read',{handle:handle.handle,pageId},revision),['status']);
+  if(this.handle!==handle)throw new NativeSessionPortError('closed');if(typeof row.status!=='string'||!['received','read_unknown','store_pending'].includes(row.status))throw new NativeSessionPortError('protocol');return row.status as NativePageReadStatus;
+ }
+ async sendTitleFor(handle:NativeWorkspaceHandle,pageId:string):Promise<NativeTitleSendStatus>{
+  this.#check();if(this.handle!==handle)throw new NativeSessionPortError('closed');try{idSchema.parse(pageId);}catch{throw new NativeSessionPortError('protocol');}const revision=this.#revision;
+  const row=object(await this.#call('native_title_send',{handle:handle.handle,pageId},revision),['status']);
+  if(this.handle!==handle)throw new NativeSessionPortError('closed');if(typeof row.status!=='string'||!['idle','applied','conflict','rejected','send_unknown','ack_pending'].includes(row.status))throw new NativeSessionPortError('protocol');return row.status as NativeTitleSendStatus;
+ }
+ async readTitleFor(handle:NativeWorkspaceHandle,pageId:string):Promise<NativePageReadStatus>{
+  this.#check();if(this.handle!==handle)throw new NativeSessionPortError('closed');try{idSchema.parse(pageId);}catch{throw new NativeSessionPortError('protocol');}const revision=this.#revision;
+  const row=object(await this.#call('native_title_read',{handle:handle.handle,pageId},revision),['status']);
   if(this.handle!==handle)throw new NativeSessionPortError('closed');if(typeof row.status!=='string'||!['received','read_unknown','store_pending'].includes(row.status))throw new NativeSessionPortError('protocol');return row.status as NativePageReadStatus;
  }
  async catalogFor(handle:NativeWorkspaceHandle,more=false):Promise<NativePageCatalog>{

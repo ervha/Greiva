@@ -1,4 +1,4 @@
-import { memo, useEffect, useMemo } from 'react';
+import { memo, useEffect, useMemo, useRef } from 'react';
 import { EditorContent, useEditor, useEditorState } from '@tiptap/react';
 import { adjacentBlockMove, canMoveAdjacentBlock } from './blocks';
 import { blockCommands, editorExtensions } from './extensions';
@@ -17,6 +17,8 @@ const pageEditorProps: EditorProps = {
 // Save/network reports do not change these props. Internal editor state still
 // updates the toolbar, and title/storage-error changes still render normally.
 export const PageEditor = memo(function PageEditor({ session, title, storageError }: { session: PageEditorSession; title: string; storageError: string | null }) {
+  const titleFrame=useRef<number|undefined>(undefined);
+  useEffect(()=>()=>{if(titleFrame.current!==undefined)cancelAnimationFrame(titleFrame.current);},[session]);
   // Save/ACK indicators rerender the parent frequently. Stable extension and
   // NodeView identities keep those status changes from disturbing DOM selection.
   const extensions = useMemo(() => editorExtensions(session.document), [session.document]);
@@ -70,7 +72,7 @@ export const PageEditor = memo(function PageEditor({ session, title, storageErro
     if (tr) { editor.view.dispatch(tr); editor.view.focus(); }
   };
   return <section className="editor-panel" aria-label="Page Editor">
-    <input className="page-title" aria-label="Pageタイトル" placeholder="無題のPage" value={title} readOnly={!session.setTitle} disabled={Boolean(storageError)} onChange={e => session.setTitle?.(e.target.value)} onCompositionStart={() => session.setComposing?.(true)} onCompositionEnd={() => session.setComposing?.(false)} />
+    <input className="page-title" aria-label="Pageタイトル" placeholder="無題のPage" value={title} readOnly={!session.setTitle} disabled={Boolean(storageError)} onChange={e => session.setTitle?.(e.target.value)} onCompositionStart={() => {if(titleFrame.current!==undefined)cancelAnimationFrame(titleFrame.current);session.setComposing?.(true);}} onCompositionEnd={e => {const input=e.currentTarget;titleFrame.current=requestAnimationFrame(()=>{titleFrame.current=undefined;session.setTitle?.(input.value);session.setComposing?.(false);});}} />
     <div className="editor-toolbar" role="toolbar" aria-label="編集操作">
       <button type="button" disabled={Boolean(storageError) || !state?.undo} onClick={() => editor.chain().focus().undo().run()}>元に戻す</button>
       <button type="button" disabled={Boolean(storageError) || !state?.redo} onClick={() => editor.chain().focus().redo().run()}>やり直す</button>
