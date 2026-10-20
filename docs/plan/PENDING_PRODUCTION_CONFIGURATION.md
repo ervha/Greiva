@@ -50,14 +50,14 @@ v0.13.0までの[継続開発118判断のまとめ](AUTONOMOUS_DECISIONS.md)を�
 
 | 事項 | 必要な情報/環境 | 状態と先行できる作業 |
 | --- | --- | --- |
-| 実Auth検証 | 検証ユーザーのbrowser入力、後続native UI/OS credential保存 | 専用auth.htmlと保護proxyを実装。公開設定/不正署名拒否は確認済み、正常実login/失効/端末間同期は未確認。後で操作をまとめる。今は操作依頼なし、password/tokenをチャットへ求めない |
+| 実Auth検証 | 検証ユーザーのbrowser入力、後続native UI/OS credential保存 | v0.82.0で実登録・正常login・保存/同期を限定確認。新native入口のrefresh/失効/offline通し受入は残る。隔離候補/手順を先に準備し、必要時だけ操作をまとめる。password/tokenをチャットへ求めない |
 | 本番接続/配布 | API/collaboration/Auth endpoint、署名/配布先/credential管理 | 未設定。public deploy/課金/ホストglobal toolchain追加をしない |
-| offline/logout/失効 | OS保管/7日offline/同account復帰 | 2026-10-13全Aで[方針確定](NATIVE_SESSION_POLICY.md)。logoutはデータ/pending保持・ロック。native adapter/grantの実装と受入が残る |
+| offline/logout/失効 | OS保管/7日offline/同account復帰 | 2026-10-13全Aで[方針確定](NATIVE_SESSION_POLICY.md)。logoutはデータ/pending保持・ロック。native adapter/grant/復帰/画面は実装済み。署名pin設定済み候補での最新Windows受入が残る |
 | 旧PoC取り込み | 初期提供の有無、workspace帰属、旧pending/ACK/cursor/titleの扱い | 未決定。旧DBを移行・消去せず新contract/fixtureを先行 |
 | Android通常アプリ/最終native | build環境・実SQLite/lifecycle、必要時のPixel 7接続 | browserの旧試験をNative合格へ転用しない。今は追加手操作を依頼しない |
 | 規約/ポリシーの公開条件 | 運営者/窓口、年齢/料金/適用時点、責任/紛争、Provider/取扱国、保持/削除/backup | 日本先行は回答済み。[公開計画](TERMS_PRIVACY_POLICY_PLAN.md)で未確定値を明示し、実装と文言を公開前に照合 |
 | 任意改善データ | 送信先・schema/目的版、各保持期間/queue上限、同意台帳/削除運用 | エラー・性能のみは回答済み。初期OFF・端末ごと同意の[設計](PRIVACY_TELEMETRY_SPEC.md)。未実装/未収集。現在追加回答待ちなし |
 
-現在の実装はproduction adapterへ未接続の段階。旧PoCの未認可HTTP/CRDT経路を公開してよい状態ではない。Computer Useは解除済み、旧試験Page/DBを保持。
+2026-10-20：新native入口はPageの認証/保存/明示同期/offline画面まで接続済み。旧workspaceのタイトル/Task/基本DB等の経路統合と最新実機受入は別工程。[現行ロードマップ](DEVELOPMENT_ROADMAP_20261020.md)に従う。旧PoCの未認可HTTP/CRDT経路を公開せず、旧試験Page/DBを保持する。
 
 追加操作はまとめて必要な時点で依頼し、各区切りを停止理由にしない。Supabase公開設定確認後も、上表で独立する作業を続ける。秘密credentialをgit/chat/evidenceへ記録しない。
