@@ -27,12 +27,12 @@
 5. 作業ブランチをpushし、baseを`main`にしたGitHub PRを作成/更新する。変更内容、関連テスト、未確認事項を記載する。開発変更を`main`へ直接pushしない。
 6. 最新PR headの関連テストとGitHub Actionsの結果、レビュー、競合を確認する。失敗やblocking指摘は修正して再検証する。required testの未実行/skip/cancelをPassに読み替えず、必要な結果が欠ける場合はマージしない。Docker CIの範囲外の変更には追加の関連検証が必要。
 7. 問題がなければPRをマージする。通常はmerge commitで元の検証済みコミットを保持する。マージは利用者から継続許可済みであり、区切りごとの再確認を求めない。checksや権限で止まる場合は未完了として理由を報告する。
-8. merge済みの`main`に含まれる検証済みコミットへannotated tagを付け、そのタグだけをpushする。通常はPR headをタグ対象にする。squash/rebase等でcommitが置き換わった場合は、対応するmerge済みcommitを照合し、必要な検証を行ってからタグを作る。公開済みタグは移動しない。
+8. `main`へfast-forward同期し、実際のmerge commitを対象にした関連テスト/GitHub Actionsがすべて成功したことを確認する。PRのCIは合成merge refを検査するため、PR headそのものの検証と混同しない。post-mergeチェックの失敗は新しい修正PRで解消し、未確認のままタグを公開しない。成功したmain commitのSHAを記録し、その同じSHAへannotated tagを付け、対象タグだけをpushする。公開済みタグは移動しない。
 9. local `main`をfast-forwardで同期し、PRのmerged状態・remote tag・作業ツリーを確認する。PR番号、確認したActions結果と未確認事項を報告して完了とする。マージ後のActionsが失敗した場合も未解決として修正を続ける。
 
 pushでは対象のタグ名を指定し、無関係なローカルタグをまとめて送らない。公開済みのタグは移動・上書きせず、修正は次の番号で記録する。確認済みの過去のバージョンは履歴として保持する。
 
-GitHub Actionsの`Docker verification`は型検査・全unit・native認証/編集画面のdesktop/mobile回帰をDockerで実行する基準CI。実Windows/IME、実account、Postgres連携、Rust保存層、性能等の全Gateを代替しない。CIログとレポートはActions artifactへ保存し、必要な証拠だけを`tests/evidence/`へ選択する。
+GitHub Actionsの`Docker verification`は型検査・全unit・native認証/編集画面のdesktop/mobile回帰をDockerで実行する基準CI。実Windows/IME、実account、Postgres連携、Rust保存層、性能等の全Gateを代替しない。CIはJSONレポートも検査し、skip/pending/flaky/retry、想定件数やprojectの欠落を拒否する。試験を追加/変更する場合は`scripts/ci-test-baseline.json`の件数も同じPRでレビューする。CIログとレポートはActions artifactへ保存し、必要な証拠だけを`tests/evidence/`へ選択する。
 
 ## 3. 開発チェックポイントと実行物
 
