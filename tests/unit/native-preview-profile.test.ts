@@ -26,6 +26,8 @@ it('NATIVE-PREVIEW: offline pin rejects partial, non-canonical, or non-https con
  expect(()=>validateNativeOfflinePin({...fixturePin,issuer:'https://auth.invalid?q=1'})).toThrow('Invalid native offline public configuration');
  expect(()=>validateNativeOfflinePin({...fixturePin,publicKeyHex:fixturePin.publicKeyHex.toUpperCase()})).toThrow('Invalid native offline public configuration');
  expect(()=>validateNativeOfflinePin({...fixturePin,publicKeyHex:'0123'})).toThrow('Invalid native offline public configuration');
+ expect(()=>validateNativeOfflinePin({...fixturePin,publicKeyHex:'0'.repeat(64)})).toThrow('Invalid native offline public configuration');
+ expect(()=>validateNativeOfflinePin({...fixturePin,publicKeyHex:'ecffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff7f'})).toThrow('Invalid native offline public configuration');
  expect(()=>validateNativeOfflinePin({...fixturePin,kid:'bad kid with spaces'})).toThrow('Invalid native offline public configuration');
  expect(()=>validateNativeOfflinePin({...fixturePin,audience:'control\x00char'})).toThrow('Invalid native offline public configuration');
  expect(()=>nativePreviewProfile(privatePreviewProfile({VITE_GREIVA_SUPABASE_URL:'https://project.fixture.invalid',VITE_GREIVA_SUPABASE_ALGORITHM:'ES256',VITE_GREIVA_SUPABASE_PUBLISHABLE_KEY:'sb_publishable_fixture',VITE_GREIVA_PRIVATE_API_ORIGIN:'http://127.0.0.1:1439'}),{env:{GREIVA_NATIVE_OFFLINE_ISSUER:'https://auth.invalid'}})).toThrow('Complete explicit native offline public configuration required');
