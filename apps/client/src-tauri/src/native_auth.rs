@@ -114,6 +114,16 @@ pub(crate) async fn native_page_read(handle:String,page_id:String,state:tauri::S
     #[cfg(not(windows))]{let _=(handle,page_id,state);Err(REJECTED.into())}
 }
 #[tauri::command]
+pub(crate) async fn native_title_send(handle:String,page_id:String,state:tauri::State<'_,Runtime>)->Result<Value>{
+    #[cfg(windows)]{let status=state.get().await?.send_title_status(&handle,&page_id).await.map_err(|_|REJECTED)?;Ok(json!({"status":status}))}
+    #[cfg(not(windows))]{let _=(handle,page_id,state);Err(REJECTED.into())}
+}
+#[tauri::command]
+pub(crate) async fn native_title_read(handle:String,page_id:String,state:tauri::State<'_,Runtime>)->Result<Value>{
+    #[cfg(windows)]{let status=state.get().await?.read_title(&handle,&page_id).await.map_err(|_|REJECTED)?;Ok(json!({"status":status}))}
+    #[cfg(not(windows))]{let _=(handle,page_id,state);Err(REJECTED.into())}
+}
+#[tauri::command]
 pub(crate) async fn native_page_catalog(handle:String,more:bool,state:tauri::State<'_,Runtime>)->Result<Value>{
     #[cfg(windows)]{serde_json::to_value(state.get().await?.catalog_pages(&handle,more).await.map_err(|_|REJECTED)?).map_err(|_|REJECTED.into())}
     #[cfg(not(windows))]{let _=(handle,more,state);Err(REJECTED.into())}

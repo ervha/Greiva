@@ -23,7 +23,7 @@ pub(crate) fn local_command(request:&Value)->bool {
         "database_record_create_enqueue"|"database_record_create_prepare"|"database_record_create_queue"|
         "database_source_enqueue"|"database_source_prepare"|"database_source_queue"|"database_changes_load"|
         "database_view_load"|"database_view_list"|"database_record_load"|"database_record_list"|"database_source_load"|"database_source_list"|
-        "snapshot"|"mutate"|"prepare"|"title_enqueue"|"changes_load"|"title_prepare"|"title_load"|
+        "snapshot"|"mutate"|"prepare"|"title_ready"|"title_enqueue"|"changes_load"|"title_prepare"|"title_load"|
         "page_create"|"page_append"|"page_load"|"page_exists"|"page_list"|"page_prepare"))
 }
 impl WorkspaceRegistry {
@@ -92,6 +92,8 @@ impl WorkspaceRegistry {
             "prepare"=>{exact(&request,&["command"])?;Ok(store.prepare().await?.map(Value::String).unwrap_or(Value::Null))},
             "ack"=>{exact(&request,&["command","wire","response"])?;store.acknowledge(text(&request,"wire")?.into(),request["response"].clone()).await?;Ok(Value::Null)},
             "pull"=>{exact(&request,&["command","request","response"])?;store.apply_pull(request["request"].clone(),request["response"].clone()).await?;Ok(Value::Null)},
+            "title_validate"=>{exact(&request,&["command","pageId","sequence","wire","response"])?;store.title_validate(text(&request,"pageId")?,text(&request,"sequence")?,text(&request,"wire")?,request["response"].clone()).await?;Ok(Value::Null)},
+            "title_ready"=>{exact(&request,&["command","pageId"])?;Ok(Value::Bool(store.title_ready(text(&request,"pageId")?).await?))},
             "title_enqueue"=>{exact(&request,&["command","pageId","intent"])?;store.title_enqueue(text(&request,"pageId")?,request["intent"].clone()).await?;Ok(Value::Null)},
             "changes_receive"=>{exact(&request,&["command","request","response"])?;store.changes_receive(request["request"].clone(),request["response"].clone()).await?;Ok(Value::Null)},
             "changes_load"=>{exact(&request,&["command","afterPage","limit"])?;let after=if request["afterPage"].is_null(){None}else{Some(text(&request,"afterPage")?)};let limit=request["limit"].as_u64().filter(|n|*n<=100).ok_or(REJECTED)? as usize;store.changes_load(after,limit).await},

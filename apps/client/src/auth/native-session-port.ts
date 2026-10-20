@@ -5,10 +5,11 @@ import {pageSchema} from '@greiva/protocol';
 import type {WorkspaceSyncContext} from '@greiva/sync';
 export type NativeAuthSnapshot=Readonly<{available:boolean;phase:'unavailable'|'locked'|'authenticating'|'refreshing'|'verified';expiresAt:number|null}>;
 export type NativeLogout=Readonly<{localLocked:true;persistentLocked:boolean;cleanupPending:boolean|null;providerConfirmed:boolean}>;
-export class NativeSessionPortError extends Error {constructor(readonly stage:'configuration'|'closed'|'busy'|'credentials'|'protocol'|'unavailable'){super(`Native session ${stage}`);this.name='NativeSessionPortError';}}
+export class NativeSessionPortError extends Error {constructor(readonly stage:'configuration'|'closed'|'busy'|'credentials'|'protocol'|'unavailable',options?:ErrorOptions){super(`Native session ${stage}`,options);this.name='NativeSessionPortError';}}
 type InvokePort=(command:string,args?:Record<string,unknown>)=>Promise<unknown>;
 export type NativeWorkspaceHandle=Readonly<{handle:string;context:WorkspaceSyncContext}>;
 export type NativePageSendStatus='idle'|'acked'|'send_unknown'|'ack_pending';
+export type NativeTitleSendStatus='idle'|'applied'|'conflict'|'rejected'|'send_unknown'|'ack_pending';
 export type NativePageReadStatus='received'|'read_unknown'|'store_pending';
 export type NativePageCatalog=Readonly<{pages:readonly ReturnType<typeof pageSchema.parse>[];hasMore:boolean}>;
 export type NativeOfflinePreparation=Readonly<{available:boolean;expiresAt:number|null}>;
@@ -33,12 +34,12 @@ export class NativeSessionPort {
  constructor(private readonly invokePort:InvokePort=invoke,private readonly now=()=>Math.floor(Date.now()/1000)){
   if(invokePort===invoke && !isTauri())throw new NativeSessionPortError('configuration');
  }
- get current():NativeAuthSnapshot {return this.#snapshot.phase==='verified' && this.#snapshot.expiresAt!<=this.now()?Object.freeze({available:true,phase:'locked',expiresAt:null}):this.#snapshot;}
+ get current():NativeAuthSnapshot {return this.#snapshot.phase==='verified' && this.#snapshot.expiresAt!<=this.now()?Object.freeze({available:true,phase:'locked',expiresAt:null}):this.#snapshot;};
  get handle():Handle|null {return this.current.phase==='verified'?this.#handle:null;}
  #check(revision=this.#revision){if(this.#disposed || revision!==this.#revision)throw new NativeSessionPortError('closed');}
  #begin(){this.#check();const revision=++this.#revision;this.#handle=null;this.#catalogBusy=false;++this.#catalogRevision;return revision;}
  async #call(command:string,args:Record<string,unknown>|undefined,revision:number){
-  this.#check(revision);let value:unknown;try{const port=this.invokePort;value=await port(command,args);}catch{this.#check(revision);throw new NativeSessionPortError('unavailable');}this.#check(revision);return value;
+  this.#check(revision);let value:unknown;try{const port=this.invokePort;value=await port(command,args);}catch(error){this.#check(revision);throw new NativeSessionPortError('unavailable',command.startsWith('native_auth_')?undefined:{cause:error});}this.#check(revision);return value;
  }
  async status(){const revision=this.#revision;const next=snapshot(await this.#call('native_auth_status',undefined,revision));this.#snapshot=next;if(next.phase!=='verified')this.#handle=null;return this.current;}
  async #authenticate(command:'native_auth_login'|'native_auth_restore',args?:Record<string,unknown>){
@@ -78,6 +79,16 @@ export class NativeSessionPort {
  async readPageFor(handle:NativeWorkspaceHandle,pageId:string):Promise<NativePageReadStatus>{
   this.#check();if(this.handle!==handle)throw new NativeSessionPortError('closed');try{idSchema.parse(pageId);}catch{throw new NativeSessionPortError('protocol');}const revision=this.#revision;
   const row=object(await this.#call('native_page_read',{handle:handle.handle,pageId},revision),['status']);
+  if(this.handle!==handle)throw new NativeSessionPortError('closed');if(typeof row.status!=='string'||!['received','read_unknown','store_pending'].includes(row.status))throw new NativeSessionPortError('protocol');return row.status as NativePageReadStatus;
+ }
+ async sendTitleFor(handle:NativeWorkspaceHandle,pageId:string):Promise<NativeTitleSendStatus>{
+  this.#check();if(this.handle!==handle)throw new NativeSessionPortError('closed');try{idSchema.parse(pageId);}catch{throw new NativeSessionPortError('protocol');}const revision=this.#revision;
+  const row=object(await this.#call('native_title_send',{handle:handle.handle,pageId},revision),['status']);
+  if(this.handle!==handle)throw new NativeSessionPortError('closed');if(typeof row.status!=='string'||!['idle','applied','conflict','rejected','send_unknown','ack_pending'].includes(row.status))throw new NativeSessionPortError('protocol');return row.status as NativeTitleSendStatus;
+ }
+ async readTitleFor(handle:NativeWorkspaceHandle,pageId:string):Promise<NativePageReadStatus>{
+  this.#check();if(this.handle!==handle)throw new NativeSessionPortError('closed');try{idSchema.parse(pageId);}catch{throw new NativeSessionPortError('protocol');}const revision=this.#revision;
+  const row=object(await this.#call('native_title_read',{handle:handle.handle,pageId},revision),['status']);
   if(this.handle!==handle)throw new NativeSessionPortError('closed');if(typeof row.status!=='string'||!['received','read_unknown','store_pending'].includes(row.status))throw new NativeSessionPortError('protocol');return row.status as NativePageReadStatus;
  }
  async catalogFor(handle:NativeWorkspaceHandle,more=false):Promise<NativePageCatalog>{

@@ -78,3 +78,13 @@ it('NATIVE-CATALOG: exact metadata-only IPC, immutable rows and invalid response
 it('NATIVE-CATALOG: held result is discarded on cancel; overlapping query refuses without invoking',async()=>{
  let resolve!:(v:unknown)=>void;const invoke=vi.fn(async(command:string)=>command==='native_auth_login'?verified():command==='native_workspace_open'?{handle:'catalog',context:context()}:command==='native_page_catalog'?new Promise(done=>{resolve=done;}):null);const port=new NativeSessionPort(invoke,()=>100);await port.login('fixture@example.invalid','fixture-password');const h=await port.open(candidate);const query=port.catalogFor(h);await expect(port.catalogFor(h,true)).rejects.toMatchObject({stage:'busy'});await port.cancel();resolve({pages:[],hasMore:false});await expect(query).rejects.toMatchObject({stage:'closed'});expect(invoke.mock.calls.filter(c=>c[0]==='native_page_catalog')).toHaveLength(1);port.dispose();
 });
+it('NATIVE-TITLE-PORT: fixed IPC exposes strict status only and refuses stale handles after logout',async()=>{
+ for(const kind of ['send','read'] as const){
+  let response:unknown={status:kind==='send'?'conflict':'received'};
+  const invoke=vi.fn(async(command:string)=>command==='native_auth_login'?verified():command==='native_workspace_open'?{handle:'native',context:context()}:command==='native_auth_logout'?{localLocked:true,persistentLocked:true,cleanupPending:false,providerConfirmed:false}:response);
+  const port=new NativeSessionPort(invoke,()=>100);await port.login('fixture@example.invalid','fixture-password');const handle=await port.open(candidate);const action=()=>kind==='send'?port.sendTitleFor(handle,candidate):port.readTitleFor(handle,candidate);
+  expect(await action()).toBe(kind==='send'?'conflict':'received');expect(invoke.mock.calls.at(-1)).toEqual([`native_title_${kind}`,{handle:'native',pageId:candidate}]);
+  for(const value of [{status:['received']},{status:'applied',receipt:{}},{status:'received',access_token:'private'},{status:'unknown'}]){response=value;await expect(action()).rejects.toMatchObject({stage:'protocol'});}
+  await port.logout();const count=invoke.mock.calls.length;await expect(action()).rejects.toMatchObject({stage:'closed'});expect(invoke.mock.calls).toHaveLength(count);port.dispose();
+ }
+});

@@ -7,7 +7,7 @@ type Result<T>=std::result::Result<T,CredentialError>;
 #[derive(Clone)]
 struct PendingPageAck {prepared:serde_json::Value,response:serde_json::Value}
 struct CatalogProgress {cursor:Option<String>,last:Option<String>}
-struct GateState {generation:u64,active:Option<(WorkspaceHandle,WorkspaceAdmission)>,offline_handle:Option<(WorkspaceHandle,crate::offline_lease::LocalAccess)>,receipts:std::collections::HashMap<String,PendingPageAck>,reads:std::collections::HashMap<String,serde_json::Value>,catalog:Option<CatalogProgress>}
+struct GateState {generation:u64,active:Option<(WorkspaceHandle,WorkspaceAdmission)>,offline_handle:Option<(WorkspaceHandle,crate::offline_lease::LocalAccess)>,receipts:std::collections::HashMap<String,PendingPageAck>,title_receipts:std::collections::HashMap<String,PendingPageAck>,title_reads:std::collections::HashMap<String,serde_json::Value>,reads:std::collections::HashMap<String,serde_json::Value>,catalog:Option<CatalogProgress>}
 #[derive(serde::Serialize)]
 #[serde(rename_all="camelCase")]
 pub struct NativePageCatalog {pub pages:Vec<crate::PageMetadata>,pub has_more:bool}
@@ -30,11 +30,14 @@ fn catalog_response(context:&crate::WorkspaceContext,value:&serde_json::Value,af
 pub enum PageSendStatus {Idle,Acked,SendUnknown,AckPending}
 #[derive(Clone,Copy,Debug,PartialEq,Eq,serde::Serialize)]
 #[serde(rename_all="snake_case")]
+pub enum TitleSendStatus {Idle,Applied,Conflict,Rejected,SendUnknown,AckPending}
+#[derive(Clone,Copy,Debug,PartialEq,Eq,serde::Serialize)]
+#[serde(rename_all="snake_case")]
 pub enum PageReadStatus {Received,ReadUnknown,StorePending}
 pub struct NativeWorkspaceGate<S:CredentialStore,P:NativeProvider,C:NativeClock> {
     session:NativeSession<S,P,C>,registry:Arc<WorkspaceRegistry>,
     active:Mutex<GateState>,
-    page_send:Mutex<()>,
+    page_send:Mutex<()>,title_send:Mutex<()>,title_read:Mutex<()>,
     page_read:Mutex<()>,
     page_catalog:Mutex<()>,
     offline:Option<Arc<crate::offline_lease::OfflineLeaseStore<S,C>>>,offline_prepare:Mutex<()>,
@@ -42,8 +45,8 @@ pub struct NativeWorkspaceGate<S:CredentialStore,P:NativeProvider,C:NativeClock>
     #[cfg(test)]read_failure:std::sync::atomic::AtomicU8,
 }
 impl<S:CredentialStore+'static,P:NativeProvider,C:NativeClock+'static> NativeWorkspaceGate<S,P,C> {
-    pub fn new(session:NativeSession<S,P,C>,root:PathBuf)->Self {Self {session,registry:Arc::new(WorkspaceRegistry::new(root)),active:Mutex::new(GateState{generation:0,active:None,offline_handle:None,receipts:std::collections::HashMap::new(),reads:std::collections::HashMap::new(),catalog:None}),page_send:Mutex::new(()),page_read:Mutex::new(()),page_catalog:Mutex::new(()),offline:None,offline_prepare:Mutex::new(()),#[cfg(test)]ack_failure:std::sync::atomic::AtomicU8::new(0),#[cfg(test)]read_failure:std::sync::atomic::AtomicU8::new(0)}}
-    async fn close_active(&self,state:&mut GateState){state.active=None;state.offline_handle=None;state.receipts.clear();state.reads.clear();state.catalog=None;state.generation=state.generation.checked_add(1).unwrap_or(u64::MAX);self.registry.close_all().await;}
+    pub fn new(session:NativeSession<S,P,C>,root:PathBuf)->Self {Self {session,registry:Arc::new(WorkspaceRegistry::new(root)),active:Mutex::new(GateState{generation:0,active:None,offline_handle:None,receipts:std::collections::HashMap::new(),title_receipts:std::collections::HashMap::new(),title_reads:std::collections::HashMap::new(),reads:std::collections::HashMap::new(),catalog:None}),page_send:Mutex::new(()),title_send:Mutex::new(()),title_read:Mutex::new(()),page_read:Mutex::new(()),page_catalog:Mutex::new(()),offline:None,offline_prepare:Mutex::new(()),#[cfg(test)]ack_failure:std::sync::atomic::AtomicU8::new(0),#[cfg(test)]read_failure:std::sync::atomic::AtomicU8::new(0)}}
+    async fn close_active(&self,state:&mut GateState){state.active=None;state.offline_handle=None;state.receipts.clear();state.title_receipts.clear();state.title_reads.clear();state.reads.clear();state.catalog=None;state.generation=state.generation.checked_add(1).unwrap_or(u64::MAX);self.registry.close_all().await;}
     pub fn with_offline(mut self,lease:crate::offline_lease::OfflineLeaseStore<S,C>)->Self{self.offline=Some(Arc::new(lease));self}
     async fn invalidate_offline(&self)->Result<()>{if let Some(lease)=&self.offline{if lease.logout().await.is_err(){let _=self.session.logout().await;return Err(CredentialError)}}Ok(())}
     pub async fn login(&self,email:&str,password:Vec<u8>)->Result<SessionSnapshot>{
@@ -134,6 +137,42 @@ impl<S:CredentialStore+'static,P:NativeProvider,C:NativeClock+'static> NativeWor
         if result.is_err(){return Ok(PageSendStatus::AckPending)}
         active.receipts.remove(page);Ok(PageSendStatus::Acked)
     }
+    pub async fn send_title_status(&self,handle:&str,page:&str)->Result<TitleSendStatus> {
+        if !crate::structured::uuid_v7(page){return Err(CredentialError)}
+        let _send=self.title_send.lock().await;
+        let (generation,admission,cached,prepared)={
+            let active=self.active.lock().await;
+            let (_,admission)=active.active.as_ref().filter(|(h,_)|h.handle==handle).ok_or(CredentialError)?;
+            let registry=self.registry.clone();let h=handle.to_string();let p=page.to_string();
+            let cached=active.title_receipts.get(page).cloned();
+            if cached.is_none() && active.title_receipts.len()>=8{return Err(CredentialError)}
+            let prepared=if let Some(receipt)=&cached {receipt.prepared.clone()}else{self.session.local(Some(admission),|_|Box::pin(async move {registry.execute(&h,serde_json::json!({"command":"title_prepare","pageId":p})).await.map_err(|_|CredentialError)})).await?};
+            (active.generation,admission.clone(),cached,prepared)
+        };
+        if prepared.is_null(){return Ok(TitleSendStatus::Idle)}
+        let kind="rename";
+        let wire=prepared["wire"].as_str().ok_or(CredentialError)?;
+        let response=if let Some(receipt)=cached {receipt.response}else{match self.session.title_send(&admission,page,kind,wire).await {Ok(response)=>response,Err(_)=>return Ok(TitleSendStatus::SendUnknown)}};
+        if crate::private_title::validate_native_receipt(admission.context(),page,&prepared,&response).is_err(){return Ok(TitleSendStatus::SendUnknown)}
+        let status=match response["result"]["status"].as_str(){Some("applied")=>TitleSendStatus::Applied,Some("conflict")=>TitleSendStatus::Conflict,Some("rejected")=>TitleSendStatus::Rejected,_=>return Ok(TitleSendStatus::SendUnknown)};
+        let mut active=self.active.lock().await;
+        if active.generation!=generation || active.active.as_ref().is_none_or(|(h,_)|h.handle!=handle){return Err(CredentialError)}
+        // Reject semantically invalid receipts before caching. SQLite compares
+        // the native-captured base title, predecessor and immutable wire.
+        let registry=self.registry.clone();let h=handle.to_string();let p=page.to_string();let check=prepared.clone();let reply=response.clone();
+        if self.session.local(Some(&admission),|_|Box::pin(async move {registry.execute(&h,serde_json::json!({"command":"title_validate","pageId":p,"sequence":check["sequence"],"wire":check["wire"],"response":reply})).await.map_err(|_|CredentialError)})).await.is_err(){return Ok(TitleSendStatus::SendUnknown)}
+        active.title_receipts.insert(page.into(),PendingPageAck{prepared:prepared.clone(),response:response.clone()});
+        let registry=self.registry.clone();let h=handle.to_string();let p=page.to_string();let wire=wire.to_string();let sequence=prepared["sequence"].clone();
+        #[cfg(test)]let failure=self.ack_failure.swap(0,std::sync::atomic::Ordering::SeqCst);
+        let result=self.session.local(Some(&admission),|_|Box::pin(async move {
+            #[cfg(test)]if failure==1{return Err(CredentialError)}
+            let value=registry.execute(&h,serde_json::json!({"command":"title_ack","pageId":p,"sequence":sequence,"wire":wire,"response":response})).await.map_err(|_|CredentialError)?;
+            #[cfg(test)]if failure==2{return Err(CredentialError)}
+            Ok(value)
+        })).await;
+        if result.is_err(){return Ok(TitleSendStatus::AckPending)}
+        active.title_receipts.remove(page);Ok(status)
+    }
     pub async fn cancel_open(&self){let mut active=self.active.lock().await;if active.offline_handle.is_none(){self.close_active(&mut active).await;}}
     /// Native read and transactional receive. No caller-owned diff/vector or
     /// response enters the gate. Received means local commit was confirmed.
@@ -164,6 +203,32 @@ impl<S:CredentialStore+'static,P:NativeProvider,C:NativeClock+'static> NativeWor
         active.reads.remove(page);Ok(PageReadStatus::Received)
     }
     /// Read-only query. Cursor stays native and never becomes a receive/ACK.
+    pub async fn read_title(&self,handle:&str,page:&str)->Result<PageReadStatus> {
+        if !crate::structured::uuid_v7(page){return Err(CredentialError)}
+        let _read=self.title_read.lock().await;
+        let (generation,admission,cached)={let active=self.active.lock().await;
+            let (_,admission)=active.active.as_ref().filter(|(h,_)|h.handle==handle).ok_or(CredentialError)?;
+            let cached=active.title_reads.get(page).cloned();if cached.is_none()&&active.title_reads.len()>=8{return Err(CredentialError)}
+            // Even a cached response needs a currently admitted session.
+            self.session.local(Some(admission),|_|Box::pin(async{Ok(())})).await?;
+            (active.generation,admission.clone(),cached)
+        };
+        let response=if let Some(response)=cached {response}else{match self.session.title_read(&admission,page).await {Ok(response)=>response,Err(_)=>return Ok(PageReadStatus::ReadUnknown)}};
+        if crate::private_title::validate_native_read(admission.context(),page,&response).is_err(){return Ok(PageReadStatus::ReadUnknown)}
+        let mut active=self.active.lock().await;
+        if active.generation!=generation||active.active.as_ref().is_none_or(|(h,_)|h.handle!=handle){return Err(CredentialError)}
+        active.title_reads.insert(page.into(),response.clone());
+        let registry=self.registry.clone();let h=handle.to_string();let p=page.to_string();let client=admission.context().client_id.clone();
+        #[cfg(test)]let failure=self.read_failure.swap(0,std::sync::atomic::Ordering::SeqCst);
+        let result=self.session.local(Some(&admission),|_|Box::pin(async move {
+            #[cfg(test)]if failure==1{return Err(CredentialError)}
+            let value=registry.execute(&h,serde_json::json!({"command":"title_receive","pageId":p,"request":{"protocolVersion":1,"clientId":client,"afterConflict":null,"limit":50},"response":response})).await.map_err(|_|CredentialError)?;
+            #[cfg(test)]if failure==2{return Err(CredentialError)}
+            Ok(value)
+        })).await;
+        if result.is_err(){return Ok(PageReadStatus::StorePending)}
+        active.title_reads.remove(page);Ok(PageReadStatus::Received)
+    }
     pub async fn catalog_pages(&self,handle:&str,more:bool)->Result<NativePageCatalog>{
         let _query=self.page_catalog.try_lock().map_err(|_|CredentialError)?;
         let (generation,admission,cursor,after)={let mut active=self.active.lock().await;
@@ -243,6 +308,18 @@ mod tests {
             if self.0.hold.swap(false,Ordering::SeqCst){self.0.entered.notify_one();self.0.release.notified().await;}
             let s=self.0.state.lock().unwrap();Ok(WorkspaceRegistration{protocol_version:1,workspace_id:if s.owner=="owner-A"{"01900000-0000-7000-8000-000000000001"}else{"01900000-0000-7000-8000-000000000009"}.into(),client_id:if s.bad_client {PAGE}else{client}.into(),epoch:"01900000-0000-7000-8000-000000000003".into()})
         })}
+        fn title_send<'a>(&'a self,_:&'a AccessSecret,c:&'a crate::WorkspaceContext,page:&'a str,kind:&'a str,wire:&'a str)->ProviderFuture<'a,serde_json::Value>{Box::pin(async move {
+            assert_eq!(kind,"rename");self.0.sends.lock().unwrap().push(wire.to_string());
+            if self.0.send_hold.swap(false,Ordering::SeqCst){self.0.entered.notify_one();self.0.release.notified().await;}
+            let request:serde_json::Value=serde_json::from_str(wire).unwrap();
+            let mut response=json!({"protocolVersion":1,"workspaceId":c.workspace_id,"workspaceEpoch":c.stream_epoch,"pageId":page,"metadata":{"id":page,"title":request["title"],"yDocId":format!("page:{page}"),"createdAt":"2026-10-13T00:00:00.000Z","updatedAt":"2026-10-13T00:00:00.000Z"},"version":request["baseVersion"].as_i64().unwrap()+1,"operationId":request["operationId"],"result":{"status":"applied"}});
+            if self.0.bad_receipt.swap(false,Ordering::SeqCst){response["workspaceId"]=json!(PAGE);}if self.0.read_mutation.swap(0,Ordering::SeqCst)==2{response["metadata"]["title"]=json!("invalid applied title");}Ok(response)
+        })}
+        fn title_read<'a>(&'a self,_:&'a AccessSecret,c:&'a crate::WorkspaceContext,page:&'a str)->ProviderFuture<'a,serde_json::Value>{Box::pin(async move {
+            self.0.reads.fetch_add(1,Ordering::SeqCst);if self.0.read_hold.swap(false,Ordering::SeqCst){self.0.entered.notify_one();self.0.release.notified().await;}
+            let mut response=json!({"protocolVersion":1,"workspaceId":c.workspace_id,"workspaceEpoch":c.stream_epoch,"pageId":page,"metadata":{"id":page,"title":"synthetic send","yDocId":format!("page:{page}"),"createdAt":"2026-10-13T00:00:00.000Z","updatedAt":"2026-10-13T00:00:00.000Z"},"version":0,"conflicts":[],"nextAfter":null});
+            if self.0.read_mutation.swap(0,Ordering::SeqCst)!=0{response["workspaceEpoch"]=json!(PAGE);}Ok(response)
+        })}
         fn page_send<'a>(&'a self,_:&'a AccessSecret,c:&'a crate::WorkspaceContext,page:&'a str,kind:&'a str,wire:&'a str)->ProviderFuture<'a,serde_json::Value>{Box::pin(async move {
             self.0.sends.lock().unwrap().push(wire.to_string());
             if self.0.send_hold.swap(false,Ordering::SeqCst){self.0.entered.notify_one();self.0.release.notified().await;}
@@ -288,7 +365,7 @@ mod tests {
         let f=Fixture::new();let g=f.open().await;assert!(g.open(CLIENT).await.is_err());login(&g).await;let h=g.open(CLIENT).await.unwrap();
         g.execute(&h.handle,json!({"command":"page_create","pageId":PAGE,"title":"synthetic retained","update":[0,0]})).await.unwrap();
         let request=json!({"command":"page_prepare","pageId":PAGE});let wire=g.execute(&h.handle,request.clone()).await.unwrap();assert!(!wire.is_null());
-        for command in ["ack","pull","page_ack","page_receive","changes_receive","database_source_receive"] {assert!(g.execute(&h.handle,json!({"command":command})).await.is_err());}
+        for command in ["ack","pull","page_ack","page_receive","title_validate","title_ack","title_receive","changes_receive","database_source_receive"] {assert!(g.execute(&h.handle,json!({"command":command})).await.is_err());}
         assert_eq!(g.execute(&h.handle,request.clone()).await.unwrap(),wire);
         shutdown(g).await;let g=f.open().await;assert_eq!(g.snapshot().await.phase,Phase::Locked);g.restore().await.unwrap();
         let next=g.open(PAGE).await.unwrap();assert_eq!(next.context,h.context);assert_eq!(g.execute(&next.handle,request.clone()).await.unwrap(),wire);
@@ -455,7 +532,7 @@ mod tests {
     async fn offline_restart_recovers_signed_context_pending_and_never_calls_remote(){
         let f=Fixture::new();let (g,h,wire)=offline_fixture(&f).await;shutdown(g).await;let g=f.open_offline().await;assert_eq!(g.snapshot().await.phase,Phase::Locked);let restored=g.resume_offline().await.unwrap();assert_eq!(restored.workspace.context,h.context);let handle=&restored.workspace.handle;assert_eq!(g.snapshot().await.phase,Phase::Locked);assert_eq!(g.check_offline(handle).await.unwrap().expires_at,604900);
         assert_eq!(g.execute_offline(handle,json!({"command":"page_prepare","pageId":PAGE})).await.unwrap(),wire);g.execute_offline(handle,json!({"command":"page_append","pageId":PAGE,"update":[0,1]})).await.unwrap();assert_eq!(g.execute_offline(handle,json!({"command":"page_load","pageId":PAGE})).await.unwrap()["pending"],2);
-        for command in ["page_ack","page_receive","ack","pull","changes_receive","database_source_receive"]{assert!(g.execute_offline(handle,json!({"command":command})).await.is_err());}assert!(g.execute(handle,json!({"command":"page_load","pageId":PAGE})).await.is_err());assert!(g.send_page_status(handle,PAGE).await.is_err());assert!(g.read_page(handle,PAGE).await.is_err());assert!(g.catalog_pages(handle,false).await.is_err());assert!(g.prepare_offline(handle).await.is_err());assert_eq!(f.provider.0.grants.load(Ordering::SeqCst),1);assert_eq!(f.provider.0.reads.load(Ordering::SeqCst),0);assert!(f.provider.0.sends.lock().unwrap().is_empty());shutdown(g).await;
+        for command in ["page_ack","page_receive","title_validate","title_ack","title_receive","ack","pull","changes_receive","database_source_receive"]{assert!(g.execute_offline(handle,json!({"command":command})).await.is_err());}assert!(g.execute(handle,json!({"command":"page_load","pageId":PAGE})).await.is_err());assert!(g.send_page_status(handle,PAGE).await.is_err());assert!(g.read_page(handle,PAGE).await.is_err());assert!(g.read_title(handle,PAGE).await.is_err());assert!(g.send_title_status(handle,PAGE).await.is_err());assert!(g.catalog_pages(handle,false).await.is_err());assert!(g.prepare_offline(handle).await.is_err());assert_eq!(f.provider.0.grants.load(Ordering::SeqCst),1);assert_eq!(f.provider.0.reads.load(Ordering::SeqCst),0);assert!(f.provider.0.sends.lock().unwrap().is_empty());shutdown(g).await;
     }
     #[tokio::test]
     async fn offline_missing_blank_or_corrupt_store_does_not_initialize_new_workspace(){
@@ -476,4 +553,46 @@ mod tests {
     #[tokio::test]
     async fn offline_signed_foreign_auth_issuer_is_refused_and_locked(){
         let f=Fixture::new();let (g,h,_)=offline_fixture(&f).await;let lease=g.offline.as_ref().unwrap();let challenge=lease.begin_online().await.unwrap();let mut context=h.context;context.issuer="https://other.invalid/auth/v1".into();let access=AccessSecret::new(b"fixture".to_vec()).unwrap();let token=f.provider.offline_grant(&access,&context,challenge.nonce()).await.unwrap();lease.accept_online(challenge,context,token).await.unwrap();assert!(g.resume_offline().await.is_err());assert!(lease.restore_access().await.is_err());shutdown(g).await;
-    }}
+    }    async fn title_fixture(f:&Fixture)->(Arc<Gate>,WorkspaceHandle,serde_json::Value){
+        let (g,h,_)=page_fixture(f).await;
+        assert_eq!(g.execute(&h.handle,json!({"command":"title_ready","pageId":PAGE})).await.unwrap(),false);
+        assert_eq!(g.send_page_status(&h.handle,PAGE).await.unwrap(),PageSendStatus::Acked);
+        assert_eq!(g.execute(&h.handle,json!({"command":"title_ready","pageId":PAGE})).await.unwrap(),false);
+        assert_eq!(g.read_title(&h.handle,PAGE).await.unwrap(),PageReadStatus::Received);
+        assert_eq!(g.execute(&h.handle,json!({"command":"title_ready","pageId":PAGE})).await.unwrap(),true);
+        g.execute(&h.handle,json!({"command":"title_enqueue","pageId":PAGE,"intent":{"operationId":"01900000-0000-7000-8000-000000000008","title":"renamed"}})).await.unwrap();
+        let prepared=g.execute(&h.handle,json!({"command":"title_prepare","pageId":PAGE})).await.unwrap();(g,h,prepared)
+    }
+    #[tokio::test]
+    async fn title_native_unknown_scope_retains_original_wire_and_cached_ack_retries_without_http(){
+        for failure in [1,2]{let f=Fixture::new();let (g,h,prepared)=title_fixture(&f).await;f.provider.0.bad_receipt.store(true,Ordering::SeqCst);
+            assert_eq!(g.send_title_status(&h.handle,PAGE).await.unwrap(),TitleSendStatus::SendUnknown);
+            assert_eq!(g.execute(&h.handle,json!({"command":"title_prepare","pageId":PAGE})).await.unwrap(),prepared);
+            assert!(g.active.lock().await.title_receipts.is_empty());f.provider.0.read_mutation.store(2,Ordering::SeqCst);assert_eq!(g.send_title_status(&h.handle,PAGE).await.unwrap(),TitleSendStatus::SendUnknown);assert!(g.active.lock().await.title_receipts.is_empty());
+            g.ack_failure.store(failure,Ordering::SeqCst);assert_eq!(g.send_title_status(&h.handle,PAGE).await.unwrap(),TitleSendStatus::AckPending);
+            let calls=f.provider.0.sends.lock().unwrap().len();assert_eq!(g.send_title_status(&h.handle,PAGE).await.unwrap(),TitleSendStatus::Applied);assert_eq!(f.provider.0.sends.lock().unwrap().len(),calls);
+            assert!(g.execute(&h.handle,json!({"command":"title_prepare","pageId":PAGE})).await.unwrap().is_null());
+            assert_eq!(g.execute(&h.handle,json!({"command":"page_load","pageId":PAGE})).await.unwrap()["page"]["metadata"]["title"],"renamed");shutdown(g).await;
+        }
+    }
+    #[tokio::test]
+    async fn title_native_read_scope_and_local_commit_uncertainty_are_distinct(){
+        for failure in [1,2]{let f=Fixture::new();let (g,h,_)=page_fixture(&f).await;g.send_page_status(&h.handle,PAGE).await.unwrap();f.provider.0.read_mutation.store(1,Ordering::SeqCst);
+            assert_eq!(g.read_title(&h.handle,PAGE).await.unwrap(),PageReadStatus::ReadUnknown);assert!(g.active.lock().await.title_reads.is_empty());
+            g.read_failure.store(failure,Ordering::SeqCst);assert_eq!(g.read_title(&h.handle,PAGE).await.unwrap(),PageReadStatus::StorePending);
+            let calls=f.provider.0.reads.load(Ordering::SeqCst);assert_eq!(g.read_title(&h.handle,PAGE).await.unwrap(),PageReadStatus::Received);assert_eq!(f.provider.0.reads.load(Ordering::SeqCst),calls);shutdown(g).await;
+        }
+    }
+    #[tokio::test]
+    async fn title_native_late_send_and_read_never_commit_after_close_logout_expiry_or_reauth(){
+        for read in [false,true]{for action in ["close","logout","expiry","reauth"]{let f=Fixture::new();let (g,h,original)=title_fixture(&f).await;
+            if read{f.provider.0.read_hold.store(true,Ordering::SeqCst);}else{f.provider.0.send_hold.store(true,Ordering::SeqCst);}
+            let copy=g.clone();let handle=h.handle.clone();let work=tokio::spawn(async move {if read{copy.read_title(&handle,PAGE).await.map(|_|())}else{copy.send_title_status(&handle,PAGE).await.map(|_|())}});f.provider.0.entered.notified().await;
+            match action{"close"=>g.cancel_open().await,"logout"=>{g.logout().await;},"expiry"=>{f.clock.0.store(200,Ordering::SeqCst);},_=>{g.restore().await.unwrap();}}
+            f.provider.0.release.notify_one();let _=work.await.unwrap();
+            if action=="expiry"{f.provider.0.expires.store(400,Ordering::SeqCst);}login(&g).await;let next=g.open(CLIENT).await.unwrap();
+            assert_eq!(g.execute(&next.handle,json!({"command":"title_prepare","pageId":PAGE})).await.unwrap(),original);
+            assert!(g.send_title_status(&h.handle,PAGE).await.is_err());assert!(g.read_title(&h.handle,PAGE).await.is_err());shutdown(g).await;
+        }}
+    }
+}

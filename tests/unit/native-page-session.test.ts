@@ -5,13 +5,16 @@ const pageId='01900000-0000-7000-8000-000000000004';
 const context={issuer:'https://fixture.invalid/auth/v1',subjectId:'owner-A',workspaceId:'01900000-0000-7000-8000-000000000001',clientId:'01900000-0000-7000-8000-000000000002',streamEpoch:'01900000-0000-7000-8000-000000000003'};
 function add(doc:Y.Doc,text:string){doc.transact(()=>{const p=new Y.XmlElement('paragraph'),t=new Y.XmlText();t.insert(0,text);p.insert(0,[t]);const body=doc.getXmlFragment('body');body.insert(body.length,[p]);});}
 async function fixture(){
- const pages=new Map<string,{title:string;updates:number[][]}>(),acked=new Map<string,number>();let handle=0,hold=false,holdSend=false,badLoad=false,fail=false,unknown=false,createUnknown=false,release!:()=>void,entered!:()=>void;let waiting:Promise<void>|undefined;const sendResults:string[]=[],readResults:string[]=[],remote:number[][]=[];let readHold=false;
+ const titleReadResults:string[]=[],conflicts:{record:{id:string;operationId:string;baseVersion:number;remoteVersion:number;base:string;local:string;remote:string};resolvedBy:null}[]=[];
+ const pages=new Map<string,{title:string;updates:number[][]}>(),acked=new Map<string,number>();let handle=0,hold=false,holdSend=false,badLoad=false,fail=false,unknown=false,createUnknown=false,titleFail:string|null=null,release!:()=>void,entered!:()=>void;let waiting:Promise<void>|undefined;const sendResults:string[]=[],readResults:string[]=[],remote:number[][]=[];let readHold=false;
  const calls:{command:string;args?:Record<string,unknown>}[]=[];
  const invoke=vi.fn(async(command:string,args?:Record<string,unknown>)=>{
   calls.push({command,...(args?{args}: {})});if(command==='native_auth_login')return{available:true,phase:'verified',expiresAt:Math.floor(Date.now()/1000)+300};if(command==='native_workspace_open')return{handle:`handle-${++handle}`,context};
   if(command==='native_page_send'){if(holdSend){holdSend=false;entered();await new Promise<void>(done=>{release=done;});}const id=args!.pageId as string,count=acked.get(id)??0;const status=sendResults.shift()??(count<pages.get(id)!.updates.length?'acked':'idle');if(status==='acked')acked.set(id,count+1);return{status};}
+  if(command==='native_title_read'){const status=titleReadResults.shift()??'received';if(status==='throw')throw Error('fixture IPC');return{status};}
+  if(command==='native_title_send')return{status:sendResults.shift()??'idle'};
   if(command==='native_page_read'){if(readHold){readHold=false;entered();await new Promise<void>(done=>{release=done;});}const status=readResults.shift()??'received';if(status==='received'){const page=pages.get(args!.pageId as string)!;for(const bytes of remote)if(!page.updates.some(old=>JSON.stringify(old)===JSON.stringify(bytes)))page.updates.push(bytes.slice());}return{status};}
-  if(command!=='native_workspace_execute')return null;const request=args!.request as {command:string;pageId:string;title?:string;update?:number[]};
+  if(command!=='native_workspace_execute')return null;const request=args!.request as {command:string;pageId:string;title?:string;update?:number[];intent?:{title:string}};
   if(request.command==='page_create'){pages.set(request.pageId,{title:request.title!,updates:[request.update!.slice()]});if(createUnknown)throw Error('private commit response');return null;}
   const page=pages.get(request.pageId)!;
   if(request.command==='page_load'&&badLoad)throw Error('fixture unavailable');
@@ -19,12 +22,17 @@ async function fixture(){
   if(request.command==='page_append'){
    if(hold){hold=false;entered();await new Promise<void>(done=>{release=done;});}
    if(!fail || unknown)page.updates.push(request.update!.slice());if(fail || unknown)throw Error('private disk credential path');return null;
-  }throw Error('unexpected command');
+  }
+  if(request.command==='title_ready')return titleFail!=='Page bootstrap receipt required';
+  if(request.command==='title_enqueue'){if(hold){hold=false;entered();await new Promise<void>(done=>{release=done;});}if(titleFail)throw Error(titleFail);page.title=request.intent?.title??'';return null;}
+  if(request.command==='title_load')return{context,pageId:request.pageId,base:{metadata:{id:request.pageId,title:page.title,yDocId:`page:${request.pageId}`,createdAt:'2026-10-13T00:00:00.000Z',updatedAt:'2026-10-13T00:00:00.000Z'},version:1},localTitle:page.title,pending:0,operations:[],nextOperation:null,conflicts,nextConflict:null};
+  throw Error('unexpected command');
  });
  const port=new NativeSessionPort(invoke);await port.login('fixture@example.invalid','fixture-password');await port.open(context.clientId);
- return{port,pages,calls,sendResults,readResults,remote,holdRead(){readHold=true;waiting=new Promise(done=>{entered=done;});},failLoad(value=true){badLoad=value;},holdSend(){holdSend=true;waiting=new Promise(done=>{entered=done;});},hold(){hold=true;waiting=new Promise(done=>{entered=done;});},wait:()=>waiting!,release:()=>release(),fail(value=true){fail=value;},unknown(value=true){unknown=value;},createUnknown(value=true){createUnknown=value;}};
+ return{port,pages,calls,sendResults,readResults,remote,titleReadResults,conflicts,holdRead(){readHold=true;waiting=new Promise(done=>{entered=done;});},failLoad(value=true){badLoad=value;},holdSend(){holdSend=true;waiting=new Promise(done=>{entered=done;});},hold(){hold=true;waiting=new Promise(done=>{entered=done;});},wait:()=>waiting!,release:()=>release(),fail(value=true){fail=value;},unknown(value=true){unknown=value;},createUnknown(value=true){createUnknown=value;},failTitle(reason='private disk credential path'){titleFail=reason;},succeedTitle(){titleFail=null;}};
 }
-function replay(updates:number[][]){const doc=new Y.Doc({gc:false});for(const bytes of updates)Y.applyUpdate(doc,Uint8Array.from(bytes));return doc;}
+function replay(updates:number[][]){const doc=new Y.Doc({gc:false});for(const bytes of updates)Y.applyUpdate(doc,Uint8Array.from(bytes));return doc;
+}
 it('NATIVE-PAGE: ordered immutable Yjs appends replay to exact body/vector and pending remains explicit',async()=>{
  const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});f.hold();add(s.document,'alpha');await f.wait();add(s.document,'beta');expect(s.snapshot.saving).toBe(2);expect(s.snapshot.unsaved).toBe(2);f.release();await s.durable();
  const persisted=replay(f.pages.get(pageId)!.updates);expect(persisted.getXmlFragment('body').toString()).toBe(s.document.getXmlFragment('body').toString());expect(Array.from(Y.encodeStateVector(persisted))).toEqual(Array.from(Y.encodeStateVector(s.document)));expect(s.snapshot).toMatchObject({saving:0,unsaved:0,pending:3});persisted.destroy();expect(await s.close()).toBeNull();f.port.dispose();
@@ -43,7 +51,7 @@ it('NATIVE-PAGE: failed/unknown commit keeps draft, stops automatic retries and 
 });
 it('NATIVE-PAGE: foreign workspace draft refuses before writing, malformed Yjs/load rejects before editor activation',async()=>{
  const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});const count=f.calls.length;
- await expect(s.restoreDraft({context:{...context,subjectId:'foreign'},pageId,title:'foreign',update:new Uint8Array([0,0])})).rejects.toMatchObject({stage:'protocol'});expect(f.calls).toHaveLength(count);await s.close();f.pages.get(pageId)!.updates=[[255]];await expect(NativePageSession.open(f.port,pageId)).rejects.toMatchObject({stage:'protocol'});f.port.dispose();
+ await expect(s.restoreDraft({context:{...context,subjectId:'foreign'},pageId,title:'foreign',titleChanged:true,update:new Uint8Array([0,0])})).rejects.toMatchObject({stage:'protocol'});expect(f.calls).toHaveLength(count);await s.close();f.pages.get(pageId)!.updates=[[255]];await expect(NativePageSession.open(f.port,pageId)).rejects.toMatchObject({stage:'protocol'});f.port.dispose();
 });
 it('NATIVE-PAGE: composition prevents destruction; already admitted updates settle before normal close',async()=>{
  const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});s.setComposing(true);add(s.document,'変換確定');await expect(s.close()).rejects.toMatchObject({stage:'busy'});expect(s.snapshot.phase).toBe('ready');expect(s.document.getXmlFragment('body').toString()).toContain('変換確定');s.setComposing(false);const closing=s.close();expect(s.close()).toBe(closing);expect(await closing).toBeNull();expect(s.snapshot.phase).toBe('closed');f.port.dispose();
@@ -88,4 +96,121 @@ it('NATIVE-PAGE-READ: local load failure keeps received distinct, and closed adm
 
 it('NATIVE-PAGE-READ: deferred remote replay refuses a handle revoked before composition ends',async()=>{
  const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});const peer=replay(f.pages.get(pageId)!.updates);add(peer,'deferred foreign-safe');f.remote.push(Array.from(Y.encodeStateAsUpdate(peer)));f.holdRead();const reading=s.read();await f.wait();s.setComposing(true);f.release();await reading;expect(s.snapshot.remoteWaiting).toBe(true);await f.port.cancel();s.setComposing(false);expect(s.snapshot).toMatchObject({remoteWaiting:false,readError:'load'});expect(s.document.getXmlFragment('body').toString()).not.toContain('deferred foreign-safe');peer.destroy();await s.close();f.port.dispose();
+});
+
+it('NATIVE-PAGE-TITLE: valid title edit updates session title, notifies subscribers, and enqueues title_enqueue command',async()=>{
+ const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
+ const observed:string[]=[];const unsubscribe=s.subscribe(state=>observed.push(state.title));
+ s.setTitle('new title');expect(s.snapshot.title).toBe('new title');expect(observed).toContain('new title');
+ await s.durable();
+ const enqueues=f.calls.filter(c=>(c.args?.request as {command?:string}|undefined)?.command==='title_enqueue');
+ expect(enqueues).toHaveLength(1);
+ expect(enqueues[0]?.args?.request).toMatchObject({command:'title_enqueue',pageId,intent:{title:'new title'}});
+ expect(f.pages.get(pageId)!.title).toBe('new title');
+ unsubscribe();await s.close();f.port.dispose();
+});
+
+it('NATIVE-PAGE-TITLE: control characters, null bytes, and oversized titles are rejected',async()=>{
+ const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
+ for(const bad of ['bad\x00title','bad\u0085title','bad\ntitle','x'.repeat(4097),'🦀'.repeat(1025)]){
+  s.setTitle(bad);
+  expect(s.snapshot.title).toBe('synthetic');
+ }
+ await s.durable();
+ expect(f.calls.filter(c=>(c.args?.request as {command?:string}|undefined)?.command==='title_enqueue')).toHaveLength(0);
+ await s.close();f.port.dispose();
+});
+
+it('NATIVE-PAGE-TITLE: title change is captured in draft and restored across sessions',async()=>{
+ const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
+ s.setTitle('draft modified title');
+ const draft=s.draft();
+ expect(draft).not.toBeNull();
+ expect(draft!.title).toBe('draft modified title');
+ await s.close();
+ const next=await NativePageSession.open(f.port,pageId);
+ await next.restoreDraft(draft!);
+ expect(next.snapshot.title).toBe('draft modified title');
+ await next.close();f.port.dispose();
+});
+
+it('NATIVE-PAGE-TITLE: pre-bootstrap draft is explicit and only a title read establishes enqueue readiness',async()=>{
+ const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
+ f.failTitle('Page bootstrap receipt required');
+ s.setTitle('retained title');
+ expect(s.snapshot.title).toBe('retained title');
+ await s.durable();
+ expect(s.snapshot.storageError).toBeNull();
+ const draft=s.draft();
+ expect(draft).not.toBeNull();
+ expect(draft!.title).toBe('retained title');
+ f.succeedTitle();
+ await s.send();
+ expect(f.pages.get(pageId)!.title).toBe('synthetic');
+ await s.titleAction('read');
+ await s.durable();
+ expect(f.pages.get(pageId)!.title).toBe('retained title');
+ await s.close();f.port.dispose();
+});
+
+it('NATIVE-PAGE-TITLE: genuine storage failure in title_enqueue sets storageError and rejects durable',async()=>{
+ const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
+ await s.send();
+ f.failTitle('private disk credential path');
+ s.setTitle('failing title');
+ await expect(s.durable()).rejects.toMatchObject({stage:'storage'});
+ expect(s.snapshot.storageError).toBe('storage');
+ await s.close().catch(()=>{});f.port.dispose();
+});
+
+it('NATIVE-PAGE-TITLE: newer title edit during read is preserved and not overwritten by stale page_load',async()=>{
+ const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
+ const peer=replay(f.pages.get(pageId)!.updates);add(peer,'remote update');
+ f.remote.push(Array.from(Y.encodeStateAsUpdate(peer)));
+ f.pages.get(pageId)!.title='stale remote title';
+ f.holdRead();
+ const reading=s.read();
+ await f.wait();
+ s.setTitle('local newer title');
+ f.release();
+ await reading;
+ expect(s.snapshot.title).toBe('local newer title');
+ peer.destroy();await s.close();f.port.dispose();
+});
+
+it('NATIVE-PAGE-TITLE: setComposing updates session isComposing and prevents teardown',async()=>{
+ const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
+ s.setComposing(true);
+ expect(s.isComposing).toBe(true);
+ expect(s.snapshot.composing).toBe(true);
+ await expect(s.close()).rejects.toMatchObject({stage:'busy'});
+ s.lock();s.setTitle('committed after lock');expect(s.draft()?.title).toBe('committed after lock');expect(f.calls.some(c=>(c.args?.request as {command?:string})?.command==='title_enqueue')).toBe(false);
+ s.setComposing(false);
+ expect(s.isComposing).toBe(false);
+ expect(s.snapshot.composing).toBe(false);
+ await s.close();f.port.dispose();
+});
+
+it('NATIVE-PAGE-TITLE: held enqueue reports saving and blocks send; empty failed title survives draft recovery',async()=>{
+ const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
+ f.hold();s.setTitle('held');expect(s.snapshot.saving).toBe(1);await f.wait();await expect(s.send()).rejects.toMatchObject({stage:'busy'});f.release();await s.durable();expect(s.snapshot.saving).toBe(0);
+ f.failTitle();s.setTitle('');await expect(s.durable()).rejects.toMatchObject({stage:'storage'});const draft=await s.close();expect(draft?.title).toBe('');f.succeedTitle();const next=await NativePageSession.open(f.port,pageId);await next.restoreDraft(draft!);expect(next.snapshot.title).toBe('');expect(f.pages.get(pageId)!.title).toBe('');await next.close();f.port.dispose();
+});
+it('NATIVE-PAGE-TITLE: a remote body title deferred during composition cannot replace a later local title',async()=>{
+ const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
+ f.pages.get(pageId)!.title='remote';f.holdRead();const reading=s.read();await f.wait();s.setComposing(true);f.release();await reading;expect(s.snapshot.remoteWaiting).toBe(true);s.setTitle('new composition');await s.durable();s.setComposing(false);expect(s.snapshot.title).toBe('new composition');await s.close();f.port.dispose();
+});
+it('NATIVE-PAGE-TITLE: explicit title send stops on unknown, pending ACK, conflict and rejection without resending',async()=>{
+ for(const status of ['send_unknown','ack_pending','conflict','rejected']){const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});f.sendResults.push(status);await s.titleAction('send');expect(s.snapshot.titleStatus).toBe(status);expect(f.calls.filter(c=>c.command==='native_title_send')).toHaveLength(1);expect(f.calls.filter(c=>c.command==='native_page_send')).toHaveLength(0);await s.close();f.port.dispose();}
+});
+it('NATIVE-TITLE: composition displays provisional candidates but enqueues exactly one committed title',async()=>{
+ const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
+ s.setComposing(true);for(const title of ['に','日本','日本語'])s.setTitle(title);await s.durable();expect(s.snapshot.title).toBe('日本語');expect(f.pages.get(pageId)!.title).toBe('synthetic');expect(f.calls.filter(c=>(c.args?.request as {command?:string})?.command==='title_enqueue')).toHaveLength(0);
+ s.setComposing(false);await s.durable();expect(f.calls.filter(c=>(c.args?.request as {command?:string})?.command==='title_enqueue')).toHaveLength(1);expect(f.pages.get(pageId)!.title).toBe('日本語');
+ s.setComposing(true);s.setTitle('cancelled');s.setTitle('日本語');s.setComposing(false);await s.durable();expect(f.calls.filter(c=>(c.args?.request as {command?:string})?.command==='title_enqueue')).toHaveLength(1);await s.close();f.port.dispose();
+});
+it('NATIVE-TITLE: each read attempt owns its status and offline open restores local conflicts without HTTP',async()=>{
+ const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});await s.titleAction('read');expect(s.snapshot.titleReadStatus).toBe('received');f.titleReadResults.push('throw');await s.titleAction('read');expect(s.snapshot.titleReadStatus).toBe('read_unknown');await s.close();
+ f.conflicts.push({record:{id:'01900000-0000-7000-8000-000000000008',operationId:'01900000-0000-7000-8000-000000000009',baseVersion:0,remoteVersion:1,base:'before',local:'candidate',remote:'synthetic'},resolvedBy:null});
+ const count=f.calls.length;const local={get handle(){return f.port.handle;},executeFor:f.port.executeFor.bind(f.port)};const next=await NativePageSession.open(local,pageId);expect(next.snapshot.titleConflicts[0]?.local).toBe('candidate');expect(f.calls.slice(count).every(c=>c.command==='native_workspace_execute')).toBe(true);await next.close();f.port.dispose();
 });

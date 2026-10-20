@@ -171,6 +171,8 @@ impl WorkspaceStore {
     pub async fn database_source_receive(&self,id:&str,request:Value,response:Value)->StoreResult<()> {safe(self.inner.database_source_receive(&self.context,id,request,response).await)}
     pub async fn database_source_load(&self,id:&str)->StoreResult<Value> {safe(self.inner.database_source_load(&self.context,id).await)}
     pub async fn database_source_list(&self,after:Option<&str>,limit:usize)->StoreResult<Value> {safe(self.inner.database_source_list(&self.context,after,limit).await)}
+    pub async fn title_validate(&self,id:&str,seq:&str,wire:&str,response:Value)->StoreResult<()> {safe(self.inner.title_validate(&self.context,id,seq,wire,response).await)}
+    pub async fn title_ready(&self,id:&str)->StoreResult<bool> {safe(self.inner.title_ready(id).await)}
     pub async fn title_enqueue(&self,id:&str,intent:Value)->StoreResult<()> {safe(self.inner.title_enqueue(&self.context,id,intent).await)}
     pub async fn changes_receive(&self,request:Value,response:Value)->StoreResult<()> {safe(self.inner.changes_receive(&self.context,request,response).await)}
     pub async fn changes_load(&self,after:Option<&str>,limit:usize)->StoreResult<Value> {safe(self.inner.changes_load(&self.context,after,limit).await)}

@@ -37,6 +37,27 @@ fn receipt(v:&Value,c:&WorkspaceContext,page:&str)->StoreResult<()> {
         _=>Err("Invalid title result".into())
     }
 }
+// Validate native transport responses before retaining them for local commit
+// recovery. The immutable prepared operation, never WebView data, owns binding.
+pub(crate) fn validate_native_receipt(c:&WorkspaceContext,page:&str,prepared:&Value,response:&Value)->StoreResult<()> {
+    receipt(response,c,page)?;exact(prepared,&["pageId","sequence","operationId","wire"])?;
+    if prepared["pageId"]!=page||prepared["operationId"]!=response["operationId"]{return Err("Title transport identity mismatch".into());}
+    sequence(text(prepared,"sequence")?)?;
+    let wire:Value=serde_json::from_str(text(prepared,"wire")?).map_err(|_|"Invalid prepared title wire")?;
+    if wire["protocolVersion"]!=1||wire["clientId"]!=c.client_id||wire["operationId"]!=prepared["operationId"]{return Err("Title wire binding mismatch".into());}
+    let base=version(&wire,"baseVersion")?;let local=text(&wire,"title")?;title(local)?;
+    match text(&response["result"],"status")? {
+        "applied"=>{if version(response,"version")?<base{return Err("Title version regressed".into());}},
+        "conflict"=>{let cf=&response["result"]["conflict"];if wire.get("resolution").is_some()||cf["baseVersion"]!=base||cf["local"]!=local{return Err("Title conflict binding mismatch".into());}},
+        "rejected"=>{if response["result"]["code"]!="base_unknown"&&wire.get("resolution").is_none(){return Err("Title resolution binding mismatch".into());}},_=>unreachable!()
+    }Ok(())
+}
+pub(crate) fn validate_native_read(c:&WorkspaceContext,page:&str,response:&Value)->StoreResult<()> {
+    exact(response,&["protocolVersion","workspaceId","workspaceEpoch","pageId","metadata","version","conflicts","nextAfter"])?;scope(response,c,page)?;
+    let list=response["conflicts"].as_array().filter(|list|list.len()<=50).ok_or("Title query conflicts")?;let mut previous:Option<&str>=None;
+    for cf in list{conflict(cf)?;let key=text(cf,"id")?;if previous.is_some_and(|old|key<=old)||version(cf,"remoteVersion")?>version(response,"version")?{return Err("Title query progress mismatch".into());}previous=Some(key);}
+    if !response["nextAfter"].is_null()&&(list.is_empty()||response["nextAfter"]!=list.last().unwrap()["id"]){return Err("Title query next key mismatch".into());}Ok(())
+}
 #[cfg(feature="crash-test-hooks")]
 fn barrier(stage:&str)->StoreResult<()>{super::structured_sync::crash_barrier(stage)}
 #[cfg(not(feature="crash-test-hooks"))]
@@ -99,6 +120,12 @@ async fn effective(tx:&mut Transaction<'_,Sqlite>,c:&WorkspaceContext,row:&sqlx:
     if row.get::<Option<String>,_>("wire").as_ref().is_some_and(|old|*old!=wire){return Err("Immutable title wire changed".into());}Ok((i,ver,original,wire))
 }
 impl PageStore {
+    pub(super) async fn title_ready(&self,page:&str)->StoreResult<bool> {
+        let mut tx=self.pool.begin().await.map_err(|e|e.to_string())?;present(&mut tx,page).await?;
+        let known=base(&mut tx,page).await?;
+        let bootstrap:i64=sqlx::query_scalar("SELECT count(*) FROM workspace_page_pending p LEFT JOIN workspace_page_receipts r ON r.pending_seq=p.seq WHERE p.page_id=? AND p.kind='bootstrap' AND r.pending_seq IS NULL").bind(page).fetch_one(&mut *tx).await.map_err(|e|e.to_string())?;
+        tx.commit().await.map_err(|e|e.to_string())?;Ok(!known.is_null()&&bootstrap==0)
+    }
     pub(super) async fn title_enqueue(&self,_c:&WorkspaceContext,page:&str,value:Value)->StoreResult<()> {
         let i=intent(value)?;let raw=serde_json::to_string(&i).unwrap();let mut tx=self.pool.begin().await.map_err(|e|e.to_string())?;present(&mut tx,page).await?;
         let old=sqlx::query("SELECT page_id,intent FROM workspace_title_operations WHERE operation_id=?").bind(&i.operation_id).fetch_optional(&mut *tx).await.map_err(|e|e.to_string())?;
@@ -121,6 +148,17 @@ impl PageStore {
         let row=sqlx::query("SELECT o.* FROM workspace_title_operations o LEFT JOIN workspace_title_receipts r ON r.operation_id=o.operation_id WHERE o.page_id=? AND r.operation_id IS NULL ORDER BY o.seq LIMIT 1").bind(page).fetch_optional(&mut *tx).await.map_err(|e|e.to_string())?;
         let prepared=if let Some(row)=row{let (i,_,_,wire)=effective(&mut tx,c,&row).await?;sqlx::query("UPDATE workspace_title_operations SET wire=? WHERE operation_id=? AND wire IS NULL").bind(&wire).bind(&i.operation_id).execute(&mut *tx).await.map_err(|e|e.to_string())?;json!({"pageId":page,"sequence":row.get::<i64,_>("seq").to_string(),"operationId":i.operation_id,"wire":wire})}else{Value::Null};
         barrier("workspace-title-prepare-before-commit")?;tx.commit().await.map_err(|e|e.to_string())?;barrier("workspace-title-prepare-after-commit")?;Ok(prepared)
+    }
+    pub(super) async fn title_validate(&self,c:&WorkspaceContext,page:&str,seq:&str,wire:&str,response:Value)->StoreResult<()> {
+        id(page)?;receipt(&response,c,page)?;let mut tx=self.pool.begin().await.map_err(|e|e.to_string())?;present(&mut tx,page).await?;
+        let row=sqlx::query("SELECT * FROM workspace_title_operations WHERE page_id=? AND seq=?").bind(page).bind(sequence(seq)?).fetch_one(&mut *tx).await.map_err(|e|e.to_string())?;
+        if row.get::<Option<String>,_>("wire").as_deref()!=Some(wire){return Err("Title ACK wire mismatch".into());}let (i,ver,original,expected)=effective(&mut tx,c,&row).await?;if expected!=wire||response["operationId"]!=i.operation_id{return Err("Title ACK identity mismatch".into());}
+        let result=&response["result"];match text(result,"status")? {
+            "applied"=>{if version(&response,"version")?<ver||(i.title!=original&&response["metadata"]["title"]!=i.title){return Err("Applied title mismatch".into());}},
+            "conflict"=>{let cf=&result["conflict"];if i.resolution.is_some()||cf["baseVersion"]!=ver||cf["base"]!=original||cf["local"]!=i.title{return Err("Title conflict intent mismatch".into());}},
+            "rejected"=>{if text(result,"code")?!= "base_unknown"&&i.resolution.is_none(){return Err("Resolution rejection without intent".into());}},_=>unreachable!()
+        }
+        tx.rollback().await.map_err(|e|e.to_string())?;Ok(())
     }
     pub(super) async fn title_ack(&self,c:&WorkspaceContext,page:&str,seq:&str,wire:&str,response:Value)->StoreResult<()> {
         id(page)?;receipt(&response,c,page)?;let mut tx=self.pool.begin().await.map_err(|e|e.to_string())?;present(&mut tx,page).await?;

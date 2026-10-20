@@ -1,3 +1,12 @@
+## 0.99.0 — 2026-10-20
+
+- レビュー修正: IME候補は確定時だけ保存。下書きのタイトル編集有無を区別し、offline再表示時も競合をローカル読込。取得結果を試行ごとに初期化し、大きな正当なmetadata応答を受け入れる。GitのLFバイト列に合わせてソース証拠を修復・再検証。
+
+- 新native入口にタイトル編集・Page一覧への反映・context付き下書き復元を接続。空タイトル、保存失敗、保存中の表示、composition中と取得待ちの入力保護を改善。
+- タイトルの明示送信・取得を認証済みRust gateから既存metadata APIへ接続。元wireとadmissionを維持し、結果不明、受領記録未確認、競合、拒否を本文の状態と区別。既知受領の再確認ではHTTPを繰り返さない。
+- 版付きbaseが未取得の編集はメモリ下書きと明示。本文送信後のタイトル取得で保存可能にし、永続化失敗をエラー文言で成功扱いしない。競合候補の表示までを接続し、明示解決UIと履歴全件paginationは未接続。
+- MINOR版へアプリ所有manifest/lockfileを整合。Dockerの型・unit・desktop/mobile回帰に加え、Rustと実HTTP/API/PostgreSQLで関連境界を検証。最新Windows実機/実IME受入・M2全体の完了は主張しない。
+
 ## 0.98.3 — 2026-10-20
 
 - アプリ所持manifest（apps/client/package.json, apps/client/src-tauri/tauri.conf.json, Cargo.toml等）およびpackage-lock.jsonを0.98.3へ整合。audienceのUTF-8バイト長検査・Unicode制御文字検査、全空環境変数の厳格拒否およびCargo環境変数サニタイズを適用。
