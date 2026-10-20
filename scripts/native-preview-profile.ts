@@ -64,10 +64,24 @@ export function validateNativeOfflinePin(pin: Readonly<{issuer?: string; audienc
   } catch {
     throw Error('Invalid native offline public configuration');
   }
-  if (url.protocol !== 'https:' || url.username || url.password || url.search || url.hash || issuer !== issuer.trim() || issuer.length > 2048) {
+  if (
+    url.protocol !== 'https:' ||
+    url.username ||
+    url.password ||
+    url.search ||
+    url.hash ||
+    issuer !== issuer.trim() ||
+    Buffer.byteLength(issuer, 'utf8') > 2048 ||
+    /\p{Control}/u.test(issuer)
+  ) {
     throw Error('Invalid native offline public configuration');
   }
-  if (!audience || audience !== audience.trim() || audience.length > 256 || /[\x00-\x1f\x7f]/.test(audience)) {
+  if (
+    !audience ||
+    audience !== audience.trim() ||
+    Buffer.byteLength(audience, 'utf8') > 256 ||
+    /\p{Control}/u.test(audience)
+  ) {
     throw Error('Invalid native offline public configuration');
   }
   if (!/^[A-Za-z0-9_-]{1,64}$/.test(kid)) {
@@ -92,7 +106,7 @@ function resolveOfflinePin(
     env.GREIVA_NATIVE_OFFLINE_KID ?? env.VITE_GREIVA_OFFLINE_KID,
     env.GREIVA_NATIVE_OFFLINE_PUBLIC_KEY ?? env.VITE_GREIVA_OFFLINE_PUBLIC_KEY,
   ];
-  if (rawValues.every(v => v === undefined || v === '')) {
+  if (rawValues.every(v => v === undefined)) {
     return null;
   }
   if (rawValues.some(v => v === undefined || v === '')) {

@@ -11,6 +11,7 @@ assert(relative.startsWith('.data'+path.sep)&&!relative.split(path.sep).includes
 let ancestor=path.dirname(out);while(!fs.existsSync(ancestor))ancestor=path.dirname(ancestor);const realRoot=fs.realpathSync(root),realAncestor=fs.realpathSync(ancestor);assert(realAncestor===realRoot||realAncestor.startsWith(realRoot+path.sep),'Output parent resolves outside workspace');
 fs.mkdirSync(out,{recursive:true});fs.writeFileSync(path.join(out,'tauri-override.json'),JSON.stringify(override,null,2)+'\n');
 const env={...process.env,...profile.publicEnvironment,...profile.nativeEnvironment,TAURI_CONFIG:JSON.stringify(override)};
+if(!profile.offlinePin){for(const key of ['GREIVA_NATIVE_OFFLINE_ISSUER','GREIVA_NATIVE_OFFLINE_AUDIENCE','GREIVA_NATIVE_OFFLINE_KID','GREIVA_NATIVE_OFFLINE_PUBLIC_KEY'])delete env[key];}
 const steps=[];function run(step,command,args){const result=spawnSync(command,args,{cwd:root,env,encoding:'utf8',maxBuffer:32*1024*1024});fs.writeFileSync(path.join(out,step+'.log'),(result.stdout??'')+(result.stderr??''));steps.push({step,status:result.status,signal:result.signal});fs.writeFileSync(path.join(out,'steps.json'),JSON.stringify(steps,null,2));if(result.status!==0)throw Error('Native preview '+step+' failed; see private output log');}
 run('frontend','npm',['run','build']);
 assert(fs.existsSync('apps/client/dist/native.html'));assert.deepEqual(fs.readdirSync('apps/client/dist').filter(name=>name.endsWith('.html')),['native.html'],'Only native HTML may ship in native-auth mode');
