@@ -1,11 +1,14 @@
-## 0.98.4 — 2026-10-20
+## 0.99.0 — 2026-10-20
 
-- native UIおよびPageセッションへのタイトル／メタデータ統合（M2-①）。
-- apps/client/src/editor/native-page-session.ts: setTitle(title) によるタイトル変更API、文字数（4096以下）・UTF-8バイト長（4096以下）・Unicode制御文字（/\p{Control}/u）の厳格検証、#editVersion インクリメントと購読者への状態通知、ローカル #tail への非同期 title_enqueue 保存キュー発行（未採番の初期タイトルベースへのグレースフル対応を含む）、ドラフト追跡（draft() / restoreDraft()）、リモート同期確定時の #initialTitle 追跡を実装。
+- native UIおよびPageセッションへのタイトル／メタデータ統合（M2-①）。新機能の実装に基づきリポジトリ規約に従ってMINOR版 0.99.0 へ更新。
+- apps/client/src/editor/native-page-session.ts: setTitle(title) によるタイトル変更API、文字数（4096以下）・UTF-8バイト長（4096以下）・Unicode制御文字（/\p{Control}/u）の厳格検証、#editVersion インクリメントと購読者への状態通知、ローカル #tail への非同期 title_enqueue 保存キュー発行を実装。
+- pre-bootstrap時（未採番・未ACKの初期タイトルベース時）のタイトル編集を保持（#preBootstrapTitle）し、bootstrap受領（send() の ACK）および read() 完了時に自動再送キューイングする機構を導入。真のストレージ／SQLite障害時は確実に storageError を表面化して永続化失敗を通知。
+- read() 実行中に発生した最新のタイトル編集を保護し、非同期 page_load による古いタイトルの上書きを防止。
+- apps/client/src/editor/PageEditor.tsx: タイトル入力欄（<input className="page-title">）へ onCompositionStart / onCompositionEnd を接続し、タイトル入力中のIME合成状態をセッションへ伝播。合成確定前の画面アンマウント・ログアウト・切断処理を防止。
+- docs/plan/NATIVE_INTEGRATION_CONTRACTS.md: title_enqueue のプロトコルスキーマ整合（baseVersion の除外）。
 - apps/client/src/auth/native-login-controller.ts: adopt() によるアクティブエディタのタイトル変更監視とページカタログ（sidebar等）への動的タイトル反映、およびページ切替時におけるドラフトタイトルの保持（keepDraft()）を実装。
-- tests/unit/native-page-session.test.ts（3件）および tests/unit/native-login-controller.test.ts（1件）の単体テストを追加。タイトル更新・キュー発行、制御文字・バイト長超過の拒否、ドラフト復元、カタログ連携を検証。
-- 単体テスト総数を577件から581件へ拡張し、CIテストベースライン（scripts/ci-test-baseline.json）を更新。全581件の単体テスト、12件のレポート検証、60件の画面回帰、型検査がすべてPassすることを確認。
-- アプリ所有manifest（package.json, 各package, Tauri, Cargo）および package-lock.json を0.98.4へ整合。
+- 単体テストの追加およびCIベースライン更新。全単体テスト、レポート検証、画面回帰、型検査がPassすることを確認。
+- アプリ所有manifest（package.json, 各package, Tauri, Cargo）および package-lock.json を0.99.0へ整合。
 
 ## 0.98.3 — 2026-10-20
 

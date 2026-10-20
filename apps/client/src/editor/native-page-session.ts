@@ -12,7 +12,9 @@ export type NativePageDraft=Readonly<{context:NativeWorkspaceHandle['context'];p
 export class NativePageSession {
  readonly document=new Y.Doc({gc:false});readonly clientId:string;
  #state:NativePageState={phase:'opening',title:'',saving:0,pending:0,pendingFresh:true,sending:false,sendStatus:null,reading:false,readStatus:null,readError:null,remoteWaiting:false,unsaved:0,composing:false,storageError:null};
- #remote:{update:Uint8Array;title:string}|null=null;
+ #remote:{update:Uint8Array;title:string|null}|null=null;
+ #serverHead:string|null=null;
+ #preBootstrapTitle:string|null=null;
  #editVersion=0;
  #initialTitle='';
  #listeners=new Set<(state:NativePageState)=>void>();#tail:Promise<void>=Promise.resolve();#loadOrigin=Symbol('native journal');#closing:Promise<NativePageDraft|null>|undefined;
@@ -33,6 +35,7 @@ export class NativePageSession {
    if(!parsed.success || parsed.data.page.metadata.id!==pageId)throw new NativePageError('protocol');
    try{for(const update of parsed.data.page.updates)Y.applyUpdate(session.document,Uint8Array.from(update),session.#loadOrigin);}catch{throw new NativePageError('protocol');}
    session.#initialTitle=parsed.data.page.metadata.title;
+   session.#serverHead=parsed.data.serverHead;
    session.#patch({phase:'ready',title:parsed.data.page.metadata.title,pending:parsed.data.pending});session.document.on('update',session.#changed);return session;
   }catch(error){session.document.destroy();throw session.#failure(error);}
  }
@@ -47,11 +50,48 @@ export class NativePageSession {
     const result=await this.port.executeFor(this.bound,{command:'title_enqueue',pageId:this.pageId,intent:{operationId:newId(),title}});
     if(result!==null)throw new NativePageError('protocol');
     this.#initialTitle=title;
+    this.#preBootstrapTitle=null;
    }catch(error){
-    if(error instanceof NativeSessionPortError && error.stage==='closed'){const failure=this.#failure(error);this.#patch({storageError:'closed'});throw failure;}
+    const failure=this.#failure(error);
+    if(failure.stage==='closed'){this.#patch({storageError:'closed'});throw failure;}
+    const msg=error instanceof Error?error.message:String(error);
+    const causeMsg=error instanceof Error&&error.cause?(error.cause instanceof Error?error.cause.message:String(error.cause)):'';
+    const isPreBootstrap=
+      msg.includes('Versioned title base required')||msg.includes('Page bootstrap receipt required')||msg.includes('Unknown base/bootstrap')||
+      causeMsg.includes('Versioned title base required')||causeMsg.includes('Page bootstrap receipt required')||causeMsg.includes('Unknown base/bootstrap');
+    if(isPreBootstrap){
+     this.#preBootstrapTitle=title;
+    }else{
+     this.#patch({storageError:failure.stage==='protocol'?'protocol':'storage'});
+     throw failure;
+    }
    }
   });
  };
+ #retryPreBootstrapTitle(){
+  if(this.#preBootstrapTitle===null||this.#state.storageError||this.#state.phase!=='ready')return;
+  const title=this.#preBootstrapTitle;
+  this.#tail=this.#tail.then(async()=>{
+   if(this.#preBootstrapTitle!==title)return;
+   try{
+    const result=await this.port.executeFor(this.bound,{command:'title_enqueue',pageId:this.pageId,intent:{operationId:newId(),title}});
+    if(result!==null)throw new NativePageError('protocol');
+    this.#initialTitle=title;
+    if(this.#preBootstrapTitle===title)this.#preBootstrapTitle=null;
+   }catch(error){
+    const failure=this.#failure(error);
+    if(failure.stage==='closed'){this.#patch({storageError:'closed'});throw failure;}
+    const msg=error instanceof Error?error.message:String(error);
+    const causeMsg=error instanceof Error&&error.cause?(error.cause instanceof Error?error.cause.message:String(error.cause)):'';
+    const isPreBootstrap=msg.includes('Versioned title base required')||msg.includes('Page bootstrap receipt required')||msg.includes('Unknown base/bootstrap')||
+      causeMsg.includes('Versioned title base required')||causeMsg.includes('Page bootstrap receipt required')||causeMsg.includes('Unknown base/bootstrap');
+    if(!isPreBootstrap){
+     this.#patch({storageError:failure.stage==='protocol'?'protocol':'storage'});
+     throw failure;
+    }
+   }
+  });
+ }
  #changed=(candidate:Uint8Array,origin:unknown)=>{
   if(origin===this.#loadOrigin || this.#state.phase!=='ready')return;
   ++this.#editVersion;const update=Uint8Array.from(candidate);this.#patch({unsaved:this.#state.unsaved+1});
@@ -70,8 +110,14 @@ export class NativePageSession {
  setComposing=(value:boolean)=>{this.#patch({composing:value});if(!value)this.#flushRemote();};
  #flushRemote(){
   if(!this.#remote||this.#state.composing||this.#state.phase!=='ready'||this.#state.storageError)return;
-  try{this.#check();const candidate=this.#remote;this.#remote=null;Y.applyUpdate(this.document,candidate.update,this.#loadOrigin);this.#initialTitle=candidate.title;this.#patch({title:candidate.title,remoteWaiting:false});}
-  catch(error){this.#remote=null;this.#patch({readError:error instanceof NativePageError&&error.stage==='closed'?'load':'protocol',remoteWaiting:false});}
+  try{
+   this.#check();const candidate=this.#remote;this.#remote=null;Y.applyUpdate(this.document,candidate.update,this.#loadOrigin);
+   if(candidate.title!==null){
+    this.#initialTitle=candidate.title;this.#preBootstrapTitle=null;this.#patch({title:candidate.title,remoteWaiting:false});
+   }else{
+    this.#patch({remoteWaiting:false});
+   }
+  }catch(error){this.#remote=null;this.#patch({readError:error instanceof NativePageError&&error.stage==='closed'?'load':'protocol',remoteWaiting:false});}
  }
  lock(){if(this.#state.phase==='ready')this.#patch({storageError:'closed'});}
  durable(){return this.#tail;}
@@ -81,12 +127,15 @@ export class NativePageSession {
   const limit=Math.min(32,Math.max(1,this.#state.pending));this.#patch({sending:true,pendingFresh:false,sendStatus:null});
   try{
    for(let index=0;index<limit;index++){
-    this.#check();const result=await this.port.sendPageFor(this.bound,this.pageId);this.#check();this.#patch({sendStatus:result});if(result!=='acked')break;
+    this.#check();const result=await this.port.sendPageFor(this.bound,this.pageId);this.#check();this.#patch({sendStatus:result});
+    if(result==='acked')this.#retryPreBootstrapTitle();
+    if(result!=='acked')break;
    }
   }catch{if(this.#state.phase==='ready')this.#patch({sendStatus:'send_unknown'});}
   finally{
    if(this.#state.phase==='ready'){
     try{await this.durable();this.#check();const version=this.#editVersion;const value=privatePageLocalLoadSchema.parse(await this.port.executeFor(this.bound,{command:'page_load',pageId:this.pageId}));this.#check();if(value.page.metadata.id!==this.pageId)throw new NativePageError('protocol');
+     this.#serverHead=value.serverHead;
      if(version===this.#editVersion&&this.#state.saving===0)this.#patch({pending:value.pending,pendingFresh:true});
     }catch{/* Keep the known send result separate from a failed local recheck. */}
     this.#patch({sending:false});
@@ -101,16 +150,18 @@ export class NativePageSession {
    const result=localOnly?'received':await this.port.readPageFor(this.bound,this.pageId);this.#check();this.#patch({readStatus:result});if(result!=='received')return;
    await this.durable();this.#check();const version=this.#editVersion;const response=await this.port.executeFor(this.bound,{command:'page_load',pageId:this.pageId});this.#check();
    const parsed=privatePageLocalLoadSchema.safeParse(response);if(!parsed.success||parsed.data.page.metadata.id!==this.pageId)throw new NativePageError('protocol');
+   this.#serverHead=parsed.data.serverHead;
    const probe=new Y.Doc({gc:false});let update:Uint8Array;
    try{Y.applyUpdate(probe,Y.encodeStateAsUpdate(this.document));for(const bytes of parsed.data.page.updates)Y.applyUpdate(probe,Uint8Array.from(bytes));update=Y.encodeStateAsUpdate(probe,Y.encodeStateVector(this.document));}
    catch{throw new NativePageError('protocol');}finally{probe.destroy();}
-   this.#check();this.#remote={update,title:parsed.data.page.metadata.title};
+   this.#check();const adoptTitle=version===this.#editVersion;this.#remote={update,title:adoptTitle?parsed.data.page.metadata.title:null};
    this.#patch({remoteWaiting:true,...(version===this.#editVersion&&this.#state.saving===0?{pending:parsed.data.pending,pendingFresh:true}: {pendingFresh:false})});this.#flushRemote();
+   this.#retryPreBootstrapTitle();
   }catch(error){if(this.#state.phase==='ready')this.#patch(this.#state.readStatus==='received'?{readError:error instanceof NativePageError&&error.stage==='protocol'?'protocol':'load'}:{readStatus:'read_unknown'});}
   finally{if(this.#state.phase==='ready')this.#patch({reading:false});}
  }
  draft():NativePageDraft|null {
-  if(this.#state.unsaved===0 && this.#state.title===this.#initialTitle)return null;
+  if(this.#state.unsaved===0 && this.#state.title===this.#initialTitle && this.#preBootstrapTitle===null)return null;
   return Object.freeze({context:this.bound.context,pageId:this.pageId,title:this.#state.title,update:Uint8Array.from(Y.encodeStateAsUpdate(this.document))});
  }
  async restoreDraft(draft:NativePageDraft){

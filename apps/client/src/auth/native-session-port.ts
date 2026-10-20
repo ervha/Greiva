@@ -5,7 +5,7 @@ import {pageSchema} from '@greiva/protocol';
 import type {WorkspaceSyncContext} from '@greiva/sync';
 export type NativeAuthSnapshot=Readonly<{available:boolean;phase:'unavailable'|'locked'|'authenticating'|'refreshing'|'verified';expiresAt:number|null}>;
 export type NativeLogout=Readonly<{localLocked:true;persistentLocked:boolean;cleanupPending:boolean|null;providerConfirmed:boolean}>;
-export class NativeSessionPortError extends Error {constructor(readonly stage:'configuration'|'closed'|'busy'|'credentials'|'protocol'|'unavailable'){super(`Native session ${stage}`);this.name='NativeSessionPortError';}}
+export class NativeSessionPortError extends Error {constructor(readonly stage:'configuration'|'closed'|'busy'|'credentials'|'protocol'|'unavailable',options?:ErrorOptions){super(`Native session ${stage}`,options);this.name='NativeSessionPortError';}}
 type InvokePort=(command:string,args?:Record<string,unknown>)=>Promise<unknown>;
 export type NativeWorkspaceHandle=Readonly<{handle:string;context:WorkspaceSyncContext}>;
 export type NativePageSendStatus='idle'|'acked'|'send_unknown'|'ack_pending';
@@ -33,12 +33,12 @@ export class NativeSessionPort {
  constructor(private readonly invokePort:InvokePort=invoke,private readonly now=()=>Math.floor(Date.now()/1000)){
   if(invokePort===invoke && !isTauri())throw new NativeSessionPortError('configuration');
  }
- get current():NativeAuthSnapshot {return this.#snapshot.phase==='verified' && this.#snapshot.expiresAt!<=this.now()?Object.freeze({available:true,phase:'locked',expiresAt:null}):this.#snapshot;}
+ get current():NativeAuthSnapshot {return this.#snapshot.phase==='verified' && this.#snapshot.expiresAt!<=this.now()?Object.freeze({available:true,phase:'locked',expiresAt:null}):this.#snapshot;};
  get handle():Handle|null {return this.current.phase==='verified'?this.#handle:null;}
  #check(revision=this.#revision){if(this.#disposed || revision!==this.#revision)throw new NativeSessionPortError('closed');}
  #begin(){this.#check();const revision=++this.#revision;this.#handle=null;this.#catalogBusy=false;++this.#catalogRevision;return revision;}
  async #call(command:string,args:Record<string,unknown>|undefined,revision:number){
-  this.#check(revision);let value:unknown;try{const port=this.invokePort;value=await port(command,args);}catch{this.#check(revision);throw new NativeSessionPortError('unavailable');}this.#check(revision);return value;
+  this.#check(revision);let value:unknown;try{const port=this.invokePort;value=await port(command,args);}catch(error){this.#check(revision);throw new NativeSessionPortError('unavailable',command.startsWith('native_auth_')?undefined:{cause:error});}this.#check(revision);return value;
  }
  async status(){const revision=this.#revision;const next=snapshot(await this.#call('native_auth_status',undefined,revision));this.#snapshot=next;if(next.phase!=='verified')this.#handle=null;return this.current;}
  async #authenticate(command:'native_auth_login'|'native_auth_restore',args?:Record<string,unknown>){

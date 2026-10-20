@@ -65,7 +65,7 @@ M2-① では、安全境界を維持しつつ最も小さく確実に動作す�
    - `PageEditor` のタイトル変更ハンドラ（`onChange`）から呼び出し可能にする。
    - 入力文字数の検証（1〜4096文字、制御文字検証）を行う。
 2. タイトル変更はローカルストアへ即時反映：
-   - `executeFor(handle, { command: 'title_enqueue', pageId, intent: { operationId, baseVersion, title } })` を実行。
+   - `executeFor(handle, { command: 'title_enqueue', pageId, intent: { operationId, title } })` を実行。
    - セッションの `snapshot.title` を更新し、リスナーへ通知。
    - 親コントローラー（`NativeLoginController`）へタイトル変更を通知し、Page一覧（`state.pages`）の該当タイトルの表示をリアルタイムに更新。
 
@@ -83,4 +83,4 @@ M2-① では、安全境界を維持しつつ最も小さく確実に動作す�
 2. **`NativePageSession` へのタイトル変更機能の追加（ローカル保存・検証）**
 3. **`NativeLoginController` および `NativeAuthScreen` のタイトル双方向反映**
 4. **単体テスト・画面回帰テストの作成と検証**
-5. **PR作成、CI通過、マージ、v0.98.4 タグ付け**
+5. **PR作成、CI通過、マージ、v0.99.0 タグ付け**

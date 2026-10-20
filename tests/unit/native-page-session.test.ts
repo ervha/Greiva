@@ -5,7 +5,7 @@ const pageId='01900000-0000-7000-8000-000000000004';
 const context={issuer:'https://fixture.invalid/auth/v1',subjectId:'owner-A',workspaceId:'01900000-0000-7000-8000-000000000001',clientId:'01900000-0000-7000-8000-000000000002',streamEpoch:'01900000-0000-7000-8000-000000000003'};
 function add(doc:Y.Doc,text:string){doc.transact(()=>{const p=new Y.XmlElement('paragraph'),t=new Y.XmlText();t.insert(0,text);p.insert(0,[t]);const body=doc.getXmlFragment('body');body.insert(body.length,[p]);});}
 async function fixture(){
- const pages=new Map<string,{title:string;updates:number[][]}>(),acked=new Map<string,number>();let handle=0,hold=false,holdSend=false,badLoad=false,fail=false,unknown=false,createUnknown=false,release!:()=>void,entered!:()=>void;let waiting:Promise<void>|undefined;const sendResults:string[]=[],readResults:string[]=[],remote:number[][]=[];let readHold=false;
+ const pages=new Map<string,{title:string;updates:number[][]}>(),acked=new Map<string,number>();let handle=0,hold=false,holdSend=false,badLoad=false,fail=false,unknown=false,createUnknown=false,titleFail:string|null=null,release!:()=>void,entered!:()=>void;let waiting:Promise<void>|undefined;const sendResults:string[]=[],readResults:string[]=[],remote:number[][]=[];let readHold=false;
  const calls:{command:string;args?:Record<string,unknown>}[]=[];
  const invoke=vi.fn(async(command:string,args?:Record<string,unknown>)=>{
   calls.push({command,...(args?{args}: {})});if(command==='native_auth_login')return{available:true,phase:'verified',expiresAt:Math.floor(Date.now()/1000)+300};if(command==='native_workspace_open')return{handle:`handle-${++handle}`,context};
@@ -20,11 +20,11 @@ async function fixture(){
    if(hold){hold=false;entered();await new Promise<void>(done=>{release=done;});}
    if(!fail || unknown)page.updates.push(request.update!.slice());if(fail || unknown)throw Error('private disk credential path');return null;
   }
-  if(request.command==='title_enqueue'){page.title=request.intent?.title??'';return null;}
+  if(request.command==='title_enqueue'){if(titleFail)throw Error(titleFail);page.title=request.intent?.title??'';return null;}
   throw Error('unexpected command');
  });
  const port=new NativeSessionPort(invoke);await port.login('fixture@example.invalid','fixture-password');await port.open(context.clientId);
- return{port,pages,calls,sendResults,readResults,remote,holdRead(){readHold=true;waiting=new Promise(done=>{entered=done;});},failLoad(value=true){badLoad=value;},holdSend(){holdSend=true;waiting=new Promise(done=>{entered=done;});},hold(){hold=true;waiting=new Promise(done=>{entered=done;});},wait:()=>waiting!,release:()=>release(),fail(value=true){fail=value;},unknown(value=true){unknown=value;},createUnknown(value=true){createUnknown=value;}};
+ return{port,pages,calls,sendResults,readResults,remote,holdRead(){readHold=true;waiting=new Promise(done=>{entered=done;});},failLoad(value=true){badLoad=value;},holdSend(){holdSend=true;waiting=new Promise(done=>{entered=done;});},hold(){hold=true;waiting=new Promise(done=>{entered=done;});},wait:()=>waiting!,release:()=>release(),fail(value=true){fail=value;},unknown(value=true){unknown=value;},createUnknown(value=true){createUnknown=value;},failTitle(reason='private disk credential path'){titleFail=reason;},succeedTitle(){titleFail=null;}};
 }
 function replay(updates:number[][]){const doc=new Y.Doc({gc:false});for(const bytes of updates)Y.applyUpdate(doc,Uint8Array.from(bytes));return doc;
 }
@@ -127,4 +127,58 @@ it('NATIVE-PAGE-TITLE: title change is captured in draft and restored across ses
  await next.restoreDraft(draft!);
  expect(next.snapshot.title).toBe('draft modified title');
  await next.close();f.port.dispose();
+});
+
+it('NATIVE-PAGE-TITLE: pre-bootstrap title enqueue failure is retained in draft and retried on send ack',async()=>{
+ const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
+ f.failTitle('Page bootstrap receipt required');
+ s.setTitle('retained title');
+ expect(s.snapshot.title).toBe('retained title');
+ await s.durable();
+ expect(s.snapshot.storageError).toBeNull();
+ const draft=s.draft();
+ expect(draft).not.toBeNull();
+ expect(draft!.title).toBe('retained title');
+ f.succeedTitle();
+ await s.send();
+ await s.durable();
+ expect(f.pages.get(pageId)!.title).toBe('retained title');
+ await s.close();f.port.dispose();
+});
+
+it('NATIVE-PAGE-TITLE: genuine storage failure in title_enqueue sets storageError and rejects durable',async()=>{
+ const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
+ await s.send();
+ f.failTitle('private disk credential path');
+ s.setTitle('failing title');
+ await expect(s.durable()).rejects.toMatchObject({stage:'storage'});
+ expect(s.snapshot.storageError).toBe('storage');
+ await s.close().catch(()=>{});f.port.dispose();
+});
+
+it('NATIVE-PAGE-TITLE: newer title edit during read is preserved and not overwritten by stale page_load',async()=>{
+ const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
+ const peer=replay(f.pages.get(pageId)!.updates);add(peer,'remote update');
+ f.remote.push(Array.from(Y.encodeStateAsUpdate(peer)));
+ f.pages.get(pageId)!.title='stale remote title';
+ f.holdRead();
+ const reading=s.read();
+ await f.wait();
+ s.setTitle('local newer title');
+ f.release();
+ await reading;
+ expect(s.snapshot.title).toBe('local newer title');
+ peer.destroy();await s.close();f.port.dispose();
+});
+
+it('NATIVE-PAGE-TITLE: setComposing updates session isComposing and prevents teardown',async()=>{
+ const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
+ s.setComposing(true);
+ expect(s.isComposing).toBe(true);
+ expect(s.snapshot.composing).toBe(true);
+ await expect(s.close()).rejects.toMatchObject({stage:'busy'});
+ s.setComposing(false);
+ expect(s.isComposing).toBe(false);
+ expect(s.snapshot.composing).toBe(false);
+ await s.close();f.port.dispose();
 });

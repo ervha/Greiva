@@ -70,7 +70,7 @@ export const PageEditor = memo(function PageEditor({ session, title, storageErro
     if (tr) { editor.view.dispatch(tr); editor.view.focus(); }
   };
   return <section className="editor-panel" aria-label="Page Editor">
-    <input className="page-title" aria-label="Pageタイトル" placeholder="無題のPage" value={title} readOnly={!session.setTitle} disabled={Boolean(storageError)} onChange={e => session.setTitle?.(e.target.value)} />
+    <input className="page-title" aria-label="Pageタイトル" placeholder="無題のPage" value={title} readOnly={!session.setTitle} disabled={Boolean(storageError)} onChange={e => session.setTitle?.(e.target.value)} onCompositionStart={() => session.setComposing?.(true)} onCompositionEnd={() => session.setComposing?.(false)} />
     <div className="editor-toolbar" role="toolbar" aria-label="編集操作">
       <button type="button" disabled={Boolean(storageError) || !state?.undo} onClick={() => editor.chain().focus().undo().run()}>元に戻す</button>
       <button type="button" disabled={Boolean(storageError) || !state?.redo} onClick={() => editor.chain().focus().redo().run()}>やり直す</button>
