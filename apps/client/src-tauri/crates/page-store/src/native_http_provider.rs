@@ -131,7 +131,9 @@ impl NativeProvider for NativeHttpProvider {
     fn title_read<'a>(&'a self,access:&'a AccessSecret,c:&'a crate::WorkspaceContext,page:&'a str)->ProviderFuture<'a,serde_json::Value>{Box::pin(async move{
         if c.issuer!=self.issuer||!crate::structured::uuid_v7(&c.workspace_id)||!crate::structured::uuid_v7(&c.client_id)||!crate::structured::uuid_v7(page){return Err(CredentialError)}
         let body=Zeroizing::new(serde_json::to_vec(&serde_json::json!({"protocolVersion":1,"clientId":c.client_id,"afterConflict":null,"limit":50})).map_err(|_|CredentialError)?);
-        let bytes=self.call_limited(Method::POST,format!("{}/v1/workspaces/{}/pages/{page}/metadata/read",self.api,c.workspace_id),Some(access),Some(body),false,8*1024*1024).await?;
+        // 50 conflicts × 3 titles × 65,536 UTF-16 units × up to 6 JSON
+        // bytes per unit, plus metadata/IDs, fits within 64 MiB.
+        let bytes=self.call_limited(Method::POST,format!("{}/v1/workspaces/{}/pages/{page}/metadata/read",self.api,c.workspace_id),Some(access),Some(body),false,64*1024*1024).await?;
         serde_json::from_slice(&bytes).map_err(|_|CredentialError)
     })}
     fn page_send<'a>(&'a self,access:&'a AccessSecret,context:&'a crate::WorkspaceContext,page:&'a str,kind:&'a str,wire:&'a str)->ProviderFuture<'a,serde_json::Value> {
@@ -170,7 +172,7 @@ impl NativeHttpProvider {
     async fn catalog(&self,access:&AccessSecret,context:&crate::WorkspaceContext,cursor:Option<&str>)->Result<serde_json::Value>{
         if context.issuer!=self.issuer||!crate::structured::uuid_v7(&context.workspace_id)||!crate::structured::uuid_v7(&context.client_id)||cursor.is_some_and(|c|c.is_empty()||c.len()>8192||c.chars().any(char::is_control)){return Err(CredentialError)}
         let body=Zeroizing::new(serde_json::to_vec(&serde_json::json!({"protocolVersion":1,"clientId":context.client_id,"cursor":cursor,"limit":20})).map_err(|_|CredentialError)?);
-        let bytes=self.call_limited(Method::POST,format!("{}/v1/workspaces/{}/pages/query",self.api,context.workspace_id),Some(access),Some(body),false,8*1024*1024).await?;
+        let bytes=self.call_limited(Method::POST,format!("{}/v1/workspaces/{}/pages/query",self.api,context.workspace_id),Some(access),Some(body),false,64*1024*1024).await?;
         serde_json::from_slice(&bytes).map_err(|_|CredentialError)
     }
 }
@@ -265,7 +267,9 @@ mod tests {
         let title_request=serde_json::json!({"command":"title_prepare","pageId":page});let original=gate.execute(&handle.handle,title_request.clone()).await.unwrap();
         for _ in 0..2{assert_eq!(gate.send_title_status(&handle.handle,page).await.unwrap(),TitleSendStatus::SendUnknown);assert_eq!(gate.execute(&handle.handle,title_request.clone()).await.unwrap(),original);}
         assert_eq!(gate.send_title_status(&handle.handle,page).await.unwrap(),TitleSendStatus::Applied);
-        let title=gate.execute(&handle.handle,serde_json::json!({"command":"title_load","pageId":page,"afterOperation":null,"afterConflict":null,"limit":50})).await.unwrap();assert_eq!(title["pending"],0);assert_eq!(title["localTitle"],"native HTTP renamed");gate.shutdown().await;
+        let title=gate.execute(&handle.handle,serde_json::json!({"command":"title_load","pageId":page,"afterOperation":null,"afterConflict":null,"limit":50})).await.unwrap();assert_eq!(title["pending"],0);assert_eq!(title["localTitle"],"native HTTP renamed");
+        assert_eq!(gate.read_title(&handle.handle,page).await.unwrap(),PageReadStatus::Received);
+        let retained=gate.execute(&handle.handle,serde_json::json!({"command":"title_load","pageId":page,"afterOperation":null,"afterConflict":null,"limit":50})).await.unwrap();assert_eq!(retained["conflicts"].as_array().unwrap().len(),50);gate.shutdown().await;
         let store=crate::WorkspaceStore::open(&root.join("workspaces").join(format!("{:x}.sqlite",sha2::Sha256::digest(serde_json::to_vec(&handle.context).unwrap()))),handle.context).await.unwrap();assert_eq!(store.page_prepare(page).await.unwrap(),serde_json::Value::Null);drop(store);std::fs::remove_dir_all(root).unwrap();
     }
     #[tokio::test]

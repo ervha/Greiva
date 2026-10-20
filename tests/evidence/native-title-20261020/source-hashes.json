@@ -45,7 +45,7 @@
   },
   {
     "path": "apps/client/src/editor/PageEditor.tsx",
-    "sha256": "c2a9685052d454874cf0a1a0687ef4406fd74e714ed44fba4d9b3095a377f6f5"
+    "sha256": "594ecf2d9d84dd469a561a41c08fb88d9d15484a18fb760e587b6cdef1eb3010"
   },
   {
     "path": "apps/client/src/editor/native-page-session.ts",
@@ -61,14 +61,14 @@
   },
   {
     "path": "tests/e2e/native-auth.spec.ts",
-    "sha256": "c2541c4f61894913ce762703930c3c7dfc0bb825e4c1595980b196b95f4eb0e1"
+    "sha256": "0404bf79bab08ad606874b4219e038f9e08ef99aa000cc595800aa14d1e80b5c"
   },
   {
     "path": "tests/unit/native-page-session.test.ts",
-    "sha256": "c87c5452d33e7ba485790568d3381fa2e3159326ccc4cad9e05cef580f1efcf1"
+    "sha256": "0f9dbb481b5fb3634d30739fb8ad7b3bbdeb06825d284977fa52d95288c38b78"
   },
   {
     "path": "tests/unit/native-session-port.test.ts",
-    "sha256": "81d97fe7dcbc1735f3bfcc5eba02f1fba169a842446065426ffc0093c5a9c775"
+    "sha256": "7acfdc595998bf7d309e85bfa28f191f43cb279152bf8c64c9007d7b965f5f68"
   }
 ]

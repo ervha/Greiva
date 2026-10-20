@@ -7,7 +7,7 @@ import {NativeSessionPortError,type NativeWorkspaceHandle,type NativePageSendSta
 export type NativePagePort={sendTitleFor?(handle:NativeWorkspaceHandle,pageId:string):Promise<NativeTitleSendStatus>;readTitleFor?(handle:NativeWorkspaceHandle,pageId:string):Promise<NativePageReadStatus>;readonly handle:NativeWorkspaceHandle|null;executeFor(handle:NativeWorkspaceHandle,request:Record<string,unknown>):Promise<unknown>;sendPageFor?(handle:NativeWorkspaceHandle,pageId:string):Promise<NativePageSendStatus>;readPageFor?(handle:NativeWorkspaceHandle,pageId:string):Promise<NativePageReadStatus>};
 export class NativePageError extends Error {constructor(readonly stage:'closed'|'busy'|'protocol'|'storage'|'read_unknown'|'store_pending'){super(`Native Page ${stage}`);this.name='NativePageError';}}
 export type NativePageState=Readonly<{titleConflicts:readonly {id:string;base:string;local:string;remote:string}[];titleDraft:boolean;titlePending:number|null;titleStatus:NativeTitleSendStatus|null;titleReadStatus:NativePageReadStatus|null;titleBusy:boolean;phase:'opening'|'ready'|'closed';title:string;saving:number;pending:number;pendingFresh:boolean;sending:boolean;sendStatus:NativePageSendStatus|null;reading:boolean;readStatus:NativePageReadStatus|null;readError:'load'|'protocol'|null;remoteWaiting:boolean;unsaved:number;composing:boolean;storageError:'storage'|'protocol'|'closed'|null}>;
-export type NativePageDraft=Readonly<{context:NativeWorkspaceHandle['context'];pageId:string;title:string;update:Uint8Array}>;
+export type NativePageDraft=Readonly<{context:NativeWorkspaceHandle['context'];pageId:string;title:string;titleChanged:boolean;update:Uint8Array}>;
 // All operations capture the original handle. Remote replay never echoes into
 // the local append queue and waits until native composition has finished.
 export class NativePageSession {
@@ -15,6 +15,8 @@ export class NativePageSession {
  #state:NativePageState={titleConflicts:[],titleDraft:false,titlePending:null,titleStatus:null,titleReadStatus:null,titleBusy:false,phase:'opening',title:'',saving:0,pending:0,pendingFresh:true,sending:false,sendStatus:null,reading:false,readStatus:null,readError:null,remoteWaiting:false,unsaved:0,composing:false,storageError:null};
  #remote:{update:Uint8Array;title:string|null;version:number}|null=null;
  #titleVersion=0;
+ #titleEdited=false;
+ #compositionTitle:{title:string;draft:string|null;dirty:boolean}|null=null;
  #preBootstrapTitle:string|null=null;
  #editVersion=0;
  #initialTitle='';
@@ -36,14 +38,14 @@ export class NativePageSession {
    if(!parsed.success || parsed.data.page.metadata.id!==pageId)throw new NativePageError('protocol');
    try{for(const update of parsed.data.page.updates)Y.applyUpdate(session.document,Uint8Array.from(update),session.#loadOrigin);}catch{throw new NativePageError('protocol');}
    session.#initialTitle=parsed.data.page.metadata.title;
-   session.#patch({phase:'ready',title:parsed.data.page.metadata.title,pending:parsed.data.pending});session.document.on('update',session.#changed);return session;
+   session.#patch({phase:'ready',title:parsed.data.page.metadata.title,pending:parsed.data.pending});await session.#loadTitle(0);session.document.on('update',session.#changed);return session;
   }catch(error){session.document.destroy();throw session.#failure(error);}
  }
  setTitle=(title:string)=>{
   if(this.#state.phase!=='ready')return;
   if(typeof title!=='string'||title.length>4096||new TextEncoder().encode(title).byteLength>4096||/\p{Control}/u.test(title)||title===this.#state.title)return;
   ++this.#editVersion;++this.#titleVersion;this.#preBootstrapTitle=title;
-  this.#patch({title,titleDraft:true,titleStatus:null});if(!this.#state.storageError)this.#queueTitle(title);
+  this.#patch({title,titleDraft:true,titleStatus:null});if(!this.isComposing){this.#titleEdited=true;if(!this.#state.storageError)this.#queueTitle(title);}
  };
  #queueTitle(title:string){
   this.#patch({saving:this.#state.saving+1});
@@ -69,7 +71,7 @@ export class NativePageSession {
  async titleAction(kind:'send'|'read'){
   this.#check();if(this.isComposing||this.#state.saving||this.#state.sending||this.#state.reading||this.#state.remoteWaiting||this.#state.titleBusy||this.#state.storageError)throw new NativePageError('busy');
   if(kind==='send'&&!this.port.sendTitleFor||kind==='read'&&!this.port.readTitleFor)throw new NativePageError('closed');
-  this.#patch({titleBusy:true});const version=this.#titleVersion;
+  this.#patch({titleBusy:true,...(kind==='read'?{titleReadStatus:null}:{titleStatus:null})});const version=this.#titleVersion;
   try{
    if(kind==='read'){
     const status=await this.port.readTitleFor!(this.bound,this.pageId);this.#check();this.#patch({titleReadStatus:status});
@@ -101,7 +103,15 @@ export class NativePageSession {
   void this.#tail.catch(()=>{});
  };
  pendingUpdates=()=>this.#state.pending;
- setComposing=(value:boolean)=>{this.#patch({composing:value});if(!value)this.#flushRemote();};
+ setComposing=(value:boolean)=>{
+  if(value===this.isComposing)return;
+  if(value)this.#compositionTitle={title:this.#state.title,draft:this.#preBootstrapTitle,dirty:this.#state.titleDraft};
+  else if(this.#compositionTitle){const start=this.#compositionTitle;this.#compositionTitle=null;
+   if(start.title!==this.#state.title){this.#titleEdited=true;if(!this.#state.storageError)this.#queueTitle(this.#state.title);}
+   else{this.#preBootstrapTitle=this.#initialTitle===start.title?null:start.draft;this.#patch({titleDraft:this.#preBootstrapTitle!==null});}
+  }
+  this.#patch({composing:value});if(!value)this.#flushRemote();
+ };
  #flushRemote(){
   if(!this.#remote||this.#state.composing||this.#state.phase!=='ready'||this.#state.storageError)return;
   try{
@@ -152,12 +162,12 @@ export class NativePageSession {
  }
  draft():NativePageDraft|null {
   if(this.#state.unsaved===0 && this.#state.title===this.#initialTitle && this.#preBootstrapTitle===null)return null;
-  return Object.freeze({context:this.bound.context,pageId:this.pageId,title:this.#state.title,update:Uint8Array.from(Y.encodeStateAsUpdate(this.document))});
+  return Object.freeze({context:this.bound.context,pageId:this.pageId,title:this.#state.title,titleChanged:this.#titleEdited||this.#state.title!==this.#initialTitle||this.#preBootstrapTitle!==null,update:Uint8Array.from(Y.encodeStateAsUpdate(this.document))});
  }
  async restoreDraft(draft:NativePageDraft){
   this.#check();if(this.isComposing)throw new NativePageError('busy');
   if(draft.pageId!==this.pageId || Object.entries(this.bound.context).some(([key,value])=>draft.context[key as keyof typeof draft.context]!==value))throw new NativePageError('protocol');
-  if(draft.title!==this.#state.title){this.setTitle(draft.title);}
+  if(draft.titleChanged&&draft.title!==this.#state.title){this.setTitle(draft.title);}
   try{Y.applyUpdate(this.document,Uint8Array.from(draft.update));}catch{throw new NativePageError('protocol');}await this.durable();
  }
  close():Promise<NativePageDraft|null>{

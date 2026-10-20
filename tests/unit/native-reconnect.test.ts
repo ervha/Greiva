@@ -24,7 +24,8 @@ async function fixture(){
   if(command!=='native_workspace_execute')throw Error('unexpected remote effect');
   const request=args!.request as {command:string;update?:number[]};
   if(request.command==='page_list'){await pause('list');return{context:nextContext,pages:omit?[]:[{metadata,pending:updates.length}],nextAfter:null};}
-  if(request.command==='page_load'){await pause('load');return{page:{metadata,updates:updates.map(bytes=>bytes.slice())},pending:updates.length,serverHead:null};}
+  if(request.command==='title_load')return{context,pageId:id,base:null,localTitle:metadata.title,pending:0,operations:[],nextOperation:null,conflicts:[],nextConflict:null};
+   if(request.command==='page_load'){await pause('load');return{page:{metadata,updates:updates.map(bytes=>bytes.slice())},pending:updates.length,serverHead:null};}
   if(request.command==='page_append'){if(appendFailure!=='before')updates.push(request.update!.slice());if(appendFailure)throw Error();return null;}
   throw Error('unexpected local command');
  });
@@ -33,7 +34,7 @@ async function fixture(){
 }
 it('NATIVE-RECONNECT: original pending and exact body/vector return even outside first local page window; fresh catalog only',async()=>{
  const f=await fixture(),old=f.c.editor!;old.document.getText('fixture').insert(0,'retained local body');await old.durable();const vector=Y.encodeStateVector(old.document),pending=old.snapshot.pending;await f.c.loadRemote();f.omit();const start=f.calls.length;await f.c.reconnect();expect(f.c.snapshot.phase).toBe('ready');expect(f.c.editor).not.toBe(old);expect(old.snapshot.phase).toBe('closed');expect(f.c.editor!.document.getText('fixture').toString()).toBe('retained local body');expect(Y.encodeStateVector(f.c.editor!.document)).toEqual(vector);expect(f.c.editor!.snapshot.pending).toBe(pending);expect(f.c.snapshot.pages).toEqual([]);expect(f.c.snapshot.remoteLoaded).toBe(true);
- const calls=f.calls.slice(start);expect(calls.map(c=>c.command)).toEqual(['native_auth_restore','native_workspace_open','native_workspace_execute','native_workspace_execute','native_page_catalog']);expect(calls.at(-1)!.args).toEqual({handle:'handle-2',more:false});expect(f.c.editor!.bound.handle).toBe('handle-2');f.c.dispose();
+ const calls=f.calls.slice(start);expect(calls.map(c=>c.command)).toEqual(['native_auth_restore','native_workspace_open','native_workspace_execute','native_workspace_execute','native_workspace_execute','native_page_catalog']);expect(calls.at(-1)!.args).toEqual({handle:'handle-2',more:false});expect(f.c.editor!.bound.handle).toBe('handle-2');f.c.dispose();
 });
 it('NATIVE-RECONNECT: unqueried remote catalog stays unqueried; composition and queued local writes prevent reconnect',async()=>{
  const f=await fixture();f.c.editor!.setComposing(true);const before=f.calls.length;await f.c.reconnect();expect(f.calls).toHaveLength(before);expect(f.c.editor!.isComposing).toBe(true);f.c.editor!.setComposing(false);f.c.editor!.document.getText('fixture').insert(0,'saving');await f.c.reconnect();expect(f.calls.filter(c=>c.command==='native_auth_restore')).toHaveLength(0);await f.c.editor!.durable();await f.c.reconnect();expect(f.calls.filter(c=>c.command==='native_page_catalog')).toHaveLength(0);expect(f.c.snapshot.remoteLoaded).toBe(false);f.c.dispose();

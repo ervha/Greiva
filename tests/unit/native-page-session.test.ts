@@ -5,12 +5,13 @@ const pageId='01900000-0000-7000-8000-000000000004';
 const context={issuer:'https://fixture.invalid/auth/v1',subjectId:'owner-A',workspaceId:'01900000-0000-7000-8000-000000000001',clientId:'01900000-0000-7000-8000-000000000002',streamEpoch:'01900000-0000-7000-8000-000000000003'};
 function add(doc:Y.Doc,text:string){doc.transact(()=>{const p=new Y.XmlElement('paragraph'),t=new Y.XmlText();t.insert(0,text);p.insert(0,[t]);const body=doc.getXmlFragment('body');body.insert(body.length,[p]);});}
 async function fixture(){
+ const titleReadResults:string[]=[],conflicts:{record:{id:string;operationId:string;baseVersion:number;remoteVersion:number;base:string;local:string;remote:string};resolvedBy:null}[]=[];
  const pages=new Map<string,{title:string;updates:number[][]}>(),acked=new Map<string,number>();let handle=0,hold=false,holdSend=false,badLoad=false,fail=false,unknown=false,createUnknown=false,titleFail:string|null=null,release!:()=>void,entered!:()=>void;let waiting:Promise<void>|undefined;const sendResults:string[]=[],readResults:string[]=[],remote:number[][]=[];let readHold=false;
  const calls:{command:string;args?:Record<string,unknown>}[]=[];
  const invoke=vi.fn(async(command:string,args?:Record<string,unknown>)=>{
   calls.push({command,...(args?{args}: {})});if(command==='native_auth_login')return{available:true,phase:'verified',expiresAt:Math.floor(Date.now()/1000)+300};if(command==='native_workspace_open')return{handle:`handle-${++handle}`,context};
   if(command==='native_page_send'){if(holdSend){holdSend=false;entered();await new Promise<void>(done=>{release=done;});}const id=args!.pageId as string,count=acked.get(id)??0;const status=sendResults.shift()??(count<pages.get(id)!.updates.length?'acked':'idle');if(status==='acked')acked.set(id,count+1);return{status};}
-  if(command==='native_title_read')return{status:'received'};
+  if(command==='native_title_read'){const status=titleReadResults.shift()??'received';if(status==='throw')throw Error('fixture IPC');return{status};}
   if(command==='native_title_send')return{status:sendResults.shift()??'idle'};
   if(command==='native_page_read'){if(readHold){readHold=false;entered();await new Promise<void>(done=>{release=done;});}const status=readResults.shift()??'received';if(status==='received'){const page=pages.get(args!.pageId as string)!;for(const bytes of remote)if(!page.updates.some(old=>JSON.stringify(old)===JSON.stringify(bytes)))page.updates.push(bytes.slice());}return{status};}
   if(command!=='native_workspace_execute')return null;const request=args!.request as {command:string;pageId:string;title?:string;update?:number[];intent?:{title:string}};
@@ -24,11 +25,11 @@ async function fixture(){
   }
   if(request.command==='title_ready')return titleFail!=='Page bootstrap receipt required';
   if(request.command==='title_enqueue'){if(hold){hold=false;entered();await new Promise<void>(done=>{release=done;});}if(titleFail)throw Error(titleFail);page.title=request.intent?.title??'';return null;}
-  if(request.command==='title_load')return{context,pageId:request.pageId,base:null,localTitle:page.title,pending:0,operations:[],nextOperation:null,conflicts:[],nextConflict:null};
+  if(request.command==='title_load')return{context,pageId:request.pageId,base:{metadata:{id:request.pageId,title:page.title,yDocId:`page:${request.pageId}`,createdAt:'2026-10-13T00:00:00.000Z',updatedAt:'2026-10-13T00:00:00.000Z'},version:1},localTitle:page.title,pending:0,operations:[],nextOperation:null,conflicts,nextConflict:null};
   throw Error('unexpected command');
  });
  const port=new NativeSessionPort(invoke);await port.login('fixture@example.invalid','fixture-password');await port.open(context.clientId);
- return{port,pages,calls,sendResults,readResults,remote,holdRead(){readHold=true;waiting=new Promise(done=>{entered=done;});},failLoad(value=true){badLoad=value;},holdSend(){holdSend=true;waiting=new Promise(done=>{entered=done;});},hold(){hold=true;waiting=new Promise(done=>{entered=done;});},wait:()=>waiting!,release:()=>release(),fail(value=true){fail=value;},unknown(value=true){unknown=value;},createUnknown(value=true){createUnknown=value;},failTitle(reason='private disk credential path'){titleFail=reason;},succeedTitle(){titleFail=null;}};
+ return{port,pages,calls,sendResults,readResults,remote,titleReadResults,conflicts,holdRead(){readHold=true;waiting=new Promise(done=>{entered=done;});},failLoad(value=true){badLoad=value;},holdSend(){holdSend=true;waiting=new Promise(done=>{entered=done;});},hold(){hold=true;waiting=new Promise(done=>{entered=done;});},wait:()=>waiting!,release:()=>release(),fail(value=true){fail=value;},unknown(value=true){unknown=value;},createUnknown(value=true){createUnknown=value;},failTitle(reason='private disk credential path'){titleFail=reason;},succeedTitle(){titleFail=null;}};
 }
 function replay(updates:number[][]){const doc=new Y.Doc({gc:false});for(const bytes of updates)Y.applyUpdate(doc,Uint8Array.from(bytes));return doc;
 }
@@ -50,7 +51,7 @@ it('NATIVE-PAGE: failed/unknown commit keeps draft, stops automatic retries and 
 });
 it('NATIVE-PAGE: foreign workspace draft refuses before writing, malformed Yjs/load rejects before editor activation',async()=>{
  const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});const count=f.calls.length;
- await expect(s.restoreDraft({context:{...context,subjectId:'foreign'},pageId,title:'foreign',update:new Uint8Array([0,0])})).rejects.toMatchObject({stage:'protocol'});expect(f.calls).toHaveLength(count);await s.close();f.pages.get(pageId)!.updates=[[255]];await expect(NativePageSession.open(f.port,pageId)).rejects.toMatchObject({stage:'protocol'});f.port.dispose();
+ await expect(s.restoreDraft({context:{...context,subjectId:'foreign'},pageId,title:'foreign',titleChanged:true,update:new Uint8Array([0,0])})).rejects.toMatchObject({stage:'protocol'});expect(f.calls).toHaveLength(count);await s.close();f.pages.get(pageId)!.updates=[[255]];await expect(NativePageSession.open(f.port,pageId)).rejects.toMatchObject({stage:'protocol'});f.port.dispose();
 });
 it('NATIVE-PAGE: composition prevents destruction; already admitted updates settle before normal close',async()=>{
  const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});s.setComposing(true);add(s.document,'変換確定');await expect(s.close()).rejects.toMatchObject({stage:'busy'});expect(s.snapshot.phase).toBe('ready');expect(s.document.getXmlFragment('body').toString()).toContain('変換確定');s.setComposing(false);const closing=s.close();expect(s.close()).toBe(closing);expect(await closing).toBeNull();expect(s.snapshot.phase).toBe('closed');f.port.dispose();
@@ -201,4 +202,15 @@ it('NATIVE-PAGE-TITLE: a remote body title deferred during composition cannot re
 });
 it('NATIVE-PAGE-TITLE: explicit title send stops on unknown, pending ACK, conflict and rejection without resending',async()=>{
  for(const status of ['send_unknown','ack_pending','conflict','rejected']){const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});f.sendResults.push(status);await s.titleAction('send');expect(s.snapshot.titleStatus).toBe(status);expect(f.calls.filter(c=>c.command==='native_title_send')).toHaveLength(1);expect(f.calls.filter(c=>c.command==='native_page_send')).toHaveLength(0);await s.close();f.port.dispose();}
+});
+it('NATIVE-TITLE: composition displays provisional candidates but enqueues exactly one committed title',async()=>{
+ const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
+ s.setComposing(true);for(const title of ['に','日本','日本語'])s.setTitle(title);await s.durable();expect(s.snapshot.title).toBe('日本語');expect(f.pages.get(pageId)!.title).toBe('synthetic');expect(f.calls.filter(c=>(c.args?.request as {command?:string})?.command==='title_enqueue')).toHaveLength(0);
+ s.setComposing(false);await s.durable();expect(f.calls.filter(c=>(c.args?.request as {command?:string})?.command==='title_enqueue')).toHaveLength(1);expect(f.pages.get(pageId)!.title).toBe('日本語');
+ s.setComposing(true);s.setTitle('cancelled');s.setTitle('日本語');s.setComposing(false);await s.durable();expect(f.calls.filter(c=>(c.args?.request as {command?:string})?.command==='title_enqueue')).toHaveLength(1);await s.close();f.port.dispose();
+});
+it('NATIVE-TITLE: each read attempt owns its status and offline open restores local conflicts without HTTP',async()=>{
+ const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});await s.titleAction('read');expect(s.snapshot.titleReadStatus).toBe('received');f.titleReadResults.push('throw');await s.titleAction('read');expect(s.snapshot.titleReadStatus).toBe('read_unknown');await s.close();
+ f.conflicts.push({record:{id:'01900000-0000-7000-8000-000000000008',operationId:'01900000-0000-7000-8000-000000000009',baseVersion:0,remoteVersion:1,base:'before',local:'candidate',remote:'synthetic'},resolvedBy:null});
+ const count=f.calls.length;const local={get handle(){return f.port.handle;},executeFor:f.port.executeFor.bind(f.port)};const next=await NativePageSession.open(local,pageId);expect(next.snapshot.titleConflicts[0]?.local).toBe('candidate');expect(f.calls.slice(count).every(c=>c.command==='native_workspace_execute')).toBe(true);await next.close();f.port.dispose();
 });

@@ -1,0 +1,150 @@
+[
+  {
+    "path": "VERSION",
+    "sha256": "8339deb2dd51aaedfee64923468f2a2e01d8e1ddc894cb63ad0a1d87327b0363"
+  },
+  {
+    "path": "apps/api/package.json",
+    "sha256": "22be80128bd57c9f8dcc6d494d565e9d6595e06de8285d00aefdfa75b21b2de7"
+  },
+  {
+    "path": "apps/client/package.json",
+    "sha256": "d24122176af18259ca29be8c85c6a749b68ee300a725cf3abe27b4a47aeb5857"
+  },
+  {
+    "path": "apps/client/src-tauri/Cargo.lock",
+    "sha256": "8019e4991af411242c29603b91ef228d0caa7aa6ef3d78aa5665a4411b0efa3a"
+  },
+  {
+    "path": "apps/client/src-tauri/Cargo.toml",
+    "sha256": "63aefb39359df7bd0827f0135e52425c5e0985e2b225a5d924330d3689e16ded"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/Cargo.lock",
+    "sha256": "156385847883c8eba87282035968163306101cb18b1537b974878db442adbbf3"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/Cargo.toml",
+    "sha256": "1c3bd00222f7b4a7e06394261f95249a30ddcbe30d778b68e5138cfacbddb559"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/src/native_http_provider.rs",
+    "sha256": "199c0bef24898805a4a967f9b26fbc872150dc39796ac139b88b79e8c2aef7f6"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/src/native_session.rs",
+    "sha256": "737f9137d54c33d40332a4adb5df95bcbf86fc4ba9d2b1d14733033ce920e635"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/src/native_workspace_gate.rs",
+    "sha256": "dece74480b9141e5d377901b71bbf3b3f68657190388a54d59c872502a5394cb"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/src/private_title.rs",
+    "sha256": "c15dfd5276fe3eca04a75c1515a9d11d5d66a1dd929c106e97f4dd2af65730dc"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/src/workspace_registry.rs",
+    "sha256": "0df36ff27bfed5a9e104278ec4cf718b7353211d3ff51e3e73b2ce9a3c383cb0"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/src/workspace_store.rs",
+    "sha256": "c0cb9d35024e8e6f7845fb59afbe4532bf329e140e401901297696cb7977692c"
+  },
+  {
+    "path": "apps/client/src-tauri/src/lib.rs",
+    "sha256": "a2460751e4d418dd9bcc1e601f8fb7e794d36f57b429ddc6fbfb68b8dc889928"
+  },
+  {
+    "path": "apps/client/src-tauri/src/native_auth.rs",
+    "sha256": "46d91eb8c47afbaa44f336a5062ea578ba0b1c6b1da3943032d10ebeb9c12857"
+  },
+  {
+    "path": "apps/client/src-tauri/tauri.conf.json",
+    "sha256": "d9d7c4af3d4efc161fdd17660d2f6235a6e71d6eb9f50fa93be33050750f0a6a"
+  },
+  {
+    "path": "apps/client/src/auth/native-login-controller.ts",
+    "sha256": "f4549aadf12cdf6ae49f895293ba8fc2da5e31d93e926b34fa25cfe0cb99ef10"
+  },
+  {
+    "path": "apps/client/src/auth/native-session-port.ts",
+    "sha256": "cb0766826e4597646fa4e828f28f2888c9917f1ca102d26ee1e9b39068bc73fb"
+  },
+  {
+    "path": "apps/client/src/editor/NativeLocalPageEditor.tsx",
+    "sha256": "ebdab400bb9c18a8de25625e2db5c6276ba0da4583a37a4ed26a6b10d82444d5"
+  },
+  {
+    "path": "apps/client/src/editor/PageEditor.tsx",
+    "sha256": "594ecf2d9d84dd469a561a41c08fb88d9d15484a18fb760e587b6cdef1eb3010"
+  },
+  {
+    "path": "apps/client/src/editor/native-page-session.ts",
+    "sha256": "92effe33f472cd0382b79bbb568499f83af70dadb88b6ea8cc8913c3b0e72c38"
+  },
+  {
+    "path": "apps/collaboration/package.json",
+    "sha256": "63ac7d929b5fa41489471d849156d866509bcc031010cb11fa3738cc7a991406"
+  },
+  {
+    "path": "package-lock.json",
+    "sha256": "2bc502fa259bda07f6b78e9d7c607e404c661ed60a9892a9883db4b06bd32d17"
+  },
+  {
+    "path": "package.json",
+    "sha256": "4ef446abfef305048e4a43edbd68c7c22ac50bb98bc1fb59955d387ec58c54e3"
+  },
+  {
+    "path": "packages/application/package.json",
+    "sha256": "0111ccde4a9f64ad510c5d5c21d579ce7f20add6fbd69c1038009f52a5a734d9"
+  },
+  {
+    "path": "packages/domain/package.json",
+    "sha256": "d3feb7702b3e20cf7f862259f2f8d507e67bcec6f2182e8cfe855f0239cae5e6"
+  },
+  {
+    "path": "packages/protocol/package.json",
+    "sha256": "891a75c17bc79a5610acd964fe07b7da4030317551ec18c85bc093b215c29015"
+  },
+  {
+    "path": "packages/shared/package.json",
+    "sha256": "de1912bc1221cc04f2c92384130a3ae89ff9d3413f873763d01f8a8c0b8b9fe4"
+  },
+  {
+    "path": "packages/sync/package.json",
+    "sha256": "4dec0b55a9bca3fd75ddbb1782dbac3bf20dbd305505dbdc89cee5c8285afe02"
+  },
+  {
+    "path": "scripts/ci-test-baseline.json",
+    "sha256": "2917f4e688b487427e6caeeff569407c09d03a0680491402cc001c987dd35588"
+  },
+  {
+    "path": "scripts/test-native-http-provider.mjs",
+    "sha256": "65427133b7dd05118243ded3c01f3342d9402476c35c2ec8a017cc0d6232aafd"
+  },
+  {
+    "path": "tests/e2e/native-auth.spec.ts",
+    "sha256": "041e52f5f375be7d913c70503b9651899f24f787ebb6b6b247f35df2f81f5062"
+  },
+  {
+    "path": "tests/unit/native-login-controller.test.ts",
+    "sha256": "90d60cc7a4fad57454ee9fa63bf83df90056f92715664f34750a7ba1af57401e"
+  },
+  {
+    "path": "tests/unit/native-offline-controller.test.ts",
+    "sha256": "4ce473a9693c237648f4448b754d3b671e3d6905deee7641b07014231cb26dcb"
+  },
+  {
+    "path": "tests/unit/native-page-session.test.ts",
+    "sha256": "e70fb24b17e034b3d2971c175b9294ca52f9b218c9fde6f8bfa4431ede05e50b"
+  },
+  {
+    "path": "tests/unit/native-reconnect.test.ts",
+    "sha256": "8cb91f8371c91fe4a9558b2c5409175277d85db22942813250658bb314ab20ac"
+  },
+  {
+    "path": "tests/unit/native-session-port.test.ts",
+    "sha256": "7acfdc595998bf7d309e85bfa28f191f43cb279152bf8c64c9007d7b965f5f68"
+  }
+]

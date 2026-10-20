@@ -30,19 +30,21 @@ it('NATIVE-LOGIN: expiry removes local catalog, with no automatic refresh or res
  }finally{vi.useRealTimers();}
 });
 async function editorFixture(){
- let owner='A',fail=false,held=false,entered!:()=>void,release!:(value:unknown)=>void;let waiting:Promise<void>|undefined;const updates={A:[Array.from(emptyPageUpdate())],B:[Array.from(emptyPageUpdate())]};
+ let savedTitle=pages[0]!.metadata.title,titleFail=false;let owner='A',fail=false,held=false,entered!:()=>void,release!:(value:unknown)=>void;let waiting:Promise<void>|undefined;const updates={A:[Array.from(emptyPageUpdate())],B:[Array.from(emptyPageUpdate())]};
  const bound=()=>owner==='A'?context:{...context,subjectId:'owner-B',workspaceId:'01900000-0000-7000-8000-000000000009',clientId:'01900000-0000-7000-8000-000000000007'};
- const loaded=()=>({page:{metadata:pages[0]!.metadata,updates:updates[owner as 'A'|'B'].map(bytes=>bytes.slice())},pending:updates[owner as 'A'|'B'].length,serverHead:null});
+ const loaded=()=>({page:{metadata:{...pages[0]!.metadata,title:savedTitle},updates:updates[owner as 'A'|'B'].map(bytes=>bytes.slice())},pending:updates[owner as 'A'|'B'].length,serverHead:null});
  const invoke=vi.fn(async(command:string,args?:Record<string,unknown>)=>{
   if(command==='native_auth_status'||command==='native_auth_restore'||command==='native_auth_login')return verified();if(command==='native_workspace_open')return{handle:'native-'+owner,context:bound()};if(command==='native_auth_logout')return{localLocked:true,persistentLocked:true,cleanupPending:false,providerConfirmed:true};
   if(command!=='native_workspace_execute')return null;const r=args!.request as {command:string;update:number[];intent?:{title:string}};
+  if(r.command==='title_ready')return true;
+  if(r.command==='title_load')return{context:bound(),pageId:id,base:null,localTitle:savedTitle,pending:0,operations:[],nextOperation:null,conflicts:[],nextConflict:null};
   if(r.command==='page_list')return{context:bound(),pages,nextAfter:null};if(r.command==='page_load'){if(held){held=false;entered();return new Promise(done=>{release=done;});}return loaded();}
   if(r.command==='page_append'){if(fail)throw Error('private path');updates[owner as 'A'|'B'].push(r.update.slice());return null;}
-  if(r.command==='title_enqueue'){pages[0]!.metadata.title=r.intent?.title??'';return null;}
+  if(r.command==='title_enqueue'){if(titleFail)throw Error('fixture title disk');savedTitle=r.intent?.title??'';return null;}
   throw Error('unexpected command');
  });
  const c=new NativeLoginController(new NativeSessionPort(invoke),config);await c.start();await c.open();
- return{c,invoke,owner(value:string){owner=value;},fail(value=true){fail=value;},hold(){held=true;waiting=new Promise(done=>{entered=done;});},wait:()=>waiting!,release:()=>release(loaded())};
+ return{c,invoke,failTitle(value=true){titleFail=value;},owner(value:string){owner=value;},fail(value=true){fail=value;},hold(){held=true;waiting=new Promise(done=>{entered=done;});},wait:()=>waiting!,release:()=>release(loaded())};
 }
 it('NATIVE-EDITOR: late Page load after logout never activates its editor or publishes old catalog',async()=>{
  const f=await editorFixture();f.hold();const opening=f.c.selectPage(id);await f.wait();await f.c.logout();f.release();expect(await opening).toBe(false);expect(f.c.editor).toBeNull();expect(f.c.snapshot.phase).toBe('signed_out');expect(f.c.snapshot.pages).toEqual([]);f.c.dispose();
@@ -53,6 +55,9 @@ it('NATIVE-EDITOR: logout while closing defeats an old refresh before it can con
 it('NATIVE-EDITOR: held draft is hidden from another account and restored only after same-context reconnect',async()=>{
  const f=await editorFixture();await f.c.selectPage(id);f.fail();const editor=f.c.editor!;editor.document.getText('fixture').insert(0,'owner-A held input');await expect(editor.durable()).rejects.toMatchObject({stage:'storage'});await f.c.logout();f.fail(false);f.owner('B');await f.c.login('other@example.invalid','fixture-password');await f.c.open();await f.c.selectPage(id);expect(f.c.snapshot.hasDraft).toBe(false);await f.c.restoreInput();expect(f.c.editor!.document.getText('fixture').toString()).toBe('');
  await f.c.logout();f.owner('A');await f.c.login('fixture@example.invalid','fixture-password');await f.c.open();await f.c.selectPage(id);expect(f.c.snapshot.hasDraft).toBe(true);await f.c.restoreInput();expect(f.c.editor!.document.getText('fixture').toString()).toBe('owner-A held input');expect(f.c.snapshot.hasDraft).toBe(false);f.c.dispose();
+});
+it('NATIVE-EDITOR: a later body-only failure retains an older unsaved title, including an empty title',async()=>{
+ for(const title of ['older unsaved title','']){const f=await editorFixture();await f.c.selectPage(id);f.failTitle();f.c.editor!.setTitle(title);await expect(f.c.editor!.durable()).rejects.toMatchObject({stage:'storage'});await f.c.close();f.failTitle(false);await f.c.open();await f.c.selectPage(id);expect(f.c.snapshot.hasDraft).toBe(true);f.fail();f.c.editor!.document.getText('fixture').insert(0,'new body-only draft');await expect(f.c.editor!.durable()).rejects.toMatchObject({stage:'storage'});await f.c.close();f.fail(false);await f.c.open();await f.c.selectPage(id);await f.c.restoreInput();expect(f.c.editor!.snapshot.title).toBe(title);expect(f.c.editor!.document.getText('fixture').toString()).toContain('new body-only draft');f.c.dispose();}
 });
 it('NATIVE-EDITOR: editor title change updates page catalog and draft retains updated title',async()=>{
  const f=await editorFixture();await f.c.selectPage(id);
@@ -73,7 +78,7 @@ it('NATIVE-EDITOR: editor title change updates page catalog and draft retains up
  f.c.dispose();
 });
 it('NATIVE-CATALOG-SCREEN: query is explicit, failed more retains rows, remote opening requires received journal',async()=>{
- let fail=false,status='read_unknown';const commands:string[]=[];const invoke=vi.fn(async(command:string,args?:Record<string,unknown>)=>{commands.push(command);if(command==='native_auth_status')return verified();if(command==='native_workspace_open')return{handle:'catalog',context};if(command==='native_page_catalog'){if(fail)throw Error('private network');return{pages:args!.more?[]:[pages[0]!.metadata],hasMore:!args!.more};}if(command==='native_page_read')return{status};if(command==='native_workspace_execute'){const request=args!.request as {command:string};if(request.command==='page_list')return{context,pages:[],nextAfter:null};if(request.command==='page_load')return{page:{metadata:pages[0]!.metadata,updates:[Array.from(emptyPageUpdate())]},pending:0,serverHead:null};throw Error('unexpected write');}return null;});
+ let fail=false,status='read_unknown';const commands:string[]=[];const invoke=vi.fn(async(command:string,args?:Record<string,unknown>)=>{commands.push(command);if(command==='native_auth_status')return verified();if(command==='native_workspace_open')return{handle:'catalog',context};if(command==='native_page_catalog'){if(fail)throw Error('private network');return{pages:args!.more?[]:[pages[0]!.metadata],hasMore:!args!.more};}if(command==='native_page_read')return{status};if(command==='native_workspace_execute'){const request=args!.request as {command:string};if(request.command==='page_list')return{context,pages:[],nextAfter:null};if(request.command==='title_load')return{context,pageId:id,base:null,localTitle:pages[0]!.metadata.title,pending:0,operations:[],nextOperation:null,conflicts:[],nextConflict:null};if(request.command==='page_load')return{page:{metadata:pages[0]!.metadata,updates:[Array.from(emptyPageUpdate())]},pending:0,serverHead:null};throw Error('unexpected write');}return null;});
  const c=new NativeLoginController(new NativeSessionPort(invoke),config);await c.start();await c.open();expect(commands).not.toContain('native_page_catalog');expect(c.snapshot.remoteLoaded).toBe(false);await c.loadRemote();expect(c.snapshot.remotePages).toHaveLength(1);fail=true;await c.loadRemote(true);expect(c.snapshot.remoteError).toBe(true);expect(c.snapshot.remoteHasMore).toBe(true);expect(c.snapshot.remotePages).toHaveLength(1);fail=false;await c.loadRemote(true);expect(c.snapshot.remoteHasMore).toBe(false);
  expect(await c.selectRemotePage('01900000-0000-7000-8000-000000000008')).toBe(false);expect(await c.selectRemotePage(id)).toBe(false);expect(c.editor).toBeNull();expect(c.snapshot.message).toContain('取得結果');expect(commands.filter(x=>x==='native_workspace_execute')).toHaveLength(1);status='store_pending';expect(await c.selectRemotePage(id)).toBe(false);expect(c.snapshot.message).toContain('保存は未確認');status='received';expect(await c.selectRemotePage(id)).toBe(true);expect(c.editor?.snapshot.pending).toBe(0);await c.close();expect(c.snapshot.remotePages).toEqual([]);expect(c.snapshot.remoteLoaded).toBe(false);c.dispose();
 });

@@ -2,6 +2,8 @@
 
 Docker verification on 2026-10-20. Source belongs to PR #4 (`codex/native-title-metadata`). `source-hashes.json` identifies the changed source files; `artifact.json` identifies the Windows candidate. This is a development checkpoint, not final PoC or native IME acceptance.
 
+Historical source revision: `b889718`. The manifest was corrected during review from this revision's Git blobs (UTF-8/LF), because the original working-copy hashes included CRLF/mixed line endings. The old Docker input was not archived byte-for-byte. The [follow-up evidence](../native-title-review2-20261020/SUMMARY.md) reruns the relevant checks with changed sources normalized to LF before Docker copy/build; this historical evidence is not used to accept the newer head.
+
 ## Scope
 
 - Native-owned title prepare → fixed metadata rename endpoint → validated receipt → transactional ACK. Metadata reads use a native-generated request and transactional receive. Caller-owned wire/ACK/response/context are not admitted through the online or offline local command whitelist.

@@ -1,4 +1,4 @@
 {
-  "unit": { "tests": 589, "files": 66 },
-  "nativeUi": { "tests": 68, "projects": ["desktop", "mobile-dark-reduced-motion"] }
+  "unit": { "tests": 592, "files": 66 },
+  "nativeUi": { "tests": 72, "projects": ["desktop", "mobile-dark-reduced-motion"] }
 }
