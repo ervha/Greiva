@@ -1,6 +1,6 @@
 # コミット・バージョン運用
 
-2026-09-30のユーザー指定に基づき、確認済みのまとまった更新をコミットし、更新規模に応じたバージョンタグを付けてGitHubへ反映する。
+2026-09-30のユーザー指定に基づき、確認済みのまとまった更新をコミットし、更新規模に応じたバージョンタグを付けてGitHubへ反映する。2026-10-20から、開発の進捗は必ずPR・関連テスト・GitHub Actions確認・問題解消・マージまでを完了条件とする。
 
 ## 1. 番号と更新規模
 
@@ -23,11 +23,16 @@
 1. 差分と変更区分を確認し、無関係な利用者の変更を含めない。
 2. 変更に必要な検証を実行し、未検証項目を区別する。文書だけなら内容・リンク・差分を確認し、アプリ試験の新しい成功を主張しない。
 3. `VERSION`と`CHANGELOG.md`を更新する。変更履歴には日付、実装/設計の区別、関連する検証・制約を残す。
-4. 対象だけをstageし、確認済みの区切りをコミットする。メッセージは例として`docs: define candidate selection (v0.1.1)`のように番号を含める。
-5. 同じコミットへannotated tagを付ける。タグ注釈に区分と具体的な変更を記載する。
-6. 指定されたremote/branchへコミットとそのタグをpushし、remoteのタグが同じコミットを参照することを確認する。
+4. 最新の`main`から`codex/<作業名>`を作り、対象だけをstageしてコミットする。メッセージにチェックポイント番号を含める。remote名も`main`なので、ブランチと混同しない。remote URLが`https://github.com/ervha/Greiva`であることを確認する。
+5. 作業ブランチをpushし、baseを`main`にしたGitHub PRを作成/更新する。変更内容、関連テスト、未確認事項を記載する。開発変更を`main`へ直接pushしない。
+6. 最新PR headの関連テストとGitHub Actionsの結果、レビュー、競合を確認する。失敗やblocking指摘は修正して再検証する。required testの未実行/skip/cancelをPassに読み替えず、必要な結果が欠ける場合はマージしない。Docker CIの範囲外の変更には追加の関連検証が必要。
+7. 問題がなければPRをマージする。通常はmerge commitで元の検証済みコミットを保持する。マージは利用者から継続許可済みであり、区切りごとの再確認を求めない。checksや権限で止まる場合は未完了として理由を報告する。
+8. `main`へfast-forward同期し、実際のmerge commitを対象にした関連テスト/GitHub Actionsがすべて成功したことを確認する。PRのCIは合成merge refを検査するため、PR headそのものの検証と混同しない。post-mergeチェックの失敗は新しい修正PRで解消し、未確認のままタグを公開しない。成功したmain commitのSHAを記録し、その同じSHAへannotated tagを付け、対象タグだけをpushする。公開済みタグは移動しない。
+9. local `main`をfast-forwardで同期し、PRのmerged状態・remote tag・作業ツリーを確認する。PR番号、確認したActions結果と未確認事項を報告して完了とする。マージ後のActionsが失敗した場合も未解決として修正を続ける。
 
 pushでは対象のタグ名を指定し、無関係なローカルタグをまとめて送らない。公開済みのタグは移動・上書きせず、修正は次の番号で記録する。確認済みの過去のバージョンは履歴として保持する。
+
+GitHub Actionsの`Docker verification`は型検査・全unit・native認証/編集画面のdesktop/mobile回帰をDockerで実行する基準CI。実Windows/IME、実account、Postgres連携、Rust保存層、性能等の全Gateを代替しない。CIはJSONレポートも検査し、skip/pending/flaky/retry、想定件数やprojectの欠落を拒否する。試験を追加/変更する場合は`scripts/ci-test-baseline.json`の件数も同じPRでレビューする。CIログとレポートはActions artifactへ保存し、必要な証拠だけを`tests/evidence/`へ選択する。
 
 ## 3. 開発チェックポイントと実行物
 

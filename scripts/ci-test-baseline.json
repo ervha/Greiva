@@ -1,0 +1,4 @@
+{
+  "unit": { "tests": 575, "files": 66 },
+  "nativeUi": { "tests": 60, "projects": ["desktop", "mobile-dark-reduced-motion"] }
+}
