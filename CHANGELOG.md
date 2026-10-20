@@ -1,5 +1,10 @@
 # 変更履歴
 
+## 0.98.1 — 2026-10-20
+
+- 既定/統合ブランチを履歴を保って`main`へ変更。今後の開発は作業ブランチのcommit・GitHub PR・関連テスト/Actions確認・問題解消・マージ・local main同期を完了条件とする。
+- PR/main向けDocker CIに型検査、全unit、native画面のdesktop/mobile回帰とレポート保存を追加。実機/IMEやその他のGateと区別する。アプリ機能/既存実行物の版は0.98.0のまま。
+
 ## 0.98.0 — 2026-10-16
 
 - native起動時のonline/offline選択とoffline専用のPage一覧・作成・端末保存・Editor表示を接続。選択前に認証更新をせず、offline中は送受信/catalogを提供しない。
