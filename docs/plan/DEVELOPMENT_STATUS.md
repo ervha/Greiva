@@ -1,4 +1,4 @@
-# Greiva 開発計画・状況・セットアップ
+最新checkpoint v0.98.3：署名設定済み隔離buildに向け、native previewプロファイルへEd25519公開pinの検証・埋め込みを追加。部分指定・不正pin拒否、uild-native-preview.mjs の成果物メタデータへのoffline pin反映、単体テスト577件（+2件）・型検査・画面回帰60件Passを確認。
 
 最新checkpoint v0.98.2（計画更新）：[2026-10-20の現状確認とロードマップ](DEVELOPMENT_ROADMAP_20261020.md)へ現在地・優先順・完了条件を整理。基準v0.98.1はmain/PR/CI運用とマージ後の同一SHA検証・タグ公開を導入済み。次は署名設定済みWindows候補の実offline/入力受入、nativeタイトル/Task/Relation/基本DBの統合、日常UI、Android/性能、限定提供へ進む。機能候補は0.98.0で、新しい実機合格や機能追加を今回主張しない。以下は過去の記録。
 
