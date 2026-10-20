@@ -1,4 +1,8 @@
-# 変更履歴
+## 0.98.3 — 2026-10-20
+
+- 署名設定済み隔離候補の再現性（M1着手）に向けて、scripts/native-preview-profile.ts に明示的なEd25519公開pin（issuer, audience, kid, publicKeyHex）の検証・埋め込みプロファイル定義を追加。
+- 部分指定、非https URL、大文字hex、不正なkid/audienceを厳格に拒否し、scripts/build-native-preview.mjs の成果物メタデータ（rtifact.json）へ offlinePreparationConfigured および offlinePublicPin を反映。
+- 単体テスト4件（+2件）を追加し、計577件の単体テスト、12件のレポート検証、60件の画面回帰、型検査がすべてPassすることを確認。ベースライン件数を577件へ更新。
 
 ## 0.98.2 — 2026-10-20
 
