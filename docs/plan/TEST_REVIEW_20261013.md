@@ -1,5 +1,7 @@
 # テスト項目と未合格事項の整理
 
+2026-10-20補足：[現状と受入順](DEVELOPMENT_ROADMAP_20261020.md)。N-01/N-03のnative認証・offline復帰/入力保全はコード/IPC/画面まで接続済み。基準CIは型・unit575・画面60・検証器12がPassだが、新入口の実Windows/IME/offline通し受入とは別。F-01は既知Fail・受入例外を維持。PR #1ではremote反映前のselection準備を本文末尾基点へ変更し、同じ保持/Undo期待で10回と全回帰を確認した。製品/IME不具合の修正とは扱わない。以下の旧版表は履歴として保持する。
+
 v0.82.1追記：[最新候補の通常Microsoft IME入力](../../tests/evidence/windows-ms-ime-20261013/SUMMARY.md)を利用者の実キー入力/確定とnative保存/実同期で限定確認。正確な2段落、全文/vector一致、未ACK0・ACK履歴76を確認した。再変換Fail・受入例外、remote composition/再接続、長時間/native性能とoffline未確認は消さない。
 
 v0.82.0追記：[新規登録と実Windows検証](../../tests/evidence/private-signup-20261013/SUMMARY.md)で実Supabase正常ログインとworkspace開通、保存済みPage/pending2の強制終了復元、実同期pending0/receipt2・全文/vector一致を確認した。N-02の正常loginは補完したが、refresh/失効は未実施。N-05はオンライン手動再認証を伴う保存完了後の1境界だけを補い、offline無認証復元や内部全停止点をPassにしない。確認メール後のlocalhost接続エラーは[新しい未整備事項](../failures/private-signup-confirmation-redirect.md)。以下はv0.81.0時点の整理として保持する。
