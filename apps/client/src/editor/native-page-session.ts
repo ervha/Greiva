@@ -1,5 +1,5 @@
 import * as Y from 'yjs';
-import {idSchema} from '@greiva/shared';
+import {idSchema,newId} from '@greiva/shared';
 import {emptyPageUpdate} from '@greiva/sync';
 import {privatePageLocalLoadSchema} from '@greiva/protocol/private-page';
 import {NativeSessionPortError,type NativeWorkspaceHandle,type NativePageSendStatus,type NativePageReadStatus} from '../auth/native-session-port.js';
@@ -14,6 +14,7 @@ export class NativePageSession {
  #state:NativePageState={phase:'opening',title:'',saving:0,pending:0,pendingFresh:true,sending:false,sendStatus:null,reading:false,readStatus:null,readError:null,remoteWaiting:false,unsaved:0,composing:false,storageError:null};
  #remote:{update:Uint8Array;title:string}|null=null;
  #editVersion=0;
+ #initialTitle='';
  #listeners=new Set<(state:NativePageState)=>void>();#tail:Promise<void>=Promise.resolve();#loadOrigin=Symbol('native journal');#closing:Promise<NativePageDraft|null>|undefined;
  private constructor(private readonly port:NativePagePort,readonly bound:NativeWorkspaceHandle,readonly pageId:string){this.clientId=bound.context.clientId;}
  get snapshot(){return this.#state;}
@@ -31,9 +32,26 @@ export class NativePageSession {
    const parsed=privatePageLocalLoadSchema.safeParse(await port.executeFor(bound,{command:'page_load',pageId}));session.#check();
    if(!parsed.success || parsed.data.page.metadata.id!==pageId)throw new NativePageError('protocol');
    try{for(const update of parsed.data.page.updates)Y.applyUpdate(session.document,Uint8Array.from(update),session.#loadOrigin);}catch{throw new NativePageError('protocol');}
+   session.#initialTitle=parsed.data.page.metadata.title;
    session.#patch({phase:'ready',title:parsed.data.page.metadata.title,pending:parsed.data.pending});session.document.on('update',session.#changed);return session;
   }catch(error){session.document.destroy();throw session.#failure(error);}
  }
+ setTitle=(title:string)=>{
+  if(this.#state.phase!=='ready'||this.#state.storageError)return;
+  if(typeof title!=='string'||title.length>4096||new TextEncoder().encode(title).byteLength>4096||/\p{Control}/u.test(title))return;
+  if(title===this.#state.title)return;
+  ++this.#editVersion;
+  this.#patch({title});
+  this.#tail=this.#tail.then(async()=>{
+   try{
+    const result=await this.port.executeFor(this.bound,{command:'title_enqueue',pageId:this.pageId,intent:{operationId:newId(),title}});
+    if(result!==null)throw new NativePageError('protocol');
+    this.#initialTitle=title;
+   }catch(error){
+    if(error instanceof NativeSessionPortError && error.stage==='closed'){const failure=this.#failure(error);this.#patch({storageError:'closed'});throw failure;}
+   }
+  });
+ };
  #changed=(candidate:Uint8Array,origin:unknown)=>{
   if(origin===this.#loadOrigin || this.#state.phase!=='ready')return;
   ++this.#editVersion;const update=Uint8Array.from(candidate);this.#patch({unsaved:this.#state.unsaved+1});
@@ -52,7 +70,7 @@ export class NativePageSession {
  setComposing=(value:boolean)=>{this.#patch({composing:value});if(!value)this.#flushRemote();};
  #flushRemote(){
   if(!this.#remote||this.#state.composing||this.#state.phase!=='ready'||this.#state.storageError)return;
-  try{this.#check();const candidate=this.#remote;this.#remote=null;Y.applyUpdate(this.document,candidate.update,this.#loadOrigin);this.#patch({title:candidate.title,remoteWaiting:false});}
+  try{this.#check();const candidate=this.#remote;this.#remote=null;Y.applyUpdate(this.document,candidate.update,this.#loadOrigin);this.#initialTitle=candidate.title;this.#patch({title:candidate.title,remoteWaiting:false});}
   catch(error){this.#remote=null;this.#patch({readError:error instanceof NativePageError&&error.stage==='closed'?'load':'protocol',remoteWaiting:false});}
  }
  lock(){if(this.#state.phase==='ready')this.#patch({storageError:'closed'});}
@@ -92,12 +110,13 @@ export class NativePageSession {
   finally{if(this.#state.phase==='ready')this.#patch({reading:false});}
  }
  draft():NativePageDraft|null {
-  if(this.#state.unsaved===0)return null;
+  if(this.#state.unsaved===0 && this.#state.title===this.#initialTitle)return null;
   return Object.freeze({context:this.bound.context,pageId:this.pageId,title:this.#state.title,update:Uint8Array.from(Y.encodeStateAsUpdate(this.document))});
  }
  async restoreDraft(draft:NativePageDraft){
   this.#check();if(this.isComposing)throw new NativePageError('busy');
   if(draft.pageId!==this.pageId || Object.entries(this.bound.context).some(([key,value])=>draft.context[key as keyof typeof draft.context]!==value))throw new NativePageError('protocol');
+  if(draft.title && draft.title!==this.#state.title){this.setTitle(draft.title);}
   try{Y.applyUpdate(this.document,Uint8Array.from(draft.update));}catch{throw new NativePageError('protocol');}await this.durable();
  }
  close():Promise<NativePageDraft|null>{

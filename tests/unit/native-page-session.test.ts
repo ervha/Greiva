@@ -11,7 +11,7 @@ async function fixture(){
   calls.push({command,...(args?{args}: {})});if(command==='native_auth_login')return{available:true,phase:'verified',expiresAt:Math.floor(Date.now()/1000)+300};if(command==='native_workspace_open')return{handle:`handle-${++handle}`,context};
   if(command==='native_page_send'){if(holdSend){holdSend=false;entered();await new Promise<void>(done=>{release=done;});}const id=args!.pageId as string,count=acked.get(id)??0;const status=sendResults.shift()??(count<pages.get(id)!.updates.length?'acked':'idle');if(status==='acked')acked.set(id,count+1);return{status};}
   if(command==='native_page_read'){if(readHold){readHold=false;entered();await new Promise<void>(done=>{release=done;});}const status=readResults.shift()??'received';if(status==='received'){const page=pages.get(args!.pageId as string)!;for(const bytes of remote)if(!page.updates.some(old=>JSON.stringify(old)===JSON.stringify(bytes)))page.updates.push(bytes.slice());}return{status};}
-  if(command!=='native_workspace_execute')return null;const request=args!.request as {command:string;pageId:string;title?:string;update?:number[]};
+  if(command!=='native_workspace_execute')return null;const request=args!.request as {command:string;pageId:string;title?:string;update?:number[];intent?:{title:string}};
   if(request.command==='page_create'){pages.set(request.pageId,{title:request.title!,updates:[request.update!.slice()]});if(createUnknown)throw Error('private commit response');return null;}
   const page=pages.get(request.pageId)!;
   if(request.command==='page_load'&&badLoad)throw Error('fixture unavailable');
@@ -19,12 +19,15 @@ async function fixture(){
   if(request.command==='page_append'){
    if(hold){hold=false;entered();await new Promise<void>(done=>{release=done;});}
    if(!fail || unknown)page.updates.push(request.update!.slice());if(fail || unknown)throw Error('private disk credential path');return null;
-  }throw Error('unexpected command');
+  }
+  if(request.command==='title_enqueue'){page.title=request.intent?.title??'';return null;}
+  throw Error('unexpected command');
  });
  const port=new NativeSessionPort(invoke);await port.login('fixture@example.invalid','fixture-password');await port.open(context.clientId);
  return{port,pages,calls,sendResults,readResults,remote,holdRead(){readHold=true;waiting=new Promise(done=>{entered=done;});},failLoad(value=true){badLoad=value;},holdSend(){holdSend=true;waiting=new Promise(done=>{entered=done;});},hold(){hold=true;waiting=new Promise(done=>{entered=done;});},wait:()=>waiting!,release:()=>release(),fail(value=true){fail=value;},unknown(value=true){unknown=value;},createUnknown(value=true){createUnknown=value;}};
 }
-function replay(updates:number[][]){const doc=new Y.Doc({gc:false});for(const bytes of updates)Y.applyUpdate(doc,Uint8Array.from(bytes));return doc;}
+function replay(updates:number[][]){const doc=new Y.Doc({gc:false});for(const bytes of updates)Y.applyUpdate(doc,Uint8Array.from(bytes));return doc;
+}
 it('NATIVE-PAGE: ordered immutable Yjs appends replay to exact body/vector and pending remains explicit',async()=>{
  const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});f.hold();add(s.document,'alpha');await f.wait();add(s.document,'beta');expect(s.snapshot.saving).toBe(2);expect(s.snapshot.unsaved).toBe(2);f.release();await s.durable();
  const persisted=replay(f.pages.get(pageId)!.updates);expect(persisted.getXmlFragment('body').toString()).toBe(s.document.getXmlFragment('body').toString());expect(Array.from(Y.encodeStateVector(persisted))).toEqual(Array.from(Y.encodeStateVector(s.document)));expect(s.snapshot).toMatchObject({saving:0,unsaved:0,pending:3});persisted.destroy();expect(await s.close()).toBeNull();f.port.dispose();
@@ -88,4 +91,40 @@ it('NATIVE-PAGE-READ: local load failure keeps received distinct, and closed adm
 
 it('NATIVE-PAGE-READ: deferred remote replay refuses a handle revoked before composition ends',async()=>{
  const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});const peer=replay(f.pages.get(pageId)!.updates);add(peer,'deferred foreign-safe');f.remote.push(Array.from(Y.encodeStateAsUpdate(peer)));f.holdRead();const reading=s.read();await f.wait();s.setComposing(true);f.release();await reading;expect(s.snapshot.remoteWaiting).toBe(true);await f.port.cancel();s.setComposing(false);expect(s.snapshot).toMatchObject({remoteWaiting:false,readError:'load'});expect(s.document.getXmlFragment('body').toString()).not.toContain('deferred foreign-safe');peer.destroy();await s.close();f.port.dispose();
+});
+
+it('NATIVE-PAGE-TITLE: valid title edit updates session title, notifies subscribers, and enqueues title_enqueue command',async()=>{
+ const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
+ const observed:string[]=[];const unsubscribe=s.subscribe(state=>observed.push(state.title));
+ s.setTitle('new title');expect(s.snapshot.title).toBe('new title');expect(observed).toContain('new title');
+ await s.durable();
+ const enqueues=f.calls.filter(c=>(c.args?.request as {command?:string}|undefined)?.command==='title_enqueue');
+ expect(enqueues).toHaveLength(1);
+ expect(enqueues[0]?.args?.request).toMatchObject({command:'title_enqueue',pageId,intent:{title:'new title'}});
+ expect(f.pages.get(pageId)!.title).toBe('new title');
+ unsubscribe();await s.close();f.port.dispose();
+});
+
+it('NATIVE-PAGE-TITLE: control characters, null bytes, and oversized titles are rejected',async()=>{
+ const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
+ for(const bad of ['bad\x00title','bad\u0085title','bad\ntitle','x'.repeat(4097),'🦀'.repeat(1025)]){
+  s.setTitle(bad);
+  expect(s.snapshot.title).toBe('synthetic');
+ }
+ await s.durable();
+ expect(f.calls.filter(c=>(c.args?.request as {command?:string}|undefined)?.command==='title_enqueue')).toHaveLength(0);
+ await s.close();f.port.dispose();
+});
+
+it('NATIVE-PAGE-TITLE: title change is captured in draft and restored across sessions',async()=>{
+ const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
+ s.setTitle('draft modified title');
+ const draft=s.draft();
+ expect(draft).not.toBeNull();
+ expect(draft!.title).toBe('draft modified title');
+ await s.close();
+ const next=await NativePageSession.open(f.port,pageId);
+ await next.restoreDraft(draft!);
+ expect(next.snapshot.title).toBe('draft modified title');
+ await next.close();f.port.dispose();
 });

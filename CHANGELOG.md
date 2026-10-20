@@ -1,3 +1,12 @@
+## 0.98.4 — 2026-10-20
+
+- native UIおよびPageセッションへのタイトル／メタデータ統合（M2-①）。
+- apps/client/src/editor/native-page-session.ts: setTitle(title) によるタイトル変更API、文字数（4096以下）・UTF-8バイト長（4096以下）・Unicode制御文字（/\p{Control}/u）の厳格検証、#editVersion インクリメントと購読者への状態通知、ローカル #tail への非同期 title_enqueue 保存キュー発行（未採番の初期タイトルベースへのグレースフル対応を含む）、ドラフト追跡（draft() / restoreDraft()）、リモート同期確定時の #initialTitle 追跡を実装。
+- apps/client/src/auth/native-login-controller.ts: adopt() によるアクティブエディタのタイトル変更監視とページカタログ（sidebar等）への動的タイトル反映、およびページ切替時におけるドラフトタイトルの保持（keepDraft()）を実装。
+- tests/unit/native-page-session.test.ts（3件）および tests/unit/native-login-controller.test.ts（1件）の単体テストを追加。タイトル更新・キュー発行、制御文字・バイト長超過の拒否、ドラフト復元、カタログ連携を検証。
+- 単体テスト総数を577件から581件へ拡張し、CIテストベースライン（scripts/ci-test-baseline.json）を更新。全581件の単体テスト、12件のレポート検証、60件の画面回帰、型検査がすべてPassすることを確認。
+- アプリ所有manifest（package.json, 各package, Tauri, Cargo）および package-lock.json を0.98.4へ整合。
+
 ## 0.98.3 — 2026-10-20
 
 - アプリ所持manifest（apps/client/package.json, apps/client/src-tauri/tauri.conf.json, Cargo.toml等）およびpackage-lock.jsonを0.98.3へ整合。audienceのUTF-8バイト長検査・Unicode制御文字検査、全空環境変数の厳格拒否およびCargo環境変数サニタイズを適用。
