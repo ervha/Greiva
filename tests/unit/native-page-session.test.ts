@@ -16,7 +16,7 @@ async function fixture(){
   if(command==='native_title_send')return{status:sendResults.shift()??'idle'};
   if(command==='native_page_read'){if(readHold){readHold=false;entered();await new Promise<void>(done=>{release=done;});}const status=readResults.shift()??'received';if(status==='received'){const page=pages.get(args!.pageId as string)!;for(const bytes of remote)if(!page.updates.some(old=>JSON.stringify(old)===JSON.stringify(bytes)))page.updates.push(bytes.slice());}return{status};}
   if(command!=='native_workspace_execute')return null;const request=args!.request as {command:string;pageId:string;title?:string;update?:number[];intent?:{title:string}};
-  if(request.command==='page_create'){pages.set(request.pageId,{title:request.title!,updates:[request.update!.slice()]});if(createUnknown)throw Error('private commit response');return null;}\
+  if(request.command==='page_create'){pages.set(request.pageId,{title:request.title!,updates:[request.update!.slice()]});if(createUnknown)throw Error('private commit response');return null;}
   const page=pages.get(request.pageId)!;
   if(request.command==='page_load'&&badLoad)throw Error('fixture unavailable');
   if(request.command==='page_load')return{page:{metadata:{id:request.pageId,title:page.title,yDocId:`page:${request.pageId}`,createdAt:'2026-10-13T00:00:00.000Z',updatedAt:'2026-10-13T00:00:00.000Z'},updates:page.updates.map(bytes=>bytes.slice())},serverHead:null,pending:page.updates.filter(bytes=>!remote.some(r=>JSON.stringify(r)===JSON.stringify(bytes))).length-(acked.get(request.pageId)??0)};
