@@ -255,7 +255,7 @@ it('NATIVE-PAGE-TITLE: resolveTitleConflict guards against composition, missing 
 });
 it('NATIVE-PAGE-TITLE: titleHistory paginates local operations and conflicts, surfaces rejected intents and updates hasMore',async()=>{
  const f=await fixture();
- f.setNextOperation('2');
+ f.setNextOperation('1');
  f.titleOperations.push({sequence:'1',intent:{operationId:'01900000-0000-7000-8000-000000000010',title:'rejected edit'},baseVersion:0,baseTitle:'base',predecessor:null,wire:'{"wire":true}',response:{protocolVersion:1,workspaceId:context.workspaceId,workspaceEpoch:context.streamEpoch,pageId,metadata:{id:pageId,title:'rejected edit',yDocId:'page:'+pageId,createdAt:'2026-10-13T00:00:00.000Z',updatedAt:'2026-10-13T00:00:00.000Z'},version:1,operationId:'01900000-0000-7000-8000-000000000010',result:{status:'rejected',code:'resolution_stale'}}});
  const s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
  expect(s.snapshot.titleHasMore).toBe(true);
