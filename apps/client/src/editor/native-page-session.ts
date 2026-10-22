@@ -72,7 +72,7 @@ export class NativePageSession {
   this.#historyOperation=value.operations.at(-1)?.sequence??this.#historyOperation;
   this.#historyConflict=value.conflicts.at(-1)?.record.id??this.#historyConflict;
   const titleHasMore=Boolean(value.nextOperation!==null||value.nextConflict!==null);
-  const titleConflicts=value.conflicts.filter(row=>row.resolvedBy===null).map(row=>row.record);
+  const rawConflicts=value.conflicts.filter(row=>row.resolvedBy===null).map(row=>row.record);
   const titleOperations:NativePageTitleOperation[]=value.operations.map(row=>{
    const status=row.response?row.response.result.status:'pending';
    const code=row.response?.result.status==='rejected'?(row.response.result as {status:'rejected';code:string}).code:undefined;
@@ -81,6 +81,8 @@ export class NativePageSession {
   const titleRejected=titleOperations.filter(row=>row.status==='rejected').map(row=>({title:row.title,code:row.code??'rejected'}));
   const pendingResolution=value.operations.find(row=>row.response===null&&row.intent.resolution)?.intent.resolution?.conflictId;
   const titleResolutionId=pendingResolution??(value.pending>0?this.#state.titleResolutionId:null);
+  const selected=titleResolutionId?this.#state.titleConflicts.find(c=>c.id===titleResolutionId):null;
+  const titleConflicts=selected&&!rawConflicts.some(c=>c.id===selected.id)?[...rawConflicts,selected]:rawConflicts;
   this.#patch({titleHasMore,titleOperations,titleRejected,titleResolutionId,titlePending:version===this.#titleVersion&&this.#state.saving===0?value.pending:null,titleConflicts});
   if(version===this.#titleVersion&&!this.#state.composing&&this.#preBootstrapTitle===null&&!more){this.#initialTitle=value.localTitle;this.#patch({title:value.localTitle});}
  }
@@ -96,7 +98,7 @@ export class NativePageSession {
   const conflict=this.#state.titleConflicts.find(c=>c.id===conflictId);if(!conflict)throw new NativePageError('protocol');
   const chosenTitle=conflict[choice];
   ++this.#editVersion;++this.#titleVersion;const version=this.#titleVersion;
-  this.#patch({saving:this.#state.saving+1,title:chosenTitle,titleDraft:false,titleStatus:null,titleResolutionId:conflictId,titlePending:(this.#state.titlePending??0)+1});
+  this.#patch({saving:this.#state.saving+1,title:chosenTitle,titleDraft:false,titleStatus:null});
   this.#tail=this.#tail.then(async()=>{
    const ready=await this.port.executeFor(this.bound,{command:'title_ready',pageId:this.pageId});
    if(typeof ready!=='boolean'||!ready)throw new NativePageError('protocol');
@@ -105,6 +107,7 @@ export class NativePageSession {
    this.#initialTitle=chosenTitle;
    if(this.#preBootstrapTitle===chosenTitle){this.#preBootstrapTitle=null;this.#patch({titleDraft:false});}
    this.#titleEdited=true;
+   this.#patch({titleResolutionId:conflictId,titlePending:(this.#state.titlePending??0)+1});
   }).catch(error=>{const failure=this.#failure(error);this.#patch({storageError:failure.stage==='closed'?'closed':failure.stage==='protocol'?'protocol':'storage',titleResolutionId:null});throw failure;})
    .finally(async()=>{
     this.#patch({saving:this.#state.saving-1});
