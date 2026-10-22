@@ -6,7 +6,7 @@ const context={issuer:'https://fixture.invalid/auth/v1',subjectId:'owner-A',work
 function add(doc:Y.Doc,text:string){doc.transact(()=>{const p=new Y.XmlElement('paragraph'),t=new Y.XmlText();t.insert(0,text);p.insert(0,[t]);const body=doc.getXmlFragment('body');body.insert(body.length,[p]);});}
 async function fixture(){
  const titleReadResults:string[]=[],conflicts:{record:{id:string;operationId:string;baseVersion:number;remoteVersion:number;base:string;local:string;remote:string};resolvedBy:string|null}[]=[];
- const titleOperations:unknown[]=[];let nextOperation:string|null=null,nextConflict:string|null=null;
+ const titleOperations:any[]=[];let nextOperation:string|null=null,nextConflict:string|null=null;
  const pages=new Map<string,{title:string;updates:number[][]}>(),acked=new Map<string,number>();let handle=0,hold=false,holdSend=false,badLoad=false,fail=false,unknown=false,createUnknown=false,titleFail:string|null=null,release!:()=>void,entered!:()=>void;let waiting:Promise<void>|undefined;const sendResults:string[]=[],readResults:string[]=[],remote:number[][]=[];let readHold=false;
  const calls:{command:string;args?:Record<string,unknown>}[]=[];
  const invoke=vi.fn(async(command:string,args?:Record<string,unknown>)=>{
