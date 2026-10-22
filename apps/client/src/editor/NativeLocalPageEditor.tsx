@@ -22,8 +22,8 @@ export function NativeLocalPageEditor({session,locked,offline=false,onSend,onRea
    <p>この端末の候補: {conflict.local||'空のタイトル'}</p>
    <p>サーバーの候補: {conflict.remote||'空のタイトル'}</p>
    <div className="native-actions">
-    <button type="button" disabled={busy||Boolean(state.titlePending&&state.titlePending>0)||state.titleResolutionId!==null} onClick={()=>{void session.resolveTitleConflict(conflict.id,'local').catch(()=>{});}}>この端末の候補を選ぶ</button>
-    <button type="button" disabled={busy||Boolean(state.titlePending&&state.titlePending>0)||state.titleResolutionId!==null} onClick={()=>{void session.resolveTitleConflict(conflict.id,'remote').catch(()=>{});}}>サーバーの候補を選ぶ</button>
+    <button type="button" disabled={busy||state.titlePending!==0||state.titleResolutionId!==null} onClick={()=>{void session.resolveTitleConflict(conflict.id,'local').catch(()=>{});}}>この端末の候補を選ぶ</button>
+    <button type="button" disabled={busy||state.titlePending!==0||state.titleResolutionId!==null} onClick={()=>{void session.resolveTitleConflict(conflict.id,'remote').catch(()=>{});}}>サーバーの候補を選ぶ</button>
    </div>
    {state.titleResolutionId===conflict.id&&<p role="status">選択した解決を端末に保存しました。タイトルを送信すると確定します。</p>}
   </details>)}

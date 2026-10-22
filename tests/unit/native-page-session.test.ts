@@ -251,6 +251,7 @@ it('NATIVE-PAGE-TITLE: resolveTitleConflict guards against composition, missing 
  await expect(s.resolveTitleConflict(cfId,'local')).rejects.toMatchObject({stage:'busy'});
  f.release();
  await s.durable();
+ await expect(s.resolveTitleConflict(cfId,'local')).rejects.toMatchObject({stage:'busy'});
  await s.close();f.port.dispose();
 });
 it('NATIVE-PAGE-TITLE: titleHistory paginates local operations and conflicts, surfaces rejected intents and updates hasMore',async()=>{
