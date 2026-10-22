@@ -69,6 +69,18 @@ test('NATIVE-TITLE-UI: provisional candidates remain visible but only the commit
 test('NATIVE-TITLE-UI: offline reopen displays retained conflicts without a remote action',async({page})=>{
  const f=await fixture(page,true);f.grant();f.titleConflicts.push({record:{id:'01900000-0000-7000-8000-000000000008',operationId:'01900000-0000-7000-8000-000000000009',baseVersion:0,remoteVersion:1,base:'before',local:'retained local candidate',remote:pageEntry.metadata.title},resolvedBy:null});await page.goto('/native-auth.fixture.html?offline');await page.getByRole('button',{name:'offlineで開く',exact:true}).click();await page.getByRole('button',{name:'端末の検証Page',exact:true}).click();await page.getByText('タイトルの競合（未解決）',{exact:true}).click();await expect(page.getByText('この端末の候補: retained local candidate',{exact:true})).toBeVisible();expect(f.calls.every(c=>c.command==='native_auth_status'||c.command.startsWith('native_offline_'))).toBe(true);await expect(page.getByRole('button',{name:'タイトルを取得',exact:true})).toHaveCount(0);
 });
+test('NATIVE-TITLE-UI: conflict candidate choice updates title and enqueues resolution intent',async({page})=>{
+ const f=await fixture(page,true);const cfId='01900000-0000-7000-8000-000000000008';
+ f.titleConflicts.push({record:{id:cfId,operationId:'01900000-0000-7000-8000-000000000009',baseVersion:0,remoteVersion:1,base:'before',local:'retained local candidate',remote:'server candidate'},resolvedBy:null});
+ await page.goto('/native-auth.fixture.html');await openLocal(page);await page.getByRole('button',{name:'端末の検証Page',exact:true}).click();
+ const title=page.getByRole('textbox',{name:'Pageタイトル',exact:true});
+ await page.getByText('タイトルの競合（未解決）',{exact:true}).click();
+ await page.getByRole('button',{name:'この端末の候補を選ぶ',exact:true}).click();
+ await expect(title).toHaveValue('retained local candidate');
+ const enqueues=f.calls.filter(c=>(c.args?.request as {command?:string})?.command==='title_enqueue');
+ expect(enqueues.at(-1)?.args?.request).toMatchObject({command:'title_enqueue',pageId:id,intent:{title:'retained local candidate',resolution:{conflictId:cfId,choice:'local'}}});
+ await expect(page.getByText('選択した解決を端末に保存しました。タイトルを送信すると確定します。')).toBeVisible();
+});
 test('NATIVE-TITLE-UI: expiry during title composition keeps the final value as a scoped recovery draft',async({page})=>{
  await page.clock.install();const f=await fixture(page,true);await page.goto('/native-auth.fixture.html');await openLocal(page);await page.getByRole('button',{name:'端末の検証Page',exact:true}).click();const title=page.getByRole('textbox',{name:'Pageタイトル',exact:true});await title.focus();await title.dispatchEvent('compositionstart');f.revoke();await page.clock.fastForward(301000);await expect(title).toBeFocused();await expect(title).toBeEnabled();await title.fill('失効後も保持する確定タイトル');await title.dispatchEvent('compositionend');await page.clock.runFor(32);await expect(title).toHaveCount(0);f.advanceAuth(301);
  await login(page);await openLocal(page);await page.getByRole('button',{name:'端末の検証Page',exact:true}).click();await page.getByRole('button',{name:'保持した入力を戻す',exact:true}).click();await expect(title).toHaveValue('失効後も保持する確定タイトル');

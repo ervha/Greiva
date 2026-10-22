@@ -6,13 +6,14 @@ import {privatePageLocalLoadSchema} from '@greiva/protocol/private-page';
 import {NativeSessionPortError,type NativeWorkspaceHandle,type NativePageSendStatus,type NativePageReadStatus,type NativeTitleSendStatus} from '../auth/native-session-port.js';
 export type NativePagePort={sendTitleFor?(handle:NativeWorkspaceHandle,pageId:string):Promise<NativeTitleSendStatus>;readTitleFor?(handle:NativeWorkspaceHandle,pageId:string):Promise<NativePageReadStatus>;readonly handle:NativeWorkspaceHandle|null;executeFor(handle:NativeWorkspaceHandle,request:Record<string,unknown>):Promise<unknown>;sendPageFor?(handle:NativeWorkspaceHandle,pageId:string):Promise<NativePageSendStatus>;readPageFor?(handle:NativeWorkspaceHandle,pageId:string):Promise<NativePageReadStatus>};
 export class NativePageError extends Error {constructor(readonly stage:'closed'|'busy'|'protocol'|'storage'|'read_unknown'|'store_pending'){super(`Native Page ${stage}`);this.name='NativePageError';}}
-export type NativePageState=Readonly<{titleConflicts:readonly {id:string;base:string;local:string;remote:string}[];titleDraft:boolean;titlePending:number|null;titleStatus:NativeTitleSendStatus|null;titleReadStatus:NativePageReadStatus|null;titleBusy:boolean;phase:'opening'|'ready'|'closed';title:string;saving:number;pending:number;pendingFresh:boolean;sending:boolean;sendStatus:NativePageSendStatus|null;reading:boolean;readStatus:NativePageReadStatus|null;readError:'load'|'protocol'|null;remoteWaiting:boolean;unsaved:number;composing:boolean;storageError:'storage'|'protocol'|'closed'|null}>;
+export type NativePageTitleOperation=Readonly<{sequence:string;title:string;status:'pending'|'applied'|'conflict'|'rejected';code?:string|undefined}>;
+export type NativePageState=Readonly<{titleConflicts:readonly {id:string;base:string;local:string;remote:string}[];titleDraft:boolean;titlePending:number|null;titleStatus:NativeTitleSendStatus|null;titleReadStatus:NativePageReadStatus|null;titleBusy:boolean;titleHasMore:boolean;titleOperations:readonly NativePageTitleOperation[];titleRejected:readonly {title:string;code:string}[];titleResolutionId:string|null;phase:'opening'|'ready'|'closed';title:string;saving:number;pending:number;pendingFresh:boolean;sending:boolean;sendStatus:NativePageSendStatus|null;reading:boolean;readStatus:NativePageReadStatus|null;readError:'load'|'protocol'|null;remoteWaiting:boolean;unsaved:number;composing:boolean;storageError:'storage'|'protocol'|'closed'|null}>;
 export type NativePageDraft=Readonly<{context:NativeWorkspaceHandle['context'];pageId:string;title:string;titleChanged:boolean;update:Uint8Array}>;
 // All operations capture the original handle. Remote replay never echoes into
 // the local append queue and waits until native composition has finished.
 export class NativePageSession {
  readonly document=new Y.Doc({gc:false});readonly clientId:string;
- #state:NativePageState={titleConflicts:[],titleDraft:false,titlePending:null,titleStatus:null,titleReadStatus:null,titleBusy:false,phase:'opening',title:'',saving:0,pending:0,pendingFresh:true,sending:false,sendStatus:null,reading:false,readStatus:null,readError:null,remoteWaiting:false,unsaved:0,composing:false,storageError:null};
+ #state:NativePageState={titleConflicts:[],titleDraft:false,titlePending:null,titleStatus:null,titleReadStatus:null,titleBusy:false,titleHasMore:false,titleOperations:[],titleRejected:[],titleResolutionId:null,phase:'opening',title:'',saving:0,pending:0,pendingFresh:true,sending:false,sendStatus:null,reading:false,readStatus:null,readError:null,remoteWaiting:false,unsaved:0,composing:false,storageError:null};
  #remote:{update:Uint8Array;title:string|null;version:number}|null=null;
  #titleVersion=0;
  #titleEdited=false;
@@ -20,6 +21,8 @@ export class NativePageSession {
  #preBootstrapTitle:string|null=null;
  #editVersion=0;
  #initialTitle='';
+ #historyOperation:string|null=null;
+ #historyConflict:string|null=null;
  #listeners=new Set<(state:NativePageState)=>void>();#tail:Promise<void>=Promise.resolve();#loadOrigin=Symbol('native journal');#closing:Promise<NativePageDraft|null>|undefined;
  private constructor(private readonly port:NativePagePort,readonly bound:NativeWorkspaceHandle,readonly pageId:string){this.clientId=bound.context.clientId;}
  get snapshot(){return this.#state;}
@@ -33,7 +36,7 @@ export class NativePageSession {
   const session=new NativePageSession(port,bound,pageId);
   try{
    if(source.kind==='create'){const result=await port.executeFor(bound,{command:'page_create',pageId,title:source.title,update:Array.from(emptyPageUpdate())});if(result!==null)throw new NativePageError('protocol');session.#check();}
-   if(source.kind==='remote'){if(!port.readPageFor)throw new NativePageError('closed');const status=await port.readPageFor(bound,pageId);session.#check();if(status!=='received')throw new NativePageError(status);}
+   if(source.kind==='remote'){if(!port.readPageFor)throw new NativePageError('closed');const status=await port.readPageFor(bound,pageId);session.#check();if(status!=='received')throw new NativePageError(status); session.#check();}
    const parsed=privatePageLocalLoadSchema.safeParse(await port.executeFor(bound,{command:'page_load',pageId}));session.#check();
    if(!parsed.success || parsed.data.page.metadata.id!==pageId)throw new NativePageError('protocol');
    try{for(const update of parsed.data.page.updates)Y.applyUpdate(session.document,Uint8Array.from(update),session.#loadOrigin);}catch{throw new NativePageError('protocol');}
@@ -62,11 +65,55 @@ export class NativePageSession {
    .finally(()=>this.#patch({saving:this.#state.saving-1}));
   void this.#tail.catch(()=>{});
  }
- async #loadTitle(version:number){
-  const value=privatePageTitleLocalResponseSchema.parse(await this.port.executeFor(this.bound,{command:'title_load',pageId:this.pageId,afterOperation:null,afterConflict:null,limit:50}));this.#check();
+ async #loadTitle(version:number,more=false){
+  if(!more){this.#historyOperation=null;this.#historyConflict=null;}
+  const value=privatePageTitleLocalResponseSchema.parse(await this.port.executeFor(this.bound,{command:'title_load',pageId:this.pageId,afterOperation:more?this.#historyOperation:null,afterConflict:more?this.#historyConflict:null,limit:50}));this.#check();
   if(value.pageId!==this.pageId||Object.entries(this.bound.context).some(([key,item])=>value.context[key as keyof typeof value.context]!==item))throw new NativePageError('protocol');
-  this.#patch({titlePending:version===this.#titleVersion&&this.#state.saving===0?value.pending:null,titleConflicts:value.conflicts.filter(row=>row.resolvedBy===null).map(row=>row.record)});
-  if(version===this.#titleVersion&&!this.#state.composing&&this.#preBootstrapTitle===null){this.#initialTitle=value.localTitle;this.#patch({title:value.localTitle});}
+  this.#historyOperation=value.operations.at(-1)?.sequence??this.#historyOperation;
+  this.#historyConflict=value.conflicts.at(-1)?.record.id??this.#historyConflict;
+  const titleHasMore=Boolean(value.nextOperation!==null||value.nextConflict!==null);
+  const rawConflicts=value.conflicts.filter(row=>row.resolvedBy===null).map(row=>row.record);
+  const titleOperations:NativePageTitleOperation[]=value.operations.map(row=>{
+   const status=row.response?row.response.result.status:'pending';
+   const code=row.response?.result.status==='rejected'?(row.response.result as {status:'rejected';code:string}).code:undefined;
+   return code!==undefined?{sequence:row.sequence,title:row.intent.title,status,code}:{sequence:row.sequence,title:row.intent.title,status};
+  });
+  const titleRejected=titleOperations.filter(row=>row.status==='rejected').map(row=>({title:row.title,code:row.code??'rejected'}));
+  const pendingResolution=value.operations.find(row=>row.response===null&&row.intent.resolution)?.intent.resolution?.conflictId;
+  const titleResolutionId=pendingResolution??(value.pending>0?this.#state.titleResolutionId:null);
+  const selected=titleResolutionId?this.#state.titleConflicts.find(c=>c.id===titleResolutionId):null;
+  const titleConflicts=selected&&!rawConflicts.some(c=>c.id===selected.id)?[...rawConflicts,selected]:rawConflicts;
+  this.#patch({titleHasMore,titleOperations,titleRejected,titleResolutionId,titlePending:version===this.#titleVersion&&this.#state.saving===0?value.pending:null,titleConflicts});
+  if(version===this.#titleVersion&&!this.#state.composing&&this.#preBootstrapTitle===null&&!more){this.#initialTitle=value.localTitle;this.#patch({title:value.localTitle});}
+ }
+ async titleHistory(more=false){
+  this.#check();if(this.isComposing||this.#state.saving||this.#state.sending||this.#state.reading||this.#state.remoteWaiting||this.#state.titleBusy||this.#state.storageError)throw new NativePageError('busy');
+  this.#patch({titleBusy:true});const version=this.#titleVersion;
+  try{await this.#loadTitle(version,more);}
+  catch{if(this.#state.phase==='ready')this.#patch({titlePending:null});}
+  finally{if(this.#state.phase==='ready')this.#patch({titleBusy:false});}
+ }
+ async resolveTitleConflict(conflictId:string,choice:'local'|'remote'){
+  this.#check();if(this.isComposing||this.#state.saving>0||this.#state.sending||this.#state.reading||this.#state.remoteWaiting||this.#state.titleBusy||this.#state.storageError||this.#state.titlePending!==0||this.#state.titleResolutionId!==null)throw new NativePageError('busy');
+  const conflict=this.#state.titleConflicts.find(c=>c.id===conflictId);if(!conflict)throw new NativePageError('protocol');
+  const chosenTitle=conflict[choice];
+  ++this.#editVersion;++this.#titleVersion;const version=this.#titleVersion;
+  this.#patch({saving:this.#state.saving+1,title:chosenTitle,titleDraft:false,titleStatus:null});
+  this.#tail=this.#tail.then(async()=>{
+   const ready=await this.port.executeFor(this.bound,{command:'title_ready',pageId:this.pageId});
+   if(typeof ready!=='boolean'||!ready)throw new NativePageError('protocol');
+   const result=await this.port.executeFor(this.bound,{command:'title_enqueue',pageId:this.pageId,intent:{operationId:newId(),title:chosenTitle,resolution:{conflictId,choice}}});
+   if(result!==null)throw new NativePageError('protocol');
+   this.#initialTitle=chosenTitle;
+   if(this.#preBootstrapTitle===chosenTitle){this.#preBootstrapTitle=null;this.#patch({titleDraft:false});}
+   this.#titleEdited=true;
+   this.#patch({titleResolutionId:conflictId,titlePending:(this.#state.titlePending??0)+1});
+  }).catch(error=>{const failure=this.#failure(error);this.#patch({storageError:failure.stage==='closed'?'closed':failure.stage==='protocol'?'protocol':'storage',titleResolutionId:null});throw failure;})
+   .finally(async()=>{
+    this.#patch({saving:this.#state.saving-1});
+    try{await this.#loadTitle(version);}catch{/* Keep known receipt / avoid unhandled rejection */}
+   });
+  await this.#tail;
  }
  async titleAction(kind:'send'|'read'){
   this.#check();if(this.isComposing||this.#state.saving||this.#state.sending||this.#state.reading||this.#state.remoteWaiting||this.#state.titleBusy||this.#state.storageError)throw new NativePageError('busy');
