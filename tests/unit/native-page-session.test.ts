@@ -25,8 +25,8 @@ async function fixture(){
    if(!fail || unknown)page.updates.push(request.update!.slice());if(fail || unknown)throw Error('private disk credential path');return null;
   }
   if(request.command==='title_ready')return titleFail!=='Page bootstrap receipt required';
-  if(request.command==='title_enqueue'){if(hold){hold=false;entered();await new Promise<void>(done=>{release=done;});}if(titleFail)throw Error(titleFail);page.title=request.intent?.title??'';return null;}
-  if(request.command==='title_load')return{context,pageId:request.pageId,base:{metadata:{id:request.pageId,title:page.title,yDocId:`page:${request.pageId}`,createdAt:'2026-10-13T00:00:00.000Z',updatedAt:'2026-10-13T00:00:00.000Z'},version:1},localTitle:page.title,pending:0,operations:titleOperations,nextOperation,conflicts,nextConflict};
+  if(request.command==='title_enqueue'){if(hold){hold=false;entered();await new Promise<void>(done=>{release=done;});}if(titleFail)throw Error(titleFail);page.title=request.intent?.title??'';titleOperations.push({sequence:String(titleOperations.length+1),intent:request.intent!,baseVersion:1,baseTitle:'base',predecessor:null,wire:null,response:null});return null;}
+  if(request.command==='title_load')return{context,pageId:request.pageId,base:{metadata:{id:request.pageId,title:page.title,yDocId:`page:${request.pageId}`,createdAt:'2026-10-13T00:00:00.000Z',updatedAt:'2026-10-13T00:00:00.000Z'},version:1},localTitle:page.title,pending:titleOperations.filter(op=>op.response===null).length,operations:titleOperations,nextOperation,conflicts,nextConflict};
   throw Error('unexpected command');
  });
  const port=new NativeSessionPort(invoke);await port.login('fixture@example.invalid','fixture-password');await port.open(context.clientId);
@@ -223,6 +223,10 @@ it('NATIVE-PAGE-TITLE: resolveTitleConflict chooses candidate, updates title, en
  expect(s.snapshot.titleConflicts).toHaveLength(1);
  await s.resolveTitleConflict(cfId,'local');
  expect(s.snapshot.title).toBe('local candidate');
+ expect(s.snapshot.titlePending).toBe(1);
+ expect(s.snapshot.titleResolutionId).toBe(cfId);
+ expect(s.snapshot.titleOperations).toHaveLength(1);
+ expect(s.snapshot.titleOperations[0]?.status).toBe('pending');
  expect(f.pages.get(pageId)!.title).toBe('local candidate');
  const enqueues=f.calls.filter(c=>(c.args?.request as {command?:string}|undefined)?.command==='title_enqueue');
  expect(enqueues.at(-1)?.args?.request).toMatchObject({
@@ -255,6 +259,9 @@ it('NATIVE-PAGE-TITLE: titleHistory paginates local operations and conflicts, su
  f.titleOperations.push({sequence:'1',intent:{operationId:'01900000-0000-7000-8000-000000000010',title:'rejected edit'},baseVersion:0,baseTitle:'base',predecessor:null,wire:'{"wire":true}',response:{protocolVersion:1,workspaceId:context.workspaceId,workspaceEpoch:context.streamEpoch,pageId,metadata:{id:pageId,title:'rejected edit',yDocId:'page:'+pageId,createdAt:'2026-10-13T00:00:00.000Z',updatedAt:'2026-10-13T00:00:00.000Z'},version:1,operationId:'01900000-0000-7000-8000-000000000010',result:{status:'rejected',code:'resolution_stale'}}});
  const s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
  expect(s.snapshot.titleHasMore).toBe(true);
+ expect(s.snapshot.titleOperations).toHaveLength(1);
+ expect(s.snapshot.titleOperations[0]?.status).toBe('rejected');
+ expect(s.snapshot.titleOperations[0]?.code).toBe('resolution_stale');
  expect(s.snapshot.titleRejected).toEqual([{title:'rejected edit',code:'resolution_stale'}]);
  await s.titleHistory(true);
  const lastLoad=f.calls.filter(c=>(c.args?.request as {command?:string}|undefined)?.command==='title_load').at(-1);

@@ -1,4 +1,4 @@
-## 0.99.1 — 2026-10-22
+## 0.100.0 — 2026-10-22
 
 - 新native UI（`NativeLocalPageEditor` / `NativePageSession`）にタイトル競合解決UIを接続。「この端末の候補を選ぶ」「サーバーの候補を選ぶ」により明示的な解決意図をキューイング（`title_enqueue`）。キュー未確定時（`titlePending > 0`）や保存中は解決選択を無効化し、SQLiteの競合前提条件と整合。
 - 拒否されたタイトル変更（`titleRejected`）の表示セクションを追加。`resolution_stale`等のエラーコードに応じて適切な案内文を表示。

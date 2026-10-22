@@ -22,11 +22,12 @@ export function NativeLocalPageEditor({session,locked,offline=false,onSend,onRea
    <p>この端末の候補: {conflict.local||'空のタイトル'}</p>
    <p>サーバーの候補: {conflict.remote||'空のタイトル'}</p>
    <div className="native-actions">
-    <button type="button" disabled={busy||Boolean(state.titlePending&&state.titlePending>0)} onClick={()=>{void session.resolveTitleConflict(conflict.id,'local').catch(()=>{});}}>この端末の候補を選ぶ</button>
-    <button type="button" disabled={busy||Boolean(state.titlePending&&state.titlePending>0)} onClick={()=>{void session.resolveTitleConflict(conflict.id,'remote').catch(()=>{});}}>サーバーの候補を選ぶ</button>
+    <button type="button" disabled={busy||Boolean(state.titlePending&&state.titlePending>0)||state.titleResolutionId!==null} onClick={()=>{void session.resolveTitleConflict(conflict.id,'local').catch(()=>{});}}>この端末の候補を選ぶ</button>
+    <button type="button" disabled={busy||Boolean(state.titlePending&&state.titlePending>0)||state.titleResolutionId!==null} onClick={()=>{void session.resolveTitleConflict(conflict.id,'remote').catch(()=>{});}}>サーバーの候補を選ぶ</button>
    </div>
-   {Boolean(state.titlePending&&state.titlePending>0)&&<p role="status">選択した解決を端末に保存しました。タイトルを送信すると確定します。</p>}
+   {state.titleResolutionId===conflict.id&&<p role="status">選択した解決を端末に保存しました。タイトルを送信すると確定します。</p>}
   </details>)}
+  {state.titleOperations.length>0&&<section aria-label="タイトルの変更履歴"><h3>タイトルの変更履歴</h3><ul>{state.titleOperations.map(op=><li key={op.sequence}>{op.title||'空のタイトル'} — {op.status==='applied'?'反映済み':op.status==='pending'?'未送信':op.status==='conflict'?'競合':`拒否 (${op.code})`}</li>)}</ul></section>}
   {state.titleRejected.length>0&&<section aria-label="拒否されたタイトル変更"><h3>受け付けられなかった変更</h3>{state.titleRejected.map((r,i)=><p key={i}>{r.title||'空のタイトル'} — {r.code==='resolution_stale'?'タイトルが先に更新されています。候補を確認してください。':'この変更は受け付けられませんでした。保存した入力は残っています。'}</p>)}</section>}
   <div className="native-actions">
    {state.titleHasMore&&<button type="button" disabled={busy} onClick={()=>{void session.titleHistory(true).catch(()=>{});}}>保存済み候補・履歴の続き</button>}
