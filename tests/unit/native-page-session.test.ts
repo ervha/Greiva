@@ -5,7 +5,8 @@ const pageId='01900000-0000-7000-8000-000000000004';
 const context={issuer:'https://fixture.invalid/auth/v1',subjectId:'owner-A',workspaceId:'01900000-0000-7000-8000-000000000001',clientId:'01900000-0000-7000-8000-000000000002',streamEpoch:'01900000-0000-7000-8000-000000000003'};
 function add(doc:Y.Doc,text:string){doc.transact(()=>{const p=new Y.XmlElement('paragraph'),t=new Y.XmlText();t.insert(0,text);p.insert(0,[t]);const body=doc.getXmlFragment('body');body.insert(body.length,[p]);});}
 async function fixture(){
- const titleReadResults:string[]=[],conflicts:{record:{id:string;operationId:string;baseVersion:number;remoteVersion:number;base:string;local:string;remote:string};resolvedBy:null}[]=[];
+ const titleReadResults:string[]=[],conflicts:{record:{id:string;operationId:string;baseVersion:number;remoteVersion:number;base:string;local:string;remote:string};resolvedBy:string|null}[]=[];
+ const titleOperations:unknown[]=[];let nextOperation:string|null=null,nextConflict:string|null=null;
  const pages=new Map<string,{title:string;updates:number[][]}>(),acked=new Map<string,number>();let handle=0,hold=false,holdSend=false,badLoad=false,fail=false,unknown=false,createUnknown=false,titleFail:string|null=null,release!:()=>void,entered!:()=>void;let waiting:Promise<void>|undefined;const sendResults:string[]=[],readResults:string[]=[],remote:number[][]=[];let readHold=false;
  const calls:{command:string;args?:Record<string,unknown>}[]=[];
  const invoke=vi.fn(async(command:string,args?:Record<string,unknown>)=>{
@@ -15,7 +16,7 @@ async function fixture(){
   if(command==='native_title_send')return{status:sendResults.shift()??'idle'};
   if(command==='native_page_read'){if(readHold){readHold=false;entered();await new Promise<void>(done=>{release=done;});}const status=readResults.shift()??'received';if(status==='received'){const page=pages.get(args!.pageId as string)!;for(const bytes of remote)if(!page.updates.some(old=>JSON.stringify(old)===JSON.stringify(bytes)))page.updates.push(bytes.slice());}return{status};}
   if(command!=='native_workspace_execute')return null;const request=args!.request as {command:string;pageId:string;title?:string;update?:number[];intent?:{title:string}};
-  if(request.command==='page_create'){pages.set(request.pageId,{title:request.title!,updates:[request.update!.slice()]});if(createUnknown)throw Error('private commit response');return null;}
+  if(request.command==='page_create'){pages.set(request.pageId,{title:request.title!,updates:[request.update!.slice()]});if(createUnknown)throw Error('private commit response');return null;}\
   const page=pages.get(request.pageId)!;
   if(request.command==='page_load'&&badLoad)throw Error('fixture unavailable');
   if(request.command==='page_load')return{page:{metadata:{id:request.pageId,title:page.title,yDocId:`page:${request.pageId}`,createdAt:'2026-10-13T00:00:00.000Z',updatedAt:'2026-10-13T00:00:00.000Z'},updates:page.updates.map(bytes=>bytes.slice())},serverHead:null,pending:page.updates.filter(bytes=>!remote.some(r=>JSON.stringify(r)===JSON.stringify(bytes))).length-(acked.get(request.pageId)??0)};
@@ -25,11 +26,11 @@ async function fixture(){
   }
   if(request.command==='title_ready')return titleFail!=='Page bootstrap receipt required';
   if(request.command==='title_enqueue'){if(hold){hold=false;entered();await new Promise<void>(done=>{release=done;});}if(titleFail)throw Error(titleFail);page.title=request.intent?.title??'';return null;}
-  if(request.command==='title_load')return{context,pageId:request.pageId,base:{metadata:{id:request.pageId,title:page.title,yDocId:`page:${request.pageId}`,createdAt:'2026-10-13T00:00:00.000Z',updatedAt:'2026-10-13T00:00:00.000Z'},version:1},localTitle:page.title,pending:0,operations:[],nextOperation:null,conflicts,nextConflict:null};
+  if(request.command==='title_load')return{context,pageId:request.pageId,base:{metadata:{id:request.pageId,title:page.title,yDocId:`page:${request.pageId}`,createdAt:'2026-10-13T00:00:00.000Z',updatedAt:'2026-10-13T00:00:00.000Z'},version:1},localTitle:page.title,pending:0,operations:titleOperations,nextOperation,conflicts,nextConflict};
   throw Error('unexpected command');
  });
  const port=new NativeSessionPort(invoke);await port.login('fixture@example.invalid','fixture-password');await port.open(context.clientId);
- return{port,pages,calls,sendResults,readResults,remote,titleReadResults,conflicts,holdRead(){readHold=true;waiting=new Promise(done=>{entered=done;});},failLoad(value=true){badLoad=value;},holdSend(){holdSend=true;waiting=new Promise(done=>{entered=done;});},hold(){hold=true;waiting=new Promise(done=>{entered=done;});},wait:()=>waiting!,release:()=>release(),fail(value=true){fail=value;},unknown(value=true){unknown=value;},createUnknown(value=true){createUnknown=value;},failTitle(reason='private disk credential path'){titleFail=reason;},succeedTitle(){titleFail=null;}};
+ return{port,pages,calls,sendResults,readResults,remote,titleReadResults,conflicts,titleOperations,setNextOperation(seq:string|null){nextOperation=seq;},setNextConflict(id:string|null){nextConflict=id;},holdRead(){readHold=true;waiting=new Promise(done=>{entered=done;});},failLoad(value=true){badLoad=value;},holdSend(){holdSend=true;waiting=new Promise(done=>{entered=done;});},hold(){hold=true;waiting=new Promise(done=>{entered=done;});},wait:()=>waiting!,release:()=>release(),fail(value=true){fail=value;},unknown(value=true){unknown=value;},createUnknown(value=true){createUnknown=value;},failTitle(reason='private disk credential path'){titleFail=reason;},succeedTitle(){titleFail=null;}};
 }
 function replay(updates:number[][]){const doc=new Y.Doc({gc:false});for(const bytes of updates)Y.applyUpdate(doc,Uint8Array.from(bytes));return doc;
 }
@@ -112,7 +113,7 @@ it('NATIVE-PAGE-TITLE: valid title edit updates session title, notifies subscrib
 
 it('NATIVE-PAGE-TITLE: control characters, null bytes, and oversized titles are rejected',async()=>{
  const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
- for(const bad of ['bad\x00title','bad\u0085title','bad\ntitle','x'.repeat(4097),'🦀'.repeat(1025)]){
+ for(const bad of ['bad\x00title','bad\u0085title','bad\ntitle','x'.repeat(4097),'\ud83e\udd80'.repeat(1025)]){
   s.setTitle(bad);
   expect(s.snapshot.title).toBe('synthetic');
  }
@@ -213,4 +214,53 @@ it('NATIVE-TITLE: each read attempt owns its status and offline open restores lo
  const f=await fixture(),s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});await s.titleAction('read');expect(s.snapshot.titleReadStatus).toBe('received');f.titleReadResults.push('throw');await s.titleAction('read');expect(s.snapshot.titleReadStatus).toBe('read_unknown');await s.close();
  f.conflicts.push({record:{id:'01900000-0000-7000-8000-000000000008',operationId:'01900000-0000-7000-8000-000000000009',baseVersion:0,remoteVersion:1,base:'before',local:'candidate',remote:'synthetic'},resolvedBy:null});
  const count=f.calls.length;const local={get handle(){return f.port.handle;},executeFor:f.port.executeFor.bind(f.port)};const next=await NativePageSession.open(local,pageId);expect(next.snapshot.titleConflicts[0]?.local).toBe('candidate');expect(f.calls.slice(count).every(c=>c.command==='native_workspace_execute')).toBe(true);await next.close();f.port.dispose();
+});
+it('NATIVE-PAGE-TITLE: resolveTitleConflict chooses candidate, updates title, enqueues resolution and settles queue',async()=>{
+ const f=await fixture();
+ const cfId='01900000-0000-7000-8000-000000000008';
+ f.conflicts.push({record:{id:cfId,operationId:'01900000-0000-7000-8000-000000000009',baseVersion:0,remoteVersion:1,base:'before',local:'local candidate',remote:'remote candidate'},resolvedBy:null});
+ const s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
+ expect(s.snapshot.titleConflicts).toHaveLength(1);
+ await s.resolveTitleConflict(cfId,'local');
+ expect(s.snapshot.title).toBe('local candidate');
+ expect(f.pages.get(pageId)!.title).toBe('local candidate');
+ const enqueues=f.calls.filter(c=>(c.args?.request as {command?:string}|undefined)?.command==='title_enqueue');
+ expect(enqueues.at(-1)?.args?.request).toMatchObject({
+  command:'title_enqueue',
+  pageId,
+  intent:{title:'local candidate',resolution:{conflictId:cfId,choice:'local'}}
+ });
+ await s.close();f.port.dispose();
+});
+it('NATIVE-PAGE-TITLE: resolveTitleConflict guards against composition, missing conflict, and busy saving',async()=>{
+ const f=await fixture();
+ const cfId='01900000-0000-7000-8000-000000000008';
+ f.conflicts.push({record:{id:cfId,operationId:'01900000-0000-7000-8000-000000000009',baseVersion:0,remoteVersion:1,base:'before',local:'local candidate',remote:'remote candidate'},resolvedBy:null});
+ const s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
+ s.setComposing(true);
+ await expect(s.resolveTitleConflict(cfId,'local')).rejects.toMatchObject({stage:'busy'});
+ s.setComposing(false);
+ await expect(s.resolveTitleConflict('01900000-0000-7000-8000-000000000099','local')).rejects.toMatchObject({stage:'protocol'});
+ f.hold();
+ s.setTitle('pending local title');
+ await f.wait();
+ await expect(s.resolveTitleConflict(cfId,'local')).rejects.toMatchObject({stage:'busy'});
+ f.release();
+ await s.durable();
+ await s.close();f.port.dispose();
+});
+it('NATIVE-PAGE-TITLE: titleHistory paginates local operations and conflicts, surfaces rejected intents and updates hasMore',async()=>{
+ const f=await fixture();
+ f.setNextOperation('2');
+ f.titleOperations.push({sequence:'1',intent:{operationId:'01900000-0000-7000-8000-000000000010',title:'rejected edit'},baseVersion:0,baseTitle:'base',predecessor:null,wire:'{"wire":true}',response:{protocolVersion:1,workspaceId:context.workspaceId,workspaceEpoch:context.streamEpoch,pageId,metadata:{id:pageId,title:'rejected edit',yDocId:'page:'+pageId,createdAt:'2026-10-13T00:00:00.000Z',updatedAt:'2026-10-13T00:00:00.000Z'},version:1,operationId:'01900000-0000-7000-8000-000000000010',result:{status:'rejected',code:'resolution_stale'}}});
+ const s=await NativePageSession.open(f.port,pageId,{kind:'create',title:'synthetic'});
+ expect(s.snapshot.titleHasMore).toBe(true);
+ expect(s.snapshot.titleRejected).toEqual([{title:'rejected edit',code:'resolution_stale'}]);
+ await s.titleHistory(true);
+ const lastLoad=f.calls.filter(c=>(c.args?.request as {command?:string}|undefined)?.command==='title_load').at(-1);
+ expect((lastLoad?.args?.request as {afterOperation?:string})?.afterOperation).toBe('1');
+ await s.titleHistory(false);
+ const resetLoad=f.calls.filter(c=>(c.args?.request as {command?:string}|undefined)?.command==='title_load').at(-1);
+ expect((resetLoad?.args?.request as {afterOperation?:string|null})?.afterOperation).toBeNull();
+ await s.close();f.port.dispose();
 });
