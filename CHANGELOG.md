@@ -1,3 +1,10 @@
+## 0.101.0 — 2026-10-24
+
+- M2-②の第一段階として、Task／Relationのnative送信・差分取得と型付きclient portを追加。元admission/認証世代に束縛し、WebViewへtoken・ACK・cursorを戻さない。
+- 既存SQLiteのACK/Pull処理をrollback付き検証にも再利用。結果不明とローカルcommit未確認を分け、既知応答の再確認ではHTTPを繰り返さない。競合・拒否は別の永続結果として扱う。
+- Rustのscope越境・遅着・保存結果不明・再起動・offline拒否、合成TLS/API/PostgreSQLのTask／Relation送受信、client portを検証。native画面統合、実機IME受入、M2-②全体の完了は含まない。
+- アプリ所有manifest/lockfileを0.101.0へ整合。外部npm/Cargo依存は変更しない。
+
 ## 0.100.0 — 2026-10-22
 
 - 新native UI（`NativeLocalPageEditor` / `NativePageSession`）にタイトル競合解決UIを接続。「この端末の候補を選ぶ」「サーバーの候補を選ぶ」により明示的な解決意図をキューイング（`title_enqueue`）。キュー未確定時（`titlePending > 0`）や保存中は解決選択を無効化し、SQLiteの競合前提条件と整合。

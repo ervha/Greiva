@@ -158,6 +158,17 @@ impl NativeProvider for NativeHttpProvider {
         })
     }
     fn page_catalog<'a>(&'a self,access:&'a AccessSecret,context:&'a crate::WorkspaceContext,cursor:Option<&'a str>)->ProviderFuture<'a,serde_json::Value>{Box::pin(self.catalog(access,context,cursor))}
+    fn structured_send<'a>(&'a self,access:&'a AccessSecret,c:&'a crate::WorkspaceContext,wire:&'a str)->ProviderFuture<'a,serde_json::Value>{Box::pin(async move{
+        if c.issuer!=self.issuer||!crate::structured::uuid_v7(&c.workspace_id)||wire.is_empty()||wire.len()>2*1024*1024{return Err(CredentialError)}
+        let bytes=self.call_limited(Method::POST,format!("{}/v1/workspaces/{}/sync/push",self.api,c.workspace_id),Some(access),Some(Zeroizing::new(wire.as_bytes().to_vec())),false,2*1024*1024).await?;
+        serde_json::from_slice(&bytes).map_err(|_|CredentialError)
+    })}
+    fn structured_pull<'a>(&'a self,access:&'a AccessSecret,c:&'a crate::WorkspaceContext,request:&'a serde_json::Value)->ProviderFuture<'a,serde_json::Value>{Box::pin(async move{
+        if c.issuer!=self.issuer||!crate::structured::uuid_v7(&c.workspace_id){return Err(CredentialError)}
+        let body=Zeroizing::new(serde_json::to_vec(request).map_err(|_|CredentialError)?);
+        let bytes=self.call_limited(Method::POST,format!("{}/v1/workspaces/{}/sync/pull",self.api,c.workspace_id),Some(access),Some(body),false,16*1024*1024).await?;
+        serde_json::from_slice(&bytes).map_err(|_|CredentialError)
+    })}
     fn offline_grant<'a>(&'a self,access:&'a AccessSecret,context:&'a crate::WorkspaceContext,nonce:&'a str)->ProviderFuture<'a,String>{Box::pin(async move{
         if context.issuer!=self.issuer||![&context.workspace_id,&context.client_id,&context.stream_epoch].iter().all(|id|crate::structured::uuid_v7(id))||nonce.len()!=64||!nonce.bytes().all(|b|b.is_ascii_digit()||(b'a'..=b'f').contains(&b)){return Err(CredentialError)}
         let body=Zeroizing::new(serde_json::to_vec(&serde_json::json!({"clientId":context.client_id,"epoch":context.stream_epoch,"nonce":nonce})).map_err(|_|CredentialError)?);
@@ -202,6 +213,25 @@ mod tests {
         p.client=Client::builder().redirect(reqwest::redirect::Policy::none()).retry(reqwest::retry::never()).no_proxy().referer(false)
             .timeout(Duration::from_secs(15)).connect_timeout(Duration::from_secs(5))
             .add_root_certificate(reqwest::Certificate::from_pem(cert).unwrap()).build().unwrap();p
+    }
+    #[tokio::test]
+    #[ignore="run scripts/test-native-http-provider.mjs --structured for TLS/API/PG fixture"]
+    async fn native_http_actual_structured_send_pull_boundaries(){
+        use crate::native_workspace_gate::{NativeWorkspaceGate,StructuredSendStatus as Send,StructuredPullStatus as Pull};use serde_json::json;
+        let project=std::env::var("GREIVA_FIXTURE_PROJECT").unwrap();let api=std::env::var("GREIVA_FIXTURE_API").unwrap();let cert=std::fs::read(std::env::var("GREIVA_FIXTURE_CA").unwrap()).unwrap();
+        let mut nonce=[0u8;16];getrandom::getrandom(&mut nonce).unwrap();let root=std::env::temp_dir().join(format!("greiva-structured-http-{:x}",u128::from_le_bytes(nonce)));std::fs::create_dir(&root).unwrap();
+        let provider=trusted_fixture(&project,&api,&cert);let issuer=provider.issuer().to_owned();let vault=CredentialVault::open(&root.join("session.sqlite"),"structured-http-fixture",Os::default()).await.unwrap();let gate=NativeWorkspaceGate::new(NativeSession::new(vault,provider,SystemClock::new().unwrap(),issuer).unwrap(),root.join("workspaces"));
+        gate.login("structured-sync@example.invalid",b"fixture-password".to_vec()).await.unwrap();let h=gate.open("01900000-0000-7000-8000-000000000070").await.unwrap();
+        let a="01900000-0000-7000-8000-000000000071";let b="01900000-0000-7000-8000-000000000072";
+        for (index,id) in [a,b,"01900000-0000-7000-8000-000000000073"].iter().enumerate(){let (kind,payload)=if index<2 {("task",json!({"title":format!("native task {index}"),"status":"todo","due":null}))}else{("relation",json!({"fromType":"task","fromId":a,"toType":"task","toId":b}))};
+            gate.execute(&h.handle,json!({"command":"mutate","operation":{"operationId":format!("01900000-0000-7000-8000-{:012}",80+index),"clientId":h.context.client_id,"entityType":kind,"entityId":id,"kind":"create","baseVersion":null,"payload":payload}})).await.unwrap();
+            if index==0{let original=gate.execute(&h.handle,json!({"command":"prepare"})).await.unwrap();for _ in 0..2{assert_eq!(gate.send_structured(&h.handle).await.unwrap(),Send::SendUnknown);assert_eq!(gate.execute(&h.handle,json!({"command":"prepare"})).await.unwrap(),original);}}
+            assert_eq!(gate.send_structured(&h.handle).await.unwrap(),Send::Acknowledged);
+        }
+        assert_eq!(gate.send_structured(&h.handle).await.unwrap(),Send::Idle);
+        for _ in 0..2{assert_eq!(gate.pull_structured(&h.handle).await.unwrap(),Pull::ReadUnknown);assert!(gate.execute(&h.handle,json!({"command":"snapshot"})).await.unwrap()["snapshot"]["state"]["cursor"].is_null());}
+        for has_more in [true,true,false]{assert_eq!(gate.pull_structured(&h.handle).await.unwrap(),Pull::Received{has_more});}
+        let state=gate.execute(&h.handle,json!({"command":"snapshot"})).await.unwrap();assert_eq!(state["snapshot"]["tasks"].as_array().unwrap().len(),2);assert_eq!(state["snapshot"]["relations"].as_array().unwrap().len(),1);assert!(state["snapshot"]["state"]["cursor"].is_string());gate.shutdown().await;std::fs::remove_dir_all(root).unwrap();
     }
     #[tokio::test]
     #[ignore="run scripts/test-native-http-provider.mjs for TLS/API fixture"]

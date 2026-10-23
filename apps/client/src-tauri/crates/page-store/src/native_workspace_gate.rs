@@ -3,11 +3,13 @@
 use crate::{native_credentials::{CredentialError,CredentialStore},native_session::{NativeSession,NativeProvider,SessionSnapshot,SessionLogout,WorkspaceAdmission},offline_lease::NativeClock,WorkspaceHandle,WorkspaceOwner,WorkspaceRegistry};
 use std::{path::PathBuf,sync::Arc};
 use tokio::sync::Mutex;
+#[path="native_structured.rs"] mod structured_transport;
+pub use structured_transport::{StructuredSendStatus,StructuredPullStatus};
 type Result<T>=std::result::Result<T,CredentialError>;
 #[derive(Clone)]
 struct PendingPageAck {prepared:serde_json::Value,response:serde_json::Value}
 struct CatalogProgress {cursor:Option<String>,last:Option<String>}
-struct GateState {generation:u64,active:Option<(WorkspaceHandle,WorkspaceAdmission)>,offline_handle:Option<(WorkspaceHandle,crate::offline_lease::LocalAccess)>,receipts:std::collections::HashMap<String,PendingPageAck>,title_receipts:std::collections::HashMap<String,PendingPageAck>,title_reads:std::collections::HashMap<String,serde_json::Value>,reads:std::collections::HashMap<String,serde_json::Value>,catalog:Option<CatalogProgress>}
+struct GateState {structured_ack:Option<(String,serde_json::Value)>,structured_received:Option<(serde_json::Value,serde_json::Value)>,generation:u64,active:Option<(WorkspaceHandle,WorkspaceAdmission)>,offline_handle:Option<(WorkspaceHandle,crate::offline_lease::LocalAccess)>,receipts:std::collections::HashMap<String,PendingPageAck>,title_receipts:std::collections::HashMap<String,PendingPageAck>,title_reads:std::collections::HashMap<String,serde_json::Value>,reads:std::collections::HashMap<String,serde_json::Value>,catalog:Option<CatalogProgress>}
 #[derive(serde::Serialize)]
 #[serde(rename_all="camelCase")]
 pub struct NativePageCatalog {pub pages:Vec<crate::PageMetadata>,pub has_more:bool}
@@ -36,7 +38,7 @@ pub enum TitleSendStatus {Idle,Applied,Conflict,Rejected,SendUnknown,AckPending}
 pub enum PageReadStatus {Received,ReadUnknown,StorePending}
 pub struct NativeWorkspaceGate<S:CredentialStore,P:NativeProvider,C:NativeClock> {
     session:NativeSession<S,P,C>,registry:Arc<WorkspaceRegistry>,
-    active:Mutex<GateState>,
+    active:Mutex<GateState>,structured_io:Mutex<()>,
     page_send:Mutex<()>,title_send:Mutex<()>,title_read:Mutex<()>,
     page_read:Mutex<()>,
     page_catalog:Mutex<()>,
@@ -45,8 +47,8 @@ pub struct NativeWorkspaceGate<S:CredentialStore,P:NativeProvider,C:NativeClock>
     #[cfg(test)]read_failure:std::sync::atomic::AtomicU8,
 }
 impl<S:CredentialStore+'static,P:NativeProvider,C:NativeClock+'static> NativeWorkspaceGate<S,P,C> {
-    pub fn new(session:NativeSession<S,P,C>,root:PathBuf)->Self {Self {session,registry:Arc::new(WorkspaceRegistry::new(root)),active:Mutex::new(GateState{generation:0,active:None,offline_handle:None,receipts:std::collections::HashMap::new(),title_receipts:std::collections::HashMap::new(),title_reads:std::collections::HashMap::new(),reads:std::collections::HashMap::new(),catalog:None}),page_send:Mutex::new(()),title_send:Mutex::new(()),title_read:Mutex::new(()),page_read:Mutex::new(()),page_catalog:Mutex::new(()),offline:None,offline_prepare:Mutex::new(()),#[cfg(test)]ack_failure:std::sync::atomic::AtomicU8::new(0),#[cfg(test)]read_failure:std::sync::atomic::AtomicU8::new(0)}}
-    async fn close_active(&self,state:&mut GateState){state.active=None;state.offline_handle=None;state.receipts.clear();state.title_receipts.clear();state.title_reads.clear();state.reads.clear();state.catalog=None;state.generation=state.generation.checked_add(1).unwrap_or(u64::MAX);self.registry.close_all().await;}
+    pub fn new(session:NativeSession<S,P,C>,root:PathBuf)->Self {Self {session,registry:Arc::new(WorkspaceRegistry::new(root)),active:Mutex::new(GateState{structured_ack:None,structured_received:None,generation:0,active:None,offline_handle:None,receipts:std::collections::HashMap::new(),title_receipts:std::collections::HashMap::new(),title_reads:std::collections::HashMap::new(),reads:std::collections::HashMap::new(),catalog:None}),structured_io:Mutex::new(()),page_send:Mutex::new(()),title_send:Mutex::new(()),title_read:Mutex::new(()),page_read:Mutex::new(()),page_catalog:Mutex::new(()),offline:None,offline_prepare:Mutex::new(()),#[cfg(test)]ack_failure:std::sync::atomic::AtomicU8::new(0),#[cfg(test)]read_failure:std::sync::atomic::AtomicU8::new(0)}}
+    async fn close_active(&self,state:&mut GateState){state.structured_ack=None;state.structured_received=None;state.active=None;state.offline_handle=None;state.receipts.clear();state.title_receipts.clear();state.title_reads.clear();state.reads.clear();state.catalog=None;state.generation=state.generation.checked_add(1).unwrap_or(u64::MAX);self.registry.close_all().await;}
     pub fn with_offline(mut self,lease:crate::offline_lease::OfflineLeaseStore<S,C>)->Self{self.offline=Some(Arc::new(lease));self}
     async fn invalidate_offline(&self)->Result<()>{if let Some(lease)=&self.offline{if lease.logout().await.is_err(){let _=self.session.logout().await;return Err(CredentialError)}}Ok(())}
     pub async fn login(&self,email:&str,password:Vec<u8>)->Result<SessionSnapshot>{
@@ -308,6 +310,22 @@ mod tests {
             if self.0.hold.swap(false,Ordering::SeqCst){self.0.entered.notify_one();self.0.release.notified().await;}
             let s=self.0.state.lock().unwrap();Ok(WorkspaceRegistration{protocol_version:1,workspace_id:if s.owner=="owner-A"{"01900000-0000-7000-8000-000000000001"}else{"01900000-0000-7000-8000-000000000009"}.into(),client_id:if s.bad_client {PAGE}else{client}.into(),epoch:"01900000-0000-7000-8000-000000000003".into()})
         })}
+        fn structured_send<'a>(&'a self,_:&'a AccessSecret,c:&'a crate::WorkspaceContext,wire:&'a str)->ProviderFuture<'a,serde_json::Value>{Box::pin(async move{
+            self.0.sends.lock().unwrap().push(wire.to_owned());if self.0.send_hold.swap(false,Ordering::SeqCst){self.0.entered.notify_one();self.0.release.notified().await;}
+            let mutation=self.0.read_mutation.swap(0,Ordering::SeqCst);if mutation==3{return Err(CredentialError)}
+            let mut result=structured_result(wire);
+            if mutation==2{result["entityId"]=json!(CLIENT);}
+            if mutation==4{result["status"]=json!("conflict");result["entity"]["title"]=json!("remote title");result["conflicts"]=json!([{"id":"01900000-0000-7000-8000-000000000088","operationId":result["operationId"],"entityType":"task","entityId":result["entityId"],"field":"title","base":"base title","local":"local title","remote":"remote title","createdAt":"2026-10-24T00:00:00.000Z","status":"open","resolvedBy":null}]);}
+            if mutation==5{result["status"]=json!("rejected");result["entity"]=serde_json::Value::Null;result["error"]=json!({"code":"fixture_rejection","message":"synthetic rejection","retryable":false});}
+            let mut response=json!({"protocolVersion":1,"workspaceId":c.workspace_id,"streamEpoch":c.stream_epoch,"results":[result]});if self.0.bad_receipt.swap(false,Ordering::SeqCst){response["workspaceId"]=json!(PAGE);}Ok(response)
+        })}
+        fn structured_pull<'a>(&'a self,_:&'a AccessSecret,c:&'a crate::WorkspaceContext,request:&'a serde_json::Value)->ProviderFuture<'a,serde_json::Value>{Box::pin(async move{
+            assert_eq!(request["clientId"],c.client_id);assert_eq!(request["workspaceId"],c.workspace_id);assert_eq!(request["limit"],1);
+            self.0.catalog_calls.lock().unwrap().push(request["cursor"].as_str().map(str::to_owned));self.0.reads.fetch_add(1,Ordering::SeqCst);
+            if self.0.read_hold.swap(false,Ordering::SeqCst){self.0.entered.notify_one();self.0.release.notified().await;}
+            let mutation=self.0.read_mutation.swap(0,Ordering::SeqCst);if mutation==3{return Err(CredentialError)}
+            let mut response=json!({"protocolVersion":1,"workspaceId":c.workspace_id,"streamEpoch":c.stream_epoch,"operations":[],"cursor":"cursor-0","headCursor":"cursor-0","hasMore":false,"serverTime":"2026-10-24T00:00:00.000Z"});if mutation==1{response["streamEpoch"]=json!(PAGE);}if mutation==2{response["serverTime"]=json!("invalid");}Ok(response)
+        })}
         fn title_send<'a>(&'a self,_:&'a AccessSecret,c:&'a crate::WorkspaceContext,page:&'a str,kind:&'a str,wire:&'a str)->ProviderFuture<'a,serde_json::Value>{Box::pin(async move {
             assert_eq!(kind,"rename");self.0.sends.lock().unwrap().push(wire.to_string());
             if self.0.send_hold.swap(false,Ordering::SeqCst){self.0.entered.notify_one();self.0.release.notified().await;}
@@ -365,7 +383,7 @@ mod tests {
         let f=Fixture::new();let g=f.open().await;assert!(g.open(CLIENT).await.is_err());login(&g).await;let h=g.open(CLIENT).await.unwrap();
         g.execute(&h.handle,json!({"command":"page_create","pageId":PAGE,"title":"synthetic retained","update":[0,0]})).await.unwrap();
         let request=json!({"command":"page_prepare","pageId":PAGE});let wire=g.execute(&h.handle,request.clone()).await.unwrap();assert!(!wire.is_null());
-        for command in ["ack","pull","page_ack","page_receive","title_validate","title_ack","title_receive","changes_receive","database_source_receive"] {assert!(g.execute(&h.handle,json!({"command":command})).await.is_err());}
+        for command in ["ack","pull","page_ack","page_receive","structured_pull_request","structured_validate_ack","structured_validate_pull","title_validate","title_ack","title_receive","changes_receive","database_source_receive"] {assert!(g.execute(&h.handle,json!({"command":command})).await.is_err());}
         assert_eq!(g.execute(&h.handle,request.clone()).await.unwrap(),wire);
         shutdown(g).await;let g=f.open().await;assert_eq!(g.snapshot().await.phase,Phase::Locked);g.restore().await.unwrap();
         let next=g.open(PAGE).await.unwrap();assert_eq!(next.context,h.context);assert_eq!(g.execute(&next.handle,request.clone()).await.unwrap(),wire);
@@ -532,7 +550,7 @@ mod tests {
     async fn offline_restart_recovers_signed_context_pending_and_never_calls_remote(){
         let f=Fixture::new();let (g,h,wire)=offline_fixture(&f).await;shutdown(g).await;let g=f.open_offline().await;assert_eq!(g.snapshot().await.phase,Phase::Locked);let restored=g.resume_offline().await.unwrap();assert_eq!(restored.workspace.context,h.context);let handle=&restored.workspace.handle;assert_eq!(g.snapshot().await.phase,Phase::Locked);assert_eq!(g.check_offline(handle).await.unwrap().expires_at,604900);
         assert_eq!(g.execute_offline(handle,json!({"command":"page_prepare","pageId":PAGE})).await.unwrap(),wire);g.execute_offline(handle,json!({"command":"page_append","pageId":PAGE,"update":[0,1]})).await.unwrap();assert_eq!(g.execute_offline(handle,json!({"command":"page_load","pageId":PAGE})).await.unwrap()["pending"],2);
-        for command in ["page_ack","page_receive","title_validate","title_ack","title_receive","ack","pull","changes_receive","database_source_receive"]{assert!(g.execute_offline(handle,json!({"command":command})).await.is_err());}assert!(g.execute(handle,json!({"command":"page_load","pageId":PAGE})).await.is_err());assert!(g.send_page_status(handle,PAGE).await.is_err());assert!(g.read_page(handle,PAGE).await.is_err());assert!(g.read_title(handle,PAGE).await.is_err());assert!(g.send_title_status(handle,PAGE).await.is_err());assert!(g.catalog_pages(handle,false).await.is_err());assert!(g.prepare_offline(handle).await.is_err());assert_eq!(f.provider.0.grants.load(Ordering::SeqCst),1);assert_eq!(f.provider.0.reads.load(Ordering::SeqCst),0);assert!(f.provider.0.sends.lock().unwrap().is_empty());shutdown(g).await;
+        for command in ["page_ack","page_receive","structured_pull_request","structured_validate_ack","structured_validate_pull","title_validate","title_ack","title_receive","ack","pull","changes_receive","database_source_receive"]{assert!(g.execute_offline(handle,json!({"command":command})).await.is_err());}assert!(g.execute(handle,json!({"command":"page_load","pageId":PAGE})).await.is_err());assert!(g.send_page_status(handle,PAGE).await.is_err());assert!(g.read_page(handle,PAGE).await.is_err());assert!(g.read_title(handle,PAGE).await.is_err());assert!(g.send_structured(handle).await.is_err());assert!(g.pull_structured(handle).await.is_err());assert!(g.send_title_status(handle,PAGE).await.is_err());assert!(g.catalog_pages(handle,false).await.is_err());assert!(g.prepare_offline(handle).await.is_err());assert_eq!(f.provider.0.grants.load(Ordering::SeqCst),1);assert_eq!(f.provider.0.reads.load(Ordering::SeqCst),0);assert!(f.provider.0.sends.lock().unwrap().is_empty());shutdown(g).await;
     }
     #[tokio::test]
     async fn offline_missing_blank_or_corrupt_store_does_not_initialize_new_workspace(){
@@ -594,5 +612,38 @@ mod tests {
             assert_eq!(g.execute(&next.handle,json!({"command":"title_prepare","pageId":PAGE})).await.unwrap(),original);
             assert!(g.send_title_status(&h.handle,PAGE).await.is_err());assert!(g.read_title(&h.handle,PAGE).await.is_err());shutdown(g).await;
         }}
+    }
+    fn structured_result(wire:&str)->serde_json::Value{
+        let request:serde_json::Value=serde_json::from_str(wire).unwrap();let operation=&request["operations"][0];
+        let mut entity=operation["payload"].clone();entity["id"]=operation["entityId"].clone();entity["version"]=json!(1);entity["createdAt"]=json!("2026-10-24T00:00:00.000Z");entity["updatedAt"]=entity["createdAt"].clone();entity["deletedAt"]=serde_json::Value::Null;
+        json!({"operationId":operation["operationId"],"clientId":operation["clientId"],"entityType":operation["entityType"],"entityId":operation["entityId"],"serverOrder":"1","conflicts":[],"status":"acknowledged","entity":entity})
+    }
+    async fn structured_fixture(f:&Fixture)->(Arc<Gate>,WorkspaceHandle,serde_json::Value){let g=f.open().await;login(&g).await;let h=g.open(CLIENT).await.unwrap();g.execute(&h.handle,json!({"command":"mutate","operation":{"operationId":"01900000-0000-7000-8000-000000000080","clientId":h.context.client_id,"entityType":"task","entityId":PAGE,"kind":"create","baseVersion":null,"payload":{"title":"local title","status":"todo","due":null}}})).await.unwrap();let wire=g.execute(&h.handle,json!({"command":"prepare"})).await.unwrap();(g,h,wire)}
+    #[tokio::test]
+    async fn structured_unknown_and_invalid_receipt_keep_original_wire_cached_ack_never_resends(){
+        for failure in [1,2]{let f=Fixture::new();let (g,h,wire)=structured_fixture(&f).await;
+            for mutation in [1,2,3]{if mutation==1{f.provider.0.bad_receipt.store(true,Ordering::SeqCst);}else{f.provider.0.read_mutation.store(mutation,Ordering::SeqCst);}assert_eq!(g.send_structured(&h.handle).await.unwrap(),StructuredSendStatus::SendUnknown);assert!(g.active.lock().await.structured_ack.is_none());assert_eq!(g.execute(&h.handle,json!({"command":"prepare"})).await.unwrap(),wire);}
+            g.ack_failure.store(failure,Ordering::SeqCst);assert_eq!(g.send_structured(&h.handle).await.unwrap(),StructuredSendStatus::AckPending);let snapshot=g.execute(&h.handle,json!({"command":"snapshot"})).await.unwrap();assert_eq!(snapshot["snapshot"]["operations"][0]["status"],if failure==1{"pending"}else{"acknowledged"});assert!(g.pull_structured(&h.handle).await.is_err());let calls=f.provider.0.sends.lock().unwrap().len();assert_eq!(g.send_structured(&h.handle).await.unwrap(),StructuredSendStatus::Acknowledged);assert_eq!(calls,f.provider.0.sends.lock().unwrap().len());assert_eq!(g.send_structured(&h.handle).await.unwrap(),StructuredSendStatus::Idle);assert!(f.provider.0.sends.lock().unwrap().iter().all(|v|v==wire.as_str().unwrap()));shutdown(g).await;
+        }
+    }
+    #[tokio::test]
+    async fn structured_conflict_and_permanent_rejection_remain_distinct_durable_outcomes(){
+        for (mutation,status) in [(4,StructuredSendStatus::Conflict),(5,StructuredSendStatus::Rejected)]{let f=Fixture::new();let (g,h,_)=structured_fixture(&f).await;f.provider.0.read_mutation.store(mutation,Ordering::SeqCst);assert_eq!(g.send_structured(&h.handle).await.unwrap(),status);let snapshot=g.execute(&h.handle,json!({"command":"snapshot"})).await.unwrap();if mutation==4{assert_eq!(snapshot["snapshot"]["conflicts"].as_array().unwrap().len(),1);}else{assert_eq!(snapshot["snapshot"]["errors"].as_array().unwrap().len(),1);}shutdown(g).await;}
+    }
+    #[tokio::test]
+    async fn structured_pull_validates_scope_progress_and_rechecks_commit_without_http(){
+        for failure in [1,2]{let f=Fixture::new();let (g,h,_)=structured_fixture(&f).await;for mutation in [1,2,3]{f.provider.0.read_mutation.store(mutation,Ordering::SeqCst);assert_eq!(g.pull_structured(&h.handle).await.unwrap(),StructuredPullStatus::ReadUnknown);let snapshot=g.execute(&h.handle,json!({"command":"snapshot"})).await.unwrap();assert!(snapshot["snapshot"]["state"]["cursor"].is_null());}
+            g.read_failure.store(failure,Ordering::SeqCst);assert_eq!(g.pull_structured(&h.handle).await.unwrap(),StructuredPullStatus::StorePending);let snapshot=g.execute(&h.handle,json!({"command":"snapshot"})).await.unwrap();if failure==1{assert!(snapshot["snapshot"]["state"]["cursor"].is_null());}else{assert_eq!(snapshot["snapshot"]["state"]["cursor"],"cursor-0");}assert!(g.send_structured(&h.handle).await.is_err());let calls=f.provider.0.reads.load(Ordering::SeqCst);assert_eq!(g.pull_structured(&h.handle).await.unwrap(),StructuredPullStatus::Received{has_more:false});assert_eq!(f.provider.0.reads.load(Ordering::SeqCst),calls);assert_eq!(g.execute(&h.handle,json!({"command":"snapshot"})).await.unwrap()["snapshot"]["state"]["cursor"],"cursor-0");assert!(f.provider.0.catalog_calls.lock().unwrap().iter().all(Option::is_none));shutdown(g).await;
+        }
+    }
+    #[tokio::test]
+    async fn structured_late_delivery_cannot_adopt_after_close_logout_expiry_reauth_or_account_change(){
+        for read in [false,true]{for action in ["close","logout","expiry","reauth","account"]{let f=Fixture::new();let (g,h,wire)=structured_fixture(&f).await;if read{f.provider.0.read_hold.store(true,Ordering::SeqCst);}else{f.provider.0.send_hold.store(true,Ordering::SeqCst);}let copy=g.clone();let handle=h.handle.clone();let work=tokio::spawn(async move{if read{copy.pull_structured(&handle).await.map(|_|())}else{copy.send_structured(&handle).await.map(|_|())}});f.provider.0.entered.notified().await;
+            match action{"close"=>g.cancel_open().await,"logout"=>{g.logout().await;},"expiry"=>{f.clock.0.store(200,Ordering::SeqCst);},"account"=>{f.provider.0.state.lock().unwrap().owner="owner-B".into();login(&g).await;},_=>{g.restore().await.unwrap();}}f.provider.0.release.notify_one();let _=work.await.unwrap();if action=="expiry"{f.provider.0.expires.store(400,Ordering::SeqCst);}f.provider.0.state.lock().unwrap().owner="owner-A".into();login(&g).await;let next=g.open(CLIENT).await.unwrap();assert_eq!(g.execute(&next.handle,json!({"command":"prepare"})).await.unwrap(),wire);assert!(g.execute(&next.handle,json!({"command":"snapshot"})).await.unwrap()["snapshot"]["state"]["cursor"].is_null());assert!(g.send_structured(&h.handle).await.is_err());assert!(g.pull_structured(&h.handle).await.is_err());shutdown(g).await;
+        }}
+    }
+    #[tokio::test]
+    async fn structured_restart_discards_cached_receipt_but_preserves_original_request(){
+        let f=Fixture::new();let (g,h,wire)=structured_fixture(&f).await;g.ack_failure.store(1,Ordering::SeqCst);g.send_structured(&h.handle).await.unwrap();shutdown(g).await;let g=f.open().await;g.restore().await.unwrap();let next=g.open(CLIENT).await.unwrap();assert_eq!(g.execute(&next.handle,json!({"command":"prepare"})).await.unwrap(),wire);assert_eq!(g.send_structured(&next.handle).await.unwrap(),StructuredSendStatus::Acknowledged);assert_eq!(f.provider.0.sends.lock().unwrap().len(),2);shutdown(g).await;
     }
 }

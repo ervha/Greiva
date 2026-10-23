@@ -83,6 +83,15 @@ impl WorkspaceStore {
         if operation.client_id!=self.context.client_id {return Err("Workspace client mismatch".into());}
         safe(self.inner.structured_mutate(operation).await)
     }
+    // Native-only validation uses the same transaction as adoption, rolled back
+    // before commit. A structurally valid but semantically wrong reply is never
+    // retained as an ACK/store-pending receipt.
+    pub(crate) async fn validate_structured_ack(&self,wire:String,response:Value)->StoreResult<()> {safe(self.ack_inner(wire,response,false).await)}
+    pub(crate) async fn validate_structured_pull(&self,request:Value,response:Value)->StoreResult<()> {safe(self.pull_inner(request,response,false).await)}
+    pub(crate) async fn structured_pull_request(&self)->StoreResult<Value> {
+        let cursor:Option<String>=safe(sqlx::query_scalar("SELECT cursor FROM sync_state WHERE stream='structured'").fetch_one(&self.inner.pool).await.map_err(|e|e.to_string()))?;
+        Ok(json!({"protocolVersion":1,"workspaceId":self.context.workspace_id,"clientId":self.context.client_id,"cursor":cursor,"limit":1}))
+    }
     pub async fn prepare(&self) -> StoreResult<Option<String>> {safe(self.prepare_inner().await)}
     async fn prepare_inner(&self) -> StoreResult<Option<String>> {
         let mut tx=self.inner.pool.begin().await.map_err(|e|e.to_string())?;
@@ -96,8 +105,8 @@ impl WorkspaceStore {
         };
         barrier("workspace-prepare-before-commit")?;tx.commit().await.map_err(|e|e.to_string())?;barrier("workspace-prepare-after-commit")?;Ok(Some(wire))
     }
-    pub async fn acknowledge(&self,wire:String,response:Value) -> StoreResult<()> {safe(self.ack_inner(wire,response).await)}
-    async fn ack_inner(&self,wire:String,response:Value) -> StoreResult<()> {
+    pub async fn acknowledge(&self,wire:String,response:Value) -> StoreResult<()> {safe(self.ack_inner(wire,response,true).await)}
+    async fn ack_inner(&self,wire:String,response:Value,commit:bool) -> StoreResult<()> {
         let envelope:PushResponse=serde_json::from_value(response.clone()).map_err(|e|e.to_string())?;
         if envelope.protocol_version!=1 || envelope.workspace_id!=self.context.workspace_id || envelope.stream_epoch!=self.context.stream_epoch || envelope.results.len()!=1 {return Err("ACK workspace context mismatch".into());}
         let result=&envelope.results[0];validate_result(result)?;
@@ -112,10 +121,11 @@ impl WorkspaceStore {
         if let Some(old)=old {if serde_json::from_str::<Value>(&old).map_err(|e|e.to_string())?!=response {return Err("Immutable ACK changed".into());}return Ok(());}
         receive(&mut tx,result).await?;
         sqlx::query("INSERT INTO workspace_ack_receipts VALUES(?,?)").bind(id).bind(response.to_string()).execute(&mut *tx).await.map_err(|e|e.to_string())?;
+        if !commit {tx.rollback().await.map_err(|e|e.to_string())?;return Ok(());}
         barrier("workspace-ack-before-commit")?;tx.commit().await.map_err(|e|e.to_string())?;barrier("workspace-ack-after-commit")
     }
-    pub async fn apply_pull(&self,request:Value,response:Value) -> StoreResult<()> {safe(self.pull_inner(request,response).await)}
-    async fn pull_inner(&self,request:Value,response:Value) -> StoreResult<()> {
+    pub async fn apply_pull(&self,request:Value,response:Value) -> StoreResult<()> {safe(self.pull_inner(request,response,true).await)}
+    async fn pull_inner(&self,request:Value,response:Value,commit:bool) -> StoreResult<()> {
         let request:PullRequest=serde_json::from_value(request).map_err(|e|e.to_string())?;
         let response:PullResponse=serde_json::from_value(response).map_err(|e|e.to_string())?;
         if request.protocol_version!=1 || request.workspace_id!=self.context.workspace_id || request.client_id!=self.context.client_id ||
@@ -130,6 +140,7 @@ impl WorkspaceStore {
         let target=response.cursor.clone();
         pull_in_transaction(&mut tx,request.cursor.as_str().map(String::from),PullBatch{operations:response.operations,cursor:response.cursor,head_cursor:response.head_cursor,has_more:response.has_more,server_time:response.server_time}).await?;
         sqlx::query("INSERT OR IGNORE INTO workspace_pull_receipts VALUES(?,?,?)").bind(base).bind(target).bind(operations).execute(&mut *tx).await.map_err(|e|e.to_string())?;
+        if !commit {tx.rollback().await.map_err(|e|e.to_string())?;return Ok(());}
         barrier("workspace-pull-before-commit")?;tx.commit().await.map_err(|e|e.to_string())?;barrier("workspace-pull-after-commit")
     }
     pub async fn page_create(&self,id:&str,title:&str,bytes:&[u8])->StoreResult<()> {safe(self.inner.private_page_create(&self.context.client_id,id,title,bytes).await)}

@@ -1,0 +1,114 @@
+[
+  {
+    "path": "apps/api/package.json",
+    "sha256": "815da05166d347423aa95a05dcc0243d378e483ed254ba530459f802f877f1b6"
+  },
+  {
+    "path": "apps/client/package.json",
+    "sha256": "ac716b3cc3be26734aa7ccbd177c582403448b38d57bf2c29b23040cd52b7021"
+  },
+  {
+    "path": "apps/client/src-tauri/Cargo.lock",
+    "sha256": "2d2b299d209bcae77a1895e36da80225a4e9242745d7d6ab73e34d3935000c94"
+  },
+  {
+    "path": "apps/client/src-tauri/Cargo.toml",
+    "sha256": "47d92c34881d4d3c1289593372822a63f50ea438c5ad313501e0046755a638b2"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/Cargo.lock",
+    "sha256": "4427770869788753f290315caae723b1b4d30ae53ee7889ac9d01b850673fff1"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/Cargo.toml",
+    "sha256": "da6fce95faa794e00dcbe59460299862a57fa3fe3da1e6d1d8488a49b38919d7"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/src/native_http_provider.rs",
+    "sha256": "7a6a4744936a921ec7879b879d2c9858255f6b465d7483ba2fc492a58ea4c8b6"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/src/native_session.rs",
+    "sha256": "0bc3dc39b4f2110ec760e2dde6c5d0286bbc4ba97053120be39c05f34aa46de5"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/src/native_structured.rs",
+    "sha256": "a8bceee3022c46658494a09c6414f634796018ada9da0980ac1d3174d75359ea"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/src/native_workspace_gate.rs",
+    "sha256": "91ab9af45533076bd97200ab61168bfb80e6597b30281a22ea23fd9348cefd47"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/src/workspace_registry.rs",
+    "sha256": "1963703752bc34acb114760b6caf385444001fa4ec2fe4bff2ced3f42cec5427"
+  },
+  {
+    "path": "apps/client/src-tauri/crates/page-store/src/workspace_store.rs",
+    "sha256": "ec9c739bfb5a3970d23b4177175d0197ddeca71dc0b4538d24bc1b95d56f9ae8"
+  },
+  {
+    "path": "apps/client/src-tauri/src/lib.rs",
+    "sha256": "5a8cfc6f29888bc2ae6384cb08626aa3420a1a509f2c5f7523b3d1e5ffd67de7"
+  },
+  {
+    "path": "apps/client/src-tauri/src/native_auth.rs",
+    "sha256": "2a03b19dc1a31399439138e2221ab00b42224fc4c16fc8d93038eddfb451d4de"
+  },
+  {
+    "path": "apps/client/src-tauri/tauri.conf.json",
+    "sha256": "d5d48c048f14ad81ffcb8117b4c4406ec45901c52efdfb27f9b2a00ce47fcd40"
+  },
+  {
+    "path": "apps/client/src/auth/native-session-port.ts",
+    "sha256": "f64f98f63ff35d669acd39e00d3bc2f5997250f4357b5f95744dea166454ab83"
+  },
+  {
+    "path": "apps/collaboration/package.json",
+    "sha256": "9e20e2d87fed434dd6220610893973c18f14864712dda5afa994fb809d7d6451"
+  },
+  {
+    "path": "package-lock.json",
+    "sha256": "e2b82401658a1a93b51a71e82bbcb0de1d08faf92ba13713bdb6eebfd8aa22d2"
+  },
+  {
+    "path": "package.json",
+    "sha256": "ad8674997583cc00da7444bbf9ba3665357ad2d1c7bd2f04a632c174ff459ef9"
+  },
+  {
+    "path": "packages/application/package.json",
+    "sha256": "152e9cc80f0ea0301e5093fae007d60412eddece99aabee5b2ed707ae1ef8d7f"
+  },
+  {
+    "path": "packages/domain/package.json",
+    "sha256": "6f2ebb465b6e9e5f03c9ee54917160c0b51c9bf24cc64fd15bf0a77e97763b05"
+  },
+  {
+    "path": "packages/protocol/package.json",
+    "sha256": "0b9da52c4d8db3a35be6ec08cbd4360cf9a63f78e9cd7fe16494203fa47900b0"
+  },
+  {
+    "path": "packages/shared/package.json",
+    "sha256": "6f25716f0c31362a6adee978bf302175295730c079f0462eb22f4a009beb371a"
+  },
+  {
+    "path": "packages/sync/package.json",
+    "sha256": "a67780a80c131d56bf4de5a583f34df9fb515f162bcbb7f04192e491cd12e179"
+  },
+  {
+    "path": "scripts/ci-test-baseline.json",
+    "sha256": "b7232b6c0208506b3c57ee81ba771d7f7c9c427863cfe60ee24f889a7197af61"
+  },
+  {
+    "path": "scripts/test-native-http-provider.mjs",
+    "sha256": "5ee770090032787b8b4c1265fb43983f265fc9700297a159c878366d43edf40a"
+  },
+  {
+    "path": "tests/unit/native-session-port.test.ts",
+    "sha256": "01f671ed85d532662483b0ca9e30373a2a1727c724c018856fc68cd138e90851"
+  },
+  {
+    "path": "VERSION",
+    "sha256": "999d0ee7f62a88b3fb2dd803983bc6d8e2261c50845ffe627e75622ebfbc6cb1"
+  }
+]
