@@ -104,6 +104,16 @@ pub(crate) async fn native_workspace_execute(handle:String,request:Value,state:t
     #[cfg(not(windows))]{let _=(handle,request,state);Err(REJECTED.into())}
 }
 #[tauri::command]
+pub(crate) async fn native_structured_send(handle:String,state:tauri::State<'_,Runtime>)->Result<Value>{
+    #[cfg(windows)]{let status=state.get().await?.send_structured(&handle).await.map_err(|_|REJECTED)?;Ok(json!({"status":status}))}
+    #[cfg(not(windows))]{let _=(handle,state);Err(REJECTED.into())}
+}
+#[tauri::command]
+pub(crate) async fn native_structured_pull(handle:String,state:tauri::State<'_,Runtime>)->Result<Value>{
+    #[cfg(windows)]{serde_json::to_value(state.get().await?.pull_structured(&handle).await.map_err(|_|REJECTED)?).map_err(|_|REJECTED.into())}
+    #[cfg(not(windows))]{let _=(handle,state);Err(REJECTED.into())}
+}
+#[tauri::command]
 pub(crate) async fn native_page_send(handle:String,page_id:String,state:tauri::State<'_,Runtime>)->Result<Value>{
     #[cfg(windows)]{let status=state.get().await?.send_page_status(&handle,&page_id).await.map_err(|_|REJECTED)?;Ok(json!({"status":status}))}
     #[cfg(not(windows))]{let _=(handle,page_id,state);Err(REJECTED.into())}

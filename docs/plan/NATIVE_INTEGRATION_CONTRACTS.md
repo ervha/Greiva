@@ -19,6 +19,19 @@
 
 ---
 
+## 0.2. Task／Relationのnative通信基盤（v0.101.0）
+
+この単位はM2-②の通信基盤。Task／Relationの新native画面への統合は次のPRとし、M2-②全体の完了とは扱わない。
+
+- `native_structured_send(handle)`はSQLiteから1操作分の元wireを準備し、`/v1/workspaces/:workspaceId/sync/push`へ送信。`idle / acknowledged / conflict / rejected / send_unknown / ack_pending`を返す。Conflictはbase/local/remoteを保持し、拒否結果も履歴に残す。
+- `native_structured_pull(handle)`はSQLiteのcursorからnativeで要求を構築し、同prefixの`sync/pull`へ1操作分（limit=1）を問い合わせる。`received`の場合だけ`hasMore`を返す。cursor、原文応答、tokenはWebViewへ返さない。続きも明示操作とし、この基盤は自動ループしない。
+- 送受信は同一workspace内で直列化。元admission/認証世代/handleをHTTP開始時と結果採用時の双方で検査し、logout・再認証・close・失効後の遅着は採用しない。offlineからremoteを呼ばない。
+- 応答は既存ACK/Pullと同じSQLite処理をrollback付きで検証してからnativeキャッシュへ保持する。scope、操作ID、保存済みwire、結果schema、cursor進行が不正な応答を既知受領として残さない。
+- 既知応答のローカルcommitが未確認なら`ack_pending / store_pending`。明示再確認ではnativeキャッシュから同じ応答を適用し、HTTPを繰り返さない。別の方向の送受信は、その保存確認が終わるまで拒否する。close/logout/再認証ではキャッシュを破棄し、元の永続queueを保つ。
+- WebViewのローカルcommand whitelistには`ack / pull / structured_validate_* / structured_pull_request`を追加しない。callerがwire、ACK、cursor、任意のresponseを与える入口は再開放しない。検証専用commandもnative内部からだけ使う。
+- HTTP上限は送信wire/応答2 MiB、取得応答16 MiB。既存の他のtransport上限、Page本文同期、タイトル同期、DB schemaは変更しない。
+- 型付きclient portまでは接続済み。UI、購読session、競合解決導線、取得完了/未送信の表示、実Windows入力受入は次の統合単位。
+
 ## 1. 安全境界原則（セキュリティ・整合性契約）
 
 新native入口への機能統合においては、以下の安全境界を例外なく維持する。
