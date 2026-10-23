@@ -21,6 +21,7 @@ async function fixture(){
   if(command==='native_offline_execute'||command==='native_workspace_execute'){
    if(command==='native_offline_execute'&&(!valid||Date.now()/1000>=expiry))throw Error('expired');
    const request=args!.request as {command:string;update:number[]};
+   if(request.command==='snapshot')return{context:bound(),snapshot:{tasks:[],relations:[],operations:[],state:{stream:'structured',cursor:null,headCursor:null,lastSuccessfulSyncAt:null},clientId:context.clientId,conflicts:[],errors:[]}};
    if(request.command==='page_list')return{context:bound(),pages:[{metadata,pending:updates.length}],nextAfter:null};
    if(request.command==='title_load')return{context,pageId:id,base:null,localTitle:metadata.title,pending:0,operations:[],nextOperation:null,conflicts:[],nextConflict:null};
    if(request.command==='page_load')return{page:{metadata,updates},pending:updates.length,serverHead:null};

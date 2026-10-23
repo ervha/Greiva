@@ -14,3 +14,16 @@
 .native-workspace-layout .editor-panel { padding:20px; box-shadow:none; }
 @media (max-width:780px) { .native-workspace-layout { grid-template-columns:minmax(0,1fr); } }
 .native-actions button[aria-disabled="true"] { opacity:.65; cursor:wait; }
+
+.private-structured { margin-block: 28px; padding: 16px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); }
+.structured-forms { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px; }
+.structured-forms form { display: grid; gap: 12px; align-content: start; }
+.private-structured input[type="date"] { color-scheme: light; }
+.private-structured ul { list-style: none; padding: 0; }
+.private-structured li { padding-block: 12px; border-bottom: 1px solid var(--border); display: grid; gap: 6px; }
+.private-structured li, .private-structured dd { overflow-wrap: anywhere; min-width: 0; }
+.private-structured article { padding: 12px; border: 1px solid var(--border); margin-block: 12px; }
+@media (max-width: 760px) { .structured-forms { grid-template-columns: minmax(0,1fr); } }
+@media (prefers-color-scheme: dark) {
+  .private-structured input[type="date"] { color-scheme: dark; }
+}

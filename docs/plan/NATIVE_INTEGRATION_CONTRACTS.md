@@ -5,12 +5,12 @@
 ## 0. v0.99.0 / v0.100.0の接続範囲
 
 - タイトル編集、一覧への反映、`title_ready` による保存可否確認、SQLiteへの意図の記録を接続。文字数とUTF-8長は0〜4096、制御文字不可。空タイトルも下書き復元の対象。
-- 版付きbaseとbootstrap受領が揃わない場合、タイトルはcontext付きメモリ下書き。画面で未保存を明示し、強制終了を越える保持を保証しない。本文の明示送信後「タイトルを取得」で版を読み、保持した意図を保存する。エラー文言の解析で保存成功を推定しない。
+- 版付きbaseとbootstrap受領が揃わない場合、タイトルはcontext付きメモリ下書き。画面で未保存を明示し、強制終了を超える保持を保証しない。本文の明示送信後「タイトルを取得」で版を読み、保持した意図を保存する。エラー文言の解析で保存成功を推定しない。
 - 本文とタイトルは独立した明示操作。「タイトルを送信」はnativeが元のwireを準備し、`/v1/workspaces/:workspaceId/pages/:pageId/metadata/rename`へ送信、受領を検証して記録する。「タイトルを取得」は同prefixの`/metadata/read`へnative生成リクエストを送る。callerはhandleとpageIdだけを渡す。
 - HTTPとローカルACKは元のadmission/世代に束縛。結果不明では自動再送せず元wireを保持、既知受領のcommit未確認はnativeキャッシュからHTTPなしで再確認。再認証・logout・closeでキャッシュを破棄する。offlineからのリモート操作は拒否する。
-- 保存中、メモリ下書き、未送信数不明、送信結果不明、受領記録未確認、競合、拒否を分けて表示。タイトル書込みもsavingに数え、失敗したtailはdurableで拒否しつつ未処理rejectionを防ぐ。
+- 保存中、メモリ下書き、未送信数不明、送信結果不明、受領記録未確認、競合、拒否を分けて表示。タイトル書き込みもsavingに数え、失敗したtailはdurableで拒否しつつ未処理rejectionを防ぐ。
 - タイトルと本文のcompositionで移動/送受信を止め、取得待ち中と反映待ち中の両方で新しいタイトルを保護する。合成イベントのDocker回帰は実Microsoft IMEの受入を代替しない。
-- 競合のbase/local/remoteと履歴は保持・表示する。
+- 競合にbase/local/remoteと履歴は保持・表示する。
 - **v0.100.0（タイトル競合明示解決UIと履歴paginationの接続）**:
   - `NativeLocalPageEditor` / `NativePageSession` に「この端末の候補を選ぶ」「サーバーの候補を選ぶ」の解決選択UIを追加。未確定キュー（`titlePending > 0`）や保存中は解決選択を無効化し、`title_enqueue`へ明示的なresolution意図を記録してSQLite側の競合前提条件（`predecessor.is_none()`、`resolved_by.is_none()`）と整合。
   - 拒否されたタイトル変更（`titleRejected`）の表示セクションを追加。
@@ -32,6 +32,18 @@
 - HTTP上限は送信wire/応答2 MiB、取得応答16 MiB。既存の他のtransport上限、Page本文同期、タイトル同期、DB schemaは変更しない。
 - 型付きclient portまでは接続済み。UI、購読session、競合解決導線、取得完了/未送信の表示、実Windows入力受入は次の統合単位。
 
+---
+
+## 0.3. Task／Relation UIとnative session統合（v0.102.0）
+
+この単位はM2-②のUI・セッション統合段階。Task／Relationを新native workspace（`NativeLoginController` / `NativeAuthScreen` / `NativeStructuredSession` / `PrivateStructuredPanel`）に統合。
+
+- `NativeStructuredSession` は `NativeStructuredPort`（snapshot / mutate / sendStructuredFor / pullStructuredFor）を保持し、ローカル32フレーム有界バッチ同期、snapshotの不変凍結、mutate再試行（`retryMutation`）、セッション失効ガードを提供。
+- `NativeLoginController` が structured session をライフサイクル管理（`#openStructured` / `#closeStructured`）。画面選択・再接続・ログアウト・offline切替時に安全に破棄・再生成。
+- `structuredDraft`（`setStructuredDraft`）フラグと native composition ガードにより、タスク・リレーション入力中の不用意なPage切替やログアウト・再接続を保護。
+- `PrivateStructuredPanel` を Web／Native 両セッション契約に対応させ、Task作成・状態更新・アーカイブ、Relation作成・削除のGUIをネイティブ環境へ完全露出。
+- Windows実機/Microsoft IMEでの実入力受入、基本DB（M2-③）、M1実機受入は次以降の統合単位。
+
 ## 1. 安全境界原則（セキュリティ・整合性契約）
 
 新native入口への機能統合においては、以下の安全境界を例外なく維持する。
@@ -40,7 +52,7 @@
    - Supabase access token、暗号化キー、署名秘密鍵、内部API bearer token を WebView（フロントエンドJS）へ渡さない。
    - リモート通信（送受信・ACK・Pull・Catalog）は必ず Rust ネイティブ側の `NativeWorkspaceGate`（認証済みセッション）が安全に代行する。
 2. **Caller-Owned 認証・勝手なACKの再開放禁止**:
-   - フロントエンドが任意のワイヤやACKを偽造してSQLiteに書き込む旧来の脆弱な経路（`workspace_execute` 経由での不正なACK等）を許容しない。
+   - フロントエンドが任意のワイヤやACKを偽造してSQLiteに書き込む従来の脆弱な経路（`workspace_execute` 経由での不正なACK等）を許容しない。
    - 承認済みセッション（`WorkspaceAdmission`: workspaceId, streamEpoch, clientId）にすべての通信・ACK・cursor を束縛する。
 3. **世代（Generation）・Admission 束縛**:
    - アカウント切り替え、ログアウト、再接続、セッション失効が発生した場合、古い世代の handle による遅着レスポンスやコミットを即座に破棄する。
@@ -67,10 +79,10 @@
 | レイヤ | 現状の実装 | 新nativeでの未接続箇所・必要な変更 |
 | --- | --- | --- |
 | **Rust / SQLite** | `structured.rs`, `structured_sync.rs` に `tasks`, `relations` テーブル、`snapshot`, `mutate`, `prepare`, `ack`, `pull` 実装済み。 | 接続済み（`WorkspaceRegistry` / `local_command` で許可済み）。 |
-| **Rust / Gate** | `NativeWorkspaceGate` に structured のリモート送受信メソッドが未定義。 | 安全な Task/Relation 送受信（`structured_send`, `structured_pull`）の Gate 追加。 |
-| **API / Server** | `/private/workspaces/:workspaceId/structured/mutate`, `/pull` 提供済み。三値Conflict（applied / stale / conflict）処理あり。 | 接続可能（既存エンドポイントを再利用）。 |
-| **TS / Client** | 旧 `PrivateStructuredSession` が存在するが、新native入口（`NativeLoginController`）には未接続。 | `NativeLoginController` / `NativePageSession` と協調する structured session の接続。 |
-| **UI / Screen** | `NativeAuthScreen` に Task/Relation の表示・操作UIがない。 | エディタ内タスクリスト（TaskItem）および関連付けの操作・表示UIの接続。 |
+| **Rust / Gate** | `NativeWorkspaceGate` に structured のリモート送受信メソッドが未定義。 | 接続済み（`structured_send`, `structured_pull` を Gate に追加済み、v0.101.0）。 |
+| **API / Server** | `/private/workspaces/:workspaceId/structured/mutate`, `/pull` 提供済み。三値Conflict（applied / stale / conflict）処理あり。 | 接続済み（既存エンドポイントを再利用）。 |
+| **TS / Client** | 旧 `PrivateStructuredSession` が存在するが、新native入口（`NativeLoginController`）には未接続。 | 接続済み（`NativeStructuredSession` / `NativeStructuredPort` を `NativeLoginController` に統合、v0.102.0）。 |
+| **UI / Screen** | `NativeAuthScreen` に Task/Relation の表示・操作UIがない。 | 接続済み（`PrivateStructuredPanel` を `NativeAuthScreen` に統合、v0.102.0）。 |
 
 ### ③ 基本データベース（Source / View / Record）連携（M2-③）
 
