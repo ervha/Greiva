@@ -2,6 +2,7 @@ import {useEffect,useRef,useState} from 'react';
 import {PrivateAuthForm} from './PrivateAuthForm';
 import type {NativeLoginController} from './native-login-controller';
 import {NativeLocalPageEditor} from '../editor/NativeLocalPageEditor';
+import {PrivateStructuredPanel} from '../structured/PrivateStructuredPanel';
 const labels={choosing:'接続方法を選んでください',checking:'接続を確認中…',signed_out:'ログインしていません',restoring:'前回の接続を復元中…',reconnecting:'workspaceへ再接続中…',logging_in:'ログインを確認中…',verified:'認証を確認しました',opening:'workspaceを開いています…',ready:'端末のworkspaceを開きました',loading:'一覧の続きを確認中…',signing_out:'ログアウト中…',unavailable:'この画面では接続できません',signing_up:'登録の受付を確認中…',signup_requested:'登録依頼を受け付けました'};
 export function NativeAuthScreen({controller}:{controller:NativeLoginController|null}){
  if(!controller)return <main className="auth-shell"><h1>Greiva</h1><p role="status">この画面はWindowsアプリから開いてください。</p></main>;
@@ -44,6 +45,7 @@ function Connected({controller}:{controller:NativeLoginController}){
      {state.remoteHasMore&&<button type="button" disabled={state.busy||titleComposing} onClick={()=>{void controller.loadRemote(true);}}>一覧の続きを取得</button>}
     </section></>}</section>}
     <div>{controller.editor&&<>{state.hasDraft&&<button type="button" disabled={state.busy||Boolean(controller.editor.snapshot.storageError)} onClick={()=>{void controller.restoreInput();}}>保持した入力を戻す</button>}<NativeLocalPageEditor key={controller.editor.document.guid} session={controller.editor} offline={state.mode==='offline'} locked={state.editorLocked} onSend={()=>{void controller.sendPage();}} onRead={()=>{void controller.readPage();}}/></>}</div>
+    {state.phase==='ready'&&controller.structured&&<PrivateStructuredPanel session={controller.structured} pages={[...new Map([...state.pages.map(p=>p.metadata),...state.remotePages].map(p=>[p.id,p])).values()]} onDraftChange={blocked=>controller.setStructuredDraft(blocked)}/>}
    </div>
   </section>
  </main>;

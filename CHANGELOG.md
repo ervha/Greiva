@@ -1,3 +1,12 @@
+## 0.102.0 — 2026-10-24
+
+- M2-②の第二段階として、Task／Relation UIを新native workspace（`NativeLoginController` / `NativeAuthScreen` / `NativeStructuredSession` / `PrivateStructuredPanel`）に統合。
+- `PrivateStructuredPanel` を Web／Native 双方のセッション契約（`PrivateStructuredSession | NativeStructuredSession`）に対応させ、Task作成・状態変更（todo/in_progress/done）・アーカイブ・Relation作成・Relation削除のGUI操作をnative workspace内から直接実行可能に。
+- native compositionガードおよび構造化データ下書きフラグ（`structuredDraft` / `setStructuredDraft`）を導入し、IME入力中やフォーム編集中に不用意なPage切替やログアウト・再接続が発生しないよう保護。
+- `NativeStructuredSession` において32フレーム有界バッチ同期、snapshot/mutate/send/pullの完全型安全処理、ストレージエラー時再試行（`retryMutation`）、セッション失効ガードを検証。
+- 単体テスト（`native-structured-session.test.ts` 9件追加、`native-login-controller.test.ts` 1件追加）およびE2Eテスト（`native-auth.spec.ts` 2件追加）を実装し、テストベースラインを更新（unit: 608件 / 67ファイル、nativeUi: 78件）。
+- アプリ所有manifest/lockfileを0.102.0へ整合。外部npm/Cargo依存は変更しない。
+
 ## 0.101.0 — 2026-10-24
 
 - M2-②の第一段階として、Task／Relationのnative送信・差分取得と型付きclient portを追加。元admission/認証世代に束縛し、WebViewへtoken・ACK・cursorを戻さない。

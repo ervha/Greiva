@@ -2,6 +2,7 @@ import {useEffect,useState,useRef} from 'react';
 import {newId} from '@greiva/shared';
 import type {Page,PushOperation,Task,Relation,Conflict} from '@greiva/protocol';
 import type {PrivateStructuredSession} from './private-structured-session';
+import type {NativeStructuredSession} from './native-structured-session';
 type TaskDraft={id:string|null;base:number|null;title:string;status:Task['status'];due:string};
 type RelationDraft={id:string|null;base:number|null;from:string;to:string};
 const emptyTask=():TaskDraft=>({id:null,base:null,title:'',status:'todo',due:''});
@@ -9,7 +10,7 @@ const emptyRelation=():RelationDraft=>({id:null,base:null,from:'',to:''});
 const statusLabels={todo:'未着手',in_progress:'進行中',done:'完了'};
 const fieldLabels={title:'タイトル',status:'状態',due:'期限',fromType:'元の種類',fromId:'元の参照先',toType:'先の種類',toId:'先の参照先'};
 function display(value:unknown){return value===null?'未設定':typeof value==='string'?value:JSON.stringify(value);}
-export function PrivateStructuredPanel({session,pages,onDraftChange}:{session:PrivateStructuredSession;pages:readonly Pick<Page,'id'|'title'>[];onDraftChange:(blocked:boolean)=>void}){
+export function PrivateStructuredPanel({session,pages,onDraftChange}:{session:PrivateStructuredSession|NativeStructuredSession;pages:readonly Pick<Page,'id'|'title'>[];onDraftChange:(blocked:boolean)=>void}){
  const [state,setState]=useState(session.snapshot),[task,setTask]=useState(emptyTask),[relation,setRelation]=useState(emptyRelation),[taskDirty,setTaskDirty]=useState(false),[relationDirty,setRelationDirty]=useState(false),[composing,setComposing]=useState(false),[formError,setFormError]=useState(false);
  const taskInput=useRef<HTMLInputElement>(null),relationInput=useRef<HTMLSelectElement>(null);
  useEffect(()=>session.subscribe(setState),[session]);
@@ -24,7 +25,7 @@ export function PrivateStructuredPanel({session,pages,onDraftChange}:{session:Pr
  const conflictValue=(conflict:Conflict,value:unknown)=>{if(conflict.field==='status'&&typeof value==='string'&&Object.hasOwn(statusLabels,value))return statusLabels[value as Task['status']];if((conflict.field==='fromId'||conflict.field==='toId')&&typeof value==='string')return endpoints.find(row=>row.value.slice(5)===value)?.label??value;return display(value);};
  function operation(entityType:PushOperation['entityType'],entityId:string,kind:PushOperation['kind'],baseVersion:number|null,payload:unknown):PushOperation{return {operationId:newId(),clientId:state.data!.clientId!,entityType,entityId,kind,baseVersion,payload};}
  async function mutate(value:PushOperation,done:()=>void=()=>{}){if(composing||locked)return;setFormError(false);try{await session.mutate(value);done();}catch{setFormError(true);}}
- function reset(){setTask(emptyTask());setRelation(emptyRelation());setTaskDirty(false);setRelationDirty(false);setFormError(false);}
+ function reset(){setTask(emptyTask());setRelation(emptyRelation());setTaskDirty(false);setRelationDirty(false);setFormError(false);};
  async function resolve(conflict:Conflict,choice:'local'|'remote'){const rows=conflict.entityType==='task'?state.data!.tasks:state.data!.relations,row=rows.find(entity=>entity.id===conflict.entityId);if(!row||row.deletedAt){setFormError(true);return;}const value=operation(conflict.entityType,conflict.entityId,'update',row.version,{[conflict.field]:conflict[choice]});value.resolution={conflictIds:[conflict.id],choice};await mutate(value);}
  const syncLabel=composing?'入力変換中…':state.busy?'保存・同期処理中…':state.retryMutation?'端末の保存結果を再確認してください':taskDirty||relationDirty?'入力内容はまだ保存していません':state.error?'同期を確認できませんでした':state.rejected?'拒否された更新があります':state.conflicts?'競合を確認してください':state.pending?`未確認の更新 ${state.pending}件`:state.hasMore?'サーバーに続きの更新があります':state.synced?'取得した更新まで同期済み':'同期はまだ確認していません';
  return <section aria-label="TaskとRelation" className="private-structured" onCompositionStart={()=>setComposing(true)} onCompositionEnd={()=>setComposing(false)}>
